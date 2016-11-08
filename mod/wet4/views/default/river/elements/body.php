@@ -125,7 +125,7 @@ RIVER;
 
 <div class="elgg-river-summary  mrgn-bttm-sm river-user-heading"> $summary  </div>
 
-<div class="elgg-river-timestamp mrgn-bttm-sm timeStamp"><i>$timestamp</i> <div class="pull-right">$menu</div></div>
+<div class="elgg-river-timestamp mrgn-bttm-sm timeStamp clearfix"><i>$timestamp</i> <div class="pull-right">$menu</div></div>
 
 $message
 $attachments

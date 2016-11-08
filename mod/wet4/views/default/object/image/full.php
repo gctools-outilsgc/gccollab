@@ -28,6 +28,8 @@ $date = elgg_view_friendly_time($image->time_created);
 
 $owner_icon = elgg_view_entity_icon($photo->getOwnerEntity(), 'medium');
 
+$owner_icon_final = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
+
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $vars['entity'],
 	'handler' => 'photos',
@@ -47,7 +49,7 @@ $params = array(
 $list_body = elgg_view('object/elements/summary', $params);
 
 $params = array('class' => 'mbl');
-$summary = elgg_view_image_block($owner_icon, $list_body, $params);
+$summary = elgg_view_image_block($owner_icon_final, $list_body, $params);
 
 echo $summary;
 

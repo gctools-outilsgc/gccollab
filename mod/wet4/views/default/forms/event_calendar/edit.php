@@ -49,9 +49,9 @@ $schedule_options = array(
 );
 
 $language_options = array(
-	elgg_echo('Français'),
 	elgg_echo('English'),
-	elgg_echo('Bilingue'),
+  elgg_echo('Français'),
+	elgg_echo('Bilingual'),
 );
 
 if (elgg_is_active_plugin('event_poll')) {
@@ -294,11 +294,11 @@ if ($event_calendar_fewer_fields != 'yes') {
 		//$body .= elgg_view("input/radio", array('name' => 'teleconference_radio',  'value' => $teleconference_radio, 'options' => $teleconference_options));
 		$body .= '<p>';
 		if ($fd['contact_checkbox'] == 1) {
-		$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1, 'checked' => 'checked'));
+		//$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1, 'checked' => 'checked'));
 		} else {
-		$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1));
+		//$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1));
 		}
-		$body .= elgg_echo('Vous n\'êtes pas la personne contact?');
+		//$body .= elgg_echo('Vous n\'êtes pas la personne contact?');
 		$body .= '</p>';
 
 		$body .= '</div><div id="infoContact" class="list-unstyled">';
@@ -314,7 +314,7 @@ if ($event_calendar_fewer_fields != 'yes') {
 		$body .= '</p>';
 		$body .= '<p class="event-calendar-description">'.$prefix['contact'].elgg_echo('event_calendar:contact_description').'</p>';
 
-		$body .= '<p><label>'.elgg_echo("event_calendar:email").'</label>';
+		$body .= '<p><label>'.elgg_echo("event_calendar:email_label").'</label>';
 
 		if (empty($contact_email)){
 
@@ -327,7 +327,7 @@ if ($event_calendar_fewer_fields != 'yes') {
 		$body .= '</p>';
 		$body .= '<p class="event-calendar-description">'.$prefix['organiser'].elgg_echo('event_calendar:organiser_description').'</p>';
 
-		$body .= '<p><label>'.elgg_echo("event_calendar:phone").'</label>';
+		$body .= '<p><label>'.elgg_echo("event_calendar:contact_phone").'</label>';
 
 if (empty($contact_phone)){
 

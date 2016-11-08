@@ -30,7 +30,7 @@ if(intval($_SESSION['Suggested_friends'])==5 && elgg_is_logged_in())
             while ($row = $result->fetch_assoc()) {
                  $userGUID=$row['guid_two'];
                 $job=get_user($userGUID)->job;
-                $user_department=get_user($userGUID)->department;
+                $user_department=get_user($userGUID)->institution;
                 $htmloutput=$htmloutput.'<div class="col-xs-4 text-center hght-inhrt">'; // suggested friend link to profile
                 $htmloutput .= '<a href="'.  $site_url. 'profile/'. get_user($row['guid_two'])->username.'" class="">';
 

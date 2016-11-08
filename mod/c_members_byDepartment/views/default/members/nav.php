@@ -20,11 +20,11 @@ $tabs = array(
 		'url' => "members/online",
 		'selected' => $vars['selected'] == 'online',
 	),
-	'department' => array(
-		'title' => elgg_echo('c_bin:department'),
-		'url' => "members/department",
-		'selected' => $vars['selected'] == 'department',
-	),
+//	'department' => array(
+//		'title' => elgg_echo('c_bin:department'),
+//		'url' => "members/department",
+//		'selected' => $vars['selected'] == 'department',
+//	),
 );
 
 echo elgg_view('navigation/tabs', array('tabs' => $tabs));

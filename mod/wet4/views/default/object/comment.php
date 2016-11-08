@@ -20,7 +20,9 @@ $friendlytime = elgg_view_friendly_time($comment->time_created);
 
 //check if the icon is in a widget and make it small!
 if(elgg_get_context() !== 'widgets'){
+    
 $commenter_icon = elgg_view_entity_icon($commenter, 'medium');
+    
 }else{
   $commenter_icon = elgg_view_entity_icon($commenter, 'small');  
 }
@@ -32,7 +34,7 @@ $entity_title = $entity->title ? $entity->title : elgg_echo('untitled');
 $entity_link = "<a href=\"{$entity->getURL()}\">$entity_title</a>";
 
 if ($full_view) {
-    
+    elgg_push_context('comments');
     
 	$anchor = "<a name=\"comment-{$comment->getGUID()}\"></a>";
 
@@ -52,11 +54,13 @@ if ($full_view) {
 		));
 		$comment_text .= '</div>';
 	} else {
+        
 		$comment_text = elgg_view('output/longtext', array(
 			'value' => $comment->description,
 			'class' => 'elgg-inner mrgn-tp-md',
 			'data-role' => 'comment-text',
 		));
+        
 	}
 	$body = <<<HTML
 $anchor
@@ -69,9 +73,9 @@ $anchor
 	$comment_text
 </div>
 HTML;
-
-	echo elgg_view_image_block($commenter_icon, $body);
-
+    
+	echo elgg_view_image_block($commenter_icon, $body, array('class'=>'BIGTEST',));
+    elgg_pop_context();
 } else {
 	// brief view
 

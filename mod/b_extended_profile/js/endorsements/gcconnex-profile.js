@@ -582,6 +582,10 @@ function saveProfile(event) {
             profile.name = $(".gcconnex-basic-name").val();
             profile.job = $(".gcconnex-basic-job").val();
             profile.department = $('.gcconnex-basic-department').val();
+
+            profile.user_type = $('.gcconnex-basic-user_type').val(); // cyu - new
+            profile.institution = $('.gcconnex-basic-institution').val(); // cyu - new
+            
             profile.location = $(".gcconnex-basic-location").val();
             profile.phone = $(".gcconnex-basic-phone").val();
             profile.mobile = $(".gcconnex-basic-mobile").val();

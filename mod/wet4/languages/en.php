@@ -14,16 +14,19 @@ return array(
   'wet:search'=>"Search and menus",
   'wet:searchHead'=>"Search",
   'wet:searchweb'=>"Search website",
-  'wet:searchgctools'=>"Search GCconnex",
+  'wet:searchgctools'=>"Search GCcollab",
   'wet:more'=>"More",
   'wet:topicmenu'=>"Topic menu",
   'wet:youarehere'=>"You are here:",
   'wet:errmess' => "<h3 class='h3'>The form could not be submitted because errors were found.</h3>",
   'wet:feedbackText'=>"Feedback<span class='wb-inv'> about this web site</span>",
-  'wet:footAbout' => 'About GCconnex',
+  'wet:footAbout' => 'About GCcollab',
+
+  'wet:footFAQ' => 'Frequently Asked Questions',
+
   'wet:footTerms' => 'Terms and Conditions of Use',
   'wet:footPrivacy' => 'Privacy Policy',
-  'wet:footTutorials' => 'GCconnex Tutorials',
+  'wet:footTutorials' => 'GCcollab Tutorials',
   'wet:footTitleAbout' => 'About',
   'wet:footTitleNews' => 'News',
   'wet:footTitleSocial' => 'Stay Connected',
@@ -43,6 +46,11 @@ return array(
   'wet:search_in_group'=>'Search in this Group',
   'wet:cover_photo_alt'=>'Graphic Element for the Group',
 
+	'newsfeed:filter' => "Filter your News Feed",
+  'newsfeed:label' => "Show colleague connections on your News Feed",
+  'newsfeed:do' => "Colleague connections will no longer display on your News Feed.",
+  'newsfeed:undo' => "Colleague connections will now display on your News Feed.",
+  'newsfeed:filter:title' => "News Feed settings",
 /**
 *notice section
 */
@@ -57,7 +65,7 @@ return array(
  *  Metadata
  */
 
- 'meta:desc' => 'GCconnex is a professional networking and collaborative workspace for all public service, allowing people to connect and share information, leveraging the power of networking towards a more effective and efficient public service.',
+ 'meta:desc' => 'GCcollab Lorem ipsum dolor sit amet porta fusce lacus mattis. Sem integer bibendum. Erat sed posuere turpis mauris arcu. Id vehicula euismod. Malesuada vitae maecenas nulla hac urna. Non vestibulum tincidunt nec amet vel. Vel fringilla mi. Vivamus odio neque at non vulputate eget ut quam in vestibulum accumsan facilisis mi sodales.',
 
 /**
   * Profile Strength
@@ -119,7 +127,7 @@ return array(
       'sf:title' => "See anyone you know? Connect with them.",
       'sf:connect' => "Connect",
       'sf:alttext' => "Avatar image of",
-      'sf:suggcolleagues'=> "Colleague suggestion",
+      'sf:suggcolleagues'=> "Colleague suggestions",
 
       /*Friendly Time*/
 
@@ -160,24 +168,24 @@ return array(
 /**
  * User Menu
  */
-    
+
     'userMenu:profile' => "My Profile",
     'userMenu:account' => "Account Settings",
     'userMenu:messages' => "My Messages",
     'userMenu:colleagues' => "My Colleagues",
     'userMenu:usermenuTitle' =>'User Card - Click here for links to your profile, account settings and logout', /*NEW*/
-    
+
     /**
      * Custom Activity Widget
      */
      'wetActivity:nocollorgroup'=>"To get started you can browse or search for groups related to your work and interests. Join some groups to start seeing activity.",
-     'wetActivity:welcome'=>"Welcome to GCconnex",
+     'wetActivity:welcome'=>"Welcome to GCcollab",
      'wetActivity:browsegroups'=>"Start Browsing Groups",
 
  /**
  * Group Profile
- */   
-    
+ */
+
     'gprofile:about' => "About",
     'gprofile:discussion' => "Discussion",
     'gprofile:files' => "Files",
@@ -196,7 +204,7 @@ return array(
     'gprofile:more' => "More",
     'gprofile:settings' => 'Settings',
     'photos:none' => 'No image albums',
-    
+
     'gprofile:create' => "Create Group",
 
     'gprofile:edit:content' => "Content options",
@@ -219,7 +227,7 @@ return array(
 
   'group:invite:clicktoadd' => "Click to add",
   'group:invite:email' => "Enter a valid email and press enter to submit it to the list",
-  
+
   'groups:eng'=>"Anglais",
   'groups:fra'=>"Français",
 
@@ -228,8 +236,8 @@ return array(
  * Sites
  */
     'landingPage' => 'Set Landing Page',
-    'career' => 'Career',
-    'newsfeed' => 'News Feed',
+    'career' => 'Careers',
+    'newsfeed' => 'Home',
 	'item:site' => 'Sites',
     'notifications:subscriptions:changesettings' => 'Notifications',
 /**
@@ -237,8 +245,8 @@ return array(
  */
 
 	'login' => "Log in",
-	'loginok' => "Welcome to GCconnex %s.", /*NEW but doesn't work :3*/
-    'wet:loginok' => "Welcome  to GCconnex %s.", /*NEW*/
+	'loginok' => "Welcome to GCcollab %s.", /*NEW but doesn't work :3*/
+    'wet:loginok' => "Welcome  to GCcollab %s.", /*NEW*/
 	'loginerror' => "We couldn't log you in. Please check your credentials and try again.",
 	'login:empty' => "Username/email and password are required.",
 	'login:baduser' => "Unable to load your user account.",
@@ -266,7 +274,7 @@ return array(
 	'actionnotfound' => "The action file for %s was not found.",
 	'actionloggedout' => "Sorry, you cannot perform this action while logged out.",
 	'actionunauthorized' => 'You are unauthorized to perform this action',
-	
+
 	'ajax:error' => 'Unexpected error while performing an AJAX call. Maybe the connection to the server is lost.',
 	'ajax:not_is_xhr' => 'You cannot access AJAX views directly',
 
@@ -311,7 +319,7 @@ return array(
 	'ElggPlugin:Dependencies:Priority:Before' => 'Before %s',
 	'ElggPlugin:Dependencies:Priority:Uninstalled' => '%s is not installed',
 	'ElggPlugin:Dependencies:Suggests:Unsatisfied' => 'Missing',
-	
+
 	'ElggPlugin:Dependencies:ActiveDependent' => 'There are other plugins that list %s as a dependency.  You must disable the following plugins before disabling this one: %s',
 
 	'ElggMenuBuilder:Trees:NoParents' => 'Menu items found without parents to link them to',
@@ -377,7 +385,7 @@ return array(
 	'LOGGED_IN' => "Logged in users",
 	'PUBLIC' => "Public",
 	'LOGGED_OUT' => "Logged out users",
-	'access:friends:label' => "Friends",
+	'access:friends:label' => "Colleagues",
 	'access' => "Access",
 	'access:overridenotice' => "Note: Due to group policy, this content will be accessible only by group members.",
 	'access:limited:label' => "Limited",
@@ -417,9 +425,9 @@ return array(
 	'widgets:remove:failure' => "Unable to remove this widget",
 
     'wet4:colandgroupactivity'=>'Your News feed',
-    'wet4:colandgroupactivitynolog'=>'Welcome to GCconnex',
+    'wet4:colandgroupactivitynolog'=>'Welcome to GCcollab',
     'wet4:noticetitle' => 'Notice',
-    'wet4:homenotice' => 'Welcome to GCconnex, the Government of Canada&#39;s professional social networking platform. The purpose of GCconnex is to enable public servants to connect and collaborate based on shared interests, knowledge, and experience. GCconnex is to be used for activities related to the workplace and should not be used as a replacement for personal social networks (such as Facebook).',
+    'wet4:homenotice' => 'Welcome to GCcollab, the Government of Canada&#39;s professional social networking platform. ',
 
 
 /**
@@ -447,34 +455,34 @@ return array(
 
 	'friends' => "My Colleagues", //Friends
     'friend:river' => "Colleague", //Friends
-	'friends:yours' => "Your friends",
-	'friends:owned' => "%s's friends",
-	'friend:add' => "Add friend",
-	'friend:remove' => "Remove friend",
+	'friends:yours' => "Your colleagues",
+	'friends:owned' => "%s's colleagues",
+	'friend:add' => "Add Colleague",
+	'friend:remove' => "Remove Colleague",
 
-	'friends:add:successful' => "You have successfully added %s as a friend.",
-	'friends:add:failure' => "We couldn't add %s as a friend.",
+	'friends:add:successful' => "You have successfully added %s as a colleague.",
+	'friends:add:failure' => "We couldn't add %s as a colleague.",
 
-	'friends:remove:successful' => "You have successfully removed %s from your friends.",
-	'friends:remove:failure' => "We couldn't remove %s from your friends.",
+	'friends:remove:successful' => "You have successfully removed %s from your colleagues.",
+	'friends:remove:failure' => "We couldn't remove %s from your colleagues.",
 
-	'friends:none' => "No friends yet.",
-	'friends:none:you' => "You don't have any friends yet.",
+	'friends:none' => "No Colleagues yet.",
+	'friends:none:you' => "You don't have any colleagues yet.",
 
-	'friends:none:found' => "No friends were found.",
+	'friends:none:found' => "No colleagues were found.",
 
-	'friends:of:none' => "Nobody has added this user as a friend yet.",
-	'friends:of:none:you' => "Nobody has added you as a friend yet. Start adding content and fill in your profile to let people find you!",
+	'friends:of:none' => "Nobody has added this user as a colleague yet.",
+	'friends:of:none:you' => "Nobody has added you as a colleague yet. Start adding content and fill in your profile to let people find you!",
 
-	'friends:of:owned' => "People who have made %s a friend",
+	'friends:of:owned' => "People who have made %s a colleague",
 
-	'friends:of' => "Friends of",
-	'friends:collections' => "Friend collections",
+	'friends:of' => "Colleagues of",
+	'friends:collections' => "Colleague collections",
 	'collections:add' => "New collection",
-	'friends:collections:add' => "New friends collection",
-	'friends:addfriends' => "Select friends",
+	'friends:collections:add' => "New colleague collection",
+	'friends:addfriends' => "Select colleagues",
 	'friends:collectionname' => "Collection name",
-	'friends:collectionfriends' => "Friends in collection",
+	'friends:collectionfriends' => "Colleague in collection",
 	'friends:collectionedit' => "Edit this collection",
 	'friends:nocollections' => "You do not have any circles yet.",
 	'friends:collectiondeleted' => "Your collection has been deleted.",
@@ -561,7 +569,7 @@ return array(
  * River
  */
 	'river' => "River",
-	'river:friend:user:default' => "%s is now a friend with %s",
+	'river:friend:user:default' => "%s is now a colleague with %s",
 	'river:update:user:avatar' => '%s has a new avatar',
 	'river:update:user:profile' => '%s has updated their profile',
 	'river:noaccess' => 'You do not have permission to view this item.',
@@ -580,7 +588,7 @@ return array(
 	'river:widget:title' => "Activity",
 	'river:widget:description' => "Display latest activity",
 	'river:widget:type' => "Type of activity",
-	'river:widgets:friends' => 'Friends activity',
+	'river:widgets:friends' => 'Colleague activity',
 	'river:widgets:all' => 'All site activity',
 	'river:create:object:default' => '%s uploaded the file %s',
 
@@ -621,7 +629,7 @@ return array(
 	'group:search:startblurb' => "Groups matching '%s':",
 	'group:search:finishblurb' => "To view more, click here.",
 	'search:go' => 'Go',
-	'userpicker:only_friends' => 'Only friends',
+	'userpicker:only_friends' => 'Only Colleagues',
 
 /**
  * Account
@@ -633,9 +641,9 @@ return array(
 	'settings:edit' => 'Edit settings',
 
     'gcconnex:registerText' => '
-<h3>Welcome to GCconnex! </h3>
-GCconnex is a professional networking and collaborative workspace for all public service, allowing people to connect and share information, leveraging the power of networking towards a more effective and efficient public service.<br>
-<a href="'.$site_url.'terms-termes">Terms and Conditions of Use</a>',
+<h3>Welcome to GCcollab! </h3>
+Open to Academics, Students and Public Servants across the country, GCcollab is your collaborative and networking space. Join the conversation!
+<a href="'.$site_url.'terms">Terms and Conditions of Use</a>',
 	'register' => "Register",
 	'registerok' => "You have successfully registered for %s.",
 	'registerbad' => "Your registration was unsuccessful because of an unknown error.",
@@ -643,7 +651,7 @@ GCconnex is a professional networking and collaborative workspace for all public
 	'register:fields' => 'All fields are required',
 
 	'registration:notemail' => 'The email address you provided does not appear to be a valid email address.',
-	
+
 	'registration:usernametooshort' => 'Your username must be a minimum of %u characters long.',
 	'registration:usernametoolong' => 'Your username is too long. It can have a maximum of %u characters.',
 	'registration:passwordtooshort' => 'The password must be a minimum of %u characters long.',
@@ -977,7 +985,7 @@ These changes will only affect new users on the site.',
 /**
  * User settings
  */
-		
+
 	'usersettings:description' => "The user settings panel allows you to control all your personal settings, from user management to how plugins behave. Choose an option below to get started.",
 
 	'usersettings:statistics' => "Your statistics",
@@ -1004,22 +1012,22 @@ These changes will only affect new users on the site.',
 /**
  * Activity river
  */
-		
+
 	'river:all' => 'All Site Activity',
 	'river:mine' => 'My Activity',
 	'river:owner' => 'Activity of %s',
-	'river:friends' => 'Friends Activity',
+	'river:friends' => 'Colleague Activity',
 	'river:select' => 'Show %s',
 	'river:comments:more' => '+%u more',
 	'river:comments:all' => 'View all %u comments',
 	'river:generic_comment' => 'commented on %s %s',
 
-	'friends:widget:description' => "Displays some of your friends.",
-	'friends:num_display' => "Number of friends to display",
+	'friends:widget:description' => "Displays some of your colleagues.",
+	'friends:num_display' => "Number of colleagues to display",
 	'friends:icon_size' => "Icon size",
 	'friends:tiny' => "tiny",
 	'friends:small' => "small",
-    
+
     'wet_mygroups:my_groups' => "My Groups",
     'wet_mygroups:my_groups_nolog' => "New Groups",
     'wet4:filterActivity'=>'Filter Activity',
@@ -1034,7 +1042,7 @@ These changes will only affect new users on the site.',
 	'icon:size:medium' => "Medium",
 	'icon:size:large' => "Large",
 	'icon:size:master' => "Extra Large",
-		
+
 /**
  * Generic action words
  */
@@ -1119,11 +1127,11 @@ These changes will only affect new users on the site.',
 
 	'active' => 'Active',
 	'total' => 'Total',
-	
+
 	'ok' => 'OK',
 	'any' => 'Any',
 	'error' => 'Error',
-	
+
 	'other' => 'Other',
 	'options' => 'Options',
 	'advanced' => 'Advanced',
@@ -1136,7 +1144,7 @@ These changes will only affect new users on the site.',
 	'content:latest:blurb' => 'Alternatively, click here to view the latest content from across the site.',
 
 	'link:text' => 'view link',
-	
+
 /**
  * Generic questions
  */
@@ -1164,7 +1172,7 @@ These changes will only affect new users on the site.',
 	'sort:popular' => 'Popular',
 	'sort:alpha' => 'Alphabetical',
 	'sort:priority' => 'Priority',
-		
+
 /**
  * Generic data words
  */
@@ -1189,7 +1197,7 @@ These changes will only affect new users on the site.',
 /**
  * Entity actions
  */
-		
+
 	'edit:this' => 'Edit this',
 	'delete:this' => 'Delete this',
 	'comment:this' => 'Comment on this',
@@ -1232,7 +1240,7 @@ Once you have logged in, we highly recommend that you change your password.
 /**
  * Import / export
  */
-		
+
 	'importsuccess' => "Import of data was successful",
 	'importfail' => "OpenDD import of data failed.",
 
@@ -1248,7 +1256,7 @@ Once you have logged in, we highly recommend that you change your password.
 	'friendlytime:days' => "%s days ago",
 	'friendlytime:days:singular' => "yesterday",
 	'friendlytime:date_format' => 'j F Y @ g:ia',
-	
+
 	'friendlytime:future:minutes' => "in %s minutes",
 	'friendlytime:future:minutes:singular' => "in a minute",
 	'friendlytime:future:hours' => "in %s hours",
@@ -1276,7 +1284,7 @@ Once you have logged in, we highly recommend that you change your password.
 	'date:weekday:4' => 'Thursday',
 	'date:weekday:5' => 'Friday',
 	'date:weekday:6' => 'Saturday',
-	
+
 	'interval:minute' => 'Every minute',
 	'interval:fiveminute' => 'Every five minutes',
 	'interval:fifteenmin' => 'Every fifteen minutes',
@@ -1334,7 +1342,7 @@ Once you have logged in, we highly recommend that you change your password.
 
 	'installation:htaccess:needs_upgrade' => "You must update your .htaccess file so that the path is injected into the GET parameter __elgg_uri (you can use install/config/htaccess.dist as a guide).",
 	'installation:htaccess:localhost:connectionfailed' => "Elgg cannot connect to itself to test rewrite rules properly. Check that curl is working and there are no IP restrictions preventing localhost connections.",
-	
+
 	'installation:systemcache:description' => "The system cache decreases the loading time of Elgg by caching data to files.",
 	'installation:systemcache:label' => "Use system cache (recommended)",
 
@@ -1407,20 +1415,20 @@ Once you have logged in, we highly recommend that you change your password.
 /**
  * Emails
  */
-		
+
 	'email:from' => 'From',
 	'email:to' => 'To',
 	'email:subject' => 'Subject',
 	'email:body' => 'Body',
-	
+
 	'email:settings' => "Email settings",
 	'email:address:label' => "Email address",
 
 	'email:save:success' => "New email address saved. Verification is requested.",
 	'email:save:fail' => "New email address could not be saved.",
 
-	'friend:newfriend:subject' => "%s has made you a friend!",
-	'friend:newfriend:body' => "%s has made you a friend!
+	'friend:newfriend:subject' => "%s has made you a colleague!",
+	'friend:newfriend:body' => "%s has made you a Colleague!
 
 To view their profile, click here:
 
@@ -1503,80 +1511,74 @@ Please do not reply to this email.",
 /**
 *Blogs
 */
-    
-    'blog:title:all_blogs' => 'Blogs', 
-    
+
+    'blog:title:all_blogs' => 'Blogs',
+
     /**
     *Activity module
     */
-    'activity:module:weekly_likes' => 'Most liked of last week',
+    'activity:module:weekly_likes' => 'Top Wire Posts',
 	'activity:module:weekly_likes:none' => 'No likes',
-    
+
 /**
 *Contact page / FAQ
 */
-       'contactform:help' => 'Help',
-    'contactform:upload' => 'Upload your file',
-      'contactform:required' => 'required',
-    'contactform:form:subject' => "Subject",
-    'contactform:title' => "GCconnex Help Pages",
-    'contactform:list' => "<ul class='list-unstyled'>
-						<li> <a href='http://www.gcpedia.gc.ca/wiki/GC2.0_Tools_Help_Centre/GCconnex'>Help centre</a> </li>
-					
-						</ul>",
-    'contactform:faq' => "FAQ",
-    'contactform:title:lostpwd' => "<a href=' http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_my_password'>Lost password</a>",
-    'contactform:title:lostuser' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_your_username'>Lost username</a>",
-    'contactform:title:create' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_create_an_account_on_GCconnex'>Create account</a>",
-    'contactform:title:picture' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_edit_your_personal_profile#Editing_your_personal_profile
-'>Upload profile picture</a>",
-    'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help_/_How_to_use_Simplified_Sign-on'>Simplified Sign-on</a>",
-    'contactform:title:form' => "Contact Us",
-    
-    'contactform:content:form' => "<p>
-					Please see the FAQ and the Help Centre to get instant answers for the most common questions and learn how to use GCconnex like a pro!</p>
-					<p>Can't find the answer you are looking for? Contact the GCconnex Help Desk by filling out the form below. Please be clear as possible in describing your question or issue, and provide a screenshot where possible. A GCTools Unit Support Officer will respond to your inquiry within two (2) business days.
-					</p>",
-	'contactform:useful' => 'GCconnex Groups that may be useful to you:',
-    'contactform:helpful' => 'Helpful communities',
-    'contactform:learn' => 'Learn more about social media',
-    'contactform:ambassadors' => 'Ambassadors Network for the GC 2.0 Tools GCconnex Group',
-    'contactform:clicks' => 'Clicks and Tips GCconnex Group',
-    'contactform:groupgcconnex' => 'GC 2.0 Tools GCconnex Group',
-    'contactform:teamgcpedia' => 'GC 2.0 Tools Team on GCpedia',
-    'contactform:collaborating' => ' CSPS’s Collaborating Using GCpedia (B171) ',
-    'contactform:collaborating:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=b171%7C"', 
-    'contactform:socialmedia' => 'Collaborating Using GCconnex and GCpedia (B336)',
-    'contactform:socialmedia:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=B336"',
-    'contactform:guidance' => '<a href="http://www.gcpedia.gc.ca/gcwiki/images/b/b5/Social_Media_in_the_GC.jpg">Guidance for employees : Social Media in the GC context</a>',
-    'contactform:department' => 'Department',
-    'contactform:select' => 'Please select a category',
-    'contactform:reason' => 'Select...',
-    'contactform:help_menu_item' => "Help / Contact Us",
-    'contactform:newsletter' => 'Subscribe to the Newsletter',
-	'contactform:box:message' => 'Show the information box',
-	'conatactform:fr:name' => 'Name of the link in french',
-	'conatactform:eng:name' => 'Name of the link in english',
-	'conatactform:fr:link' => 'French link',
-	'conatactform:eng:link' => 'English link',
-    
+  'contactform:help' => 'Help',
+  'contactform:upload' => 'Upload your file',
+  'contactform:required' => 'required',
+  'contactform:form:subject' => "Subject",
+  'contactform:title' => "GCconnex Help Pages",
+  'contactform:list' => "<ul class='list-unstyled'> <li> <a href='http://www.gcpedia.gc.ca/wiki/GC2.0_Tools_Help_Centre/GCconnex'>Help centre</a> </li>	</ul>",
+  'contactform:faq' => "FAQ",
+  'contactform:title:lostpwd' => "<a href=' http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_my_password'>Lost password</a>",
+  'contactform:title:lostuser' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_your_username'>Lost username</a>",
+  'contactform:title:create' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_create_an_account_on_GCconnex'>Create account</a>",
+  'contactform:title:picture' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_edit_your_personal_profile#Editing_your_personal_profile'>Upload profile picture</a>",
+  'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help_/_How_to_use_Simplified_Sign-on'>Simplified Sign-on</a>",
+  'contactform:title:form' => "Contact",
+  'contactform:content:form' => "<p>Please see the FAQ and the Help Centre to get instant answers for the most common questions and learn how to use GCcollab like a pro!</p></p>",
+  'contactform:useful' => 'GCconnex Groups that may be useful to you:',
+  'contactform:helpful' => 'Helpful communities',
+  'contactform:learn' => 'Learn more about social media',
+  'contactform:ambassadors' => 'Ambassadors Network for the GC 2.0 Tools GCconnex Group',
+  'contactform:clicks' => 'Clicks and Tips GCconnex Group',
+  'contactform:groupgcconnex' => 'GC 2.0 Tools GCconnex Group',
+  'contactform:teamgcpedia' => 'GC 2.0 Tools Team on GCpedia',
+  'contactform:collaborating' => ' CSPS’s Collaborating Using GCpedia (B171) ',
+  'contactform:collaborating:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=b171%7C"',
+  'contactform:socialmedia' => 'Collaborating Using GCconnex and GCpedia (B336)',
+  'contactform:socialmedia:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=B336"',
+  'contactform:guidance' => '<a href="http://www.gcpedia.gc.ca/gcwiki/images/b/b5/Social_Media_in_the_GC.jpg">Guidance for employees : Social Media in the GC context</a>',
+  'contactform:department' => 'Department',
+  'contactform:select' => 'Please select a category',
+  'contactform:reason' => 'Select...',
+  'contactform:help_menu_item' => 'Contact / Feedback',
+  'contactform:newsletter' => 'Subscribe to the Newsletter',
+  'contactform:box:message' => 'Show the information box',
+  'conatactform:fr:name' => 'Name of the link in french',
+  'conatactform:eng:name' => 'Name of the link in english',
+  'conatactform:fr:link' => 'French link',
+  'conatactform:eng:link' => 'English link',
+
+
+
 /*
  * Contact Form Validation
   *Message - Ce champ est obligatoire.
  * */
 
- 
+
 /**
  * Entities
  */
-	
+
 	'byline' => 'By %s',
 	'entity:default:strapline' => 'Created %s by %s',
 	'entity:default:missingsupport:popup' => 'This entity cannot be displayed correctly. This may be because it requires support provided by a plugin that is no longer installed.',
 
 	'entity:delete:success' => 'Entity %s has been deleted',
 	'entity:delete:fail' => 'Entity %s could not be deleted',
-	
+
 	'entity:can_delete:invaliduser' => 'Can not check canDelete for user_guid [%s] as the user does not exist.',
 
 /**
@@ -1795,4 +1797,3 @@ Please do not reply to this email.",
 	"zh" => "Chinese",
 	"zu" => "Zulu",
 );
-

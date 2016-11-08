@@ -12,8 +12,11 @@ if (!empty($friend)) {
 		$friend->addFriend($user->getGUID());			//Friends mean reciprical...
 		
 		// notify the user about the acceptance
-		$subject = elgg_echo("friend_request:approve:subject", array($user->name, $user->name));
-		$message = elgg_echo("friend_request:approve:message", array($user->name, $user->getURL(), $user->name, $user->getURL()));
+		$subject = elgg_echo("friend_request:approve:subject", array($user->name),'en');
+		$subject .= ' | '.elgg_echo("friend_request:approve:subject", array($user->name),'fr');
+
+		$message = elgg_echo("friend_request:approve:message", array($user->getURL(), $user->name),'en');
+		$message .= '<br/><br/>'.elgg_echo("friend_request:approve:message", array($user->getURL(), $user->name),'fr');
 		
 		$params = array(
 			"action" => "add_friend",
@@ -30,7 +33,7 @@ if (!empty($friend)) {
 			);
 			$result = elgg_trigger_plugin_hook('cp_overwrite_notification','all',$message);
 		} else {
-			notify_user($friend->getGUID(), $user->getGUID(), $subject, $message, $params);
+			notify_user($friend->getGUID(), $user->getGUID(), $subject, $message, array());
 		}
 
 		system_message(elgg_echo("friend_request:approve:successful", array($friend->name)));

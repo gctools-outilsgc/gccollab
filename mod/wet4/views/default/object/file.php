@@ -22,7 +22,7 @@ $categories = elgg_view('output/categories', $vars);
 $title = $file->title;
 $mime = $file->mimetype;
 $base_type = substr($mime, 0, strpos($mime,'/'));
-
+$owner_icon = elgg_view_entity_icon($owner, 'medium');
 $owner_link = elgg_view("output/url", array("text" => $owner->name, "href" => $owner->getURL(), "is_trusted" => true));
 $author_text = elgg_echo("byline", array($owner_link));
 
@@ -41,6 +41,8 @@ if ($time_preference == "date") {
 	$date = elgg_view_friendly_time($file->time_created);
 }
 $date = date(elgg_echo("friendlytime:date_format"), $file->time_created);
+
+$owner_link_final = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
 // count comments
 $comments_link = "";
 $comment_count = (int) $file->countComments();
@@ -129,7 +131,7 @@ if ($full_view && !elgg_in_context("gallery")) {
 	echo elgg_view("object/elements/full", array(
 			"entity" => $file,
 			"title" => false,
-			"icon" => elgg_view_entity_icon($file, "small"),
+			"icon" => $owner_link_final,
 			"summary" => $summary,
 			"body" => $body
 	));
@@ -175,7 +177,7 @@ if ($full_view && !elgg_in_context("gallery")) {
 		"metadata" => $entity_menu,
 		"subtitle" => $subtitle . $author_text . ' ' . $date,
 		"tags" => $tags,
-		"content" => $excerpt
+		"content" => $file_icon . $excerpt
 	);
 	$params = $params + $vars;
 	$list_body = elgg_view("object/elements/summary", $params);
@@ -183,5 +185,5 @@ if ($full_view && !elgg_in_context("gallery")) {
     $subtype = $file->getSubtype();
     $guid = $file->getGUID();
 	
-	echo elgg_view_image_block($file_icon, $list_body, array("class" => "file-tools-file", "image_alt" => $file_icon_alt, 'subtype' => $subtype, 'guid' => $guid));
+	echo elgg_view_image_block($owner_link_final, $list_body, array("class" => "file-tools-file discussion-card clearfix", "image_alt" => $file_icon_alt, 'subtype' => $subtype, 'guid' => $guid));
 }

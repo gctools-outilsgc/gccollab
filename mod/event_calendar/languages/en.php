@@ -2,7 +2,7 @@
 
 return array(
 	
-'item:object:event_calendar' => "Event calendar",
+'item:object:event_calendar' => "Event Calendar",
 'tag_names:event_tags' => "Tags",
 'event_calendar:optional' => "Optional.",
 'event_calendar:required' => "Required.",
@@ -19,6 +19,8 @@ return array(
 'event_calendar:start_date_description' => "When will this event start?",
 'event_calendar:fees_label' => "Fees",
 'event_calendar:fees_description' => "The cost of this event, if any.",
+'event_calendar:email_label' => "Email",
+'event_calendar:contact_phone' => "Phone",
 'event_calendar:contact_label' => "Contact",
 'event_calendar:contact_description' => "The person to contact for more information, preferably with a telephone number or email address.",
 'event_calendar:organiser_label' => "Organiser",

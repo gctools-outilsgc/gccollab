@@ -10,7 +10,7 @@ $reply = elgg_extract('entity', $vars, FALSE);
 if (!$reply) {
 	return true;
 }
-
+elgg_push_context('comments');
 $poster = $reply->getOwnerEntity();
 
 $poster_icon = elgg_view_entity_icon($poster, 'medium');
@@ -64,3 +64,4 @@ $params = $params + $vars;
 $list_body = elgg_view('object/elements/discussionreply_summary', $params);
 
 echo elgg_view_image_block($poster_icon, $list_body);
+elgg_pop_context();

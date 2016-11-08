@@ -20,6 +20,11 @@ function contactform_init() {
         'text' => elgg_echo('contactform:help_menu_item'),
         'priority' => 1000,
 	));
+
+
+	// cyu - register action to send the feedback form to the helpdesk/and send copy to recipient using elgg function
+	elgg_register_action('contactform/send_feedback', "$action_path/send_feedback.php",'public');
+
 }
 
 function contactform_page_handler($page) {

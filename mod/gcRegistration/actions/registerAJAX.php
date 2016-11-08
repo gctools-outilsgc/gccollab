@@ -140,42 +140,22 @@ function usernameize($str,$a_char = array("'","-","."))
  **/
 function checkInvalidDomain($dom) 
 {
-	//elgg_log('cyu - checkInvalidDomain invoked | domain:'.$dom, 'NOTICE');
-	elgg_load_library('c_ext_lib');
 	$isNotValid = true;
 
-	error_log('cyu - domain:'.$dom);
-	$result = getExtension();
-	if (count($result) > 0)
-	{
-		while ($row = mysqli_fetch_array($result))
-		{
-			if (strtolower($row['ext']) === strtolower($dom))
-			{
-				//elgg_log('cyu - domain found in database!', 'NOTICE');
-				$isNotValid = false;
-				break;
-			}
-		}
-	}
+	$query = "SELECT * FROM email_extensions WHERE ext = '{$dom}'";
+	$result = get_data($query);
+
+	if (count($result) > 0) 
+		$isNotValid = false;
 
 	if ($isNotValid)
 	{
 		$domain_addr = explode('.', $dom);
 		$domain_len = count($domain_addr) - 1;
 		if ($domain_addr[$domain_len - 1].'.'.$domain_addr[$domain_len] === 'gc.ca')
-		{
-			//elgg_log('cyu - domain:'.$dom. ' this is a valid domain', 'NOTICE');
 			$isNotValid = false;
-		} else {
-			//if($domain_addr[$domain_len - 1].'.'.$domain_addr[$domain_len] === 'canada.ca'){
-			//	$isNotValid = false;
-			//}else{
-				$isNotValid = true;
-			//}
-			//elgg_log('cyu - domain:'.$dom. ' this is an invalid domain', 'NOTICE');
-			//$isNotValid = true;
-		}
+		else
+			$isNotValid = true;
 	}
 
 	return $isNotValid;

@@ -17,21 +17,6 @@ echo ' ' . elgg_echo('phpmailer:override') . '</div>';
 // SMTP Settings
 echo '<fieldset class="elgg-border-plain mbm pas">';
 echo '<div>';
-
-echo elgg_echo('phpmailer:fromname') . ':';
-echo elgg_view('input/text', array(
-	'name' => 'params[phpmailer_from_name]',
-	'value' => $vars['entity']->phpmailer_from_name,
-	'class' => 'phpmailer-smtp phpmailer-ssl elgg-input-natural',
-));
-echo '<br/>' . elgg_echo('phpmailer:fromemail') . ':';
-echo elgg_view('input/text', array(
-	'name' => 'params[phpmailer_from_email]',
-	'value' => $vars['entity']->phpmailer_from_email,
-	'class' => 'phpmailer-smtp phpmailer-ssl elgg-input-natural',
-));
-echo '<br/><br/>';
-
 $checked = $vars['entity']->phpmailer_smtp ? 'checked' : false;
 echo elgg_view('input/checkbox', array(
 	'name' => 'params[phpmailer_smtp]',
@@ -96,7 +81,6 @@ echo elgg_view('input/text', array(
 	'value' => $vars['entity']->ep_phpmailer_port,
 	'class' => 'phpmailer-smtp phpmailer-ssl elgg-input-natural',
 ));
-
 echo '</div>';
 echo '</fieldset>';
 

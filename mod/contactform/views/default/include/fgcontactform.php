@@ -207,11 +207,16 @@ class FGContactForm
 
         $this->AttachFiles();
 
-        if(!$this->mailer->Send())
-        {
-            $this->add_error("Failed sending email!");
-            return false;
-        }
+        //// christine yu
+        //notify_user($user->guid, $this->mailer->From, $this->mailer->subject, $message, array(), 'email');
+        elgg_send_email($this->mailer->From, 'jeffry.outram@tbs-sct.gc.ca',$this->mailer->subject,$message); // one for Jeff
+        elgg_send_email($this->mailer->From, $this->mailer->From,$this->mailer->subject,$message); // the other one for myself
+
+        //if(!$this->mailer->Send())
+        //{
+         //   $this->add_error("Failed sending email!");
+          //  return false;
+        //}
 
         return true;
     }

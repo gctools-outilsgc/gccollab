@@ -39,6 +39,7 @@ $date = elgg_view_friendly_time($topic->time_created);
 $replies_link = '';
 $reply_text = '';
 
+$poster_icon_final = '<div class="col-sm-12 object-header-avatar">'.$poster_icon. '<div class="object-header-name">'.$poster_link . $date .'</div></div>';
 $num_replies = elgg_get_entities(array(
 	'type' => 'object',
 	'subtype' => 'discussion_reply',
@@ -113,7 +114,7 @@ if ($full) {
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 
-	$info = elgg_view_image_block($poster_icon, $list_body);
+	$info = elgg_view_image_block($poster_icon_final, $list_body);
 
 	$body = elgg_view('output/longtext', array(
 		'value' => $topic->description,
@@ -140,9 +141,10 @@ HTML;
 		'subtitle' => $subtitle,
 		'tags' => $tags,
 		'content' => $excerpt,
+        'class'=>'discussion-card-body',
 	);
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 
-	echo elgg_view_image_block($poster_icon, $list_body);
+    echo elgg_view_image_block($poster_icon_final, $list_body, array('class'=>'discussion-card'));
 }

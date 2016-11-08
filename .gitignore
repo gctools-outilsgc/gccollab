@@ -1,73 +1,55 @@
-# ignore Elgg configuration
-/engine/settings.php
-/engine/settings-*.php
-/.htaccess
-/cometchat/*
-/composer.lock
-/composer.phar
-/cache
-
-# ignore Single Signon mods
-/mod/saml_link/
-/mod/simplesaml/
-
-# don't ignore bundled plugins
-!/mod/aalborg_theme/
-!/mod/blog/
-!/mod/bookmarks/
-!/mod/categories/
-!/mod/ckeditor/
-!/mod/custom_index/
-!/mod/dashboard/
-!/mod/developers/
-!/mod/diagnostics/
-!/mod/embed/
-!/mod/externalpages/
-!/mod/file/
-!/mod/garbagecollector/
-!/mod/groups/
-!/mod/htmlawed/
-!/mod/invitefriends/
-!/mod/legacy_urls/
-!/mod/likes/
-!/mod/logbrowser/
-!/mod/logrotate/
-!/mod/members/
-!/mod/messageboard/
-!/mod/messages/
-!/mod/notifications/
-!/mod/pages/
-!/mod/profile/
-!/mod/reportedcontent/
-!/mod/search/
-!/mod/site_notifications/
-!/mod/tagcloud/
-!/mod/thewire/
-!/mod/twitter_api/
-!/mod/uservalidationbyemail/
-!/mod/web_services/
-!/mod/zaudio/
-
-# ignore IDE/hidden/testing/OS cache files
-.*
-*~
-/nbproject
-/nb-configuration.xml
-Session.vim
-*.tmproj
-*.tmproject
-tmtags
+# Windows image file caches
 Thumbs.db
+ehthumbs.db
+
+# Folder config file
 Desktop.ini
-npm-debug.log
 
-# Codio.com
-startup.sh
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# don't ignore special configs
-!/.mailmap
-!/.travis.yml
-!/.scrutinizer.yml
-!.gitignore
-!.scripts
-!.tx
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+engine/settings.php.old
+engine/settings.php
+.htaccess
+memcache/
+opcache.php
+phpinfo.php
+

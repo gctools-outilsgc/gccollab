@@ -23,8 +23,7 @@ Vous pouvez afficher les demandes de collègue qui sont en attente :
 %s <br/>
 <i>Assurez-vous d'être connecté(e) au site avant de cliquer sur le lien suivant. Si vous n'êtes pas connecté(e), vous serez redirigé(e) vers la page d'ouverture de session.</i>
 
-Pour consulter son profil, cliquez ici : %s
-",
+Pour consulter son profil, cliquez ici : %s",
 	
 // Actions	
 // Add request	

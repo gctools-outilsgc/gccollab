@@ -29,6 +29,8 @@ $author_text = elgg_echo('byline', array($owner_link));
 $date = elgg_view_friendly_time($album->time_created);
 $categories = elgg_view('output/categories', $vars);
 
+$owner_icon_final = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
+
 $subtitle = "$author_text $date $categories";
 
 $params = array(
@@ -57,7 +59,7 @@ if (elgg_get_plugin_setting('album_comments', 'tidypics')) {
 
 echo elgg_view('object/elements/full', array(
 	'entity' => $album,
-	'icon' => $owner_icon,
+	'icon' => $owner_icon_final,
 	'summary' => $summary,
 	'body' => $body,
 ));

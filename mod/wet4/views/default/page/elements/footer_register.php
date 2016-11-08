@@ -4,7 +4,7 @@
 $site_url = elgg_get_site_url();
 ?>
 
-			<ul id="gc-tctr" class="list-inline">
+			<ul id="gc-tctr" class="list-inline" style="display:none;">
 	           <li><a  href="<?php echo $site_url; ?>register">Register</a></li>
 	           <li><a href="<?php echo $site_url; ?>login">Login</a></li>
             </ul>

@@ -6,7 +6,7 @@ return array(
 	'blog:archives' => 'Archives',
 	'blog:blog' => 'Blog',
 	'item:object:blog' => 'Blogs',
-	'blog:mine' => 'My blog',
+	'blog:mine' => 'My Blog',
 
 	'blog:title:user_blogs' => '%s\'s blogs',
 	'blog:title:all_blogs' => 'All site blogs',

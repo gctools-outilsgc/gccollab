@@ -147,6 +147,7 @@ function render_department_tab($data_directory) {
               'owner_guid' => 0
        ));
     echo '<br>';
+	
    
         //$metaname = "deptsEn";
         
@@ -165,7 +166,10 @@ function render_department_tab($data_directory) {
         $provinces['pov-sask'] = 'Government of Saskatchewan';
         $provinces['pov-yuk'] = 'Government of Yukon';
         $departmentsEn = array_merge($departmentsEn,$provinces);
- 
+		foreach($departmentsEn as $key => $value)
+{
+  //echo $key." has the value". $value . '<br>';
+}
         //$metaname = "deptsFr";
 
         $departmentsFr = json_decode($obj[0]->deptsFr, true);
@@ -207,12 +211,19 @@ function render_department_tab($data_directory) {
                 'title' => $v
             ));
         $deptCount = elgg_get_entities_from_metadata(array('types' => 'user', 'metadata_names' => array('department'), 'metadata_values' => array($departmentsEn[$k]." / ".$departmentsFr[$k], $departmentsFr[$k]." / ".$departmentsEn[$k]), 'count' => true));
-
+		if($deptCount == 0)
+		 continue;
         $list_items = elgg_format_element('td', ['class' => 'data-table-list-item ', 'style' => 'padding: 10px 0'], $deptLink);
         $list_items .= elgg_format_element('td', ['class' => 'data-table-list-item ', 'style' => 'padding: 10px 0'], '<span>' . $deptCount . '</span>');
 
         $tR .= elgg_format_element('tr', [], $list_items);
     }
+
+		// we will re-use data from the domain manager module
+		//$query = "SELECT ext, dept FROM email_extensions WHERE dept LIKE '%University%' OR dept LIKE '%College%' OR dept LIKE '%Institute%' OR dept LIKE '%Université%' OR dept LIKE '%Cégep%' OR dept LIKE '%Institut%'";
+		//$universities = get_data($query);
+		
+		//$universities = json_encode($universities, true);
 
     //create table body
     $tBody = elgg_format_element('tbody', ['class' => ''], $tR);

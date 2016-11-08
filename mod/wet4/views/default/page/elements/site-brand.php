@@ -16,32 +16,20 @@ if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
     <div id="app-brand">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3 ">
+                <div class="col-sm-3 col-xs-12">
                     <div class="app-name">
                     <a href="<?php echo $site_url; ?>">
-                        <span><span class="bold-gc">GC</span>connex</span>
+                        <span><span class="bold-gc">GC</span>collab</span>
                     </a>
                     </div>
                     
                     
                 </div>
-                <div class="col-sm-6 col-sm-offset-3 hidden-xs">
-                    <?php if (!elgg_get_plugin_setting('ExtTheme', 'wet4')) {?>
-                    <div id="tool-link" class="pull-right">
-                    <div class="pull-right tool-link">
-                        <a href="<?php echo elgg_echo('wet:gcintranetLink-toolsHead');?>">
-                        <img class="tool-link-icon" src="<?php echo $site_url.'/mod/wet4/graphics/intranet_icon.png'?>" alt="GCintranet"/><span class="bold-gc">GC</span>intranet</a>
-                        
-                    </div>
-                    <div class="pull-right tool-link">
-                        <a href="<?php echo elgg_echo('wet:gcpediaLink');?>">
-                        <img class="tool-link-icon" src="<?php echo $site_url.'/mod/wet4/graphics/pedia_icon.png';?>" alt="GCpedia" /><span class="bold-gc">GC</span><?php echo elgg_echo('wet:barGCpedia');?></a>
-                        
-                        
-                    </div>
-
-                    </div>
-                   <?php }?>
+                <div class="col-md-6 col-sm-4 col-xs-hidden">
+                 <?php echo elgg_view('search/search_box', $vars); ?>
+                </div>
+                <div class="col-md-3 col-sm-5 col-xs-12">
+                <?php echo elgg_view('page/elements/topbar_wrapper', $vars);?>
                 </div>
             </div>
         </div>

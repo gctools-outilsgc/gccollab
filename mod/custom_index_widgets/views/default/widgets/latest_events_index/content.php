@@ -90,6 +90,6 @@
 			'limit' => $vars['limit'],
 		);
 	$widget_datas = elgg_view_entity_list($events, $options);
-	echo $widget_datas;
+	echo "++".$widget_datas;
 ?>
 

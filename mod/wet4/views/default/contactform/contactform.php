@@ -21,8 +21,8 @@
 				
 						
 
-					<h3><?php echo elgg_echo('contactform:useful'); ?></h3>
-					<div class="accordion">
+					<h3  style="display:none;"><?php echo elgg_echo('contactform:useful'); ?></h3>
+					<div class="accordion"  style="display:none;">
 	<!-- Accordion section 1 -->
 	<details class="acc-group">
 		<summary class="wb-toggle tgl-tab" data-toggle='{"parent": ".accordion", "group": ".acc-group"}'><?php echo elgg_echo('contactform:helpful'); ?></summary>

@@ -92,10 +92,11 @@ final class PasswordService {
 
 		// generate email
 		$ip_address = _elgg_services()->request->getClientIp();
-		$message = _elgg_services()->translator->translate(
-			'email:changereq:body', array($user->name, $ip_address, $link), $user->language);
-		$subject = _elgg_services()->translator->translate(
-			'email:changereq:subject', array(), $user->language);
+		$message = _elgg_services()->translator->translate('email:changereq:body', array($ip_address, $user->name, $link), 'en');
+		$message .= '<br/><br/>'._elgg_services()->translator->translate('email:changereq:body', array($ip_address, $user->name, $link), 'fr');
+
+		$subject = _elgg_services()->translator->translate('email:changereq:subject', array(), 'en');
+		$subject .= ' | '._elgg_services()->translator->translate('email:changereq:subject', array(), 'fr');
 
 		return notify_user($user->guid, elgg_get_site_entity()->guid, $subject, $message, array(), 'email');
 	}

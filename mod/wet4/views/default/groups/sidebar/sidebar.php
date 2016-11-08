@@ -7,11 +7,14 @@ Group Profile Sidebar
 
 
 //members widget
+
+//Nick - Put group disc here in a side bar card
+echo elgg_view('groups/profile/fields', $vars);
 //Nick - we will keep the members in the sidebar
 echo elgg_view('groups/sidebar/group_members', $vars);
 
 //group activity
-echo elgg_view('groups/sidebar/activity', $vars);
+//echo elgg_view('groups/sidebar/activity', $vars);
 
 //subgroups
 //I'll have to test if the user has sub groups and related groups active

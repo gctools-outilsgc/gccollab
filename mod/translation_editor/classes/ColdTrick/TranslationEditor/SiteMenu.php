@@ -22,9 +22,10 @@ class SiteMenu {
 	 */
 	public static function register($hook, $type, $return, $params) {
 		
-		if (!translation_editor_is_translation_editor()) {
+		// Turned off translation editor. I'm sure theres a more elegant way....
+		//if (!translation_editor_is_translation_editor()) {
 			return $return;
-		}
+		//}
 		
 		$return[] = \ElggMenuItem::factory(array(
 			"name" => "translation_editor",

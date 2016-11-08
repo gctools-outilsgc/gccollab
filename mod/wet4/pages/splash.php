@@ -120,7 +120,7 @@ if (language_selected == "English")
 <p><a href="javascript:form_submit('English')" class="btn btn-primary">English</a></p>
 </section>
 <section class="col-xs-6" lang="fr">
-<h2 class="wb-inv">GCconnex Français</h2>
+<h2 class="wb-inv">GCconnex FranÃ§ais</h2>
 <p><a href="javascript:form_submit('French')" class="btn btn-primary">Fran&#231;ais</a></p>
 </section>
 
@@ -136,7 +136,7 @@ if (language_selected == "English")
 <div class="sp-bx-bt col-xs-12">
 <div class="row">
 <div class="col-xs-7 col-md-8">
-<a href="$termsLink " class="sp-lk">Terms & Conditions of Use</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="$termsLink " class="sp-lk" lang="fr">Conditions d'utilisation</a>
+<a href="$termsLink " class="sp-lk">Terms & Conditions of Use</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="/termes" class="sp-lk" lang="fr">Conditions d'utilisation</a>
 </div>
 <div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
 <object type="image/svg+xml" tabindex="-1" role="img" data="$site_url/mod/wet4/graphics/wmms-blk.svg" width="127" aria-label="Symbol of the Government of Canada / Symbole du gouvernement du Canada"></object>
@@ -144,7 +144,7 @@ if (language_selected == "English")
 </div>
 </div>
 </div>
-    <div class="splash_identifier wb-inv"><span class="bold-gc">GC</span>connex</div>
+    <div class="splash_identifier wb-inv"><span class="bold-gc">GC</span>collab</div>
 </main>
 <div>
 
@@ -164,7 +164,7 @@ if ($CONFIG->splashLang) {
 */
 $body .= elgg_view('page/elements/foot');
 $headparams = array(
-    'title' => 'GCconnex',
+    'title' => 'GCcollab',
     );
 $head = elgg_view('page/elements/head', $headparams);
 

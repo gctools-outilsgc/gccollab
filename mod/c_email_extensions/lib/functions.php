@@ -1,5 +1,6 @@
 <?php
 
+
 function requirements_check()
 {
 	global $CONFIG;
@@ -15,17 +16,24 @@ function requirements_check()
 	return true;
 }
 
-function getExtension() 
+function getExtension($sort = 'ASC', $filter = 'all') 
 {
-	global $CONFIG;
+	if (!$filter) $filter = 'all';
 
-	$query = "SELECT * FROM email_extensions";
+	if (strcmp($filter,'all') == 0 ) {
 
-	$connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname);
-	if (mysqli_connect_errno($connection)) elgg_log("cyu - Failed to connect to MySQL: ".mysqli_connect_errno(), 'NOTICE');
-	$result = mysqli_query($connection,$query);
-	//mysqli_free_result($result);
-	mysqli_close($connection);
+		$query = "SELECT * FROM email_extensions ORDER BY dept {$sort}";
+	
+	} else {
+
+		if (strcmp($filter,'university') == 0 )
+			$query = "SELECT * FROM email_extensions WHERE dept LIKE '%University%'";
+		else
+			$query = "SELECT * FROM email_extensions WHERE dept NOT LIKE '%University%'";
+		
+	}
+
+	$result = get_data($query);
 	return $result;
 }
 

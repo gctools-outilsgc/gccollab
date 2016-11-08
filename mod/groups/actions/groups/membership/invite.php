@@ -63,5 +63,5 @@ if (count($user_guids) > 0 && elgg_instanceof($group, 'group') && $group->canEdi
 		}
 	}
 }
-
-forward(REFERER);
+echo 'test';
+//forward(REFERER);

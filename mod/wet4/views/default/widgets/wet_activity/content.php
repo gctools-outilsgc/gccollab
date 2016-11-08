@@ -8,10 +8,10 @@
  *
  * @version 1.0
  * @author Owner
- 
-    
-        /*
- 
+
+
+
+
 
         */
 
@@ -19,12 +19,42 @@
         //YOLO CODE V2
 
 
-
 if(elgg_is_logged_in()){
+
+    $loading = elgg_view('output/img', array(
+        'src' => 'mod/wet4/graphics/loading.gif',
+        'alt' => 'loading'
+    ));
 ?>
 <script>
     $(document).ready(function () {
         $('.elgg-list-river').parent().parent().attr('id','activity');
+
+        //add newsfeed settings link
+        $('#activity .panel-heading').prepend('<a href="#" title="<?php echo elgg_echo('newsfeed:filter:title'); ?>" class="dropdown  pull-right mrgn-rght-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v fa-2x icon-unsel newsfeed-filter-gear" aria-hidden="true"></i></a><ul class="dropdown-menu pull-right newsfeed-filter" aria-labelledby="dropdownMenu2"><li class="panel-body" id="filter_form"></li></ul>');
+
+        //load in form when settings is pressed
+        $('#activity .dropdown').on('click', function () {
+            //check if form has already been loaded
+            if ($('#filter_form').html() == '') {
+
+                //place loading spinner
+                $('#filter_form').html('<div class="text-center" style="margin: 10px auto 0;display:block;"><?php echo $loading; ?></div>');
+                //load form
+                elgg.get('ajax/view/ajax/newsfeed_filter', {
+                    success: function (output) {
+                        $('#filter_form').html(output);
+                    }
+                });
+
+            }
+        });
+
+        //stop dropdown form from toggling while interacting with form
+        $('.dropdown-menu').click(function (e) {
+            e.stopPropagation();
+        });
+
     });
 </script>
 <?PHP
@@ -47,33 +77,56 @@ if(elgg_is_logged_in()){
                 }
             }
 
+            //### Show colleague connections or not based on user sepcific val
+
+
         }
+
+
         if(!$hasgroups && !$hasfriends){
             //no friends and no groups :(
             $activity = '';
+
         }else if(!$hasgroups && $hasfriends){
             //has friends but no groups
             $optionsf['relationship_guid'] = elgg_get_logged_in_user_guid();
             $optionsf['relationship'] = 'friend';
             $optionsf['pagination'] = true;
+
+            //if only friends
+            if($user->colleagueNotif){
+                  $optionsf['action_types'] = array('comment', 'create', 'join', 'update', 'reply', 'friend');
+            } else {
+                  $optionsf['action_types'] = array('comment', 'create', 'join', 'update', 'reply');
+             }
+
             $activity = newsfeed_list_river($optionsf);
+
         }else if(!$hasfriends && $hasgroups){
             //if no friends but groups
             $guids_in = implode(',', array_unique(array_filter($group_guids)));
             //$optionsg['joins'] = array("JOIN {$db_prefix}entities e1 ON e1.guid = rv.object_guid");
             //display created content and replies and comments
-            $optionsg['wheres'] = array("( oe.container_guid IN({$guids_in}) 
+            $optionsg['wheres'] = array("( oe.container_guid IN({$guids_in})
          OR te.container_guid IN({$guids_in}) )");
             $optionsg['pagination'] = true;
             $activity = newsfeed_list_river($optionsg);
+
         }else{
             //if friends and groups :3
             $guids_in = implode(',', array_unique(array_filter($group_guids)));
            //echo $guids_in;
          /*   $optionsfg['joins'] = array(" {$db_prefix}entities e ON e.guid = rv.object_guid",
                 " {$db_prefix}entities e1 ON e1.guid = rv.target_guid",
-                
+
                 );*/
+
+                if($user->colleagueNotif){
+                      $optionsfg['action_types'] = array('comment', 'create', 'join', 'update', 'reply', 'friend');
+                } else {
+                      $optionsfg['action_types'] = array('comment', 'create', 'join', 'update', 'reply');
+                 }
+
             //Groups + Friends activity query
             //This query grabs new created content and comments and replies in the groups the user is a member of *** te.container_guid grabs comments and replies
             $optionsfg['wheres'] = array(
@@ -96,7 +149,6 @@ if(elgg_is_logged_in()){
         //nothing :(
         }
         */
-
 
         if (!$activity) {
             //if the user doesn't have any friends or activity display this message
@@ -143,6 +195,4 @@ if(elgg_is_logged_in()){
 
 
 //echo out the yolo code
-
 echo $activity;
-

@@ -123,14 +123,19 @@ if ($full) {
 			'class' => 'elgg-menu-hz list-inline',
 		));
 	}
+    
+    if(elgg_in_context('ajax')){
+        $additional_class = 'discussion-card';
+    }
 
 	$params = array(
 		'entity' => $event,
 		'metadata' => $metadata,
 		'subtitle' => $info,
+        'content'=>$info,
 	);
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 	
-	echo elgg_view_image_block($icon, $list_body);
+	echo elgg_view_image_block($icon, $list_body, array('class'=>$additional_class));
 }

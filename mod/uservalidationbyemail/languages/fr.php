@@ -8,8 +8,6 @@
 
 return array(
 	'admin:users:unvalidated' => 'non validées',	
-	'email:validate:subject' => "%s s'il vous plaît confirmer votre adresse courriel pour %s!", 
-	'email:validate:body' => "%s, Avant que vous puissiez utiliser %s, vous devez confirmer votre adresse de courriel. S'il vous plaît confirmer votre adresse courriel en cliquant sur le lien ci-dessous: %s Si vous ne pouvez pas cliquer sur le lien, copiez-le et collez-le dans votre navigateur manuellement.",	
 	'email:confirm:success' => "Vous avez confirmé votre adresse de courriel!",
 	'email:confirm:fail' => "Votre adresse de courriel n'a pas pu être vérifiée...",	
 	'uservalidationbyemail:emailsent' => "Courriel envoyé à <em>%s</em>",	
@@ -42,4 +40,6 @@ return array(
 	'uservalidationbyemail:messages:resent_validation' => 'Demande de validation renvoyer.',
 	'uservalidationbyemail:messages:resent_validations' => 'Demandes de validation renvoyé à tous les utilisateurs vérifiés.',
 
+	'email:validate:subject' => "Veuillez valider le compte de %s", 
+	'email:validate:body' => "Bienvenue sur GCconnex. Afin de compléter votre inscription, veuillez valider votre compte enregistré sous le nom %s en cliquant sur le lien suivant : %s",
 );

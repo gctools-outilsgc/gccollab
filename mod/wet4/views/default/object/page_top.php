@@ -41,9 +41,10 @@ if ($revision) {
 	}
 }
 
-$page_icon = elgg_view('pages/icon', array('annotation' => $annotation, 'size' => 'small'));
+$page_icon = elgg_view('pages/icon', array('annotation' => $annotation, 'size' => 'small', 'class'=>'pull-left'));
 
 $editor = get_entity($annotation->owner_guid);
+$editor_icon =elgg_view_entity_icon($editor, 'medium');
 $editor_link = elgg_view('output/url', array(
 	'href' => "pages/owner/$editor->username",
 	'text' => $editor->name,
@@ -53,6 +54,10 @@ $editor_link = elgg_view('output/url', array(
 $date = elgg_view_friendly_time($annotation->time_created);
 $editor_text = elgg_echo('pages:strapline', array($date, $editor_link));
 $categories = elgg_view('output/categories', $vars);
+
+if(elgg_in_context('ajax')){
+    $page_icon = '<div class="col-sm-12 object-header-avatar">'.$editor_icon. '<div class="object-header-name">'.$editor_link . $date .'</div></div>';
+}
 
 $comments_count = $page->countComments();
 //only display if there are commments
@@ -106,8 +111,8 @@ if ($full) {
 		'entity' => $page,
 		'title' => false,
 		'icon' => $page_icon,
-		'summary' => $summary,
-		'body' => $body,
+		'summary' =>$subtitle. $summary,
+		'body' =>  $body,
 	));
 
 } else {
@@ -124,6 +129,10 @@ if ($full) {
             'item_class' => 'mrgn-rght-sm',
 		));
     }
+    
+    if(elgg_in_context('ajax')){
+        $additional_class = 'discussion-card';
+    }
 
 	$params = array(
 		'entity' => $page,
@@ -134,5 +143,5 @@ if ($full) {
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 
-	echo elgg_view_image_block($page_icon, $list_body);
+	echo elgg_view_image_block($page_icon, $list_body, array('class'=>$additional_class,));
 }

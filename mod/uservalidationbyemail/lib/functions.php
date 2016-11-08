@@ -33,8 +33,8 @@ function uservalidationbyemail_request_validation($user_guid, $admin_requested =
 		elgg_deprecated_notice('Second param $admin_requested no more used in uservalidationbyemail_request_validation function', 1.9);
 	}
 
+	
 	$site = elgg_get_site_entity();
-
 	$user_guid = (int)$user_guid;
 	$user = get_entity($user_guid);
 
@@ -46,20 +46,13 @@ function uservalidationbyemail_request_validation($user_guid, $admin_requested =
 		// Get email to show in the next page
 		elgg_get_session()->set('emailsent', $user->email);
 
-		$subject = elgg_echo('email:validate:subject', array(
-				$user->name,
-				$site->name
-			), $user->language
-		);
+		// cyu - improved message content
+		$subject = elgg_echo('email:validate:subject', array( $user->email ), 'en' );
+		$subject .= ' | '.elgg_echo('email:validate:subject', array( $user->email ), 'fr' );
 
-		$body = elgg_echo('email:validate:body', array(
-				$user->name,
-				$site->name,
-				$link,
-				$site->name,
-				$site->url
-			), $user->language
-		);
+
+		$body = elgg_echo('email:validate:body', array( $user->email, $link ), 'en' );
+		$body .= ' <br/><br/> '.elgg_echo('email:validate:body', array( $user->email, $link ), 'fr' );
 
 		// cyu - 03/08/2016: improving notifications, redirect to notification manager module
 		if (elgg_is_active_plugin('cp_notifications')) {
@@ -70,8 +63,31 @@ function uservalidationbyemail_request_validation($user_guid, $admin_requested =
 				);
 			$result = elgg_trigger_plugin_hook('cp_overwrite_notification', 'all', $message);
 		} else {
+			/*
+			//
+			// array of affected department that filters "spam" emails
+			$affected_departments = array('tbs-sct', 'pwgsc', 'tpsgc', 'gmail');
+			// get the domain names
+			$domain = explode('@',$user->email);
+			$department_domain = explode('.',$domain[1]);
+			$is_affected = false;
+
+			// search and check if there is match
+			foreach ($affected_departments as $affected_department) {
+				if (strpos($department_domain[0], $affected_department) !== false) {
+					$is_affected = true;
+					break;
+				}
+			}
+
+			if ($is_affected) {
+				$link = strip_tags($link);
+				$body =  "Please validate your account / SVP validez votre compte: {$link}";
+			}
+			//
+			*/
 			// Send validation email
-			$result = notify_user($user->guid, $site->guid, $subject, $body, array(), 'email');
+			$result = notify_user($user->guid, $site->guid, $subject, $body, array('validate_user' => 'validate_user', 'validate_link' => $link), 'email');
 		}
 		
 		return $result;

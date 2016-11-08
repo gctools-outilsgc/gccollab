@@ -54,9 +54,9 @@ td.ui-datepicker-unselectable {
 	background: url(<?php echo elgg_get_site_url(); ?>mod/event_calendar/images/river_icon_event.gif) no-repeat left -1px;
 }
 #event_list {
-	max-width:485px;
+	
 	margin:0;
-	float:left;
+	
 	padding:5px 0 0 0;
 }
 #event_list .search_listing {

@@ -56,13 +56,13 @@ class FGContactForm
         $this->mailer = new PHPMailer();
         $this->mailer->CharSet = 'utf-8';
 
-        $this->mailer->IsSMTP();
-        $this->mailer->Host = elgg_get_plugin_setting('phpmailer_host', 'phpmailer'); // SMTP server
-        $this->mailer->Port = elgg_get_plugin_setting('ep_phpmailer_port', 'phpmailer'); // SMTP server port
-        $this->mailer->SMTPSecure = 'tls';
-        $this->mailer->SMTPAuth = 'true';
-        $this->mailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
-        $this->mailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
+        // $this->mailer->IsSMTP();
+        // $this->mailer->Host = elgg_get_plugin_setting('phpmailer_host', 'phpmailer'); // SMTP server
+        // $this->mailer->Port = elgg_get_plugin_setting('ep_phpmailer_port', 'phpmailer'); // SMTP server port
+        // $this->mailer->SMTPSecure = 'tls';
+        // $this->mailer->SMTPAuth = 'true';
+        // $this->mailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
+        // $this->mailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
     }
 
     function EnableCaptcha($captcha_handler)

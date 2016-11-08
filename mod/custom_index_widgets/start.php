@@ -76,6 +76,15 @@
 			
 			//elgg_register_plugin_hook_handler('index','system','custom_index_widgets');
 			elgg_register_page_handler('', 'custom_index_widgets');
+
+
+			// image slider
+			elgg_extend_view("css/elgg", "widgets/spotlight_index/css");
+			elgg_register_widget_type("spotlight_index", elgg_echo("widget_manager:widgets:image_slider:name"), elgg_echo("widget_manager:widgets:image_slider:description"), array("custom_index_widgets"), true);
+
+			// latest events
+			//elgg_extend_view("css/elgg", "widgets/events_index/css");
+			elgg_register_widget_type("events_index", elgg_echo("custom_index_widgets:events_index:name"), elgg_echo("custom_index_widgets:events_index:name"), array("custom_index_widgets"), true);
 		}
     }
     

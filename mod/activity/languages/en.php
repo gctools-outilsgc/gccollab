@@ -3,7 +3,7 @@
 return array(
 	'activity:' => '',
 	'activity:module:mentions:title' => 'Mentions',
-	'activity:module:weekly_likes' => 'Most liked of last week',
+	'activity:module:weekly_likes' => 'Top Wire Posts',
 	'activity:module:weekly_likes:none' => 'No likes',
 	'activity:latest_comments' => "Latest comments",
 

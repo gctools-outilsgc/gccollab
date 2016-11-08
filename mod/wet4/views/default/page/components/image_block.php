@@ -134,16 +134,35 @@ HTML;
 HTML;
 
 }else{
+    //Nick - only show the card view in group ajax, bookmark, file context
+    if(elgg_in_context('ajax') || elgg_in_context('bookmarks') ||elgg_in_context('file') ||elgg_in_context('discussion') || elgg_in_context('photos')){
+        if(elgg_in_context('comments')){
+            $body = "<div class=\"mrgn-tp-sm col-xs-10 noWrap\">$body</div>";
+        }else{
+            $body = "<div class=\"mrgn-tp-sm col-xs-12 noWrap discussion-card-body\">$body</div>";
+        }
+        
+    }else{
+        $body = "<div class=\"mrgn-tp-sm col-xs-10 noWrap\">$body</div>";
+    }
     
-    $body = "<div class=\"mrgn-tp-sm col-xs-10 noWrap\">$body</div>";
+    
 
-if ($image) {
-	$image = "<div class=\"mrgn-tp-sm col-xs-2\">$image</div>";
+if ($image && elgg_in_context('ajax') || elgg_in_context('bookmarks') || elgg_in_context('file') ||elgg_in_context('discussion') || elgg_in_context('photos')) {
+    if(elgg_in_context('comments')){
+        $image = "<div class=\"mrgn-tp-sm col-xs-2 clearfix\">$image </div>";
+    }else{
+        $image = "<div class=\"mrgn-tp-sm col-xs-12 clearfix discussion-card-header\">$image </div>";
+    }
+	
      //$echo = elgg_get_context();
+}else{
+    $image = "<div class=\"mrgn-tp-sm col-xs-2 clearfix\">$image </div>";
+    //$echo = elgg_get_context();
 }
 
 if ($alt_image) {
-	$alt_image = "<div class=\"elgg-image-alt\">$alt_image</div>";
+	$alt_image = "<div class=\"elgg-image-alt\">Test Whats this?$alt_image</div>";
    
 }
 

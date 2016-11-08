@@ -11,17 +11,12 @@
 
 elgg_load_library('c_ext_lib');
 
-// elgg_log('cyu - add ext:'.$vars['entity']->db_add_ext, 'NOTICE');
-// elgg_log('cyu - add dept:'.$vars['entity']->db_add_dept, 'NOTICE');
 
-if (($vars['entity']->db_add_ext === '' || !isset($vars['entity']->db_add_ext)) 
-	&& ($vars['entity']->db_add_dept === '' || !isset($vars['entity']->db_add_dept)))
+if (($vars['entity']->db_add_ext === '' || !isset($vars['entity']->db_add_ext)) && ($vars['entity']->db_add_dept === '' || !isset($vars['entity']->db_add_dept)))
 {
-	//system_message('c_ext:missing_param');
-} else {
+	// nothing here
+} else
 	addExtension($vars['entity']->db_add_ext, $vars['entity']->db_add_dept);
-	//system_message('c_ext:successfully_added');
-}
 
 
 $vars['entity']->db_add_ext = '';
@@ -36,25 +31,32 @@ $delete_btn = elgg_view('output/confirmlink', array(
 	'text' => elgg_echo('c_ext:delete'),
 	'href' => $delete_from_db));
 
-$result = getExtension();
-if (count($result) > 0)
-{
+
+$sort = $_GET['sort'];
+$filter = $_GET['filter'];
+$domains = getExtension($sort,$filter);
+
+
+if (count($domains) > 0) {
+
+echo "SORT (departments): <a href='?sort=asc'> A-Z </a> / <a href='?sort=desc'>Z-A</a> <br/>";
+echo "FILTER: <a href='?filter=university'> University </a> / <a href='?filter=department'> Government Departments </a> / <a href='?filter=all'> All </a> <br/>";
+
 	echo "<table name='display_extensions' width='100%' cellpadding='0' cellspacing='0' class='db-table'>";
 	echo '<tr> <th></th> <th width="16%">'.elgg_echo('c_ext:id').'</th> <th>'.elgg_echo('c_ext:ext').'</th> <th>'.elgg_echo('c_ext:dept').'</th></tr>';
-	while ($row = mysqli_fetch_array($result))
-	{
-		$delete_from_db = "action/c_email_extensions/delete?id=".$row['id'];
+	foreach ($domains as $domain) {
+		$delete_from_db = "action/c_email_extensions/delete?id={$domain->id}";
 		$delete_btn = elgg_view('output/confirmlink', array(
 			'name' => 'c_delete_from_db',
 			'text' => elgg_echo('c_ext:delete'),
 			'href' => $delete_from_db));
 
-		echo '<tr>'; 
-		echo '<td> '.''.$delete_btn.' </td>';
-		echo '<td> '.$row['id'].' </td>';
-		echo '<td> '.$row['ext'].' </td>';
-		echo '<td> '.$row['dept'].' </td>';
-		echo '</tr>';
+		echo "<tr>"; 
+		echo "<td> {$delete_btn} </td>";
+		echo "<td> {$domain->id} </td>";
+		echo "<td> {$domain->ext} </td>";
+		echo "<td> {$domain->dept} </td>";
+		echo "</tr>";
 	}
 	echo "</table>";
 }

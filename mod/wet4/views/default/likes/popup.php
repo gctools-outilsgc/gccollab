@@ -13,6 +13,7 @@ $list = elgg_list_annotations(array(
 	'limit' => 99,
 	'preload_owners' => true,
 	'pagination' => false,
+    'item_class'=>'list-break clearfix',
 ));
 
 echo elgg_format_element('div', ['class' => 'elgg-likes-popup'], $list);

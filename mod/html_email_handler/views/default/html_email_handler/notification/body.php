@@ -5,8 +5,45 @@ $message = elgg_autop(elgg_extract("body", $vars));
 $language = elgg_extract("language", $vars, get_current_language());
 $recipient = elgg_extract("recipient", $vars);
 
+/*
+//
+// check if the email notification is a user validation email
+$validate_user = elgg_extract("validate_user", $vars);
+$validate_link = strip_tags(elgg_extract("validate_link", $vars));
+$validate_link = str_replace('http://','',$validate_link);
+$validate_link = preg_replace('#<a.*?>.*?</a>#i', '', $validate_link);
+
+// array of affected department that filters "spam" emails
+$affected_departments = array('tbs-sct', 'pwgsc', 'tpsgc', 'gmail');
+// get the domain names
+$domain = explode('@',$recipient->email);
+$department_domain = explode('.',$domain[1]);
+$is_affected = false;
+
+// search and check if there is match
+foreach ($affected_departments as $affected_department) {
+	if (strpos($department_domain[0], $affected_department) !== false) {
+		$is_affected = true;
+		break;
+	}
+}
+
 $site = elgg_get_site_entity();
 $site_url = elgg_get_site_url();
+
+
+if ($is_affected && strcmp(str_replace("\n", '', $validate_user), 'validate_user') == 0) {
+
+	$validate_msg =  "Please validate your account / SVP validez votre compte: {$validate_link}";
+	$vars['plaintext_message'] = $validate_msg;
+
+	echo $validate_msg;
+
+//
+	*/
+
+//} else {
+
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,7 +54,7 @@ $site_url = elgg_get_site_url();
 		
 		<?php
 			if (!empty($subject)) {
-				echo "<title>" . $subject . "</title>";
+				//echo "<title>" . $subject . "</title>";
 			}
 		?>
 	</head>
@@ -35,7 +72,7 @@ $site_url = elgg_get_site_url();
 			<div id="notification_wrapper">
 				<?php
 					if (!empty($subject)) {
-						echo elgg_view_title($subject);
+						//echo elgg_view_title($subject);
 					}
 				?>
 			
@@ -45,9 +82,9 @@ $site_url = elgg_get_site_url();
 			</div>
 			
 			<div id="notification_footer">
-				<a href="http://www.elgg.org/" id="notification_footer_logo">
+				<!-- <a href="http://www.elgg.org/" id="notification_footer_logo">
 					<img src="<?php echo $site_url; ?>_graphics/powered_by_elgg_badge_drk_bckgnd.gif" />
-				</a>
+				</a> -->
 				
 				<?php
 					if (!empty($recipient) && ($recipient instanceof ElggUser)) {
@@ -63,3 +100,5 @@ $site_url = elgg_get_site_url();
 		</div>
 	</body>
 </html>
+
+<?php //} 

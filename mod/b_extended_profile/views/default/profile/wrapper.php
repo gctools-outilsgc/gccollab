@@ -101,9 +101,9 @@ $pg = '';
         }
 
         if ( has_content($user, 'english') || has_content($user, 'french') ) {
-            init_ajax_block(elgg_echo('gcconnex_profile:sle'), 'languages', $user);
-            echo elgg_view('b_extended_profile/languages');
-            finit_ajax_block('languages');
+            //init_ajax_block(elgg_echo('gcconnex_profile:sle'), 'languages', $user);
+            //echo elgg_view('b_extended_profile/languages');
+            //finit_ajax_block('languages');
         }
         // create the div wrappers and edit/save/cancel toggles for each profile section
 

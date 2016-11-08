@@ -66,7 +66,7 @@ if (elgg_is_logged_in() && $ciw_showdashboard=="yes"){
 }
 
 //EW - Department verification
-if(elgg_is_logged_in()){
+/*if(elgg_is_logged_in()){
     if((time() - elgg_get_logged_in_user_entity()->last_department_verify) > 15552000)
     {
         //create hidden link
@@ -81,7 +81,7 @@ if(elgg_is_logged_in()){
         //after page is loaded click link
         $content .= '<script> window.onload = function () { document.getElementById("verify").click() } </script>';
     }
-}
+}*/
 
 
 echo elgg_view_page( elgg_echo('newsfeed'), $content);

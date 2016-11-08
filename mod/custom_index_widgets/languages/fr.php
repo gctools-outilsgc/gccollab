@@ -2,7 +2,10 @@
 
 	$french = array(
 					
-					/*GCConnex edit: language variable for featured content widgets*/
+			'custom_index_widgets:events_index:name' => "Events",
+			'index_widget:event:today' => "Today is %s",
+			
+			/*GCConnex edit: language variable for featured content widgets*/
 			'custom_index_widgets:featured_groups_index' => "Groupes en vedette",
 			'custom_index_widgets:featured_blogs_index' => "Blogues en ​​vedette",			
 			'custom_index_widgets:latest_bookmarks_index' => "Derniers signets",

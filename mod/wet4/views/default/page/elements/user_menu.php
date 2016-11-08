@@ -35,9 +35,9 @@ if(elgg_is_admin_logged_in()) {
     elgg_register_menu_item('user_menu', array(
         'name' => 'Admin',
         'href' => $site_url . 'admin',
-        'text' => '<i class="fa fa-wrench fa-lg mrgn-rght-sm"></i>' . '<span class="hidden-xs">Admin</span>',
+        'text' => '<i class="fa fa-wrench fa-lg mrgn-rght-sm"></i>',
         'title' => 'Admin',
-        'item_class' => 'brdr-rght',
+        'item_class' => '',
         'class' => '',
         'priority' => '0',
     ));
@@ -61,9 +61,9 @@ if ($user_avatar) { //show avatar if they have one
 //create user menu
 elgg_register_menu_item('user_menu', array(
     'name' => 'Profile',
-    'text' => $dropdown_avatar. '<span class="hidden-xs">' . $displayName . '</span><i class="fa fa-caret-down fa-lg mrgn-lft-sm"></i>' . $dropdown,
+    'text' => $dropdown_avatar . $dropdown,
     'title' => elgg_echo('userMenu:usermenuTitle'),
-    'item_class' => 'brdr-lft dropdown',
+    'item_class' => 'dropdown',
     'data-toggle' => 'dropdown',
     'class' => 'dropdown-toggle  dropdownToggle',
     'priority' => '3',
@@ -94,9 +94,9 @@ if (elgg_is_active_plugin('messages')) {
 elgg_register_menu_item('user_menu', array(
     'name' => 'messages',
     'href' => 'messages/inbox/' . $user,
-    'text' => '<i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-xs">' . elgg_echo('messages') . '</span>' . $msgbadge,
+    'text' => '<i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-2x"></i>' . $msgbadge,
     'title' => elgg_echo('userMenu:messages') . $title,
-    'item_class' => 'brdr-lft ',
+    'item_class' => '',
     'class' => '',
     'priority' => '2',
     ));

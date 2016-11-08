@@ -72,6 +72,25 @@ $user_avatar = $user->geticonURL('medium');
 $email = $user->email;
 
 $department = $user->get('department');
+
+if (strpos($department, 'Administrative Tribunals') !== false) {
+ $department = '--';
+ if (strpos($email, 'uottawa') !== false) {
+  $department = 'University of Ottawa';
+ }
+ if (strpos($email, 'carleton') !== false) {
+  $department = 'Carleton University';
+ }
+ if (strpos($email, 'uwaterloo') !== false) {
+  $department = 'University of Waterloo';
+ }
+ if (strpos($email, 'utoronto') !== false) {
+  $department = 'University of Toronto';
+ }
+}
+
+//$department = $user->get('department');
+
 ?>
 
 
@@ -104,7 +123,7 @@ $department = $user->get('department');
                 <?php echo  $email ?>
             </div>
             <div style="max-width:300px;">
-                <?php echo $department; ?>
+                --<?php echo $department; ?>
             </div>
 
             <div>

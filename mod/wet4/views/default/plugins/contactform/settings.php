@@ -5,9 +5,18 @@ $nameeng = $vars['entity']->nameeng;
 $linkfr = $vars['entity']->linkfr;
 $linkeng = $vars['entity']->linkeng;
 $loginreq = $vars['entity']->loginreq;
-if (!$loginreq) { $loginreq = 'yes'; }	
+if (!$loginreq) { $loginreq = 'yes'; }
+
 $message = $vars['entity']->message;
 if (!$message) { $message = 'no'; }		
+
+
+
+$disable_feedback = $vars['entity']->disable_feedback;
+if (!$disable_feedback) { $loginreq = 'no'; }	
+$disable_feedback_message_en = $vars['entity']->disable_feedback_message_en;
+$disable_feedback_message_fr = $vars['entity']->disable_feedback_message_fr;
+
 
 echo elgg_echo('contactform:enteremail');
 echo elgg_view('input/text', array(
@@ -158,7 +167,45 @@ echo '</td></tr>';
 echo '<br/>';
 echo "</table>";
 
+
+
+
+
+
+
+
+echo '<br/><br/><br/>';
+
+// in case the feedback form does not work out
+echo '<br/>';
+echo "<label>Option to disable the Feedback / Contact form: </label>";
+echo elgg_view('input/dropdown', array(
+		'name' => 'params[disable_feedback]',
+		'options_values' => array(
+			'no' => elgg_echo('contactform:no'),
+			'yes' => elgg_echo('contactform:yes'),
+		),
+		'value' => $disable_feedback,
+	));
+
+echo "<br/><br/>";
+echo "<label>ENGLISH - If Feedback / Contact form is disabled, display message in English</label>";
+echo elgg_view('input/longtext', array(
+		'name' => 'params[disable_feedback_message_en]',
+		'value' => $disable_feedback_message_en,
+	));
+
+echo "<br/><br/>";
+echo "<label>FRENCH - If Feedback / Contact form is disabled, display message in French</label>";
+echo elgg_view('input/longtext', array(
+		'name' => 'params[disable_feedback_message_fr]',
+		'value' => $disable_feedback_message_fr,
+	));
+
 ?>
+
+
+
 
 </div>
 

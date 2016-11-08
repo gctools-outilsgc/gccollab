@@ -1,0 +1,37 @@
+Changelog
+=========
+
+1.9.3
+-----
+
+- Verified that it also works on Elgg 2.0 (and therefore should also work on any future Elgg 2.X version),
+- composer.json added.
+
+1.9.2
+-----
+
+- Version 1.8.2 updated to work on Elgg 1.9 - 1.11.
+
+1.8.2
+-----
+
+- Captcha image shows up also on Chrome browser correctly.
+
+
+1.9.1
+-----
+
+- Updated for Elgg 1.9.
+
+
+1.8.1
+-----
+
+- Portuguese (Brazilian) language file added. Thanks to Guilherme Luiz Lessa,
+- Portuguese language file added (I hope the Brazilian dialect is not too different...).
+
+
+1.8.0
+-----
+
+- Upgraded for Elgg 1.8 (by iionly).

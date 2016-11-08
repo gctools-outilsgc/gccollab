@@ -13,8 +13,6 @@ $english = array(
 	'phpmailer:nonstd_mta' => 'Using Nonstandard MTA (end of line = \n)',
 	'phpmailer:ssl' => 'Use SSL Authorization',
 	'phpmailer:port' => 'Port Number',
-	'phpmailer:fromname' => 'From name',
-	'phpmailer:fromemail' => 'From email',
 );
 					
 add_translation("en", $english);

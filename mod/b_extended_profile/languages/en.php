@@ -10,10 +10,21 @@ $english = array(
 
     //edit profile message
     'profile:notsaved' => 'Not all information could be saved, empty fields are not allowed', /* NEW */
-
     'profile:title' => "%s's Profile",
-
     'profile:contactinfo' => 'Contact Info',
+
+    'gcconnex_profile:basic:user_type' => "Occupation", // new
+    'gcconnex_profile:basic:institution' => "Institution", // new
+    'gcconnex_profile:basic:current_occupation' => "Currently %s at %s",
+
+    'gcconnex-profile-card:student' => 'Student',
+    'gcconnex-profile-card:academic' => 'Academic',
+    'gcconnex-profile-card:public_servant' => 'Public Servant',
+
+    "gcconnex-profile-card:uottawa" => "University of Ottawa",
+    "gcconnex-profile-card:uwaterloo" => "University of Waterloo",
+    "gcconnex-profile-card:ucarleton" => "Carleton University",
+
 
     //user Settings Details
     'item:object:MySkill' => 'Profile skill',

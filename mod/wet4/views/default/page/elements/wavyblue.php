@@ -22,7 +22,9 @@ if( _elgg_services()->session->get('language') == 'en'){
                <object type="image/svg+xml" tabindex="-1" data="<?php echo $site_url ?>/mod/wet4/graphics/sig-blk-<?php echo $graphic_lang ?>.svg"></object>
                 <span class="wb-inv"><?php echo elgg_echo('wet:gc');?></span>
             </div>
-            
+            <div class="col-md-6 col-sm-3">
+            <?php echo elgg_view('page/elements/chng-lang', $vars); ?>
+            </div>
             <section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn">
                 <h2><?php echo elgg_echo('wet:search');?></h2>
                 <ul class="list-inline text-right chvrn">
@@ -40,7 +42,7 @@ if( _elgg_services()->session->get('language') == 'en'){
                 <div id="mb-pnl"></div>
             </section>
 
-            <?php echo elgg_view('search/search_box', $vars); ?>
+           
         </div>
 
         <!-- End of Beautiful Wavy Blue Bar at the top -->
