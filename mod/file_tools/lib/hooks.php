@@ -251,7 +251,7 @@ function file_tools_widget_url_hook($hook, $type, $returnvalue, $params) {
  * @return ElggMenuItem[]
  */
 function file_tools_folder_breadcrumb_hook($hook, $type, $returnvalue, $params) {
-	
+	$lang = get_current_language();
 	if (empty($params) || !is_array($params)) {
 		return $returnvalue;
 	}
@@ -260,10 +260,16 @@ function file_tools_folder_breadcrumb_hook($hook, $type, $returnvalue, $params) 
 	if (!empty($folder) && elgg_instanceof($folder, "object", FILE_TOOLS_SUBTYPE)) {
 		$container = $folder->getContainerEntity();
 		
+if($folder->title3){
+	$title = gc_explode_translation($folder->title3,$lang);
+}else{
+	$title = $folder->title;
+}
+
 		$priority = 9999999;
 		$folder_options = array(
 			"name" => "folder_" . $folder->getGUID(),
-			"text" => $folder->title,
+			"text" => $title,
 			"href" => false,
 			"priority" => $priority
 		);
@@ -273,10 +279,16 @@ function file_tools_folder_breadcrumb_hook($hook, $type, $returnvalue, $params) 
 		$parent_guid = (int) $folder->parent_guid;
 		while (!empty($parent_guid) && ($parent = get_entity($parent_guid))) {
 			$priority--;
+
+			if($parent->title3){
+				$title_parent = gc_explode_translation($parent->title3,$lang);
+			}else{
+				$title_parent = $parent->title;
+			}
 			
 			$folder_options = array(
 				"name" => "folder_" . $parent->getGUID(),
-				"text" => $parent->title,
+				"text" => $title_parent,
 				"href" => $parent->getURL(),
 				"priority" => $priority
 			);
@@ -335,6 +347,7 @@ function file_tools_folder_sidebar_tree_hook($hook, $type, $returnvalue, $params
 		"rel" => "root",
 		"priority" => 0
 	));
+	
 	
 	if ($folders = file_tools_get_folders($container->getGUID())) {
 		$main_menu_item->setChildren(file_tools_make_menu_items($folders));

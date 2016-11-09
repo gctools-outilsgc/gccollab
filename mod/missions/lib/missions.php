@@ -163,7 +163,8 @@ function mm_create_button_set_base($mission, $full_view=false) {
 		
 		// Handles the case where an edit button is needed.
 		// This overwrites the read more button.
-		if(($mission->owner_guid == elgg_get_logged_in_user_guid() || $mission->account == elgg_get_logged_in_user_guid()) 
+        //Nick - letting site admins have access to edit/ deactivate missions
+		if(($mission->owner_guid == elgg_get_logged_in_user_guid() || $mission->account == elgg_get_logged_in_user_guid() || elgg_is_admin_logged_in()) 
 				&& $mission->state != 'completed' && $mission->state != 'cancelled') {
 			$button_one = '<div id="edit-button-mission-' . $mission->guid . '" name="edit-button" style="display:inline-block;">' . elgg_view('output/url', array(
 					'href' => elgg_get_site_url() . 'missions/mission-edit/' . $mission->guid,
@@ -219,12 +220,15 @@ function mm_create_button_set_base($mission, $full_view=false) {
 			));
 			
 			if($relationship_count < $mission->number) {
-				$button_three = '<div id="apply-button-mission-' . $mission->guid . '" name="apply-button" style="display:inline-block;">' . $apply_button = elgg_view('output/url', array(
-		 				'href' => elgg_get_site_url() . 'missions/mission-application/' . $mission->guid,
-		 				'text' => elgg_echo('missions:apply'),
-		 				'class' => 'elgg-button btn btn-primary',
-	 					'style' => 'margin:2px;'
-		 		)) . '</div>';
+				$user = elgg_get_logged_in_user_entity();
+				$mmdep = trim( explode('/', $mission->department_path_english)[0] );
+				if ( !$mission->openess || stripos( $user->department, $mmdep ) !== false )
+					$button_three = '<div id="apply-button-mission-' . $mission->guid . '" name="apply-button" style="display:inline-block;">' . $apply_button = elgg_view('output/url', array(
+			 				'href' => elgg_get_site_url() . 'missions/mission-application/' . $mission->guid,
+			 				'text' => elgg_echo('missions:apply'),
+			 				'class' => 'elgg-button btn btn-primary',
+		 					'style' => 'margin:2px;'
+			 		)) . '</div>';
 			}
 			
 			if(check_entity_relationship($mission->guid, 'mission_tentative', elgg_get_logged_in_user_guid())) {
@@ -276,6 +280,25 @@ function mm_create_button_set_base($mission, $full_view=false) {
 	 				'style' => 'margin:2px;'
 			)) . '</div>';
 		}
+
+        //Nick - Adding the option for admins to delete and edit archived missions
+        if(elgg_is_admin_logged_in()){
+            $returner['edit_button'] = '<div id="edit-button-mission-' . $mission->guid . '" name="edit-button" style="display:inline-block;">' . elgg_view('output/url', array(
+					'href' => elgg_get_site_url() . 'missions/mission-edit/' . $mission->guid,
+					'text' => elgg_echo('missions:edit'),
+					'class' => 'elgg-button btn btn-primary',
+ 					'style' => 'margin:2px;'
+			)) . '</div>';
+
+            $button_four = '<div id="delete-button-mission-' . $mission->guid . '" name="delete-button" style="display:inline-block;">' . elgg_view('output/url', array(
+                        'href' => elgg_get_site_url() . 'action/missions/delete-mission?mission_guid=' . $mission->guid,
+                        'text' => elgg_echo('missions:delete'),
+                        'is_action' => true,
+                        'class' => 'elgg-button btn btn-danger',
+                        'style' => 'margin:2px;'
+                )) . '</div>';
+        }
+
 	}
 	
 	$returner['button_zero'] = $button_zero;
@@ -306,7 +329,7 @@ function mm_create_button_set_base($mission, $full_view=false) {
  	}
  	
  	// Button to advance the mission state to cancelled from posted.
- 	if (($mission->owner_guid == elgg_get_logged_in_user_guid() || $mission->account == elgg_get_logged_in_user_guid()) 
+ 	if (($mission->owner_guid == elgg_get_logged_in_user_guid() || $mission->account == elgg_get_logged_in_user_guid() ||elgg_is_admin_logged_in()) 
  			&& $mission->state != 'cancelled' && $mission->state != 'completed') {
  		$candidate_total = count(elgg_get_entities_from_relationship(array(
  				'relationship' => 'mission_accepted',
@@ -336,6 +359,14 @@ function mm_create_button_set_base($mission, $full_view=false) {
  				'confirm' => elgg_echo('missions:confirm:cancel_mission'),
  				'style' => 'margin:2px;'
  		)) . '</div>';
+        
+        
+        $returner['edit_button'] = '<div id="edit-button-mission-' . $mission->guid . '" name="edit-button" style="display:inline-block;">' . elgg_view('output/url', array(
+					'href' => elgg_get_site_url() . 'missions/mission-edit/' . $mission->guid,
+					'text' => elgg_echo('missions:edit'),
+					'class' => 'elgg-button btn btn-primary',
+ 					'style' => 'margin:2px;'
+			)) . '</div>';
  	}
  	
  	if(($mission->owner_guid == elgg_get_logged_in_user_guid() || $mission->account == elgg_get_logged_in_user_guid()) 
@@ -348,6 +379,18 @@ function mm_create_button_set_base($mission, $full_view=false) {
  				'style' => 'margin:2px;'
  		)) . '</div>';
  	}
+     //Nick - adding the ability for site admins to delete missions from the edit page
+     //They don't want deleting to be an option for users for the sake of analytics
+     //Only admins can delete missions if need be (ex inapropriate content)
+     if(elgg_is_admin_logged_in()){
+         $returner['delete_button'] = '<div id="delete-button-mission-' . $mission->guid . '" name="delete-button" style="display:inline-block;">' . elgg_view('output/url', array(
+                     'href' => elgg_get_site_url() . 'action/missions/delete-mission?mission_guid=' . $mission->guid,
+                     'text' => elgg_echo('missions:delete'),
+                     'is_action' => true,
+                     'class' => 'elgg-button btn btn-danger',
+                     'style' => 'margin:2px;'
+             )) . '</div>';
+     }
  	
  	return $returner;
  }
@@ -581,13 +624,24 @@ function mm_get_translation_key_from_setting_string($input, $setting_string) {
 /*
  * Function which sorts a set of missions by a given value in ascending or descending order.
  */
-function mm_sort_mission_decider($sort, $order, $entity_set) {
+function mm_sort_mission_decider($sort, $order, $entity_set, $opp_type = '') {
 	$backup_array = $entity_set;
 	
 	if($sort == '' || $order == '' || $entity_set == '') {
 		return $backup_array;
 	}
+    
+   if ( $opp_type != '' )				// apply filtering if some types are passed for filtering
+	    foreach($entity_set as $type){
+	        //$type_array[] = $type->job_type;
+	        if(in_array($type->job_type,$opp_type)){		
+	            $entity_set2[] = $type;   
+	        }
+	    }
+	else 								// if nothing is selected for filtering, do not filter
+		$entity_set2 = $entity_set;
 	
+    //$entity_set = array_intersect($type);
 	$comparison = '';
 	switch($sort) {
 		case 'missions:date_posted':
@@ -604,15 +658,15 @@ function mm_sort_mission_decider($sort, $order, $entity_set) {
 			break;
 	}
 	
-	$result = usort($entity_set, $comparison);
+	$result = usort($entity_set2, $comparison);
 	if(!$result) {
 		return $backup_array;
 	}
 	else {
 		if($order == 'missions:ascending') {
-			return array_reverse($entity_set);
+			return array_reverse($entity_set2);
 		}
-		return $entity_set;
+		return $entity_set2;
 	}
 }
 
@@ -659,6 +713,7 @@ function mm_cmp_mission_by_deadline($a, $b) {
  * Check if the user is opted in to any of the opt-in options.
  */
 function check_if_opted_in($current_user) {
+    //Nick - adding additional checks for other opportunity types
 	if($current_user->opt_in_missions == 'gcconnex_profile:opt:yes') {
 		return true;
 	}
@@ -675,6 +730,37 @@ function check_if_opted_in($current_user) {
 		return true;
 	}
 	if($current_user->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_jobshare == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_pcSeek == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_pcCreate == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_rotation== 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    
+    if($current_user->opt_in_ssSeek == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_ssCreate == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_assignSeek == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_assignCreate == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_deploySeek == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_deployCreate == 'gcconnex_profile:opt:yes') {
 		return true;
 	}
 	

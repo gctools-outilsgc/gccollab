@@ -16,6 +16,7 @@ return array(
   'wet:searchweb'=>"Search website",
   'wet:searchgctools'=>"Search GCcollab",
   'wet:more'=>"More",
+  'wet:inboxmore'=>"More (archived)",
   'wet:topicmenu'=>"Topic menu",
   'wet:youarehere'=>"You are here:",
   'wet:errmess' => "<h3 class='h3'>The form could not be submitted because errors were found.</h3>",
@@ -32,10 +33,12 @@ return array(
   'wet:footTitleSocial' => 'Stay Connected',
   'wet:footGCtools' => 'GCTools',
   'wet:barGCpedia'=>'pedia',
+  'wet:barDirectory'=>'directory',
   'wet:collapseWidget' => 'Collapse / Open %s',
   'wet:gcintranetLink-toolsHead' => 'http://intranet.canada.ca/index-eng.asp?utm_source=gcconnex&utm_medium=gctools-banner&utm_campaign=generic',
   'wet:gcintranetLink-toolsFoot' => 'http://intranet.canada.ca/index-eng.asp?utm_source=gcconnex&utm_medium=gcconnex-footer&utm_campaign=generic',
   'wet:gcpediaLink' => 'http://www.gcpedia.gc.ca/wiki/?setlang=en',
+  'wet:gcdirectoryLink' => 'https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002',
   'wet:tutorialLink'=>'http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/See_All',
   'wet:groupLoading'=>'Loading content',
   'subgroups:parent:need_join' => "Join Parent Group",
@@ -48,6 +51,19 @@ return array(
 
 	'newsfeed:filter' => "Filter your News Feed",
   'newsfeed:label' => "Show colleague connections on your News Feed",
+  'wet:login_engage_0'=>'Join your colleagues across Canada to something something something dark side!',
+  'wet:login_engage_1'=>'Share your knowledge and ideas.',
+  'wet:login_engage_2'=>'Find people you need. The opportunities you want.',
+  'wet:login_engage_3'=>'Promote government-wide GC activities.',
+  'wet:login_welcome'=>'Welcome to GCconnex',
+	'wet:jobs:link' => 'jobs.gc.ca <i class="fa fa-external-link mrgn-lft-sm"></i>',
+	'wet:jobs:href' => "http://jobs-emplois.gc.ca/index-eng.htm",
+
+  'wet:login:departments'=>"<span class=\"login-big-num\">174</span> Organizations across Canada",
+  'wet:login:discussions'=>"<span class=\"login-big-num\">%s</span> Discussions happening right now",
+
+  "wet:messagedd:no_results"=>"You're all caught up!",
+
   'newsfeed:do' => "Colleague connections will no longer display on your News Feed.",
   'newsfeed:undo' => "Colleague connections will now display on your News Feed.",
   'newsfeed:filter:title' => "News Feed settings",
@@ -84,7 +100,7 @@ return array(
      'ps:optin' =>"Opt-In",
      'ps:psErr'=>"An error occured getting your profile information.  We are working to resolve the issue.",
 
-     /**
+    /**
     * Department Verify
     */
 
@@ -164,6 +180,10 @@ return array(
   */
 
   'file:folderstruct' => 'Folder structure',
+  'file:move:selected' => 'Move selected',
+  'fil:which:folder' => 'Move into which folder? ',
+  'file:no:selected' => 'Nothing Selected',
+  'file:chose' => 'You have to chose a file or folder first.',
 
 /**
  * User Menu
@@ -174,6 +194,7 @@ return array(
     'userMenu:messages' => "My Messages",
     'userMenu:colleagues' => "My Colleagues",
     'userMenu:usermenuTitle' =>'User Card - Click here for links to your profile, account settings and logout', /*NEW*/
+		'wet:dd:expand'=>"Open drop down of most recent messages",
 
     /**
      * Custom Activity Widget
@@ -1647,6 +1668,56 @@ Please do not reply to this email.",
 'msg:change_access' => "Not all users have access to your content. Since GCconnex wants to be as open as possible, are you sure you need to restrict the access to this content?", //NEW
 'msg:change_access_title' => "Did you know?",
 
+/*
+*Change language content
+*/
+
+'btn:translate:fr' => 'French',
+'btn:translate:en' => 'English',
+'title:en' => 'English title',
+'title:fr' => 'French title',
+'blog:body:fr' => 'Body in french',
+'blog:body:en' => 'Body in english',
+'blog:excerpt:fr' => 'Excerpt in french',
+'blog:excerpt:en' => 'Excerpt in english',
+'groups:name' => 'Group name in english',
+'groups:name2' => 'Group name in french',
+'groups:briefdescription' => 'Brief description in english',
+'groups:briefdescription2' => 'Brief description in english',
+'groups:description' => 'Long description in english',
+'groups:description2'=> 'Long description in french',
+'groups:topicmessage' => 'Topic message in english',
+'groups:topicmessage2' => 'Topic message in french',
+'event_calendar:long_description_label' => 'Long description in english',
+'event_calendar:long_description_label2' => 'Long description in french',
+'event_calendar:info' => 'Additional information in english',
+'event_calendar:info2' => 'Additional information in french',
+'event_calendar:title_label2' => 'Event title in french',
+'event_calendar:title_label' => 'Event title in english',
+'booksmark:description' => 'Long description in english',
+'booksmark:description2'=> 'Long description in french',
+'polls:add_choicefr' => 'Add response choice in french',
+'polls:add_choiceen' => 'Add response choice in english',
+'polls:questionfr' => 'Poll question in french',
+'polls:questionen' => 'Poll question in english',
+'file:description:fr' => 'Description in french',
+'file:description:en' => 'Description in english',
+'album:title:en' => 'Album title in english',
+'album:title:fr' => 'Album title in french',
+'album:desc:en' => 'Album description in english',
+'album:desc:fr' => 'Album description in french',
+'caption:en' => 'Caption in english',
+'caption:fr' => 'Caption in french',
+'pages:description' => 'Page text in english',
+'pages:description2' => 'Page text in french',
+'pages:title' => 'Page title in english',
+'pages:title2' => 'Page title in french',
+'file_tools:forms:edit:description2' => 'Description in french',
+'file_tools:forms:edit:description' => 'Description in english',
+'img:desc:fr' => 'Image description in french',
+'img:desc:en' => 'Image description in english',
+'description:ideas:en' => 'Ideas description in english',
+'description:ideas:fr' => 'Ideas description in french',
 /**
  * Languages according to ISO 639-1 (with a couple of exceptions)
  */

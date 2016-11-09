@@ -51,11 +51,17 @@ $old_status = $blog->status;
 // set defaults and required values.
 $values = array(
 	'title' => '',
+	'title2' => '',
+	'title3' => '',
 	'description' => '',
+	'description2' => '',
+	'description3' => '',
 	'status' => 'draft',
 	'access_id' => ACCESS_DEFAULT,
 	'comments_on' => 'On',
 	'excerpt' => '',
+	'excerpt2' => '',
+	'excerpt3' => '',
 	'tags' => '',
 	'publication_date' => '',
 	'expiration_date' => '',
@@ -63,7 +69,22 @@ $values = array(
 );
 
 // fail if a required entity isn't set
-$required = array('title', 'description');
+//$required = array('title', 'description');
+
+$cart = array(); //Create a array to compare if english or french title and description is in.
+foreach ($values as $name => $default) {
+
+	$value = get_input($name, $default);
+	$cart[] = array($name => $value);
+}
+
+if (($cart['0']['title'] == '') && ($cart['1']['title2'] == '')) {
+	$error = elgg_echo( "blog:error:missing:title");
+}
+
+if (($cart['3']['description'] == '') && ($cart['4']['description2'] == '')) {
+	$error = elgg_echo( "blog:error:missing:description");
+}
 
 // load from POST and do sanity and access checking
 foreach ($values as $name => $default) {
@@ -72,15 +93,16 @@ foreach ($values as $name => $default) {
 	} else {
 		$value = get_input($name, $default);
 	}
-	
-	if (in_array($name, $required) && empty($value)) {
-		$error = elgg_echo("blog:error:missing:$name");
-		break;
-	}
 
 	switch ($name) {
 		case 'tags':
 			$values[$name] = string_to_tag_array($value);
+			break;
+
+		case 'excerpt2':
+			if ($value) {
+				$values[$name] = elgg_get_excerpt($value);
+			}
 			break;
 
 		case 'excerpt':
@@ -123,6 +145,11 @@ foreach ($values as $name => $default) {
 			break;
 	}
 }
+
+//implode for tranlation
+$values['title3'] = gc_implode_translation($values['title'], $values['title2']);
+$values['excerpt3'] = gc_implode_translation($values['excerpt'], $values['excerpt2']);
+$values['description3'] =gc_implode_translation($values['description'], $values['description2']);
 
 // if preview, force status to be draft
 if ($save == false) {

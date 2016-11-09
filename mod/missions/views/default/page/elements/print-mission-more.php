@@ -70,6 +70,10 @@ if(trim($department_path) == '') {
 	}
 }
 
+//Nick - Adding group and level to the mission view
+if(!empty($mission->gl_group)){
+  $print_groupandlevel = '<h5>'.elgg_echo('missions:groupandlevel').': </h5><span>'.$mission->gl_group.'-'.$mission->gl_level.'</span>';
+}
 // Unpacks all language and time metadata attached to the mission.
 $unpacked_array = mm_unpack_mission($mission);
 
@@ -164,7 +168,8 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
 }
 ?>
 
-<div class="mission-printer">
+<div class="row clearfix">
+    <div class="col-sm-8 print-mission-more-holder">
 	<div>
 		<h2 name="mission-job-title">
 			<?php echo elgg_get_excerpt($mission->job_title, 200);?>
@@ -176,105 +181,77 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
 	<div style="text-align:right;">
 		<?php echo $accept_and_decline_top_buttons; ?>
 	</div>
-	<div>
-		<h5><?php echo elgg_echo('missions:opportunity_type') . ':';?></h5> 
-		<span name="mission-job-type"><?php echo elgg_echo($mission->job_type);?></span>
+        <div class="mission-details mrgn-bttm-lg">
+
+		<span name="mission-job-type"><?php echo elgg_echo($mission->job_type);?></span> <i class="fa fa-circle mrgn-lft-sm timeStamp mrgn-bttm-sm" aria-hidden="true" style="font-size:8px"></i>
+            <span class="mrgn-lft-sm"><?php echo elgg_get_friendly_time($mission->time_created); ?></span>
 	</div>
 	<div name="mission-description">
-		<?php echo elgg_get_excerpt($mission->descriptor, 2000);?>
+		<?php
+      //echo elgg_get_excerpt($mission->descriptor, 2000);
+      //Nick - Changed from exceprt to echo the metadata so it does not strip the tags made by ck editor
+      echo $mission->descriptor;
+    ?>
 	</div>
-	<br>
-	<div>
-		<div>
-			<h4><?php echo elgg_echo('mission:creator_information') . ':';?></h4>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:name')  . ':';?></h5> 
-			<span name="creator-name"><?php echo elgg_get_excerpt($creator->name, 100);?></span>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:email')  . ':';?></h5> 
-			<span name="creator-email"><?php echo $creator->email;?></span>
-		</div>
-	</div>
-	<br>
-	<div>
-		<div>
-			<h4><?php echo elgg_echo('mission:manager_information') . ':'; ?></h4>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:name')  . ':';?></h5> 
-			<span name="mission-name"><?php echo elgg_get_excerpt($mission->name, 100);?></span>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:department')  . ':';?></h5> 
-			<span name="mission-department-path"><?php echo elgg_get_excerpt($department_path, 500);?></span>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:email') . ':';?></h5> 
-			<span name="mission-email"><?php echo elgg_get_excerpt($mission->email, 100);?></span>
-		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:your_phone') . ':';?></h5> 
-			<span name="mission-phone"><?php echo $clean_phone;?></span>
-		</div>
-	</div>
-	<br>
+
 	<div>
 		<div>
 			<h4><?php echo elgg_echo('mission:opportunity_details') . ':'; ?></h4>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:program_area')  . ':';?></h5> 
-			<span name="mission-program-area"><?php echo elgg_echo($mission->program_area);?></span>
+		<div class="clearfix">
+			<h5><?php echo elgg_echo('missions:program_area')  . ':';?></h5>
+			<span  name="mission-program-area"><?php echo elgg_echo($mission->program_area);?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:opportunity_number')  . ':';?></h5> 
+    <div class="clearfix">
+        <?php echo $print_groupandlevel; ?>
+    </div>
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:opportunity_number')  . ':';?></h5>
 			<span name="mission-number"><?php echo $mission->number;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:ideal_start_date') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:ideal_start_date') . ':';?></h5>
 			<span name="mission-start-date"><?php echo $mission->start_date;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:ideal_completion_date') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:ideal_completion_date') . ':';?></h5>
 			<span name="mission-completion-date"><?php echo $clean_completion_date;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:deadline') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:deadline') . ':';?></h5>
 			<span name="mission-deadline"><?php echo $mission->deadline;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:work_remotely') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:work_remotely') . ':';?></h5>
 			<span name="mission-remotely"><?php echo $clean_remotely;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:openess_sentence', array(strtoupper($department_abbr)));?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:openess_sentence', array(strtoupper($department_abbr)));?></h5>
 			<span name="mission-openess"><?php echo $clean_openess;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:opportunity_location') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:opportunity_location') . ':';?></h5>
 			<span name="mission-location"><?php echo elgg_echo($mission->location);?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:security_level') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:security_level') . ':';?></h5>
 			<span name="mission-security"><?php echo $clean_security;?></span>
 		</div>
-		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:key_skills_opportunity') . ':';?></h5> 
+		<div class="clearfix">
+                <h5><?php echo elgg_echo('missions:key_skills_opportunity') . ':';?></h5>
 			<span name="mission-skills"><?php echo elgg_get_excerpt($clean_skills, 500);?></span>
 		</div>
 	</div>
-	<br>
-	<div class="col-sm-offset-1">
-		<h5><?php echo elgg_echo('missions:language_requirements') . ':<br>';?></h5>
+	</br>
+	<div class="mission-details">
+		<h5 class="mrgn-tp-md"><?php echo elgg_echo('missions:language_requirements') . ':</br>';?></h5>
 		<div class="col-sm-offset-1">
 			<?php echo $unpacked_language;?>
 		</div>
 	</div>
-	<br>
-	<div class="col-sm-offset-1">
-		<h5><?php echo elgg_echo('missions:scheduling_requirements') . ':<br>';?></h5>
+	</br>
+        <div class="mission-details">
+		<h5 class="mrgn-tp-md"><?php echo elgg_echo('missions:scheduling_requirements') . ':</br>';?></h5>
 		<div class="col-sm-offset-1">
 			<h5><?php echo elgg_echo('missions:time_commitment') . ':';?></h5>
 			<span name="mission-time-commitment">
@@ -288,20 +265,90 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
 			</span>
 		</div>
 		<div class="col-sm-offset-1">
-			<h5><?php echo elgg_echo('missions:timezone') . ':';?></h5> 
+			<h5><?php echo elgg_echo('missions:timezone') . ':';?></h5>
 			<span name="mission-time-zone"><?php echo $clean_timezone;?></span>
 		</div>
 		<div class="col-sm-offset-1">
 			<?php echo $unpacked_time; ?>
 		</div>
 	</div>
-	<br>
-	<br>
 	<div>
 		<?php
 			foreach ($button_set as $value) {
 			    echo $value;
 			}
-		?>
+        ?>
 	</div>
+    </div>
+
+    <div class="col-sm-4 mission-details">
+        <div class="panel panel-default mission-printer">
+            <div>
+                <h4 class="mrgn-tp-sm">
+                    <?php echo elgg_echo('mission:manager_information') . ':'; ?>
+                </h4>
+            </div>
+            <div class="mrgn-bttm-md clearfix">
+                <!--
+                                    <h5>
+                    <?php echo elgg_echo('missions:name')  . ':';?>
+                </h5>
+                <span name="mission-name">
+                    <?php echo elgg_get_excerpt($mission->name, 100);?>
+                </span>
+
+                    -->
+
+                <?php
+                echo elgg_view('page/elements/mission-manager-info', array(
+                    'mission' => $mission,
+                    'container_class' => 'mission-user-card-info',
+                    'grid_number' => '2'
+                ));
+                ?>
+
+            </div>
+            <div class="">
+                <h5>
+                    <?php echo elgg_echo('missions:department')  . ':';?>
+                </h5>
+                <span name="mission-department-path">
+                    <?php echo elgg_get_excerpt($department_path, 500);?>
+                </span>
+            </div>
+            <div class="">
+                <h5>
+                    <?php echo elgg_echo('missions:email') . ':';?>
+                </h5>
+                <span name="mission-email">
+                    <?php 
+                        //Nick - Changed to a mailto link based on email feeback
+                        echo elgg_view('output/url', array(
+                                'text'=>$mission->email,
+                                'href'=>'mailto:'. $mission->email,
+                            ));
+                        ?>
+                </span>
+            </div>
+            <div class="">
+                <h5>
+                    <?php echo elgg_echo('missions:your_phone') . ':';?>
+                </h5>
+                <span name="mission-phone">
+                    <?php echo $clean_phone;?>
+                </span>
+            </div>
+        </div>
+
+        <div>
+
+            <?php
+              echo elgg_view('page/elements/related-candidates', array(
+    		        'entity' => $mission,
+                ));
+            ?>
+
+        </div>
+
+    </div>
 </div>

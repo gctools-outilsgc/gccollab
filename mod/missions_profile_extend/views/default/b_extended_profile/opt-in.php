@@ -17,7 +17,7 @@
     	$user_guid = $_GET["guid"];
 	}
 	else {
-    	$user_guid = elgg_get_page_owner_guid();
+    	$user_guid = elgg_get_logged_in_user_guid();
 	}
 	
 	// Gets the opt_in_set from the user's profile.
@@ -31,34 +31,74 @@
 		echo elgg_echo('gcconnex_profile:opt:set_empty');
 	}
 	else {
-		echo '<table class="gcconnex-profile-opt-in-display-table table table-bordered" style="margin: 10px;">';
-			echo '<tbody><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:micro_mission') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_missions) . '</td>';
-			echo '</tr><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:job_swap') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_swap) . '</td>';
-			echo '</tr><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:mentored') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_mentored) . '</td>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:mentoring') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_mentoring) . '</td>';
-			echo '</tr><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowed') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_shadowed) . '</td>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowing') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_shadowing) . '</td>';
+		echo '<div class="gcconnex-profile-opt-in-display-table" style="margin: 10px;">';
+        echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h4>';
+			echo '<ul class="list-unstyled">';
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:micro_missionseek');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_missions) . '</span></li>';
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:micro_mission');
+                echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_missionCreate) . '</span></li>';
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:assignment_deployment_seek');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_assignSeek) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:assignment_deployment_create');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_assignCreate) . '</span></li>';
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:deployment_seek');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_deploySeek) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:deployment_create');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_deployCreate) . '</span></li>';
+        
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:job_swap');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_swap) . '</span></li>';
+			
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:job_rotate');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_rotation) . '</span></li>';
+        
+				
+                
+        echo '</ul></div>';
+        echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:development').'</h4>';
+        echo '<ul class="list-unstyled">';
+                
+				
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:mentored');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_mentored) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:mentoring');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_mentoring) . '</span></li>';
+			
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowed');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_shadowed) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowing');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_shadowing) . '</span></li>';
+        
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:job_sharing');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_jobshare) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coached');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_pcSeek) . '</span></li>';
+        
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coaching');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_pcCreate) . '</span></li>';
+				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:skill_sharing');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_ssSeek) . '</span></li>';
+        
+                echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:skill_sharing_create');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_ssCreate) . '</span></li>';
+				
+                
+                
+        
+                
+                echo '</ul></div>';
 			/*echo '</tr><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coached') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_peer_coached) . '</td>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coaching') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_peer_coaching) . '</td>';
+				echo '<div class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coached') . '</div>';
+				echo '<div>' . elgg_echo($user->opt_in_peer_coached) . '</div>';
+				echo '<div class="left-col">' . elgg_echo('gcconnex_profile:opt:peer_coaching') . '</div>';
+				echo '<div>' . elgg_echo($user->opt_in_peer_coaching) . '</div>';
 			echo '</tr><tr>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:skill_sharing') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_skill_sharing) . '</td>';
-				echo '<td class="left-col">' . elgg_echo('gcconnex_profile:opt:job_sharing') . '</td>';
-				echo '<td>' . elgg_echo($user->opt_in_job_sharing) . '</td>';*/
-			echo '</tr></tbody></table>';
+				echo '<div class="left-col">' . elgg_echo('gcconnex_profile:opt:skill_sharing') . '</div>';
+				echo '<div>' . elgg_echo($user->opt_in_skill_sharing) . '</div>';
+				echo '<div class="left-col">' . elgg_echo('gcconnex_profile:opt:job_sharing') . '</div>';
+				echo '<div>' . elgg_echo($user->opt_in_job_sharing) . '</div>';*/
+			echo '</div>';
 	}
 	echo '</div>';
 ?>

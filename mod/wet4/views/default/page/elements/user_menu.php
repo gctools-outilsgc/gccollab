@@ -26,8 +26,11 @@ elgg_register_menu_item('user_menu_subMenu', array(
 
 $dropdown = elgg_view_menu('user_menu_subMenu', array('class' => 'dropdown-menu user-menu pull-right subMenu'));
 
+$ajax_dd_messages = '<div aria-hidden="true" id="msg_dd" class="dropdown-menu user-menu-message-dd message-dd-position subMenu">'. elgg_view('page/elements/messages_dd') . '</div>';
 
+$ajax_dd_notification = '<div aria-hidden="true" id="notif_dd"  class="dropdown-menu user-menu-message-dd notif-dd-position subMenu">'. elgg_view('page/elements/notifications_dd') . '</div>';
 
+$focus_dd = '<a href="#" class="focus_dd_link" style="display:none;"><i class="fa fa-caret-down" aria-hidden="true"></i><span class="wb-inv">'.elgg_echo('wet:dd:expand').'</span></a>';
 
 //admin link
 //check to see if user is an admin
@@ -65,7 +68,7 @@ elgg_register_menu_item('user_menu', array(
     'title' => elgg_echo('userMenu:usermenuTitle'),
     'item_class' => 'dropdown',
     'data-toggle' => 'dropdown',
-    'class' => 'dropdown-toggle  dropdownToggle',
+    'class' => 'dropdown-toggle  dropdownToggle dd-close',
     'priority' => '3',
     'tab-index'=>'0', //If the tab index is gone perhaps the screen reader will skip it? What about sighted people with out mouse, need to test, just an idea :3
     //Google has some kind of tab loop when the the card is open, so when the user tabs they only tab through the options in the card
@@ -74,31 +77,68 @@ elgg_register_menu_item('user_menu', array(
 
 //display new message badge on messages
 if (elgg_is_active_plugin('messages')) {
-    $unread = messages_count_unread();
-    
+    $unread = messages_count_unread_inbox();
+
     $title = ' - ' . $unread . ' ' . elgg_echo('messages:unreadmessages');
-    
+
     //display 9+ insted of huge numbers in notif badge
     if ($unread >= 10) {
         //$unread = '9+';
     }
-    
+
     $msgbadge = "<span class='notif-badge'>" . $unread . "</span>";
-    
+
     if ($unread == 0) {
         $msgbadge = '';
         $title = '';
     }
 }
 
+// messages inbox menu item
+//Nick - Removed the href and created my own in the text to hold hidden messages dropdown
 elgg_register_menu_item('user_menu', array(
     'name' => 'messages',
-    'href' => 'messages/inbox/' . $user,
-    'text' => '<i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-2x"></i>' . $msgbadge,
+    'text' => '<a href="'.elgg_get_site_url().'messages/inbox/' . $user.'"><i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-xs">' . elgg_echo('messages') . '</span>' . $msgbadge .'</a>'.$focus_dd .$ajax_dd_messages,
     'title' => elgg_echo('userMenu:messages') . $title,
-    'item_class' => '',
+    'item_class' => 'brdr-lft messagesLabel close-msg-dd',
+    'data-toggle' => '',
+    'id'=>'messagesLabel',
+    'class' => '',
+    'data-dd-type'=>'msg_dd',
+    'priority' => '2',
+
+    ));
+
+
+//display new message badge on messages
+if (elgg_is_active_plugin('messages')) {
+    $unread = messages_count_unread_notifications();
+
+    $title = ' - ' . $unread . ' ' . elgg_echo('messages:unreadmessages');
+
+    //display 9+ insted of huge numbers in notif badge
+    if ($unread >= 10) {
+        //$unread = '9+';
+    }
+
+    $msgbadge = "<span class='notif-badge'>" . $unread . "</span>";
+
+    if ($unread == 0) {
+        $msgbadge = '';
+        $title = '';
+    }
+}
+
+// notifications inbox menu item
+elgg_register_menu_item('user_menu', array(
+    'name' => 'notifications',
+    'text' => '<a href="'.elgg_get_site_url().'messages/notifications/' . $user.'"><i class="fa fa-bell mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-xs">' . elgg_echo('notifications:subscriptions:changesettings') . '</span>' . $msgbadge .'</a>'.$focus_dd.'<div>'.$ajax_dd_notification.'</div>',
+    'title' => elgg_echo('userMenu:notifications') . $title,
+    'item_class' => 'brdr-lft messagesLabel close-notif-dd',
     'class' => '',
     'priority' => '2',
+    'data-dd-type'=>'notif_dd',
+
     ));
 
 

@@ -28,6 +28,7 @@ $title = elgg_echo('messages:user', array($page_owner->name));
 $display_num_post = $_GET['num'];
 if (!isset($display_num_post)) $display_num_post = 10;
 
+$dbprefix = elgg_get_config('dbprefix');
 $list .= elgg_list_entities_from_metadata(array(
 	'type' => 'object',
 	'subtype' => 'messages',
@@ -39,7 +40,12 @@ $list .= elgg_list_entities_from_metadata(array(
     'pagination' => false,
 	'preload_owners' => true,
 	'bulk_actions' => true,
-	'wetcustom:messages' => true
+	'wetcustom:messages' => true,
+	'joins' => "LEFT JOIN {$dbprefix}metadata mdfrom ON e.guid = mdfrom.entity_guid
+	LEFT JOIN {$dbprefix}metastrings msnfrom ON mdfrom.name_id = msnfrom.id
+	LEFT JOIN {$dbprefix}metastrings msvfrom ON mdfrom.value_id = msvfrom.id
+	LEFT JOIN {$dbprefix}entities efrom ON msvfrom.string = efrom.guid",
+	'wheres' => "msnfrom.string = 'fromId' AND efrom.type = 'user'"
 ));
 
 $body_vars = array(

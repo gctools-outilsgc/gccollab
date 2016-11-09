@@ -26,7 +26,7 @@ $sort_field = elgg_view('page/elements/hidden-field', array(
 		'toggle_text_hidden' => elgg_echo('missions:sort_options'),
 		'toggle_id' => 'sort_options',
 		'hidden_content' => $sort_missions_form,
-		'alignment' => 'right'
+		'alignment' => 'left'
 ));
 
 $title = elgg_echo('missions:display_search_results');
@@ -61,9 +61,11 @@ else {
 
 $list_typing = 'list';
 $list_class = '';
+$item_class = '';
 if($search_typing == 'mission') {
     $list_typing = 'gallery';
-    $list_class = 'mission-gallery';
+    $list_class = 'mission-gallery wb-eqht clearfix';
+    $item_class = 'col-sm-4';
 }
 
 // Function which sorts the search set according to a given value in ascending or descending order.
@@ -84,17 +86,18 @@ if(($offset + $max) >= elgg_get_plugin_setting('search_limit', 'missions') && $c
 
 // Only displays sort form if the search set is missions.
 if($search_typing == 'mission') {
-	$content .= '<div class="col-sm-5 col-sm-offset-7">' . $sort_field . '</div>';
+	$content .= '<div class="col-sm-12">' . $sort_field . '</div>';
 }
 
 // Displays the missions as a list with custom class mission-gallery
-$content .= '<div class="col-sm-12">' . elgg_view_entity_list(array_slice($search_set, $offset, $max), array(
+$content .= '<div class="col-sm-12 clearfix">' . elgg_view_entity_list(array_slice($search_set, $offset, $max), array(
 	    'count' => $count,
 	    'offset' => $offset,
 	    'limit' => $max,
 	    'pagination' => true,
 	    'list_type' => $list_typing,
 	    'gallery_class' => $list_class,
+        'item_class'=>$item_class,
 		'missions_full_view' => false
 ), $offset, $max) . '</div>';
 

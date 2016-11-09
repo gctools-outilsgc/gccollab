@@ -14,7 +14,6 @@ require_once("./include/simple-captcha.php");
 $email=elgg_get_plugin_setting('email','contactform');
 $formproc = new FGContactForm();
 $sim_captcha = new FGSimpleCaptcha('scaptcha');
-
 $formproc->EnableCaptcha($sim_captcha);
 
 //1. Add your email address here.
@@ -24,7 +23,6 @@ $formproc->EnableCaptcha($sim_captcha);
 //2. For better security. Get a random tring from this link: http://tinyurl.com/randstr
 // and put it here
 $formproc->SetFormRandomKey('CnRrspl1FyEylUj');
-
 
 if(isset($_POST['submitted']))
 {

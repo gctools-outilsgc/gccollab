@@ -6,6 +6,7 @@ namespace AU\SubGroups;
 // note that the array is built backwards due to the recursive
 // getting of parents
 function breadcrumb_override($params) {
+	$lang = get_current_language();
 	switch ($params['segments'][0]) {
 		case 'profile':
 			$group = get_entity($params['segments'][1]);
@@ -20,8 +21,14 @@ function breadcrumb_override($params) {
 				$breadcrumbs[] = $parentcrumb;
 			}
 
+			if($group->title3){
+				$group_title = gc_explode_translation($group->title3,$lang);
+			}else{
+				$group_title = $group->name;
+			}
+
 			$breadcrumbs[] = array(
-				'title' => $group->name,
+				'title' => $group_title,
 				'link' => NULL
 			);
 
@@ -40,9 +47,9 @@ function breadcrumb_override($params) {
 			foreach ($parentcrumbs as $parentcrumb) {
 				$breadcrumbs[] = $parentcrumb;
 			}
+
 			$breadcrumbs[] = array('title' => $group->name, 'link' => $group->getURL());
 			$breadcrumbs[] = array('title' => elgg_echo('groups:edit'), 'link' => NULL);
-
 			set_input('au_subgroups_breadcrumbs', $breadcrumbs);
 			break;
 	}
@@ -71,7 +78,6 @@ function clone_layout($group, $parent) {
 	$layout->owner_guid = $group->getGUID();
 	$layout->container_guid = $group->getGUID();
 	$layout->access_id = ACCESS_PUBLIC;
-
 	$layout->save();
 
 	// background image
@@ -88,7 +94,6 @@ function clone_layout($group, $parent) {
 	$layout->title_color = $parentlayout->title_color;
 	$group->addRelationship($layout->getGUID(), GROUP_CUSTOM_LAYOUT_RELATION);
 }
-
 
 /**
  * recursively travels down all routes to gather all guids of
@@ -116,7 +121,6 @@ function get_all_children_guids($group, $guids = array()) {
 
 	return $guids;
 }
-
 
 /**
  * Determines if a group is a subgroup of another group
@@ -175,17 +179,24 @@ function list_subgroups($group, $limit = 10) {
 	return elgg_list_entities_from_relationship($options);
 }
 
-
 /**
  * Sets breadcrumbs from 'All groups' to current parent
  * iterating through all parent groups
  * @param type $group
  */
 function parent_breadcrumbs($group, $push = true) {
+	$lang = get_current_language();
 	$parents = array();
 
 	while ($parent = get_parent_group($group)) {
-		$parents[] = array('title' => $parent->name, 'link' => $parent->getURL());
+
+		if($parent->title3){
+			$group_name = gc_explode_translation($parent->title3,$lang);
+		}else{
+			$group_name = $parent->name;
+		}
+
+		$parents[] = array('title' => $group_name, 'link' => $parent->getURL());
 		$group = $parent;
 	}
 
@@ -208,7 +219,6 @@ function set_parent_group($group_guid, $parent_guid) {
 
 function remove_parent_group($group_guid) {
 	$group = get_entity($group_guid);
-
 	$parent = get_parent_group($group);
 
 	if ($parent) {

@@ -10,7 +10,6 @@
  */
 
 $item = $vars['item'];
-
 $link_class = 'elgg-menu-closed';
 if ($item->getSelected()) {
 	// @todo switch to addItemClass when that is implemented

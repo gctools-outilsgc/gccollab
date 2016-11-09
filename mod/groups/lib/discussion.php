@@ -89,6 +89,8 @@ function discussion_handle_list_page($guid) {
  */
 function discussion_handle_edit_page($type, $guid) {
 	elgg_gatekeeper();
+	$lang = get_current_language();
+
 
 	if ($type == 'add') {
 		$group = get_entity($guid);
@@ -124,8 +126,20 @@ function discussion_handle_edit_page($type, $guid) {
 
 		$title = elgg_echo('groups:edittopic');
 
-		elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
-		elgg_push_breadcrumb($topic->title, $topic->getURL());
+		if($group->title3){
+			elgg_push_breadcrumb(gc_explode_translation($group->title3,$lang), "discussion/owner/$group->guid");
+		}else{
+			elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
+		}
+
+		if($group->title3){
+			elgg_push_breadcrumb(gc_explode_translation($topic->title3,$lang), $topic->getURL());
+		}else{
+			elgg_push_breadcrumb($topic->title, $topic->getURL());
+		}
+
+		
+		
 		elgg_push_breadcrumb($title);
 
 		$body_vars = discussion_prepare_form_vars($topic);
@@ -202,7 +216,7 @@ function discussion_handle_view_page($guid) {
 	// We now have RSS on topics
 	global $autofeed;
 	$autofeed = true;
-
+	$lang = get_current_language();
 	elgg_entity_gatekeeper($guid, 'object', 'groupforumtopic');
 
 	$topic = get_entity($guid);
@@ -219,15 +233,28 @@ function discussion_handle_view_page($guid) {
 
 	elgg_group_gatekeeper();
 
-	elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
-	elgg_push_breadcrumb($topic->title);
+	if($group->title3){
+		elgg_push_breadcrumb(gc_explode_translation($group->title3,$lang), "discussion/owner/$group->guid");
+	}else{
+		elgg_push_breadcrumb($group->name, "discussion/owner/$group->guid");
+	}
+
+	
+	if($topic->title3){
+	elgg_push_breadcrumb(gc_explode_translation($topic->title3, $lang));
+    }else{
+      elgg_push_breadcrumb($topic->title);  
+    }
 
 	$params = array(
 		'topic' => $topic,
 		'show_add_form' => false,
 	);
 
-	$content = elgg_view_entity($topic, array('full_view' => true));
+	if($topic->description3){
+ $topic->description =  gc_explode_translation($topic->description3, $lang); //change content to translation description   
+}
+	$content = elgg_view_entity($topic, array('full_view' => true, ));
 	if ($topic->status == 'closed') {
 		$content .= elgg_view('discussion/replies', $params);
 		$content .= elgg_view('discussion/closed');
@@ -237,10 +264,14 @@ function discussion_handle_view_page($guid) {
 	} else {
 		$content .= elgg_view('discussion/replies', $params);
 	}
-
+if($topic->title3){
+   $title = gc_explode_translation($topic->title3, $lang);
+}else{
+$title = $topic->title;
+}
 	$params = array(
 		'content' => $content,
-		'title' => $topic->title,
+		'title' =>$title,
 		'sidebar' => elgg_view('discussion/sidebar'),
 		'filter' => '',
 	);
@@ -259,7 +290,9 @@ function discussion_prepare_form_vars($topic = NULL) {
 	// input names => defaults
 	$values = array(
 		'title' => '',
+		'title2' => '',
 		'description' => '',
+		'description2' => '',
 		'status' => '',
 		'access_id' => ACCESS_DEFAULT,
 		'tags' => '',

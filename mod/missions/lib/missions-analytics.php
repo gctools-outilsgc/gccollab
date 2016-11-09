@@ -317,6 +317,30 @@ function mm_analytics_get_missions_by_dates($start_date, $end_date, $date_type) 
 	return $missions;
 }
 
+function mm_analytics_get_declinations_by_dates($start_date, $end_date) {
+	$options['type'] = 'object';
+	$options['subtype'] = 'mission-declination';
+	$options['limit'] = 0;
+	$options['created_time_lower'] = $start_date;
+	$options['created_time_upper'] = $end_date;
+	
+	return elgg_get_entities($options);
+}
+
+function mm_analytics_get_missions_by_posting_and_closure($start_date, $end_date) {
+	$options['type'] = 'object';
+	$options['subtype'] = 'mission';
+	$options['limit'] = 0;
+	$options['created_time_upper'] = $end_date;
+	$options['metadata_name_value_pairs'] = array(array(
+			'name' => 'time_closed', 'operand' => '>=', 'value' => $start_date,
+			'name' => 'time_closed', 'operand' => '=', 'value' => null
+	));
+	$options['metadata_name_value_pairs_operator'] = 'OR';
+	
+	return elgg_get_entities_from_metadata($options);
+}
+
 /*
  * Removes all missions from the set which are not a part of the given department or that departments children.
  */
@@ -337,7 +361,7 @@ function mm_analytics_cull_missions_by_department($mission_set, $department) {
  */
 function mm_analytics_separate_missions_by_values($mission_set, $separator) {
 	$returner_array = array();
-	if($separator == '') {
+	if($separator == '' || $separator == 'missions:average_number_of_applicants') {
 		$returner_array[0] = $mission_set;
 	}
 	else {
@@ -345,7 +369,7 @@ function mm_analytics_separate_missions_by_values($mission_set, $separator) {
 		switch($separator) {
 			case 'missions:state':
 				$meta_tag = 'state';
-				$comparison_array = array('posted', 'completed', 'cancelled');
+				$comparison_array = array('posted', 'cancelled', 'completed');
 				break;
 			case 'missions:reliability':
 				$meta_tag = 'security';
@@ -358,6 +382,22 @@ function mm_analytics_separate_missions_by_values($mission_set, $separator) {
 			case 'missions:limited_by_department':
 				$meta_tag = 'openess';
 				$comparison_array = array('on', false);
+				break;
+			case 'missions:type':
+				$meta_tag = 'job_type';
+				$comparison_array = explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions'));
+				break;
+			case 'missions:reason_to_decline':
+				$meta_tag = 'applicant_reason';
+				$comparison_array = explode(',', elgg_get_plugin_setting('decline_reason_string', 'missions'));
+				break;
+			case 'missions:location':
+				$meta_tag = 'location';
+				$comparison_array = explode(',', elgg_get_plugin_setting('province_string', 'missions'));
+				break;
+			case 'missions:field_of_work':
+				$meta_tag = 'program_area';
+				$comparison_array = explode(',', elgg_get_plugin_setting('program_area_string', 'missions'));
 				break;
 		}
 		
@@ -402,6 +442,18 @@ function mm_analytics_generate_separation_labels($separator) {
 		case 'missions:limited_by_department':
 			$returner = array('missions:limited_by_department', 'missions:not_limited_by_department');
 			break;
+		case 'missions:type':
+			$returner = explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions'));
+			break;
+		case 'missions:reason_to_decline':
+			$returner = explode(',', elgg_get_plugin_setting('decline_reason_string', 'missions'));
+			break;
+		case 'missions:location':
+			$returner = explode(',', elgg_get_plugin_setting('province_string', 'missions'));
+			break;
+		case 'missions:field_of_work':
+			$returner = explode(',', elgg_get_plugin_setting('program_area_string', 'missions'));
+			break;
 		default:
 			$returner = array('missions:all_opportunities');
 	}
@@ -411,8 +463,9 @@ function mm_analytics_generate_separation_labels($separator) {
 /*
  * Separates the missions into their respective bins.
  */
-function mm_analytics_separate_missions_into_bins($mission_set, $timescale_array, $target, $graph_type) {
-	$metadata = mm_analytics_get_metadata_name_from_target_value($target);
+function mm_analytics_separate_sets_into_bins($mission_set, $timescale_array, $target_lower, $target_upper, $graph_type) {
+	$metadata_lower = mm_analytics_get_metadata_name_from_target_value($target_lower);
+	$metadata_upper = mm_analytics_get_metadata_name_from_target_value($metadata_upper);
 	
 	// Creates a set of bins corresponding to the intervals.
 	$returner = array();
@@ -438,7 +491,7 @@ function mm_analytics_separate_missions_into_bins($mission_set, $timescale_array
 					$upper_bound = $modified_data_by_type[1];
 				}
 				
-				if($mission->$metadata >= $lower_bound && $mission->$metadata < $upper_bound) {
+				if(($mission->$metadata_lower >= $lower_bound || $mission->$metadata_lower == null) && $mission->$metadata_upper < $upper_bound) {
 					$returner[$y][$i][] = $mission;
 				}
 			}
@@ -544,6 +597,8 @@ function mm_analytics_get_metadata_name_from_target_value($target_value) {
 		case 'missions:hours_per_month':
 			$metadata = 'time_commitment';
 			break;
+		default:
+			$metadata = 'time_created';
 	}
 	
 	return $metadata;
@@ -612,4 +667,64 @@ function mm_analytics_generate_time_scale_bins($number_of_bins, $target_value, $
 	}
 	
 	return $timescale_bins;
+}
+
+
+
+
+/** 
+ * Get the top n most requested skills in currently posted micromissions
+ * @param int $n the number of skills to return, default: top 10 skills
+ * @return array the top $n most requested skills
+ */
+function getTopSkills( $n = 10 ){
+
+	$top_skills = array();		// the array which will be will be returned
+	$all_skills = array();		// will contain all skills as keys with the ammount of time they occur as the value
+	$dbprefix = elgg_get_config('dbprefix');
+
+	// Prepare query - we're looking for all skills from currently posted micromissions for now.
+	// Most of the analysis of the data (counting the skills, sorting) to get the top $n skills will happen afterwards in PHP.
+	$query_string = 
+	"SELECT msvs.string AS skill, count(*) AS num 
+	/* filter - currently posted opportunities only */
+	FROM {$dbprefix}metastrings msnp 
+	LEFT JOIN {$dbprefix}metadata mdp ON msnp.id = mdp.name_id 
+	LEFT JOIN {$dbprefix}metastrings msvp ON msvp.id = mdp.value_id 
+	/* ensure we are only dealing with opportunities */
+	LEFT JOIN {$dbprefix}entities e ON mdp.entity_guid = e.guid 
+	LEFT JOIN {$dbprefix}entity_subtypes st ON e.subtype = st.id 
+	/* now we can get the key required skills from each of these opportunities */
+	LEFT JOIN {$dbprefix}metadata mds ON e.guid = mds.entity_guid 
+	LEFT JOIN {$dbprefix}metastrings msns ON mds.name_id = msns.id 
+	LEFT JOIN {$dbprefix}metastrings msvs ON mds.value_id = msvs.id 
+	WHERE msnp.string = 'state' AND msvp.string = 'posted' AND st.subtype = 'mission' AND msns.string = 'key_skills' 
+	GROUP BY skill HAVING skill <> ''";
+
+	// now run the query
+	$result = get_data($query_string);
+
+	// Get an array of distinct skills with along with their occurance frequency
+	foreach ( $result as $row ) {
+		// allows handling of the cases where there are multiple skills
+		$skill_array = explode( ',', $row->skill );
+		foreach ( $skill_array as $skill ) {
+			// clean up the string
+			$skill_string = trim($skill);
+			$all_skills[$skill_string] = $all_skills[$skill_string] + $row->num;		// add to occurance of this skill the number of opportunities that had this set of skills
+		}
+	}
+
+	arsort($all_skills);		// sort by occurance frequency (stored in the array values)
+
+	// Get top $n skills
+	$i = 0;
+	foreach ($all_skills as $key => $value) {
+		$top_skills[$key] = $value;
+		$i+=1;
+		if ($i >= $n)
+			break;
+	}
+
+	return $top_skills;
 }

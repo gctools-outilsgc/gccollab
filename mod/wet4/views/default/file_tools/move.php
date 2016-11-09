@@ -1,8 +1,9 @@
 <?php
 //get guids passed here
 $fileGUIDs = (string) get_input("guids");
+$lang = get_current_language();
+
 if(!empty($fileGUIDs)){
- 
     //put string values into array
     $file = explode(',', $fileGUIDs);
     array_pop($file);
@@ -45,7 +46,7 @@ if(!empty($fileGUIDs)){
     $form = '';
     $form .= '<div style="width:300px">';
     
-    $form .= '<p>Move into which folder?</p>';
+    $form .= '<p>'.elgg_echo('fil:which:folder').'</p>';
     
             $form .= elgg_view('output/url', array(
                 'text' => elgg_echo('file_tools:input:folder_select:main'),
@@ -53,13 +54,23 @@ if(!empty($fileGUIDs)){
                 'is_action' => true,
             ));
             $form .='<br>';
-    
+
             foreach($resultArray as $key => $value){
-                $form .= elgg_view('output/url', array(
+                if(get_entity($key)->title3){
+                           $form .= elgg_view('output/url', array(
+                'text' => '-'.gc_explode_translation(get_entity($key)->title3,$lang),
+                'href' => 'action/file/move_folder?file_guid=' . $fileGUIDs . '&folder_guid=' . $key,
+                'is_action' => true,
+            ));
+                       }else{
+                           $form .= elgg_view('output/url', array(
                 'text' => $value,
                 'href' => 'action/file/move_folder?file_guid=' . $fileGUIDs . '&folder_guid=' . $key,
                 'is_action' => true,
             ));
+
+                       }
+         
                 
                 $form .= '<br>';
             }
@@ -67,12 +78,12 @@ if(!empty($fileGUIDs)){
     $body = elgg_view_layout('one_column', array(
         'filter' => false,
         'content' => $form,
-        'title' => 'Move Selected'
+        'title' => elgg_echo('file:move:selected'),
     ));
     echo $body;
 } else {
     
     //display alert saying you need to select file
-    echo '<div class="alert alert-info"><h3>Nothing Selected</h3>
-	<p>You have to chose a file or folder first.</p></div>';
+    echo '<div class="alert alert-info"><h3>'.elgg_echo('file:no:selected').'</h3>
+	<p>'.elgg_echo('file:chose').'</p></div>';
 }

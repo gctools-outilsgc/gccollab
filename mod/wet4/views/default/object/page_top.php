@@ -13,6 +13,7 @@
 $full = elgg_extract('full_view', $vars, FALSE);
 $page = elgg_extract('entity', $vars, FALSE);
 $revision = elgg_extract('revision', $vars, FALSE);
+$lang = get_current_language();
 
 if (!$page) {
 	return TRUE;
@@ -96,6 +97,9 @@ if (!elgg_in_context('widgets')) {
 }
 
 if ($full) {
+	if ($page->description3){
+		$annotation->value = gc_explode_translation($page->description3, $lang);
+	}
 	$body = elgg_view('output/longtext', array('value' => $annotation->value));
 
 	$params = array(
@@ -117,8 +121,12 @@ if ($full) {
 
 } else {
 	// brief view
-
+if($page->description3){
+	$excerpt = elgg_get_excerpt(gc_explode_translation($page->description3, $lang));
+}else{
 	$excerpt = elgg_get_excerpt($page->description);
+}
+	
 
     if(elgg_in_context('group_profile')){
         $metadata = elgg_view_menu('entity', array(

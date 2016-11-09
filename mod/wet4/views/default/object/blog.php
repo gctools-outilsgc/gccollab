@@ -4,7 +4,7 @@
  *
  * @package Blog
  */
-
+$lang = get_current_language();
 $full = elgg_extract('full_view', $vars, FALSE);
 $blog = elgg_extract('entity', $vars, FALSE);
 
@@ -15,9 +15,18 @@ if (!$blog) {
 $owner = $blog->getOwnerEntity();
 $container = $blog->getContainerEntity();
 $categories = elgg_view('output/categories', $vars);
-$excerpt = $blog->excerpt;
+if($blog->excerpt3){
+	$excerpt = gc_explode_translation($blog->excerpt3,$lang);
+}else{
+	$excerpt = $blog->excerpt;
+}
+
 if (empty($excerpt)) {
-	$excerpt = elgg_get_excerpt($blog->description);
+	if($blog->description3){
+		$excerpt = elgg_get_excerpt(gc_explode_translation($blog->description3, $lang));
+	}else{
+		$excerpt = $blog->description;
+	}
 }
 
 //test to see if it is widget view
@@ -39,7 +48,7 @@ $author_text = elgg_echo('byline', array($owner_link));
 if (elgg_instanceof($container, "group") && ($container->getGUID() !== elgg_get_page_owner_guid())) {
 	$params = array(
 		'href' => $container->getURL(),
-		'text' => $container->name,
+		'text' => gc_explode_translation($container->title3, $lang),
 		'is_trusted' => true
 	);
 	$group_link = elgg_view('output/url', $params);
@@ -82,8 +91,14 @@ if (elgg_in_context('widgets')) {
 // Show blog
 if ($full) {
 	// full view
-	$body = elgg_view('output/longtext', array(
-		'value' => $blog->description,
+
+if($blog->description3){
+	$blog_descr = gc_explode_translation($blog->description3, $lang);
+}else{
+	$blog_descr = $blog->description;
+}
+ 	$body = elgg_view('output/longtext', array(
+		'value' => $blog_descr,
 		'class' => 'blog-post',
 	));
 

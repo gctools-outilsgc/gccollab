@@ -22,12 +22,6 @@ if (!array_key_exists($size, $icon_sizes)) {
 	$size = 'medium';
 }
 
-/*if(elgg_get_context() == 'friends'){
-    $size = 'medium';
-}
-if(elgg_get_context() == 'profile'){
-    $size = 'large';
-}*/
 
 if (!($user instanceof ElggUser)) {
 	return;
@@ -45,7 +39,6 @@ if($force_size){
 } else {
     $class = "elgg-avatar elgg-avatar-$size-wet4 ";
 }
-
 
 
 if (isset($vars['class'])) {
@@ -69,8 +62,7 @@ $js = elgg_extract('js', $vars, '');
 if ($js) {
 	elgg_deprecated_notice("Passing 'js' to icon views is deprecated.", 1.8, 5);
 }
-//trying out circle images, because medium is too big and small is too small. Life is hard sometimes.
-//the circles are almost too modern and out of place. There arn't as many circular elements in the interface for it to make sense.
+//Circle Images by adding img-circle class
 $img_class = 'img-responsive img-circle';
 if (isset($vars['img_class'])) {
 	$img_class = $vars['img_class'];
@@ -86,7 +78,6 @@ if (isset($vars['hover'])) {
 	// only 1.8.0 was released with 'hover' as the key
 	$use_hover = $vars['hover'];
 }
-
 
 
 $show_menu = $use_hover && (elgg_is_admin_logged_in() || !$user->isBanned());
@@ -109,7 +100,7 @@ if ($show_menu) {
 /*
  * GC tools ambassador badge
  * loading in the badge based on metadata
- * placed over user's avatar     
+ * placed over user's avatar
  */
 
 
@@ -121,14 +112,6 @@ if(elgg_is_active_plugin('gcProfilePictureBadges')){
         //load badge
         $badge = '<div class="gcProfileBadge">';
 
-        /* Badges
-         * 
-         *  Top left green - amb_badge_v1_2.png
-         *  Top left red - amb_badge_v1_5.png
-         *  Bottom green - amb_badge_1.png
-         *  Bottom red - amb_badge_v1_4.png
-         * 
-         */
         $badge .= elgg_view('output/img', array(
             'src' => 'mod/gcProfilePictureBadges/graphics/amb_badge_v1_5.png',
             'class' => 'img-responsive',

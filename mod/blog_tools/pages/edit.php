@@ -31,9 +31,11 @@ if ($page_type == "edit") {
 	$title = elgg_echo("blog:edit");
 
 	if (elgg_instanceof($blog, "object", "blog") && $blog->canEdit()) {
+		$lang = get_current_language();
 		$vars["entity"] = $blog;
 
-		$title .= ": " . $blog->title;
+$tilte_blog = gc_explode_translation($blog->title3, $lang);
+		$title .= ": " . $tilte_blog;
 		
 		if ($revision) {
 			$revision = elgg_get_annotation_from_id((int)$revision);
@@ -51,7 +53,7 @@ if ($page_type == "edit") {
 		
 		$body_vars = blog_prepare_form_vars($blog, $revision);
 		
-		elgg_push_breadcrumb($blog->title, $blog->getURL());
+		elgg_push_breadcrumb($tilte_blog, $blog->getURL());
 		elgg_push_breadcrumb(elgg_echo("edit"));
 			
 		$content = elgg_view_form("blog/save", $vars, $body_vars);

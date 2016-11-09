@@ -10619,74 +10619,20 @@ a.shr-opn, a.shr-opn:hover {
 .wb-disable #wb-sm .nvbar {
   display: block !important; }
 
-/* I'm guessing i put my own styles down here? If I don't know, now i know */
+/* SPLASH PAGE */
 
-.card{
-
-    padding: 1%;
-    border: solid 1px #efefef;
-
-}
-
-.group-summary-holder{
-
-    padding:6px 0;
-}
-
-.group-summary-holder h1{
-    border-bottom:none;
-
-}
-
-/******************** Changing Bootstraps columns ********************/
-
-    .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
+.splash object {
+  height: auto;
+  max-width: 100%; }
 
 
-.widget-area-col {
-    min-height:50px;
-}
+.splash .sp-lk:link, .splash .sp-lk:visited {
+  color: #335075;
+  text-decoration: none; }
 
-.list-break{
-    margin-top: 5px !important;
-    padding-bottom: 5px !important;
-    border-bottom: 1px solid #ddd !important;
-}
-
-.list-break:last-child{
-    border-bottom:none !important;
-}
-
-
-/*Place Holder color in user profile fields*/
-   #editProfile .form-control::-moz-placeholder {
-    color: #bbb !important;
-    opacity: 1; }
-   #editProfile .form-control:-ms-input-placeholder {
-    color: #bbb !important; }
- #editProfile .form-control::-webkit-input-placeholder {
-    color: #bbb !important; }
-
- .gcconnex-profile-name button:last-child{
-     border: solid 1px #46246A;
-
- }
-
-    /****************************************/
-
-    /******************** user menu ********************/
-
-    .dropdown .elgg-menu {
-        padding: 0;
-    }
-
-
-    .subMenu .dropdownToggle {
-        display: none;
-    }
+.splash .sp-lk:hover, .splash .sp-lk:active {
+  color: #335075;
+  text-decoration: underline; }
 
     .profile-avatar {
         padding-left: 27px;
@@ -11841,21 +11787,6 @@ details.elgg-state-success:before {
   content: "\e101"; }
 
 
-/** comment stuff ;) **/
-.elgg-body{
-    overflow:visible;
-}
-
-.edit-comment form fieldset{
-    width:100%;
-}
-
-
-/** Photo Gallery Custom Classes**/
-
-.panel-body-gallery {
- padding:7px;
-}
 
 /****** New Header style stuff *******/
 #app-brand{

@@ -1,7 +1,7 @@
 <?php
 /**
  * WET 4 Site Branding
- * 
+ *
  */
 
 // footer
@@ -22,7 +22,7 @@ if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
                         <span><span class="bold-gc">GC</span>collab</span>
                     </a>
                     </div>
-                    
+
                     
                 </div>
                 <div class="col-md-6 col-sm-4 col-xs-hidden">
@@ -33,7 +33,7 @@ if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 <?php } ?>

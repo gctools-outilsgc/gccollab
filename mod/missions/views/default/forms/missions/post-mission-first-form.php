@@ -35,7 +35,7 @@ if(!elgg_is_sticky_form('firstfill')) {
 	if(!$extracted_org) {
 		$exploded_department = explode('/', $user->department);
 		$department_name = trim($exploded_department[0]);
-		$extracted_org = mo_format_input_node(mo_get_department_next_to_root($department_name));
+		$extracted_org = false;//mo_format_input_node(mo_get_department_next_to_root($department_name));
 	}
 	if(!$email) {
 		$email = $user->email;
@@ -45,10 +45,6 @@ if(!elgg_is_sticky_form('firstfill')) {
 	}
 }
 
-$duplicating_entity = get_entity($_SESSION['mission_duplication_id']);
-if(get_subtype_from_id($duplicating_entity->subtype) == 'mission' && !$_SESSION['mission_duplicating_override_first']) {
-	$extracted_org = $duplicating_entity->department;
-}
 
 $input_name = elgg_view('input/text', array(
     'name' => 'name',
@@ -135,8 +131,8 @@ $input_disclaimer = elgg_view('input/checkbox', array(
 		<?php echo elgg_echo('missions:post_disclaimer'); ?>
 	</div>
 </div>
-<div> 
-	<?php 
+<div>
+	<?php
 		echo elgg_view('input/submit', array(
 				'value' => elgg_echo('missions:next'),
 				'class' => 'elgg-button btn btn-primary',
