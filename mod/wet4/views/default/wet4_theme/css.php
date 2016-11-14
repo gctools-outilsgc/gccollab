@@ -10720,10 +10720,6 @@ a.shr-opn, a.shr-opn:hover {
         margin-right: 7px;
     }
 
-    #file_tools_list_files .ui-draggable, .file-tools-file.ui-draggable {
-        background: none;
-    }
-
 .user-menu{
     min-width: 400px;
     top: 110% !important;
@@ -10786,36 +10782,6 @@ a.shr-opn, a.shr-opn:hover {
 
  }
 
- .elgg-avatar-wet4-sf{
-        width:37%;
-
- }
- .medium-avatar-plus{
-    margin: 0;
-    width: 110%;
-
- }
-
- .group-profile-image-size img{
-     width: 180% !important;
-
- }
- .elgg-module-aside .elgg-avatar {
-     width:40px;
-     height:40px;
-
- }
-
-
- .pro-avatar {
-     height:auto !important;
-     width: 100% !important;
- }
-
- .department-test{
-     width: 43%;
-
- }
 .elgg-menu-user-menu li{
     padding-left: 8px;
     padding-right: 0px;
@@ -10849,68 +10815,13 @@ a.shr-opn, a.shr-opn:hover {
      left: 5%;
 }
 
-    .gcProfileBadge-lower {
-         position: absolute;
-         margin-left: auto;
-         margin-right: auto;
-         left: 0;
-         bottom: -16%;
-         right: 0;
-         pointer-events: none;
-    }
-
-    .ambBorder1 {
-       border: 2px solid #005456;
-    }
-
-    .ambBorder2 {
-        border: 2px solid #f5db84;
-    }
-
-    .userMenuAvatar {
-
-        margin-bottom: -6px;
-    }
-
-.user-menu:after{
-       content: '';
-    display: block;
-    position: absolute;
-    left: 93%;
-    top: -10px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid #fff;
-    clear: both;
-}
-.user-menu:before{
-       content: '';
-    display: block;
-    position: absolute;
-    left: 93%;
-    top: -12px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
-    clear: both;
-}
+    
 
     .elgg-gallery li {
         border: 0px;
     }
 
 
-
-    .unread-custom span {
-            color: #46246A;
-        font-weight: bold;
-    }
 
     .message:hover {
        background: #F5F5F5;
@@ -11007,17 +10918,6 @@ a.shr-opn, a.shr-opn:hover {
         border-color: lightblue;
     }
 
-    .btn-custom-cta {
-        background: #46246A;
-        border-radius: 0;
-        border-color: #d0d2d3;
-        color: white;
-    }
-
-    .btn-custom-cta:hover {
-        background: #6B5088;
-        color: white;
-    }
 
     .btn-endorse {
           color: #335075;
@@ -11027,169 +10927,7 @@ a.shr-opn, a.shr-opn:hover {
         border-radius: 0;
     }
 
-    /****************************************/
 
-    /******************** Removing Ugly rounded Corners ********************/
-
-    .form-control {
-        border-radius: 0;
-    }
-
-.dropdown a:focus {
-   outline: 5px auto -webkit-focus-ring-color;;
-    border-radius: 2px;
-}
-
-    .dropdown-menu {
-        border-radius: 0;
-    }
-
-    /****************************************/
-
-    /******************** Timestamp ********************/
-
-    .timeStamp {
-        color: #606060;
-        font-size: 16px;
-    }
-
-    /****************************************/
-
-    /******************** Feed Content Previews ********************/
-
-    .actPre {
-        padding-left: 5px;
-        border-left: 2px solid #46246A;
-    }
-
-    .discPre {
-        padding-left: 5px;
-        border-left: 2px solid #46246A;
-        font-size: 13px;
-    }
-
-    /****************************************/
-
-    /******************** Pager ********************/
-
-    .pagination {
-        margin: 0;
-        left: 10%;
-    }
-
-    .pagination li {
-        border-radius: 0;
-    }
-
-    .pagination li a {
-        border-radius: 0;
-        margin-bottom: 0;
-    }
-
-    .elgg-pagination{
-        left:25% !important;
-
-    }
-    .ui-autocomplete {
-        padding-left: 0;
-    }
-
-    .elgg-tag {
-
-
-        padding: 2px;
-        border: 1px solid #46246A;
-        border-radius: 8px;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        color: white;
-        margin: 1px;
-    }
-
-    .elgg-tag:hover{
-
-        background: #f5f5f5;
-    }
-
-    .elgg-tag a {
-
-        text-decoration: none;
-    }
-
-    /****************************************/
-
-    /******************** Discussion Styles ********************/
-
-    .breadcrumb {
-        margin-bottom: 5px;
-    }
-
-    .elgg-form-group-operators-add fieldset {
-        width: 100%;
-    }
-
-    .userControlDisc {
-        margin-bottom: 5px;
-    }
-
-    .replyInfo {
-        border-radius: 0;
-        background: #f1f1f2;
-        border-left:  4px solid #46246A;
-        border-right: 1px solid #a6a8ab;
-        color: #335075;
-        margin: -5px;
-    }
-
-    #commentSection {
-        background: #f1f1f2;
-        border: 1px solid #a6a8ab;
-    }
-
-    #commentSection button {
-        margin-right: 5px;
-        margin-bottom: 5px;
-    }
-
-    #textEditor {
-        background: white;
-        border: 1px solid #a6a8ab;
-        width: 100%;
-        height: 100px;
-    }
-
-    textarea {
-       resize: none;
-    }
-
-    /****************************************/
-
-    p {
-            margin: 0 0 5.5px;
-
-    }
-
-    .ideaPoints {
-        font-size: 1.25em;
-    }
-
-    #linkedIn {
-        width: 32px;
-        height: 32px;
-        background: url(<?php echo $site_url ?>/mod/wet4/graphics/sprites_share.png) 0 -288px;
-    }
-
-    #twitter {
-        width: 32px;
-        height: 32px;
-        background: url(<?php echo $site_url ?>/mod/wet4/graphics/sprites_share.png) 0 -480px;
-    }
-
-    #gPlus {
-        width: 32px;
-        height: 32px;
-        background: url(<?php echo $site_url ?>/mod/wet4/graphics/sprites_share.png) 0 -256px;
-    }
 
 /*Here are my custom styles for this prototype*/
 #thewire-tools-reshare-wrapper-wet4 {
@@ -11222,20 +10960,6 @@ a.shr-opn, a.shr-opn:hover {
     visibility:none;
 }
 
-.col-md-8 .custom-index-panel{
-    background:transparent;
-    border:none;
-    box-shadow:none;
-
-}
-
-
-.col-md-8 .custom-index-panel .panel-heading{
-    background:transparent;
-    border:none;
-    box-shadow:none;
-
-}
 
 .elgg-state-draggable .elgg-widget-handle{
     cursor:move;
@@ -11361,37 +11085,6 @@ border:none;
 
 }
 
-.groups-profile{
-    margin-top: 170px;
-
-}
-
-.group-cover-photo{
-    width:100%;
-    height: 250px;
-    position: absolute;
-    margin-top: -10px;
-    background-color:#6B5088;
-    overflow:hidden;
-}
-
-.group-cover-photo img{
-    width:100%;
-
-}
-.groups-profile{
-    margin-top: 170px;
-    z-index: 1;
-}
-
-.group-cover-photo{
-    width:100%;
-    height: 250px;
-    position: absolute;
-    margin-top: -10px;
-    background-color:#6B5088;
-    overflow:hidden;
-}
 
 /******Padding Classes********/
 
@@ -11532,12 +11225,6 @@ border:none;
 
 }
 
-.group-tab-menu-search-icon{
-    color: #46246A;
-    padding-top: 2.5%;
-
-}
-
 .search-dropdown{
     padding:5px;
 
@@ -11566,11 +11253,6 @@ border:none;
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom:20px;
-
-}
-
-.group-search-button{
-    color: #46246A;
 
 }
 
@@ -11614,460 +11296,6 @@ border:none;
         #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
         #cboxClose{position:absolute; bottom:100%; height: 25px; top:8px; right:20px; display:block; color:#444;}
 
-/*** Messages ***/
-
-.unread-custom{
-    background-color: #F5F5F5;
-    margin-bottom: 5px;
-}
-.unread-custom a{
-    color: #46246A;
-    font-weight: bold;
-}
-
-.ui-autocomplete{
-    background-color: white;
-    max-width:400px;
-    max-height: 450px;
-    z-index:99999;
-    overflow-y: scroll;
-    border: 1px solid black;
-     content: " ";
-  display: block;
-  list-style: none;
-
-  clear: both;
-}
-
-.ui-autocomplete:hover{
-    cursor: pointer;
-}
-
-.ui-autocomplete .ui-menu-item a:hover{
-    color: #6B5088 !important;
-
-}
-.elgg-menu-hover{
-    z-index: 3;
-    background-color:white;
-    padding: 0;
-    border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  -webkit-background-clip: padding-box;
-          background-clip: padding-box;
-}
-
-.elgg-menu-hover:before {
-        content: '';
-    display: block;
-    position: absolute;
-    left: 5%;
-    top: -12px;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 12px solid rgba(0, 0, 0, 0.15);
-    clear: both;
-
-}
-
-    .elgg-menu-hover:after {
-            content: '';
-    display: block;
-    position: absolute;
-    left: 5%;
-    top: -10px;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 12px solid #fff;
-    clear: both;
-    }
-
-
-.messages-chkbx{
-    float:left;
-    width:3%;
-}
-
-.messages-owner{
-    width:15%;
-    margin-right:3%;
-}
-
-.river-margin li{
-    margin:5px;
-}
-
-/*** more messages stuff ;3****/
-
-.elgg-message {
-  padding: 15px;
-  margin-bottom: 23px;
-  border: 1px solid transparent;
-  border-radius: 4px; }
-  .elgg-message h4 {
-    margin-top: 0;
-    color: inherit; }
-  .elgg-message .alert-link {
-    font-weight: bold; }
-  .elgg-message > p,
-  .elgg-message > ul {
-    margin-bottom: 0; }
-  .elgg-message > p + p {
-    margin-top: 5px; }
-
-.elgg-message > :first-child{
-     margin-left: 1.2em;
-    margin-top: auto;
-}
-
-.elgg-message > :first-child:before{
-    display: inline-block;
-    font-family: "Glyphicons Halflings";
-    margin-left: -1.3em;
-    position: absolute;
-}
-
-
-.elgg-state-success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-    position:fixed;
-    z-index: 100000;
-
-   margin: 0 auto;
-    width: 70%;
-    border-left: solid 5px #2b542c;
-   }
-  .elgg-state-success hr {
-    border-top-color: #c9e2b3; }
-  .aelgg-state-success .alert-link {
-    color: #2b542c; }
-
-details.elgg-state-success:before {
-  color: #278400;
-  content: "\e084"; }
-
-.label-success[href]:active, .elgg-state-success, details.alert-success {
-  background: #d8eeca;
-  border-color: #278400; }
-
-.elgg-state-success > :first-child:before {
-  color: #278400;
-  content: "\e084"; }
-
-
-.elgg-state-error {
-  background-color: #f2dede;
-  border-color: #ebccd1;
-      position:fixed;
-    z-index: 100000;
-
-   margin: 0 auto;
-    width: 70%;
-    border-left: solid 5px #843534;
-}
-  .elgg-state-error hr {
-    border-top-color: #e4b9c0; }
-  .elgg-state-error .alert-link {
-    color: #843534; }
-
-
-.label-danger[href]:active, .elgg-state-error, details.alert-error,details.alert-danger {
-  background: #f3e9e8;
-  border-color: #d3080c; }
-
-.elgg-state-error > :first-child:before {
-  color: #d3080c;
-  content: "\e101"; }
-
-
-
-/****** New Header style stuff *******/
-#app-brand{
-    min-height: 45px;
-    /*padding-top: 5px;*/
-}
-
-#app-brand a{
-   text-decoration: none;
-}
-
-
-
-#app-brand li a{
-   text-decoration: none;
-    color: #46246A;
-}
-.app-name{
-
-    font-size: 1.6em;
-    padding-top:2px;
-    padding-left: 20px;
-    background-color: #46246A;
-    max-width: 165px;
-   margin-left:-5px;
-    height: 40px;
-}
-
-.app-name a{
-    color: white;
-}
-
-.app-name:before{
-       content: '';
-    display: block;
-    position: absolute;
-    left: 165px;
-    top: 0;
-    width: 0;
-    height: 0;
-	border-top: 20px solid transparent;
-	border-bottom: 20px solid transparent;
-
-	border-left: 17px solid #46246A;
-    clear: both;
-}
-.app-name:after{
-    content: '';
-    display: block;
-    position: absolute;
-    left:-498%;
-    top: 0;
-    height:40px;
-    background-color: #46246A;
-    width:500%;
-    clear: both;
-}
-.tool-link{
-    padding:11px 0 0 30px;
-}
-
-.tool-link:hover{
-    text-decoration: underline;
-}
-
-.tool-link-icon{
-    width: 25px;
-    margin:0 5px 5px 0;
-
-}
-    #friends_collections_accordian li h2 {
-        background: #f5f5f5;
-    border: 2px solid;
-    margin: 10px 0 0;
-    border-color: #ddd;
-    webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-    }
-
-    #friends_collections_accordian .friends-picker-main-wrapper {
-            border: 2px solid;
-            border-top: 0px solid transparent;
-             border-color: #ddd;
-    }
-
-    .selected-circle {
-        background: #f0f0f0;
-    }
-
-.bold-gc{
-    font-weight: 800;
-}
-
-
-.tools-navigator{
-    font-size: 1.1em;
-    margin-top:10px;
-
-}
-
-.tools-navigator-menu{
-    top:35px;
-}
-
-.tools-navigator-menu:before{
-       content: '';
-    display: block;
-    position: absolute;
-    left: 80%;
-    top: -10px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid #fff;
-    clear: both;
-}
-.tools-navigator-menu:after{
-       content: '';
-    display: block;
-    position: absolute;
-    left: 80%;
-    top: -12px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
-    clear: both;
-}
-
-#tools-dropdown{
-    cursor: pointer;
-}
-
-.tools-dropdown-holder{
-    min-width: 300px;
-    color: black;
-    padding: 10px;
-}
-.tools-navigator-menu li a{
-    color:black;
-}
-
-.legend{
-    margin: 15px 0;
-}
-
-figcaption{
-    margin: 10px 0;
-    font-weight:bold;
-}
-
-
-.wb-graph figure:first-child{
-    width:100%;
-    margin: 0 auto;
-
-}
-.object-header-avatar .elgg-avatar-medium-wet4{
-    float:left;
-}
-
-.object-header-avatar img{
-    width: 75px;
-    display: inline-block !important;
-}
-
-.object-header-name{
-    margin:5px -10px;
-    float:left;
-}
-
-.object-header-name a{
-    font-size: 1.1em;
-    display: block;
-}
-
-.object-header-name time{
-    color: #6d6d6d;
-}
-
-.discussion-card{
-    border: 1px solid #ddd;
-    background-color: white;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-}
-
-.discussion-card-header{
-    border-bottom: 1px solid #ddd;
-    padding: 4px;
-}
-
-.discussion-card-body{
-    padding: 4px 8px 8ox 0px;
-}
-
-.discussion-card-footer{
-    padding: 6px 4px;
-    background-color: #f5f5f5;
-    margin-left: -10px;
-    margin-right: -10px;
-}
-
-
-.group-no-results{
- width:  100px;
-    margin:0 auto;
-    padding: 5px;
-    font-size: 1.1em;
-}
-
-
-.group-search-holder{
-    margin-right:-15px;
-}
-/****** Polls Custom stuff ******/
-.polls-table th{
-       font-weight: bold;
-}
-
-
-
-/******* Entity Menu Style ********/
-
-.entity-menu-bubble{
-   /* padding: 3px;
-    background-color: #efefef;
-    border: 1px solid transparent;*/
-
-}
-
-/* removing arrow on like and share bubble
-.entity-menu-bubble:before{
-       content: '';
-    display: block;
-    position: absolute;
-    left: -10px;
-    top: 5px;
-    width: 0;
-    height: 0;
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-
-	border-right:10px solid #efefef;
-    clear: both;
-}
-*/
-
-.data-table-list-item{
-    padding:10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.data-table-head{
-    padding:10px;
-}
-
-
-/** Widget Stuff **/
-
-.elgg-widget-title{
-
-        margin:5px 0;
-}
-
-.widget-enter-selected{
-    background-color: #eaebed;
-}
-
-.wet-hidden{
-    display:none;
-
-}
-
-.pager-wet-hidden{
-    display:none !important;
-
-}
 
 /* SPLASH PAGE */
 
@@ -12193,45 +11421,6 @@ figcaption{
       background-color: #e1e4e7;
       padding: 30px 30px 13px; } }
 
-      .newsfeed-filter-gear {
-              font-size: 1.75em !important;
-              margin-top: 3px;
-          }
-
-          .newsfeed-filter {
-              width:90%;
-              max-width: 500px;
-              margin-top:10px;
-          }
-
-          .newsfeed-filter:after{
-             content: '';
-          display: block;
-          position: absolute;
-          right:4%;
-          top: -12px;
-          width: 0;
-          height: 0;
-      	border-left: 12px solid transparent;
-      	border-right: 12px solid transparent;
-
-      	border-bottom: 12px solid #fff;
-          clear: both;
-      }
-      .newsfeed-filter:before{
-             content: '';
-          display: block;
-          position: absolute;
-          right: 4%;
-          top: -14px;
-          width: 0;
-          height: 0;
-      	border-left: 12px solid transparent;
-      	border-right: 12px solid transparent;
-
-      	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
-          clear: both;
-      }
 
 /***TEMP ICON STYLE ****/
 .fa-ellipsis-v:before{
@@ -12263,17 +11452,7 @@ figcaption{
     color:#6B5088;
 }
 
-.icon-sel{
-   color:#6B5088;
-   background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
-       background-size:cover;
-    height: 25px;
-    width:25px;
-}
 
-.icon-sel:hover{
-    color: #b6b6b6;
-}
 
 .fa-trash-o:before{
     content:none !important;

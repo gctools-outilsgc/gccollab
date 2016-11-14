@@ -148,7 +148,7 @@ max-height: 500px;
     color: #bbb !important; }
 
  .gcconnex-profile-name button:last-child{
-     border: solid 1px #055959;
+     border: solid 1px #46246A;
 
  }
 
@@ -170,13 +170,13 @@ max-height: 500px;
     }
 
     .bell-subbed .icon-unsel{
-      color:#047177 !important;
+      color:#6B5088 !important;
 
     }
 
     .notif-badge {
       display: inline-block;
-      margin-left: -1px;
+      margin-left: -15px;
       min-width: 10px;
       padding: 2px 5px;
       font-size: 12px;
@@ -203,25 +203,26 @@ max-height: 500px;
         vertical-align: baseline;
         white-space: nowrap;
         text-align: center;
-        background-color: #055959;
+        background-color: #46246A;
         border-radius: 25px;
         margin-right: 7px;
     }
 
     .userMenuAvatar {
 
-        margin-bottom: -14px;
+        margin-bottom: -6px;
     }
 
     .user-menu{
       min-width: 400px;
+      top: 110% !important;
     }
 
     .user-menu:after{
        content: '';
        display: block;
        position: absolute;
-       left: 85%;
+       left: 93%;
        top: -10px;
        width: 0;
        height: 0;
@@ -234,7 +235,7 @@ max-height: 500px;
        content: '';
        display: block;
        position: absolute;
-       left: 85%;
+       left: 93%;
        top: -12px;
        width: 0;
        height: 0;
@@ -313,27 +314,27 @@ max-height: 500px;
  }
 
      .gcProfileBadge-lower {
-          position: absolute;
-          margin-left: auto;
-          margin-right: auto;
-          left: 0;
-          bottom: -16%;
-          right: 0;
-          pointer-events: none;
-     }
+         position: absolute;
+         margin-left: auto;
+         margin-right: auto;
+         left: 0;
+         bottom: -16%;
+         right: 0;
+         pointer-events: none;
+    }
 
-     .ambBorder1 {
-        border: 2px solid #005456;
-     }
+    .ambBorder1 {
+       border: 2px solid #005456;
+    }
 
-     .ambBorder2 {
-         border: 2px solid #f5db84;
-     }
+    .ambBorder2 {
+        border: 2px solid #f5db84;
+    }
 
      .au_subgroups_group_icon-medium-wet4{
             max-width:65%;
             margin: 0 auto;
-         display: block !important;
+            display: block !important;
 
      }
 
@@ -395,7 +396,7 @@ max-height: 500px;
 }
 
 .visited-link li a:visited{
-   color: #055959;
+   color: #46246A;
 }
 
 .btn-primary:visited{
@@ -424,7 +425,11 @@ max-height: 500px;
 }
 
 .icon-sel{
-   color:#047177;
+   color:#6B5088;
+   background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
+       background-size:cover;
+    height: 25px;
+    width:25px;
 }
 
 .icon-sel:hover{
@@ -432,7 +437,7 @@ max-height: 500px;
 }
 
     .unread-custom span {
-            color: #055959;
+            color: #46246A;
         font-weight: bold;
     }
 
@@ -532,14 +537,14 @@ max-height: 500px;
     }
 
     .btn-custom-cta {
-        background: #055959;
+        background: #46246A;
         border-radius: 0;
         border-color: #d0d2d3;
         color: white;
     }
 
     .btn-custom-cta:hover {
-        background: #047177;
+        background: #6B5088;
         color: white;
     }
 
@@ -627,12 +632,12 @@ max-height: 500px;
 
     .actPre {
         padding-left: 5px;
-        border-left: 2px solid #055959;
+        border-left: 2px solid #46246A;
     }
 
     .discPre {
         padding-left: 5px;
-        border-left: 2px solid #055959;
+        border-left: 2px solid #46246A;
         font-size: 13px;
     }
 
@@ -666,7 +671,7 @@ max-height: 500px;
 
 
         padding: 2px;
-        border: 1px solid #055959;
+        border: 1px solid #46246A;
         border-radius: 8px;
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
@@ -703,7 +708,7 @@ max-height: 500px;
     .replyInfo {
         border-radius: 0;
         background: #f1f1f2;
-        border-left:  4px solid #055959;
+        border-left:  4px solid #46246A;
         border-right: 1px solid #a6a8ab;
         color: #335075;
         margin: -5px;
@@ -911,47 +916,8 @@ border:none;
 
 }
 
-    .newsfeed-filter-gear {
-        font-size: 1.75em !important;
-        margin-top: 3px;
-    }
 
-    .newsfeed-filter {
-        width:90%;
-        max-width: 500px;
-        margin-top:10px;
-    }
-
-    .newsfeed-filter:after{
-       content: '';
-    display: block;
-    position: absolute;
-    right:2%;
-    top: -12px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid #fff;
-    clear: both;
-}
-.newsfeed-filter:before{
-       content: '';
-    display: block;
-    position: absolute;
-    right: 2%;
-    top: -14px;
-    width: 0;
-    height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-
-	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
-    clear: both;
-}
-
-    .newsfeed-filter-gear {
+.newsfeed-filter-gear {
         font-size: 1.75em !important;
         margin-top: 3px;
     }
@@ -970,10 +936,10 @@ border:none;
     top: -12px;
     width: 0;
     height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
 
-	border-bottom: 12px solid #fff;
+  border-bottom: 12px solid #fff;
     clear: both;
 }
 .newsfeed-filter:before{
@@ -984,10 +950,10 @@ border:none;
     top: -14px;
     width: 0;
     height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
 
-	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+  border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
     clear: both;
 }
 
@@ -1002,8 +968,8 @@ border:none;
     width:100%;
     height: 250px;
     position: absolute;
-    margin-top: 60px;
-    background-color:#047177;
+    margin-top: -10px;
+    background-color:#6B5088;
     overflow:hidden;
 }
 
@@ -1154,7 +1120,7 @@ border:none;
 }
 
 .group-tab-menu-search-icon{
-    color: #055959;
+    color: #46246A;
     padding-top: 2.5%;
 
 }
@@ -1191,7 +1157,7 @@ border:none;
 }
 
 .group-search-button{
-    color: #055959;
+    color: #46246A;
 
 }
 
@@ -1242,7 +1208,7 @@ border:none;
     margin-bottom: 5px;
 }
 .unread-custom a{
-    color: #055959;
+    color: #46246A;
     font-weight: bold;
 }
 
@@ -1265,11 +1231,11 @@ border:none;
 }
 
 .ui-autocomplete .ui-menu-item a:hover{
-    color: #047177 !important;
+    color: #6B5088 !important;
 
 }
 .elgg-menu-hover{
-    z-index: 1000;
+    z-index: 3;
     background-color:white;
     padding: 0;
     border: 1px solid #ccc;
@@ -1426,32 +1392,33 @@ details.elgg-state-success:before {
 
 /****** New Header style stuff *******/
 #app-brand{
-    background-color: #047177;
-    color: #fff;
     min-height: 45px;
     /*padding-top: 5px;*/
 }
 
 #app-brand a{
    text-decoration: none;
-    color: #fff;
 }
 
 
 
 #app-brand li a{
    text-decoration: none;
-    color: black;
-    padding: 30px 35px;
+    color: #46246A;
 }
 .app-name{
+
     font-size: 1.6em;
-    padding-top:5px;
+    padding-top:2px;
     padding-left: 20px;
-    background-color: #055959;
-    min-height: 45px;
+    background-color: #46246A;
     max-width: 165px;
    margin-left:-5px;
+    height: 40px;
+}
+
+.app-name a{
+    color: white;
 }
 
 .app-name:before{
@@ -1462,16 +1429,25 @@ details.elgg-state-success:before {
     top: 0;
     width: 0;
     height: 0;
-	border-top: 22.5px solid transparent;
-	border-bottom: 22.5px solid transparent;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
 
-	border-left: 20px solid #055959;
+  border-left: 17px solid #46246A;
     clear: both;
 }
-
+.app-name:after{
+    content: '';
+    display: block;
+    position: absolute;
+    left:-498%;
+    top: 0;
+    height:40px;
+    background-color: #46246A;
+    width:500%;
+    clear: both;
+}
 .tool-link{
-    font-size:16px;
-    padding:11px 0 0 20px;
+    padding:11px 0 0 30px;
 }
 
 .tool-link:hover{
@@ -1480,7 +1456,7 @@ details.elgg-state-success:before {
 
 .tool-link-icon{
     width: 25px;
-    margin:0 2px 5px 0;
+    margin:0 5px 5px 0;
 
 }
     #friends_collections_accordian li h2 {
@@ -1525,10 +1501,10 @@ details.elgg-state-success:before {
     top: -10px;
     width: 0;
     height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
 
-	border-bottom: 12px solid #fff;
+  border-bottom: 12px solid #fff;
     clear: both;
 }
 .tools-navigator-menu:after{
@@ -1539,10 +1515,10 @@ details.elgg-state-success:before {
     top: -12px;
     width: 0;
     height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
 
-	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+  border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
     clear: both;
 }
 
@@ -1575,6 +1551,64 @@ figcaption{
 
 }
 
+
+.object-header-avatar .elgg-avatar-medium-wet4{
+    float:left;
+}
+
+.object-header-avatar img{
+    width: 75px;
+    display: inline-block !important;
+}
+
+.object-header-name{
+    margin:5px -10px;
+    float:left;
+}
+
+.object-header-name a{
+    font-size: 1.1em;
+    display: block;
+}
+
+.object-header-name time{
+    color: #6d6d6d;
+}
+
+.discussion-card{
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
+}
+
+.discussion-card-header{
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
+}
+
+.discussion-card-body{
+    padding: 4px 8px 8ox 0px;
+}
+
+.discussion-card-footer{
+    padding: 6px 4px;
+    background-color: #f5f5f5;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+
+.group-no-results{
+ width:  100px;
+    margin:0 auto;
+    padding: 5px;
+    font-size: 1.1em;
+}
+
+
+.group-search-holder{
+    margin-right:-15px;
+}
 /****** Polls Custom stuff ******/
 .polls-table th{
        font-weight: bold;
@@ -1585,9 +1619,9 @@ figcaption{
 /******* Entity Menu Style ********/
 
 .entity-menu-bubble{
-    padding: 3px;
+   /* padding: 3px;
     background-color: #efefef;
-    border: 1px solid transparent;
+    border: 1px solid transparent;*/
 
 }
 
@@ -1600,10 +1634,10 @@ figcaption{
     top: 5px;
     width: 0;
     height: 0;
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
 
-	border-right:10px solid #efefef;
+  border-right:10px solid #efefef;
     clear: both;
 }
 */
