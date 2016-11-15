@@ -50,6 +50,8 @@ engine/settings.php.old
 engine/settings.php
 .htaccess
 memcache/
+/cache
 opcache.php
 phpinfo.php
+/composer.lock
 
