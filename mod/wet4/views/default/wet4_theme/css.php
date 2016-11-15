@@ -10676,68 +10676,11 @@ a.shr-opn, a.shr-opn:hover {
         height: 21px;
     }
 
-    .notif-ul{
-
-     margin: 0px;
-    }
-
-    .bell-subbed .icon-unsel{
-    color:#6B5088 !important;
-
-}
-
-    .notif-badge {
-      display: inline-block;
-      margin-left: -15px;
-      min-width: 10px;
-      padding: 2px 5px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-      line-height: 1;
-      vertical-align: top;
-      white-space: nowrap;
-      text-align: center;
-      background-color: #d00;
-      border-radius: 10px;
-
-    }
-
-    .init-badge {
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        padding: 8px 0px;
-        font-size: 14px;
-        font-weight: bold;
-        color: #fff;
-        /* line-height: 1; */
-        vertical-align: baseline;
-        white-space: nowrap;
-        text-align: center;
-        background-color: #46246A;
-        border-radius: 25px;
-        margin-right: 7px;
-    }
-
-.user-menu{
-    min-width: 400px;
-    top: 110% !important;
-
-
-    /*position: relative;*/
-}
-
 
 .elgg-menu-user-menu{
     margin-bottom: 4px !important;
     padding-right: 0px;
     top:0;
-}
-
-.user-z-index{
-    z-index: 10;
-
 }
 
 /** Sizing the Images to make medium images slightly smaller. They scale with the responsive class so it's all good **/
@@ -10748,27 +10691,6 @@ a.shr-opn, a.shr-opn:hover {
 
  }
 
- .thCheck {
-
-     width: 25px;
- }
-
- .thCheck span {
-
-     display: none;
- }
-
- .river-group-link{
-     font-size: 18px;
-     padding-bottom: 4px;
-     border-bottom: 1px solid #ddd;
- }
- .river-user-heading{
-          padding-bottom: 4px;
-     border-bottom: 1px solid #ddd;
-
- }
-
  .au_subgroups_group_icon-medium-wet4{
         max-width:65%;
         margin: 0 auto;
@@ -10776,36 +10698,9 @@ a.shr-opn, a.shr-opn:hover {
 
  }
 
- .noWrap {
-     overflow-wrap: break-word;
-  word-wrap: break-word;
-
- }
-
 .elgg-menu-user-menu li{
     padding-left: 8px;
     padding-right: 0px;
-}
-
-.elgg-menu-user-menu-subMenu {
-    padding: 0;
-}
-
-.elgg-menu-user-menu-subMenu .elgg-menu-content {
-    display: none;
-}
-
-.visited-link li a:visited{
-   color: #46246A;
-}
-
-.btn-primary:visited{
-    color:#FFF;
-}
-
-#file-tools-folder-tree {
-
-    padding-top:5px;
 }
 
 .gcProfileBadge {
@@ -10820,113 +10715,6 @@ a.shr-opn, a.shr-opn:hover {
     .elgg-gallery li {
         border: 0px;
     }
-
-
-
-    .message:hover {
-       background: #F5F5F5;
-
-    }
-
-        .message:hover span {
-            text-decoration: underline;
-        }
-
-
-        .panel-heading h2 {
-
-            border-bottom: none;
-        }
-
-        .elgg-module-widget {
-            overflow: hidden;
-
-        }
-
-        .summary-title a {
-            font-size: 22px;
-        }
-
-        .group-title {
-        font-size: 26px;
-        }
-
-    .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
-        padding: 0;
-    }
-
-    .data-table-list-item input[type="checkbox"] {
-
-        /*margin-top: 15px;*/
-        margin-right: 5px;
-        margin-left: 5px;
-    }
-
-    th input[type="checkbox"] {
-
-        /*margin-top: 15px;*/
-        margin-right: 5px;
-        margin-left: 5px;
-    }
-
-    table.inboxTable .unread-custom {
-        background-color: #f4f4f4;
-        margin: 10px 0;
-    }
-
-    table.inboxTable .unread-custom:hover {
-        background-color: #efefef;
-    }
-
-    table.inboxTable .read:hover {
-        background-color: #efefef;
-    }
-
-
-
-/*This is where the elgg icons get loaded!*/
-<?php echo elgg_view('css/elements/icons - Copy', $vars); ?>
-
-
-.profile-info-head {
-    margin: 5px 0;
-
-}
-
-    /****************************************/
-
-    /******************** Custom Button Styles ********************/
-
-    .btn-custom {
-          color: #335075;
-          background-color: #f3f3f3;
-          border-color: #dcdee1;
-        border-radius: 0;
-    }
-
-    .btn-custom a {
-        color: #335075;
-        text-decoration: none;
-    }
-
-    .btn-custom:hover {
-        background: #cfd1d5;
-    }
-
-    .btn-custom:focus {
-        background: #cfd1d5;
-        border-color: lightblue;
-    }
-
-
-    .btn-endorse {
-          color: #335075;
-          background-color: #efefef;
-        border: 1px solid #dcdee1;
-
-        border-radius: 0;
-    }
-
 
 
 /*Here are my custom styles for this prototype*/
