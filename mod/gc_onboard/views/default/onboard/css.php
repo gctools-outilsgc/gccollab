@@ -64,7 +64,7 @@
      border: solid 2px #567784;
      border-radius: 50%;
      position:relative;
-  
+
  }
 
  .step-list-item:after{
@@ -106,7 +106,7 @@
  .current-step:after{
          content: "";
      font-family: FontAwesome;
-  
+
  }
 
  .current-step ~ .step-list-item{
@@ -139,7 +139,7 @@
  .current-step ~ .step-list-item:after{
          content: "";
      font-family: FontAwesome;
-  
+
  }
 
  .final-tour-step{
@@ -172,7 +172,7 @@
 
  }
  .feature-image img{
-    
+
      width: 100%;
 
  }
@@ -253,5 +253,131 @@
  .onboard-cta-buttons .btn-primary{
      background-color: #567784 !important;
      border-color: #567784;
+
+ }
+
+ /** Welcome / Screen 1 / skills**/
+ .tt-dropdown-menu {
+     width: 310px;
+     padding: 8px 0;
+     background-color: #fff;
+     border: 1px solid #ccc;
+     border: 1px solid rgba(0, 0, 0, 0.2);
+     border-radius: 8px;
+     box-shadow: 0 5px 10px rgba(0,0,0,.2);
+ }
+     .tt-suggest-username-wrapper {
+     padding-top: 3px;
+ }
+
+ .tt-suggestion {
+     padding: 3px 20px;
+     font-size: 18px;
+     line-height: 24px;
+ }
+
+ .tt-suggestion.tt-is-under-cursor,
+ .tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+     color: #fff;
+     background-color: #055959;
+ }
+
+ .picked-skill {
+        display:inline-block;
+
+
+     height: 30px;
+     overflow-x: hidden;
+     -ms-overflow-x: hidden;
+     overflow-y: hidden;
+     -ms-overflow-y: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     font-family: arial, sans-serif;
+     background-color: #f0f0f0;
+     border-bottom: 1px solid lightgrey;
+     border-right: 1px solid lightgrey;
+     color: #335075;
+    /* color: white;
+     background: #055959;*/
+     padding: 3px 10px 3px 10px;
+     border-radius: 5px;
+     /* box-shadow: 5px 3px 5px #888888; */
+     margin-left: 0px;
+     margin-right: 5px;
+ }
+
+ .pop-skill {
+        display:inline-block;
+     height: 30px;
+     overflow-x: hidden;
+     -ms-overflow-x: hidden;
+     overflow-y: hidden;
+     -ms-overflow-y: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+
+
+     border: 1px solid #055959;
+     color: #055959;
+    /* color: white;
+     background: #055959;*/
+     padding: 3px 10px 3px 10px;
+     border-radius: 10px;
+     /* box-shadow: 5px 3px 5px #888888; */
+     margin-left: 0px;
+     margin-right: 5px;
+ }
+
+ .pop-skill:hover {
+
+     cursor: pointer;
+     background: #047177;
+     color: white;
+ }
+
+ label {
+     display: block;
+ }
+
+ .picked-skill:hover{
+
+     box-shadow: rgba(0,0,0,0.25) 0 0 6px;
+     cursor: pointer;
+ }
+
+ .yourSkills {
+
+     border: 1px solid #ccc;
+     padding: 10px;
+     margin: 5px;
+ }
+
+ .close-x {
+     color:rgba(180,0,0,0.5);
+ }
+
+ .close-x:hover {
+     color:rgba(180,0,0,0.9);
+ }
+
+ .alert-gc {
+     border: 2px solid #567784;
+     background: white;
+     margin: 3px;
+     padding:5px;
+ }
+
+ .alert-gc-icon {
+     color: #567784;
+     margin:10px;
+ }
+
+ .alert-gc-msg {
+     margin-left:5px;
+ }
+
+ .alert-gc-msg h3 {
+     margin-top:10px;
 
  }
