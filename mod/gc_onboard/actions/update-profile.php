@@ -367,7 +367,7 @@ switch ($section) {
         break;
 
         case 'welcome':
-
+/*Education for students*/
                 $eguid = get_input('eguid', '');
                 $delete = get_input('delete', '');
                 $school = get_input('school', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0002.');
@@ -418,7 +418,12 @@ switch ($section) {
 
                         $validInput = true;
                         $offDates = false;
-
+                        if(!isset($field)){
+                          $validInput = false;
+                        }
+                        if($school =='no_school'){
+                          $validInput = false;
+                        }
                         //we need to do some validation to make sure the user doesnt submit bad info
 /*
                         if(trim($school == '' || trim($degree) == '' || trim($field) == '' || trim($startyear) == '')){
@@ -473,7 +478,7 @@ switch ($section) {
 
                             system_message(elgg_echo('profile:saved'));
                         } else {
-                            register_error(elgg_echo('error:nope'));
+                            //register_error(elgg_echo('error:nope'));
                             echo json_encode([
                                 'valid' => false,
                                 'dates' => $offDates,
@@ -496,7 +501,7 @@ switch ($section) {
 
                 $user->education_access = $access;
                 $user->save();
-
+/*Skills*/
 
                         $skillsToAdd = get_input('skillsadded', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0021.');
                         $skillsToRemove = get_input('skillsremoved', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0022.');
@@ -550,6 +555,109 @@ switch ($section) {
                         //$user->skillsupgraded = NULL; // dev stuff.. delete me
                         $user->save();
 
+/*Work exp*/
+
+//create new work experience entries
+$title = get_input('title');
+$response = get_input('responsibilities');
+$org = get_input('organization');
+$startdate = get_input('startdate', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0003.');
+$startyear = get_input('startyear');
+$enddate = get_input('enddate', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0004.');
+$endyear = get_input('endyear');
+$ongoing = get_input('ongoing');
+$eguid = get_input('eguid', '');
+$access = get_input('access', 'ERROR: Ask your admin to grep: 5321GDS1111661353BB.');
+
+        $validInput = true;
+        $offDates = false;
+//going through the inital welcome mod, when a student registers this should stop an empty work exp field from being created.
+        if($title == 'no_title'){
+          $validInput = false;
+        }
+/*
+        if(trim($title == '')){
+            $validInput = false;
+        }
+
+        if(trim($org == '')){
+            $validInput = false;
+        }
+
+        if(trim($startyear == '')){
+            $validInput = false;
+        }
+
+        if($ongoing == 'false'){
+            if($endyear < $startyear){
+                $validInput = false;
+                $offDates = true;
+            }
+
+            if(trim($endyear) == ''){
+                $validInput = false;
+            }
+
+            if($endyear == $startyear){
+                //should check if month is not right but dont want to right now
+            }
+        }
+*/
+        if($validInput == true) {
+
+
+            if ($eguid == "new") {
+                $experience = new ElggObject();
+                $experience->subtype = "experience";
+                $experience->owner_guid = $user_guid;
+            } else {
+                $experience = get_entity($eguid);
+            }
+
+            $experience->title = htmlentities($title);
+           // $experience->description = htmlentities($response);
+
+            $experience->organization = htmlentities($org);
+            $experience->startdate = $startdate;
+            $experience->startyear = $startyear;
+            $experience->enddate = $enddate;
+            $experience->endyear = $endyear;
+            $experience->ongoing = $ongoing;
+            $experience->responsibilities = trim($response);
+           // $experience->colleagues = $work['colleagues'];
+            $experience->access_id = $access;
+
+            if ($eguid == "new") {
+                $work_experience_guids[] = $experience->save();
+            } else {
+                $experience->save();
+            }
+
+            system_message(elgg_echo('profile:saved'));
+
+        } else {
+            //register_error(elgg_echo('error:nope'));
+            echo json_encode([
+                'valid' => false,
+                'dates' => $offDates,
+            ]);
+        }
+
+
+
+if ($user->work == NULL) {
+    $user->work = $work_experience_guids;
+}
+else {
+    $stack = $user->work;
+    if (!(is_array($stack))) { $stack = array($stack); }
+
+    if ($work_experience_guids != NULL) {
+        $user->work = array_merge($stack, $work_experience_guids);
+    }
+}
+$user->work_access = $access;
+$user->save();
 
 
         break;

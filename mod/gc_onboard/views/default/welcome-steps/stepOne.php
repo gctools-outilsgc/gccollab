@@ -330,7 +330,10 @@
                     field: $('.gcconnex-education-field').val(),
                     degree: $('.gcconnex-education-degree').val(),
                     skillsadded:$skills_added,
-                    skillsremoved: $delete_guid
+                    skillsremoved: $delete_guid,
+                    organization:$('.gcconnex-work-org').val(),
+                    title: $('.gcconnex-job-title').val(),
+                    access: $('.gcconnex-access').val()
                 },
                 success: function (wrapper) {
                     if (wrapper.output) {
