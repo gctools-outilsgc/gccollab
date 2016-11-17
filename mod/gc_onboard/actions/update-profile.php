@@ -420,7 +420,7 @@ switch ($section) {
                         $offDates = false;
 
                         //we need to do some validation to make sure the user doesnt submit bad info
-
+/*
                         if(trim($school == '' || trim($degree) == '' || trim($field) == '' || trim($startyear) == '')){
                             $validInput = false;
                         }
@@ -438,7 +438,7 @@ switch ($section) {
                             if($endyear == $startyear){
                                 //should check if month is not right but dont want to right now
                             }
-                        }
+                        }*/
 
                         if($validInput == true){
 

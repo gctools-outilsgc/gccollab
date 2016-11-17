@@ -305,57 +305,6 @@
 
 
 
-    ////////////////////////////////////////////////////// ELGG ACTIONS
-
-    //add skills
-    $('#onboard-skills').on('click', function () {
-
-        var $skills_added = [];
-        var $delete_guid = [];
-
-
-
-        $('.gcconnex-skill-entry').each(function () {
-            if ($(this).is(":hidden")) {
-                $delete_guid.push($(this).data('guid'));
-            }
-            if ($(this).hasClass("temporarily-added")) {
-                $skills_added.push($(this).data('skill'));
-            }
-        });
-
-        //add skills action
-        elgg.action('onboard/update-profile', {
-            data: {
-                section: 'skills',
-                skillsadded: $skills_added,
-                skillsremoved: $delete_guid,
-            },
-            success: function (wrapper) {
-                changeStepProgress(6);
-                //grab next step
-                elgg.get('ajax/view/profile-steps/stepFive', {
-                    success: function (output) {
-
-                        $('#step').html(output);
-
-                    }
-                });
-
-                //update profile strength percent
-                elgg.get('ajax/view/profileStrength/info', {
-                    success: function (output) {
-
-                        $('#profileInfo').html(output);
-
-                    }
-                });
-            }
-        });
-    });
-
-
-
         //submit entered fields
         $('#onboard-info').on('click', function () {
 
@@ -376,7 +325,7 @@
             elgg.action('onboard/update-profile', {
                 data: {
                     section: 'welcome',
-
+                    eguid: 'new',
                     school: $('.gcconnex-education-school').val(),
                     field: $('.gcconnex-education-field').val(),
                     degree: $('.gcconnex-education-degree').val(),
@@ -395,7 +344,7 @@
                         success: function (output) {
 
                             $('#welcome-step').html(output);
-
+                            console.log('Screen 2 Done');
                         }
                     });
 

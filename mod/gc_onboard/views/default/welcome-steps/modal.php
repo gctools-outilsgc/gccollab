@@ -90,7 +90,7 @@ elgg_load_js('bsTablejs'); //bootstraptable
             success: function (output) {
 
                 $('#welcome-step').html(output);
-
+                console.log('Screen 1 Done');
             }
         });
     });
