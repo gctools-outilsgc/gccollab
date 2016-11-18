@@ -26,19 +26,24 @@ $group_entity = get_entity($welcomeGroup_guid);
     </div>
 </div>
 <div class="panel-body">
-      <div class="col-sm-12">
+  <div class="col-sm-12 clearfix">
+    <?php
+      echo elgg_echo('onboard:groupfeature2');
+    ?>
+  </div>
+      <div class="col-sm-12 row wb-eqht">
 
         <?php
         elgg_push_context('groups-onboard');
         echo elgg_view('page/elements/featured_groups', array(
-          'limit'=>2,
+          'limit'=>4,
         ));
         elgg_pop_context();
         ?>
       </div>
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
-        <a id="skip" class="mrgn-lft-sm btn btn-default" href="#">
-            <?php echo elgg_echo('onboard:welcome:one:skip'); ?>
+        <a id="skip" class="mrgn-lft-sm btn btn-primary" href="#">
+            <?php echo elgg_echo('onboard:welcome:one:submit'); ?>
         </a>
         <?php
 /*
@@ -97,6 +102,6 @@ $group_entity = get_entity($welcomeGroup_guid);
         }
 
     </script>
-  
+
 
 </div>

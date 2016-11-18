@@ -63,7 +63,7 @@ foreach($featured as $group){
             $join_text = elgg_echo("groups:joinrequest");
 
         }
-        echo '<div class="col-sm-6 clearfix">';
+        echo '<div class="col-sm-6 hght-inhrt">';
 
         echo elgg_view('group/default', array('entity' => $group));
 
