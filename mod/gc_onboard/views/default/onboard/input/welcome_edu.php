@@ -4,7 +4,15 @@
  *
  * Ethan Wallace - Re-used Bryden's code to complete action for onboarding.
  */
-$user_institution = elgg_get_logged_in_user_entity()->institution;
+
+
+//Test if the user is a public servant or other to know what institution or department to use
+ if(elgg_get_logged_in_user_entity()->user_type == 'public_servant'){
+   $user_institution = elgg_get_logged_in_user_entity()->department;
+ }else{
+   $user_institution = elgg_get_logged_in_user_entity()->institution;
+ }
+
 $education = get_entity($vars['guid']); // get the guid of the education entry that is being requested for display
 
 $guid = ($education != NULL)? $vars['guid'] : "new"; // if the education guid isn't given, this must be a new entry
