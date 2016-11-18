@@ -98,7 +98,7 @@
 
  .current-step{
      padding: 3px 9px;
-     color: #46246A!important;
+     color: #46246A !important;
      border: solid 3px #46246A;
         font-weight:bold;
  }
@@ -156,12 +156,12 @@
  /*Additional Features Box*/
 
  .panel-onboard{
-     border: solid 2px #46246A; !important;
+     border: solid 2px #46246A !important;
      border-radius: 3px;
  }
 
  .panel-onboard .btn-primary{
-     background-color: #46246A; !important;
+     background-color: #46246A !important;
      border-color: #46246A;
 
  }
@@ -251,7 +251,7 @@
  }
 
  .onboard-cta-buttons .btn-primary{
-     background-color: #46246A; !important;
+     background-color: #46246A !important;
      border-color: #46246A;
 
  }

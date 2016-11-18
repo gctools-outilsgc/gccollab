@@ -72,21 +72,22 @@
       <label stye="display:block;" for="skill-search">
           <?php echo elgg_echo('onboard:profile:addskills');?>
       </label>
+      <div class=timeStamp>Skills let people know something something. Add at least 3 skills</div>
       <input name="skill-search" id="skill-search" style="width:300px;" type="text" class="gcconnex-endorsements-input-skill" onkeyup="checkForEnter(event)" />
       <a href="#" class="btn btn-primary mrgn-tp-md mrgn-lft-sm" style="display:inline-block;" title="<?php echo elgg_echo('onboard:profile:addskills');?>" onclick="addButtonSubmit(event)">
           <?php echo elgg_echo('onboard:profile:add');?>
       </a>
   </div>
-    <div class="panel col-sm-12 panel-custom clearfix">
-        <div style="min-height:100px;" class="panel-body">
-            <p class="mrgn-tp-sm mrgn-bttm-0">
+    <div class="col-sm-12 clearfix">
+        <div style="min-height:100px;" class="panel">
+            <p class="mrgn-tp-sm mrgn-bttm-0 panel-heading">
                 <strong>
                     <?php echo elgg_echo('onboard:profile:yourskills');?>
                     <span class="skill-count"></span>/15</strong></p>
             <p class="timeStamp mrgn-tp-0">
                 <?php echo elgg_view('onboard:profile:recommendation'); ?>
             </p>
-        <div class="gcconnex-skills-skills-list-wrapper">
+        <div class="gcconnex-skills-skills-list-wrapper panel-body">
             <?php
             $user = elgg_get_logged_in_user_entity();
 

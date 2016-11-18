@@ -46,7 +46,7 @@
         <div class="col-sm-4 feature-col">
             <div class="col-sm-12">
                 <div class="feature-image">
-                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/additional_features/'.elgg_echo('onboard:img3'); ?>" alt="<?php echo elgg_echo('onboard:featureImgAlt3');?>" />
+                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/groups/g_1.jpg'; ?>" alt="<?php echo elgg_echo('onboard:featureImgAlt3');?>" />
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
