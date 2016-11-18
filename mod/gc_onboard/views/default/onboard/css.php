@@ -39,12 +39,12 @@
 
 
 .onboard-popover{
-    border: solid 2px #567784 !important;
+    border: solid 2px #46246A !important;
     border-radius: 4px !important;
 }
 .onboard-popover .btn-primary{
-    background-color: #567784 !important;
-    border-color: #567784;
+    background-color: #46246A !important;
+    border-color: #46246A;
 
 }
 
@@ -61,7 +61,7 @@
  .step-list-item{
      color: #ddd;
      padding:4px 10px;
-     border: solid 2px #567784;
+     border: solid 2px #46246A;
      border-radius: 50%;
      position:relative;
 
@@ -70,7 +70,7 @@
  .step-list-item:after{
          content: "\f00c";
      font-family: FontAwesome;
-     color: #567784;
+     color: #46246A;
      position:absolute;
      font-size: 24px;
      top: -2px;
@@ -83,7 +83,7 @@
    top: 50%;
    width: 13px;
    height: 0;
- border:1px solid #567784;
+ border:1px solid #46246A;
 
  }
  .step-list-item:last-child:before{
@@ -98,8 +98,8 @@
 
  .current-step{
      padding: 3px 9px;
-     color: #567784!important;
-     border: solid 3px #567784;
+     color: #46246A!important;
+     border: solid 3px #46246A;
         font-weight:bold;
  }
 
@@ -156,13 +156,13 @@
  /*Additional Features Box*/
 
  .panel-onboard{
-     border: solid 2px #567784 !important;
-     border-radius: 1px;
+     border: solid 2px #46246A; !important;
+     border-radius: 3px;
  }
 
  .panel-onboard .btn-primary{
-     background-color: #567784 !important;
-     border-color: #567784;
+     background-color: #46246A; !important;
+     border-color: #46246A;
 
  }
 
@@ -251,8 +251,8 @@
  }
 
  .onboard-cta-buttons .btn-primary{
-     background-color: #567784 !important;
-     border-color: #567784;
+     background-color: #46246A; !important;
+     border-color: #46246A;
 
  }
 
@@ -362,14 +362,14 @@
  }
 
  .alert-gc {
-     border: 2px solid #567784;
+     border: 2px solid #46246A;
      background: white;
      margin: 3px;
      padding:5px;
  }
 
  .alert-gc-icon {
-     color: #567784;
+     color: #46246A;
      margin:10px;
  }
 

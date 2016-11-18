@@ -1,7 +1,7 @@
 <?php
 return array(
     /**
-   * 
+   *
    */
      'profile:strength' 	=> 'Profile Strength',
      'error:nope' 		=> 'Please fill in the missing information or click skip to move on to the next step.',
@@ -14,7 +14,7 @@ return array(
      'groupTour:done'		=> "Done!",
 
      /**Additional Features**/
-     'onboard:featureTitle'	=> "Other cool features you may like",
+     'onboard:featureTitle'	=> "Next Steps!",
      'onboard:feature1'		=> "Search for groups, discussions, colleagues files and much more using the search.",
      'onboard:feature2'		=> "Chat instantly with your colleagues who are online.",
      'onboard:feature3'		=> "Browse opportunities by clicking on the Career tab of the main navigation menu. ",

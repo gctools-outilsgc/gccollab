@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
-                <h4><?php echo elgg_echo('search');?></h4>
+                <h4><?php echo elgg_echo('Your Profile');?></h4>
                 <?php
                 echo elgg_echo('onboard:feature1');
                     ?>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
-                <h4><?php echo elgg_echo('gcTour:step6');?></h4>
+                <h4><?php echo elgg_echo('career');?></h4>
                 <?php
                 echo elgg_echo('onboard:feature2');
                 ?>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
-                <h4><?php echo elgg_echo('career');?></h4>
+                <h4><?php echo elgg_echo('Explore Groups');?></h4>
                 <?php
                 echo elgg_echo('onboard:feature3');
                 ?>
