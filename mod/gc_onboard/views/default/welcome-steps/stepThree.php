@@ -26,19 +26,14 @@ $group_entity = get_entity($welcomeGroup_guid);
     </div>
 </div>
 <div class="panel-body">
-      <div class="col-sm-6">
+      <div class="col-sm-12">
 
         <?php
-        echo elgg_view('widgets/featured_groups', array(
-          'limit'=>1,
+        elgg_push_context('groups-onboard');
+        echo elgg_view('page/elements/featured_groups', array(
+          'limit'=>2,
         ));
-        ?>
-      </div>
-      <div class="col-sm-6">
-        <?php
-        echo elgg_view('widgets/featured_groups', array(
-          'limit'=>1,
-        ));
+        elgg_pop_context();
         ?>
       </div>
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
@@ -72,8 +67,36 @@ $group_entity = get_entity($welcomeGroup_guid);
         });
     });
 
+
+        //join group and perform animation
+        function joinGroup(type, guid) {
+
+            //grab content of button
+            var oldHTML = $('#' + type + '-' + guid).html();
+
+            //add spinner - chane button colour
+            $('#' + type + '-' + guid).html('<i class="fa fa-spinner fa-spin fa-lg fa-fw"></i><span class="sr-only">Loading...</span>').removeClass('btn-primary').addClass('btn-default');
+
+            //perform join action
+            elgg.action('onboard/join', {
+                data: {
+                    group_guid: guid
+                },
+                success: function (wrapper) {
+                    if (wrapper.output.result == 'joined') { //joined group
+                        $('#' + type + '-' + guid).html("<?php echo elgg_echo('groups:joined'); ?>").attr('disabled', true);
+                        updateTracker();
+                    } else if(wrapper.output.result == 'requestsent') { //join request sent
+                        $('#' + type + '-' + guid).html("<?php echo elgg_echo('groups:joinrequestmade'); ?>").attr('disabled', true);
+                        updateTracker();
+                    } else if (wrapper.output.result == 'failed') { //failed
+                        $('#' + type + '-' + guid).html(oldHTML).removeClass('btn-default').addClass('btn-primary');
+                    }
+                }
+            });
+        }
+
     </script>
-
-
+  
 
 </div>
