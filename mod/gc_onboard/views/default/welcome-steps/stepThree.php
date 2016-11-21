@@ -58,7 +58,10 @@ $group_entity = get_entity($welcomeGroup_guid);
     </div>
 
     <script>
-
+    $(document).ready(function(){
+      //When this page loads we will add 'target=_blank' to the group links
+      $('.summary-title a').attr('target','_blank');
+    });
 
 
     //skip to next step
