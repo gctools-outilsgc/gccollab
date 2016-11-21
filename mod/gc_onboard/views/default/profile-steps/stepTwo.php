@@ -18,9 +18,16 @@
 </div>
 
 <?php
-    $user = elgg_get_logged_in_user_entity();
+$user = elgg_get_logged_in_user_entity();
+//Check if the user already has education to prefil the
+if($user->education){
+  $education = $user->education;
+}
 
-    echo '<div class="clearfix mrgn-tp-md mrgn-bttm-md">'.elgg_view('onboard/input/education').'</div>';
+
+    echo '<div class="clearfix mrgn-tp-md mrgn-bttm-md">'.elgg_view('onboard/input/education', array(
+      'guid'=>$education,
+    )).'</div>';
 ?>
     <div class="mrgn-bttm-md pull-right">
     <a id="skip" class="mrgn-lft-sm btn btn-default" href="#">

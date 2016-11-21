@@ -17,7 +17,13 @@
 
 <?php
 $user = elgg_get_logged_in_user_entity();
-echo '<div class="clearfix mrgn-tp-md mrgn-bttm-md">'.elgg_view('onboard/input/work-experience').'</div>';
+
+if($user->work){
+  $experience = $user->work;
+}
+echo '<div class="clearfix mrgn-tp-md mrgn-bttm-md">'.elgg_view('onboard/input/work-experience', array(
+  'guid'=>$experience,
+)).'</div>';
 ?>
 <div class="mrgn-bttm-md pull-right">
     <a id="skip" class="mrgn-lft-sm btn btn-default" href="#">

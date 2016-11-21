@@ -20,7 +20,7 @@ echo elgg_view("input/text", array(
     'name' => 'title',
     'id' => 'title-' . $guid,
     'class' => 'gcconnex-work-experience-title',
-    'value' => $user->job));
+    'value' => $work_experience->title));
 
 
 // enter title
@@ -31,19 +31,11 @@ echo elgg_echo('gcconnex_profile:experience:organization') . '</label>';
 
 echo '<span class="gcconnex-profile-field-input">';
 
-if(elgg_get_logged_in_user_entity()->user_type == 'public_servant'){
-  $user_institution = elgg_get_logged_in_user_entity()->department;
-}elseif($user->user_type == 'academic'){
-  $user_institution = elgg_get_logged_in_user_entity()->institution;
-}else{
-  $user_institution = '';
-}
-
 echo elgg_view("input/text", array(
     'name' => 'work-experience',
     'id' => 'work-experience-' . $guid,
     'class' => 'gcconnex-work-experience-organization',
-    'value' => $user_institution));
+    'value' => $work_experience->organization));
 echo '</span>';
 
 // enter start date
