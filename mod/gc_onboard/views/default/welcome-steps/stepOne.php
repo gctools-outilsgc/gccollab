@@ -308,7 +308,7 @@
 
         //submit entered fields
         $('#onboard-info').on('click', function () {
-
+          $(this).prop('disabled', true);
           var $skills_added = [];
           var $delete_guid = [];
 
@@ -358,6 +358,7 @@
 
         //skip to next step
         $('#skip').on('click', function () {
+          $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>');
             elgg.get('ajax/view/welcome-steps/stepTwo', {
                 success: function (output) {
                     $('#welcome-step').html(output);

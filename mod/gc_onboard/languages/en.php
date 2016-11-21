@@ -18,11 +18,11 @@ return array(
      'onboard:feature1'		=> "Search for groups, discussions, colleagues files and much more using the search.",
      'onboard:feature2'		=> "Chat instantly with your colleagues who are online.",
      'onboard:feature3'		=> "Browse opportunities by clicking on the Career tab of the main navigation menu. ",
-     'onboard:feature4'		=> "Want to learn more? Check out the <a href='http://www.gcpedia.gc.ca/wiki/Help:GC2.0_Tools_Help_Centre/GCconnex' target='_blank'>GCTools Help Center</a> for more help material and tutorials and the <a href='http://www.gcpedia.gc.ca/wiki/GCTools_Newsletter' target='_blank'>GCTools ECHO Newsletter</a> to stay up to date with the latest developments",
+     'onboard:feature4'		=> "Want to learn more? Check out the <a href='http://www.gcpedia.gc.ca/wiki/Help:GC2.0_Tools_Help_Centre/GCcollab' target='_blank'>GCTools Help Center</a> for more help material and tutorials and the <a href='http://www.gcpedia.gc.ca/wiki/GCTools_Newsletter' target='_blank'>GCTools ECHO Newsletter</a> to stay up to date with the latest developments",
      'onboard:featureImgAlt1'	=> "Screenshot of Search",
-     'onboard:featureImgAlt2'	=> "Screenshot of the GCconnex Chat Feature",
+     'onboard:featureImgAlt2'	=> "Screenshot of the GCcollab Chat Feature",
      'onboard:featureImgAlt3'	=> "Screenshot of the Career main menu item",
-     'onboard:featureImgAlt4'	=> "Screenshot of a GCconnex Profile",
+     'onboard:featureImgAlt4'	=> "Screenshot of a GCcollab Profile",
      'onboard:footTutorials' => 'Tutorials',
      'onboard:img1' => "af_1.jpg",
      'onboard:img2' => "af_2.jpg",
@@ -31,7 +31,7 @@ return array(
 
      /**The Wire Popup**/
      'onboard:wireTitle'	=> "Welcome to The Wire!",
-     'onboard:wire1'		=> "The Wire is GCconnex's own microblog! Just like Twitter, share information by posting messages under 140 characters. Tag colleagues with @mentions, use <span style='color:#055959; text-decoration:underline;'>#hashtags</span> for keywords, and don't forget to share, like and reply.",
+     'onboard:wire1'		=> "The Wire is GCcollab's own microblog! Just like Twitter, share information by posting messages under 140 characters. Tag colleagues with @mentions, use <span style='color:#055959; text-decoration:underline;'>#hashtags</span> for keywords, and don't forget to share, like and reply.",
      'onboard:wire2'		=> "Share just about anything with anyone on The Wire, including group content. Just look for the Share button! Don't forget, some content may not be viewable to all users due to access permissions (e.g. closed groups).",
      'onboard:wire3'		=> "Promote and generate interest in your initiatives across the entire GC! ",
      'onboard:wireButton'	=> 'What is the Wire?',
@@ -50,13 +50,13 @@ return array(
      'onboard:profileCtaBtntxt'	=> "Let's do it!",
 
      /*Group*/
-     'onboard:groupCtaTitle'	=> "Groups are the backbone of GCconnex. Let us help you find groups you'll like!",
+     'onboard:groupCtaTitle'	=> "Groups are the backbone of GCcollab. Let us help you find groups you'll like!",
      'onboard:groupCtaDesc'	=> "We can help you find groups of interest to get you up and running.",
      'onboard:groupCtaBtntxt'	=> "Find groups",
 
      /*GEDS*/
      "onboard:geds:title" 	=> "Are you on GCdirectory (formerly GEDS2.0)?",
-     "onboard:geds:body" 	=> "GCconnex can use your GCdirectory information to fill out your contact information in no time!",
+     "onboard:geds:body" 	=> "GCcollab can use your GCdirectory information to fill out your contact information in no time!",
      "onboard:geds:select" 	=> "Select all the fields you like to sync.",
      'onboard:geds:loading' 	=> "Loading colleagues from GCdirectory",
 
@@ -65,8 +65,8 @@ return array(
      'onboard:skip' 		=> "Skip this step",
 
      /*Intro*/
-    'onboard:welcome:intro:title' 	=> 'Welcome to GCconnex!',
-    'onboard:welcome:intro:description' => "GCconnex connects you with the people and ideas you need to work better and smarter. Tell us about yourself and let us show you what GCconnex can do for you. We'll help you get set up in just a few steps.",
+    'onboard:welcome:intro:title' 	=> 'Welcome to GCcollab!',
+    'onboard:welcome:intro:description' => "GCcollab connects you with the people and ideas you need to work better and smarter. Tell us about yourself and let us show you what GCcollab can do for you. We'll help you get set up in just a few steps.",
     'onboard:welcome:intro:start' 	=> "Let's go!",
     'onboard:welcome:intro:skip' 	=> "Not now",
 
@@ -79,20 +79,20 @@ return array(
 
     /*Step two - colleagues*/
     'onboard:welcome:two:title' 	=> "Find people you know",
-    'onboard:welcome:two:description' 	=> "GCconnex allows you to network with public servants across Canada. Find people with similar interest or skills. Add colleagues to see what they are sharing and connect with them using the chat.",
+    'onboard:welcome:two:description' 	=> "GCcollab allows you to network with public servants across Canada. Find people with similar interest or skills. Add colleagues to see what they are sharing and connect with them using the chat.",
 
     /*Step three - colleagues*/
     'onboard:welcome:three:title' 	=> "Groups",
-    'onboard:welcome:three:description' => "After creating an account on GCconnex, you will be automatically added to the Welcome to GCconnex group. You should take a tour of the group!",
+    'onboard:welcome:three:description' => "After creating an account on GCcollab, you will be automatically added to the Welcome to GCcollab group. You should take a tour of the group!",
     'onboard:welcome:three:tour' 	=> "Take a tour of this group",
     'onboard:welcome:three:skip' 	=> "Skip tour",
 
     /*Step four - groups*/
     //'onboard:groupfeature1'		=> 'I am group col 1',
     'onboard:groupfeature2'		=> "Groups let you share useful information and take part in discussions related to specific topics. Join or create groups to share files, post blogs, vote on ideas, and much more!",
-    'onboard:groupfeature3'		=> "No one wants to be an outsider... lucky for you, if you have just signed up, you're already part of the group &ldquo;<span style='font-weight:bold;'>Welcome to GCconnex</span>&rdquo;. We want to take you on a little tour of this group.",
+    'onboard:groupfeature3'		=> "No one wants to be an outsider... lucky for you, if you have just signed up, you're already part of the group &ldquo;<span style='font-weight:bold;'>Welcome to GCcollab</span>&rdquo;. We want to take you on a little tour of this group.",
     'onboard:groupImgAlt1' 		=> "Graphical element for groups",
-    'onboard:groupImgAlt2' 		=> "Screenshot of the Welcome to GCconnex Group",
+    'onboard:groupImgAlt2' 		=> "Screenshot of the Welcome to GCcollab Group",
 
     /**User Profile onboard**/
     'onboard:profile:intro:title' 	=> "Let's Build Your Profile",
@@ -159,4 +159,9 @@ return array(
     'onboard:groups:trackerHead' 	=> 'Well done!',
     'onboard:groups:trackerDesc' 	=> 'You are a member of 3 groups! Feel free to browse and join other groups of interest. You can see the latest activities of your groups in your News Feed.',
     'onboard:groups:trackerButton' 	=> 'Go to News Feed',
+
+
+    /*Profile lang changes*/
+    'gcconnex_profile:basic:job' => "Job Title",
+
     );

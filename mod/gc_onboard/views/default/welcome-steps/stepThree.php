@@ -63,6 +63,7 @@ $group_entity = get_entity($welcomeGroup_guid);
 
     //skip to next step
     $('#skip').on('click', function () {
+      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>');
         elgg.get('ajax/view/welcome-steps/stepFour', {
             success: function (output) {
 
