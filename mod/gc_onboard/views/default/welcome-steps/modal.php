@@ -15,7 +15,7 @@ elgg_load_js('bsTablejs'); //bootstraptable
 <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
-        <div class="panel panel-custom panel-onboard"  id="welcome-step">
+        <div class="panel panel-onboard"  id="welcome-step">
             <?php
             //Nick - Testing for the ?last_step=true to show stepFour view instead
             //?last_step=true is set by the last step of the bootstrap tour
@@ -88,6 +88,7 @@ elgg_load_js('bsTablejs'); //bootstraptable
 <script>
 
     $('.start-onboard').on('click', function () {
+      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>');
         elgg.get('ajax/view/welcome-steps/stepOne', {
             success: function (output) {
 

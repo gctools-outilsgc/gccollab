@@ -63,11 +63,14 @@ foreach($featured as $group){
             $join_text = elgg_echo("groups:joinrequest");
 
         }
-        echo '<div class="list-break">';
+        echo '<div class="col-sm-6 hght-inhrt">';
+
         echo elgg_view('group/default', array('entity' => $group));
+
         //echo "<div class='text-center'>" . elgg_view("output/url", array("text" => $join_text, "href" => $join_url, "is_action" => true, "class" => "elgg-button elgg-button-action btn btn-primary mrgn-bttm-sm")) . "</div>";
         echo '<div class="text-center"><a id="featured-'.$group->guid.'" '.$disabled.' class="btn btn-primary mrgn-bttm-sm" href="#featured" onclick="joinGroup(\'featured\', '.$group->guid.')">'.$join_text.'</a></div>';
         echo '</div>';
+
     }
 }
 

@@ -19,11 +19,11 @@ return array(
      'onboard:feature1'		=> "Trouvez des groupes, des discussions, des fichiers de collègues et plus encore à l'aide de l'outil de recherche.",
      'onboard:feature2'		=> "Clavardez automatiquement avec vos collègues qui sont en ligne.",
      'onboard:feature3'		=> "Explorez les possibilités en cliquant sur l'onglet Carrière du menu de navigation principal. ",
-     'onboard:feature4'		=> "Vous voulez en apprendre davantage? Consultez le <a href='http://www.gcpedia.gc.ca/wiki/Help:Centre_d%27aide_pour_les_outils_GC2.0/GCconnex' target='_blank'>Centre d'aide des outilsGC</a> pour accéder à de plus amples documents d'aide et de tutoriels, de même qu'au <a href='http://www.gcpedia.gc.ca/wiki/Infolettre_OutilsGC' target='_blank'>Bulletin d'information ECHO des OutilsGC</a> pour vous tenir au courant des derniers développements",
+     'onboard:feature4'		=> "Vous voulez en apprendre davantage? Consultez le <a href='http://www.gcpedia.gc.ca/wiki/Help:Centre_d%27aide_pour_les_outils_GC2.0/GCcollab' target='_blank'>Centre d'aide des outilsGC</a> pour accéder à de plus amples documents d'aide et de tutoriels, de même qu'au <a href='http://www.gcpedia.gc.ca/wiki/Infolettre_OutilsGC' target='_blank'>Bulletin d'information ECHO des OutilsGC</a> pour vous tenir au courant des derniers développements",
      'onboard:featureImgAlt1'	=> "Capture d'écran de l'outil de recherche",
-     'onboard:featureImgAlt2'	=> "Capture d'écran de la fonctionnalité de clavardage de GCconnex",
+     'onboard:featureImgAlt2'	=> "Capture d'écran de la fonctionnalité de clavardage de GCcollab",
      'onboard:featureImgAlt3'	=> "Capture d'écran de l'élément Carrière du menu principal",
-     'onboard:featureImgAlt4'	=> "Capture d'écran d'un profil GCconnex",
+     'onboard:featureImgAlt4'	=> "Capture d'écran d'un profil GCcollab",
      'onboard:footTutorials' => 'Tutoriels',
      'onboard:img1' => "af_fr_1.jpg",
      'onboard:img2' => "af_fr_2.jpg",
@@ -32,7 +32,7 @@ return array(
 
      /**The Wire Popup**/
      'onboard:wireTitle'	=> "Bienvenue sur le fil!",
-     'onboard:wire1'		=> "Le fil est le microblogue de GCconnex. Tout comme Twitter, vous pouvez l'utilisez pour échanger de l'information en publiant des messages de moins de 140 caractères. Identifiez des collègue à l’aide de @mentions, utilisez des <span style='color:#055959; text-decoration:underline;'>#mots-clics</span> pour les mots-clés, et n'oubliez pas de partager, d'aimer et de répondre aux messages.",
+     'onboard:wire1'		=> "Le fil est le microblogue de GCcollab. Tout comme Twitter, vous pouvez l'utilisez pour échanger de l'information en publiant des messages de moins de 140 caractères. Identifiez des collègue à l’aide de @mentions, utilisez des <span style='color:#055959; text-decoration:underline;'>#mots-clics</span> pour les mots-clés, et n'oubliez pas de partager, d'aimer et de répondre aux messages.",
      'onboard:wire2'		=> "Vous pouvez partager à peu près n'importe quoi avec n'importe qui sur le fil, y compris le contenu des groupes. Il suffit d'utiliser le bouton Partager! N'oubliez pas que certain contenu pourrait ne pas être visible par tous les utilisateurs en raison des permissions d'accès au contenu (p. ex., groupes fermés).",
      'onboard:wire3'		=> "Faites la promotion de vos initiatives et suscitez de l'intérêt pour ces dernières à l'échelle du GC! ",
      'onboard:wireButton'	=> "Le fil, c'est quoi?",
@@ -51,13 +51,13 @@ return array(
      'onboard:profileCtaBtntxt'	=> "Allons-y",
 
      /*Group*/
-     'onboard:groupCtaTitle'	=> "Les groupes sont la pierre angulaire de GCconnex. Laissez-nous vous aider à en trouver qui vous intéressent!",
+     'onboard:groupCtaTitle'	=> "Les groupes sont la pierre angulaire de GCcollab. Laissez-nous vous aider à en trouver qui vous intéressent!",
      'onboard:groupCtaDesc'	=> "Nous pouvons vous aider à trouver des groupes intéressants pour vous permettre de bien commencer.",
      'onboard:groupCtaBtntxt'	=> "Trouver des groupes",
 
      /*GEDS*/
      "onboard:geds:title" 	=> "Êtes-vous inscrit dans GCannuaire (anciennement SAGE2.0)?",
-     "onboard:geds:body" 	=> "GCconnex peut utiliser vos renseignements de GCannuaire pour remplir vos coordonnées en un rien de temps!",
+     "onboard:geds:body" 	=> "GCcollab peut utiliser vos renseignements de GCannuaire pour remplir vos coordonnées en un rien de temps!",
      "onboard:geds:select" 	=> "Sélectionnez tous les champs que vous aimeriez synchroniser.",
      'onboard:geds:loading' 	=> "Chargement des collègues à partir de GCannuaire",
 
@@ -66,8 +66,8 @@ return array(
      'onboard:skip' 		=> "Sauter cette étape",
 
      /*Intro*/
-    'onboard:welcome:intro:title' 	=> 'Bienvenue à GCconnex!',
-    'onboard:welcome:intro:description' => "GCconnex vous connecte aux personnes et aux idées dont vous avez besoin pour travailler mieux et plus intelligemment. Parlez-nous de vous et laissez-nous vous montrer ce que GCconnex peut faire pour vous. Nous vous aiderons à vous familiariser avec GCconnex en quelques étapes seulement.",
+    'onboard:welcome:intro:title' 	=> 'Bienvenue à GCcollab!',
+    'onboard:welcome:intro:description' => "GCcollab vous connecte aux personnes et aux idées dont vous avez besoin pour travailler mieux et plus intelligemment. Parlez-nous de vous et laissez-nous vous montrer ce que GCcollab peut faire pour vous. Nous vous aiderons à vous familiariser avec GCcollab en quelques étapes seulement.",
     'onboard:welcome:intro:start' 	=> "Allons-y!",
     'onboard:welcome:intro:skip' 	=> "Pas maintenant.",
 
@@ -80,21 +80,21 @@ return array(
 
     /*Step two - colleagues*/
     'onboard:welcome:two:title' 	=> "Trouver des personnes que vous connaissez",
-    'onboard:welcome:two:description' 	=> "GCconnex vous permet de faire du réseautage avec des fonctionnaires de partout au Canada. Trouvez des personnes avec des intérêts ou des compétences similaires. Ajoutez des collègues pour voir ce qu'ils partagent et communiquez avec eux grâce au clavardage.",
+    'onboard:welcome:two:description' 	=> "GCcollab vous permet de faire du réseautage avec des fonctionnaires de partout au Canada. Trouvez des personnes avec des intérêts ou des compétences similaires. Ajoutez des collègues pour voir ce qu'ils partagent et communiquez avec eux grâce au clavardage.",
 
 
     /*Step three - colleagues*/
     'onboard:welcome:three:title' 	=> "Groupes",
-    'onboard:welcome:three:description' => "Après avoir créé un compte dans GCconnex, vous serez automatiquement ajouté au groupe Bienvenue à GCconnex. Vous devriez suivre une visite guidée du groupe!",
+    'onboard:welcome:three:description' => "Après avoir créé un compte dans GCcollab, vous serez automatiquement ajouté au groupe Bienvenue à GCcollab. Vous devriez suivre une visite guidée du groupe!",
     'onboard:welcome:three:tour' 	=> "Suivre une visite guidée du groupe",
     'onboard:welcome:three:skip' 	=> "Sauter la visite guidée",
 
     /*Step four - groups*/
     //'onboard:groupfeature1'		=> 'Je fais partie du groupe col 1',
     'onboard:groupfeature2'		=> "Les groupes vous permettent d'échanger de l'information et de prendre part à des discussion sur des sujets en particulier. Joignez-vous à un groupe ou créez-en un pour échanger des fichiers, écrire un billet de blogue, voter sur des idées, et plus encore!",
-    'onboard:groupfeature3'		=> "Personne ne veut être exclus... par chance, si vous venez de vous inscrire, vous faites déjà partie du groupe &ldquo;<span style='font-weight:bold;'>Bienvenue à GCconnex</span>&rdquo;. Nous voulons vous donner une petite visite guidée de ce groupe.",
+    'onboard:groupfeature3'		=> "Personne ne veut être exclus... par chance, si vous venez de vous inscrire, vous faites déjà partie du groupe &ldquo;<span style='font-weight:bold;'>Bienvenue à GCcollab</span>&rdquo;. Nous voulons vous donner une petite visite guidée de ce groupe.",
     'onboard:groupImgAlt1' 		=> "Élément graphique pour les groupes",
-    'onboard:groupImgAlt2' 		=> "Capture d'écran du groupe Bienvenue à GCconnex",
+    'onboard:groupImgAlt2' 		=> "Capture d'écran du groupe Bienvenue à GCcollab",
 
     /**User Profile onboard**/
     'onboard:profile:intro:title' 	=> "Configurons votre profil",
@@ -163,5 +163,5 @@ return array(
     'onboard:groups:trackerButton' 	=> 'Aller au fil de nouvelles',
 
     );
-    
+
     //add_translation("fr", $french);
