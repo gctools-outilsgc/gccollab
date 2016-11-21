@@ -20,7 +20,7 @@
         <div class="col-sm-4 feature-col">
             <div class="col-sm-12">
                 <div class="feature-image">
-                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/additional_features/'.elgg_echo('onboard:img1'); ?>" alt="<?php echo elgg_echo('onboard:featureImgAlt1');?>" />
+                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/additional_features/profile.jpg'; ?>" alt="<?php echo elgg_echo('onboard:featureImgAlt1');?>" />
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
