@@ -81,7 +81,9 @@ elgg_load_js('bsTablejs'); //bootstraptable
     .modal-open .modal {
         background: rgba(0,0,0,0.4);
     }
-
+    #welcome-step .feed-filter {
+      display: none;
+    }
 </style>
 <script>
 

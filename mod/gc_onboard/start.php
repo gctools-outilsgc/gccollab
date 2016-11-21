@@ -16,6 +16,8 @@ elgg_register_event_handler('init', 'system', 'onboard_ME');
 
 function onboard_ME() {
 
+    elgg_register_library('elgg:onboarding', elgg_get_plugins_path() . 'gc_onboard/lib/functions.php');
+
     elgg_register_page_handler('profileonboard', 'profileonboard_page_handler');
     elgg_register_page_handler('groupsonboard', 'groupsonboard_page_handler');
 
@@ -63,7 +65,7 @@ function onboard_ME() {
     elgg_extend_view('contactform/contactform', 'onboard/module_links');
 
     //extend newsfeed to launch onboarding
-    elgg_extend_view('widgets/newsfeed/content', 'onboard/launch', 491);
+    //elgg_extend_view('widgets/newsfeed/content', 'onboard/launch', 491);
     elgg_extend_view('widgets/wet_activity/content', 'onboard/launch', 491);
 
     elgg_require_js("onboard_require");
