@@ -147,7 +147,7 @@
         var newSkill = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            
+
             remote: {
                 url: elgg.get_site_url() + 'mod/b_extended_profile/actions/b_extended_profile/autoskill.php?query=%QUERY'
             }
@@ -432,8 +432,8 @@
         white-space: nowrap;
 
 
-        border: 1px solid #055959;
-        color: #055959;
+        border: 1px solid #46246A;
+        color: #46246A;
        /* color: white;
         background: #055959;*/
         padding: 3px 10px 3px 10px;
@@ -446,7 +446,7 @@
     .pop-skill:hover {
 
         cursor: pointer;
-        background: #047177;
+        background: #46246A;
         color: white;
     }
 

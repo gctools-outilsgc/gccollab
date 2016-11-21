@@ -4,6 +4,8 @@
  *
  * Second step of profile module. Asks for user's education.
  */
+
+
 ?>
 
 <h1>
@@ -17,6 +19,7 @@
 
 <?php
     $user = elgg_get_logged_in_user_entity();
+
     echo '<div class="clearfix mrgn-tp-md mrgn-bttm-md">'.elgg_view('onboard/input/education').'</div>';
 ?>
     <div class="mrgn-bttm-md pull-right">

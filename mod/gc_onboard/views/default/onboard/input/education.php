@@ -9,6 +9,12 @@ $education = get_entity($vars['guid']); // get the guid of the education entry t
 
 $guid = ($education != NULL)? $vars['guid'] : "new"; // if the education guid isn't given, this must be a new entry
 
+$user = elgg_get_logged_in_user_entity();
+//Check if the user already has education to prefil the
+if($user->education){
+  $user_edu = get_entity($user->education);
+}
+
 echo '<div class="gcconnex-education-entry" data-guid="' . $guid . '">'; // education entry wrapper for css styling
 
     // enter school name

@@ -318,8 +318,8 @@
      white-space: nowrap;
 
 
-     border: 1px solid #055959;
-     color: #055959;
+     border: 1px solid #46246A;
+     color: #46246A;
     /* color: white;
      background: #055959;*/
      padding: 3px 10px 3px 10px;
@@ -332,7 +332,7 @@
  .pop-skill:hover {
 
      cursor: pointer;
-     background: #047177;
+     background: ##46246A;
      color: white;
  }
 
