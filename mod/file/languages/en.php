@@ -6,6 +6,9 @@ return array(
 		* Menu items and titles
 		*/
 
+
+'file:upload_msg' => "The following extensions are acceptable at upload limit of %sMB",
+
 'file' => "Files",
 'file:user' => "%s's files",
 'file:friends' => "Colleagues\'  files",
