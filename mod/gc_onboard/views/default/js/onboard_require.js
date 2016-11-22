@@ -3,7 +3,7 @@ Nick Pietrantonio 2016-08-10
 Bootstrap Tour for touring groups.
 Uses the bootstrap tour API  - http://bootstraptour.com/api/
 
-All bootstrap tour funtions must be done through requirejs or there are conflicts 
+All bootstrap tour funtions must be done through requirejs or there are conflicts
 
 elgg.echo js is not working so language variables are created in this document
 
@@ -19,7 +19,7 @@ require.config({
 //Nick - Get current lang so we can translate (elgg.echo does not seem to work)
 var current_lang = elgg.get_language();
 //Get site root to go back to newsfeed with a query to show the last step
-var site_root = elgg.normalize_url('/newsfeed?last_step=true');
+var site_root = elgg.normalize_url('/newsfeed');
 
 requirejs(["bootstrap_tour"], function () {
     //Nick - Set some lang strings
@@ -28,7 +28,7 @@ requirejs(["bootstrap_tour"], function () {
         var lang_start_tour = 'Start the tour';
         var lang_confirm = 'Got It!';
         var group_titles = {};
-        group_titles['0'] = "Welcome to GCconnex Groups";
+        group_titles['0'] = "Welcome to GCcollab Groups";
         group_titles['1'] = "Navigating the group";
         group_titles['2'] = "Group discussion";
         group_titles['3'] = "Settings and notifications";
@@ -40,16 +40,16 @@ requirejs(["bootstrap_tour"], function () {
 
         group_contents['2'] = "Interact with other group members through discussions. Ask questions or share information and see what others have to say! Don't be afraid to reply to, and comment on existing discussions, you'll be adding value!";
 
-        group_contents['3'] = "Here, you can join or request membership to a group. Want out? Just leave the group... no hard feelings. <br> Want to let others know about this awesome group? Share the group on The Wire, GCconnex's own microblog! After joining a group, you will automatically start receiving notifications about new group activities. You can change your subscription preferences in your account settings or by activating/deactivating the &ldquo; bell &rdquo; icon.";
+        group_contents['3'] = "Here, you can join or request membership to a group. Want out? Just leave the group... no hard feelings. <br> Want to let others know about this awesome group? Share the group on The Wire, GCcollab's own microblog! After joining a group, you will automatically start receiving notifications about new group activities. You can change your subscription preferences in your account settings or by activating/deactivating the &ldquo; bell &rdquo; icon.";
 
-        group_contents['4'] = "Take full advantage of GCconnex by joining groups of interest. Groups allow communities, teams, committees, organizations (big or small) to share valuable information and knowledge. Start collaborating! <br><div class='mrgn-tp-sm'> Thanks for taking the tour! </div>";
+        group_contents['4'] = "Take full advantage of GCcollab by joining groups of interest. Groups allow communities, teams, committees, organizations (big or small) to share valuable information and knowledge. Start collaborating! <br><div class='mrgn-tp-sm'> Thanks for taking the tour! </div>";
         var group_last_step = "Continue";
     } else {
         //French
         var lang_start_tour = 'Commencer la visite guidée';
         var lang_confirm = "C'est bon!";
         var group_titles = {};
-        group_titles['0'] = "Bienvenue aux groupes GCconnex";
+        group_titles['0'] = "Bienvenue aux groupes GCcollab";
         group_titles['1'] = "Explorer le groupe";
         group_titles['2'] = "Discussion de groupe";
         group_titles['3'] = "Paramètres et notifications";
@@ -61,13 +61,13 @@ requirejs(["bootstrap_tour"], function () {
 
         group_contents['2'] = "Interagissez avec d'autres membres du groupe en discutant avec eux. Posez des questions ou échanger de l'information et voyez ce que les autres ont à dire. N'ayez pas peur de répondre à des discussions existantes ou de les commenter : votre opinion leur ajoute de la valeur!";
 
-        group_contents['3'] = "Cet endroit vous permet de joindre un groupe ou de faire une demande pour devenir membre d'un groupe. Vous voulez quitter? Vous n'avez qu'à quitter le groupe... nous ne le prendrons pas mal. <br> Vous voulez faire connaître un groupe incroyable à d'autres personnes? Partagez-le sur le fil, le microblogue de GCconnex! Après vous être joins à un groupe, vous recevrez automatiquement des notifications au sujet des nouvelles activités du groupe. Vous pouvez changer vos préférence d’abonnement dans vos  paramètres de compte, ou en activant/désactivant l'icône de &ldquo;cloche&rdquo;.";
+        group_contents['3'] = "Cet endroit vous permet de joindre un groupe ou de faire une demande pour devenir membre d'un groupe. Vous voulez quitter? Vous n'avez qu'à quitter le groupe... nous ne le prendrons pas mal. <br> Vous voulez faire connaître un groupe incroyable à d'autres personnes? Partagez-le sur le fil, le microblogue de GCcollab! Après vous être joins à un groupe, vous recevrez automatiquement des notifications au sujet des nouvelles activités du groupe. Vous pouvez changer vos préférence d’abonnement dans vos  paramètres de compte, ou en activant/désactivant l'icône de &ldquo;cloche&rdquo;.";
 
-        group_contents['4'] = "Profitez pleinement de GCconnex en vous joignant aux groupes qui vous intéressent. Les groupes permettent à des collectivités, à des équipes, à des comités et à des organisations (petites et grandes) d'échanger des informations et des connaissances précieuses. Commencez à collaborer! <br><div class='mrgn-tp-sm'> Merci d'avoir suivi cette visite guidée! </div>";
+        group_contents['4'] = "Profitez pleinement de GCcollab en vous joignant aux groupes qui vous intéressent. Les groupes permettent à des collectivités, à des équipes, à des comités et à des organisations (petites et grandes) d'échanger des informations et des connaissances précieuses. Commencez à collaborer! <br><div class='mrgn-tp-sm'> Merci d'avoir suivi cette visite guidée! </div>";
 
         var group_last_step = "Continuer";
     }
-    
+
 
     //Nick - this will parse the url to see if "first_tour" Query is true
     function getParameterByName(name, url) {
@@ -162,7 +162,7 @@ requirejs(["bootstrap_tour"], function () {
                    }
 
                },
-               
+
             ],
             storage:false,
         });
@@ -172,7 +172,7 @@ requirejs(["bootstrap_tour"], function () {
 
         // Start the tour
         tour.start(true);
-        
+
         //when tab menu is highlighted, only advance when Discussion tab is pressed
         $('.elgg-menu-item-discussion').on('click', function(){
             var currentStep = tour.getCurrentStep();
@@ -183,7 +183,5 @@ requirejs(["bootstrap_tour"], function () {
 
     }
 
-    
+
 });
-
-

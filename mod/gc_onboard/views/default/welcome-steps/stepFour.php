@@ -4,7 +4,7 @@
  *
  * Final step of welcome module. Gives additional information on other features of GCconnex.
  */
-
+$welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
 ?>
 
 <div class="panel-heading clearfix">
@@ -60,8 +60,17 @@
     </div>
 
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
+      <?php
+      //Added the group tour as optional at the end of the tour
+      echo elgg_view('output/url',array(
+          'text'=>elgg_echo('onboard:welcome:three:tour'),
+          'href'=>elgg_get_site_url().'groups/profile/'.$welcomeGroup_guid .'?first_tour=true',
+          'class'=>'btn btn-primary got-it',
+      ));
+      ?>
 
-        <button type="button" class="btn btn-primary got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
+
+        <button type="button" class="btn btn-default got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
 
     </div>
 
