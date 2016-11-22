@@ -164,4 +164,6 @@ return array(
     /*Profile lang changes*/
     'gcconnex_profile:basic:job' => "Job Title",
 
+    /**Functions**/
+    'onboard:skill' => 'Skill',
     );

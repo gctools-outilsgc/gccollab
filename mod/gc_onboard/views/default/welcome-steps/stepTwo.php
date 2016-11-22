@@ -27,6 +27,7 @@
         //get user entity
         $user = elgg_get_logged_in_user_entity();
 
+        //get user type to decide method of recommending people
         $userType = $user->user_type;
 /////STUDENTS
         if($userType =='student'){
@@ -91,11 +92,13 @@
                   $match['"'.$l->guid.'"'] = $l;
                   unset($match[$k]);
 
+                  //remove self or friends from retrieved list
                   if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
                     unset($match['"'.$l->guid.'"']);
                   }
                 }
 
+                //get feed back string which shows how they were matched
                 $status = $_SESSION['candidate_search_feedback'];
 
                 //combine students with skill matched users
@@ -122,7 +125,6 @@
               $institution = $l->institution;
 
               $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">';
-              //EW - change to render icon so new ambassador badges can be shown
               $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
 
               $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
@@ -281,11 +283,10 @@
             ));
 
             if($public_servant_count > 10){
-              $offset = rand(0, $public_servant_count - 10);
+              $offset = rand(0, $public_servant_count - 6);
             } else {
               $offset = 0;
             }
-
 
             //popular members in department
             $public_servant = elgg_get_entities_from_metadata(array(
@@ -328,7 +329,7 @@
 
             $public_servant = array_splice($public_servant, 0, 6);
 
-            //shuffle($public_servant);
+            shuffle($public_servant);
 
             //if the search does not find anyone, grb 6 random ambassadors for the user
             if(count($public_servant) == 0){
@@ -369,15 +370,9 @@
     </div>
 
     <div class="mrgn-bttm-md mrgn-tp-lg pull-right">
-
-        <?php
-        echo elgg_view('input/submit', array(
-                'value' => elgg_echo('onboard:welcome:next'),
-                'id' => 'next',
-            ));
-
-
-        ?>
+      <a id="next" class="btn btn-primary" href="#">
+          <?php echo elgg_echo('onboard:welcome:next'); ?>
+      </a>
 
     </div>
 
@@ -418,13 +413,12 @@
 
     //skip to next step
     $('#next').on('click', function () {
+      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>'); 
         elgg.get('ajax/view/welcome-steps/stepThree', {
             success: function (output) {
-               // var oldHeight = $('#welcome-step').css('height');
+
                 $('#welcome-step').html(output);
-               // var newHeight = $('#welcome-step').children().css('height');
-                //console.log('new:' + newHeight + ' old:' + oldHeight);
-                //animateStep(oldHeight, newHeight);
+
             }
         });
     });

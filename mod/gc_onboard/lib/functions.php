@@ -97,7 +97,7 @@ function skill_search($query_array, $query_operand, $limit)
         $entity_owners[$count] = $entity->owner_guid;
         // Section for generating feedback which tells the user which search criteria the returned users met.
         if($entity->getSubtype() == 'MySkill') {
-            $identifier_string = elgg_echo('missions:skill');
+            $identifier_string = elgg_echo('onboard:skill');
         }
 
         //test to see if list already created
@@ -111,9 +111,6 @@ function skill_search($query_array, $query_operand, $limit)
         $count++;
     }
 
-
-    //$entity_owners = array_merge($entity_owners, $users);
-
     $unique_owners_entity = guids_to_entities_with_opt(array_unique($entity_owners));
     $candidate_count = count($unique_owners_entity);
 
@@ -121,11 +118,8 @@ function skill_search($query_array, $query_operand, $limit)
         register_error(elgg_echo('missions:error:candidate_does_not_exist'));
         return false;
     } else {
-        $_SESSION['candidate_count'] = $candidate_count;
         $_SESSION['candidate_search_set'] = $unique_owners_entity;
-        $_SESSION['candidate_search_set_timestamp'] = time();
         $_SESSION['candidate_search_feedback'] = $search_feedback;
-        $_SESSION['candidate_search_feedback_timestamp'] = time();
 
         return $unique_owners_entity;
     }
@@ -142,9 +136,6 @@ function skill_search($query_array, $query_operand, $limit)
  * @return [ARRAY] [<ARRAY of user entities>]
  *
  */
-/*
- * Turns an array of guids into an array of entities.
- */
 function guids_to_entities_with_opt($candidates) {
 	$count_c = 0;
 	$count_p = 0;
@@ -152,14 +143,8 @@ function guids_to_entities_with_opt($candidates) {
 	$potentials_users = array();
 	foreach($candidates as $candidate) {
 		$user_temp = get_user($candidate);
-		if(check_if_opted_in($user_temp)) {
-			$candidates_users[$count_c] = $user_temp;
-			$count_c++;
-		}
-		else {
-			$potentials_users[$count_p] = $user_temp;
-			$count_p++;
-		}
+		$potentials_users[$count_p] = $user_temp;
+		$count_p++;
 	}
 
 	return array_merge($candidates_users, $potentials_users);

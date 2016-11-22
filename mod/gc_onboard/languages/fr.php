@@ -162,6 +162,9 @@ return array(
     'onboard:groups:trackerDesc' 	=> "Vous vous êtes joint à au moins trois groupes. N'hésitez pas à explorer et à joindre d'autres groupes intéressants. Vous pouvez voir les dernières activités pour vos groupes dans votre fil de nouvelles.",
     'onboard:groups:trackerButton' 	=> 'Aller au fil de nouvelles',
 
+
+    /**Functions**/
+    'onboard:skill' => 'Compétence',
     );
 
     //add_translation("fr", $french);
