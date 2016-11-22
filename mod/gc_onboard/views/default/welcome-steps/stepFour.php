@@ -60,6 +60,7 @@ $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
     </div>
 
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
+      <button type="button" class="btn btn-default got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
       <?php
       //Added the group tour as optional at the end of the tour
       echo elgg_view('output/url',array(
@@ -70,7 +71,7 @@ $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
       ?>
 
 
-        <button type="button" class="btn btn-default got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
+
 
     </div>
 

@@ -9,6 +9,7 @@ $education = get_entity($vars['guid']); // get the guid of the education entry t
 
 $guid = ($education != NULL)? $vars['guid'] : "new"; // if the education guid isn't given, this must be a new entry
 
+$degree_types = array(elgg_echo('degree:highSchool'), elgg_echo('degree:associate'), elgg_echo('degree:bachelor'), elgg_echo('degree:master'), elgg_echo('degree:mba'), elgg_echo('degree:js'),elgg_echo('degree:md'),elgg_echo('degree:phd'),elgg_echo('degree:engineer'),elgg_echo('degree:other'));
 
 echo '<div class="gcconnex-education-entry" data-guid="' . $guid . '">'; // education entry wrapper for css styling
 
@@ -24,11 +25,20 @@ echo '<div class="gcconnex-education-entry" data-guid="' . $guid . '">'; // educ
 
     // enter degree
     echo '<br><label for="degree-' . $guid . '" class="gcconnex-profile-field-title">' . elgg_echo('gcconnex_profile:education:degree') . '</label>';
+    /*
     echo elgg_view("input/text", array(
         'name' => 'degree',
         'id' => 'degree-' . $guid,
         'class' => 'gcconnex-education-degree',
-        'value' => $education->degree));
+        'value' => $education->degree));*/
+
+    echo elgg_view("input/select", array(
+        'name' => 'degree',
+        'id' => 'degree-' . $guid,
+        'class' => 'gcconnex-education-degree',
+        'options' => $degree_types,
+        'value' => $education->degree
+      ));
 
     // enter field  of study
     echo '<br><label for="fieldofstudy-' . $guid . '" class="gcconnex-profile-field-title">' . elgg_echo('gcconnex_profile:education:field') . '</label>';

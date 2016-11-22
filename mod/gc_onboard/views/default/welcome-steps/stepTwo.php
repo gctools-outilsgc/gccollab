@@ -113,7 +113,7 @@
             shuffle($students);
 
             if(count($students) == 0){
-              echo '<b>Sorry we were unable to find any colleage recomendations, fill out your profile more!</b>';
+              echo elgg_echo('onboard:welcome:two:noresults');
             }
 
             //output the student
@@ -227,7 +227,7 @@
           shuffle($academics);
 
           if(count($academics) == 0){
-            echo '<b>Sorry we were unable to find any colleage recomendations, fill out your profile more!</b>';
+              echo elgg_echo('onboard:welcome:two:noresults');
           }
 
           //output the student
@@ -333,7 +333,7 @@
 
             //if the search does not find anyone, grb 6 random ambassadors for the user
             if(count($public_servant) == 0){
-              //echo '<b>Sorry we were unable to find any colleage recomendations, fill out your profile more!</b>';
+              echo elgg_echo('onboard:welcome:two:noresults');
             }
 
             foreach($public_servant as $f => $l){
@@ -413,7 +413,7 @@
 
     //skip to next step
     $('#next').on('click', function () {
-      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>'); 
+      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>');
         elgg.get('ajax/view/welcome-steps/stepThree', {
             success: function (output) {
 

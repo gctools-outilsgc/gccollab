@@ -80,6 +80,7 @@ return array(
     /*Step two - colleagues*/
     'onboard:welcome:two:title' 	=> "Find people you know",
     'onboard:welcome:two:description' 	=> "GCcollab allows you to network with public servants across Canada. Find people with similar interest or skills. Add colleagues to see what they are sharing and connect with them using the chat.",
+    'onboard:welcome:two:noresults' => 'Sorry no results',
 
     /*Step three - colleagues*/
     'onboard:welcome:three:title' 	=> "Groups",
@@ -146,9 +147,13 @@ return array(
     /**Contact Form Links**/
     'onboard:helpHeader'		=> 'Tutorial Modules',
     'onboard:helpWelcome'		=> 'Welcome Module',
+    'onboard:helpWelcome:info'		=> 'Welcome Module',
     'onboard:helpProfile'		=> 'Profile Module',
+    'onboard:helpProfile:info'		=> 'Profile Module',
     'onboard:helpGroup'			=> 'Group Module',
+    'onboard:helpGroup:info'			=> 'Group Module',
     'onboard:helpGroupTour'		=> 'Group Tour',
+    'onboard:helpGroupTour:info'		=> 'Group Tour',
 
     /**Groups onboard**/
     'onboard:groups:header' 		=> 'Join Groups',

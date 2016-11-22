@@ -20,6 +20,7 @@ function onboard_ME() {
 
     elgg_register_page_handler('profileonboard', 'profileonboard_page_handler');
     elgg_register_page_handler('groupsonboard', 'groupsonboard_page_handler');
+    elgg_register_page_handler('tutorials', 'tutorials_page_handler');
 
     //actions
     elgg_register_action("onboard/join", elgg_get_plugins_path() . "gc_onboard/actions/groups/membership/join.php");
@@ -89,6 +90,10 @@ function groupsonboard_page_handler(){
     return true;
 }
 
+function tutorials_page_handler(){
+    @include (dirname ( __FILE__ ) . "/pages/tutorials.php");
+    return true;
+}
 
 /*
  * get_my_profile_strength

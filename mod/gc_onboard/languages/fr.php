@@ -81,7 +81,7 @@ return array(
     /*Step two - colleagues*/
     'onboard:welcome:two:title' 	=> "Trouver des personnes que vous connaissez",
     'onboard:welcome:two:description' 	=> "GCcollab vous permet de faire du réseautage avec des fonctionnaires de partout au Canada. Trouvez des personnes avec des intérêts ou des compétences similaires. Ajoutez des collègues pour voir ce qu'ils partagent et communiquez avec eux grâce au clavardage.",
-
+    'onboard:welcome:two:noresults' => 'Sorry no results',
 
     /*Step three - colleagues*/
     'onboard:welcome:three:title' 	=> "Groupes",
@@ -148,9 +148,13 @@ return array(
     /**Contact Form Links**/
     'onboard:helpHeader'		=> 'Modules des tutoriels',
     'onboard:helpWelcome'		=> 'Module de bienvenue',
+    'onboard:helpWelcome:info'		=> 'Module de bienvenue',
     'onboard:helpProfile'		=> 'Module du profil',
+    'onboard:helpProfile:info'		=> 'Module du profil',
     'onboard:helpGroup'			=> 'Module du groupe',
+    'onboard:helpGroup:info'			=> 'Module du groupe',
     'onboard:helpGroupTour'		=> 'Visite guidée du groupe',
+    'onboard:helpGroupTour:info'		=> 'Visite guidée du groupe',
 
     /**Groups onboard**/
     'onboard:groups:header' 		=> 'Joindre des groupes',
