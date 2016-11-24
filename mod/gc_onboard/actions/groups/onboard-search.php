@@ -63,7 +63,7 @@ if (!empty($query)) {
                 } else {
                     // request membership
                     $join_text = elgg_echo("groups:joinrequest");
-                    $disabled = 'disabled="true"';
+                    //$disabled = 'disabled="true"';
                 }
 
                 $content .= '<div class="col-xs-12">';

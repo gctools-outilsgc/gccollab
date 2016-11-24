@@ -1,6 +1,6 @@
 <?php
 /**
- * GCconnex onboarding
+ * GCcollab onboarding
  *
  * Welcome Module
  * Profile Module
