@@ -847,11 +847,6 @@ GCconnex est un espace de travail collaboratif pour le réseautage professionnel
   'tools' => "Outils",
   'settings:edit' => 'Modifier les paramètres',
 
-  'gcconnex:registerText' => '
-  <h3>Bienvenue à GCcollab! </h3>
-
-  <a href="'.$site_url.'termes">Conditions d’utilisation</a>',
-
   'register' => "S'inscrire",
   'registerok' => "Vous vous êtes inscrit avec succès dans %s.",
   'registerbad' => "Votre inscription a échoué pour une raison inconnue.",
