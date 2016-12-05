@@ -16,7 +16,7 @@
 $education = get_entity($vars['guid']); // get the guid of the education entry that is being requested for display
 
 $guid = ($education != NULL)? $vars['guid'] : "new"; // if the education guid isn't given, this must be a new entry
-$degree_types = array(elgg_echo('degree:highSchool'), elgg_echo('degree:associate'), elgg_echo('degree:bachelor'), elgg_echo('degree:master'), elgg_echo('degree:mba'), elgg_echo('degree:js'),elgg_echo('degree:md'),elgg_echo('degree:phd'),elgg_echo('degree:engineer'),elgg_echo('degree:other'));
+$degree_types = array(elgg_echo('degree:highSchool'), elgg_echo('degree:associate'), elgg_echo('degree:university'), elgg_echo('degree:bachelor'), elgg_echo('degree:master'), elgg_echo('degree:mba'), elgg_echo('degree:js'),elgg_echo('degree:md'),elgg_echo('degree:phd'),elgg_echo('degree:engineer'),elgg_echo('degree:other'));
 
 echo '<div class="gcconnex-education-entry" data-guid="' . $guid . '">'; // education entry wrapper for css styling
 

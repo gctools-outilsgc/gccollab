@@ -72,7 +72,6 @@
       <label stye="display:block;" for="skill-search">
           <?php echo elgg_echo('onboard:profile:addskills');?>
       </label>
-      <div class=timeStamp>Skills let people know something something. Add at least 3 skills</div>
       <input name="skill-search" id="skill-search" style="width:300px;" type="text" class="gcconnex-endorsements-input-skill" onkeyup="checkForEnter(event)" />
       <a href="#" class="btn btn-primary mrgn-tp-md mrgn-lft-sm" style="display:inline-block;" title="<?php echo elgg_echo('onboard:profile:addskills');?>" onclick="addButtonSubmit(event)">
           <?php echo elgg_echo('onboard:profile:add');?>
