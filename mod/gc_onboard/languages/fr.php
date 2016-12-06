@@ -17,18 +17,21 @@ return array(
      /**Additional Features**/
      'onboard:featureTitle'	=> "Prochaines étapes!",
      'onboard:feature1'		=> "En remplissant votre profil, vous aiderez les autres à vous trouver et communiquer avec vous.",
-     'onboard:feature2'		=> "Clavardez automatiquement avec vos collègues qui sont en ligne.",
-     'onboard:feature3'		=> "Examinez les possibilités de recrutement et d’avancement professionnel en cliquant sur l’onglet Carrière dans le principal menu de navigation.",
-     'onboard:feature4'		=> "Parcourez les groupes de GCcollab ou créez-en un !",
-     'onboard:featureImgAlt1'	=> "Capture d'écran de l'outil de recherche",
-     'onboard:featureImgAlt2'	=> "Capture d'écran de la fonctionnalité de clavardage de GCcollab",
-     'onboard:featureImgAlt3'	=> "Capture d'écran de l'élément Carrière du menu principal",
-     'onboard:featureImgAlt4'	=> "Capture d'écran d'un profil GCcollab",
+     'onboard:feature4'		=> "Clavardez automatiquement avec vos collègues qui sont en ligne.",
+     'onboard:feature2'		=> "Examinez les possibilités de recrutement et d’avancement professionnel en cliquant sur l’onglet Carrière dans le principal menu de navigation.",
+     'onboard:feature3'		=> "Parcourez les groupes de GCcollab ou créez-en un !",
+     'onboard:featureImgAlt3'	=> "Parcourez des groupes intéressants sur GCcollab.",
+     'onboard:featureImgAlt4'	=> "Capture d'écran de la fonctionnalité de clavardage de GCcollab",
+     'onboard:featureImgAlt2'	=> "Capture d'écran de l'élément Carrière du menu principal",
+     'onboard:featureImgAlt1'	=> "Capture d'écran d'un profil GCcollab",
      'onboard:footTutorials' => 'Tutoriels',
      'onboard:img1' => "af_fr_1.jpg",
      'onboard:img2' => "af_fr_2.jpg",
      'onboard:img3' => "af_fr_3.jpg",
      'onboard:img4' => "af_fr_4.jpg",
+
+     'onboard:feature:title1' => "Votre profil",
+     'onboard:feature:title2' => "Explorez les groupes",
 
      /**The Wire Popup**/
      'onboard:wireTitle'	=> "Bienvenue sur le fil!",
@@ -181,7 +184,7 @@ return array(
     'degree:mba' => "Maîtrise en administration des affaires (M.B.A.)",
     'degree:js' => "Doctorat en jurisprudence (J.D.)",
     'degree:md' => "Doctorat en médecine (M.D.)",
-    'degree:phd' => "Doctorat en philosophie (Ph. D.)",
+    'degree:phd' => "Doctorat en philosophie (Ph.D.)",
     'degree:engineer' => "Baccalauréat en génie",
     'degree:other' => "Autre",
 

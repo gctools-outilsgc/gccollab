@@ -16,18 +16,21 @@ return array(
      /**Additional Features**/
      'onboard:featureTitle'	=> "Next Steps!",
      'onboard:feature1'		=> "By filling out your profile, you make yourself more accessible and others are more likely to connect with you.",
-     'onboard:feature2'		=> "Chat instantly with your colleagues who are online.",
-     'onboard:feature3'		=> "Browse opportunities by clicking on the Career tab of the main navigation menu. ",
-     'onboard:feature4'		=> "Check out the groups on GCcollab or create one of your own!",
-     'onboard:featureImgAlt1'	=> "Screenshot of Search",
-     'onboard:featureImgAlt2'	=> "Screenshot of the GCcollab Chat Feature",
-     'onboard:featureImgAlt3'	=> "Screenshot of the Career main menu item",
-     'onboard:featureImgAlt4'	=> "Screenshot of a GCcollab Profile",
+     'onboard:feature4'		=> "Chat instantly with your colleagues who are online.",
+     'onboard:feature2'		=> "Browse opportunities by clicking on the Career tab of the main navigation menu. ",
+     'onboard:feature3'		=> "Check out the groups on GCcollab or create one of your own!",
+     'onboard:featureImgAlt3'	=> "Check out some cool groups on GCcollab.",
+     'onboard:featureImgAlt4'	=> "Screenshot of the GCcollab Chat Feature",
+     'onboard:featureImgAlt2'	=> "Screenshot of the Career main menu item",
+     'onboard:featureImgAlt1'	=> "Screenshot of a GCcollab Profile",
      'onboard:footTutorials' => 'Tutorials',
      'onboard:img1' => "af_1.jpg",
      'onboard:img2' => "af_2.jpg",
      'onboard:img3' => "af_3.jpg",
      'onboard:img4' => "af_4.jpg",
+
+     'onboard:feature:title1' => "Your Profile",
+     'onboard:feature:title2' => "Explore Groups",
 
      /**The Wire Popup**/
      'onboard:wireTitle'	=> "Welcome to The Wire!",

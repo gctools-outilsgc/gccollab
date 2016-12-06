@@ -5,6 +5,9 @@
  * Final step of welcome module. Gives additional information on other features of GCconnex.
  */
 $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
+if(!$welcomeGroup_guid){
+    $welcomeGroup_guid = 967;
+}
 ?>
 
 <div class="panel-heading clearfix">
@@ -24,7 +27,7 @@ $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
-                <h4><?php echo elgg_echo('Your Profile');?></h4>
+                <h4><?php echo elgg_echo('onboard:feature:title1');?></h4>
                 <?php
                 echo elgg_echo('onboard:feature1');
                     ?>
@@ -50,7 +53,7 @@ $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
                 </div>
             </div>
             <div class="col-sm-12 mrgn-tp-md feature-desc">
-                <h4><?php echo elgg_echo('Explore Groups');?></h4>
+                <h4><?php echo elgg_echo('onboard:feature:title2');?></h4>
                 <?php
                 echo elgg_echo('onboard:feature3');
                 ?>
