@@ -14,6 +14,8 @@ return array(
 		* Menu items and titles
 		*/
 
+'file:upload_msg' => "Les extensions de fichier suivantes sont acceptables à la limite de téléchargement de %sMo",
+
 'file' => "Fichiers",
 'file:user' => "Les fichiers de %s",
 'file:friends' => "Les fichiers de collègues",
