@@ -12,7 +12,7 @@ if ($guid) {
 	// backward compatibility when we couldn't set widget title (pre 1.9)
 	if (!$vars['entity']->title) {
 		$title = get_entity($guid)->name;
-		$content = "<h3>$title yes</h3>";
+		$content = "<h3>$title</h3>";
 	}
 
 	$db_prefix = elgg_get_config('dbprefix');
@@ -23,7 +23,7 @@ if ($guid) {
 		'wheres' => array("(oe.container_guid = $guid)"),
 	));
 	if (!$activity) {
-		$activity = '<p>' . elgg_echo('groups:widget:group_activity:content:noactivity') . '</p>';
+		$activity = '<p>T' . elgg_echo('groups:widget:group_activity:content:noactivity') . '</p>';
 	}
 
 	$content .= $activity;
