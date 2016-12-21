@@ -787,11 +787,6 @@ return array(
 	'tools' => "Outils",
 'settings:edit' => 'Modifier les paramètres',
 
-
-    'gcconnex:registerText' => '
-<h3>Bienvenue à GCconnex! </h3>
-GCconnex est un espace de travail collaboratif pour le réseautage professionnel à l\'ensemble de la fonction publique. Celle-ci vous permet de vous brancher, de partager de l\'information et tirer profit du pouvoir de réseautage pour accroître l\'efficacité et la productivité de la fonction publique.<br>
-<a href="'.$site_url.'terms-termes">Conditions d’utilisation</a>',
 'register' => "S'inscrire",
 'registerok' => "Vous vous êtes inscrit avec succès dans %s.",
 'registerbad' => "Votre inscription a échoué pour une raison inconnue.",

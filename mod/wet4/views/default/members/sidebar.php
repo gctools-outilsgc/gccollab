@@ -7,9 +7,9 @@
 // english or french page
 $gc_language = $_COOKIE['connex_lang'];
 if ($gc_language === '' || $gc_language === 'en' || !$gc_language)
-	$action = 'http://intranet.canada.ca/search-recherche/query-recherche-eng.aspx';
+	$action = 'search?entity_type=user&entity_subtype=0&offset=0&search_type=entities';
 else
-	$action = 'http://intranet.canada.ca/search-recherche/query-recherche-fra.aspx';
+	$action = 'search?entity_type=user&entity_subtype=0&offset=0&search_type=entities';
 
 $params = array(
 	'method' => 'get',

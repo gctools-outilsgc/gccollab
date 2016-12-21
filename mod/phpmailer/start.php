@@ -212,9 +212,9 @@ function phpmailer_send($from, $from_name, $to, $to_name, $subject, $body, array
 		$phpmailer->Host = $smtp_host;
 		$phpmailer->SMTPAuth = false;
 		if ($smtp_auth) {
-			//$phpmailer->SMTPAuth = true;
-			//$phpmailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
-			//$phpmailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
+			$phpmailer->SMTPAuth = true;
+			$phpmailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
+			$phpmailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
 
 			if ($is_ssl) {
 				$phpmailer->SMTPSecure = "ssl";
