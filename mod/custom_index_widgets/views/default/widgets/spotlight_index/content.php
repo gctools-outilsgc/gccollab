@@ -109,6 +109,7 @@ if ($slider_type == "flexslider") {
 	echo '</ul></div></div>';
 	
 	?>
+		<p>Testing automated GitHub pull from Development branch.</p>
 		<link rel="stylesheet" type="text/css" href="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/flexslider.css"></link>
 		<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/jquery.flexslider-min.js"></script>
 		
