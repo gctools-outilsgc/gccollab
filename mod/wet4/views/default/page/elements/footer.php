@@ -1,7 +1,7 @@
 <?php
 /**
  * WET 4 Footer displays links to various important information
- * 
+ *
  * Aug 12 2016 - CYu - cleaned up footer
  */
 
@@ -32,7 +32,7 @@ $feedbackText= elgg_echo('wet:feedbackText');
 <div class="container">
 	<nav role="navigation">
 		<h2>About this site</h2>
-        
+
         <?php
         //Test is the user is logged in and give them links to register in the footer
         if (!elgg_is_logged_in())
@@ -48,7 +48,7 @@ $feedbackText= elgg_echo('wet:feedbackText');
                     <li><a href="<?php echo $about;?>"><?php echo elgg_echo('wet:footAbout');?></a></li>
                     <li><a href="<?php echo $priv;?>"><?php echo elgg_echo('wet:footPrivacy');?></a></li>
                     <li><a href="<?php echo $terms;?>"><?php echo elgg_echo('wet:footTerms');?></a></li>
-                    
+
                 </ul>
             </section>
 
@@ -59,8 +59,8 @@ $feedbackText= elgg_echo('wet:feedbackText');
                   <li>
                     <a href="<?php echo $faq;?>"><?php echo elgg_echo('wet:footFAQ');?></a>
                   </li>
-                    <li><a href="<?php echo elgg_get_site_url() . 'mod/contactform/'; ?>"> <?php echo elgg_echo('contactform:help_menu_item'); ?> </a>
-                    </li>
+                    <li><a href="<?php echo elgg_get_site_url() . 'mod/contactform/'; ?>"> <?php echo elgg_echo('contactform:help_menu_item'); ?> </a></li>
+                    <?php if(elgg_is_active_plugin('gc_onboard')){ echo '<li><a href="'.elgg_get_site_url().'tutorials">'.elgg_echo('onboard:footTutorials').'</a></li>'; }?>
                 </ul>
             </section>
 
@@ -79,9 +79,9 @@ $feedbackText= elgg_echo('wet:feedbackText');
 		</div>
 	</nav>
 </div>
-    
-    
-    
+
+
+
 <!-- GC Info that will be at the bottom of the footer -->
 <div class="brand">
     <div class="container">
