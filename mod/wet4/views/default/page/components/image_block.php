@@ -152,7 +152,8 @@ if ($image && elgg_in_context('ajax') || elgg_in_context('bookmarks') || elgg_in
     if(elgg_in_context('comments') || elgg_in_context('groups-onboard')){
         $image = "<div class=\"mrgn-tp-sm col-xs-2 clearfix\">$image </div>";
     }else{
-        $image = "<div class=\"mrgn-tp-sm col-xs-12 clearfix discussion-card-header\">$image </div>";
+        $image = "<div class=\"mrgn-tp-sm col-xs-12 clearfix discussion-card-header\"></div>";
+        // $image = "<div class=\"mrgn-tp-sm col-xs-12 clearfix discussion-card-header\">$image </div>";
     }
 
      //$echo = elgg_get_context();
