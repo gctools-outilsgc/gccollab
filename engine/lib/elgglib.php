@@ -1907,7 +1907,7 @@ function _elgg_init() {
 	elgg_register_plugin_hook_handler('head', 'page', function($hook, $type, array $result) {
 		$result['links']['manifest'] = [
 			'rel' => 'manifest',
-			'href' => elgg_normalize_url('/manifest.json'),
+			'href' => elgg_normalize_url('/mod/gc_onboard/manifest.json'),
 		];
 
 		return $result;
