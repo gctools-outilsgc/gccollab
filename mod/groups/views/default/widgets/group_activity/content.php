@@ -25,8 +25,8 @@ if ($guid) {
 	if (!$activity) {
 		$activity = '<p>' . elgg_echo('groups:widget:group_activity:content:noactivity') . '</p>';
 	}
-	
-	$content .= $activity;
+
+	$content .= $activity.'<h1>TEST------------</h1>';
 } else {
 	// no group selected yet
 	$content = '<p>' . elgg_echo('groups:widget:group_activity:content:noselect') . '</p>';
