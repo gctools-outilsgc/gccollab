@@ -144,7 +144,12 @@
 
  .final-tour-step{
      min-width: 500px;
+ }
 
+ @media screen and (max-width: 500px){
+    .final-tour-step{
+        min-width: 95%;
+    }
  }
 
  .profile-step-holder{
