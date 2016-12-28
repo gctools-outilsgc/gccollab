@@ -65,3 +65,9 @@
 .extra-group-btn {
 	padding-left: 0;
 }
+
+@media screen and (max-width: 500px){
+	.extra-group-btn {
+		margin-right: 0 !important;
+	}
+}
