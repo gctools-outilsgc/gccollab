@@ -61,3 +61,7 @@
 .elgg-menu-groups-my-status li.elgg-state-selected > a {
 	color: #999;
 }
+
+.extra-group-btn {
+	padding-left: 0;
+}
