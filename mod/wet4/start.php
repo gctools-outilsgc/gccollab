@@ -127,7 +127,7 @@ function wet4_theme_init() {
     elgg_register_plugin_hook_handler('register', 'menu:site', 'my_site_menu_handler');
 	elgg_register_plugin_hook_handler('register', 'menu:river', 'river_handler');
 
-    elgg_register_js('wet4/test.js');
+    elgg_register_js('wet4', 'test.js');
 
     //added since goups didnt have this action but called it
     elgg_register_action("discussion_reply/delete", elgg_get_plugins_path() . "/wet4/actions/discussion/reply/delete.php");

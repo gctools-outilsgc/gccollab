@@ -186,8 +186,6 @@ function html_email_handler_send_email(array $options = null) {
 	
 	// TEXT part of message
 	$plaintext_message = elgg_extract("plaintext_message", $options);
-	$html_message = elgg_extract("html_message", $options);
-
 	if (!empty($plaintext_message)) {
 		// normalize URL's in the text
 		$plaintext_message = html_email_handler_normalize_urls($plaintext_message);
@@ -199,11 +197,10 @@ function html_email_handler_send_email(array $options = null) {
 		
 		// add content
 		$message .= chunk_split(base64_encode($plaintext_message)) . PHP_EOL . PHP_EOL;
-
-	} else {
+	}
 	
 	// HTML part of message
-	
+	$html_message = elgg_extract("html_message", $options);
 	if (!empty($html_message)) {
 		$html_boundary = $boundary;
 		
@@ -245,7 +242,6 @@ function html_email_handler_send_email(array $options = null) {
 			$message .= "--" . $html_boundary . "--" . PHP_EOL;
 		}
 	}
-}
 	
 	// Final boundry
 	$message .= "--" . $boundary . "--" . PHP_EOL;

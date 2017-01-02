@@ -14,7 +14,7 @@ if(elgg_is_logged_in()){
     $helpLaunch = get_input('welcome');
 
     $user = elgg_get_logged_in_user_entity();
-    unset($user->onboardcta);
+    // unset($user->onboardcta);
     //$user->onboardcta = time();
 
     //grab times from settings

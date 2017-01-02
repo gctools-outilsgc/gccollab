@@ -31,7 +31,7 @@ $body = elgg_extract('body', $vars, '');
 $recipient_autocomplete = elgg_view('input/autocomplete', array(
 	'name' => 'recipient_username',
     'id' => 'recipient_username',
-	'value' => $recipient_username_list,
+	'value' => ($recipient_username_list ? $recipient_username_list : $recipient_username),
 	'match_on' => array('friends'),
 ));
 

@@ -61,3 +61,13 @@
 .elgg-menu-groups-my-status li.elgg-state-selected > a {
 	color: #999;
 }
+
+.extra-group-btn {
+	padding-left: 0;
+}
+
+@media screen and (max-width: 500px){
+	.extra-group-btn {
+		margin-right: 0 !important;
+	}
+}
