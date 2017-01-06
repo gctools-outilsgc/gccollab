@@ -167,7 +167,7 @@ if(elgg_get_context() == 'profile'){
         //add dropdown data to li
         $('.tabMenuGroup .dropdown a').attr('data-toggle', 'dropdown');
         //add the dropdown list
-        $('.elgg-menu-owner-block .dropdown').append('<ul class="dropdown-menu pull-right"></ul>');
+        $('.elgg-menu-owner-block .dropdown').append('<ul class="dropdown-menu pull-left"></ul>');
 
         //grab all list items
         var listItems = $('.tabMenuGroup li').toArray();
