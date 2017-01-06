@@ -3037,7 +3037,7 @@ tbody.collapse.in {
   -webkit-background-clip: padding-box;
           background-clip: padding-box; }
   .dropdown-menu.pull-right {
-   // right: 0;
+    right: 0;
     left: auto; }
   .dropdown-menu .divider {
     height: 1px;
