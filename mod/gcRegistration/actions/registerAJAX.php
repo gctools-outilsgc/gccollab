@@ -156,6 +156,20 @@ function checkInvalidDomain($dom)
 			$isNotValid = false;
 		else
 			$isNotValid = true;
+		
+		$wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
+		$wildcard_emails = get_data($wildcard_query);
+
+		if($wildcard_emails){
+			foreach($wildcard_emails as $wildcard){
+				$regex = str_replace(".", "\.", $wildcard->ext);
+				$regex = str_replace("*", "[\w-.]+", $regex);
+				$regex = "/^@" . $regex . "$/";
+				if(preg_match($regex, "@".$dom)){
+					$isNotValid = false;
+				}
+			}
+		}
 	}
 
 	return $isNotValid;
