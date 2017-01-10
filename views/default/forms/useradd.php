@@ -22,6 +22,7 @@ $admin = elgg_extract('admin', $values);
 if (is_array($admin)) {
 	$admin = array_shift($admin);
 }
+$sendemail = true;
 
 ?>
 <div>
@@ -75,6 +76,14 @@ if (is_array($admin)) {
 		'name' => "admin",
 		'options' => array(elgg_echo('admin_option') => 1),
 		'value' => $admin,
+	));
+?>
+</div>
+<?php 
+	echo elgg_view('input/checkboxes', array(
+		'name' => "sendemail",
+		'options' => array(elgg_echo('sendemail') => 1),
+		'value' => $sendemail,
 	));
 ?>
 </div>

@@ -493,6 +493,7 @@ return array(
   'password' => "Mot de passe",
   'passwordagain' => "Confirmation du mot de passe",
   'admin_option' => "Définir cet utilisateur comme administrateur ?",
+  'sendemail' => "Envoyer un message au nouvel utilisateur à propos de son compte?",
 
 	'dashboard' => "Tableau de bord",
 'dashboard:nowidgets' => "Votre tableau de bord vous permet de suivre l'activité sur le site et d'en filtrer le contenu selon vos intérêts.",

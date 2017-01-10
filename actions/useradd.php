@@ -20,6 +20,8 @@ if (is_array($admin)) {
 	$admin = $admin[0];
 }
 
+$sendemail = get_input('sendemail');
+
 // no blank fields
 if ($username == '' || $password == '' || $password2 == '' || $email == '' || $name == '') {
 	register_error(elgg_echo('register:fields'));
@@ -56,7 +58,9 @@ try {
 			$password,
 		), $new_user->language);
 
-		notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
+		if($sendemail) {
+			notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
+		}
 
 		system_message(elgg_echo("adduser:ok", array(elgg_get_site_entity()->name)));
 	} else {

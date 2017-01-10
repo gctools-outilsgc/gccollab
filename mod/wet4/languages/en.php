@@ -397,6 +397,7 @@ return array(
 	'password' => "Password",
 	'passwordagain' => "Password (again for verification)",
 	'admin_option' => "Make this user an admin?",
+  'sendemail' => "Send the new user an email about their account?",
 
 /**
  * Access
