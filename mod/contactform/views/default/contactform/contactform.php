@@ -87,7 +87,7 @@ if(isset($_POST['submitted']))
     <span id='contactus_scaptcha_errorloc' class='error'></span>
 </div>
 </fieldset>
-echo elgg_view('register/extend', $vars);
+
 <div class='container'>
     <input type='submit' name='Submit' value='Submit' />
 </div>
