@@ -27,9 +27,9 @@ function getExtension($sort = 'ASC', $filter = 'all')
 	} else {
 
 		if (strcmp($filter,'university') == 0 )
-			$query = "SELECT * FROM email_extensions WHERE dept LIKE '%University%'";
+			$query = "SELECT * FROM email_extensions WHERE dept LIKE '%University%' ORDER BY dept {$sort}";
 		else
-			$query = "SELECT * FROM email_extensions WHERE dept NOT LIKE '%University%'";
+			$query = "SELECT * FROM email_extensions WHERE dept NOT LIKE '%University%' ORDER BY dept {$sort}";
 		
 	}
 
