@@ -11321,6 +11321,13 @@ border:none;
     width:25px;
 }
 
+.fa-wrench{
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
+    background-size:cover;
+    height: 25px;
+    width:25px;
+}
+
 /***End of temp icon ****/
 /*
  * Mobile panel
