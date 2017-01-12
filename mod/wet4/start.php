@@ -28,7 +28,7 @@ function wet4_theme_init() {
 
 
     //reload groups library to have our sidebar changes
-    elgg_register_library('elgg:groups', elgg_get_plugins_path() . 'wet4/lib/groups.php');
+
     elgg_register_library('GCconnex_logging', elgg_get_plugins_path() . 'wet4/lib/logging.php');
     elgg_register_library('GCconnex_display_in_language', elgg_get_plugins_path() . 'wet4/lib/translate_display.php');
     //elgg_register_library('elgg:user_settings', elgg_get_plugins_path(). 'wet4/lib/user_settings.php');
@@ -55,7 +55,6 @@ function wet4_theme_init() {
     elgg_register_plugin_hook_handler('register', 'menu:widget', 'wet4_widget_menu_setup');
     elgg_register_plugin_hook_handler('register', 'menu:page', 'wet4_elgg_page_menu_setup');
     elgg_register_plugin_hook_handler('register', 'menu:river', 'wet4_elgg_river_menu_setup');
-    elgg_register_plugin_hook_handler('register', 'menu:site', 'career_menu_hander');
 
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'wet4_likes_entity_menu_setup', 400);
     //elgg_register_plugin_hook_handler('register', 'menu:entity', 'wet4_delete_entity_menu', 400);
@@ -109,14 +108,16 @@ function wet4_theme_init() {
 		//message preview
     elgg_register_ajax_view("messages/message_preview");
 
-    //newsfeed filter form
-    elgg_register_ajax_view("ajax/newsfeed_filter");
-    elgg_register_action("newsfeed/filter", elgg_get_plugins_path() . "/wet4/actions/newsfeed/filter.php");
-
     //Group AJAX loading view
+		/*REMOVE_GROUP
     elgg_register_ajax_view('ajax/grp_ajax_content');
-	elgg_extend_view("js/elgg", "js/wet4/group_ajax");
+	elgg_extend_view("js/elgg", "js/wet4/group_ajax");*/
     elgg_extend_view("js/elgg", "js/wet4/discussion_quick_start");
+
+
+
+   elgg_extend_view("js/elgg","js/wet4/language_ajax");
+
 		//Notification / Messages dropdown view
 		elgg_register_ajax_view('ajax/notif_dd');
 
@@ -153,14 +154,6 @@ function wet4_theme_init() {
     // new widgets
     //registering wet 4 activity widget
 
-    if(elgg_is_logged_in()) {//for my the my groups widget on the home page
-        $mygroups_title = elgg_echo('wet_mygroups:my_groups');
-        $wet_activity_title = elgg_echo('wet4:colandgroupactivity');
-    }else{
-        $mygroups_title = elgg_echo('wet_mygroups:my_groups_nolog');
-        $wet_activity_title = elgg_echo('wet4:colandgroupactivitynolog');
-    }
-    elgg_register_widget_type('wet_activity', $wet_activity_title, 'GCconnex Group and Colleague Activity', array('custom_index_widgets'),false);
     elgg_register_widget_type('suggested_friends', elgg_echo('sf:suggcolleagues'), elgg_echo('sf:suggcolleagues'), array('custom_index_widgets'),false);
     elgg_register_widget_type('feature_tour', 'feature_tour', 'feature_tour', array('custom_index_widgets'),false);
 
@@ -186,12 +179,6 @@ function wet4_theme_init() {
     elgg_extend_view("core/settings/statistics", "forms/usersettings/menus");
     elgg_extend_view('forms/account/settings', 'core/settings/account/landing_page');
 
-    //menu item for career dropdown
-    elgg_register_menu_item('site', array(
-    		'name' => 'career',
-    		'href' => '#career_menu',
-    		'text' => elgg_echo('career') . '<span class="expicon glyphicon glyphicon-chevron-down"></span>'
-    ));
 
     //set up metadata for user's landing page preference
     if(elgg_is_logged_in()){
@@ -204,11 +191,7 @@ function wet4_theme_init() {
     //save new user settings on landing page
     elgg_register_plugin_hook_handler('usersettings:save', 'user', '_elgg_set_landing_page');
 
-    // Replace the default index page with redirect
-    elgg_register_plugin_hook_handler('index', 'system', 'new_index');
-    elgg_register_page_handler('newsfeed', 'newsfeed_page_handler');
-    elgg_register_page_handler('splash', 'splash_page_handler');
-    elgg_register_page_handler('c_photo_image', 'c_photo_page_handler');
+
     elgg_register_page_handler('groups_autocomplete', 'groups_autocomplete');
 
 
@@ -298,26 +281,19 @@ function wet4_theme_init() {
 
 }
 
-
-/*
- *  load lib for suggested group text input
- */
-
+ /*
+  * groups_autocomplete
+  * loads library for groups autocomplete in group creation form
+  */
 function groups_autocomplete() {
     require_once elgg_get_plugins_path() . 'wet4/lib/groups_autocomplete.php';
     return true;
 }
 
-
 /*
- *  Create news feed page
+ * activity_page_handler
+ * Override activity page handler
  */
-
-function newsfeed_page_handler(){
-    @include (dirname ( __FILE__ ) . "/pages/newsfeed.php");
-    return true;
-}
-
 function activity_page_handler($page){
     elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
 
@@ -338,29 +314,11 @@ function activity_page_handler($page){
     return true;
 }
 
-//Create splash page
-function splash_page_handler(){
-    @include (dirname ( __FILE__ ) . "/pages/splash.php");
-    return true;
-}
-//create cover photo page
-function c_photo_page_handler(){
-    @include (dirname ( __FILE__ ) . "/pages/c_photo_image.php");
-    return true;
-}
 
-/*
- *  Set new index page to sort user's landing page preference
- */
-
-function new_index() {
-    return !include_once(dirname(__FILE__) . "/pages/index.php");
-}
-
-/*
- * Set landing page in user settings
- */
-
+ /*
+  * _elgg_set_landing_page
+  * Sets landing page from user settings
+  */
 function _elgg_set_landing_page() {
 	$page = strip_tags(get_input('landingpage'));
 	$user_guid = get_input('guid');
@@ -391,35 +349,10 @@ function _elgg_set_landing_page() {
 }
 
 
-// function that handles moving jobs marketplace and micro missions into drop down menu
-function career_menu_hander($hook, $type, $menu, $params) {
-    foreach ($menu as $key => $item){
 
-        switch ($item->getName()) {
-            case 'career':
-                if(elgg_is_active_plugin('missions'))
-                    $item->addChild(elgg_get_menu_item('site', 'mission_main'));
-
-                if(elgg_is_active_plugin('gcforums'))
-                    $item->addChild(elgg_get_menu_item('subSite', 'Forum'));
-
-                $item->addChild(elgg_get_menu_item('subSite', 'jobs'));
-                //$item->setLinkClass('item');
-
-                // condition if this is gccollab, insert careers targetted to students
-                $item->addChild(elgg_get_menu_item('subSite', 'sturp'));
-                $item->addChild(elgg_get_menu_item('subSite', 'grp'));
-                $item->addChild(elgg_get_menu_item('subSite', 'sperp'));
-                $item->addChild(elgg_get_menu_item('subSite', 'caf'));
-                $item->addChild(elgg_get_menu_item('subSite', 'rcmp'));
-                $item->setLinkClass('item');
-                break;
-        }
-    }
-}
-
-/**
- * Rearrange menu items
+/*
+ * wet4_theme_pagesetup
+ * Overrides various menu items to add font awesome icons, reorder items and add accessabilty
  */
 function wet4_theme_pagesetup() {
 
@@ -695,11 +628,10 @@ function wet4_theme_setup_head($hook, $type, $data) {
 	return $data;
 }
 
-
-
-
-
-
+/*
+ * wet4_likes_entity_menu_setup
+ * Override likes entity menu to include font awesome icons and add accessability
+ */
 function wet4_likes_entity_menu_setup($hook, $type, $return, $params) {
 	// make the widget view produce the same entity menu as the other objects
     if (elgg_in_context('widgets')) {
@@ -754,8 +686,10 @@ function wet4_likes_entity_menu_setup($hook, $type, $return, $params) {
 }
 
 
-
-//Setup page menu for user settings
+/*
+ * wet4_elgg_page_menu_setup
+ * Override page menu on user settings page
+ */
 function wet4_elgg_page_menu_setup($hook, $type, $return, $params) {
 
     if(elgg_in_context('settings')){
@@ -800,7 +734,10 @@ function wet4_elgg_page_menu_setup($hook, $type, $return, $params) {
 
 }
 
-
+/*
+ * wet4_blog_entity_menu
+ * Override blog entity menu to include font awesome icons and add accessability
+ */
 function wet4_blog_entity_menu($hook, $entity_type, $returnvalue, $params) {
     if (empty($params) || !is_array($params)) {
         return $returnvalue;
@@ -848,8 +785,10 @@ function wet4_blog_entity_menu($hook, $entity_type, $returnvalue, $params) {
     return $returnvalue;
 }
 
-
-
+/*
+ * my_owner_block_handler
+ * Override owner_block menu to become tabs in profile
+ */
 function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 	//Have widgets show the same entity menu
     if (elgg_in_context('widgets')) {
@@ -1035,7 +974,10 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
 	return $return;
 }
-
+/*
+ * _wet4_friends_page_handler
+ * Override friends page handler to use wet4 pages
+ */
 function _wet4_friends_page_handler($page, $handler) {
     //change the page handler for friends to user our own pages. This increases the limit of friends for data table parsing and such :)
 	elgg_set_context('friends');
@@ -1064,12 +1006,18 @@ function _wet4_friends_page_handler($page, $handler) {
 	return true;
 }
 
-
+/*
+ * wet4_riverItem_remove
+ * Remove unwanted river items
+ */
 function wet4_riverItem_remove(){
     elgg_unregister_menu_item('river', 'comment');
     elgg_unregister_menu_item('river', 'reply');
 }
-
+/*
+ * wet4_elgg_river_menu_setup
+ * Override river menu to use font awesome icons + add accessability
+ */
 function wet4_elgg_river_menu_setup($hook, $type, $return, $params){
    // $entity = $params['entity'];
 
@@ -1161,7 +1109,10 @@ function wet4_elgg_river_menu_setup($hook, $type, $return, $params){
 	return $return;
 }
 
-//arrange filter menu menu
+/*
+ * my_filter_menu_handler
+ * Rearrange filter menu for The Wire
+ */
 function my_filter_menu_handler($hook, $type, $menu, $params){
     foreach ($menu as $key => $item){
         if(elgg_in_context('thewire')){
@@ -1189,7 +1140,10 @@ function my_filter_menu_handler($hook, $type, $menu, $params){
     }
 }
 
-//fix site menu
+/*
+ * my_site_menu_handler
+ * Set href of groups link depending if a logged in user is using site
+ */
 function my_site_menu_handler($hook, $type, $menu, $params){
     foreach ($menu as $key => $item){
 
@@ -1209,7 +1163,10 @@ function my_site_menu_handler($hook, $type, $menu, $params){
 
 }
 
-//arrange title menu on photo album
+/*
+ * my_title_menu_handler
+ * Add styles to phot album title menu
+ */
 function my_title_menu_handler($hook, $type, $menu, $params){
     foreach ($menu as $key => $item){
         switch ($item->getName()) {
@@ -1228,8 +1185,10 @@ function my_title_menu_handler($hook, $type, $menu, $params){
     }
 }
 
-
-//arrange owner block menu
+/*
+ * my_owner_block_handler
+ * Override owner_block menu to become tabs in profile
+ */
 function my_owner_block_handler($hook, $type, $menu, $params){
 
     /*
@@ -1239,191 +1198,6 @@ function my_owner_block_handler($hook, $type, $menu, $params){
      *
      */
 
-
-    //rearrange menu items
-    if(elgg_get_context() == 'group_profile'){
-
-        elgg_unregister_menu_item('owner_block', 'Activity');
-
-        //turn owner_block  menu into tabs
-        foreach ($menu as $key => $item){
-
-            switch ($item->getName()) {
-
-
-				case 'discussion':
-					// cyu - take discussions off for the crawler
-					if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
-						$item->setText(elgg_echo('gprofile:discussion'));
-						$item->setHref('#groupforumtopic');
-						$item->setPriority('2');
-					}
-                    break;
-
-
-                case 'gcforums':
-                    $item->setPriority('1');
-                    $item->setLinkClass('forums');
-                    break;
-                case 'related_groups':
-                    $item->setHref('#related');
-
-                    $item->setPriority('20');
-                    break;
-                case 'file':
-                    $item->setText(elgg_echo('gprofile:files'));
-                    $item->setHref('#file');
-                    $item->setPriority('3');
-                    break;
-                case 'blog':
-                    $item->setText(elgg_echo('gprofile:blogs'));
-                    $item->setHref('#blog');
-                    $item->setPriority('3');
-                    break;
-                case 'event_calendar':
-                    $item->setText(elgg_echo('gprofile:events'));
-                    $item->setHref('#calendar');
-                    $item->setPriority('5');
-                    break;
-                case 'pages':
-                    $item->setText(elgg_echo('gprofile:pages'));
-                    $item->setHref('#page_top');
-                    $item->setPriority('6');
-                    break;
-                case 'bookmarks':
-                    $item->setText(elgg_echo('gprofile:bookmarks'));
-                    $item->setHref('#bookmarks');// . strtolower(elgg_echo('gprofile:bookmarks'))
-                    $item->setPriority('4');
-                    break;
-                case 'polls':
-                    $item->setText(elgg_echo('gprofile:polls'));
-                    $item->setHref('#polls');
-                    $item->setPriority('14');
-                    break;
-                case 'tasks':
-                    $item->setText(elgg_echo('gprofile:tasks'));
-                    $item->setHref('#taks');
-                    $item->setPriority('9');
-                    break;
-                case 'photos':
-                    $item->setText(elgg_echo('gprofile:photos'));
-                    $item->setHref('#albums');
-                    $item->addItemClass('removeMe');
-                    $item->setPriority('10');
-                    break;
-                case 'photo_albums':
-                    $item->setText(elgg_echo('gprofile:albumsCatch'));
-                    if(get_language() == 'en'){
-                        $item->setHref('#albums');
-                    } else {
-                        $item->setHref('#albums');
-                    }
-                    $item->setPriority('11');
-                    break;
-                case 'ideas':
-                    $item->setText(elgg_echo('gprofile:ideas'));
-                    $item->setHref('#ideas');
-                    $item->setPriority('12');
-                    break;
-                case 'activity':
-                    elgg_unregister_menu_item('owner_block', 'activity');
-                    $item->setText('Activity');
-                    $item->setHref('#activity');
-                    $item->setPriority('8');
-                    break;
-
-            }
-
-        }
-
-
-    }
-
-
-    //rearrange menu items
-    if(elgg_get_context() == 'groupSubPage'){
-
-        elgg_unregister_menu_item('owner_block', 'activity');
-
-        //turn owner_block  menu into tabs
-        foreach ($menu as $key => $item){
-
-            switch ($item->getName()) {
-                case 'discussion':
-                    $item->setText(elgg_echo('gprofile:discussion'));
-
-                    $item->setPriority('2');
-                    break;
-                case 'gcforums':
-                    $item->setPriority('1');
-                    $item->setLinkClass('forums');
-                    break;
-                case 'related_groups':
-
-
-                    $item->setPriority('20');
-                    break;
-                case 'file':
-                    $item->setText(elgg_echo('gprofile:files'));
-
-                    $item->setPriority('3');
-                    break;
-                case 'blog':
-                    $item->setText(elgg_echo('gprofile:blogs'));
-
-                    $item->setPriority('3');
-                    break;
-                case 'event_calendar':
-                    $item->setText(elgg_echo('gprofile:events'));
-
-                    $item->setPriority('5');
-                    break;
-                case 'pages':
-                    $item->setText(elgg_echo('gprofile:pages'));
-
-                    $item->setPriority('6');
-                    break;
-                case 'bookmarks':
-                    $item->setText(elgg_echo('gprofile:bookmarks'));
-
-                    $item->setPriority('4');
-                    break;
-                case 'polls':
-                    $item->setText(elgg_echo('gprofile:polls'));
-
-                    $item->setPriority('8');
-                    break;
-                case 'tasks':
-                    $item->setText(elgg_echo('gprofile:tasks'));
-
-                    $item->setPriority('9');
-                    break;
-                case 'photos':
-                    $item->setText(elgg_echo('gprofile:photos'));
-                    $item->addItemClass('removeMe');
-                    $item->setPriority('10');
-                    break;
-                case 'photo_albums':
-                    $item->setText(elgg_echo('gprofile:albumsCatch'));
-
-                    $item->setPriority('11');
-                    break;
-               case 'ideas':
-                    $item->setText(elgg_echo('gprofile:ideas'));
-
-                    $item->setPriority('12');
-                    break;
-                case 'activity':
-                    $item->setText('Activity');
-                    elgg_unregister_menu_item('owner_block', 'activity');
-                    $item->setPriority('13');
-                    $item->addItemClass('removeMe');
-                    break;
-
-            }
-
-        }
-    }
 
         //rearrange menu items
     if(elgg_get_context() == 'profile'){
@@ -1517,14 +1291,10 @@ function my_owner_block_handler($hook, $type, $menu, $params){
 
 }
 
-function wet4_group_unregister(){
-
-     elgg_unregister_menu_item('owner_block', 'photo_albums');
-        elgg_unregister_menu_item('owner_block', 'photos');
-
-
-}
-
+/*
+ * river_handler
+ * Remove comment menu item
+ */
 function river_handler($hook, $type, $menu, $params){
     foreach ($menu as $key => $item){
 
@@ -1536,6 +1306,10 @@ function river_handler($hook, $type, $menu, $params){
     }
 }
 
+/*
+ * wet4_dashboard_page_handler
+ * Override page handler for wet4 theme - dashboard
+ */
 function wet4_dashboard_page_handler() {
 	// Ensure that only logged-in users can see this page
 	elgg_gatekeeper();
@@ -1565,7 +1339,10 @@ function wet4_dashboard_page_handler() {
 	return true;
 }
 
-
+/*
+ * wet4_widget_menu_setup
+ * Override widget menu to use font awesome icons + add accessability
+ */
 function wet4_widget_menu_setup($hook, $type, $return, $params) {
 
 	$widget = $params['entity'];
@@ -1615,6 +1392,10 @@ function wet4_widget_menu_setup($hook, $type, $return, $params) {
 	return $return;
 }
 
+/*
+ * wet4_collections_page_handler
+ * Override page handler for wet4 theme - friend circles
+ */
 function wet4_collections_page_handler($page) {
 
 	$current_user = elgg_get_logged_in_user_entity();
@@ -1647,6 +1428,10 @@ function wet4_collections_page_handler($page) {
 	return true;
 }
 
+/*
+ * wet4_messages_page_handler
+ * Override page handler for wet4 theme - messages
+ */
 function wet4_messages_page_handler($page) {
 
 	$current_user = elgg_get_logged_in_user_entity();
@@ -1703,7 +1488,14 @@ function wet4_messages_page_handler($page) {
 	}
 	return true;
 }
-//Friendly Time from GCconnex Codefest 2015 - 2016 - Nick
+
+/*
+ * enhanced_friendly_time_hook
+ *
+ * Friendly Time from GCconnex Codefest 2015 - 2016
+ *
+ * @author Nick
+ */
 function enhanced_friendly_time_hook($hook, $type, $return, $params) {
 
 	$diff = time() - ((int) $params['time']);
@@ -1768,6 +1560,15 @@ function enhanced_friendly_time_hook($hook, $type, $return, $params) {
 	return "<time $attrs>$friendly_time</time>";
 }
 
+/*
+ * proper_subtypes
+ *
+ * Takes the subtypes and turns them into the plain language version of the subtype for menu items.
+ *
+ * @author Ethan Wallace<your.name@example.com>
+ * @param [string] [type] [<Entity subtype.>]
+ * @return [string] [<Subtype>]
+ */
 function proper_subtypes($type){
 
     switch ($type) {
@@ -1835,9 +1636,15 @@ function proper_subtypes($type){
     return $subtype;
 }
 
-
-// Embeding videos in river for discussion items
-
+/*
+ * embed_discussion_river
+ *
+ * Searches preview text of discussions to find video url to embed that video.
+ *
+ * @author Ethan Wallace<your.name@example.com>
+ * @param [string] [desc] [<Preview text from the discussion.>]
+ * @return [string] [<HTML to create embeded video>]
+ */
 function embed_discussion_river($desc){
 
     $patterns = array('#(((https://)?)|(^./))(((www.)?)|(^./))youtube\.com/watch[?]v=([^\[\]()<.,\s\n\t\r]+)#i'

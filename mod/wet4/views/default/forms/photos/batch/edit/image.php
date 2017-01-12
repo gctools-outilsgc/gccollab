@@ -7,23 +7,13 @@
  * @author Cash Costello
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
-
+ /*
+ * GC_MODIFICATION
+ * Description: Added accessible labels + content translation support
+ * Author: GCTools Team
+ */
 $image = $vars['entity'];
 $imageGUID = $image->getGUID();
-
-$french = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:fr'),
-    'id' => 'btnClickfr',
-    'class' => 'btn btn-default en',
-));
-
-$english = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:en'),
-    'id' => 'btnClicken',
-    'class' => 'btn btn-default fr',
-));
-
-echo $body .= $french.' '.$english;
 
 echo '<div class="elgg-image-block">';
 
@@ -60,36 +50,41 @@ echo '</div>';
 
 if(get_current_language() == 'fr'){
 ?>
-    <script>
-        jQuery('.fr').show();
-        jQuery('.en').hide();
+  <script>
+    jQuery('.fr').show();
+      jQuery('.en').hide();
+      jQuery('#btnfr').addClass('active');
 
-    </script>
+  </script>
 <?php
 }else{
 ?>
-    <script>
-        jQuery('.en').show();
-        jQuery('.fr').hide();
-
-    </script>
+  <script>
+    jQuery('.en').show();
+      jQuery('.fr').hide();
+      jQuery('#btnen').addClass('active');
+  </script>
 <?php
 }
 ?>
 <script>
 jQuery(function(){
 
-        jQuery('#btnClickfr').click(function(){
+  var selector = '.nav li';
+
+  $(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+});
+
+    jQuery('#btnClickfr').click(function(){
                jQuery('.fr').show();
                jQuery('.en').hide();
-                
         });
 
           jQuery('#btnClicken').click(function(){
                jQuery('.en').show();
                jQuery('.fr').hide();
-               
         });
-
 });
 </script>

@@ -1,3 +1,72 @@
+# ignore Elgg configuration
+/engine/settings.php
+/engine/settings-*.php
+/.htaccess
+/cometchat/*
+/composer.lock
+/composer.phar
+/cache
+
+#log file
+/mod/missions_organization/get_ancestors_log.txt
+
+# ignore Single Signon mods
+
+
+/mod/machine_translation/
+/mod/gsa/
+
+
+# don't ignore bundled plugins
+!/mod/blog/
+!/mod/bookmarks/
+!/mod/ckeditor/
+!/mod/dashboard/
+!/mod/developers/
+!/mod/diagnostics/
+!/mod/embed/
+!/mod/externalpages/
+!/mod/file/
+!/mod/garbagecollector/
+!/mod/groups/
+!/mod/htmlawed/
+!/mod/invitefriends/
+!/mod/likes/
+!/mod/logbrowser/
+!/mod/logrotate/
+!/mod/members/
+!/mod/messageboard/
+!/mod/messages/
+!/mod/pages/
+!/mod/profile/
+!/mod/reportedcontent/
+!/mod/search/
+!/mod/site_notifications/
+!/mod/tagcloud/
+!/mod/thewire/
+!/mod/twitter_api/
+!/mod/uservalidationbyemail/
+!/mod/web_services/
+!/mod/zaudio/
+
+# DO ignore the bundled plugins we don't use - for when we update to later versions
+/mod/aalborg_theme/
+/mod/categories/
+/mod/custom_index/
+/mod/legacy_urls/
+/mod/notifications/
+
+
+# ignore IDE/hidden/testing/OS cache files
+.*
+*~
+/nbproject
+/nb-configuration.xml
+Session.vim
+*.tmproj
+*.tmproject
+*.phpproj
+tmtags
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

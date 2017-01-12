@@ -1,14 +1,18 @@
-<?php 
+<?php
+/*
+ * profile_card.php
+ * 
+ * Formats the users information and the logout / settings buttons into the profile card. This drops down from the user menu
+ * 
+ * @package wet4
+ * @author GCTools Team
+ */
 
-    /*
-     * USER CARD, DISPLAYS HIGH LEVEL INFORMATION ABOUT THE USER
-     */
-
-    $site_url = elgg_get_site_url();
-    $user = get_loggedin_user()->username;
-    $displayName = get_loggedin_user()->name;
-    $user_avatar = get_loggedin_user()->geticonURL('medium');
-    $email = get_loggedin_user()->email;
+$site_url = elgg_get_site_url();
+$user = elgg_get_logged_in_user_entity()->username;
+$displayName = elgg_get_logged_in_user_entity()->name;
+$user_avatar = elgg_get_logged_in_user_entity()->geticonURL('medium');
+$email = elgg_get_logged_in_user_entity()->email;
 
 
     $userType = get_loggedin_user()->get('user_type');

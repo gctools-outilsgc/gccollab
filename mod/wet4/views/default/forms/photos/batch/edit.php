@@ -3,11 +3,15 @@
  * Edit properties on a batch of images
  *
  * @uses $vars['batch'] ElggObject
- * 
+ *
  * @author Cash Costello
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
-
+ /*
+ * GC_MODIFICATION
+ * Description: Added content translation support
+ * Author: GCTools Team
+ */
 $batch = $vars['batch'];
 $album = $batch->getContainerEntity();
 
@@ -19,6 +23,13 @@ $images = elgg_get_entities_from_relationship(array(
 	'inverse_relationship' => true,
 	'limit' => 0
 ));
+$btn_language =  '<ul class="nav nav-tabs nav-tabs-language">
+  <li id="btnen"><a href="#" id="btnClicken">'.elgg_echo('lang:english').'</a></li>
+  <li id="btnfr"><a href="#" id="btnClickfr">'.elgg_echo('lang:french').'</a></li>
+</ul>';
+
+echo $btn_language;
+echo'<div class="tab-content tab-content-border">';
 
 echo '<ul class="list-unstyled">';
 foreach ($images as $image) {
@@ -30,4 +41,4 @@ echo '</ul>';
 
 echo '<div class="elgg-foot">';
 echo elgg_view('input/submit', array('value' => elgg_echo('save')));
-echo '</div>';
+echo '</div></div>';

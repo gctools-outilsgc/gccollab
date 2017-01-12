@@ -1,4 +1,15 @@
 <?php
+/*
+ * filename.php
+ * 
+ * Handles the file folder view. Related to the file_tools mod
+ * 
+ * @package file_tools
+ * 
+ * GC_MODIFICATION
+ * Description: changed the layout / added wet classes / accessibility modifications
+ * Author: GCTools Team
+ */
 
 $folder = elgg_extract("entity", $vars);
 $full_view = elgg_extract("full_view", $vars, false);
@@ -71,6 +82,23 @@ if ($full_view) {
 		$body = elgg_view("output/longtext", array("value" => $folder->description));
 	}
 
+	//Identify available content
+	if(($folder->description2) && ($folder->description)){
+		echo'<div id="change_language" class="change_language">';
+		if (get_current_language() == 'fr'){
+
+			?>			
+			<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $folder->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $folder->description2;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+			<?php
+
+		}else{
+					
+			?>			
+			<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $folder->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $folder->description2;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+			<?php	
+		}
+		echo'</div>';
+	}
 
 	echo elgg_view("object/elements/full", array(
 		"entity" => $folder,
@@ -81,6 +109,13 @@ if ($full_view) {
 	));
     elgg_unregister_menu_item('title2', 'new_folder');
 } else {
+
+	// identify available content
+/*	if(($folder->description2) && ($folder->description)){
+			
+		echo'<span class="col-md-1 col-md-offset-11"><i class="fa fa-language fa-lg mrgn-rght-sm"></i>' . '<span class="wb-inv">Content available in both language</span></span>';	
+	}*/
+
 	// summary view
 	$icon = elgg_view_entity_icon($folder, "small");
 	$icon_alt = "";
@@ -96,6 +131,5 @@ if ($full_view) {
 	
 	$params = $params + $vars;
 	$list_body = elgg_view("object/elements/summary", $params);
-	
 	echo elgg_view_image_block($icon, $list_body, array("class" => "file-tools-folder", "image_alt" => $icon_alt));
 }

@@ -12,7 +12,6 @@
  */
 
 elgg_load_library('elgg:event_calendar');
-$lang = get_current_language();
 
 $event = $vars['entity'];
 $full = elgg_extract('full_view', $vars, false);
@@ -63,21 +62,17 @@ if ($full) {
 		}
 	}
 
-	if (!$event->long_description3) {
-		if ($event->long_description){
-			$body .= '<div class="mtm">' . $event->long_description . '</div>';
-		}
+	if ($event->long_description) {
+		$body .= '<div class="mtm">' . $event->long_description . '</div>';
 	} else if ($event->description) {
 		$body .= '<div class="mtm">' . $event->description . '</div>';
-	}else{
-		$body .= '<div class="mtm">' . gc_explode_translation($event->long_description3, $lang) . '</div>';
-	} 
+	}
 
 	$metadata = elgg_view_menu('entity', array(
 		'entity' => $event,
 		'handler' => 'event_calendar',
 		'sort_by' => 'priority',
-		'class' => 'elgg-menu-hz list-inline',
+		'class' => 'elgg-menu-hz',
 	));
 
 	$params = array(
@@ -90,7 +85,6 @@ if ($full) {
 	$summary = elgg_view('object/elements/summary', $params);
 
 	echo elgg_view('object/elements/full', array(
-        'entity' => $event,
 		'summary' => $summary,
 		'icon' => $owner_icon,
 		'body' => $body,
@@ -125,7 +119,7 @@ if ($full) {
 			'entity' => $event,
 			'handler' => 'event_calendar',
 			'sort_by' => 'priority',
-			'class' => 'elgg-menu-hz list-inline',
+			'class' => 'elgg-menu-hz',
 		));
 	}
     

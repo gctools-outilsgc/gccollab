@@ -225,7 +225,7 @@ function mm_analytics_generate_bin_labels($timescale_array, $case_value, $graph_
 				$timescale_labels[$key] = date('M, Y', $time);
 				break;
 			case 'missions:week':
-				$timescale_labels[$key] = 'W' . date('W, Y', $time);
+				$timescale_labels[$key] = 'W' . date('W, M-Y', $time);
 				break;
 			case 'missions:day':
 				$timescale_labels[$key] = date('Y-m-d', $time);
@@ -444,15 +444,19 @@ function mm_analytics_generate_separation_labels($separator) {
 			break;
 		case 'missions:type':
 			$returner = explode(',', elgg_get_plugin_setting('opportunity_type_string', 'missions'));
+			$returner[0] = 'missions:other';
 			break;
 		case 'missions:reason_to_decline':
 			$returner = explode(',', elgg_get_plugin_setting('decline_reason_string', 'missions'));
+			$returner[0] = 'missions:other';
 			break;
 		case 'missions:location':
 			$returner = explode(',', elgg_get_plugin_setting('province_string', 'missions'));
+			$returner[0] = 'missions:other';
 			break;
 		case 'missions:field_of_work':
 			$returner = explode(',', elgg_get_plugin_setting('program_area_string', 'missions'));
+			$returner[0] = 'missions:other';
 			break;
 		default:
 			$returner = array('missions:all_opportunities');
@@ -465,7 +469,7 @@ function mm_analytics_generate_separation_labels($separator) {
  */
 function mm_analytics_separate_sets_into_bins($mission_set, $timescale_array, $target_lower, $target_upper, $graph_type) {
 	$metadata_lower = mm_analytics_get_metadata_name_from_target_value($target_lower);
-	$metadata_upper = mm_analytics_get_metadata_name_from_target_value($metadata_upper);
+	$metadata_upper = mm_analytics_get_metadata_name_from_target_value($target_upper);
 	
 	// Creates a set of bins corresponding to the intervals.
 	$returner = array();

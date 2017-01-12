@@ -3,6 +3,10 @@
  * Elgg bookmark view
  *
  * @package ElggBookmarks
+ *
+ * GC_MODIFICATION
+ * Description: Changing style / adding font awesome icons / adding wet classes
+ * Author: GCTools Team
  */
 
 $full = elgg_extract('full_view', $vars, FALSE);
@@ -72,6 +76,25 @@ if ($full && !elgg_in_context('gallery')) {
 	$params = $params + $vars;
 	$summary = elgg_view('object/elements/summary', $params);
 
+	// identify available content
+	if(($bookmark->description2) && ($bookmark->description)){
+		echo'<div id="change_language" class="change_language">';
+		
+		if (get_current_language() == 'fr'){
+			
+			?>			
+			<span id="indicator_language_en" onclick="change_en('.pbl');"><span id="en_content" class="testClass hidden" ><?php echo $bookmark->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $bookmark->description2;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+			<?php
+
+		}else{
+					
+			?>			
+			<span id="indicator_language_fr" onclick="change_fr('.pbl');"><span id="en_content" class="testClass hidden" ><?php echo $bookmark->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $bookmark->description2;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+			<?php	
+		}
+		echo'</div>';
+	}
+
 	$bookmark_icon = '<i class="fa fa-link mrgn-rght-md"></i>';
 	$body = <<<HTML
 <div class="bookmark elgg-content mts">
@@ -98,10 +121,22 @@ HTML;
 	// brief view
 	$url = $bookmark->address;
 	$display_text = $url;
-	$excerpt = elgg_get_excerpt($bookmark->description);
+	
+	if($bookmark->description3){
+		$excerpt = elgg_get_excerpt(gc_explode_translation($bookmark->description3,$lang));
+	}else{
+		$excerpt = elgg_get_excerpt($bookmark->description);
+	}
+	
 	if ($excerpt) {
 		$excerpt = " - $excerpt";
 	}
+
+	// identify available content
+/*	if(($bookmark->description2) && ($bookmark->description)){
+			
+		echo'<span class="col-md-1 col-md-offset-11"><i class="fa fa-language fa-lg mrgn-rght-sm"></i>' . '<span class="wb-inv">Content available in both language</span></span>';	
+	}*/
 
 	if (strlen($url) > 25) {
 		$bits = parse_url($url);

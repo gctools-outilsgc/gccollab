@@ -3,6 +3,10 @@
  * Forum topic entity view
  *
  * @package ElggGroups
+ *
+ * GC_MODIFICATION
+ * Description: changes to layout and styling /add wet classes
+ * Author: GCTools Team
 */
 
 $full = elgg_extract('full_view', $vars, FALSE);
@@ -106,8 +110,29 @@ if (elgg_in_context('widgets')) {
 }
 
 if ($full) {
-    //                              $replies_link - went here
+    // $replies_link - went here
 	$subtitle = "$poster_text $date ";
+
+// identify available content
+$english = gc_explode_translation($topic->description3, 'en');
+$french = gc_explode_translation($topic->description3, 'fr');
+
+if($english != $french){
+	echo'<div id="change_language" class="change_language">';
+	if (get_current_language() == 'fr'){
+		
+		?>			
+		<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $english;?></span><span id="fr_content" class="testClass hidden" ><?php echo $french;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+		<?php
+
+	}else{
+				
+		?>			
+		<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $english;?></span><span id="fr_content" class="testClass hidden" ><?php echo $french;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+		<?php	
+	}
+	echo'</div>';
+}
 
 	$params = array(
 		'entity' => $topic,
@@ -122,7 +147,7 @@ if ($full) {
 	$info = elgg_view_image_block($poster_icon_final, $list_body);
 
 	$body = elgg_view('output/longtext', array(
-		'value' => $topic->description,
+		'value' => gc_explode_translation($topic->description3, $lang),
 		'class' => 'clearfix mrgn-lft-sm mrgn-rght-sm mrgn-tp-md',
 	));
     
@@ -139,6 +164,12 @@ HTML;
 } else {
 	// brief view
 	$subtitle = "<p class=\"mrgn-tp-sm mrgn-bttm-0\">$poster_text $date</p> <p class=\"mrgn-bttm-sm\">$reply_text</p> $replies_link";
+
+	// identify available content
+/*	if(($topic->description2) && ($topic->description)){
+			
+		echo'<span class="col-md-1 col-md-offset-11"><i class="fa fa-language fa-lg mrgn-rght-sm"></i>' . '<span class="wb-inv">Content available in both language</span></span>';
+	}*/
 
 	$params = array(
 		'entity' => $topic,

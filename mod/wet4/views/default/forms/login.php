@@ -4,18 +4,22 @@
  *
  * @package Elgg
  * @subpackage Core
- 
- 
- 
+
+
+
  * Removed class: 'float-alt' from line 31
  */
-
+ /*
+ * GC_MODIFICATION
+ * Description: Redesigned the login form
+ * Author: GCTools Team
+ */
 $site_url = elgg_get_site_url();
 //english or french graphic to display
 if( _elgg_services()->session->get('language') == 'en'){//quick fix to display img on production
     $gcconnexGraphic = '<img src="'.$site_url.'mod/wet4/graphics/GCconnex_icon_slogan_Eng.png" alt="GCconnex. Connecting people and ideas." width="85%" class="mrgn-tp-sm">';
 }else{
-    $gcconnexGraphic = '<img src="'.$site_url.'mod/wet4/graphics/GCconnex_icon_slogan_Fra.png" alt="GCconnex. Branchez-vous, maximisez vos idées." width="85%" class="mrgn-tp-sm">';
+    $gcconnexGraphic = '<img src="'.$site_url.'mod/wet4/graphics/GCconnex_icon_slogan_Fra.png" alt="GCconnex. Branchez-vous, maximisez vos idÃ©es." width="85%" class="mrgn-tp-sm">';
 }
 if(elgg_in_context('login')){ //Nick - only show the graphic and register text on the main login page
 ?>
@@ -61,9 +65,9 @@ if(elgg_in_context('login')){ //Nick - only show the graphic and register text o
         echo '<a href="' . $site_url . 'register" class="btn btn-custom">'.elgg_echo('register').'</a>';
         ?>
     </div>
-	
-	
-	<?php 
+
+
+	<?php
 	if (isset($vars['returntoreferer'])) {
 		echo elgg_view('input/hidden', array('name' => 'returntoreferer', 'value' => 'true'));
 	}
@@ -81,4 +85,21 @@ if(elgg_in_context('login')){ //Nick - only show the graphic and register text o
 ?>
 </div>
 
+<?php
 
+    //stat tracking groups and discussions
+$groups = elgg_get_entities(array('count' => true, 'types' => 'group'));
+$discussions = elgg_get_entities(array('type' => 'object', 'subtype' => 'groupforumtopic', 'count' => true));
+
+    //Nick - adding some stats to the bottom of the landing / login page (Should only appear on that page)
+if(elgg_in_context('login')){
+    $inside_stats =['<span class="login-big-num">'.$groups.'</span> '.elgg_echo('groups'),elgg_echo('wet:login:departments'),elgg_echo('wet:login:discussions', array($discussions))];
+    foreach($inside_stats as $stat){
+        $insides .='<div class="col-sm-4 text-center login-stats-child">'.$stat.'</div>';
+    }
+
+    $nextrow = elgg_format_element('div',array('class'=>'col-sm-6 col-sm-offset-3 mrgn-tp-lg login-stats',),$insides);
+
+    echo elgg_format_element('div',array('class'=>'col-sm-12'),$nextrow);
+}
+?>

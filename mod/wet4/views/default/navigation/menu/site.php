@@ -4,14 +4,16 @@
  *
  * @uses $vars['menu']['default']
  * @uses $vars['menu']['more']
+ *
+ * GC_MODIFICATION
+ * Description: formats site menu to look and function like the wet template
+ * Author: GCTools Team
  */
 
 $default_items = elgg_extract('default', $vars['menu'], array());
 $more_items = elgg_extract('more', $vars['menu'], array());
 
 echo '<ul class=" list-inline menu">';
-
-echo '<li><a href="' . elgg_get_site_url() . 'newsfeed/">' . elgg_echo('newsfeed')  .  '</a></li>';
 
 foreach ($default_items as $menu_item) {
 	echo elgg_view('navigation/menu/elements/item', array('item' => $menu_item));
