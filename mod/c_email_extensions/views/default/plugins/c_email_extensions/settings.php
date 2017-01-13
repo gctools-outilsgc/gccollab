@@ -26,6 +26,7 @@
 			e.preventDefault();
 		    var id = $(this).data('id');
 		    toggleButtons(id);
+		    if($(this).hasClass("edit-extension")){ $('input.ext[data-id=' + id + ']').focus(); }
 		});
 
 		$("a.save-extension").click(function(e){
@@ -137,7 +138,7 @@ echo "SORT (departments): <a".getActiveClass('sort', 'asc')." href='?sort=asc".$
 echo "FILTER: <a".getActiveClass('filter', 'university')." href='?filter=university".$sort_param."'>University</a> / <a".getActiveClass('filter', 'department')." href='?filter=department".$sort_param."'>Government Departments</a> / <a".getActiveClass('filter', 'all')." href='?filter=all".$sort_param."'>All</a> <br/>";
 
 	echo "<table name='display_extensions' width='100%' cellpadding='0' cellspacing='0' class='db-table'>";
-	echo '<thead><tr> <th></th> <th width="10%">'.elgg_echo('c_ext:id').'</th> <th>'.elgg_echo('c_ext:ext').'</th> <th>'.elgg_echo('c_ext:dept').'</th> <th></th> </tr></thead>';
+	echo '<thead><tr> <th></th> <th width="10%">'.elgg_echo('c_ext:id').'</th> <th>'.elgg_echo('c_ext:ext').'</th> <th>'.elgg_echo('c_ext:dept').'</th> <th width="10%"></th> </tr></thead>';
 	foreach ($domains as $domain) {
 		$delete_from_db = "action/c_email_extensions/delete?id={$domain->id}";
 		$delete_btn = elgg_view('output/confirmlink', array(
