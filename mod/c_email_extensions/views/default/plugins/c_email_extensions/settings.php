@@ -4,8 +4,58 @@
 	table.db-table td   { padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
 	.save-button		{ margin-top: 10px; }
 	.active 			{ font-weight: bold; text-decoration: underline; }
+	input.extension 	{ font-size: 14px; }
+	input:disabled 		{ background: #ddd; }
+	.edit-message 		{ font-weight: bold; }
 </style>
 
+<script type="text/javascript">
+	$(function() {
+		function toggleButtons(key){
+			$('input[data-id=' + key + ']').prop("disabled", (_, val) => !val);
+		    $('a.edit-extension[data-id=' + key + ']').toggleClass('hidden');
+		    $('a.cancel-extension[data-id=' + key + ']').toggleClass('hidden');
+		    $('a.save-extension[data-id=' + key + ']').toggleClass('hidden');
+		}
+
+		function showMessage(key, msg){
+			$('span.edit-message[data-id=' + key + ']').show().text(msg).delay(2000).fadeOut();
+		}
+
+		$("a.edit-extension, a.cancel-extension").click(function(e){
+			e.preventDefault();
+		    var id = $(this).data('id');
+		    toggleButtons(id);
+		});
+
+		$("a.save-extension").click(function(e){
+			e.preventDefault();
+		    var id = $(this).data('id');
+		    var ext = $('input.ext[data-id=' + id + ']').val();
+		    var dept = $('input.dept[data-id=' + id + ']').val();
+
+		    elgg.action('c_email_extensions/edit', {
+			 	data: {
+			    	id: id,
+			    	ext: ext,
+			    	dept: dept
+				},
+			  	success: function (wrapper) {
+				    if (wrapper.output == 1) {
+				    	showMessage(id, "Saved!");
+				    	toggleButtons(id);
+				    } else {
+				    	showMessage(id, "Error!");
+				    }
+			  	},
+			    error: function (jqXHR, textStatus, errorThrown) {
+			        console.log("Error: " + errorThrown);
+				    showMessage(id, "Error!");
+			    }
+			});
+		});
+	});
+</script>
 
 <div>
 
@@ -87,7 +137,7 @@ echo "SORT (departments): <a".getActiveClass('sort', 'asc')." href='?sort=asc".$
 echo "FILTER: <a".getActiveClass('filter', 'university')." href='?filter=university".$sort_param."'>University</a> / <a".getActiveClass('filter', 'department')." href='?filter=department".$sort_param."'>Government Departments</a> / <a".getActiveClass('filter', 'all')." href='?filter=all".$sort_param."'>All</a> <br/>";
 
 	echo "<table name='display_extensions' width='100%' cellpadding='0' cellspacing='0' class='db-table'>";
-	echo '<tr> <th></th> <th width="16%">'.elgg_echo('c_ext:id').'</th> <th>'.elgg_echo('c_ext:ext').'</th> <th>'.elgg_echo('c_ext:dept').'</th></tr>';
+	echo '<thead><tr> <th></th> <th width="16%">'.elgg_echo('c_ext:id').'</th> <th>'.elgg_echo('c_ext:ext').'</th> <th>'.elgg_echo('c_ext:dept').'</th> <th></th> </tr></thead>';
 	foreach ($domains as $domain) {
 		$delete_from_db = "action/c_email_extensions/delete?id={$domain->id}";
 		$delete_btn = elgg_view('output/confirmlink', array(
@@ -95,12 +145,13 @@ echo "FILTER: <a".getActiveClass('filter', 'university')." href='?filter=univers
 			'text' => elgg_echo('c_ext:delete'),
 			'href' => $delete_from_db));
 
-		echo "<tr>"; 
+		echo "<tbody><tr>"; 
 		echo "<td> {$delete_btn} </td>";
 		echo "<td> {$domain->id} </td>";
-		echo "<td> {$domain->ext} </td>";
-		echo "<td> {$domain->dept} </td>";
-		echo "</tr>";
+		echo "<td> <input class='ext' data-id='{$domain->id}' type='text' value='{$domain->ext}' disabled /> </td>";
+		echo "<td> <input class='dept' data-id='{$domain->id}' type='text' value='{$domain->dept}' disabled /> </td>";
+		echo "<td> <a class='edit-extension' data-id='{$domain->id}' href='#'>".elgg_echo('edit')."</a> <a class='cancel-extension hidden elgg-button only-one-click elgg-button-cancel btn btn-default' data-id='{$domain->id}' href='#'>".elgg_echo('cancel')."</a> <a class='save-extension hidden elgg-button only-one-click elgg-button-submit btn btn-primary' data-id='{$domain->id}' href='#'>".elgg_echo('save')."</a> <br> <span class='edit-message' data-id='{$domain->id}'></span> </td>";
+		echo "</tr></tbody>";
 	}
 	echo "</table>";
 }
