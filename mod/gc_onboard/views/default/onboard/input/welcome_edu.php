@@ -74,6 +74,7 @@ echo elgg_view('input/text', array(
   'name'=>'title',
   'id'=>'jobTitle-' .$guid,
   'class'=>'gcconnex-job-title',
+  'value'=>elgg_get_logged_in_user_entity()->job
 ));
 
 }

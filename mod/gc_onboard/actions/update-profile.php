@@ -553,7 +553,14 @@ switch ($section) {
 
                         //$user->gc_skills = null; // dev stuff... delete me
                         //$user->skillsupgraded = NULL; // dev stuff.. delete me
+
+                        $title = htmlentities(get_input('title'));
+                        if($title !== 'no_title' && !empty($title)){
+                            $user->job = $title;
+                        }
+
                         $user->save();
+                        break; // Ignore rest of case statement, will not be adding work experience
 
 /*Work exp*/
 

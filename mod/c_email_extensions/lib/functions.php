@@ -27,9 +27,9 @@ function getExtension($sort = 'ASC', $filter = 'all')
 	} else {
 
 		if (strcmp($filter,'university') == 0 )
-			$query = "SELECT * FROM email_extensions WHERE dept LIKE '%University%'";
+			$query = "SELECT * FROM email_extensions WHERE dept LIKE '%University%' ORDER BY dept {$sort}";
 		else
-			$query = "SELECT * FROM email_extensions WHERE dept NOT LIKE '%University%'";
+			$query = "SELECT * FROM email_extensions WHERE dept NOT LIKE '%University%' ORDER BY dept {$sort}";
 		
 	}
 
@@ -63,6 +63,19 @@ function deleteExtension($id)
 	if (mysqli_connect_errno($connection)) elgg_log("cyu - Failed to connect to MySQL: ".mysqli_connect_errno(), 'NOTICE');
 	$result = mysqli_query($connection,$query);
 	//mysqli_free_result($result);
+	mysqli_close($connection);
+	return $result;
+}
+
+function editExtension($id, $ext, $dept)
+{
+	global $CONFIG;
+
+	$query = "UPDATE email_extensions SET ext='".$ext."', dept='".$dept."' WHERE id=".$id;
+
+	$connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname);
+	if (mysqli_connect_errno($connection)) elgg_log("cyu - Failed to connect to MySQL: ".mysqli_connect_errno(), 'NOTICE');
+	$result = mysqli_query($connection,$query);
 	mysqli_close($connection);
 	return $result;
 }

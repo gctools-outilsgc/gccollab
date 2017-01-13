@@ -268,6 +268,44 @@ if($group->cover_photo =='nope' || $group->cover_photo ==''){
                 </button>
 
                         <?php
+                                $extraButton = "";
+
+                                // group members
+                                if ($group->isMember(elgg_get_logged_in_user_entity())) {
+                                    if ($owner->getOwnerGUID() != elgg_get_logged_in_user_guid()) {
+                                        // leave
+                                        $url = elgg_get_site_url() . "action/groups/leave?group_guid={$group->getGUID()}";
+                                        $url = elgg_add_action_tokens_to_url($url);
+                                        $extraButton = 'groups:leave';
+                                    }
+                                } elseif (elgg_is_logged_in()) {
+                                    // join - admins can always join.
+                                    $url = elgg_get_site_url() . "action/groups/join?group_guid={$group->getGUID()}";
+                                    $url = elgg_add_action_tokens_to_url($url);
+                                    if ($group->isPublicMembership() || $owner->canEdit()) {
+                                        $extraButton = 'groups:join';
+                                    } else {
+                                        // request membership
+                                        $extraButton = 'groups:joinrequest';
+                                    }
+                                }
+
+                                if ($extraButton) {
+                                    elgg_register_menu_item('extra_group_btn', array(
+                                        'name' => $extraButton,
+                                        'href' => $url,
+                                        'text' => elgg_echo($extraButton),
+                                        'link_class' => 'elgg-button elgg-button-action',
+                                    ));
+
+                                    $extraButtonHTML = elgg_view_menu('extra_group_btn', array(
+                                        'sort_by' => 'priority',
+                                        'class' => 'mrgn-rght-md pull-right extra-group-btn',
+                                        'item_class' => 'btn btn-primary',
+                                    ));
+
+                                    echo $extraButtonHTML;
+                                }
 
                                 //action buttons
                                 echo $buttons;

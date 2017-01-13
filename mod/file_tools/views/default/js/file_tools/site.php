@@ -303,7 +303,7 @@ elgg.file_tools.new_folder = function(event) {
 	event.preventDefault();
 
 	var hash = window.location.hash.substr(1);
-    var userid = <?php echo elgg_get_logged_in_user_entity()->guid; ?>;
+    var userid = "<?php echo elgg_get_logged_in_user_entity()->guid; ?>";
     var guid = (elgg.get_page_owner_guid() !== 0) ? elgg.get_page_owner_guid() : userid;
     var link = elgg.get_site_url() + "file_tools/folder/new/" + guid + "?folder_guid=" + hash;
     

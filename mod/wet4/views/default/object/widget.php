@@ -28,6 +28,12 @@ $title = $widget->getTitle();
 // cyu - this file is overwriting the original file (.../mod/widget_manager/views/default/object/widget.php)
 // missing following code snippet where widget title gets the URL
 $widget_title_link = $widget->getURL();
+
+// MW - Fixes broken URL in Event Calendar widget
+if ($widget->handler == "event_calendar" && strpos( $widget_title_link, "/owner/group:" ) !== false) {
+	$widget_title_link = str_replace("/owner/group:", "/group/", $widget_title_link);
+}
+
 if ($widget_title_link !== elgg_get_site_url()) {
 	// only set usable widget titles
 	$title = elgg_view("output/url", array("href" => $widget_title_link, "text" => $title, 'is_trusted' => true, "class" => "widget-manager-widget-title-link"));

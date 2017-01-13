@@ -68,13 +68,27 @@ if (elgg_get_config('allow_registration')) {
 		$gcca = $emailgc[count($emailgc) - 2] .".".$emailgc[count($emailgc) - 1];
 		$resulting_error = "";
 
+		$wildcard_match = false;
+		$wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
+		$wildcard_emails = get_data($wildcard_query);
+		
+		if($wildcard_emails){
+			foreach($wildcard_emails as $wildcard){
+				$regex = str_replace(".", "\.", $wildcard->ext);
+				$regex = str_replace("*", "[\w-.]+", $regex);
+				$regex = "/^@" . $regex . "$/";
+				if(preg_match($regex, "@".$emaildomain[1])){
+					$wildcard_match = true;
+				}
+			}
+		}
 
 		// check if toc is checked, user agrees to TOC
 		if ($toc[0] != 1)
 			$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
 		
 		// if domain doesn't exist in database, check if it's a gc.ca domain
-		if ($dept_exist[0]->num <= 0 && strcmp($gcca, 'gc.ca') != 0)
+		if ($dept_exist[0]->num <= 0 && strcmp($gcca, 'gc.ca') != 0 && !$wildcard_match)
 			$resulting_error .= elgg_echo('gcRegister:invalid_email').'<br/>';
 
 		// check if it's from a standard form type

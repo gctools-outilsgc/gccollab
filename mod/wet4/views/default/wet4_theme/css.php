@@ -10619,6 +10619,98 @@ a.shr-opn, a.shr-opn:hover {
 .wb-disable #wb-sm .nvbar {
   display: block !important; }
 
+/* IE Icon Tweaks */
+@media all and (-ms-high-contrast:none) {
+  .fa-trash-o:before{
+      content:none !important;
+  }
+  .fa-trash-o{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_delete.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-share-alt:before{
+      content:none !important;
+  }
+  .fa-share-alt{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_share.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-edit:before{
+      content:none !important;
+  }
+  .fa-edit{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_edit.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-reply:before{
+      content:none !important;
+  }
+  .fa-reply{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_reply.png);
+     background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-bell:before{
+      content:none !important;
+  }
+  .fa-bell{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+  .fa-bell-slash:before{
+      content:none !important;
+  }
+  .fa-bell-slash{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell_slash.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-users:before{
+      content:none !important;
+  }
+  .fa-users{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_colleagues.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-envelope:before{
+      content:none !important;
+  }
+  .fa-envelope{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mail.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-wrench:before{
+      content:none !important;
+  }
+  .fa-wrench{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+}
+
 /*
  * Mobile panel
  */
