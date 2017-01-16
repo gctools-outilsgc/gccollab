@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	$(function() {
 		function toggleButtons(key){
-			$('input[data-id=' + key + ']').prop("disabled", (_, val) => !val);
+			$('input[data-id=' + key + ']').prop("disabled", function(i, v){ return !v; });
 		    $('a.edit-extension[data-id=' + key + ']').toggleClass('hidden');
 		    $('a.cancel-extension[data-id=' + key + ']').toggleClass('hidden');
 		    $('a.save-extension[data-id=' + key + ']').toggleClass('hidden');
