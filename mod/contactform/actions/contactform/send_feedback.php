@@ -43,6 +43,10 @@
 		$success = false;
 	}
 
+	if (!\Beck24\ReCaptcha\validate_recaptcha()) {
+        register_error(elgg_echo('elgg_recaptcha:message:fail'));
+        $success = false;
+    }
 
 	if ($success === true) {
 		// send email to jeffrey outram
