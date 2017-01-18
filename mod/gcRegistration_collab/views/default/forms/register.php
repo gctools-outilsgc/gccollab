@@ -19,7 +19,7 @@
  * MBlondin 	Feb 08 2016 	Delete IE7 form
  * NickP        June 9 2016     Added function to the username generation ajax to provide link to password retrival if account already exists
  * CYu 			Aug 15 2016 	GCcollab - Student / Academic (w/Universities) & Public Servants
- * MWooff 		Jan 16 2017 	GCcollab - Redesign of the Registration Page
+ * MWooff 		Jan 18 2017		Re-built for GCcollab-specific functions
  *
  ***********************************************************************/
 
@@ -34,43 +34,15 @@ $site_url = elgg_get_site_url();
 	elgg_clear_sticky_form('register');
 }*/
 
-$account_exist_message = elgg_echo('registration:userexists');
-
-
-
 // Javascript
 ?>
 <script type="text/javascript">
-var frDepartmentsGeds = {};
-var departmentList = new Array();
-var enDepartments = {}; 
-
 $(document).ready(function() {
-
-	/* Javascript:
-	 * If user chooses to be student or academic type, display 
-	 * dropdown for list of universities or departments
-	 */
-	<?php
-		// we will re-use data from the domain manager module
-		$query = "SELECT ext, dept FROM email_extensions WHERE type = 'university' ORDER BY dept";
-		$universities = get_data($query);
-		$universities = json_encode($universities, true);
-	?>
-
-	/*
-	var university_list = '<?php echo $universities; ?>';
-	var deserialized_university_list = $.parseJSON(university_list);
-
-	$.each(deserialized_university_list, function(key, val) {
-		$('#university-choices').append("<option value='"+val['ext']+"'> "+val['dept']+" </option>");
-	});
-	*/
 
 	$("#user_type").change(function() {
 		var type = $(this).val();
 		$('.occupation-choices').hide();
-		if (type == 'student' || type == 'academia') {
+		if (type == 'student' || type == 'academic') {
 			$('.ministry-choices').hide();
 			$('#institution').show();
 		} else if (type == 'federal') {
@@ -110,120 +82,12 @@ $(document).ready(function() {
 		$('.ministry-choices').hide();
 		$('#' + type.replace(/\s+/g, '-').toLowerCase()).show();
 	});
-
-	/* Javascript:
-	 * Department are taken from GEDs
-	 */
-	var searchObj = "{\"requestID\" : \"B01\", \"authorizationID\" : \"X4GCCONNEX\"}";
-	var frDepartments;
-        
-	$.ajax({
-		type: 'POST',
-        contentType: "application/json",
-        url: 'https://api.sage-geds.gc.ca',
-        data: searchObj,
-        dataType: 'json',
-        success: function (feed) {
-        	var departments = feed.requestResults.departmentList;
-        	for ( i=0;i<departments.length; i++ ) {
-        		enDepartments[departments[i].dn] = departments[i].desc;
-        	}
-
-        	frDepartments = gedsFrDept();
-        	
-        }, // feed - JS object - GEDS result
-		error: function() {
-			// do nothing
-		},
-	});
 });
-
-/*
- * Javascript/Ajaxy code to connect to the GEDs API
- */
-function gedsFrDept() {
-	var searchObj = "{\"requestID\" : \"B01\", \"authorizationID\" : \"X4GCCONNEX\"}";
-	
-	$.ajax({
-    	type: 'POST',
-        contentType: "application/json",
-        url: 'https://api.sage-geds.gc.ca/fr/GAPI/',
-        data: searchObj,
-        dataType: 'json',
-        success: function (feed) {
-        	var departments = feed.requestResults.departmentList;
-        	for (i=0; i<departments.length; i++) {
-        		frDepartmentsGeds[departments[i].dn] = departments[i].desc;
-        	}
-        	
-        }, complete: function() {  		
-    		elgg.action('saveDept',{
-    			data: {
-    				listEn: JSON.stringify(enDepartments),
-    				listFr: JSON.stringify(frDepartmentsGeds),	
-    			},
-    			success: function (feed) {
-    				// do nothing
-    			}
-    		})
-		},
-    });
-}
 
 // make sure the email address given does not contain invalid characters
 function validateEmail(email) { 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
     return re.test(email);
-}
-
-// auto fill function; will auto generate for display name
-function fieldFill() {
-	var dName = document.getElementById('email').value;
-	if(dName.indexOf('@')!= false) {
-		dName = dName.substring(0, dName.indexOf('@'));
-	}
-	if(dName.indexOf('.')!= false) {
-		dName = dName.replace(/\./g,' ');
-	}
-
-	// gcchange - format display name (ie Mc'Larry John-Dean instead of mclarry john-dean)
-	// gcchange - translated from php to javascript [php source is a note on the manual page of the ucfirst() function on php.net]
-	function toProperCase(str) {
-		var delim = new Array("'","-"," ");
-		var append = '';
-		var splitup = new Array();
-		str = str.toLowerCase();
-		for(var i = 0; i < delim.length; i++){
-			if(str.search(delim[i]) != -1){
-				append = '';
-				splitup = str.split(delim[i]);
-				for(var j = 0; j < splitup.length; j++){
-					append += splitup[j].charAt(0).toUpperCase() + splitup[j].substr(1) + delim[i];
-				}
-				str = append.substring(0, append.length - 1);
-			}
-		}
-		return str.charAt(0).toUpperCase() + str.substr(1);
-	}
-	
-	$('.display_name').val(toProperCase(dName));
-	name.value = dName;
-}
-
-function validForm() {
-	var is_valid = false;
-	
-	$('input').each(function() {
-		if ( $(this).attr('id') == "email_initial" || $(this).attr('id') == "email" || $(this).attr('id') == "username" || $(this).attr('id') == "password" || $(this).attr('id') == "password2" || $(this).attr('id') == "name") {
-			var val = $(this).attr('value');
-
-			if ( $(this).attr('value').length == 0)
-				is_valid = false;
-			else
-				is_valid = true;
-		}
-	});
-	return is_valid;
 }
 </script>
 
@@ -237,302 +101,39 @@ function validForm() {
 	?>
 	</section>
 
+	<?php
+		function show_field( $field ){
+			$enabled_fields = array('academic', 'student', 'federal');
+			// $enabled_fields = array('academic', 'student', 'federal', 'provincial', 'municipal', 'international', 'community', 'business', 'media', 'other');
+			return in_array($field, $enabled_fields);
+		}
+	?>
+
 	<!-- Registration Form -->
 	<section class="col-md-6">
 		<div class="panel panel-default">
 			<header class="panel-heading"> <h3 class="panel-title"><?php echo elgg_echo('gcRegister:form'); ?></h3> </header>
-			<div class="panel-body mrgn-lft-md">	
+			<div class="panel-body mrgn-lft-md">
 
-				<!-- Options for the following users: Students / Academics / Public Servants -->
+				<!-- Options for the users enabled in $enabled_fields above -->
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
 					<font id="user_type_error" color="red"></font>
 	    			<select id="user_type" name="user_type" class="form-control" >
-						<option value="academia"><?php echo elgg_echo('gcRegister:occupation:academia'); ?></option>
-	    				<option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option>
-	    				<option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option>
-	    				<option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option>
-	    				<option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option>
-	    				<option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option>
-	    				<option value="community"><?php echo elgg_echo('gcRegister:occupation:community'); ?></option>
-	    				<option value="business"><?php echo elgg_echo('gcRegister:occupation:business'); ?></option>
-	    				<option value="media"><?php echo elgg_echo('gcRegister:occupation:media'); ?></option>
-	    				<option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option>
+	    				<?php if(show_field("federal")): ?><option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
+						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
+	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
+	    				<?php if(show_field("provincial")): ?><option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option><?php endif; ?>
+	    				<?php if(show_field("municipal")): ?><option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option><?php endif; ?>
+	    				<?php if(show_field("international")): ?><option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option><?php endif; ?>
+	    				<?php if(show_field("community")): ?><option value="community"><?php echo elgg_echo('gcRegister:occupation:community'); ?></option><?php endif; ?>
+	    				<?php if(show_field("business")): ?><option value="business"><?php echo elgg_echo('gcRegister:occupation:business'); ?></option><?php endif; ?>
+	    				<?php if(show_field("media")): ?><option value="media"><?php echo elgg_echo('gcRegister:occupation:media'); ?></option><?php endif; ?>
+	    				<?php if(show_field("other")): ?><option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option><?php endif; ?>
 	    			</select>
 				</div>
 
-				<!-- Departments or Universities (depending on occupation) -->
-				<div class="form-group occupation-choices" id="institution" hidden>
-					<label for="institution-choices" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label>
-					<select id="institution-choices" name="institution" class="form-control">
-						<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
-						<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
-						<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
-					</select>
-				</div>
-
-<?php
-	$universities = array("Acadia University" => "Acadia University",
-	"Algoma University" => "Algoma University",
-	"Athabasca University" => "Athabasca University",
-	"Bishop's University" => "Bishop's University",
-	"Brandon University" => "Brandon University",
-	"Brescia University College" => "Brescia University College",
-	"Brock University" => "Brock University",
-	"Campion College" => "Campion College",
-	"Canada Mennonite University" => "Canada Mennonite University",
-	"Cape Breton University" => "Cape Breton University",
-	"Carleton University" => "Carleton University",
-	"Concordia University" => "Concordia University",
-	"Concordia University of Edmonton" => "Concordia University of Edmonton",
-	"Dalhousie University" => "Dalhousie University",
-	"Dominican University College" => "Dominican University College",
-	"École de technolgie supérieure" => "École de technolgie supérieure",
-	"École des Hautes Études Commerciales de Montréal (HEC Montréal)" => "École des Hautes Études Commerciales de Montréal (HEC Montréal)",
-	"École Polytechnique de Montréal" => "École Polytechnique de Montréal",
-	"Emily Carr University of Art + Design" => "Emily Carr University of Art + Design",
-	"ENAP" => "ENAP",
-	"First Nations University of Canada" => "First Nations University of Canada",
-	"Glendon College (York University)" => "Glendon College (York University)",
-	"Huron University College" => "Huron University College",
-	"Institut national de la recherche scientifique" => "Institut national de la recherche scientifique",
-	"King's University College (Western University)" => "King's University College (Western University)",
-	"Kwantlen Polytechnic University" => "Kwantlen Polytechnic University",
-	"Lakehead University" => "Lakehead University",
-	"Laurentian University" => "Laurentian University",
-	"Luther College" => "Luther College",
-	"MacEwan University" => "MacEwan University",
-	"McGill University" => "McGill University",
-	"McMaster University" => "McMaster University",
-	"Memorial University" => "Memorial University",
-	"Mount Allison University" => "Mount Allison University",
-	"Mount Royal University" => "Mount Royal University",
-	"Mount Saint Vincent University" => "Mount Saint Vincent University",
-	"Nipissing University" => "Nipissing University",
-	"Nova Scotia College of Art and Design University" => "Nova Scotia College of Art and Design University",
-	"Ontario College of Art and Design University" => "Ontario College of Art and Design University",
-	"Queens University" => "Queens University",
-	"Redeemer University College" => "Redeemer University College",
-	"Royal Military College" => "Royal Military College",
-	"Royal Roads University" => "Royal Roads University",
-	"Ryerson University" => "Ryerson University",
-	"Saint Mary's University" => "Saint Mary's University",
-	"Saint Paul University" => "Saint Paul University",
-	"Simon Fraser University" => "Simon Fraser University",
-	"St. Francis Xavier University" => "St. Francis Xavier University",
-	"St. Jerome's University" => "St. Jerome's University",
-	"St. Paul's College" => "St. Paul's College",
-	"St. Thomas More College" => "St. Thomas More College",
-	"St. Thomas University" => "St. Thomas University",
-	"Télé-université (TÉLUQ)" => "Télé-université (TÉLUQ)",
-	"The King's University" => "The King's University",
-	"Thompson Rivers University" => "Thompson Rivers University",
-	"Trent University" => "Trent University",
-	"Trinity Western University" => "Trinity Western University",
-	"Université de Moncton" => "Université de Moncton",
-	"Université de Montréal" => "Université de Montréal",
-	"Université de Saint-Boniface" => "Université de Saint-Boniface",
-	"Université de Sherbrooke" => "Université de Sherbrooke",
-	"Université du Québec" => "Université du Québec",
-	"Université du Québec à Chicoutimi" => "Université du Québec à Chicoutimi",
-	"Université du Québec à Montréal" => "Université du Québec à Montréal",
-	"Université du Québec à Rimouski" => "Université du Québec à Rimouski",
-	"Université du Québec à Trois‑Rivières" => "Université du Québec à Trois‑Rivières",
-	"Université du Québec en Abitibi‑Témiscamingue" => "Université du Québec en Abitibi‑Témiscamingue",
-	"Université du Québec en Outaouais" => "Université du Québec en Outaouais",
-	"Université Laval" => "Université Laval",
-	"Université Sainte‑Anne" => "Université Sainte‑Anne",
-	"University of Alberta" => "University of Alberta",
-	"University of British Columbia" => "University of British Columbia",
-	"University of Calgary" => "University of Calgary",
-	"University of Guelph" => "University of Guelph",
-	"University of King's College" => "University of King's College",
-	"University of Lethbridge" => "University of Lethbridge",
-	"University of Manitoba" => "University of Manitoba",
-	"University of New Brunswick" => "University of New Brunswick",
-	"University of Northern British Columbia" => "University of Northern British Columbia",
-	"University of Ontario Institute of Technology" => "University of Ontario Institute of Technology",
-	"University of Ottawa" => "University of Ottawa",
-	"University of PEI" => "University of PEI",
-	"University of Regina" => "University of Regina",
-	"University of Saskatchewan" => "University of Saskatchewan",
-	"University of St. Michael's College" => "University of St. Michael's College",
-	"University of Sudbury" => "University of Sudbury",
-	"University of the Fraser Valley" => "University of the Fraser Valley",
-	"University of Toronto" => "University of Toronto",
-	"University of Trinity College" => "University of Trinity College",
-	"University of Victoria " => "University of Victoria ",
-	"University of Waterloo" => "University of Waterloo",
-	"University of Western Ontario" => "University of Western Ontario",
-	"University of Windsor" => "University of Windsor",
-	"University of Winnipeg" => "University of Winnipeg",
-	"Vancouver Island University" => "Vancouver Island University",
-	"Victoria University" => "Victoria University",
-	"Wilfrid Laurier University" => "Wilfrid Laurier University",
-	"York University" => "York University");
-
-	// default to invalid value, so it encourages users to select
-	$university_choices = elgg_view('input/select', array(
-		'name' => 'universities',
-		'id' => 'university-choices',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $universities),
-	));
-?>
-
-				<!-- Universities -->
-				<div class="form-group student-choices" id="universities" hidden>
-					<label for="university-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:university'); ?></span></label>
-					<!-- <select id="university-choices" name="universities" class="form-control">
-						<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
-					</select> -->
-					<?php echo $university_choices ?>
-				</div>
-
-<?php
-	$colleges = array("Alberta College of Art and Design" => "Alberta College of Art and Design",
-	"Algonquin College" => "Algonquin College",
-	"Assiniboine Community College" => "Assiniboine Community College",
-	"Aurora College" => "Aurora College",
-	"Bow Valley College" => "Bow Valley College",
-	"British Columbia Institute of Technology" => "British Columbia Institute of Technology",
-	"Cambrian College of Applied Arts and Technology" => "Cambrian College of Applied Arts and Technology",
-	"Camosun College" => "Camosun College",
-	"Canadore College of Applied Arts and Technology" => "Canadore College of Applied Arts and Technology",
-	"Capilano University" => "Capilano University",
-	"Carlton Trail College" => "Carlton Trail College",
-	"Cégep André-Laurendeau" => "Cégep André-Laurendeau",
-	"Cégep de Chicoutimi" => "Cégep de Chicoutimi",
-	"Cégep de Jonquière" => "Cégep de Jonquière",
-	"Cégep de l’Abitibi-Témiscamingue" => "Cégep de l’Abitibi-Témiscamingue",
-	"Cégep de la Gaspésie et des Îles" => "Cégep de la Gaspésie et des Îles",
-	"Cégep de La Pocatière" => "Cégep de La Pocatière",
-	"Cégep de Matane" => "Cégep de Matane",
-	"Cégep de Rimouski" => "Cégep de Rimouski",
-	"Cégep de Rivière-du-Loup" => "Cégep de Rivière-du-Loup",
-	"Cégep de Sainte-Foy" => "Cégep de Sainte-Foy",
-	"Cégep de Saint-Félicien" => "Cégep de Saint-Félicien",
-	"Cégep de Saint-Laurent" => "Cégep de Saint-Laurent",
-	"Cégep de Sept-Îles" => "Cégep de Sept-Îles",
-	"Cégep de Sherbrooke" => "Cégep de Sherbrooke",
-	"Cégep de Thetford" => "Cégep de Thetford",
-	"Cégep de Trois-Rivières" => "Cégep de Trois-Rivières",
-	"Cégep de Victoriaville" => "Cégep de Victoriaville",
-	"Cégep Édouard-Montpetit" => "Cégep Édouard-Montpetit",
-	"Cégep Garneau" => "Cégep Garneau",
-	"Cégep Heritage College" => "Cégep Heritage College",
-	"Cégep John Abbott College" => "Cégep John Abbott College",
-	"Cégep Limoilou" => "Cégep Limoilou",
-	"Cégep Marie-Victorin" => "Cégep Marie-Victorin",
-	"Cégep régional de Lanaudière" => "Cégep régional de Lanaudière",
-	"Cégep Saint-Jean-sur-Richelieu" => "Cégep Saint-Jean-sur-Richelieu",
-	"Centennial College" => "Centennial College",
-	"Centre for Nursing Studies" => "Centre for Nursing Studies",
-	"Champlain Regional College" => "Champlain Regional College",
-	"Collège Acadie Î.-P.-É." => "Collège Acadie Î.-P.-É.",
-	"Collège André-Grasset" => "Collège André-Grasset",
-	"Collège Boréal" => "Collège Boréal",
-	"Collège communautaire du Nouveau-Brunswick" => "Collège communautaire du Nouveau-Brunswick",
-	"Collège de Maisonneuve" => "Collège de Maisonneuve",
-	"Collège Éducacentre" => "Collège Éducacentre",
-	"Collège LaSalle" => "Collège LaSalle",
-	"Collège Lionel-Groulx" => "Collège Lionel-Groulx",
-	"Collège Mathieu" => "Collège Mathieu",
-	"Collège Montmorency" => "Collège Montmorency",
-	"Collège nordique francophone" => "Collège nordique francophone",
-	"College of New Caledonia" => "College of New Caledonia",
-	"College of the North Atlantic (CNA)" => "College of the North Atlantic (CNA)",
-	"College of the Rockies" => "College of the Rockies",
-	"Collège Shawinigan" => "Collège Shawinigan",
-	"Conestoga College Institute of Technology and Advanced Learning" => "Conestoga College Institute of Technology and Advanced Learning",
-	"Confederation College" => "Confederation College",
-	"Cumberland College" => "Cumberland College",
-	"Dalhousie Agricultural Campus of Dalhousie University" => "Dalhousie Agricultural Campus of Dalhousie University",
-	"Douglas College" => "Douglas College",
-	"Dumont Technical Institute" => "Dumont Technical Institute",
-	"Durham College" => "Durham College",
-	"École technique et professionnelle, Université de Saint-Boniface" => "École technique et professionnelle, Université de Saint-Boniface",
-	"Emily Carr University of Art and Design" => "Emily Carr University of Art and Design",
-	"Fanshawe College of Applied Arts and Technology" => "Fanshawe College of Applied Arts and Technology",
-	"First Nations Technical Institute" => "First Nations Technical Institute",
-	"Fleming College" => "Fleming College",
-	"George Brown College" => "George Brown College",
-	"Georgian College of Applied Arts and Technology" => "Georgian College of Applied Arts and Technology",
-	"Grande Prairie Regional College" => "Grande Prairie Regional College",
-	"Great Plains College" => "Great Plains College",
-	"Holland College" => "Holland College",
-	"Humber College Institute of Technology & Advanced Learning" => "Humber College Institute of Technology & Advanced Learning",
-	"Institut de tourisme et d’hôtellerie du Québec" => "Institut de tourisme et d’hôtellerie du Québec",
-	"Justice Institute of British Columbia" => "Justice Institute of British Columbia",
-	"Kenjgewin Teg Educational Institute (KTEI)" => "Kenjgewin Teg Educational Institute (KTEI)",
-	"Keyano College" => "Keyano College",
-	"Kwantlen Polytechnic University" => "Kwantlen Polytechnic University",
-	"La Cité" => "La Cité",
-	"Lakeland College" => "Lakeland College",
-	"Lambton College of Applied Arts and Technology" => "Lambton College of Applied Arts and Technology",
-	"Langara College" => "Langara College",
-	"Lethbridge College" => "Lethbridge College",
-	"Loyalist College" => "Loyalist College",
-	"Loyalist College" => "Loyalist College",
-	"Manitoba Institute of Trades and Technology" => "Manitoba Institute of Trades and Technology",
-	"Marine Institute" => "Marine Institute",
-	"Medicine Hat College" => "Medicine Hat College",
-	"Michener Institute of Education at UHN" => "Michener Institute of Education at UHN",
-	"Mohawk College" => "Mohawk College",
-	"Native Education College" => "Native Education College",
-	"New Brunswick College of Craft and Design" => "New Brunswick College of Craft and Design",
-	"New Brunswick Community College" => "New Brunswick Community College",
-	"Niagara College" => "Niagara College",
-	"Nicola Valley Institute of Technology" => "Nicola Valley Institute of Technology",
-	"NorQuest College" => "NorQuest College",
-	"North Island College" => "North Island College",
-	"North West College" => "North West College",
-	"Northern Alberta Institute of Technology (NAIT)" => "Northern Alberta Institute of Technology (NAIT)",
-	"Northern College" => "Northern College",
-	"Northern Lakes College" => "Northern Lakes College",
-	"Northern Lights College" => "Northern Lights College",
-	"Northlands College" => "Northlands College",
-	"Northwest Community College" => "Northwest Community College",
-	"Nova Scotia Community College (NSCC)" => "Nova Scotia Community College (NSCC)",
-	"Nunavut Arctic College" => "Nunavut Arctic College",
-	"Okanagan College" => "Okanagan College",
-	"Olds College" => "Olds College",
-	"Parkland College" => "Parkland College",
-	"Portage College" => "Portage College",
-	"Red Deer College" => "Red Deer College",
-	"Red River College of Applied Arts, Science and Technology" => "Red River College of Applied Arts, Science and Technology",
-	"Southern Alberta Institute of Technology (SAIT)" => "Southern Alberta Institute of Technology (SAIT)",
-	"Saskatchewan Indian Institute of Technologies (SIIT)" => "Saskatchewan Indian Institute of Technologies (SIIT)",
-	"Saskatchewan Polytechnic" => "Saskatchewan Polytechnic",
-	"Sault College" => "Sault College",
-	"Selkirk College" => "Selkirk College",
-	"Seneca College of Applied Arts and Technology" => "Seneca College of Applied Arts and Technology",
-	"Southeast College" => "Southeast College",
-	"St. Clair College" => "St. Clair College",
-	"St. Lawrence College" => "St. Lawrence College",
-	"TAV College" => "TAV College",
-	"Université Sainte-Anne, Collège de l’Acadie" => "Université Sainte-Anne, Collège de l’Acadie",
-	"University College of the North" => "University College of the North",
-	"University of the Fraser Valley" => "University of the Fraser Valley",
-	"Vancouver Community College" => "Vancouver Community College",
-	"Vancouver Island University" => "Vancouver Island University",
-	"Vanier College" => "Vanier College",
-	"Yukon College" => "Yukon College");
-
-	// default to invalid value, so it encourages users to select
-	$college_choices = elgg_view('input/select', array(
-		'name' => 'colleges',
-		'id' => 'college-choices',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $colleges),
-	));
-?>
-
-				<!-- Colleges -->
-				<div class="form-group student-choices" id="colleges" hidden>
-					<label for="college-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label>
-					<?php echo $college_choices ?>
-				</div>
+<?php if(show_field("federal")): ?>
 
 <?php
 	$obj = elgg_get_entities(array(
@@ -985,6 +586,284 @@ function validForm() {
 					<label for="federal-choices" class="required"><span class="field-name"><?php echo elgg_echo('Department'); ?></span></label>
 					<?php echo $federal_choices ?>
 				</div>
+
+<?php endif; ?>
+
+<?php if(show_field("academic") || show_field("student")): ?>
+
+				<!-- Universities or Colleges -->
+				<div class="form-group occupation-choices" id="institution" hidden>
+					<label for="institution-choices" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label>
+					<select id="institution-choices" name="institution" class="form-control">
+						<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
+						<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
+						<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
+					</select>
+				</div>
+
+<?php
+	$universities = array("Acadia University" => "Acadia University",
+	"Algoma University" => "Algoma University",
+	"Athabasca University" => "Athabasca University",
+	"Bishop's University" => "Bishop's University",
+	"Brandon University" => "Brandon University",
+	"Brescia University College" => "Brescia University College",
+	"Brock University" => "Brock University",
+	"Campion College" => "Campion College",
+	"Canada Mennonite University" => "Canada Mennonite University",
+	"Cape Breton University" => "Cape Breton University",
+	"Carleton University" => "Carleton University",
+	"Concordia University" => "Concordia University",
+	"Concordia University of Edmonton" => "Concordia University of Edmonton",
+	"Dalhousie University" => "Dalhousie University",
+	"Dominican University College" => "Dominican University College",
+	"École de technolgie supérieure" => "École de technolgie supérieure",
+	"École des Hautes Études Commerciales de Montréal (HEC Montréal)" => "École des Hautes Études Commerciales de Montréal (HEC Montréal)",
+	"École Polytechnique de Montréal" => "École Polytechnique de Montréal",
+	"Emily Carr University of Art + Design" => "Emily Carr University of Art + Design",
+	"ENAP" => "ENAP",
+	"First Nations University of Canada" => "First Nations University of Canada",
+	"Glendon College (York University)" => "Glendon College (York University)",
+	"Huron University College" => "Huron University College",
+	"Institut national de la recherche scientifique" => "Institut national de la recherche scientifique",
+	"King's University College (Western University)" => "King's University College (Western University)",
+	"Kwantlen Polytechnic University" => "Kwantlen Polytechnic University",
+	"Lakehead University" => "Lakehead University",
+	"Laurentian University" => "Laurentian University",
+	"Luther College" => "Luther College",
+	"MacEwan University" => "MacEwan University",
+	"McGill University" => "McGill University",
+	"McMaster University" => "McMaster University",
+	"Memorial University" => "Memorial University",
+	"Mount Allison University" => "Mount Allison University",
+	"Mount Royal University" => "Mount Royal University",
+	"Mount Saint Vincent University" => "Mount Saint Vincent University",
+	"Nipissing University" => "Nipissing University",
+	"Nova Scotia College of Art and Design University" => "Nova Scotia College of Art and Design University",
+	"Ontario College of Art and Design University" => "Ontario College of Art and Design University",
+	"Queens University" => "Queens University",
+	"Redeemer University College" => "Redeemer University College",
+	"Royal Military College" => "Royal Military College",
+	"Royal Roads University" => "Royal Roads University",
+	"Ryerson University" => "Ryerson University",
+	"Saint Mary's University" => "Saint Mary's University",
+	"Saint Paul University" => "Saint Paul University",
+	"Simon Fraser University" => "Simon Fraser University",
+	"St. Francis Xavier University" => "St. Francis Xavier University",
+	"St. Jerome's University" => "St. Jerome's University",
+	"St. Paul's College" => "St. Paul's College",
+	"St. Thomas More College" => "St. Thomas More College",
+	"St. Thomas University" => "St. Thomas University",
+	"Télé-université (TÉLUQ)" => "Télé-université (TÉLUQ)",
+	"The King's University" => "The King's University",
+	"Thompson Rivers University" => "Thompson Rivers University",
+	"Trent University" => "Trent University",
+	"Trinity Western University" => "Trinity Western University",
+	"Université de Moncton" => "Université de Moncton",
+	"Université de Montréal" => "Université de Montréal",
+	"Université de Saint-Boniface" => "Université de Saint-Boniface",
+	"Université de Sherbrooke" => "Université de Sherbrooke",
+	"Université du Québec" => "Université du Québec",
+	"Université du Québec à Chicoutimi" => "Université du Québec à Chicoutimi",
+	"Université du Québec à Montréal" => "Université du Québec à Montréal",
+	"Université du Québec à Rimouski" => "Université du Québec à Rimouski",
+	"Université du Québec à Trois‑Rivières" => "Université du Québec à Trois‑Rivières",
+	"Université du Québec en Abitibi‑Témiscamingue" => "Université du Québec en Abitibi‑Témiscamingue",
+	"Université du Québec en Outaouais" => "Université du Québec en Outaouais",
+	"Université Laval" => "Université Laval",
+	"Université Sainte‑Anne" => "Université Sainte‑Anne",
+	"University of Alberta" => "University of Alberta",
+	"University of British Columbia" => "University of British Columbia",
+	"University of Calgary" => "University of Calgary",
+	"University of Guelph" => "University of Guelph",
+	"University of King's College" => "University of King's College",
+	"University of Lethbridge" => "University of Lethbridge",
+	"University of Manitoba" => "University of Manitoba",
+	"University of New Brunswick" => "University of New Brunswick",
+	"University of Northern British Columbia" => "University of Northern British Columbia",
+	"University of Ontario Institute of Technology" => "University of Ontario Institute of Technology",
+	"University of Ottawa" => "University of Ottawa",
+	"University of PEI" => "University of PEI",
+	"University of Regina" => "University of Regina",
+	"University of Saskatchewan" => "University of Saskatchewan",
+	"University of St. Michael's College" => "University of St. Michael's College",
+	"University of Sudbury" => "University of Sudbury",
+	"University of the Fraser Valley" => "University of the Fraser Valley",
+	"University of Toronto" => "University of Toronto",
+	"University of Trinity College" => "University of Trinity College",
+	"University of Victoria " => "University of Victoria ",
+	"University of Waterloo" => "University of Waterloo",
+	"University of Western Ontario" => "University of Western Ontario",
+	"University of Windsor" => "University of Windsor",
+	"University of Winnipeg" => "University of Winnipeg",
+	"Vancouver Island University" => "Vancouver Island University",
+	"Victoria University" => "Victoria University",
+	"Wilfrid Laurier University" => "Wilfrid Laurier University",
+	"York University" => "York University");
+
+	// default to invalid value, so it encourages users to select
+	$university_choices = elgg_view('input/select', array(
+		'name' => 'university',
+		'id' => 'university-choices',
+        'class' => 'form-control',
+		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $universities),
+	));
+?>
+
+				<!-- Universities -->
+				<div class="form-group student-choices" id="universities" hidden>
+					<label for="university-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:university'); ?></span></label>
+					<?php echo $university_choices ?>
+				</div>
+
+<?php
+	$colleges = array("Alberta College of Art and Design" => "Alberta College of Art and Design",
+	"Algonquin College" => "Algonquin College",
+	"Assiniboine Community College" => "Assiniboine Community College",
+	"Aurora College" => "Aurora College",
+	"Bow Valley College" => "Bow Valley College",
+	"British Columbia Institute of Technology" => "British Columbia Institute of Technology",
+	"Cambrian College of Applied Arts and Technology" => "Cambrian College of Applied Arts and Technology",
+	"Camosun College" => "Camosun College",
+	"Canadore College of Applied Arts and Technology" => "Canadore College of Applied Arts and Technology",
+	"Capilano University" => "Capilano University",
+	"Carlton Trail College" => "Carlton Trail College",
+	"Cégep André-Laurendeau" => "Cégep André-Laurendeau",
+	"Cégep de Chicoutimi" => "Cégep de Chicoutimi",
+	"Cégep de Jonquière" => "Cégep de Jonquière",
+	"Cégep de l’Abitibi-Témiscamingue" => "Cégep de l’Abitibi-Témiscamingue",
+	"Cégep de la Gaspésie et des Îles" => "Cégep de la Gaspésie et des Îles",
+	"Cégep de La Pocatière" => "Cégep de La Pocatière",
+	"Cégep de Matane" => "Cégep de Matane",
+	"Cégep de Rimouski" => "Cégep de Rimouski",
+	"Cégep de Rivière-du-Loup" => "Cégep de Rivière-du-Loup",
+	"Cégep de Sainte-Foy" => "Cégep de Sainte-Foy",
+	"Cégep de Saint-Félicien" => "Cégep de Saint-Félicien",
+	"Cégep de Saint-Laurent" => "Cégep de Saint-Laurent",
+	"Cégep de Sept-Îles" => "Cégep de Sept-Îles",
+	"Cégep de Sherbrooke" => "Cégep de Sherbrooke",
+	"Cégep de Thetford" => "Cégep de Thetford",
+	"Cégep de Trois-Rivières" => "Cégep de Trois-Rivières",
+	"Cégep de Victoriaville" => "Cégep de Victoriaville",
+	"Cégep Édouard-Montpetit" => "Cégep Édouard-Montpetit",
+	"Cégep Garneau" => "Cégep Garneau",
+	"Cégep Heritage College" => "Cégep Heritage College",
+	"Cégep John Abbott College" => "Cégep John Abbott College",
+	"Cégep Limoilou" => "Cégep Limoilou",
+	"Cégep Marie-Victorin" => "Cégep Marie-Victorin",
+	"Cégep régional de Lanaudière" => "Cégep régional de Lanaudière",
+	"Cégep Saint-Jean-sur-Richelieu" => "Cégep Saint-Jean-sur-Richelieu",
+	"Centennial College" => "Centennial College",
+	"Centre for Nursing Studies" => "Centre for Nursing Studies",
+	"Champlain Regional College" => "Champlain Regional College",
+	"Collège Acadie Î.-P.-É." => "Collège Acadie Î.-P.-É.",
+	"Collège André-Grasset" => "Collège André-Grasset",
+	"Collège Boréal" => "Collège Boréal",
+	"Collège communautaire du Nouveau-Brunswick" => "Collège communautaire du Nouveau-Brunswick",
+	"Collège de Maisonneuve" => "Collège de Maisonneuve",
+	"Collège Éducacentre" => "Collège Éducacentre",
+	"Collège LaSalle" => "Collège LaSalle",
+	"Collège Lionel-Groulx" => "Collège Lionel-Groulx",
+	"Collège Mathieu" => "Collège Mathieu",
+	"Collège Montmorency" => "Collège Montmorency",
+	"Collège nordique francophone" => "Collège nordique francophone",
+	"College of New Caledonia" => "College of New Caledonia",
+	"College of the North Atlantic (CNA)" => "College of the North Atlantic (CNA)",
+	"College of the Rockies" => "College of the Rockies",
+	"Collège Shawinigan" => "Collège Shawinigan",
+	"Conestoga College Institute of Technology and Advanced Learning" => "Conestoga College Institute of Technology and Advanced Learning",
+	"Confederation College" => "Confederation College",
+	"Cumberland College" => "Cumberland College",
+	"Dalhousie Agricultural Campus of Dalhousie University" => "Dalhousie Agricultural Campus of Dalhousie University",
+	"Douglas College" => "Douglas College",
+	"Dumont Technical Institute" => "Dumont Technical Institute",
+	"Durham College" => "Durham College",
+	"École technique et professionnelle, Université de Saint-Boniface" => "École technique et professionnelle, Université de Saint-Boniface",
+	"Emily Carr University of Art and Design" => "Emily Carr University of Art and Design",
+	"Fanshawe College of Applied Arts and Technology" => "Fanshawe College of Applied Arts and Technology",
+	"First Nations Technical Institute" => "First Nations Technical Institute",
+	"Fleming College" => "Fleming College",
+	"George Brown College" => "George Brown College",
+	"Georgian College of Applied Arts and Technology" => "Georgian College of Applied Arts and Technology",
+	"Grande Prairie Regional College" => "Grande Prairie Regional College",
+	"Great Plains College" => "Great Plains College",
+	"Holland College" => "Holland College",
+	"Humber College Institute of Technology & Advanced Learning" => "Humber College Institute of Technology & Advanced Learning",
+	"Institut de tourisme et d’hôtellerie du Québec" => "Institut de tourisme et d’hôtellerie du Québec",
+	"Justice Institute of British Columbia" => "Justice Institute of British Columbia",
+	"Kenjgewin Teg Educational Institute (KTEI)" => "Kenjgewin Teg Educational Institute (KTEI)",
+	"Keyano College" => "Keyano College",
+	"Kwantlen Polytechnic University" => "Kwantlen Polytechnic University",
+	"La Cité" => "La Cité",
+	"Lakeland College" => "Lakeland College",
+	"Lambton College of Applied Arts and Technology" => "Lambton College of Applied Arts and Technology",
+	"Langara College" => "Langara College",
+	"Lethbridge College" => "Lethbridge College",
+	"Loyalist College" => "Loyalist College",
+	"Loyalist College" => "Loyalist College",
+	"Manitoba Institute of Trades and Technology" => "Manitoba Institute of Trades and Technology",
+	"Marine Institute" => "Marine Institute",
+	"Medicine Hat College" => "Medicine Hat College",
+	"Michener Institute of Education at UHN" => "Michener Institute of Education at UHN",
+	"Mohawk College" => "Mohawk College",
+	"Native Education College" => "Native Education College",
+	"New Brunswick College of Craft and Design" => "New Brunswick College of Craft and Design",
+	"New Brunswick Community College" => "New Brunswick Community College",
+	"Niagara College" => "Niagara College",
+	"Nicola Valley Institute of Technology" => "Nicola Valley Institute of Technology",
+	"NorQuest College" => "NorQuest College",
+	"North Island College" => "North Island College",
+	"North West College" => "North West College",
+	"Northern Alberta Institute of Technology (NAIT)" => "Northern Alberta Institute of Technology (NAIT)",
+	"Northern College" => "Northern College",
+	"Northern Lakes College" => "Northern Lakes College",
+	"Northern Lights College" => "Northern Lights College",
+	"Northlands College" => "Northlands College",
+	"Northwest Community College" => "Northwest Community College",
+	"Nova Scotia Community College (NSCC)" => "Nova Scotia Community College (NSCC)",
+	"Nunavut Arctic College" => "Nunavut Arctic College",
+	"Okanagan College" => "Okanagan College",
+	"Olds College" => "Olds College",
+	"Parkland College" => "Parkland College",
+	"Portage College" => "Portage College",
+	"Red Deer College" => "Red Deer College",
+	"Red River College of Applied Arts, Science and Technology" => "Red River College of Applied Arts, Science and Technology",
+	"Southern Alberta Institute of Technology (SAIT)" => "Southern Alberta Institute of Technology (SAIT)",
+	"Saskatchewan Indian Institute of Technologies (SIIT)" => "Saskatchewan Indian Institute of Technologies (SIIT)",
+	"Saskatchewan Polytechnic" => "Saskatchewan Polytechnic",
+	"Sault College" => "Sault College",
+	"Selkirk College" => "Selkirk College",
+	"Seneca College of Applied Arts and Technology" => "Seneca College of Applied Arts and Technology",
+	"Southeast College" => "Southeast College",
+	"St. Clair College" => "St. Clair College",
+	"St. Lawrence College" => "St. Lawrence College",
+	"TAV College" => "TAV College",
+	"Université Sainte-Anne, Collège de l’Acadie" => "Université Sainte-Anne, Collège de l’Acadie",
+	"University College of the North" => "University College of the North",
+	"University of the Fraser Valley" => "University of the Fraser Valley",
+	"Vancouver Community College" => "Vancouver Community College",
+	"Vancouver Island University" => "Vancouver Island University",
+	"Vanier College" => "Vanier College",
+	"Yukon College" => "Yukon College");
+
+	// default to invalid value, so it encourages users to select
+	$college_choices = elgg_view('input/select', array(
+		'name' => 'college',
+		'id' => 'college-choices',
+        'class' => 'form-control',
+		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $colleges),
+	));
+?>
+
+				<!-- Colleges -->
+				<div class="form-group student-choices" id="colleges" hidden>
+					<label for="college-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label>
+					<?php echo $college_choices ?>
+				</div>
+
+<?php endif; ?>
+
+<?php if(show_field("provincial")): ?>
 
 <?php
 	$provincial_departments = array();
@@ -1804,6 +1683,10 @@ function validForm() {
 					<?php echo $yukon_choices ?>
 				</div>
 
+<?php endif; ?>
+
+<?php if(show_field("municipal")): ?>
+
 <?php
 	$municipal_governments = array();
 	if (get_current_language() == 'en'){
@@ -1825,6 +1708,10 @@ function validForm() {
 					<label for="municipal-choices" class="required"><span class="field-name"><?php echo elgg_echo('Municipal'); ?></span></label>
 					<?php echo $municipal_choices ?>
 				</div>
+
+<?php endif; ?>
+
+<?php if(show_field("international")): ?>
 
 <?php
 	$international_governments = array();
@@ -1848,6 +1735,10 @@ function validForm() {
 					<?php echo $international_choices ?>
 				</div>
 
+<?php endif; ?>
+
+<?php if(show_field("community") || show_field("business") || show_field("media") || show_field("other")): ?>
+
 <?php
 	$custom_occupation = elgg_view('input/text', array(
 		'name' => 'custom_occupation',
@@ -1861,115 +1752,106 @@ function validForm() {
 					<?php echo $custom_occupation ?>
 				</div>
 
-				<!-- Initial Email -->
+<?php endif; ?>
+				
+				<!-- Display Name -->
 				<div class="form-group">
-	    			<label for="email_initial" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_initial'); ?></span></label>	
-	    			<font id="email_initial_error" color="red"></font>
-	    			<input type="text" name="email_initial" id="email_initial" value='<?php echo $email ?>' class="form-control"/>
+					<label for="name" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:display_name'); ?></span></label>
+					<font id="name_error" color="red"></font>
+<?php
+			echo elgg_view('input/text', array(
+				'name' => 'name',
+				'id' => 'name',
+		        'class' => 'form-control display_name',
+				'value' => $name,
+			));
+?>
 				</div>
+		    	<div class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
 
+				<!-- Email -->
 				<div class="form-group">
-					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span></label>
-	    			<font id="email_secondary_error" color="red"></font>
+					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span></label>
+	    			<font id="email_error" color="red"></font>
 					<input id="email" class="form-control" type="text" value='<?php echo $email ?>' name="email" onBlur="" />
-	    
 
 	    		<script>	
 	        		$('#email').blur(function () {
 	            		elgg.action( 'register/ajax', {
 							data: {
-								args: document.getElementById('email').value
+								email: $('#email').val()
 							},
 							success: function (x) {
-
-							    // auto-create username based on the email
-							    $('.username_test').val(x.output);
-
-					            // Nick - Testing here if the username already exists and add a feedback to the user
-							    if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>")
-					                $('.already-registered-message span').html("<?php echo $account_exist_message; ?>").removeClass('hidden');
-							    else
-					                $('.already-registered-message span').addClass('hidden');
-
-			    				generateDisplayName();
-
-							    function generateDisplayName() {
-	                				var dName = $('.username_test').val();
-						            if (dName.indexOf('.') != false)
-							            dName = dName.replace(/\./g,' ');
-				            		$('.display_name').val(dName);
+			    				if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>") {
+					                $('#email_error').html("<?php echo elgg_echo('registration:userexists'); ?>").removeClass('hidden');
+			    				} else if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:invalid_email'); ?>") {
+					                $('#email_error').text("<?php echo elgg_echo('gcRegister:invalid_email'); ?>").removeClass('hidden');
+			    				} else {
+			    					$('#email_error').addClass('hidden');
 			    				}
+							},   
+						});
+	        		});
+
+	        		$('#name').blur(function () {
+	        			elgg.action( 'register/ajax', {
+							data: {
+								name: $('#name').val()
+							},
+							success: function (x) {
+			    				$('.username_test').val(x.output);
 							},   
 						});
 	        		});
 	    		</script>
 
 				</div> <!-- end form-group div -->
-	    	<div class="return_message"></div>
+		    	<div class="return_message"></div>
 
+				<!-- Username (auto-generate) -->
+				<div class="form-group" style="display:none">
+					<label for="username" class="required" ><span class="field-name"><?php echo elgg_echo('gcRegister:username'); ?></span> </label> 
+				    <div class="already-registered-message mrgn-bttm-sm"><span class="label label-danger tags mrgn-bttm-sm"></span></div>
+<?php
+			echo elgg_view('input/text', array(
+				'name' => 'username',
+				'id' => 'username',
+		        'class' => 'username_test form-control',
+				// 'readonly' => 'readonly',
+				'value' => $username,
+			));
+?>
+				</div>
 
+				<!-- Password -->
+				<div class="form-group">
+					<label for="password" class="required"><span class="field-name"><span class="field-name"><?php echo elgg_echo('gcRegister:password_initial'); ?></span> </label>
+					<font id="password_initial_error" color="red"></font>
+<?php
+			echo elgg_view('input/password', array(
+				'name' => 'password',
+				'id' => 'password',
+		        'class'=>'password_test form-control',
+				'value' => $password,
+			));
+?>
+				</div>
 
+				<!-- Secondary Password -->
+				<div class="form-group">
+					<label for="password2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:password_secondary'); ?></span> </label>
+				    <font id="password_secondary_error" color="red"></font>
+<?php
+			echo elgg_view('input/password', array(
+				'name' => 'password2',
+				'value' => $password2,
+				'id' => 'password2',
+		        'class'=>'password2_test form-control',
+			));
+?>
+				</div>
 
-
-			<!-- Username (auto-generate) -->
-			<div class="form-group" style="display:none">
-				<label for="username" class="required" ><span class="field-name"><?php echo elgg_echo('gcRegister:username'); ?></span> </label> 
-			    <div class="already-registered-message mrgn-bttm-sm"><span class="label label-danger tags mrgn-bttm-sm"></span></div>
-				t<?php
-				echo elgg_view('input/text', array(
-					'name' => 'username',
-					'id' => 'username',
-			        'class' => 'username_test form-control',
-					'readonly' => 'readonly',
-					'value' => $username,
-				));
-				?>
-			</div>
-
-			<!-- Password -->
-			<div class="form-group">
-				<label for="password" class="required"><span class="field-name"><span class="field-name"><?php echo elgg_echo('gcRegister:password_initial'); ?></span> </label>
-				<font id="password_initial_error" color="red"></font>
-				<?php
-				echo elgg_view('input/password', array(
-					'name' => 'password',
-					'id' => 'password',
-			        'class'=>'password_test form-control',
-					'value' => $password,
-				));
-				?>
-			</div>
-
-			<!-- Secondary Password -->
-			<div class="form-group">
-				<label for="password2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:password_secondary'); ?></span> </label>
-			    <font id="password_secondary_error" color="red"></font>
-				<?php
-				echo elgg_view('input/password', array(
-					'name' => 'password2',
-					'value' => $password2,
-					'id' => 'password2',
-			        'class'=>'password2_test form-control',
-				));
-				?>
-			</div>
-
-			<!-- Display Name -->
-			<div class="form-group">
-				<label for="name" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:display_name'); ?></span>  </label>
-				<?php
-				echo elgg_view('input/text', array(
-					'name' => 'name',
-					'id' => 'name',
-			        'class' => 'form-control display_name',
-					'value' => $name,
-				));
-				?>
-			</div>
-
-		    <div class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
-		    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" /><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
-
+			    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" /><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
 
 <?php
 			// view to extend to add more fields to the registration form
@@ -1987,114 +1869,78 @@ function validForm() {
 			    'value' => elgg_echo('gcRegister:register'),
 			    'id' => 'submit',
 			    'class'=>'submit_test btn-primary',));
-			    //'onclick' => 'return check_fields2();'));
 			echo '</div>';
-		  //echo '<center>'.elgg_echo('gcRegister:tutorials_notice').'</center>';
-			echo '<br/>';
 ?>
 	            
+			</div>
 		</div>
-	</div>
-</section>
-
+	</section>
 
 <script>
-/*
-	$('#email_initial').on("keydown",function(e) {
-		return e.which !== 32;
-	});
-
-	$('#email').on("keydown",function(e) {
-		return e.which !== 32;
-	});
-*/
-
 	// check if the initial email input is empty, then proceed to validate email
-    $('#email_initial').on("focusout", function() {
-    	var val = $(this).attr('value');
+    $('#email').on("focusout", function() {
+    	var val = $(this).val();
         if ( val === '' ) {
         	var c_err_msg = '<?php echo elgg_echo('gcRegister:empty_field') ?>';
-            document.getElementById('email_initial_error').innerHTML = c_err_msg;
-        
+            document.getElementById('email_error').innerHTML = c_err_msg;
         } else if ( val !== '' ) {
-            document.getElementById('email_initial_error').innerHTML = '';
+            document.getElementById('email_error').innerHTML = '';
             
             if (!validateEmail(val)) {
             	var c_err_msg = '<?php echo elgg_echo('gcRegister:invalid_email') ?>';
-            	document.getElementById('email_initial_error').innerHTML = c_err_msg;
+            	document.getElementById('email_error').innerHTML = c_err_msg;
             }
-        }
-
-        var val_2 = $('#email').attr('value');
-        if (val_2 == val) {
-
-	        	document.getElementById('email_secondary_error').innerHTML = '';
-	        
         }
     });
-	
 
-	    $('#email').on("focusout", function() {
+    $('.password_test').on("focusout", function() {
+    	var val = $(this).val();
+	    if ( val === '' ) {
+	    	var c_err_msg = "<?php echo elgg_echo('gcRegister:empty_field') ?>";
+	        document.getElementById('password_initial_error').innerHTML = c_err_msg;
+	    } else if ( val !== '' ) {
+	        document.getElementById('password_initial_error').innerHTML = '';
+	    }
 
-	    	var val = $(this).attr('value');
-		    if ( val === '' ) {
-		    	var c_err_msg = "<?php echo elgg_echo('gcRegister:empty_field') ?>";
-		        document.getElementById('email_secondary_error').innerHTML = c_err_msg;
-		    }
-		    else if ( val !== '' ) {
-		        document.getElementById('email_secondary_error').innerHTML = '';
-
-		        var val2 = $('#email_initial').attr('value');
-		        if (val2.toLowerCase() != val.toLowerCase())
-		        {
-		        	var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
-		        	document.getElementById('email_secondary_error').innerHTML = c_err_msg;
-		        }
-		    }
-		});
-
-	    $('.password_test').on("focusout", function() {
-
-	    	var val = $(this).val();
-		    if ( val === '' ) {
-		    	var c_err_msg = "<?php echo elgg_echo('gcRegister:empty_field') ?>";
-		        document.getElementById('password_initial_error').innerHTML = c_err_msg;
-		    }
-		    else if ( val !== '' ) {
-		        document.getElementById('password_initial_error').innerHTML = '';
-		    }
-
-	        var val_2 = $('#password2').attr('value');
-	        
-            if (val_2 == val) {
-
-		        	document.getElementById('password_secondary_error').innerHTML = '';
-		        
-            } else if (val_2 !== '' && val_2 != val) {
-                var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
-		        	document.getElementById('password_secondary_error').innerHTML = c_err_msg;
-            }
-		});	
-	    
-	    $('#password2').on("focusout", function() {
-
-	    	var val = $(this).val();
-		    if ( val === '' ) {
-		    	var c_err_msg = "<?php echo elgg_echo('gcRegister:empty_field') ?>";
-		        document.getElementById('password_secondary_error').innerHTML = c_err_msg;
-		    }
-		    else if ( val !== '' ) {
-		        document.getElementById('password_secondary_error').innerHTML = '';
-		        
-		        var val2 = $('.password_test').val();
-		        if (val2 != val)
-		        {
-		        	var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
-		        	document.getElementById('password_secondary_error').innerHTML = c_err_msg;
-		        }
-		    }
-		});
+        var val_2 = $('#password2').val();
+        if (val_2 == val) {
+	        document.getElementById('password_secondary_error').innerHTML = '';
+        } else if (val_2 !== '' && val_2 != val) {
+            var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
+	        document.getElementById('password_secondary_error').innerHTML = c_err_msg;
+        }
+	});	
     
+    $('#password2').on("focusout", function() {
+    	var val = $(this).val();
+	    if ( val === '' ) {
+	    	var c_err_msg = "<?php echo elgg_echo('gcRegister:empty_field') ?>";
+	        document.getElementById('password_secondary_error').innerHTML = c_err_msg;
+	    } else if ( val !== '' ) {
+	        document.getElementById('password_secondary_error').innerHTML = '';
+	        
+	        var val2 = $('.password_test').val();
+	        if (val2 != val) {
+	        	var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
+	        	document.getElementById('password_secondary_error').innerHTML = c_err_msg;
+	        }
+	    }
+	});
+    
+    $('#name').on("focusout", function() {
+    	var val = $(this).val();
+        if ( val === '' ) {
+        	var c_err_msg = '<?php echo elgg_echo('gcRegister:empty_field') ?>';
+            document.getElementById('name_error').innerHTML = c_err_msg;
+        } else if ( val !== '' ) {
+            document.getElementById('name_error').innerHTML = '';
+        }
+    });
+
+    $("form.elgg-form-register").on("submit", function(){
+	    $(".occupation-choices select:not(:visible), .occupation-choices input:not(:visible), .student-choices select:not(:visible), .ministry-choices select:not(:visible)").attr('disabled', 'disabled');
+	    $(".occupation-choices select:visible, .occupation-choices input:visible, .student-choices select:visible, .ministry-choices select:visible").removeAttr('disabled');
+	});
 </script>
 
 </div>

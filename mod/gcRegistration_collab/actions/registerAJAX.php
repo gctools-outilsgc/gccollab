@@ -19,27 +19,26 @@
  * CYu 			March 5 2014 	ajaxify the email verification & code clean up
  * CYu 			March 13 2014	restricts the email extension
  * CYu 			Sept 19 2014 	modifies so that checks are not case sensitive
+ * MWooff 		Jan 18 2017		Re-built for GCcollab-specific functions
  ***********************************************************************/
 
 global $CONFIG;
 
-$emailInput = trim(get_input('args'));
-
+$emailInput = trim(get_input('email'));
+$nameInput = trim(get_input('name'));
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/engine/settings.php');
 
 // Establish MySQL connection link
 $connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname);
-if (mysqli_connect_errno($connection)) 
-{
+if (mysqli_connect_errno($connection)) {
 	echo elgg_echo('gcRegister:failedMySQLconnection');
 	exit;
 }
 
 $email = $emailInput;
 
-if (strlen( $email ) > 0) 
-{
+if (strlen( $email ) > 0) {
 	$domainPos = strpos($email, '@') + 1;
 	$domain = substr($email, $domainPos);
 	
@@ -57,7 +56,7 @@ if (strlen( $email ) > 0)
 
 	// make sure selected domain is not the example domain (this is already checked for in the JS, but do it anyway)
 	} else if( checkInvalidDomain($domain) ) {
-		echo '> ' . elgg_echo('gcRegister:invalid_email2');
+		echo '> ' . elgg_echo('gcRegister:invalid_email');
 	
 	} else {
 
@@ -104,10 +103,61 @@ if (strlen( $email ) > 0)
 		// username output
 		echo $uname;
 	}							
+} else if( $nameInput === "" ) {
+	echo '> '.elgg_echo("gcRegister:please_enter_email");
 }
-else echo '> '.elgg_echo("gcRegister:please_enter_email");
 
 
+$name = $nameInput;
+
+if (strlen( $name ) > 0) {
+
+	$name = str_replace( " ", ".", $name );
+	$usrname = str_replace( "'", "", usernameize( $name ) );
+
+	// Troy - fix for usernames generated with "-" in them; better solution may present itself.
+	while (strpos($usrname,'-')!==false ){
+		$usrname = substr_replace($usrname, ".", strpos($usrname,'-'),1);
+	}
+
+	if(rtrim($usrname, "0..9") != "") {
+		$usrname = rtrim($usrname, "0..9");
+	}
+
+	// select matching usernames
+	$query1 = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $usrname ."'";
+
+	$result1 = mysqli_query($connection, $query1);
+	$result1 = mysqli_fetch_array($result1);
+
+	// check if username exists and increment it
+	if ( $result1['num'][0] > 0 ){
+		
+		$unamePostfix = 0;
+		$usrnameQuery = $usrname;
+		
+		do {
+			$unamePostfix++;
+			
+			$tmpUsrnameQuery = $usrnameQuery . $unamePostfix;
+			
+			$query = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $tmpUsrnameQuery ."'";
+			$tmpResult = mysqli_query($connection, $query);
+			$tmpResult = mysqli_fetch_array($tmpResult);
+			
+			$uname = $tmpUsrnameQuery;
+			
+		} while ( $tmpResult['num'][0] > 0);
+		
+	}else{
+		// username is available
+		$uname = $usrname;
+	}
+	// username output
+	echo $uname;
+} else if( $emailInput === "" ) {
+	echo '> '.elgg_echo("gcRegister:please_enter_name");
+}
 
 /* +++ DEFINED FUNCTION +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
@@ -165,7 +215,7 @@ function checkInvalidDomain($dom)
 				$regex = str_replace(".", "\.", $wildcard->ext);
 				$regex = str_replace("*", "[\w-.]+", $regex);
 				$regex = "/^@" . $regex . "$/";
-				if(preg_match($regex, "@".$dom)){
+				if(preg_match($regex, "@".$dom) || str_replace("*.", "", $wildcard->ext) == $dom){
 					$isNotValid = false;
 				}
 			}
