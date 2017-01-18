@@ -103,7 +103,7 @@ function validateEmail(email) {
 
 	<?php
 		function show_field( $field ){
-			$enabled_fields = array('academic', 'student', 'federal');
+			$enabled_fields = array('academic', 'student', 'federal', 'provincial');
 			// $enabled_fields = array('academic', 'student', 'federal', 'provincial', 'municipal', 'international', 'community', 'business', 'media', 'other');
 			return in_array($field, $enabled_fields);
 		}
@@ -619,14 +619,14 @@ function validateEmail(email) {
 	"Dominican University College" => "Dominican University College",
 	"École de technolgie supérieure" => "École de technolgie supérieure",
 	"École des Hautes Études Commerciales de Montréal (HEC Montréal)" => "École des Hautes Études Commerciales de Montréal (HEC Montréal)",
+	"École nationale d'administration publique (ENAP)" => "École nationale d'administration publique (ENAP)",
 	"École Polytechnique de Montréal" => "École Polytechnique de Montréal",
-	"Emily Carr University of Art + Design" => "Emily Carr University of Art + Design",
-	"ENAP" => "ENAP",
+	"Emily Carr University of Art and Design" => "Emily Carr University of Art and Design",
 	"First Nations University of Canada" => "First Nations University of Canada",
 	"Glendon College (York University)" => "Glendon College (York University)",
 	"Huron University College" => "Huron University College",
 	"Institut national de la recherche scientifique" => "Institut national de la recherche scientifique",
-	"King's University College (Western University)" => "King's University College (Western University)",
+	"King's University College" => "King's University College",
 	"Kwantlen Polytechnic University" => "Kwantlen Polytechnic University",
 	"Lakehead University" => "Lakehead University",
 	"Laurentian University" => "Laurentian University",
@@ -641,7 +641,7 @@ function validateEmail(email) {
 	"Nipissing University" => "Nipissing University",
 	"Nova Scotia College of Art and Design University" => "Nova Scotia College of Art and Design University",
 	"Ontario College of Art and Design University" => "Ontario College of Art and Design University",
-	"Queens University" => "Queens University",
+	"Queen's University" => "Queen's University",
 	"Redeemer University College" => "Redeemer University College",
 	"Royal Military College" => "Royal Military College",
 	"Royal Roads University" => "Royal Roads University",
@@ -683,7 +683,7 @@ function validateEmail(email) {
 	"University of Northern British Columbia" => "University of Northern British Columbia",
 	"University of Ontario Institute of Technology" => "University of Ontario Institute of Technology",
 	"University of Ottawa" => "University of Ottawa",
-	"University of PEI" => "University of PEI",
+	"University of Prince Edward Island" => "University of Prince Edward Island",
 	"University of Regina" => "University of Regina",
 	"University of Saskatchewan" => "University of Saskatchewan",
 	"University of St. Michael's College" => "University of St. Michael's College",
@@ -800,7 +800,6 @@ function validateEmail(email) {
 	"Langara College" => "Langara College",
 	"Lethbridge College" => "Lethbridge College",
 	"Loyalist College" => "Loyalist College",
-	"Loyalist College" => "Loyalist College",
 	"Manitoba Institute of Trades and Technology" => "Manitoba Institute of Trades and Technology",
 	"Marine Institute" => "Marine Institute",
 	"Medicine Hat College" => "Medicine Hat College",
@@ -828,13 +827,13 @@ function validateEmail(email) {
 	"Portage College" => "Portage College",
 	"Red Deer College" => "Red Deer College",
 	"Red River College of Applied Arts, Science and Technology" => "Red River College of Applied Arts, Science and Technology",
-	"Southern Alberta Institute of Technology (SAIT)" => "Southern Alberta Institute of Technology (SAIT)",
 	"Saskatchewan Indian Institute of Technologies (SIIT)" => "Saskatchewan Indian Institute of Technologies (SIIT)",
 	"Saskatchewan Polytechnic" => "Saskatchewan Polytechnic",
 	"Sault College" => "Sault College",
 	"Selkirk College" => "Selkirk College",
 	"Seneca College of Applied Arts and Technology" => "Seneca College of Applied Arts and Technology",
 	"Southeast College" => "Southeast College",
+	"Southern Alberta Institute of Technology (SAIT)" => "Southern Alberta Institute of Technology (SAIT)",
 	"St. Clair College" => "St. Clair College",
 	"St. Lawrence College" => "St. Lawrence College",
 	"TAV College" => "TAV College",
