@@ -31,20 +31,20 @@ foreach ($providers as $provider => $settings) {
 			if (elgg_get_plugin_user_setting("$provider:uid", $user->guid, 'linkedin_profile_importer')) {
 				$mod = '<p class="hybridauth-diagnostics-success">' . elgg_echo('hybridauth:provider:user:authenticated') . '</p>';
 
-				$mod .= '<div class="col-xs-3">' . elgg_view('output/url', array(
+				$mod .= '<div class="col-xs-6 col-sm-3">' . elgg_view('output/url', array(
 					'href' => "action/linkedin/deauthorize?provider=$provider&guid=$user->guid",
 					'is_action' => true,
 					'text' => elgg_echo('hybridauth:provider:user:deauthorize'),
 					'class' => 'elgg-button elgg-button-action btn btn-default'
 				)) . '</div>';
 
-				$mod .= '<div class="col-xs-9">' . elgg_view('output/url', array(
+				$mod .= '<div class="col-xs-6 col-sm-9">' . elgg_view('output/url', array(
 					'text' => elgg_view_icon('linkedin') . '<span>' . elgg_echo('linkedin:import') . '</span>',
 					'href' => 'linkedin/import',
 					'class' => 'elgg-button elgg-button-action btn btn-primary'
 				));
 			} else {
-				$forward_url = urlencode(elgg_normalize_url("profile/$user->username"));
+				$forward_url = urlencode(elgg_normalize_url("linkedin/import"));
 				$mod = '<p class="hybridauth-diagnostics-success">' . elgg_echo('hybridauth:provider:user:default') . '</p>';
 				$mod .= elgg_view('output/url', array(
 					'href' => "linkedin/authenticate?provider=$provider&elgg_forward_url=$forward_url",

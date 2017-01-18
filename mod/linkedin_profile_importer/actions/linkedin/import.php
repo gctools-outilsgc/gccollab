@@ -91,6 +91,10 @@ if (is_array($positions_input)) {
 
 			$action = 'import';
 
+			if( $position->title ){
+				$user->set("job", htmlentities($position->title));
+			}
+
             $experience = new ElggObject();
             $experience->subtype = "experience";
             $experience->owner_guid = $user->guid;
