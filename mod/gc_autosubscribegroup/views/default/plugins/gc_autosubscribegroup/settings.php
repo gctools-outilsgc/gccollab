@@ -54,7 +54,7 @@ $groups = elgg_get_entities(array(
 	'limit' => 0,
 ));
 
-echo '<table class="group-table"><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>' . elgg_echo('autosubscribe:enabled') . '</th></tr></thead><tbody>';
+echo '<table class="group-table"><thead><tr><th>ID</th><th>' . elgg_echo('autosubscribe:name') . '</th><th>Description</th><th>' . elgg_echo('autosubscribe:enabled') . '</th></tr></thead><tbody>';
 foreach($groups as $group){
 	$checked = (in_array($group->guid, $enabledGroups)) ? " checked": "";
 	if($group->enabled == "yes"){
