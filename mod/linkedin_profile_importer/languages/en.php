@@ -68,7 +68,7 @@ $english = array(
 	'hybridauth:unlink:provider' => 'There was a problem authenticating your account with %s. The link has been removed. If you have deauthorized our site in %s, you can reanable the link by visiting your settings page.',
 
 	'hybridauth:provider:user:authenticate' => 'Connect account',
-	'hybridauth:provider:user:deauthorize' => 'Disconnect account',
+	'hybridauth:provider:user:deauthorize' => 'Remove account',
 	'hybridauth:provider:user:default' => 'You have not linked any LinkedIn accounts.',
 	'hybridauth:provider:user:authenticated' => 'You have successfully linked your LinkedIn account.',
 	'hybridauth:provider:user:deauthorized' => 'You have successfully unlinked your LinkedIn account.',
@@ -89,8 +89,11 @@ $english = array(
 	'tag_names:associations' => 'Associations',
 
 	'linkedin' => 'HybridAuth LinkedIn tools',
-	'linkedin:import' => 'Import LinkedIn Profile',
+	'linkedin:import' => 'Import Profile',
+	'linkedin:import-linkedin' => 'Import LinkedIn Profile',
 	'linkedin:import:instructions' => 'Use the checkboxes to specify which content you would like to import.',
+
+	'linkedin:profile' => 'Connect Accounts',
 
 	'linkedin:general' => 'Background and Contact Information',
 	'linkedin:general:error' => '%s details could not be imported',

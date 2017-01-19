@@ -38,7 +38,9 @@ function linkedin_profile_importer_init() {
 	elgg_register_simplecache_view('js/linkedin/core');
 
 	// Add linkedin settings to the user profile page
-	elgg_extend_view('profile/details', 'linkedin/settings');
+	// elgg_extend_view('profile/details', 'linkedin/settings');
+	elgg_extend_view('profile/sidebar', 'profile/sidebar/linkedin_profile_importer', 450);
+    elgg_register_widget_type('linkedin_profile_importer', elgg_echo('linkedin:profile'), 'LinkedIn Profile Importer Widget', array('custom_index_widgets'), false);
 
 	// Add linkedin metatags to the list of profile fields
 	elgg_register_plugin_hook_handler('profile:fields', 'profile', 'linkedin_profile_importer_field_mapping');
@@ -324,7 +326,7 @@ function linkedin_profile_importer_page_handler($page) {
 
 			elgg_push_context('profile_edit');
 
-			$title = elgg_echo('linkedin:import');
+			$title = elgg_echo('linkedin:import-linkedin');
 			$content = elgg_view_form('linkedin/import');
 
 			$layout = elgg_view_layout('content', array(
