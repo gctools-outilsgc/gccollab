@@ -81,7 +81,8 @@ $english = array(
 	'profile:industry' => 'Industry',
 	'profile:awards' => 'Awards',
 	'profile:associations' => 'Associations',
-	'profile:linkedin_url' => 'LinkedIn',
+	'profile:profile-url' => 'Profile Link',
+	'profile:picture-url' => 'Profile Image',
 
 	'tag_names:languages' => 'Languages',
 	'tag_names:industry' => 'Industry',
@@ -99,7 +100,7 @@ $english = array(
 	'linkedin:general:error' => '%s details could not be imported',
 	'linkedin:general:success' => 'Background and contact information was updated successfully',
 
-	'linkedin:positions' => 'Past and Current Positions',
+	'linkedin:positions' => 'Work Experience',
 	'linkedin:position:label' => '%s at %s',
 	'linkedin:positions:select' => 'Select positions you would like to import or update:',
 	'linkedin:positions:access' => 'Select an access level for imported items',

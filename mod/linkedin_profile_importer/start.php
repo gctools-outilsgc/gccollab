@@ -58,57 +58,6 @@ function linkedin_profile_importer_init() {
 	elgg_register_widget_type('recommendations', elgg_echo('linkedin:widget:recommendations'), elgg_echo('linkedin:widget:recommendations:desc'), 'profile', false);
 }
 
-function resizeImage($image, $maxwidth, $maxheight, $square = false, $upscale = false) {
-    // Get the size information from the image
-	$imgsizearray = getimagesizefromstring($image);
-	if ($imgsizearray == false) {
-	    return false;
-	}
-	
-	$width = $imgsizearray[0];
-	$height = $imgsizearray[1];
-
-    // load original image
-    $original_image = imagecreatefromstring($image);
- 
-    // allocate the new image
-    $new_image = imagecreatetruecolor($maxwidth, $maxheight);
-    if (!$new_image) {
-        return false;
-    }
-
-    // color transparencies white (default is black)
-    imagefilledrectangle(
-        $new_image, 0, 0, $maxwidth, $maxheight,
-        imagecolorallocate($new_image, 255, 255, 255)
-    );
-
-	$rtn_code = imagecopyresampled( $new_image,
-	                                $original_image,
-	                                0,
-	                                0,
-	                                0,
-	                                0,
-	                                $maxwidth,
-	                                $maxheight,
-	                                $width,
-	                                $height );
-
-	if (!$rtn_code) {
-	    return false;
-	}
-	
-	// grab a compressed jpeg version of the image
-	ob_start();
-	imagejpeg($new_image, null, 90);
-	$jpeg = ob_get_clean();
-	
-	imagedestroy($new_image);
-	imagedestroy($original_image);
-	
-	return $jpeg;
-}
-
 /**
  * Page handler callback for /linkedin
  * Used an auth start and endpoint
@@ -177,56 +126,6 @@ function linkedin_profile_importer_page_handler($page) {
 					// User already has an account
 					// Linking provider profile to an existing account
 					elgg_set_plugin_user_setting("$provider:uid", $profile->identifier, $logged_in->guid, 'linkedin_profile_importer');
-
-					if( $profile->profileURL ){
-						$linkedin_url = substr($profile->profileURL, strrpos($profile->profileURL, '/') + 1);
-						$logged_in->set("linkedin", $linkedin_url);
-						$logged_in->save();
-					}
-
-					$icon_sizes = elgg_get_config('icon_sizes');
-
-					// get the images and save their file handlers into an array
-					// so we can do clean up if one fails.
-					$files = array();
-					$image = file_get_contents($profile->photoURL);
-					foreach ($icon_sizes as $name => $size_info) {
-						$resized = resizeImage($image, $size_info['w'], $size_info['h'], $size_info['square'], $size_info['upscale']);
-
-						if ($resized) {
-							//@todo Make these actual entities.  See exts #348.
-							$guid = $logged_in->guid;
-							$file = new ElggFile();
-							$file->owner_guid = $guid;
-							$file->setFilename("profile/{$guid}{$name}.jpg");
-							$file->open('write');
-							$file->write($resized);
-							$file->close();
-							$files[] = $file;
-						} else {
-							// cleanup on fail
-							foreach ($files as $file) {
-								$file->delete();
-							}
-
-							register_error(elgg_echo('avatar:resize:fail'));
-							forward(REFERER);
-						}
-					}
-
-					$logged_in->icontime = time();
-					if (elgg_trigger_event('profileiconupdate', $logged_in->type, $logged_in)) {
-						system_message(elgg_echo("avatar:upload:success"));
-
-						$view = 'river/user/default/profileiconupdate';
-						elgg_delete_river(array('subject_guid' => $logged_in->guid, 'view' => $view));
-						elgg_create_river_item(array(
-							'view' => $view,
-							'action_type' => 'update',
-							'subject_guid' => $logged_in->guid,
-							'object_guid' => $logged_in->guid,
-						));
-					}
 
 					elgg_trigger_plugin_hook('hybridauth:authenticate', $provider, array('entity' => $logged_in));
 					system_message(elgg_echo('hybridauth:link:provider', array($provider)));
@@ -356,6 +255,8 @@ function linkedin_profile_importer_field_mapping($hook, $type, $return) {
 
 	// Configure what metadata names will be assigned to imported tags
 	$linkedin_metatags = array(
+		'pictureUrls' => 'picture-url',
+		'publicProfileUrl' => 'profile-url',
 		'summary' => 'description',
 		// 'headline' => 'briefdescription',
 		'location' => 'location',
@@ -369,11 +270,12 @@ function linkedin_profile_importer_field_mapping($hook, $type, $return) {
 		'mainAddress' => 'address',
 		'phoneNumbers' => 'phone',
 		'twitterAccounts' => 'twitter',
-		'public-profile-url' => 'linkedin',
 	);
 
 	// Map the above fields to their value types
 	$linkedin_profile_fields = array(
+		'pictureUrls' => 'text',
+		'publicProfileUrl' => 'text',
 		'description' => 'longtext',
 		// 'briefdescription' => 'longtext',
 		'location' => 'tags',
@@ -387,8 +289,6 @@ function linkedin_profile_importer_field_mapping($hook, $type, $return) {
 		'awards' => 'tags',
 		'associations' => 'tags',
 		'twitter' => 'text',
-		'linkedin' => 'text',
-		'linkedin_url' => 'url', // URL imported by hybridauth
 	);
 
 	if (!is_array($return)) {

@@ -8,7 +8,7 @@ $ha = new ElggHybridAuth();
 $adapter = $ha->getAdapter('LinkedIn');
 $adapter->adapter->api->setResponseFormat('JSON');
 
-$details_api_result = $adapter->adapter->api->profile("~:(summary,headline,location,industry,associations,interests,languages,skills,date-of-birth,phone-numbers,im-accounts,main-address,twitter-accounts)");
+$details_api_result = $adapter->adapter->api->profile("~:(public-profile-url,picture-urls::(original),summary,headline,location,industry,associations,interests,languages,skills,date-of-birth,phone-numbers,im-accounts,main-address,twitter-accounts)");
 $details_json_result = $details_api_result['linkedin'];
 $details = json_decode($details_json_result);
 
@@ -150,6 +150,27 @@ if ($tag_names) {
 					'value' => $time
 				));
 				echo elgg_view_icon('calendar') . '<span>' . elgg_view('output/date', array('value' => date('F j, Y', $time))) . '</span>';
+				break;
+
+			case 'publicProfileUrl' :
+				$linkedin_url = substr($value, strrpos($value, '/') + 1);
+				echo '<a href="' . $value .'" target="_blank">' . $value . '</a>';
+				echo elgg_view('input/hidden', array(
+					'name' => "tags[$tag][value]",
+					'value' => $linkedin_url
+				));
+				break;
+
+			case 'pictureUrls' :
+				$image_url = $value->values[0];
+				echo elgg_view('output/img', array(
+					'name' => "tags[$tag][value]",
+			    	'src' => $image_url
+			    ));
+			    echo elgg_view('input/hidden', array(
+					'name' => "tags[$tag][value]",
+					'value' => $image_url
+				));
 				break;
 		}
 		echo '</div>';

@@ -1,5 +1,56 @@
 <?php
 
+function resizeImage($image, $maxwidth, $maxheight, $square = false, $upscale = false) {
+    // Get the size information from the image
+	$imgsizearray = getimagesizefromstring($image);
+	if ($imgsizearray == false) {
+	    return false;
+	}
+	
+	$width = $imgsizearray[0];
+	$height = $imgsizearray[1];
+
+    // load original image
+    $original_image = imagecreatefromstring($image);
+ 
+    // allocate the new image
+    $new_image = imagecreatetruecolor($maxwidth, $maxheight);
+    if (!$new_image) {
+        return false;
+    }
+
+    // color transparencies white (default is black)
+    imagefilledrectangle(
+        $new_image, 0, 0, $maxwidth, $maxheight,
+        imagecolorallocate($new_image, 255, 255, 255)
+    );
+
+	$rtn_code = imagecopyresampled( $new_image,
+	                                $original_image,
+	                                0,
+	                                0,
+	                                0,
+	                                0,
+	                                $maxwidth,
+	                                $maxheight,
+	                                $width,
+	                                $height );
+
+	if (!$rtn_code) {
+	    return false;
+	}
+	
+	// grab a compressed jpeg version of the image
+	ob_start();
+	imagejpeg($new_image, null, 90);
+	$jpeg = ob_get_clean();
+	
+	imagedestroy($new_image);
+	imagedestroy($original_image);
+	
+	return $jpeg;
+}
+
 $user = elgg_get_logged_in_user_entity();
 
 $tags = get_input('tags');
@@ -25,7 +76,53 @@ if ($tags) {
 			continue;
 		}
 
-		if (is_array($tag_values)) {
+		if($tag_name == "picture-url"){
+			$icon_sizes = elgg_get_config('icon_sizes');
+
+			// get the images and save their file handlers into an array
+			// so we can do clean up if one fails.
+			$files = array();
+			$image = file_get_contents($tag_values);
+			foreach ($icon_sizes as $name => $size_info) {
+				$resized = resizeImage($image, $size_info['w'], $size_info['h'], $size_info['square'], $size_info['upscale']);
+
+				if ($resized) {
+					//@todo Make these actual entities.  See exts #348.
+					$guid = $user->guid;
+					$file = new ElggFile();
+					$file->owner_guid = $guid;
+					$file->setFilename("profile/{$guid}{$name}.jpg");
+					$file->open('write');
+					$file->write($resized);
+					$file->close();
+					$files[] = $file;
+				} else {
+					// cleanup on fail
+					foreach ($files as $file) {
+						$file->delete();
+					}
+
+					register_error(elgg_echo('avatar:resize:fail'));
+					forward(REFERER);
+				}
+			}
+
+			$user->icontime = time();
+			if (elgg_trigger_event('profileiconupdate', $user->type, $user)) {
+				system_message(elgg_echo("avatar:upload:success"));
+
+				$view = 'river/user/default/profileiconupdate';
+				elgg_delete_river(array('subject_guid' => $user->guid, 'view' => $view));
+				elgg_create_river_item(array(
+					'view' => $view,
+					'action_type' => 'update',
+					'subject_guid' => $user->guid,
+					'object_guid' => $user->guid,
+				));
+			}
+		} else if($tag_name == "profile-url"){
+			$user->set("linkedin", $tag_values);
+		} else if (is_array($tag_values)) {
 			if (!is_array($tag_name)) {
 				elgg_delete_metadata(array(
 					'guids' => $user->guid,
