@@ -56,20 +56,8 @@ $english = array(
 	'gcRegister:department' => 'Organization',
 	'gcRegister:university' => 'University',
 	'gcRegister:college' => 'College',
-
-	'gcRegister:alberta' => 'Alberta',
-	'gcRegister:british-columbia' => 'British Columbia',
-	'gcRegister:manitoba' => 'Manitoba',
-	'gcRegister:new-brunswick' => 'New Brunswick',
-	'gcRegister:newfoundland' => 'Newfoundland and Labrador',
-	'gcRegister:northwest-territories' => 'Northwest Territories',
-	'gcRegister:nova-scotia' => 'Nova Scotia',
-	'gcRegister:nunavut' => 'Nunavut',
-	'gcRegister:ontario' => 'Ontario',
-	'gcRegister:pei' => 'Prince Edward Island',
-	'gcRegister:quebec' => 'Quebec',
-	'gcRegister:saskatchewan' => 'Saskatchewan',
-	'gcRegister:yukon' => 'Yukon',
+	'gcRegister:province' => 'Province/Territory',
+	'gcRegister:ministry' => 'Ministry',
 );
 
 add_translation("en", $english);

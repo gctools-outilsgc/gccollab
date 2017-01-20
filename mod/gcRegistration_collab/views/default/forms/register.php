@@ -358,218 +358,218 @@ function validateEmail(email) {
 		"Virtual Museum of Canada" => "Virtual Museum of Canada",
 		"Western Economic Diversification Canada" => "Western Economic Diversification Canada");
 	} else {
-		$federal_departments = array("Administration canadienne de la sûreté du transport aérien" => "Administration canadienne de la sûreté du transport aérien",
-		"Administration de pilotage de l'Atlantique Canada" => "Administration de pilotage de l'Atlantique Canada",
-		"Administration de pilotage des Grands Lacs Canada" => "Administration de pilotage des Grands Lacs Canada",
-		"Administration de pilotage des Laurentides Canada" => "Administration de pilotage des Laurentides Canada",
-		"Administration de pilotage du Pacifique Canada" => "Administration de pilotage du Pacifique Canada",
-		"Administration du pipe-line du Nord Canada" => "Administration du pipe-line du Nord Canada",
-		"Affaires autochtones et du Nord Canada" => "Affaires autochtones et du Nord Canada",
-		"Affaires intergouvernementales" => "Affaires intergouvernementales",
-		"Affaires mondiales Canada" => "Affaires mondiales Canada",
-		"Agence canadienne de développement économique du Nord" => "Agence canadienne de développement économique du Nord",
-		"Agence canadienne d'évaluation environnementale" => "Agence canadienne d'évaluation environnementale",
-		"Agence canadienne d'inspection des aliments" => "Agence canadienne d'inspection des aliments",
-		"Agence canadienne du pari mutuel" => "Agence canadienne du pari mutuel",
-		"Agence de la consommation en matière financière du Canada" => "Agence de la consommation en matière financière du Canada",
-		"Agence de la santé publique du Canada" => "Agence de la santé publique du Canada",
-		"Agence de logement des Forces canadiennes" => "Agence de logement des Forces canadiennes",
-		"Agence de promotion économique du Canada atlantique" => "Agence de promotion économique du Canada atlantique",
-		"Agence des services frontaliers du Canada" => "Agence des services frontaliers du Canada",
-		"Agence du revenu du Canada" => "Agence du revenu du Canada",
-		"Agence fédérale de développement économique pour le Sud de l'Ontario" => "Agence fédérale de développement économique pour le Sud de l'Ontario",
-		"Agence spatiale canadienne" => "Agence spatiale canadienne",
-		"Agriculture et Agroalimentaire Canada" => "Agriculture et Agroalimentaire Canada",
-		"Aînés" => "Aînés",
-		"Anciens Combattants Canada" => "Anciens Combattants Canada",
-		"Armée canadienne" => "Armée canadienne",
-		"Aviation royale canadienne" => "Aviation royale canadienne",
-		"Banque de développement du Canada" => "Banque de développement du Canada",
-		"Banque du Canada" => "Banque du Canada",
-		"Bibliothèque et Archives Canada" => "Bibliothèque et Archives Canada",
-		"Bureau de la concurrence Canada" => "Bureau de la concurrence Canada",
-		"Bureau de la sécurité des transports du Canada" => "Bureau de la sécurité des transports du Canada",
-		"Bureau de la traduction" => "Bureau de la traduction",
-		"Bureau de l'ombudsman de l'approvisionnement" => "Bureau de l'ombudsman de l'approvisionnement",
-		"Bureau de l'ombudsman des contribuables" => "Bureau de l'ombudsman des contribuables",
-		"Bureau de l'ombudsman fédéral des victimes d'actes criminels" => "Bureau de l'ombudsman fédéral des victimes d'actes criminels",
-		"Bureau du commissaire du Centre de la sécurité des télécommunications" => "Bureau du commissaire du Centre de la sécurité des télécommunications",
-		"Bureau du Conseil privé" => "Bureau du Conseil privé",
-		"Bureau du directeur général des élections" => "Bureau du directeur général des élections",
-		"Bureau du secrétaire du gouverneur général" => "Bureau du secrétaire du gouverneur général",
-		"Bureau du surintendant des faillites Canada" => "Bureau du surintendant des faillites Canada",
-		"Bureau du surintendant des institutions financières Canada" => "Bureau du surintendant des institutions financières Canada",
-		"Bureau du vérificateur général du Canada" => "Bureau du vérificateur général du Canada",
-		"Caisse d'indemnisation des dommages dus à la pollution par les hydrocarbures causée par les navires" => "Caisse d'indemnisation des dommages dus à la pollution par les hydrocarbures causée par les navires",
-		"Centre canadien des eaux intérieures" => "Centre canadien des eaux intérieures",
-		"Centre canadien d'hygiène et de sécurité au travail" => "Centre canadien d'hygiène et de sécurité au travail",
-		"Centre d'analyse des opérations et déclarations financières du Canada" => "Centre d'analyse des opérations et déclarations financières du Canada",
-		"Centre de la sécurité des télécommunications Canada" => "Centre de la sécurité des télécommunications Canada",
-		"Centre de recherches pour le développement international" => "Centre de recherches pour le développement international",
-		"Centre de recherches sur les communications Canada" => "Centre de recherches sur les communications Canada",
-		"Centre des armes à feu Canada" => "Centre des armes à feu Canada",
-		"Centre national des arts" => "Centre national des arts",
-		"Chaires de recherche du Canada" => "Chaires de recherche du Canada",
-		"Collège canadien de police" => "Collège canadien de police",
-		"Collège militaire royal du Canada" => "Collège militaire royal du Canada",
-		"Comité de surveillance des activités de renseignement de sécurité" => "Comité de surveillance des activités de renseignement de sécurité",
-		"Comité externe d'examen de la Gendarmerie royale du Canada" => "Comité externe d'examen de la Gendarmerie royale du Canada",
-		"Comité externe d'examen des griefs militaires" => "Comité externe d'examen des griefs militaires",
-		"Commissariat à la magistrature fédérale Canada" => "Commissariat à la magistrature fédérale Canada",
-		"Commissariat à la protection de la vie privée au Canada" => "Commissariat à la protection de la vie privée au Canada",
-		"Commissariat à l'information au Canada" => "Commissariat à l'information au Canada",
-		"Commissariat à l'intégrité du secteur public du Canada" => "Commissariat à l'intégrité du secteur public du Canada",
-		"Commissariat au lobbying du Canada" => "Commissariat au lobbying du Canada",
-		"Commissariat aux conflits d'intérêts et à l'éthique" => "Commissariat aux conflits d'intérêts et à l'éthique",
-		"Commissariat aux langues officielles" => "Commissariat aux langues officielles",
-		"Commission canadienne de sûreté nucléaire" => "Commission canadienne de sûreté nucléaire",
-		"Commission canadienne des droits de la personne" => "Commission canadienne des droits de la personne",
-		"Commission canadienne des grains" => "Commission canadienne des grains",
-		"Commission canadienne d'examen des exportations de biens culturels" => "Commission canadienne d'examen des exportations de biens culturels",
-		"Commission canadienne du lait" => "Commission canadienne du lait",
-		"Commission canadienne du tourisme" => "Commission canadienne du tourisme",
-		"Commission civile d'examen et de traitement des plaintes relatives à la GRC" => "Commission civile d'examen et de traitement des plaintes relatives à la GRC",
-		"Commission de la capitale nationale" => "Commission de la capitale nationale",
-		"Commission de la fonction publique du Canada" => "Commission de la fonction publique du Canada",
-		"Commission de l'assurance-emploi du Canada" => "Commission de l'assurance-emploi du Canada",
-		"Commission de l'immigration et du statut de réfugié du Canada" => "Commission de l'immigration et du statut de réfugié du Canada",
-		"Commission de révision agricole du Canada" => "Commission de révision agricole du Canada",
-		"Commission de toponymie du Canada" => "Commission de toponymie du Canada",
-		"Commission de vérité et de réconciliation relative aux pensionnats indiens" => "Commission de vérité et de réconciliation relative aux pensionnats indiens",
-		"Commission des champs de bataille nationaux" => "Commission des champs de bataille nationaux",
-		"Commission des libérations conditionnelles du Canada" => "Commission des libérations conditionnelles du Canada",
-		"Commission des lieux et monuments historiques du Canada" => "Commission des lieux et monuments historiques du Canada",
-		"Commission des relations de travail et de l'emploi dans la fonction publique" => "Commission des relations de travail et de l'emploi dans la fonction publique",
-		"Commission d'examen des plaintes concernant la police militaire du Canada" => "Commission d'examen des plaintes concernant la police militaire du Canada",
-		"Commission du droit d'auteur Canada" => "Commission du droit d'auteur Canada",
-		"Condition féminine Canada" => "Condition féminine Canada",
-		"Conseil canadien de la magistrature" => "Conseil canadien de la magistrature",
-		"Conseil canadien des normes" => "Conseil canadien des normes",
-		"Conseil canadien des relations industrielles" => "Conseil canadien des relations industrielles",
-		"Conseil de la radiodiffusion et des télécommunications canadiennes" => "Conseil de la radiodiffusion et des télécommunications canadiennes",
-		"Conseil de recherches en sciences et en génie Canada" => "Conseil de recherches en sciences et en génie Canada",
-		"Conseil de recherches en sciences humaines du Canada" => "Conseil de recherches en sciences humaines du Canada",
-		"Conseil des arts du Canada" => "Conseil des arts du Canada",
-		"Conseil des produits agricoles du Canada" => "Conseil des produits agricoles du Canada",
-		"Conseil d'examen du prix des médicaments brevetés Canada" => "Conseil d'examen du prix des médicaments brevetés Canada",
-		"Conseil national de recherches Canada" => "Conseil national de recherches Canada",
-		"Conseil national des aînés" => "Conseil national des aînés",
-		"Construction de Défense Canada" => "Construction de Défense Canada",
+		$federal_departments = array("Canadian Air Transport Security Authority" => "Administration canadienne de la sûreté du transport aérien",
+		"Atlantic Pilotage Authority Canada" => "Administration de pilotage de l'Atlantique Canada",
+		"Great Lakes Pilotage Authority Canada" => "Administration de pilotage des Grands Lacs Canada",
+		"Laurentian Pilotage Authority Canada" => "Administration de pilotage des Laurentides Canada",
+		"Pacific Pilotage Authority Canada" => "Administration de pilotage du Pacifique Canada",
+		"Northern Pipeline Agency Canada" => "Administration du pipe-line du Nord Canada",
+		"Indigenous and Northern Affairs Canada" => "Affaires autochtones et du Nord Canada",
+		"Intergovernmental Affairs (Department of)" => "Affaires intergouvernementales",
+		"Global Affairs Canada" => "Affaires mondiales Canada",
+		"Canadian Northern Economic Development Agency" => "Agence canadienne de développement économique du Nord",
+		"Canadian Environmental Assessment Agency" => "Agence canadienne d'évaluation environnementale",
+		"Canadian Food Inspection Agency" => "Agence canadienne d'inspection des aliments",
+		"Canadian Pari-Mutuel Agency" => "Agence canadienne du pari mutuel",
+		"Financial Consumer Agency of Canada" => "Agence de la consommation en matière financière du Canada",
+		"Public Health Agency of Canada" => "Agence de la santé publique du Canada",
+		"Canadian Forces Housing Agency" => "Agence de logement des Forces canadiennes",
+		"Atlantic Canada Opportunities Agency" => "Agence de promotion économique du Canada atlantique",
+		"Canada Border Services Agency" => "Agence des services frontaliers du Canada",
+		"Canada Revenue Agency" => "Agence du revenu du Canada",
+		"Federal Economic Development Agency for Southern Ontario" => "Agence fédérale de développement économique pour le Sud de l'Ontario",
+		"Canadian Space Agency" => "Agence spatiale canadienne",
+		"Agriculture and Agri-Food Canada" => "Agriculture et Agroalimentaire Canada",
+		"Seniors" => "Aînés",
+		"Veterans Affairs Canada" => "Anciens Combattants Canada",
+		"Canadian Army" => "Armée canadienne",
+		"Royal Canadian Air Force" => "Aviation royale canadienne",
+		"Business Development Bank of Canada" => "Banque de développement du Canada",
+		"Bank of Canada" => "Banque du Canada",
+		"Library and Archives Canada" => "Bibliothèque et Archives Canada",
+		"Competition Bureau Canada" => "Bureau de la concurrence Canada",
+		"Transportation Safety Board of Canada" => "Bureau de la sécurité des transports du Canada",
+		"Translation Bureau" => "Bureau de la traduction",
+		"Procurement Ombudsman (Office of the)" => "Bureau de l'ombudsman de l'approvisionnement",
+		"Taxpayers' Ombudsman (Office of the)" => "Bureau de l'ombudsman des contribuables",
+		"Federal Ombudsman for Victims Of Crime (Office of the)" => "Bureau de l'ombudsman fédéral des victimes d'actes criminels",
+		"Communications Security Establishment Commissioner (Office of the)" => "Bureau du commissaire du Centre de la sécurité des télécommunications",
+		"Privy Council Office" => "Bureau du Conseil privé",
+		"Chief Electoral Officer (Office of the)" => "Bureau du directeur général des élections",
+		"Secretary to the Governor General (Office of the)" => "Bureau du secrétaire du gouverneur général",
+		"Superintendent of Bankruptcy Canada (Office of the)" => "Bureau du surintendant des faillites Canada",
+		"Superintendent of Financial Institutions Canada (Office of the)" => "Bureau du surintendant des institutions financières Canada",
+		"Auditor General of Canada (Office of the)" => "Bureau du vérificateur général du Canada",
+		"Ship-Source Oil Pollution Fund" => "Caisse d'indemnisation des dommages dus à la pollution par les hydrocarbures causée par les navires",
+		"Canada Centre for Inland Waters" => "Centre canadien des eaux intérieures",
+		"Canadian Centre for Occupational Health and Safety" => "Centre canadien d'hygiène et de sécurité au travail",
+		"Financial Transactions and Reports Analysis Centre of Canada" => "Centre d'analyse des opérations et déclarations financières du Canada",
+		"Communications Security Establishment Canada" => "Centre de la sécurité des télécommunications Canada",
+		"International Development Research Centre" => "Centre de recherches pour le développement international",
+		"Communications Research Centre Canada" => "Centre de recherches sur les communications Canada",
+		"Canada Firearms Centre" => "Centre des armes à feu Canada",
+		"National Arts Centre" => "Centre national des arts",
+		"Canada Research Chairs" => "Chaires de recherche du Canada",
+		"Canadian Police College" => "Collège canadien de police",
+		"Royal Military College of Canada" => "Collège militaire royal du Canada",
+		"Security Intelligence Review Committee" => "Comité de surveillance des activités de renseignement de sécurité",
+		"Royal Canadian Mounted Police External Review Committee" => "Comité externe d'examen de la Gendarmerie royale du Canada",
+		"Military Grievances External Review Committee" => "Comité externe d'examen des griefs militaires",
+		"Commissioner for Federal Judicial Affairs Canada (Office of the)" => "Commissariat à la magistrature fédérale Canada",
+		"Privacy Commissioner (Office of the)" => "Commissariat à la protection de la vie privée au Canada",
+		"Information Commissioner (Office of the)" => "Commissariat à l'information au Canada",
+		"Public Sector Integrity Commissioner of Canada (Office of the)" => "Commissariat à l'intégrité du secteur public du Canada",
+		"Commissioner of Lobbying of Canada (Office of the)" => "Commissariat au lobbying du Canada",
+		"Conflict of Interest and Ethics Commissioner (Office of the)" => "Commissariat aux conflits d'intérêts et à l'éthique",
+		"Commissioner of Official Languages (Office of the)" => "Commissariat aux langues officielles",
+		"Canadian Nuclear Safety Commission" => "Commission canadienne de sûreté nucléaire",
+		"Canadian Human Rights Commission" => "Commission canadienne des droits de la personne",
+		"Canadian Grain Commission" => "Commission canadienne des grains",
+		"Canadian Cultural Property Export Review Board" => "Commission canadienne d'examen des exportations de biens culturels",
+		"Canadian Dairy Commission" => "Commission canadienne du lait",
+		"Canadian Tourism Commission" => "Commission canadienne du tourisme",
+		"Civilian Review and Complaints Commission for the RCMP" => "Commission civile d'examen et de traitement des plaintes relatives à la GRC",
+		"National Capital Commission" => "Commission de la capitale nationale",
+		"Public Service Commission of Canada" => "Commission de la fonction publique du Canada",
+		"Canada Employment Insurance Commission" => "Commission de l'assurance-emploi du Canada",
+		"Immigration and Refugee Board of Canada" => "Commission de l'immigration et du statut de réfugié du Canada",
+		"Canada Agricultural Review Tribunal" => "Commission de révision agricole du Canada",
+		"Geographical Names Board of Canada" => "Commission de toponymie du Canada",
+		"Indian Residential Schools Truth and Reconciliation Commission" => "Commission de vérité et de réconciliation relative aux pensionnats indiens",
+		"National Battlefields Commission" => "Commission des champs de bataille nationaux",
+		"Parole Board of Canada" => "Commission des libérations conditionnelles du Canada",
+		"Historic Sites and Monuments Board of Canada" => "Commission des lieux et monuments historiques du Canada",
+		"Public Service Labour Relations and Employment Board" => "Commission des relations de travail et de l'emploi dans la fonction publique",
+		"Military Police Complaints Commission of Canada" => "Commission d'examen des plaintes concernant la police militaire du Canada",
+		"Copyright Board Canada" => "Commission du droit d'auteur Canada",
+		"Status of Women Canada" => "Condition féminine Canada",
+		"Canadian Judicial Council" => "Conseil canadien de la magistrature",
+		"Standards Council of Canada" => "Conseil canadien des normes",
+		"Canada Industrial Relations Board" => "Conseil canadien des relations industrielles",
+		"Canadian Radio-Television and Telecommunications Commission" => "Conseil de la radiodiffusion et des télécommunications canadiennes",
+		"Natural Sciences and Engineering Research Canada" => "Conseil de recherches en sciences et en génie Canada",
+		"Social Sciences and Humanities Research Council of Canada" => "Conseil de recherches en sciences humaines du Canada",
+		"Canada Council for the Arts" => "Conseil des arts du Canada",
+		"Farm Products Council of Canada" => "Conseil des produits agricoles du Canada",
+		"Patented Medicine Prices Review Board Canada" => "Conseil d'examen du prix des médicaments brevetés Canada",
+		"National Research Council Canada" => "Conseil national de recherches Canada",
+		"National Seniors Council" => "Conseil national des aînés",
+		"Defence Construction Canada" => "Construction de Défense Canada",
 		"CORCAN" => "CORCAN",
-		"Corporation commerciale canadienne" => "Corporation commerciale canadienne",
-		"Corporation de développement des investissements du Canada" => "Corporation de développement des investissements du Canada",
-		"Cour canadienne de l'impôt" => "Cour canadienne de l'impôt",
-		"Cour d'appel fédérale" => "Cour d'appel fédérale",
-		"Cour fédérale" => "Cour fédérale",
-		"Cour suprême du Canada" => "Cour suprême du Canada",
-		"Défense nationale" => "Défense nationale",
-		"Développement économique Canada pour les régions du Québec" => "Développement économique Canada pour les régions du Québec",
-		"Diversification de l'économie de l'Ouest Canada" => "Diversification de l'économie de l'Ouest Canada",
-		"École de la fonction publique du Canada" => "École de la fonction publique du Canada",
-		"Élections Canada" => "Élections Canada",
-		"Emploi et Développement social Canada" => "Emploi et Développement social Canada",
-		"Énergie atomique du Canada, Limitée" => "Énergie atomique du Canada, Limitée",
-		"Enquêteur correctionnel Canada" => "Enquêteur correctionnel Canada",
-		"Entreprise autochtone Canada" => "Entreprise autochtone Canada",
-		"Environnement et Changement climatique Canada" => "Environnement et Changement climatique Canada",
-		"Exportation et développement Canada" => "Exportation et développement Canada",
-		"Financement agricole Canada" => "Financement agricole Canada",
-		"Finances Canada, Ministère des" => "Finances Canada, Ministère des",
-		"Fondation canadienne des relations raciales " => "Fondation canadienne des relations raciales ",
-		"Garde côtière canadienne" => "Garde côtière canadienne",
-		"Gazette du Canada" => "Gazette du Canada",
-		"Gendarmerie royale du Canada" => "Gendarmerie royale du Canada",
-		"Géomatique Canada" => "Géomatique Canada",
-		"Gouverneur général du Canada" => "Gouverneur général du Canada",
-		"Greffe du Tribunal des revendications particulières du Canada" => "Greffe du Tribunal des revendications particulières du Canada",
-		"Greffier du Conseil privé" => "Greffier du Conseil privé",
-		"Immigration, Réfugiés, et Citoyenneté Canada" => "Immigration, Réfugiés, et Citoyenneté Canada",
+		"Canadian Commercial Corporation" => "Corporation commerciale canadienne",
+		"Canada Development Investment Corporation" => "Corporation de développement des investissements du Canada",
+		"Tax Court of Canada" => "Cour canadienne de l'impôt",
+		"Federal Court of Appeal" => "Cour d'appel fédérale",
+		"Federal Court of Canada" => "Cour fédérale",
+		"Supreme Court of Canada" => "Cour suprême du Canada",
+		"National Defence" => "Défense nationale",
+		"Canada Economic Development for Quebec Regions" => "Développement économique Canada pour les régions du Québec",
+		"Western Economic Diversification Canada" => "Diversification de l'économie de l'Ouest Canada",
+		"Canada School of Public Service" => "École de la fonction publique du Canada",
+		"Elections Canada" => "Élections Canada",
+		"Employment and Social Development Canada" => "Emploi et Développement social Canada",
+		"Atomic Energy of Canada Limited" => "Énergie atomique du Canada, Limitée",
+		"Correctional Investigator Canada" => "Enquêteur correctionnel Canada",
+		"Aboriginal Business Canada" => "Entreprise autochtone Canada",
+		"Environment and Climate Change Canada" => "Environnement et Changement climatique Canada",
+		"Export Development Canada" => "Exportation et développement Canada",
+		"Farm Credit Canada" => "Financement agricole Canada",
+		"Finance Canada (Department of)" => "Finances Canada, Ministère des",
+		"Canadian Race Relations Foundation" => "Fondation canadienne des relations raciales",
+		"Canadian Coast Guard" => "Garde côtière canadienne",
+		"Canada Gazette" => "Gazette du Canada",
+		"Royal Canadian Mounted Police" => "Gendarmerie royale du Canada",
+		"Geomatics Canada" => "Géomatique Canada",
+		"Governor General of Canada" => "Gouverneur général du Canada",
+		"Registry of the Specific Claims Tribunal of Canada" => "Greffe du Tribunal des revendications particulières du Canada",
+		"Clerk of the Privy Council" => "Greffier du Conseil privé",
+		"Immigration, Refugees and Citizenship Canada" => "Immigration, Réfugiés, et Citoyenneté Canada",
 		"Infrastructure Canada" => "Infrastructure Canada",
-		"Initiative fédérale de développement économique pour le Nord de l'Ontario (FedNor)" => "Initiative fédérale de développement économique pour le Nord de l'Ontario (FedNor)",
-		"Innovation, Sciences et Développement économique Canada" => "Innovation, Sciences et Développement économique Canada",
-		"Institut canadien de conservation" => "Institut canadien de conservation",
-		"Institutions démocratiques" => "Institutions démocratiques",
-		"Instituts de recherche en santé du Canada" => "Instituts de recherche en santé du Canada",
-		"Investissement des régimes de pensions du secteur public" => "Investissement des régimes de pensions du secteur public",
-		"Justice Canada, Ministère de la" => "Justice Canada, Ministère de la",
-		"Leader du gouvernement à la Chambre des communes" => "Leader du gouvernement à la Chambre des communes",
-		"Marine Atlantique" => "Marine Atlantique",
-		"Marine royale canadienne" => "Marine royale canadienne",
-		"Mesures Canada" => "Mesures Canada",
-		"Monnaie royale canadienne" => "Monnaie royale canadienne",
-		"Musée canadien de la guerre" => "Musée canadien de la guerre",
-		"Musée canadien de la nature" => "Musée canadien de la nature",
-		"Musée canadien de la photographie contemporaine" => "Musée canadien de la photographie contemporaine",
-		"Musée canadien de l'histoire" => "Musée canadien de l'histoire",
-		"Musée canadien de l'immigration du Quai 21" => "Musée canadien de l'immigration du Quai 21",
-		"Musée canadien pour les droits de la personne" => "Musée canadien pour les droits de la personne",
-		"Musée de la Banque du Canada" => "Musée de la Banque du Canada",
-		"Musée de l'agriculture et de l'alimentation du Canada" => "Musée de l'agriculture et de l'alimentation du Canada",
-		"Musée de l'aviation et de l'espace du Canada" => "Musée de l'aviation et de l'espace du Canada",
-		"Musée des beaux-arts du Canada" => "Musée des beaux-arts du Canada",
-		"Musée virtuel du Canada" => "Musée virtuel du Canada",
-		"Musées des sciences et de la technologie du Canada " => "Musées des sciences et de la technologie du Canada ",
-		"Office de commercialisation du poisson d'eau douce" => "Office de commercialisation du poisson d'eau douce",
-		"Office de la propriété intellectuelle du Canada" => "Office de la propriété intellectuelle du Canada",
-		"Office des normes générales du Canada" => "Office des normes générales du Canada",
-		"Office des technologies industrielles" => "Office des technologies industrielles",
-		"Office des transports du Canada" => "Office des transports du Canada",
-		"Office d'investissement du régime de pensions du Canada" => "Office d'investissement du régime de pensions du Canada",
-		"Office national de l'énergie" => "Office national de l'énergie",
-		"Office national du film" => "Office national du film",
-		"Ombudsman de la Défense nationale et des Forces canadiennes" => "Ombudsman de la Défense nationale et des Forces canadiennes",
-		"Ombudsman des vétérans" => "Ombudsman des vétérans",
-		"Organisations de cadets du Canada " => "Organisations de cadets du Canada ",
-		"Parcs Canada" => "Parcs Canada",
-		"Parlement du Canada" => "Parlement du Canada",
-		"Passeport Canada" => "Passeport Canada",
-		"Patrimoine canadien" => "Patrimoine canadien",
-		"Pêches et Océans Canada" => "Pêches et Océans Canada",
-		"Pétrole et gaz des Indiens du Canada" => "Pétrole et gaz des Indiens du Canada",
-		"Pont Blue Water Canada" => "Pont Blue Water Canada",
-		"Ponts Jacques-Cartier et Champlain Inc." => "Ponts Jacques-Cartier et Champlain Inc.",
-		"Postes Canada" => "Postes Canada",
+		"Federal Economic Development Initiative for Northern Ontario (FedNor)" => "Initiative fédérale de développement économique pour le Nord de l'Ontario (FedNor)",
+		"Innovation, Science and Economic Development Canada" => "Innovation, Sciences et Développement économique Canada",
+		"Canadian Conservation Institute" => "Institut canadien de conservation",
+		"Democratic Institutions" => "Institutions démocratiques",
+		"Canadian Institutes of Health Research" => "Instituts de recherche en santé du Canada",
+		"Public Sector Pension Investment Board" => "Investissement des régimes de pensions du secteur public",
+		"Justice Canada (Department of)" => "Justice Canada, Ministère de la",
+		"Leader of the Government in the House of Commons" => "Leader du gouvernement à la Chambre des communes",
+		"Marine Atlantic" => "Marine Atlantique",
+		"Royal Canadian Navy" => "Marine royale canadienne",
+		"Measurement Canada" => "Mesures Canada",
+		"Royal Canadian Mint" => "Monnaie royale canadienne",
+		"Canadian War Museum" => "Musée canadien de la guerre",
+		"Canadian Museum of Nature" => "Musée canadien de la nature",
+		"Canadian Museum of Contemporary Photography" => "Musée canadien de la photographie contemporaine",
+		"Canadian Museum of History" => "Musée canadien de l'histoire",
+		"Canadian Museum of Immigration at Pier 21" => "Musée canadien de l'immigration du Quai 21",
+		"Canadian Museum for Human Rights" => "Musée canadien pour les droits de la personne",
+		"Currency Museum" => "Musée de la Banque du Canada",
+		"Canada Agriculture and Food Museum" => "Musée de l'agriculture et de l'alimentation du Canada",
+		"Canada Aviation and Space Museum" => "Musée de l'aviation et de l'espace du Canada",
+		"National Gallery of Canada" => "Musée des beaux-arts du Canada",
+		"Virtual Museum of Canada" => "Musée virtuel du Canada",
+		"National Museum of Science and Technology" => "Musées des sciences et de la technologie du Canada",
+		"Freshwater Fish Marketing Corporation" => "Office de commercialisation du poisson d'eau douce",
+		"Canadian Intellectual Property Office" => "Office de la propriété intellectuelle du Canada",
+		"Canadian General Standards Board" => "Office des normes générales du Canada",
+		"Industrial Technologies Office" => "Office des technologies industrielles",
+		"Canadian Transportation Agency" => "Office des transports du Canada",
+		"Canada Pension Plan Investment Board" => "Office d'investissement du régime de pensions du Canada",
+		"National Energy Board" => "Office national de l'énergie",
+		"National Film Board" => "Office national du film",
+		"National Defence and the Canadian Forces Ombudsperson (Office of the)" => "Ombudsman de la Défense nationale et des Forces canadiennes",
+		"Veterans' Ombudsman (Office of the)" => "Ombudsman des vétérans",
+		"Canadian Cadet Organizations" => "Organisations de cadets du Canada",
+		"Parks Canada" => "Parcs Canada",
+		"Parliament of Canada" => "Parlement du Canada",
+		"Passport Canada" => "Passeport Canada",
+		"Canadian Heritage" => "Patrimoine canadien",
+		"Fisheries and Oceans Canada" => "Pêches et Océans Canada",
+		"Indian Oil and Gas Canada" => "Pétrole et gaz des Indiens du Canada",
+		"Blue Water Bridge Canada" => "Pont Blue Water Canada",
+		"Jacques Cartier and Champlain Bridges Inc." => "Ponts Jacques-Cartier et Champlain Inc.",
+		"Canada Post" => "Postes Canada",
 		"PPP Canada" => "PPP Canada",
-		"Premier ministre du Canada" => "Premier ministre du Canada",
-		"Programme du travail" => "Programme du travail",
-		"Receveur général du Canada" => "Receveur général du Canada",
-		"Recherche et développement pour la Défense Canada" => "Recherche et développement pour la Défense Canada",
-		"Réseau canadien d'information sur le patrimoine" => "Réseau canadien d'information sur le patrimoine",
-		"Ressources naturelles Canada" => "Ressources naturelles Canada",
-		"Révision de la protection de l'environnement Canada" => "Révision de la protection de l'environnement Canada",
+		"Prime Minister of Canada" => "Premier ministre du Canada",
+		"Labour Program" => "Programme du travail",
+		"Receiver General for Canada" => "Receveur général du Canada",
+		"Defence Research and Development Canada" => "Recherche et développement pour la Défense Canada",
+		"Canadian Heritage Information Network" => "Réseau canadien d'information sur le patrimoine",
+		"Natural Resources Canada" => "Ressources naturelles Canada",
+		"Environmental Protection Review Canada" => "Révision de la protection de l'environnement Canada",
 		"Ridley Terminals Inc." => "Ridley Terminals Inc.",
-		"Santé Canada" => "Santé Canada",
-		"Savoir polaire Canada" => "Savoir polaire Canada",
-		"Secrétariat des conférences intergouvernementales canadiennes" => "Secrétariat des conférences intergouvernementales canadiennes",
-		"Secrétariat du Conseil du Trésor du Canada" => "Secrétariat du Conseil du Trésor du Canada",
-		"Secrétariat national recherche et sauvetage" => "Secrétariat national recherche et sauvetage",
-		"Sécurité publique Canada" => "Sécurité publique Canada",
-		"Service administratif des tribunaux judiciaires" => "Service administratif des tribunaux judiciaires",
+		"Health Canada" => "Santé Canada",
+		"Polar Knowledge Canada" => "Savoir polaire Canada",
+		"Canadian Intergovernmental Conference Secretariat" => "Secrétariat des conférences intergouvernementales canadiennes",
+		"Treasury Board of Canada Secretariat" => "Secrétariat du Conseil du Trésor du Canada",
+		"National Search and Rescue Secretariat" => "Secrétariat national recherche et sauvetage",
+		"Public Safety Canada" => "Sécurité publique Canada",
+		"Courts Administration Service" => "Service administratif des tribunaux judiciaires",
 		"Service Canada" => "Service Canada",
-		"Service canadien d'appui aux tribunaux administratifs" => "Service canadien d'appui aux tribunaux administratifs",
-		"Service canadien du renseignement de sécurité" => "Service canadien du renseignement de sécurité",
-		"Service correctionnel Canada" => "Service correctionnel Canada",
-		"Service des délégués commerciaux du Canada" => "Service des délégués commerciaux du Canada",
-		"Service des poursuites pénales du Canada" => "Service des poursuites pénales du Canada",
-		"Services partagés Canada" => "Services partagés Canada",
-		"Services publics et Approvisionnement Canada" => "Services publics et Approvisionnement Canada",
-		"Société canadienne d'hypothèques et de logement" => "Société canadienne d'hypothèques et de logement",
-		"Société d'assurance-dépôts du Canada" => "Société d'assurance-dépôts du Canada",
-		"Société des musées de sciences et technologies du Canada" => "Société des musées de sciences et technologies du Canada",
-		"Société des ponts fédéraux" => "Société des ponts fédéraux",
-		"Société immobilière du Canada Limitée" => "Société immobilière du Canada Limitée",
+		"Administrative Tribunals Support Service of Canada" => "Service canadien d'appui aux tribunaux administratifs",
+		"Canadian Security Intelligence Service" => "Service canadien du renseignement de sécurité",
+		"Correctional Service Canada" => "Service correctionnel Canada",
+		"Canadian Trade Commissioner Service" => "Service des délégués commerciaux du Canada",
+		"Public Prosecution Service of Canada" => "Service des poursuites pénales du Canada",
+		"Shared Services Canada" => "Services partagés Canada",
+		"Public Services and Procurement Canada" => "Services publics et Approvisionnement Canada",
+		"Canada Mortgage and Housing Corporation" => "Société canadienne d'hypothèques et de logement",
+		"Canada Deposit Insurance Corporation" => "Société d'assurance-dépôts du Canada",
+		"Canada Science and Technology Museum Corporation" => "Société des musées de sciences et technologies du Canada",
+		"Federal Bridge Corporation" => "Société des ponts fédéraux",
+		"Canada Lands Company Limited" => "Société immobilière du Canada Limitée",
 		"Sport Canada" => "Sport Canada",
-		"Statistique Canada" => "Statistique Canada",
-		"Téléfilm Canada" => "Téléfilm Canada",
-		"Transports Canada" => "Transports Canada",
-		"Tribunal canadien du commerce extérieur" => "Tribunal canadien du commerce extérieur",
-		"Tribunal d'appel des transports du Canada" => "Tribunal d'appel des transports du Canada",
-		"Tribunal de la concurrence" => "Tribunal de la concurrence",
-		"Tribunal de la protection des fonctionnaires divulgateurs Canada" => "Tribunal de la protection des fonctionnaires divulgateurs Canada",
-		"Tribunal de la sécurité sociale du Canada" => "Tribunal de la sécurité sociale du Canada",
-		"Tribunal de santé et sécurité au travail Canada" => "Tribunal de santé et sécurité au travail Canada",
-		"Tribunal des anciens combattants (révision et appel) Canada" => "Tribunal des anciens combattants (révision et appel) Canada",
-		"Tribunal des droits de la personne du Canada" => "Tribunal des droits de la personne du Canada",
+		"Statistics Canada" => "Statistique Canada",
+		"Telefilm Canada" => "Téléfilm Canada",
+		"Transport Canada" => "Transports Canada",
+		"Canadian International Trade Tribunal" => "Tribunal canadien du commerce extérieur",
+		"Transportation Appeal Tribunal of Canada" => "Tribunal d'appel des transports du Canada",
+		"Competition Tribunal" => "Tribunal de la concurrence",
+		"Public Servants Disclosure Protection Tribunal Canada" => "Tribunal de la protection des fonctionnaires divulgateurs Canada",
+		"Social Security Tribunal of Canada" => "Tribunal de la sécurité sociale du Canada",
+		"Occupational Health and Safety Tribunal Canada" => "Tribunal de santé et sécurité au travail Canada",
+		"Veterans Review and Appeal Board Canada" => "Tribunal des anciens combattants (révision et appel) Canada",
+		"Human Rights Tribunal of Canada" => "Tribunal des droits de la personne du Canada",
 		"VIA Rail Canada Inc." => "VIA Rail Canada Inc.");
 	}
 
@@ -691,7 +691,7 @@ function validateEmail(email) {
 	"University of the Fraser Valley" => "University of the Fraser Valley",
 	"University of Toronto" => "University of Toronto",
 	"University of Trinity College" => "University of Trinity College",
-	"University of Victoria " => "University of Victoria ",
+	"University of Victoria" => "University of Victoria",
 	"University of Waterloo" => "University of Waterloo",
 	"University of Western Ontario" => "University of Western Ontario",
 	"University of Windsor" => "University of Windsor",
@@ -882,17 +882,17 @@ function validateEmail(email) {
 		"Yukon" => "Yukon");
 	} else {
 		$provincial_departments = array("Alberta" => "Alberta",
-		"Colombie-Britannique" => "Colombie-Britannique",
-		"Île-du-Prince-Édouard" => "Île-du-Prince-Édouard",
+		"British Columbia" => "Colombie-Britannique",
+		"Prince Edward Island" => "Île-du-Prince-Édouard",
 		"Manitoba" => "Manitoba",
-		"Nouveau-Brunswick" => "Nouveau-Brunswick",
-		"Nouvelle-Écosse" => "Nouvelle-Écosse",
+		"New Brunswick" => "Nouveau-Brunswick",
+		"Nova Scotia" => "Nouvelle-Écosse",
 		"Nunavut" => "Nunavut",
 		"Ontario" => "Ontario",
-		"Québec" => "Québec",
+		"Quebec" => "Québec",
 		"Saskatchewan" => "Saskatchewan",
-		"Terre-Neuve-et-Labrador" => "Terre-Neuve-et-Labrador",
-		"Territoires du Nord-Ouest" => "Territoires du Nord-Ouest",
+		"Newfoundland and Labrador" => "Terre-Neuve-et-Labrador",
+		"Northwest Territories" => "Territoires du Nord-Ouest",
 		"Yukon" => "Yukon");
 	}
 
@@ -906,7 +906,7 @@ function validateEmail(email) {
 ?>
 
 				<div class="form-group occupation-choices" id="provincial" hidden>
-					<label for="provincial-choices" class="required"><span class="field-name"><?php echo elgg_echo('Province'); ?></span></label>
+					<label for="provincial-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:province'); ?></span></label>
 					<?php echo $provincial_choices ?>
 				</div>
 
@@ -943,7 +943,7 @@ function validateEmail(email) {
 
 				<!-- Alberta -->
 				<div class="form-group ministry-choices" id="alberta" hidden>
-					<label for="alberta-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:alberta'); ?></span></label>
+					<label for="alberta-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $alberta_choices ?>
 				</div>
 
@@ -980,7 +980,7 @@ function validateEmail(email) {
 
 				<!-- British Columbia -->
 				<div class="form-group ministry-choices" id="british-columbia" hidden>
-					<label for="british-columbia-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:british-columbia'); ?></span></label>
+					<label for="british-columbia-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $bc_choices ?>
 				</div>
 
@@ -1002,20 +1002,20 @@ function validateEmail(email) {
 		"Sport, Culture and Heritage" => "Sport, Culture and Heritage",
 		"Sustainable Development" => "Sustainable Development");
 	} else {
-		$manitoba_ministries = array("Affaires intergouvernementales et relations internationales" => "Affaires intergouvernementales et relations internationales",
+		$manitoba_ministries = array("Intergovernmental Affairs and International Relations" => "Affaires intergouvernementales et relations internationales",
 		"Agriculture" => "Agriculture",
-		"Commission de la fonction publique" => "Commission de la fonction publique",
-		"Croissance, Entreprise et Commerce" => "Croissance, Entreprise et Commerce",
-		"Développement durable" => "Développement durable",
-		"Éducation et Formation" => "Éducation et Formation",
-		"Familles" => "Familles",
-		"Finances" => "Finances",
+		"Civil Service Commission" => "Commission de la fonction publique",
+		"Growth, Enterprise and Trade" => "Croissance, Entreprise et Commerce",
+		"Sustainable Development" => "Développement durable",
+		"Education and Training" => "Éducation et Formation",
+		"Families" => "Familles",
+		"Finance" => "Finances",
 		"Infrastructure" => "Infrastructure",
 		"Justice" => "Justice",
-		"Relations avec les Autochtones et les municipalités" => "Relations avec les Autochtones et les municipalités",
-		"Santé, Aînés et Vie active" => "Santé, Aînés et Vie active",
-		"Services de la Couronne" => "Services de la Couronne",
-		"Sport, Culture et Patrimoine" => "Sport, Culture et Patrimoine");
+		"Indigenous and Municipal Relations" => "Relations avec les Autochtones et les municipalités",
+		"Health, Seniors and Active Living" => "Santé, Aînés et Vie active",
+		"Crown Services" => "Services de la Couronne",
+		"Sport, Culture and Heritage" => "Sport, Culture et Patrimoine");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1029,7 +1029,7 @@ function validateEmail(email) {
 
 				<!-- Manitoba -->
 				<div class="form-group ministry-choices" id="manitoba" hidden>
-					<label for="manitoba-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:manitoba'); ?></span></label>
+					<label for="manitoba-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $manitoba_choices ?>
 				</div>
 
@@ -1041,7 +1041,7 @@ function validateEmail(email) {
 		"Education and Early Childhood Development" => "Education and Early Childhood Development",
 		"Emergency Measures Organization" => "Emergency Measures Organization",
 		"Energy and Resource Development" => "Energy and Resource Development",
-		"Environment and Local Government " => "Environment and Local Government ",
+		"Environment and Local Government" => "Environment and Local Government",
 		"Executive Council Office" => "Executive Council Office",
 		"Finance" => "Finance",
 		"Health" => "Health",
@@ -1059,28 +1059,28 @@ function validateEmail(email) {
 		"Treasury Board" => "Treasury Board",
 		"Women's Equality" => "Women's Equality");
 	} else {
-		$new_brunswick_ministries = array("Affaires autochtones" => "Affaires autochtones",
-		"Affaires intergouvernementales " => "Affaires intergouvernementales ",
-		"Agriculture, Aquaculture et Pêches" => "Agriculture, Aquaculture et Pêches",
-		"Bureau du Conseil exécutif" => "Bureau du Conseil exécutif",
-		"Cabinet du procureur général" => "Cabinet du procureur général",
-		"Cabinet du premier ministre" => "Cabinet du premier ministre",
-		"Conseil du Trésor" => "Conseil du Trésor",
-		"Développement de l'énergie et des ressources" => "Développement de l'énergie et des ressources",
-		"Développement social" => "Développement social",
-		"Éducation et Développement de la petite enfance" => "Éducation et Développement de la petite enfance",
-		"Éducation postsecondaire, Formation et Travail" => "Éducation postsecondaire, Formation et Travail",
-		"Égalité des femmes " => "Égalité des femmes ",
-		"Environnement et Gouvernements locaux" => "Environnement et Gouvernements locaux",
-		"Finances" => "Finances",
-		"Justice et Sécurité publique" => "Justice et Sécurité publique",
-		"Opportunités Nouveau-Brunswick" => "Opportunités Nouveau-Brunswick",
-		"Organisation des mesures d'urgence" => "Organisation des mesures d'urgence",
-		"Santé" => "Santé",
-		"Service Nouveau-Brunswick" => "Service Nouveau-Brunswick",
-		"Société de développement régional" => "Société de développement régional",
-		"Tourisme, Patrimoine et Culture" => "Tourisme, Patrimoine et Culture",
-		"Transports et Infrastructure" => "Transports et Infrastructure");
+		$new_brunswick_ministries = array("Aboriginal Affairs" => "Affaires autochtones",
+		"Intergovernmental Affairs" => "Affaires intergouvernementales",
+		"Agriculture, Aquaculture and Fisheries" => "Agriculture, Aquaculture et Pêches",
+		"Executive Council Office" => "Bureau du Conseil exécutif",
+		"Office of the Attorney General" => "Cabinet du procureur général",
+		"Office of the Premier" => "Cabinet du premier ministre",
+		"Treasury Board" => "Conseil du Trésor",
+		"Energy and Resource Development" => "Développement de l'énergie et des ressources",
+		"Social Development" => "Développement social",
+		"Education and Early Childhood Development" => "Éducation et Développement de la petite enfance",
+		"Post-Secondary Education, Training and Labour" => "Éducation postsecondaire, Formation et Travail",
+		"Women's Equality" => "Égalité des femmes",
+		"Environment and Local Government" => "Environnement et Gouvernements locaux",
+		"Finance" => "Finances",
+		"Justice and Public Safety" => "Justice et Sécurité publique",
+		"Opportunities New Brunswick" => "Opportunités Nouveau-Brunswick",
+		"Emergency Measures Organization" => "Organisation des mesures d'urgence",
+		"Health" => "Santé",
+		"Service New Brunswick" => "Service Nouveau-Brunswick",
+		"Regional Development Corporation" => "Société de développement régional",
+		"Tourism, Heritage and Culture" => "Tourisme, Patrimoine et Culture",
+		"Transportation and Infrastructure" => "Transports et Infrastructure");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1094,7 +1094,7 @@ function validateEmail(email) {
 
 				<!-- New Brunswick -->
 				<div class="form-group ministry-choices" id="new-brunswick" hidden>
-					<label for="new-brunswick-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:new-brunswick'); ?></span></label>
+					<label for="new-brunswick-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $new_brunswick_choices ?>
 				</div>
 
@@ -1147,7 +1147,7 @@ function validateEmail(email) {
 
 				<!-- Newfoundland -->
 				<div class="form-group ministry-choices" id="newfoundland-and-labrador" hidden>
-					<label for="newfoundland-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:newfoundland'); ?></span></label>
+					<label for="newfoundland-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $newfoundland_choices ?>
 				</div>
 
@@ -1169,20 +1169,20 @@ function validateEmail(email) {
 		"Public Works & Services" => "Public Works & Services",
 		"Transportation" => "Transportation");
 	} else {
-		$northwest_territories_ministries = array("Ministère des Affaires autochtones et des Relations intergouvernementales" => "Ministère des Affaires autochtones et des Relations intergouvernementales",
-		"Ministère de l’Éducation, de la Culture et de la Formation" => "Ministère de l’Éducation, de la Culture et de la Formation",
-		"Ministère de l’Environnement et des Ressources naturelles" => "Ministère de l’Environnement et des Ressources naturelles",
-		"Ministère de l’Exécutif" => "Ministère de l’Exécutif",
-		"Ministère des Finances" => "Ministère des Finances",
-		"Ministère de la Santé et des Services sociaux" => "Ministère de la Santé et des Services sociaux",
-		"Ministère des Ressources humaines" => "Ministère des Ressources humaines",
-		"Ministère de l’Industrie, du Tourisme et de l’Investissement" => "Ministère de l’Industrie, du Tourisme et de l’Investissement",
-		"Ministère de la Justice" => "Ministère de la Justice",
-		"Ministère de l’Administration des terres" => "Ministère de l’Administration des terres",
-		"Assemblée législative des Territoires du Nord-Ouest" => "Assemblée législative des Territoires du Nord-Ouest",
-		"Ministère des Affaires municipales et communautaires" => "Ministère des Affaires municipales et communautaires",
-		"Ministère des Travaux publics et des Services" => "Ministère des Travaux publics et des Services",
-		"Ministère des Transports" => "Ministère des Transports");
+		$northwest_territories_ministries = array("Aboriginal Affairs and Intergovernmental Relations" => "Ministère des Affaires autochtones et des Relations intergouvernementales",
+		"Education, Culture and Employment" => "Ministère de l’Éducation, de la Culture et de la Formation",
+		"Environment and Natural Resources" => "Ministère de l’Environnement et des Ressources naturelles",
+		"Executive" => "Ministère de l’Exécutif",
+		"Finance" => "Ministère des Finances",
+		"Health and Social Services" => "Ministère de la Santé et des Services sociaux",
+		"Human Resources" => "Ministère des Ressources humaines",
+		"Industry, Tourism and Investment" => "Ministère de l’Industrie, du Tourisme et de l’Investissement",
+		"Justice" => "Ministère de la Justice",
+		"Lands" => "Ministère de l’Administration des terres",
+		"Legislative Assembly" => "Assemblée législative des Territoires du Nord-Ouest",
+		"Municipal and Community Affairs" => "Ministère des Affaires municipales et communautaires",
+		"Public Works & Services" => "Ministère des Travaux publics et des Services",
+		"Transportation" => "Ministère des Transports");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1196,7 +1196,7 @@ function validateEmail(email) {
 
 				<!-- Northwest Territories -->
 				<div class="form-group ministry-choices" id="northwest-territories" hidden>
-					<label for="northwest-territories-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:northwest-territories'); ?></span></label>
+					<label for="northwest-territories-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $northwest_territories_choices ?>
 				</div>
 
@@ -1240,7 +1240,7 @@ function validateEmail(email) {
 
 				<!-- Nova Scotia -->
 				<div class="form-group ministry-choices" id="nova-scotia" hidden>
-					<label for="nova-scotia-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:nova-scotia'); ?></span></label>
+					<label for="nova-scotia-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $nova_scotia_choices ?>
 				</div>
 
@@ -1258,16 +1258,16 @@ function validateEmail(email) {
 		"Health" => "Health",
 		"Justice" => "Justice");
 	} else {
-		$nunavut_ministries = array("Culture et Patrimoine" => "Culture et Patrimoine",
-		"Développement économique et Transports" => "Développement économique et Transports",
-		"Éducation" => "Éducation",
-		"Environnement" => "Environnement",
-		"Exécutif et Affaires intergouvernementales" => "Exécutif et Affaires intergouvernementales",
-		"Finances" => "Finances",
+		$nunavut_ministries = array("Culture and Heritage" => "Culture et Patrimoine",
+		"Economic Development and Transportation" => "Développement économique et Transports",
+		"Education" => "Éducation",
+		"Environment" => "Environnement",
+		"Executive and Intergovernmental Affairs" => "Exécutif et Affaires intergouvernementales",
+		"Finance" => "Finances",
 		"Justice" => "Justice",
-		"Santé" => "Santé",
-		"Services à la famille" => "Services à la famille",
-		"Services communautaires et gouvernementaux" => "Services communautaires et gouvernementaux");
+		"Health" => "Santé",
+		"Family Services" => "Services à la famille",
+		"Community and Government Services" => "Services communautaires et gouvernementaux");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1281,7 +1281,7 @@ function validateEmail(email) {
 
 				<!-- Nunavut -->
 				<div class="form-group ministry-choices" id="nunavut" hidden>
-					<label for="nunavut-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:nunavut'); ?></span></label>
+					<label for="nunavut-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $nunavut_choices ?>
 				</div>
 
@@ -1289,14 +1289,14 @@ function validateEmail(email) {
 	$ontario_ministries = array();
 	if (get_current_language() == 'en'){
 		$ontario_ministries = array("Accessibility Directorate of Ontario" => "Accessibility Directorate of Ontario",
-		"Advanced Education and Skllls Development" => "Advanced Education and Skllls Development",
+		"Advanced Education and Skills Development" => "Advanced Education and Skills Development",
 		"Agriculture, Food and Rural Affairs" => "Agriculture, Food and Rural Affairs",
 		"Attorney General" => "Attorney General",
 		"Children and Youth Services" => "Children and Youth Services",
 		"Citizenship and Immigration" => "Citizenship and Immigration",
 		"Community and Social Services" => "Community and Social Services",
 		"Community Safety and Correctional Services" => "Community Safety and Correctional Services",
-		"Economoic Development and Growth" => "Economoic Development and Growth",
+		"Economic Development and Growth" => "Economic Development and Growth",
 		"Education" => "Education",
 		"Energy" => "Energy",
 		"Environment and Climate Change" => "Environment and Climate Change",
@@ -1309,7 +1309,7 @@ function validateEmail(email) {
 		"International Trade" => "International Trade",
 		"Labour" => "Labour",
 		"Municipal Affairs" => "Municipal Affairs",
-		"Natrual Resources and Forestry" => "Natrual Resources and Forestry",
+		"Natural Resources and Forestry" => "Natural Resources and Forestry",
 		"Northern Development and Mines" => "Northern Development and Mines",
 		"Research, Innovation and Science" => "Research, Innovation and Science",
 		"Seniors" => "Seniors",
@@ -1317,34 +1317,34 @@ function validateEmail(email) {
 		"Transportation" => "Transportation",
 		"Treasury Board Secretariat" => "Treasury Board Secretariat");
 	} else {
-		$ontario_ministries = array("Affaires des personnes âgées" => "Affaires des personnes âgées",
-		"Affaires francophones" => "Affaires francophones",
-		"Commerce international" => "Commerce international",
-		"Direction générale de l'accessibilité" => "Direction générale de l'accessibilité",
-		"L’Enseignement supérieur et de la formation professionnelle" => "L’Enseignement supérieur et de la formation professionnelle",
-		"La Recherche, de l’innovation et des sciences" => "La Recherche, de l’innovation et des sciences",
-		"Ministère de l’infrastructure" => "Ministère de l’infrastructure",
-		"Ministère de la santé et des soins de longue durée" => "Ministère de la santé et des soins de longue durée",
-		"Ministère de la sécurité communautaire et des services correctionnels" => "Ministère de la sécurité communautaire et des services correctionnels",
-		"Ministère de l'agriculture, de l'alimentation et des affaires rurales" => "Ministère de l'agriculture, de l'alimentation et des affaires rurales",
-		"Ministère de l'education" => "Ministère de l'education",
-		"Ministère de l'énergie" => "Ministère de l'énergie",
-		"Ministère de l'environnement et de l'action en matière de changement climatique" => "Ministère de l'environnement et de l'action en matière de changement climatique",
-		"Ministère des affairesa civiques et de l'immigration" => "Ministère des affairesa civiques et de l'immigration",
-		"Ministère des affaires municipales" => "Ministère des affaires municipales",
-		"Ministère des finances" => "Ministère des finances",
-		"Ministère des richesses naturelles et des forêts" => "Ministère des richesses naturelles et des forêts",
-		"Ministère des services à l'enfance et à la jeunesse" => "Ministère des services à l'enfance et à la jeunesse",
-		"Ministère des services gouvernementaux et des services aux consommateurs" => "Ministère des services gouvernementaux et des services aux consommateurs",
-		"Ministère des services sociaux et communautaires " => "Ministère des services sociaux et communautaires ",
-		"Ministère des transports" => "Ministère des transports",
-		"Ministère du développement du nord et des mines" => "Ministère du développement du nord et des mines",
-		"Ministère du développement économique et de la croissance" => "Ministère du développement économique et de la croissance",
-		"Ministère du logement" => "Ministère du logement",
-		"Ministère du procureur général" => "Ministère du procureur général",
-		"Ministère du tourisme, de la culture et du sport" => "Ministère du tourisme, de la culture et du sport",
-		"Ministère du travail" => "Ministère du travail",
-		"Secrétariat du conseil du trésor" => "Secrétariat du conseil du trésor");
+		$ontario_ministries = array("Seniors" => "Affaires des personnes âgées",
+		"Francophone Affairs" => "Affaires francophones",
+		"International Trade" => "Commerce international",
+		"Accessibility Directorate of Ontario" => "Direction générale de l'accessibilité",
+		"Advanced Education and Skills Development" => "L’Enseignement supérieur et de la formation professionnelle",
+		"Research, Innovation and Science" => "La Recherche, de l’innovation et des sciences",
+		"Infrastructure" => "Ministère de l’infrastructure",
+		"Health and Long-Term Care" => "Ministère de la santé et des soins de longue durée",
+		"Community Safety and Correctional Services" => "Ministère de la sécurité communautaire et des services correctionnels",
+		"Agriculture, Food and Rural Affairs" => "Ministère de l'agriculture, de l'alimentation et des affaires rurales",
+		"Education" => "Ministère de l'éducation",
+		"Energy" => "Ministère de l'énergie",
+		"Environment and Climate Change" => "Ministère de l'environnement et de l'action en matière de changement climatique",
+		"Citizenship and Immigration" => "Ministère des affaires civiques et de l'immigration",
+		"Municipal Affairs" => "Ministère des affaires municipales",
+		"Finance" => "Ministère des finances",
+		"Natural Resources and Forestry" => "Ministère des richesses naturelles et des forêts",
+		"Children and Youth Services" => "Ministère des services à l'enfance et à la jeunesse",
+		"Government and Consumer Services" => "Ministère des services gouvernementaux et des services aux consommateurs",
+		"Community and Social Services" => "Ministère des services sociaux et communautaires",
+		"Transportation" => "Ministère des transports",
+		"Northern Development and Mines" => "Ministère du développement du nord et des mines",
+		"Economic Development and Growth" => "Ministère du développement économique et de la croissance",
+		"Housing" => "Ministère du logement",
+		"Attorney General" => "Ministère du procureur général",
+		"Tourism, Culture and Sport" => "Ministère du tourisme, de la culture et du sport",
+		"Labour" => "Ministère du travail",
+		"Treasury Board Secretariat" => "Secrétariat du conseil du trésor");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1358,7 +1358,7 @@ function validateEmail(email) {
 
 				<!-- Ontario -->
 				<div class="form-group ministry-choices" id="ontario" hidden>
-					<label for="ontario-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ontario'); ?></span></label>
+					<label for="ontario-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $ontario_choices ?>
 				</div>
 
@@ -1376,16 +1376,16 @@ function validateEmail(email) {
 		"Transportation, Infrastructure and Energy" => "Transportation, Infrastructure and Energy",
 		"Workforce and Advanced Learning" => "Workforce and Advanced Learning");
 	} else {
-		$pei_ministries = array("Agriculture et Pêches" => "Agriculture et Pêches",
-		"Communautés, Terres et Environnement" => "Communautés, Terres et Environnement",
-		"Développement économique et Tourisme" => "Développement économique et Tourisme",
-		"Éducation, Développement préscolaire et Culture" => "Éducation, Développement préscolaire et Culture",
-		"Finances" => "Finances",
-		"Justice et Sécurité publique" => "Justice et Sécurité publique",
-		"Main-d’œuvre et Études supérieures" => "Main-d’œuvre et Études supérieures",
-		"Santé et Mieux-être" => "Santé et Mieux-être",
-		"Services à la famille et à la personne" => "Services à la famille et à la personne",
-		"Transports, Infrastructure et Énergie" => "Transports, Infrastructure et Énergie");
+		$pei_ministries = array("Agriculture and Fisheries" => "Agriculture et Pêches",
+		"Communities, Land and Environment" => "Communautés, Terres et Environnement",
+		"Economic Development and Tourism" => "Développement économique et Tourisme",
+		"Education, Early Learning and Culture" => "Éducation, Développement préscolaire et Culture",
+		"Finance" => "Finances",
+		"Justice and Public Safety" => "Justice et Sécurité publique",
+		"Workforce and Advanced Learning" => "Main-d’œuvre et Études supérieures",
+		"Health and Wellness" => "Santé et Mieux-être",
+		"Family and Human Services" => "Services à la famille et à la personne",
+		"Transportation, Infrastructure and Energy" => "Transports, Infrastructure et Énergie");
 	}
 
 	// default to invalid value, so it encourages users to select
@@ -1399,7 +1399,7 @@ function validateEmail(email) {
 
 				<!-- PEI -->
 				<div class="form-group ministry-choices" id="prince-edward-island" hidden>
-					<label for="pei-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:pei'); ?></span></label>
+					<label for="pei-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $pei_choices ?>
 				</div>
 
@@ -1609,13 +1609,13 @@ function validateEmail(email) {
 		'name' => 'ministry',
 		'id' => 'quebec-choices',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $quebec_ministries),
+		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:ministry')), $quebec_ministries),
 	));
 ?>
 
 				<!-- Quebec -->
 				<div class="form-group ministry-choices" id="quebec" hidden>
-					<label for="quebec-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:quebec'); ?></span></label>
+					<label for="quebec-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $quebec_choices ?>
 				</div>
 
@@ -1647,7 +1647,7 @@ function validateEmail(email) {
 
 				<!-- Saskatchewan -->
 				<div class="form-group ministry-choices" id="saskatchewan" hidden>
-					<label for="saskatchewan-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:saskatchewan'); ?></span></label>
+					<label for="saskatchewan-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $saskatchewan_choices ?>
 				</div>
 
@@ -1678,7 +1678,7 @@ function validateEmail(email) {
 
 				<!-- Yukon -->
 				<div class="form-group ministry-choices" id="yukon" hidden>
-					<label for="yukon-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:yukon'); ?></span></label>
+					<label for="yukon-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:ministry'); ?></span></label>
 					<?php echo $yukon_choices ?>
 				</div>
 
