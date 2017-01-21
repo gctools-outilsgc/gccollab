@@ -1,6 +1,6 @@
 <?php
 
-    $title = "GCcollab Stats";
+    $title = elgg_echo("gccollab_stats:title");
 
     $body = elgg_view_layout('one_column', array(
         'content' => get_stats(),
