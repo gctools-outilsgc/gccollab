@@ -18,6 +18,12 @@ $french = array(
 	'gcRegister:occupation:department' => "Ministères / organismes",
 	'gcRegister:occupation:province' => "Province ou territoire",
 
+	'gcRegister:department' => 'Organisation',
+	'gcRegister:university' => 'Université',
+	'gcRegister:college' => 'Collège',
+	'gcRegister:province' => 'Province / territoire',
+	'gcRegister:ministry' => 'Ministère',
+
 	// labels
 	'gcRegister:form' => "Formulaire d'inscription",
 	'gcRegister:email' => 'Adresse de courriel',
@@ -52,12 +58,6 @@ $french = array(
 	'gcRegister:password_mismatch' => '<a href="#password">Les mots de passe ne sont pas identiques</a>',
 	'gcRegister:password_too_short' => '<a href="#password">Le mot de passe doit avoir au moins 6 caractères</a>',
 	'gcRegister:display_name_is_empty' => '<a href="#name">Le champ « Nom à afficher » ne peut pas être laissé vide</a>',
-
-    'gcRegister:department' => 'Organisation',
-	'gcRegister:university' => 'Université',
-	'gcRegister:college' => 'Collège',
-	'gcRegister:province' => 'Province / territoire',
-	'gcRegister:ministry' => 'Ministère',
 );
  
 add_translation("fr", $french);
