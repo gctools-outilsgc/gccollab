@@ -3,48 +3,48 @@
  * Author: Bryden Arndt
  * Date: 11/5/14
  * Time: 3:45 PM
- * Purpose: initializes the b_extended_profile plugin.
+ * Purpose: initializes the b_extended_profile_collab plugin.
  *
  * Notes: See views/default/profile/wrapper.php for information on adding a new section to the user profile
  */
-elgg_register_event_handler('init', 'system', 'b_extended_profile_init');
+elgg_register_event_handler('init', 'system', 'b_extended_profile_collab_init');
 
-function b_extended_profile_init() {
+function b_extended_profile_collab_init() {
     // Register the endorsements js library
-    $url = 'mod/b_extended_profile/js/endorsements/';
+    $url = 'mod/b_extended_profile_collab/js/endorsements/';
     elgg_register_js('gcconnex-profile', $url . "gcconnex-profile.js"); // js file containing code for edit, save, cancel toggles and the events that they trigger, plus more
 
     // Register vendor js libraries
-    $url = 'mod/b_extended_profile/vendors/';
+    $url = 'mod/b_extended_profile_collab/vendors/';
  //   elgg_register_js('typeahead', $url . 'typeahead/dist/typeahead.bundle.js'); // developer version typeahead js file !!! COMMENT THIS OuT AND ENABLE MINIFIED VERSIoN IN PRODcd
     elgg_register_js('fancybox', 'vendors/jquery/fancybox/jquery.fancybox-1.3.4.pack.js');
     elgg_register_js('typeahead', $url . 'typeahead/dist/typeahead.bundle.min.js'); // minified typeahead js file
 //    elgg_register_js('bootstrap-tour', $url . 'bootstrap-tour/build/js/bootstrap-tour.js');
 
     // Register the gcconnex profile css libraries
-    $css_url = 'mod/b_extended_profile/css/gcconnex-profile.css';
+    $css_url = 'mod/b_extended_profile_collab/css/gcconnex-profile.css';
     elgg_register_css('gcconnex-css', $css_url);
- //   elgg_register_css('font-awesome', 'mod/b_extended_profile/vendors/font-awesome/css/font-awesome.min.css'); // font-awesome icons used for social media and some profile fields
-//    elgg_register_css('bootstrap-tour-css', 'mod/b_extended_profile/vendors/bootstrap-tour/build/css/bootstrap-tour.css');
+ //   elgg_register_css('font-awesome', 'mod/b_extended_profile_collab/vendors/font-awesome/css/font-awesome.min.css'); // font-awesome icons used for social media and some profile fields
+//    elgg_register_css('bootstrap-tour-css', 'mod/b_extended_profile_collab/vendors/bootstrap-tour/build/css/bootstrap-tour.css');
     // register views
 
     // register ajax views for all profile sections that are allowed to be edited and displayed via ajax
 
     // display views
     // see views/default/profile/wrapper.php for information on adding a new section to the user profile
-    elgg_register_ajax_view('b_extended_profile/about-me');
-    elgg_register_ajax_view('b_extended_profile/education');
-    elgg_register_ajax_view('b_extended_profile/work-experience');
-    elgg_register_ajax_view('b_extended_profile/endorsements');
-    elgg_register_ajax_view('b_extended_profile/languages');
-    elgg_register_ajax_view('b_extended_profile/portfolio');
+    elgg_register_ajax_view('b_extended_profile_collab/about-me');
+    elgg_register_ajax_view('b_extended_profile_collab/education');
+    elgg_register_ajax_view('b_extended_profile_collab/work-experience');
+    elgg_register_ajax_view('b_extended_profile_collab/endorsements');
+    elgg_register_ajax_view('b_extended_profile_collab/languages');
+    elgg_register_ajax_view('b_extended_profile_collab/portfolio');
 
     // edit views
-    elgg_register_ajax_view('b_extended_profile/edit_about-me');
-    elgg_register_ajax_view('b_extended_profile/edit_education');
-    elgg_register_ajax_view('b_extended_profile/edit_work-experience');
-    elgg_register_ajax_view('b_extended_profile/edit_languages');
-    elgg_register_ajax_view('b_extended_profile/edit_portfolio');
+    elgg_register_ajax_view('b_extended_profile_collab/edit_about-me');
+    elgg_register_ajax_view('b_extended_profile_collab/edit_education');
+    elgg_register_ajax_view('b_extended_profile_collab/edit_work-experience');
+    elgg_register_ajax_view('b_extended_profile_collab/edit_languages');
+    elgg_register_ajax_view('b_extended_profile_collab/edit_portfolio');
 
     // endorsement lightbox
     elgg_register_ajax_view('endorse/endorsement');
@@ -57,14 +57,14 @@ function b_extended_profile_init() {
 
     // auto-complete
     // elgg_register_ajax_view('input/autoskill');
-    elgg_register_ajax_view('b_extended_profile/edit_basic'); // ajax view for editing the basic profile fields like name, title, department, email, etc.
+    elgg_register_ajax_view('b_extended_profile_collab/edit_basic'); // ajax view for editing the basic profile fields like name, title, department, email, etc.
 
     // register the action for saving profile fields
-    $action_path = elgg_get_plugins_path() . 'b_extended_profile/actions/b_extended_profile/';
-    elgg_register_action('b_extended_profile/edit_profile', $action_path . 'edit_profile.php');
-    elgg_register_action('b_extended_profile/add_endorsement', $action_path . 'add_endorsement.php');
-    elgg_register_action('b_extended_profile/retract_endorsement', $action_path . 'retract_endorsement.php');
-    elgg_register_action('b_extended_profile/user_find', $action_path . 'userfind.php', "public");
+    $action_path = elgg_get_plugins_path() . 'b_extended_profile_collab/actions/b_extended_profile_collab/';
+    elgg_register_action('b_extended_profile_collab/edit_profile', $action_path . 'edit_profile.php');
+    elgg_register_action('b_extended_profile_collab/add_endorsement', $action_path . 'add_endorsement.php');
+    elgg_register_action('b_extended_profile_collab/retract_endorsement', $action_path . 'retract_endorsement.php');
+    elgg_register_action('b_extended_profile_collab/user_find', $action_path . 'userfind.php', "public");
 
     //elgg_register_plugin_hook_handler('cron', 'hourly', 'userfind_updatelist');
     elgg_register_page_handler('userfind', 'userfind_page_handler');
@@ -151,7 +151,7 @@ function init_ajax_block($title, $section, $user) {
         // create the edit/save/cancel toggles for this section
         echo '<span class="gcconnex-profile-edit-controls">';
         echo '<button title="Edit ' . $section . '" class="btn btn-default edit-' . $section . '">' . elgg_echo('gcconnex_profile:edit') . ' <span class="wb-inv">' . $field . '</span></button>';
-//        echo '<span class="save-control save-' . $section . ' hidden"><img src="' . elgg_get_site_url() . 'mod/b_extended_profile/img/save.png">' . elgg_echo('gcconnex_profile:save') . '</span>';
+//        echo '<span class="save-control save-' . $section . ' hidden"><img src="' . elgg_get_site_url() . 'mod/b_extended_profile_collab/img/save.png">' . elgg_echo('gcconnex_profile:save') . '</span>';
         echo '<button title="Cancel ' . $section . '"  class="btn btn-default cancel-control cancel-' . $section . ' hidden wb-invisible">' . elgg_echo('gcconnex_profile:cancel') . ' <span class="wb-inv">' . $field . '</span></button>';
         echo '</span>';
     }
@@ -331,7 +331,7 @@ function list_avatars($options) {
     else {
 
         $link = elgg_view('output/url', array(
-            'href' => 'ajax/view/b_extended_profile/edit_basic',
+            'href' => 'ajax/view/b_extended_profile_collab/edit_basic',
             'class' => 'elgg-lightbox gcconnex-basic-profile-edit elgg-button',
             'text' => elgg_echo('gcconnex_profile:edit_profile')
         ));

@@ -621,7 +621,6 @@
           $obj = elgg_get_entities(array(
               'type' => 'object',
               'subtype' => 'federal_departments',
-              'owner_guid' => elgg_get_logged_in_user_guid()
           ));
           $departments = get_entity($obj[0]->guid);
 
@@ -642,7 +641,7 @@
             'limit' => 50,
             'count' => true,
             'metadata_name'  => 'federal',
-            'metadata_values'  => $federal_departments[$federal],
+            'metadata_values'  => $federal,
           ));
 
           if($federal_count > 10){
@@ -657,7 +656,7 @@
             'limit' => 50,
             'offset' => $offset,
             'metadata_name'  => 'federal',
-            'metadata_values'  => $federal_departments[$federal],
+            'metadata_values'  => $federal,
           ));
 
           //set guids as key for each array items

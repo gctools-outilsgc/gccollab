@@ -156,7 +156,6 @@ if ($user->canEdit()) {
             $obj = elgg_get_entities(array(
                 'type' => 'object',
                 'subtype' => 'federal_departments',
-                'owner_guid' => elgg_get_logged_in_user_guid()
             ));
             $departments = get_entity($obj[0]->guid);
             
@@ -1451,11 +1450,38 @@ echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
 if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
     echo '<h3 class="mrgn-tp-0">'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</h3>';
     $institution = ($user->institution == "university") ? $user->university: $user->college;
-    echo '<div class="gcconnex-profile-dept">'.$institution.'</div>';
+    echo '<div class="gcconnex-profile-dept">' . $institution . '</div>';
 
 // otherwise if user is provincial employee
 } else if (strcmp($user->user_type, 'provincial') == 0 ) {
+    $provObj = elgg_get_entities(array(
+        'type' => 'object',
+        'subtype' => 'provinces',
+    ));
+    $provs = get_entity($provObj[0]->guid);
+
+    $provinces = array();
+    if (get_current_language() == 'en'){
+        $provinces = json_decode($provs->provinces_en, true);
+    } else {
+        $provinces = json_decode($provs->provinces_fr, true);
+    }
+
+    $minObj = elgg_get_entities(array(
+        'type' => 'object',
+        'subtype' => 'ministries',
+    ));
+    $mins = get_entity($minObj[0]->guid);
+
+    $ministries = array();
+    if (get_current_language() == 'en'){
+        $ministries = json_decode($mins->ministries_en, true);
+    } else {
+        $ministries = json_decode($mins->ministries_fr, true);
+    }
+
     echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
+    echo '<div class="gcconnex-profile-dept">' . $provinces[$user->provincial] . ' / ' . $ministries[$user->provincial][$user->ministry] . '</div>';
 // otherwise if user is public servant
 } else {
     echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';

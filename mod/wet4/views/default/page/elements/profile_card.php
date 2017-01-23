@@ -5,17 +5,24 @@
      */
 
     $site_url = elgg_get_site_url();
-    $user = get_loggedin_user()->username;
-    $displayName = get_loggedin_user()->name;
-    $user_avatar = get_loggedin_user()->geticonURL('medium');
-    $email = get_loggedin_user()->email;
+    $userObj = get_loggedin_user();
+    $user = $userObj->username;
+    $displayName = $userObj->name;
+    $user_avatar = $userObj->geticonURL('medium');
+    $email = $userObj->email;
 
 
-    $userType = get_loggedin_user()->get('user_type');
-    if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0)
-        $department = get_loggedin_user()->get('institution');
-    else
-        $department = get_loggedin_user()->get('department');
+    $userType = $userObj->get('user_type');
+    if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
+        $institution = $userObj->get('institution');
+        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
+    } else if (strcmp($userType, 'provincial') == 0) {
+        $department = elgg_echo('gcRegister:occupation:provincial');
+    } else if (strcmp($userType, 'federal') == 0) {
+        $department = $userObj->get('federal');
+    } else if (strcmp($userType, 'public_servant') == 0) {
+        $department = $userObj->get('department');
+    }
 
 ?>
 
@@ -33,7 +40,7 @@
 
             <div class="col-xs-8">
                 <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $displayName?></h4>
-                <div><?php echo  $email ?></div>
+                <div><?php echo $email; ?></div>
                 <div><?php echo $department; ?></div>
                 <a href="<?php echo  $site_url ?>profile/<?php echo  $user ?>" class="btn btn-primary mrgn-tp-sm" style='color:white;'><?php echo elgg_echo('userMenu:profile') ?></a>
             </div>
