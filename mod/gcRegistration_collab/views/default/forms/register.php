@@ -274,12 +274,10 @@ function validateEmail(email) {
 
 				<div class="form-group occupation-choices" id="provincial" hidden>
 					<label for="provincial-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:province'); ?></span></label>
-					<?php echo $provincial_choices ?>
+					<?php echo $provincial_choices; ?>
 				</div>
 
 <?php
-	$provinces = array("Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon");
-
 	$minObj = elgg_get_entities(array(
 	   	'type' => 'object',
 	   	'subtype' => 'ministries',
@@ -293,7 +291,7 @@ function validateEmail(email) {
 		$ministries = json_decode($mins->ministries_fr, true);
 	}
 
-	foreach($provinces as $province){
+	foreach($provincial_departments as $province => $province_name){
 		$prov_id = str_replace(" ", "-", strtolower($province));
 		echo '<div class="form-group ministry-choices" id="' . $prov_id . '" hidden><label for="' . $prov_id . '-choices" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
 		echo elgg_view('input/select', array(
