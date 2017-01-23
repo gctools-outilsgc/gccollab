@@ -44,50 +44,50 @@ $(document).ready(function() {
 		$('.occupation-choices').hide();
 		if (type == 'student' || type == 'academic') {
 			$('.ministry-choices').hide();
-			$('#institution').show();
+			$('#institution-wrapper').show();
 
-			var institution = $('#institution-choices').val();
+			var institution = $('#institution').val();
 			if (institution == 'university') {
-				$('#universities').show();
+				$('#university-wrapper').show();
 			} else if (institution == 'college') {
-				$('#colleges').show();
+				$('#college-wrapper').show();
 			}
 		} else if (type == 'federal') {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
-			$('#federal').show();
+			$('#federal-wrapper').show();
 		} else if (type == 'provincial') {
 			$('.student-choices').hide();
-			$('#provincial').show();
+			$('#provincial-wrapper').show();
 
-			var province = $('#provincial-choices').val();
+			var province = $('#provincial').val();
 			$('#' + province.replace(/\s+/g, '-').toLowerCase()).show();
 		} else if (type == 'municipal') {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
-			$('#municipal').show();
+			$('#municipal-wrapper').show();
 		} else if (type == 'international') {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
-			$('#international').show();
+			$('#international-wrapper').show();
 		} else {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
-			$('#custom').show();
+			$('#custom-wrapper').show();
 		}
 	});
 
-	$("#institution-choices").change(function() {
+	$("#institution").change(function() {
 		var type = $(this).val();
 		$('.student-choices').hide();
 		if (type == 'university') {
-			$('#universities').show();
+			$('#university-wrapper').show();
 		} else if (type == 'college') {
-			$('#colleges').show();
+			$('#college-wrapper').show();
 		}
 	});
 
-	$("#provincial-choices").change(function() {
+	$("#provincial").change(function() {
 		var type = $(this).val();
 		$('.ministry-choices').hide();
 		$('#' + type.replace(/\s+/g, '-').toLowerCase()).show();
@@ -162,15 +162,15 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$federal_choices = elgg_view('input/select', array(
 		'name' => 'federal',
-		'id' => 'federal-choices',
+		'id' => 'federal',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="federal">
-					<label for="federal-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
-					<?php echo $federal_choices ?>
+				<div class="form-group occupation-choices" id="federal-wrapper">
+					<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
+					<?php echo $federal_choices; ?>
 				</div>
 
 <?php endif; ?>
@@ -178,9 +178,9 @@ function validateEmail(email) {
 <?php if(show_field("academic") || show_field("student")): ?>
 
 				<!-- Universities or Colleges -->
-				<div class="form-group occupation-choices" id="institution" hidden>
-					<label for="institution-choices" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label>
-					<select id="institution-choices" name="institution" class="form-control">
+				<div class="form-group occupation-choices" id="institution-wrapper" hidden>
+					<label for="institution" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label>
+					<select id="institution" name="institution" class="form-control">
 						<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
 						<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
 						<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
@@ -204,16 +204,16 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$university_choices = elgg_view('input/select', array(
 		'name' => 'university',
-		'id' => 'university-choices',
+		'id' => 'university',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $universities),
 	));
 ?>
 
 				<!-- Universities -->
-				<div class="form-group student-choices" id="universities" hidden>
-					<label for="university-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:university'); ?></span></label>
-					<?php echo $university_choices ?>
+				<div class="form-group student-choices" id="university-wrapper" hidden>
+					<label for="university" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:university'); ?></span></label>
+					<?php echo $university_choices; ?>
 				</div>
 
 <?php
@@ -233,16 +233,16 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$college_choices = elgg_view('input/select', array(
 		'name' => 'college',
-		'id' => 'college-choices',
+		'id' => 'college',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $colleges),
 	));
 ?>
 
 				<!-- Colleges -->
-				<div class="form-group student-choices" id="colleges" hidden>
-					<label for="college-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label>
-					<?php echo $college_choices ?>
+				<div class="form-group student-choices" id="college-wrapper" hidden>
+					<label for="college" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label>
+					<?php echo $college_choices; ?>
 				</div>
 
 <?php endif; ?>
@@ -266,14 +266,14 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$provincial_choices = elgg_view('input/select', array(
 		'name' => 'provincial',
-		'id' => 'provincial-choices',
+		'id' => 'provincial',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $provincial_departments),
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="provincial" hidden>
-					<label for="provincial-choices" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:province'); ?></span></label>
+				<div class="form-group occupation-choices" id="provincial-wrapper" hidden>
+					<label for="provincial" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:province'); ?></span></label>
 					<?php echo $provincial_choices; ?>
 				</div>
 
@@ -293,10 +293,10 @@ function validateEmail(email) {
 
 	foreach($provincial_departments as $province => $province_name){
 		$prov_id = str_replace(" ", "-", strtolower($province));
-		echo '<div class="form-group ministry-choices" id="' . $prov_id . '" hidden><label for="' . $prov_id . '-choices" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
+		echo '<div class="form-group ministry-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
 		echo elgg_view('input/select', array(
 			'name' => 'ministry',
-			'id' => $prov_id . '-choices',
+			'id' => $prov_id,
 	        'class' => 'form-control',
 			'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
 		));
@@ -319,15 +319,15 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$municipal_choices = elgg_view('input/select', array(
 		'name' => 'municipal',
-		'id' => 'municipal-choices',
+		'id' => 'municipal',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $municipal_governments),
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="municipal" hidden>
-					<label for="municipal-choices" class="required"><span class="field-name"><?php echo elgg_echo('Municipal'); ?></span></label>
-					<?php echo $municipal_choices ?>
+				<div class="form-group occupation-choices" id="municipal-wrapper" hidden>
+					<label for="municipal" class="required"><span class="field-name"><?php echo elgg_echo('Municipal'); ?></span></label>
+					<?php echo $municipal_choices; ?>
 				</div>
 
 <?php endif; ?>
@@ -345,15 +345,15 @@ function validateEmail(email) {
 	// default to invalid value, so it encourages users to select
 	$international_choices = elgg_view('input/select', array(
 		'name' => 'international',
-		'id' => 'international-choices',
+		'id' => 'international',
         'class' => 'form-control',
 		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $international_governments),
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="international" hidden>
-					<label for="international-choices" class="required"><span class="field-name"><?php echo elgg_echo('International'); ?></span></label>
-					<?php echo $international_choices ?>
+				<div class="form-group occupation-choices" id="international-wrapper" hidden>
+					<label for="international" class="required"><span class="field-name"><?php echo elgg_echo('International'); ?></span></label>
+					<?php echo $international_choices; ?>
 				</div>
 
 <?php endif; ?>
@@ -361,16 +361,16 @@ function validateEmail(email) {
 <?php if(show_field("community") || show_field("business") || show_field("media") || show_field("other")): ?>
 
 <?php
-	$custom_occupation = elgg_view('input/text', array(
-		'name' => 'custom_occupation',
-		'id' => 'custom_occupation',
+	$custom = elgg_view('input/text', array(
+		'name' => 'custom',
+		'id' => 'custom',
         'class' => 'form-control',
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="custom" hidden>
-					<label for="custom_occupation" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:custom'); ?></span></label>
-					<?php echo $custom_occupation ?>
+				<div class="form-group occupation-choices" id="custom-wrapper" hidden>
+					<label for="custom" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:custom'); ?></span></label>
+					<?php echo $custom; ?>
 				</div>
 
 <?php endif; ?>
@@ -451,7 +451,7 @@ function validateEmail(email) {
 <?php
 			echo elgg_view('input/password', array(
 				'name' => 'password',
-				'id' => 'password',
+				'id' => 'password1',
 		        'class'=>'password_test form-control',
 				'value' => $password,
 			));

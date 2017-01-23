@@ -40,10 +40,18 @@ $english = array(
 
 	// error messages on the form
 	'gcRegister:failedMySQLconnection' => 'Unable to connect to the database',
-	'gcRegister:invalid_email' => 'Invalid email',
+	'gcRegister:invalid_email' => '<a href="#email">Invalid email</a>',
 	'gcRegister:empty_field' => 'Empty field',
 	'gcRegister:mismatch' => 'Mismatch',
 	'gcRegister:make_selection' => 'Please make a selection',
+	'gcRegister:EmptyPassword' => '<a href="#password1">The password fields cannot be empty</a>',
+	'gcRegister:PasswordMismatch' => '<a href="#password1">Passwords must match</a>',
+	'gcRegister:FederalNotSelected' => '<a href="#federal">Organization not selected</a>',
+	'gcRegister:InstitutionNotSelected' => '<a href="#institution">Institution not selected</a>',
+	'gcRegister:UniversityNotSelected' => '<a href="#university">University not selected</a>',
+	'gcRegister:CollegeNotSelected' => '<a href="#college">College not selected</a>',
+	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province/Territory not selected</a>',
+	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministry not selected</a>',
 
 	// notice
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
