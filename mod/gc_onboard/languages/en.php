@@ -170,8 +170,6 @@ return array(
     'onboard:groups:trackerButton' 	=> 'Go to News Feed',
 
 
-    /*Profile lang changes*/
-    'gcconnex_profile:basic:job' => "Job Title",
 
     /**Functions**/
     'onboard:skill' => 'Skill',

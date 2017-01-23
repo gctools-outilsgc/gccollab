@@ -18,6 +18,12 @@ $english = array(
 	'gcRegister:occupation:department' => "Departments/Agencies",
 	'gcRegister:occupation:province' => "Province or Territory",
 
+	'gcRegister:department' => 'Organization',
+	'gcRegister:university' => 'University',
+	'gcRegister:college' => 'College',
+	'gcRegister:province' => 'Province/Territory',
+	'gcRegister:ministry' => 'Ministry',
+
 	// labels
     'gcRegister:form' => 'Registration form',
 	'gcRegister:email' => 'Enter your e-mail',
@@ -52,24 +58,6 @@ $english = array(
 	'gcRegister:password_mismatch' => '<a href="#password">Passwords do not match</a>', 
 	'gcRegister:password_too_short' => '<a href="#password">Password must contain minimum of 6 characters</a>',
 	'gcRegister:display_name_is_empty' => '<a href="#name">Display name cannot be empty</a>',
-
-	'gcRegister:department' => 'Organization',
-	'gcRegister:university' => 'University',
-	'gcRegister:college' => 'College',
-
-	'gcRegister:alberta' => 'Alberta',
-	'gcRegister:british-columbia' => 'British Columbia',
-	'gcRegister:manitoba' => 'Manitoba',
-	'gcRegister:new-brunswick' => 'New Brunswick',
-	'gcRegister:newfoundland' => 'Newfoundland and Labrador',
-	'gcRegister:northwest-territories' => 'Northwest Territories',
-	'gcRegister:nova-scotia' => 'Nova Scotia',
-	'gcRegister:nunavut' => 'Nunavut',
-	'gcRegister:ontario' => 'Ontario',
-	'gcRegister:pei' => 'Prince Edward Island',
-	'gcRegister:quebec' => 'Quebec',
-	'gcRegister:saskatchewan' => 'Saskatchewan',
-	'gcRegister:yukon' => 'Yukon',
 );
 
 add_translation("en", $english);
