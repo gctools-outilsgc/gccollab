@@ -1483,6 +1483,9 @@ if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academ
     echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
     echo '<div class="gcconnex-profile-dept">' . $provinces[$user->provincial] . ' / ' . $ministries[$user->provincial][$user->ministry] . '</div>';
 // otherwise if user is public servant
+} else if(strcmp($user->user_type, 'federal') == 0 ) {
+    echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
+    echo '<div class="gcconnex-profile-dept">' . $user->federal . '</div>';
 } else {
     echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
     echo '<div class="gcconnex-profile-dept">' . $user->department . '</div>';
