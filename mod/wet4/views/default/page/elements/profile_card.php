@@ -19,7 +19,20 @@
     } else if (strcmp($userType, 'provincial') == 0) {
         $department = elgg_echo('gcRegister:occupation:provincial');
     } else if (strcmp($userType, 'federal') == 0) {
-        $department = $userObj->get('federal');
+        $deptObj = elgg_get_entities(array(
+            'type' => 'object',
+            'subtype' => 'federal_departments',
+        ));
+        $depts = get_entity($deptObj[0]->guid);
+
+        $federal_departments = array();
+        if (get_current_language() == 'en'){
+            $federal_departments = json_decode($depts->federal_departments_en, true);
+        } else {
+            $federal_departments = json_decode($depts->federal_departments_fr, true);
+        }
+
+        $department = $federal_departments[$userObj->get('federal')];
     } else if (strcmp($userType, 'public_servant') == 0) {
         $department = $userObj->get('department');
     }
