@@ -498,18 +498,6 @@ echo '<div class="row mrgn-lft-md mrgn-rght-sm">';
 echo elgg_view('profile/owner_block');
 echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
 
-echo "<pre>";
-if($user->user_type) echo "user_type: " . $user->user_type;
-if($user->federal) echo "<br>federal: " . $user->federal;
-if($user->department) echo "<br>department: " . $user->department;
-if($user->job) echo "<br>job: " . $user->job;
-if($user->provincial) echo "<br>provincial: " . $user->provincial;
-if($user->ministry) echo "<br>ministry: " . $user->ministry;
-if($user->institution) echo "<br>institution: " . $user->institution;
-if($user->university) echo "<br>university: " . $user->university;
-if($user->college) echo "<br>college: " . $user->college;
-echo "</pre>";
-
 // if user is student or professor, display the correlated information
 if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
     echo '<h3 class="mrgn-tp-0">'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</h3>';
@@ -546,7 +534,9 @@ if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academ
     }
 
     echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
-    echo '<div class="gcconnex-profile-dept">' . $provinces[$user->provincial] . ' / ' . $ministries[$user->provincial][$user->ministry] . '</div>';
+    $provString = $provinces[$user->provincial];
+    if($user->ministry && $user->ministry != "default_invalid_value"){ $provString .= ' / ' . $ministries[$user->provincial][$user->ministry]; }
+    echo '<div class="gcconnex-profile-dept">' . $provString . '</div>';
 // otherwise if user is public servant
 } else if(strcmp($user->user_type, 'federal') == 0 ) {
     $deptObj = elgg_get_entities(array(

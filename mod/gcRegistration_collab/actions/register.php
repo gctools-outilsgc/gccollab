@@ -95,15 +95,36 @@ if (elgg_get_config('allow_registration')) {
 
 		// check if two passwords are not empty
 		if (empty(trim($password)) || empty(trim($password2)))
-			$resulting_error .= elgg_echo('RegistrationException:EmptyPassword').'<br/>';
+			$resulting_error .= elgg_echo('gcRegister:EmptyPassword').'<br/>';
 
 		// check if two passwords match
 		if (strcmp($password, $password2) != 0)
-			$resulting_error .= elgg_echo('RegistrationException:PasswordMismatch').'<br/>';
+			$resulting_error .= elgg_echo('gcRegister:PasswordMismatch').'<br/>';
 
-		// check if the department or college/university is filled
-		if (strcmp($federal, 'default_invalid_value') == 0 && strcmp($institution, 'default_invalid_value') == 0)
-			$resulting_error .= elgg_echo('RegistrationException:DepartmentNotSelected').'<br/>';
+		// check if the federal department is filled
+		if ($user_type === 'federal' && $federal === 'default_invalid_value')
+			$resulting_error .= elgg_echo('gcRegister:FederalNotSelected').'<br/>';
+
+		// check if the college/university is filled
+		if ($user_type === 'student' || $user_type === 'academic') {
+			if($institution === 'default_invalid_value')
+				$resulting_error .= elgg_echo('gcRegister:InstitutionNotSelected').'<br/>';
+
+			if($institution === 'university' && $university === 'default_invalid_value')
+				$resulting_error .= elgg_echo('gcRegister:UniversityNotSelected').'<br/>';
+
+			if($institution === 'college' && $college === 'default_invalid_value')
+				$resulting_error .= elgg_echo('gcRegister:CollegeNotSelected').'<br/>';
+		}
+
+		// check if the provincial department is filled
+		if ($user_type === 'provincial') {
+			if($provincial === 'default_invalid_value')
+				$resulting_error .= elgg_echo('gcRegister:ProvincialNotSelected').'<br/>';
+
+			if($ministry === 'default_invalid_value')
+				$resulting_error .= elgg_echo('gcRegister:MinistryNotSelected').'<br/>';
+		}
 
 		// if there are any registration error, throw an exception
 		if (!empty($resulting_error))

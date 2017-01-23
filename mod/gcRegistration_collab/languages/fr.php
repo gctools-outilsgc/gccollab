@@ -40,10 +40,18 @@ $french = array(
 				
 	// error messages on the form			// error messages on the form			
 	'gcRegister:failedMySQLconnection' => 'Impossible de se connecter à la base de données',
-	'gcRegister:invalid_email' => 'Adresse de courriel non valide',
+	'gcRegister:invalid_email' => '<a href="#email">Adresse de courriel non valide</a>',
 	'gcRegister:empty_field' => 'Champ vide',
 	'gcRegister:mismatch' => 'Erreur de correspondance',
 	'gcRegister:make_selection' => 'Veuillez faire une sélection',
+	'gcRegister:EmptyPassword' => '<a href="#password1">Les champs du mot de passe ne peut pas être vide</a>',
+  	'gcRegister:PasswordMismatch' => '<a href="#password1">Les mots de passe doivent être identiques</a>',
+  	'gcRegister:FederalNotSelected' => '<a href="#federal">Organisation n\'a pas été sélectionnée</a>',
+	'gcRegister:InstitutionNotSelected' => '<a href="#institution">Institution n\'a pas été sélectionnée</a>',
+	'gcRegister:UniversityNotSelected' => '<a href="#university">Université n\'a pas été sélectionnée</a>',
+	'gcRegister:CollegeNotSelected' => '<a href="#college">Collège n\'a pas été sélectionnée</a>',
+	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province / territoire n\'a pas été sélectionnée</a>',
+	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministère n\'a pas été sélectionnée</a>',
 				
 	// notice			// avis			
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
