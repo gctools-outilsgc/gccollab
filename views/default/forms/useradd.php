@@ -79,6 +79,7 @@ $sendemail = true;
 	));
 ?>
 </div>
+<div>
 <?php 
 	echo elgg_view('input/checkboxes', array(
 		'name' => "sendemail",

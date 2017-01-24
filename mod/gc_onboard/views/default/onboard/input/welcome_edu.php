@@ -58,6 +58,17 @@ if($user_type == 'student' || $user_type == 'academic'){//Do a test for the user
       'class'=> 'gcconnex-job-title',
       'value'=>'no_title',
     ));
+}else{ //academic form
+  
+//Job title
+  echo '<label for="jobTitle-'.$guid.'">'.elgg_echo('gcconnex_profile:basic:job').'</label>';
+echo elgg_view('input/text', array(
+  'name'=>'title',
+  'id'=>'jobTitle-' .$guid,
+  'class'=>'gcconnex-job-title',
+  'value'=>elgg_get_logged_in_user_entity()->job
+));
+
 }
 
     echo elgg_view('input/hidden', array(

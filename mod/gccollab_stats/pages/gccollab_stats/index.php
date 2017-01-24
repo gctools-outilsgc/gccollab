@@ -18,6 +18,7 @@
         $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx');
         $json = json_decode($json_raw, true);
 
+<<<<<<< HEAD
         // Get data ready for Member Registration Highcharts 
         $registrations = array();
         foreach( $json as $key => $value ){
@@ -27,11 +28,28 @@
         }
         usort($registrations, "compare_func");
         $display = "<script>var registrations = " . json_encode($registrations) . ";</script>";
+=======
+        $count = 0;
+        $regGC = 0;
+        $regOrg = 0;
+
+        // Get data ready for Member Registration Highcharts
+        $registrations = array();
+        foreach( $json as $key => $value ){
+            if( $value['RegisteredSmall'] ){
+            $count += $value['cnt'];
+                $registrations[] = array(strtotime($value['RegisteredSmall']) * 1000, $count, $value['cnt']);
+            }
+        }
+        usort($registrations, "compare_func");
+        $display = "<script>var count=" . $count . ";var registrations = " . json_encode($registrations) . ";</script>";
+>>>>>>> Development
 
         // Get GCcollab API data
         $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx?d=1');
         $json = json_decode($json_raw, true);
 
+<<<<<<< HEAD
         // Get data ready for Member Organizations Highcharts 
         $organizations = array();
         foreach( $json as $key => $value ){
@@ -41,10 +59,36 @@
         }
         sort($organizations);
         $display .= "<script>var organizations = " . json_encode($organizations) . ";</script>";
+=======
+        // Get data ready for Member Organizations Highcharts
+        $organizations = array();
+        $topOrgs = array();
+
+        foreach( $json as $key => $value ){
+			if($value['Org']){
+				if($value['Org'] == "Government of Canada"){
+					$regGC = $value['cnt'];
+				}else if( $value['cnt'] < 16){
+					$organizations[] = array($value['Org'], $value['cnt']);
+				}else{
+					$topOrgs[] = array($value['Org'], $value['cnt']);
+					$regOrg++;
+				}
+			}
+
+        }
+        sort($organizations);
+        $display .= "<script>var regGC=" . $regGC . ";var topOrgs=". json_encode($topOrgs) .
+        	";var organizations = " . json_encode($organizations) . ";</script>";
+>>>>>>> Development
 
         $display .= '<script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://code.highcharts.com/modules/exporting.js"></script>
             <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<<<<<<< HEAD
+=======
+			<div id="topOrganizations" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
+>>>>>>> Development
             <div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
 
         $display .= "<script>$(function () {
@@ -60,7 +104,11 @@
                     zoomType: 'x'
                 },
                 title: {
+<<<<<<< HEAD
                     text: 'Member Registration'
+=======
+                    text: 'Registered Members:' + count + ' (Government of Canada: ' + regGC + ')'
+>>>>>>> Development
                 },
                 subtitle: {
                     text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
@@ -105,31 +153,93 @@
                 },
                 tooltip: {
                     formatter: function() {
+<<<<<<< HEAD
                         return '<b>Count:</b> ' + registrations[this.series.data.indexOf(this.point)][1] + '</b><br><b>Date:</b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate() + '</b>';
+=======
+                        return '<b>Date:</b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate()
+                        	+ '<br /><b>Signups:</b> ' + registrations[this.series.data.indexOf(this.point)][2]
+                        	+ '<br /><b>Total:</b> ' + registrations[this.series.data.indexOf(this.point)][1];
+>>>>>>> Development
                     }
                 },
                 series: [{
                     type: 'area',
+<<<<<<< HEAD
                     name: 'Member Registration',
+=======
+                    name: 'Registered Members',
+>>>>>>> Development
                     data: registrations
                 }]
             });
         });</script>";
 
         $display .= "<script>$(function () {
+<<<<<<< HEAD
+=======
+		            Highcharts.chart('topOrganizations', {
+		                chart: {
+		                    type: 'bar'
+		                },
+		                title: {
+		                    text: 'Top Organizations: ' + topOrgs.length
+		                },
+		                xAxis: {
+		                    type: 'category'
+		                },
+		                yAxis: {
+		                    title: {
+		                        text: 'Member Organizations'
+		                    }
+
+		                },
+		                legend: {
+		                    enabled: false
+		                },
+		                plotOptions: {
+		                    series: {
+		                        borderWidth: 0,
+		                        dataLabels: {
+		                            enabled: true,
+		                            format: '{point.y}'
+		                        }
+		                    }
+		                },
+		                tooltip: {
+		                    headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+		                    pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+		                },
+		                series: [{
+		                    name: 'Top Organizations',
+		                    colorByPoint: true,
+		                    data: topOrgs
+		                }]
+		            });
+        });</script>";
+
+        $display .= "<script>$(function () {
+>>>>>>> Development
             Highcharts.chart('organizations', {
                 chart: {
                     type: 'bar'
                 },
                 title: {
+<<<<<<< HEAD
                     text: 'Member Organizations'
+=======
+                    text: 'Member Organizations:' + organizations.length
+>>>>>>> Development
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
+<<<<<<< HEAD
                         text: 'Registered organization'
+=======
+                        text: 'Organization Registrations'
+>>>>>>> Development
                     }
 
                 },
@@ -153,10 +263,14 @@
                     name: 'Organization',
                     colorByPoint: true,
                     data: organizations
+<<<<<<< HEAD
                 }],
                 drilldown: {
                     series: organizations
                 }
+=======
+                }]
+>>>>>>> Development
             });
         });</script>";
 
