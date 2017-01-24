@@ -91,7 +91,7 @@ if (elgg_get_config('allow_registration')) {
 		
 		// if domain doesn't exist in database, check if it's a gc.ca domain
 		if ($dept_exist[0]->num <= 0 && strcmp($gcca, 'gc.ca') != 0 && !$wildcard_match)
-			$resulting_error .= elgg_echo('gcRegister:invalid_email').'<br/>';
+			$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
 
 		// check if two passwords are not empty
 		if (empty(trim($password)) || empty(trim($password2)))

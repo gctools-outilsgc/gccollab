@@ -40,7 +40,8 @@ $french = array(
 				
 	// error messages on the form			// error messages on the form			
 	'gcRegister:failedMySQLconnection' => 'Impossible de se connecter à la base de données',
-	'gcRegister:invalid_email' => '<a href="#email">Adresse de courriel non valide</a>',
+	'gcRegister:invalid_email' => 'Adresse de courriel non valide',
+	'gcRegister:invalid_email_link' => '<a href="#email">Adresse de courriel non valide</a>',
 	'gcRegister:empty_field' => 'Champ vide',
 	'gcRegister:mismatch' => 'Erreur de correspondance',
 	'gcRegister:make_selection' => 'Veuillez faire une sélection',

@@ -61,7 +61,8 @@ $(document).ready(function() {
 			$('#provincial-wrapper').show();
 
 			var province = $('#provincial').val();
-			$('#' + province.replace(/\s+/g, '-').toLowerCase()).show();
+			province = province.replace(/\s+/g, '-').toLowerCase();
+			$('#' + province + '-wrapper').show();
 		} else if (type == 'municipal') {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
@@ -88,9 +89,10 @@ $(document).ready(function() {
 	});
 
 	$("#provincial").change(function() {
-		var type = $(this).val();
+		var province = $(this).val();
+		province = province.replace(/\s+/g, '-').toLowerCase();
 		$('.ministry-choices').hide();
-		$('#' + type.replace(/\s+/g, '-').toLowerCase()).show();
+		$('#' + province + '-wrapper').show();
 	});
 });
 

@@ -40,7 +40,8 @@ $english = array(
 
 	// error messages on the form
 	'gcRegister:failedMySQLconnection' => 'Unable to connect to the database',
-	'gcRegister:invalid_email' => '<a href="#email">Invalid email</a>',
+	'gcRegister:invalid_email' => 'Invalid email',
+	'gcRegister:invalid_email_link' => '<a href="#email">Invalid email</a>',
 	'gcRegister:empty_field' => 'Empty field',
 	'gcRegister:mismatch' => 'Mismatch',
 	'gcRegister:make_selection' => 'Please make a selection',
