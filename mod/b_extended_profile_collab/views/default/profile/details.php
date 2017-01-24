@@ -76,7 +76,6 @@ if ($user->canEdit()) {
                         $(".university").hide();
                     }
                 } else if (user_occupation_top == 'provincial') {
-                    $(".job").hide();
                     $(".federal").hide();
                     $(".institution").hide();
                     $(".university").hide();
@@ -109,12 +108,12 @@ if ($user->canEdit()) {
                         $(".institution").hide();
                         $(".university").hide();
                         $(".college").hide();
-                        $(".job").hide();
                         $(".federal").hide();
 
+                        $(".job").show();
                         $(".provincial").show();
-                        $('.ministry').hide();
 
+                        $('.ministry').hide();
                         var province = $("#provincial").val();
                         $('.' + province.replace(/\s+/g, '-').toLowerCase()).show();
                     } else if (user_occupation == "student" || user_occupation == "academic") {
@@ -534,8 +533,9 @@ if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academ
     }
 
     echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
+    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
     $provString = $provinces[$user->provincial];
-    if($user->ministry && $user->ministry != "default_invalid_value"){ $provString .= ' / ' . $ministries[$user->provincial][$user->ministry]; }
+    if($user->ministry && $user->ministry !== "default_invalid_value"){ $provString .= ' / ' . $ministries[$user->provincial][$user->ministry]; }
     echo '<div class="gcconnex-profile-dept">' . $provString . '</div>';
 // otherwise if user is public servant
 } else if(strcmp($user->user_type, 'federal') == 0 ) {
@@ -554,9 +554,6 @@ if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academ
 
     echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
     echo '<div class="gcconnex-profile-dept">' . $federal_departments[$user->federal] . '</div>';
-} else {
-    echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
-    echo '<div class="gcconnex-profile-dept">' . $user->department . '</div>';
 }
 
 echo '<div class="gcconnex-profile-location">' . $user->location . '</div>';

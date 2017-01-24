@@ -64,7 +64,8 @@ if($user_type == 'student' || $user_type == 'academic'){//Do a test for the user
             'id' => 'access',
             'name' => 'access',
             'class'=>'gcconnex-access',
-            'value' => 2
+            'value' => ACCESS_LOGGED_IN
+            // 'value' => 2
         ));
 
 
