@@ -7,10 +7,14 @@
 
 
 //Test if the user is a public servant or other to know what institution or department to use
- if(elgg_get_logged_in_user_entity()->user_type == 'public_servant'){
+$user_type = elgg_get_logged_in_user_entity()->user_type;
+ if($user_type == 'federal') {
+   $user_institution = elgg_get_logged_in_user_entity()->federal;
+ } else if($user_type == 'public_servant') {
    $user_institution = elgg_get_logged_in_user_entity()->department;
- }else{
-   $user_institution = elgg_get_logged_in_user_entity()->institution;
+ } else {
+   $institution = elgg_get_logged_in_user_entity()->institution;
+   $user_institution = ($institution == 'university') ? elgg_get_logged_in_user_entity()->university : elgg_get_logged_in_user_entity()->college;
  }
 
 $education = get_entity($vars['guid']); // get the guid of the education entry that is being requested for display
@@ -20,7 +24,7 @@ $degree_types = array(elgg_echo('degree:highSchool'), elgg_echo('degree:associat
 
 echo '<div class="gcconnex-education-entry" data-guid="' . $guid . '">'; // education entry wrapper for css styling
 
-if(elgg_get_logged_in_user_entity()->user_type == 'student'){//Do a test for the user type
+if($user_type == 'student' || $user_type == 'academic'){//Do a test for the user type
   //We show different forms based on the user type (student/ academic/ ps)
   // enter school name
   echo elgg_view("input/hidden", array(
@@ -55,19 +59,7 @@ if(elgg_get_logged_in_user_entity()->user_type == 'student'){//Do a test for the
       'value'=>'no_title',
     ));
 }else{ //academic form
-  //Pass their institution to the org
-  echo elgg_view("input/hidden", array(
-          'name' => 'org',
-          'class' => 'gcconnex-work-org',
-          'id' => 'education-' . $guid,
-          'value' => $user_institution,
-        ));
-        //Pass no school so it doesn't error thinking it is missing education info
-echo elgg_view('input/hidden', array(
-  'name'=>'school',
-  'class'=>'gcconnex-education-school',
-  'value' => 'no_school',
-));
+  
 //Job title
   echo '<label for="jobTitle-'.$guid.'">'.elgg_echo('gcconnex_profile:basic:job').'</label>';
 echo elgg_view('input/text', array(
@@ -79,13 +71,12 @@ echo elgg_view('input/text', array(
 
 }
 
-
-
     echo elgg_view('input/hidden', array(
             'id' => 'access',
             'name' => 'access',
             'class'=>'gcconnex-access',
-            'value' => 2
+            'value' => ACCESS_LOGGED_IN
+            // 'value' => 2
         ));
 
 

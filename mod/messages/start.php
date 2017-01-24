@@ -314,7 +314,7 @@ function messages_send($subject, $body, $recipient_guid, $sender_guid = 0, $orig
 		add_entity_relationship($message_sent->guid, "reply", $original_msg_guid);
 	}
 
-	//$message_contents = strip_tags($body);
+	$message_contents = strip_tags($body);
 	if (($recipient_guid != elgg_get_logged_in_user_guid()) && $notify) {
 		$recipient = get_user($recipient_guid);
 		$sender = get_user($sender_guid);

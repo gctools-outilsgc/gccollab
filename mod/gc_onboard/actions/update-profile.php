@@ -370,6 +370,9 @@ switch ($section) {
 /*Education for students*/
                 $eguid = get_input('eguid', '');
                 $delete = get_input('delete', '');
+
+            if($user->user_type === 'student' || $user->user_type === 'academic'){
+
                 $school = get_input('school', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0002.');
                 $startdate = get_input('startdate', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0003.');
                 $startyear = get_input('startyear');
@@ -501,6 +504,8 @@ switch ($section) {
 
                 $user->education_access = $access;
                 $user->save();
+            }
+
 /*Skills*/
 
                         $skillsToAdd = get_input('skillsadded', 'ERROR: Ask your admin to grep: 5FH13GAHHHS0021.');
