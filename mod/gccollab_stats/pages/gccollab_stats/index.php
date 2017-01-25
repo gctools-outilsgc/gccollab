@@ -227,11 +227,16 @@
         $json = json_decode($json_raw, true);
 
         $allMembers = array();
-        $allMembersCount = 0;
+        $allMembersCount = $unknownCount = 0;
         foreach( $json['result'] as $key => $value ){
-            $allMembers[] = array(ucfirst($key), $value);
+            if($key != 'public_servant' && $key != ''){
+                $allMembers[] = array(ucfirst($key), $value);
+            } else {
+                $unknownCount += $value;
+            }
             $allMembersCount += $value;
         }
+        if($unknownCount > 0){ $allMembers[] = array('Unknown', $unknownCount); }
         sort($allMembers);
 
         $display .= "<script>var allMembers=" . json_encode($allMembers) . ";</script>";
@@ -283,15 +288,20 @@
         $json = json_decode($json_raw, true);
 
         $federalMembers = array();
-        $federalMembersCount = 0;
+        $federalMembersCount = $unknownCount = 0;
         foreach( $json['result'] as $key => $value ){
-            $federalMembers[] = array(ucfirst($key), $value);
+            if($key != 'default_invalid_value' && $key != ''){
+                $federalMembers[] = array(ucfirst($key), $value);
+            } else {
+                $unknownCount += $value;
+            }
             $federalMembersCount += $value;
         }
+        if($unknownCount > 0){ $federalMembers[] = array('Unknown', $unknownCount); }
         sort($federalMembers);
 
         $display .= "<script>var federalMembers=" . json_encode($federalMembers) . ";</script>";
-        $display .= '<div id="federalMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= '<div id="federalMembers" style="min-width: 310px; min-height: 950px; margin: 0 auto"></div>';
         $display .= "<script>$(function () {
                     Highcharts.chart('federalMembers', {
                         chart: {
@@ -346,9 +356,16 @@
             $provincialMembersCount += $value['total'];
 
             $provinceData = array();
+            $unknownCount = 0;
             foreach( $value as $ministry => $count ){
-                if($ministry != 'total') $provinceData[] = array($ministry, $count);
+                if($ministry != 'total' && $ministry != 'default_invalid_value' && $ministry != ''){
+                    $provinceData[] = array($ministry, $count);
+                } else if($ministry === 'default_invalid_value' || $ministry === ''){
+                    $unknownCount += $count;
+                }
             }
+            if($unknownCount > 0){ $provinceData[] = array('Unknown', $unknownCount); }
+            sort($provinceData);
             $provincialMembersDrilldown[] = array('name' => $key, 'id' => $key, 'data' => $provinceData);
         }
         sort($provincialMembers);
@@ -413,14 +430,17 @@
         $studentMembers = $studentMembersMinistry = $studentMembersDrilldown = array();
         $studentMembersCount = 0;
         foreach( $json['result'] as $key => $value ){
-            $studentMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
-            $studentMembersMinistry[ucfirst($key)] += $value['total'];
-            $studentMembersCount += $value['total'];
+            if($key == 'college' || $key == 'university'){
+                $studentMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
+                $studentMembersMinistry[ucfirst($key)] += $value['total'];
+                $studentMembersCount += $value['total'];
+            }
 
             $institutionData = array();
             foreach( $value as $school => $count ){
                 if($school != 'total') $institutionData[] = array($school, $count);
             }
+            sort($institutionData);
             $studentMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
         }
         sort($studentMembers);
@@ -485,14 +505,17 @@
         $academicMembers = $academicMembersMinistry = $academicMembersDrilldown = array();
         $academicMembersCount = 0;
         foreach( $json['result'] as $key => $value ){
-            $academicMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
-            $academicMembersMinistry[ucfirst($key)] += $value['total'];
-            $academicMembersCount += $value['total'];
+            if($key == 'college' || $key == 'university'){
+                $academicMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
+                $academicMembersMinistry[ucfirst($key)] += $value['total'];
+                $academicMembersCount += $value['total'];
+            }
 
             $institutionData = array();
             foreach( $value as $school => $count ){
                 if($school != 'total') $institutionData[] = array($school, $count);
             }
+            sort($institutionData);
             $academicMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
         }
         sort($academicMembers);
