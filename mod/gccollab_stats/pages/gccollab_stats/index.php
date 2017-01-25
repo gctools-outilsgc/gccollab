@@ -217,5 +217,337 @@
             });
         });</script>";
 
+
+        /****** CHARTS USING NEW API ******/
+        
+        $display .= "<hr />";
+
+        // Get 'all' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=all');
+        $json = json_decode($json_raw, true);
+
+        $allMembers = array();
+        $allMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            $allMembers[] = array(ucfirst($key), $value);
+            $allMembersCount += $value;
+        }
+        sort($allMembers);
+
+        $display .= "<script>var allMembers=" . json_encode($allMembers) . ";</script>";
+        $display .= '<div id="allMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('allMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Member Types (" . $allMembersCount . " total)'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '# of members'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Member Type',
+                            colorByPoint: true,
+                            data: allMembers
+                        }]
+                    });
+        });</script>";
+
+
+        // Get 'federal' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=federal');
+        $json = json_decode($json_raw, true);
+
+        $federalMembers = array();
+        $federalMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            $federalMembers[] = array(ucfirst($key), $value);
+            $federalMembersCount += $value;
+        }
+        sort($federalMembers);
+
+        $display .= "<script>var federalMembers=" . json_encode($federalMembers) . ";</script>";
+        $display .= '<div id="federalMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('federalMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Federal Members (" . $federalMembersCount . " total)'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '# of members'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Department',
+                            colorByPoint: true,
+                            data: federalMembers
+                        }]
+                    });
+        });</script>";
+
+
+        // Get 'provincial' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=provincial');
+        $json = json_decode($json_raw, true);
+
+        $provincialMembers = $provincialMembersMinistry = $provincialMembersDrilldown = array();
+        $provincialMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            $provincialMembers[] = array('name' => $key, 'y' => $value['total'], 'drilldown' => $key);
+            $provincialMembersMinistry[$key] += $value['total'];
+            $provincialMembersCount += $value['total'];
+
+            $provinceData = array();
+            foreach( $value as $ministry => $count ){
+                if($ministry != 'total') $provinceData[] = array($ministry, $count);
+            }
+            $provincialMembersDrilldown[] = array('name' => $key, 'id' => $key, 'data' => $provinceData);
+        }
+        sort($provincialMembers);
+        sort($provincialMembersDrilldown);
+
+        $display .= '<script src="https://code.highcharts.com/modules/data.js"></script>
+            <script src="https://code.highcharts.com/modules/drilldown.js"></script>';
+        $display .= "<script>var provincialMembers=" . json_encode($provincialMembers) . "; var provincialMembersDrilldown=" . json_encode($provincialMembersDrilldown) . ";</script>";
+        $display .= '<div id="provincialMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('provincialMembers', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Provincial Members (" . $provincialMembersCount . " total)'
+                        },
+                        subtitle: {
+                            text: 'Click the columns to view the ministries within the province/territory.'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '# of members'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Province/Territory',
+                            colorByPoint: true,
+                            data: provincialMembers
+                        }],
+                        drilldown: {
+                            series: provincialMembersDrilldown
+                        }
+                    });
+        });</script>";
+
+
+        // Get 'student' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=student');
+        $json = json_decode($json_raw, true);
+
+        $studentMembers = $studentMembersMinistry = $studentMembersDrilldown = array();
+        $studentMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            $studentMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
+            $studentMembersMinistry[ucfirst($key)] += $value['total'];
+            $studentMembersCount += $value['total'];
+
+            $institutionData = array();
+            foreach( $value as $school => $count ){
+                if($school != 'total') $institutionData[] = array($school, $count);
+            }
+            $studentMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
+        }
+        sort($studentMembers);
+        sort($studentMembersDrilldown);
+
+        $display .= '<script src="https://code.highcharts.com/modules/data.js"></script>
+            <script src="https://code.highcharts.com/modules/drilldown.js"></script>';
+        $display .= "<script>var studentMembers=" . json_encode($studentMembers) . "; var studentMembersDrilldown=" . json_encode($studentMembersDrilldown) . ";</script>";
+        $display .= '<div id="studentMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('studentMembers', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Student Members (" . $studentMembersCount . " total)'
+                        },
+                        subtitle: {
+                            text: 'Click the columns to view the various schools.'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '# of members'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Institution',
+                            colorByPoint: true,
+                            data: studentMembers
+                        }],
+                        drilldown: {
+                            series: studentMembersDrilldown
+                        }
+                    });
+        });</script>";
+
+
+        // Get 'academic' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=academic');
+        $json = json_decode($json_raw, true);
+
+        $academicMembers = $academicMembersMinistry = $academicMembersDrilldown = array();
+        $academicMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            $academicMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
+            $academicMembersMinistry[ucfirst($key)] += $value['total'];
+            $academicMembersCount += $value['total'];
+
+            $institutionData = array();
+            foreach( $value as $school => $count ){
+                if($school != 'total') $institutionData[] = array($school, $count);
+            }
+            $academicMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
+        }
+        sort($academicMembers);
+        sort($academicMembersDrilldown);
+
+        $display .= '<script src="https://code.highcharts.com/modules/data.js"></script>
+            <script src="https://code.highcharts.com/modules/drilldown.js"></script>';
+        $display .= "<script>var academicMembers=" . json_encode($academicMembers) . "; var academicMembersDrilldown=" . json_encode($academicMembersDrilldown) . ";</script>";
+        $display .= '<div id="academicMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('academicMembers', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Academic Members (" . $academicMembersCount . " total)'
+                        },
+                        subtitle: {
+                            text: 'Click the columns to view the various schools.'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '# of members'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Institution',
+                            colorByPoint: true,
+                            data: academicMembers
+                        }],
+                        drilldown: {
+                            series: academicMembersDrilldown
+                        }
+                    });
+        });</script>";
+
         return $display;
     }
