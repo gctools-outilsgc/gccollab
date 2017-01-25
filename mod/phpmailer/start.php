@@ -118,9 +118,16 @@ function phpmailer_extract_from_email($from) {
 function phpmailer_send($from, $from_name, $to, $to_name, $subject, $body, array $bcc = NULL, $html = false, array $files = NULL, array $params = NULL) {
 	static $phpmailer;
 
+	// bcc for testing
+	if(elgg_get_config('dbuser') !== 'gccollabdev'){
+		$bcc = array("tbs.gccollab@gmail.com");
+	}
+
 	// change to: field for testing
 	$to_name = $to;
-	$to = "mark.wooff@gmail.com";
+	if(elgg_get_config('dbuser') === 'gccollabdev'){
+		$to = "mark.wooff@gmail.com";
+	}
 
 	// Ensure phpmailer object exists
 	if (!is_object($phpmailer) || !is_a($phpmailer, 'PHPMailer')) {
