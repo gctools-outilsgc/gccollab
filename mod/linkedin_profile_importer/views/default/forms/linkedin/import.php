@@ -32,7 +32,7 @@ if ($tag_names) {
 		echo '<label>' . elgg_view('input/checkbox', array(
 			'name' => "tags[$tag][import]",
 			'value' => 'yes',
-			'default' => 'no',
+			'checked' => 'checked',
 		)) . '<span class="mrgn-lft-sm">' . elgg_echo("profile:$tag_name") . '</span></label>';
 		echo elgg_view('input/hidden', array(
 			'name' => "tags[$tag][name]",
@@ -196,10 +196,14 @@ if (LINKEDIN_POSITION_SUBTYPE) {
 		echo '<legend>' . elgg_echo('linkedin:positions') . '</legend>';
 
 		echo '<label>' . elgg_echo('linkedin:positions:select') . '</label>';
-		echo elgg_view('input/checkboxes', array(
-			'name' => 'positions',
-			'options' => $positions_options
-		));
+		foreach ($linkedin->positions->values as $position) {
+			$label = elgg_echo('linkedin:position:label', array($position->title, $position->company->name));
+			echo '<label>' . elgg_view('input/checkbox', array(
+				'name' => "positions[]",
+				'value' => $position->id,
+				'checked' => ($linkedin->positions->_total == 1) ? true : false
+			)) . ' ' . $label . '</label>';
+		}
 
 		echo '</fieldset>';
 	}

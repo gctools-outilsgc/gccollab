@@ -98,7 +98,12 @@ $english = array(
 
 	'linkedin:general' => 'Background and Contact Information',
 	'linkedin:general:error' => '%s details could not be imported',
-	'linkedin:general:success' => 'Background and contact information was updated successfully',
+	'linkedin:general:success' => 'The following information has been successfully imported from your LinkedIn profile:',
+	'linkedin:general:success:picture-url' => '&bull; Avatar',
+	'linkedin:general:success:profile-url' => '&bull; Profile Link',
+	'linkedin:general:success:description' => '&bull; About Me',
+	'linkedin:general:success:location' => '&bull; Location',
+	'linkedin:general:success:position' => '&bull; Position "%s"',
 
 	'linkedin:positions' => 'Work Experience',
 	'linkedin:position:label' => '%s at %s',

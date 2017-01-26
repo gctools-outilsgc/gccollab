@@ -25,16 +25,7 @@ function resizeImage($image, $maxwidth, $maxheight, $square = false, $upscale = 
         imagecolorallocate($new_image, 255, 255, 255)
     );
 
-	$rtn_code = imagecopyresampled( $new_image,
-	                                $original_image,
-	                                0,
-	                                0,
-	                                0,
-	                                0,
-	                                $maxwidth,
-	                                $maxheight,
-	                                $width,
-	                                $height );
+	$rtn_code = imagecopyresampled( $new_image, $original_image, 0, 0, 0, 0, $maxwidth, $maxheight, $width, $height );
 
 	if (!$rtn_code) {
 	    return false;
@@ -57,7 +48,12 @@ $tags = get_input('tags');
 
 $default_access = ACCESS_LOGGED_IN;
 
+$successMessage = false;
+
 if ($tags) {
+
+	$changed = array();
+
 	foreach ($tags as $tag => $details) {
 
 		$tag_import = elgg_extract('import', $details, false);
@@ -75,6 +71,8 @@ if ($tags) {
 			$error = true;
 			continue;
 		}
+
+		$changed[] = $tag_name;
 
 		if($tag_name == "picture-url"){
 			$icon_sizes = elgg_get_config('icon_sizes');
@@ -109,8 +107,6 @@ if ($tags) {
 
 			$user->icontime = time();
 			if (elgg_trigger_event('profileiconupdate', $user->type, $user)) {
-				system_message(elgg_echo("avatar:upload:success"));
-
 				$view = 'river/user/default/profileiconupdate';
 				elgg_delete_river(array('subject_guid' => $user->guid, 'view' => $view));
 				elgg_create_river_item(array(
@@ -156,7 +152,11 @@ if ($tags) {
 		if ($error) {
 			register_error(elgg_echo('linkedin:general:error', array($tag_name)));
 		} else {
-			system_message(elgg_echo('linkedin:general:success'));
+			if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
+
+			foreach($changed as $tag){
+				system_message(elgg_echo('linkedin:general:success:' . $tag));
+			}
 		}
 	}
 }
@@ -218,7 +218,8 @@ if (is_array($positions_input)) {
 
         	if ($new_eguid = $experience->save()) {
             	$work_experience_guids[] = $new_eguid;
-				system_message(elgg_echo('linkedin:position:success:' . $action, array($experience->title)));
+            	if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
+				system_message(elgg_echo('linkedin:general:success:position', array($experience->title)));
 			} else {
 				system_message(elgg_echo('linkedin:position:error', array($experience->title)));
 			}
@@ -286,6 +287,7 @@ if (is_array($projects_input)) {
 		$object->address = $project->url;
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:project:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:project:error', array($object->title)));
@@ -354,6 +356,7 @@ if (is_array($educations_input)) {
 		}
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:education:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:education:error', array($object->title)));
@@ -421,6 +424,7 @@ if (is_array($publications_input)) {
 		}
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:publication:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:publication:error', array($object->title)));
@@ -490,6 +494,7 @@ if (is_array($patents_input)) {
 		}
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:patent:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:patent:error', array($object->title)));
@@ -552,6 +557,7 @@ if (is_array($certifications_input)) {
 		}
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:certification:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:certification:error', array($object->title)));
@@ -605,6 +611,7 @@ if (is_array($courses_input)) {
 		$object->number = $course->number;
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:course:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:course:error', array($object->title)));
@@ -671,6 +678,7 @@ if (is_array($volunteer_experiences_input)) {
 		}
 
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:volunteer_experience:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:volunteer_experience:error', array($object->title)));
@@ -729,6 +737,7 @@ if (is_array($recommendations_input)) {
 		$object->recommender_linkedin_id = $recommendation->recommender->id;
 		
 		if ($object->save()) {
+            if(!$successMessage){ system_message(elgg_echo('linkedin:general:success')); $successMessage = true; }
 			system_message(elgg_echo('linkedin:recommendation:success:' . $action, array($object->title)));
 		} else {
 			system_message(elgg_echo('linkedin:recommendation:error', array($object->title)));
