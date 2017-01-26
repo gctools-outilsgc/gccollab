@@ -391,5 +391,5 @@ if (LINKEDIN_RECOMMENDATION_SUBTYPE) {
 }
 
 echo '<div class="elgg-foot">';
-echo elgg_view('input/submit');
+echo elgg_view('input/submit', array('value' => elgg_echo('linkedin:submit')));
 echo '</div>';
