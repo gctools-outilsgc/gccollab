@@ -9,7 +9,7 @@ function gccollab_stats_init() {
 	elgg_ws_expose_function(
         "member.stats",
         "get_member_data",
-        array("type" => array('type' => 'string')),
+        array("type" => array('type' => 'string'), "lang" => array('type' => 'string')),
         'Exposes member data for use with dashboard',
         'GET',
         false,
@@ -28,15 +28,28 @@ function stats_page_handler($page) {
 	return true;
 }
 
-function get_member_data($type) {
+function get_member_data($type, $lang) {
+	if(!isset($lang)){ $lang = 'en'; }
+
 	$data = array();
+	ini_set("memory_limit", -1);
+
 	if ($type === 'all') {
-		$users = elgg_get_entities_from_metadata(array(
+		$users = elgg_get_entities(array(
 			'type' => 'user',
 			'limit' => 0
 		));
-		foreach($users as $key => $obj){
-			$data[$obj->user_type]++;
+
+		if ($lang == 'fr'){
+			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'etudiant', 'public_servant' => 'public_servant');
+
+			foreach($users as $key => $obj){
+				$data[$users_types[$obj->user_type]]++;
+			}
+		} else {
+			foreach($users as $key => $obj){
+				$data[$obj->user_type]++;
+			}
 		}
 	} else if ($type === 'federal') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -46,8 +59,22 @@ function get_member_data($type) {
 			),
 			'limit' => 0
 		));
-		foreach($users as $key => $obj){
-			$data[$obj->federal]++;
+
+		if ($lang == 'fr'){
+			$deptObj = elgg_get_entities(array(
+			   	'type' => 'object',
+			   	'subtype' => 'federal_departments',
+			));
+			$depts = get_entity($deptObj[0]->guid);
+			$federal_departments = json_decode($depts->federal_departments_fr, true);
+
+			foreach($users as $key => $obj){
+				$data[$federal_departments[$obj->federal]]++;
+			}
+		} else {
+			foreach($users as $key => $obj){
+				$data[$obj->federal]++;
+			}
 		}
 	} else if ($type === 'provincial') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -57,9 +84,31 @@ function get_member_data($type) {
 			),
 			'limit' => 0
 		));
-		foreach($users as $key => $obj){
-			$data[$obj->provincial]['total']++;
-			$data[$obj->provincial][$obj->ministry]++;
+
+		if ($lang == 'fr'){
+			$provObj = elgg_get_entities(array(
+			   	'type' => 'object',
+			   	'subtype' => 'provinces',
+			));
+			$provs = get_entity($provObj[0]->guid);
+			$provincial_departments = json_decode($provs->provinces_fr, true);
+
+			$minObj = elgg_get_entities(array(
+			   	'type' => 'object',
+			   	'subtype' => 'ministries',
+			));
+			$mins = get_entity($minObj[0]->guid);
+			$ministries = json_decode($mins->ministries_fr, true);
+
+			foreach($users as $key => $obj){
+				$data[$provincial_departments[$obj->provincial]]['total']++;
+				$data[$provincial_departments[$obj->provincial]][$ministries[$obj->provincial][$obj->ministry]]++;
+			}
+		} else {
+			foreach($users as $key => $obj){
+				$data[$obj->provincial]['total']++;
+				$data[$obj->provincial][$obj->ministry]++;
+			}
 		}
 	} else if ($type === 'student') {
 		$users = elgg_get_entities_from_metadata(array(

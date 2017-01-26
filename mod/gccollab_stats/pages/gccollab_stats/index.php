@@ -18,20 +18,7 @@
         $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx');
         $json = json_decode($json_raw, true);
 
-<<<<<<< HEAD
-        // Get data ready for Member Registration Highcharts 
-        $registrations = array();
-        foreach( $json as $key => $value ){
-            if( $value['RegisteredSmall'] ){
-                $registrations[] = array(strtotime($value['RegisteredSmall']) * 1000, $value['cnt']);
-            }
-        }
-        usort($registrations, "compare_func");
-        $display = "<script>var registrations = " . json_encode($registrations) . ";</script>";
-=======
-        $count = 0;
-        $regGC = 0;
-        $regOrg = 0;
+        $count = $regGC = $regOrg = 0;
 
         // Get data ready for Member Registration Highcharts
         $registrations = array();
@@ -42,54 +29,10 @@
             }
         }
         usort($registrations, "compare_func");
-        $display = "<script>var count=" . $count . ";var registrations = " . json_encode($registrations) . ";</script>";
->>>>>>> Development
 
-        // Get GCcollab API data
-        $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx?d=1');
-        $json = json_decode($json_raw, true);
-
-<<<<<<< HEAD
-        // Get data ready for Member Organizations Highcharts 
-        $organizations = array();
-        foreach( $json as $key => $value ){
-            if( $value['Org'] && $value['Org'] != "Government of Canada" ){
-                $organizations[] = array($value['Org'], $value['cnt']);
-            }
-        }
-        sort($organizations);
-        $display .= "<script>var organizations = " . json_encode($organizations) . ";</script>";
-=======
-        // Get data ready for Member Organizations Highcharts
-        $organizations = array();
-        $topOrgs = array();
-
-        foreach( $json as $key => $value ){
-			if($value['Org']){
-				if($value['Org'] == "Government of Canada"){
-					$regGC = $value['cnt'];
-				}else if( $value['cnt'] < 16){
-					$organizations[] = array($value['Org'], $value['cnt']);
-				}else{
-					$topOrgs[] = array($value['Org'], $value['cnt']);
-					$regOrg++;
-				}
-			}
-
-        }
-        sort($organizations);
-        $display .= "<script>var regGC=" . $regGC . ";var topOrgs=". json_encode($topOrgs) .
-        	";var organizations = " . json_encode($organizations) . ";</script>";
->>>>>>> Development
-
-        $display .= '<script src="https://code.highcharts.com/highcharts.js"></script>
+        $display = '<script>var count = ' . $count . '; var registrations = ' . json_encode($registrations) . ';</script><script src="https://code.highcharts.com/highcharts.js"></script>
             <script src="https://code.highcharts.com/modules/exporting.js"></script>
-            <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<<<<<<< HEAD
-=======
-			<div id="topOrganizations" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
->>>>>>> Development
-            <div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
+            <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>';
 
         $display .= "<script>$(function () {
             Date.prototype.niceDate = function() {
@@ -104,11 +47,7 @@
                     zoomType: 'x'
                 },
                 title: {
-<<<<<<< HEAD
-                    text: 'Member Registration'
-=======
-                    text: 'Registered Members:' + count + ' (Government of Canada: ' + regGC + ')'
->>>>>>> Development
+                    text: '" . elgg_echo("gccollab_stats:registration:title") . " (' + count + ')'
                 },
                 subtitle: {
                     text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
@@ -118,7 +57,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: '# of members'
+                        text: '" . elgg_echo("gccollab_stats:membercount") . "'
                     },
                     floor: 0
                 },
@@ -153,93 +92,101 @@
                 },
                 tooltip: {
                     formatter: function() {
-<<<<<<< HEAD
-                        return '<b>Count:</b> ' + registrations[this.series.data.indexOf(this.point)][1] + '</b><br><b>Date:</b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate() + '</b>';
-=======
                         return '<b>Date:</b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate()
-                        	+ '<br /><b>Signups:</b> ' + registrations[this.series.data.indexOf(this.point)][2]
-                        	+ '<br /><b>Total:</b> ' + registrations[this.series.data.indexOf(this.point)][1];
->>>>>>> Development
+                            + '<br /><b>Signups:</b> ' + registrations[this.series.data.indexOf(this.point)][2]
+                            + '<br /><b>Total:</b> ' + registrations[this.series.data.indexOf(this.point)][1];
                     }
                 },
                 series: [{
                     type: 'area',
-<<<<<<< HEAD
-                    name: 'Member Registration',
-=======
                     name: 'Registered Members',
->>>>>>> Development
                     data: registrations
                 }]
             });
         });</script>";
 
-        $display .= "<script>$(function () {
-<<<<<<< HEAD
-=======
-		            Highcharts.chart('topOrganizations', {
-		                chart: {
-		                    type: 'bar'
-		                },
-		                title: {
-		                    text: 'Top Organizations: ' + topOrgs.length
-		                },
-		                xAxis: {
-		                    type: 'category'
-		                },
-		                yAxis: {
-		                    title: {
-		                        text: 'Member Organizations'
-		                    }
+        /*
+        // Get GCcollab API data
+        $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx?d=1');
+        $json = json_decode($json_raw, true);
 
-		                },
-		                legend: {
-		                    enabled: false
-		                },
-		                plotOptions: {
-		                    series: {
-		                        borderWidth: 0,
-		                        dataLabels: {
-		                            enabled: true,
-		                            format: '{point.y}'
-		                        }
-		                    }
-		                },
-		                tooltip: {
-		                    headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-		                    pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-		                },
-		                series: [{
-		                    name: 'Top Organizations',
-		                    colorByPoint: true,
-		                    data: topOrgs
-		                }]
-		            });
+        // Get data ready for Member Organizations Highcharts
+        $organizations = array();
+        $topOrgs = array();
+
+        foreach( $json as $key => $value ){
+            if($value['Org']){
+                if($value['Org'] == "Government of Canada"){
+                    $regGC = $value['cnt'];
+                }else if( $value['cnt'] < 16){
+                    $organizations[] = array($value['Org'], $value['cnt']);
+                }else{
+                    $topOrgs[] = array($value['Org'], $value['cnt']);
+                    $regOrg++;
+                }
+            }
+
+        }
+        sort($organizations);
+        $display .= "<script>var regGC=" . $regGC . ";var topOrgs=". json_encode($topOrgs) .
+            ";var organizations = " . json_encode($organizations) . ";</script>";
+
+        $display .= '<div id="topOrganizations" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div><div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
+        $display .= "<script>$(function () {
+                    Highcharts.chart('topOrganizations', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Top Organizations: ' + topOrgs.length
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Member Organizations'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Top Organizations',
+                            colorByPoint: true,
+                            data: topOrgs
+                        }]
+                    });
         });</script>";
 
         $display .= "<script>$(function () {
->>>>>>> Development
             Highcharts.chart('organizations', {
                 chart: {
                     type: 'bar'
                 },
                 title: {
-<<<<<<< HEAD
-                    text: 'Member Organizations'
-=======
                     text: 'Member Organizations:' + organizations.length
->>>>>>> Development
                 },
                 xAxis: {
                     type: 'category'
                 },
                 yAxis: {
                     title: {
-<<<<<<< HEAD
-                        text: 'Registered organization'
-=======
                         text: 'Organization Registrations'
->>>>>>> Development
                     }
 
                 },
@@ -263,24 +210,17 @@
                     name: 'Organization',
                     colorByPoint: true,
                     data: organizations
-<<<<<<< HEAD
-                }],
-                drilldown: {
-                    series: organizations
-                }
-=======
                 }]
->>>>>>> Development
             });
         });</script>";
-
+        */
 
         /****** CHARTS USING NEW API ******/
         
         $display .= "<hr />";
 
         // Get 'all' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=all');
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=all&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
         $allMembers = array();
@@ -293,7 +233,7 @@
             }
             $allMembersCount += $value;
         }
-        if($unknownCount > 0){ $allMembers[] = array('Unknown', $unknownCount); }
+        if($unknownCount > 0){ $allMembers[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
         sort($allMembers);
 
         $display .= "<script>var allMembers=" . json_encode($allMembers) . ";</script>";
@@ -304,14 +244,14 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'Member Types (" . $allMembersCount . " total)'
+                            text: '" . elgg_echo("gccollab_stats:types:title") . " (" . $allMembersCount . ")'
                         },
                         xAxis: {
                             type: 'category'
                         },
                         yAxis: {
                             title: {
-                                text: '# of members'
+                                text: '" . elgg_echo("gccollab_stats:membercount") . "'
                             }
 
                         },
@@ -340,8 +280,10 @@
         });</script>";
 
 
+        $display .= "<hr />";
+        
         // Get 'federal' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=federal');
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=federal&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
         $federalMembers = array();
@@ -354,7 +296,7 @@
             }
             $federalMembersCount += $value;
         }
-        if($unknownCount > 0){ $federalMembers[] = array('Unknown', $unknownCount); }
+        if($unknownCount > 0){ $federalMembers[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
         sort($federalMembers);
 
         $display .= "<script>var federalMembers=" . json_encode($federalMembers) . ";</script>";
@@ -365,14 +307,14 @@
                             type: 'bar'
                         },
                         title: {
-                            text: 'Federal Members (" . $federalMembersCount . " total)'
+                            text: '" . elgg_echo("gccollab_stats:federal:title") . " (" . $federalMembersCount . ")'
                         },
                         xAxis: {
                             type: 'category'
                         },
                         yAxis: {
                             title: {
-                                text: '# of members'
+                                text: '" . elgg_echo("gccollab_stats:membercount") . "'
                             }
 
                         },
@@ -401,8 +343,10 @@
         });</script>";
 
 
+        $display .= "<hr />";
+        
         // Get 'provincial' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=provincial');
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=provincial&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
         $provincialMembers = $provincialMembersMinistry = $provincialMembersDrilldown = array();
@@ -421,7 +365,7 @@
                     $unknownCount += $count;
                 }
             }
-            if($unknownCount > 0){ $provinceData[] = array('Unknown', $unknownCount); }
+            if($unknownCount > 0){ $provinceData[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
             sort($provinceData);
             $provincialMembersDrilldown[] = array('name' => $key, 'id' => $key, 'data' => $provinceData);
         }
@@ -438,7 +382,7 @@
                             type: 'column'
                         },
                         title: {
-                            text: 'Provincial Members (" . $provincialMembersCount . " total)'
+                            text: '" . elgg_echo("gccollab_stats:provincial:title") . " (" . $provincialMembersCount . ")'
                         },
                         subtitle: {
                             text: 'Click the columns to view the ministries within the province/territory.'
@@ -448,7 +392,7 @@
                         },
                         yAxis: {
                             title: {
-                                text: '# of members'
+                                text: '" . elgg_echo("gccollab_stats:membercount") . "'
                             }
 
                         },
@@ -480,16 +424,19 @@
         });</script>";
 
 
+        $display .= "<hr />";
+        
         // Get 'student' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=student');
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=student&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
         $studentMembers = $studentMembersMinistry = $studentMembersDrilldown = array();
         $studentMembersCount = 0;
+        $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
         foreach( $json['result'] as $key => $value ){
             if($key == 'college' || $key == 'university'){
-                $studentMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
-                $studentMembersMinistry[ucfirst($key)] += $value['total'];
+                $studentMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
+                $studentMembersMinistry[$institutionName[$key]] += $value['total'];
                 $studentMembersCount += $value['total'];
             }
 
@@ -498,7 +445,7 @@
                 if($school != 'total') $institutionData[] = array($school, $count);
             }
             sort($institutionData);
-            $studentMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
+            $studentMembersDrilldown[] = array('name' => $institutionName[$key], 'id' => $institutionName[$key], 'data' => $institutionData);
         }
         sort($studentMembers);
         sort($studentMembersDrilldown);
@@ -513,7 +460,7 @@
                             type: 'column'
                         },
                         title: {
-                            text: 'Student Members (" . $studentMembersCount . " total)'
+                            text: '" . elgg_echo("gccollab_stats:student:title") . " (" . $studentMembersCount . ")'
                         },
                         subtitle: {
                             text: 'Click the columns to view the various schools.'
@@ -523,7 +470,7 @@
                         },
                         yAxis: {
                             title: {
-                                text: '# of members'
+                                text: '" . elgg_echo("gccollab_stats:membercount") . "'
                             }
 
                         },
@@ -550,21 +497,25 @@
                         }],
                         drilldown: {
                             series: studentMembersDrilldown
-                        }
+                        },
+                        colors: ['#7cb5ec', '#f45b5b']
                     });
         });</script>";
 
 
+        $display .= "<hr />";
+        
         // Get 'academic' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=academic');
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=academic&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
         $academicMembers = $academicMembersMinistry = $academicMembersDrilldown = array();
         $academicMembersCount = 0;
+        $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
         foreach( $json['result'] as $key => $value ){
             if($key == 'college' || $key == 'university'){
-                $academicMembers[] = array('name' => ucfirst($key), 'y' => $value['total'], 'drilldown' => ucfirst($key));
-                $academicMembersMinistry[ucfirst($key)] += $value['total'];
+                $academicMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
+                $academicMembersMinistry[$institutionName[$key]] += $value['total'];
                 $academicMembersCount += $value['total'];
             }
 
@@ -573,7 +524,7 @@
                 if($school != 'total') $institutionData[] = array($school, $count);
             }
             sort($institutionData);
-            $academicMembersDrilldown[] = array('name' => ucfirst($key), 'id' => ucfirst($key), 'data' => $institutionData);
+            $academicMembersDrilldown[] = array('name' => $institutionName[$key], 'id' => $institutionName[$key], 'data' => $institutionData);
         }
         sort($academicMembers);
         sort($academicMembersDrilldown);
@@ -588,7 +539,7 @@
                             type: 'column'
                         },
                         title: {
-                            text: 'Academic Members (" . $academicMembersCount . " total)'
+                            text: '" . elgg_echo("gccollab_stats:academic:title") . " (" . $academicMembersCount . ")'
                         },
                         subtitle: {
                             text: 'Click the columns to view the various schools.'
@@ -598,7 +549,7 @@
                         },
                         yAxis: {
                             title: {
-                                text: '# of members'
+                                text: '" . elgg_echo("gccollab_stats:membercount") . "'
                             }
 
                         },
@@ -625,9 +576,33 @@
                         }],
                         drilldown: {
                             series: academicMembersDrilldown
-                        }
+                        },
+                        colors: ['#7cb5ec', '#f45b5b']
                     });
         });</script>";
+
+        // Use code below to see which profiles are missing data (aka show up as 'Unknown')
+        /*
+        ini_set("memory_limit", -1);
+        $all_users = elgg_get_entities(array(
+            'type' => 'user',
+            'limit' => 0
+        ));
+
+        $count = $unknown = 0;
+        $display .= "<ul>";
+        foreach($all_users as $key => $obj){
+            if($obj->user_type != "federal" && $obj->user_type != "provincial" && $obj->user_type != "student" && $obj->user_type != "academic"){
+                $display .= "<li><a target='_blank' href='https://gccollab.ca/profile/" . $obj->username . "'>" . $obj->username . "</a></li>";
+                $unknown++;
+            } else {
+                $count++;
+            }
+        }
+        $display .= "</ul>";
+        $display .= "<p>Count: " . $count . "</p>";
+        $display .= "<p>Unknown: " . $unknown . "</p>";
+        */
 
         return $display;
     }
