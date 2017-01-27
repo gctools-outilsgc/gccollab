@@ -77,7 +77,7 @@ if (elgg_get_config('allow_registration')) {
 				$regex = str_replace(".", "\.", $wildcard->ext);
 				$regex = str_replace("*", "[\w-.]+", $regex);
 				$regex = "/^@" . $regex . "$/";
-				if(preg_match($regex, "@".$emaildomain[1])){
+				if(preg_match($regex, "@".$emaildomain[1]) || str_replace("*.", "", $wildcard->ext) == $emaildomain[1]){
 					$wildcard_match = true;
 				}
 			}

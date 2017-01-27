@@ -22,4 +22,8 @@
         <priority>after</priority>
         <plugin>profile</plugin>
     </requires>
+    <conflicts>
+        <type>plugin</type>
+        <name>b_extended_profile_collab</name>
+    </conflicts>
 </plugin_manifest>

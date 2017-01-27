@@ -53,15 +53,15 @@ echo elgg_view('output/url', array(
             data: {
                 section: 'edu',
                 eguid: $('.gcconnex-education-entry').data('guid'),
-                school: $('#education-new').val(),
-                degree: $('#degree-new').val(),
-                field: $('#fieldofstudy-new').val(),
-                startdate: $('#startdate-new').val(),
-                startyear: $('#start-year-new').val(),
-                enddate: $('#enddate-new').val(),
-                endyear: $('#end-year-new').val(),
+                school: $('.gcconnex-education-school').val(),
+                degree: $('.gcconnex-education-degree').val(),
+                field: $('.gcconnex-education-field').val(),
+                startdate: $('.gcconnex-education-startdate').val(),
+                startyear: $('.gcconnex-education-start-year').val(),
+                enddate: $('.gcconnex-education-enddate').val(),
+                endyear: $('.gcconnex-education-end-year').val(),
                 ongoing: $('.gcconnex-education-ongoing').prop('checked'),
-                access: 2,
+                access: 1,
             },
             success: function (wrapper) {
 

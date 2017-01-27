@@ -19,7 +19,7 @@
 	</requires>
     <requires>
 		<type>plugin</type>
-		<name>b_extended_profile</name>
+		<name>b_extended_profile_collab</name>
 	</requires>
     <requires>
 		<type>plugin</type>
