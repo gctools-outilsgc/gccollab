@@ -36,7 +36,7 @@
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/data.js"></script>
         <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-        <script src="http://highcharts.github.io/export-csv/export-csv.js"></script>
+        <script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
 
         <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
