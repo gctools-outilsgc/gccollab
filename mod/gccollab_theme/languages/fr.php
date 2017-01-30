@@ -53,7 +53,7 @@ return array(
     'wet:login_engage_1'=>"Partagez vos connaissances et vos idées.",
   'wet:login_engage_2'=>"Trouvez les gens dont vous avez besoin.",
   'wet:login_engage_3'=>"Promouvoir les activités GC à l'échelle du gouvernement.",
-  'wet:login_welcome'=>'Welcome to GCconnex',
+  'wet:login_welcome'=>'Welcome to GCcollab',
   'wet:jobs:link' => 'emplois.gc.ca <i class="fa fa-external-link mrgn-lft-sm"></i>',
   'wet:jobs:href' => "http://jobs-emplois.gc.ca/index-fra.htm",
 
