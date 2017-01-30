@@ -39,8 +39,9 @@ if( _elgg_services()->session->get('language') == 'en'){
                 </ul>
                 <div id="mb-pnl"></div>
             </section>
-
-            <?php echo elgg_view('search/search_box', $vars); ?>
+            <div class="col-md-6 col-sm-3">
+                <?php echo elgg_view('page/elements/chng-lang', $vars); ?>
+            </div>
         </div>
 
         <!-- End of Beautiful Wavy Blue Bar at the top -->

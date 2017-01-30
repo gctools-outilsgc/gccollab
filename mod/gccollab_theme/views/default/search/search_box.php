@@ -45,7 +45,7 @@ $gc_language = $_COOKIE['connex_lang'];
 ?>
 <!-- Basically just moved the search to this file to output the section -->
 
-    <section id="wb-srch" class="col-xs-6 text-right visible-md visible-lg">
+    <section id="wb-srch" class="text-right visible-md visible-lg">
         <h2><?php echo elgg_echo('wet:searchHead');?></h2>
         <?php if ($gc_language === '' || $gc_language === 'en' || !$gc_language) { ?>
         <form action="http://intranet.canada.ca/search-recherche/query-recherche-eng.aspx" method="get" name="cse-search-box" class="form-inline mrgn-bttm-sm">

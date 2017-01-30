@@ -19,7 +19,7 @@ if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
                 <div class="col-sm-3 ">
                     <div class="app-name">
                     <a href="<?php echo $site_url; ?>">
-                        <span><span class="bold-gc">GC</span>connex</span>
+                        <span><span class="bold-gc">GC</span>collab</span>
                     </a>
                     </div>
 

@@ -10510,8 +10510,10 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
             box-shadow: none;
     color: #555;
     margin-right: -4px;
-    width: 92%;
+    width: 100%;
     position: relative; }
+  #wb-srch .form-group:not(.submit) {
+    width: 92%; }
 
 [dir=rtl] #wb-srch {
   text-align: left; }
