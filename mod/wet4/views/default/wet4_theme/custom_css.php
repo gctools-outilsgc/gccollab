@@ -414,15 +414,11 @@ max-height: 500px;
 }
 
 .icon-unsel:hover{
-    color:#047177;
+    color:#6B5088;
 }
 
 .icon-sel{
    color:#6B5088;
-   background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
-       background-size:cover;
-    height: 25px;
-    width:25px;
 }
 
 .icon-sel:hover{
@@ -568,7 +564,7 @@ max-height: 500px;
     }
 
     .login-engage-list i{
-        color: #047177;
+        color: #6B5088;
         padding-top: 2px;
     }
 

@@ -11115,6 +11115,13 @@ border:none;
 
 /* IE Icon Tweaks */
 @media all and (-ms-high-contrast:none) {
+  .icon-sel{
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
+    background-size:cover;
+    height: 25px;
+    width:25px;
+  }
+
   .fa-ellipsis-v:before{
     content:none !important;
   }
