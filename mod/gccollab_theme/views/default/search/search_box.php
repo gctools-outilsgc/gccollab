@@ -47,15 +47,12 @@ $gc_language = $_COOKIE['connex_lang'];
 
     <section id="wb-srch" class="text-right visible-md visible-lg">
         <h2><?php echo elgg_echo('wet:searchHead');?></h2>
-        <?php if (elgg_is_active_plugin('gc_fedsearch_gsa')) { ?>
-        <?php if ($gc_language === '' || $gc_language === 'en' || !$gc_language) { ?>
+        <?php /* if ($gc_language === '' || $gc_language === 'en' || !$gc_language) { ?>
         <form action="https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx" method="get" name="cse-search-box" class="form-inline mrgn-bttm-sm">
         <?php } else { ?>
         <form action="https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx" method="get" name="cse-search-box" class="form-inline mrgn-bttm-sm">
-        <?php } ?>
-        <?php } else { ?>
+        <?php } */ ?>
             <form action="<?php echo elgg_get_site_url(); ?>search" method="get" name="cse-search-box" class="form-inline mrgn-bttm-sm">
-        <?php } ?>
             <div class="form-group">
                 <label for="wb-srch-q" class="wb-inv">
                     <?php echo elgg_echo('wet:searchweb');?>
