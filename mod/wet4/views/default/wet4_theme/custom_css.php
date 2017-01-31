@@ -219,6 +219,18 @@ max-height: 500px;
       top: 110% !important;
     }
 
+    @media (max-width: 480px) {
+      .user-menu{
+        min-width: 355px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .user-menu{
+        min-width: 300px;
+      }
+    }
+
     .user-menu:after{
        content: '';
        display: block;
