@@ -124,7 +124,7 @@ if (language_selected == "English")
 <a href="$termsLink " class="sp-lk">Terms & Conditions of Use</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="/termes" class="sp-lk" lang="fr">Conditions d'utilisation</a>
 </div>
 <div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
-<object type="image/svg+xml" tabindex="-1" role="img" data="$site_url/mod/wet4/graphics/wmms-blk.svg" width="127" aria-label="Symbol of the Government of Canada / Symbole du gouvernement du Canada"></object>
+<object type="image/svg+xml" tabindex="-1" role="img" data="$site_url/mod/gccollab_theme/graphics/wmms-blk.svg" width="127" aria-label="Symbol of the Government of Canada / Symbole du gouvernement du Canada"></object>
 </div>
 </div>
 </div>
