@@ -319,7 +319,13 @@ max-height: 500px;
      z-index: 1000;
  }
 
- elgg-menu-item-profile-card .gcInitBadge {
+  @media (max-width: 480px) {
+    .elgg-menu-item-admin {
+      padding: 0;
+    }
+  }
+
+ .elgg-menu-item-profile-card .gcInitBadge {
      left:-15%;
  }
 
