@@ -144,44 +144,44 @@
 
         $display .= '<div id="topOrganizations" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div><div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
         $display .= "<script>$(function () {
-		            Highcharts.chart('topOrganizations', {
-		                chart: {
-		                    type: 'bar'
-		                },
-		                title: {
-		                    text: 'Top Organizations: ' + topOrgs.length
-		                },
-		                xAxis: {
-		                    type: 'category'
-		                },
-		                yAxis: {
-		                    title: {
-		                        text: 'Member Organizations'
-		                    }
+                    Highcharts.chart('topOrganizations', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: 'Top Organizations: ' + topOrgs.length
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Member Organizations'
+                            }
 
-		                },
-		                legend: {
-		                    enabled: false
-		                },
-		                plotOptions: {
-		                    series: {
-		                        borderWidth: 0,
-		                        dataLabels: {
-		                            enabled: true,
-		                            format: '{point.y}'
-		                        }
-		                    }
-		                },
-		                tooltip: {
-		                    headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-		                    pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-		                },
-		                series: [{
-		                    name: 'Top Organizations',
-		                    colorByPoint: true,
-		                    data: topOrgs
-		                }]
-		            });
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        },
+                        series: [{
+                            name: 'Top Organizations',
+                            colorByPoint: true,
+                            data: topOrgs
+                        }]
+                    });
         });</script>";
 
         $display .= "<script>$(function () {

@@ -1,9 +1,8 @@
 <?php
 return array(
-    /**
-   * Profile Strength
-   */
-    
+/**
+  * Profile Strength
+  */
      'ps:basicprofile' => "Basic profile",
      'ps:access' => "Access: ",
      'ps:details' => "See details",
@@ -17,5 +16,4 @@ return array(
      'ps:optingin' =>"Have you looked into opting-in to a Micro-mission?",
      'ps:optin' =>"Opt-In",
      'ps:psErr'=>"An error occured getting your profile information.  We are working to resolve the issue.",
-     'badge:complete:achieved:1' => '%s has a complete profile',
     );

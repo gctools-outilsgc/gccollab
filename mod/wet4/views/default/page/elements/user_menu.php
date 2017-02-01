@@ -1,11 +1,14 @@
 <?php
 /**
- * User Menu
+ * user_menu.php
+ *
  * Access profile/messages/colleagues/settings
+ *
+ * @package wet4
+ * @author GCTools Team
  */
 /*
-// Elgg logo
-echo elgg_view_menu('topbar', array('sort_by' => 'priority', array('elgg-menu-hz')));
+
 
 // elgg tools menu
 // need to echo this empty view for backward compatibility.
@@ -13,10 +16,10 @@ echo elgg_view_deprecated("navigation/topbar_tools", array(), "Extend the topbar
 */
 
 $site_url = elgg_get_site_url();
-$user = get_loggedin_user()->username;
-$displayName = get_loggedin_user()->name;
-$user_avatar = get_loggedin_user()->geticonURL('small');
-$email = get_loggedin_user()->email;
+$user = elgg_get_logged_in_user_entity()->username;
+$displayName = elgg_get_logged_in_user_entity()->name;
+$user_avatar = elgg_get_logged_in_user_entity()->geticonURL('small');
+$email = elgg_get_logged_in_user_entity()->email;
 
 
 elgg_register_menu_item('user_menu_subMenu', array(

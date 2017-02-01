@@ -5,9 +5,9 @@
  * @uses $vars['value'] Current search query
  * @uses $vars['class'] Additional class
  *
- *
- * Aug 12 2016 - CYu - modified to using the native search 
- *
+ * GC_MODIFICATION
+ * Description: Formatting the search box to use the wet syntax and styles.
+ * Author: GCTools Team
  */
 
 $value = "";

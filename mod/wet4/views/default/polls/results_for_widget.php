@@ -7,15 +7,26 @@
  * website http://www.syslogicinc.com
  * @Modified By Team Webgalli to work with ElggV1.5
  * www.webgalli.com or www.m4medicine.com
+ *
+ * GC_MODIFICATION
+ * Description: Added wet classes to make a graph popup based on the table data
+ * Author: Nick github.com/piet0024
  */
 
 $lang = get_current_language();
+if($_GET['id']){
+	if($_GET['id'] != $lang ){
+		$lang = $_GET['id'];
+	}
+}
 if (isset($vars['entity'])) {
     $chartHeight = "data-flot='{ \"legend\": {\"show\":\"false\"}}'";
     echo '<table class="wb-charts wb-charts-pie wb-charts-nolegend table mrgn-tp-md polls-table" '. $chartHeight .' >';
 
 	//set img src
 	$img_src = $vars['url'] . "mod/polls/graphics/poll.gif";
+
+
 
 	if($vars['entity']->title3){
 		$question = gc_explode_translation($vars['entity']->title3,$lang);

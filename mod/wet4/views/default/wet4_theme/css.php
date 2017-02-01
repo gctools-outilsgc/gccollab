@@ -10510,8 +10510,10 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
             box-shadow: none;
     color: #555;
     margin-right: -4px;
-    width: 92%;
+    width: 100%;
     position: relative; }
+  #wb-srch .form-group:not(.submit) {
+    width: 92%; }
 
 [dir=rtl] #wb-srch {
   text-align: left; }
@@ -10618,117 +10620,6 @@ a.shr-opn, a.shr-opn:hover {
 
 .wb-disable #wb-sm .nvbar {
   display: block !important; }
-
-/* SPLASH PAGE */
-
-.splash object {
-  height: auto;
-  max-width: 100%; }
-
-
-.splash .sp-lk:link, .splash .sp-lk:visited {
-  color: #335075;
-  text-decoration: none; }
-
-.splash .sp-lk:hover, .splash .sp-lk:active {
-  color: #335075;
-  text-decoration: underline; }
-
-    .profile-avatar {
-        padding-left: 27px;
-        background: transparent url(<?php echo $user_avatar ?>) no-repeat left;
-        background-size: 25px;
-        height: 25px;
-    }
-
-    .msg-icon {
-        padding-left: 23px;
-        background: transparent url(<?php echo $site_url ?>/_graphics/elgg_sprites.png) no-repeat left;
-        background-position: 0 -644px;
-        height: 20px;
-    }
-
-    .msg-icon:hover {
-        background-position: 0 -626px;
-
-    }
-
-    .friend-icon {
-        padding-left: 23px;
-        height: 20px;
-        background: transparent url(<?php echo $site_url ?>/_graphics/elgg_sprites.png) no-repeat left;
-        background-position: 0 -1492px;
-    }
-
-    .friend-icon:hover {
-        background-position: 0 -1474px;
-    }
-
-    .settings-icon {
-        padding-left: 23px;
-        background: transparent url(<?php echo $site_url ?>/_graphics/elgg_sprites.png) no-repeat left;
-        background-position: 0 -970px;
-        height: 21px;
-    }
-
-    .settings-icon:hover {
-        background-position: 0 -951px;
-        height: 21px;
-    }
-
-
-.elgg-menu-user-menu{
-    margin-bottom: 4px !important;
-    padding-right: 0px;
-    top:0;
-}
-
-/** Sizing the Images to make medium images slightly smaller. They scale with the responsive class so it's all good **/
- .elgg-avatar-medium-wet4 img{
-     max-width:70%;
-     margin: 0 auto;
-     /*display: block !important; */
-
- }
-
- .au_subgroups_group_icon-medium-wet4{
-        max-width:65%;
-        margin: 0 auto;
-     display: block !important;
-
- }
-
-.elgg-menu-user-menu li{
-    padding-left: 8px;
-    padding-right: 0px;
-}
-
-.gcProfileBadge {
-
-     width:25%;
-     position:absolute;
-     left: 5%;
-}
-
-    
-
-    .elgg-gallery li {
-        border: 0px;
-    }
-
-
-/*Here are my custom styles for this prototype*/
-#thewire-tools-reshare-wrapper-wet4 {
-    max-width: 600px;
-}
-
-.elgg-menu-hz .removeMe {
-    display: none;
-}
-.list-inline .removeMe {
-    display: none;
-}
-
 
 /*****Custom index classes***/
 
@@ -11211,26 +11102,6 @@ border:none;
 
 
 /***TEMP ICON STYLE ****/
-.fa-ellipsis-v:before{
-  content:none !important;
-}
-
-.fa-ellipsis-v {
-  background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
-  background-size:cover;
-  height: 30px;
-  width:25px;
-}
-
-.fa-thumbs-up:before{
-    content:none !important;
-}
-.fa-thumbs-up{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_like.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
 
 .icon-unsel{
     color: #a0a0a0;
@@ -11240,95 +11111,128 @@ border:none;
     color:#6B5088;
 }
 
-
-
-.fa-trash-o:before{
-    content:none !important;
-}
-.fa-trash-o{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_delete.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-share-alt:before{
-    content:none !important;
-}
-.fa-share-alt{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_share.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-edit:before{
-    content:none !important;
-}
-.fa-edit{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_edit.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-reply:before{
-    content:none !important;
-}
-.fa-reply{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_reply.png);
-   background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-bell:before{
-    content:none !important;
-}
-.fa-bell{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-.fa-bell-slash:before{
-    content:none !important;
-}
-.fa-bell-slash{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell_slash.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-users:before{
-    content:none !important;
-}
-.fa-users{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_colleagues.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-envelope:before{
-    content:none !important;
-}
-.fa-envelope{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mail.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
-.fa-wrench{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-}
-
 /***End of temp icon ****/
+
+/* IE Icon Tweaks */
+@media all and (-ms-high-contrast:none) {
+  .icon-sel{
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
+    background-size:cover;
+    height: 25px;
+    width:25px;
+  }
+
+  .fa-ellipsis-v:before{
+    content:none !important;
+  }
+
+  .fa-ellipsis-v {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
+  .fa-thumbs-up:before{
+      content:none !important;
+  }
+  .fa-thumbs-up{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_like.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-trash-o:before{
+      content:none !important;
+  }
+  .fa-trash-o{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_delete.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-share-alt:before{
+      content:none !important;
+  }
+  .fa-share-alt{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_share.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-edit:before{
+      content:none !important;
+  }
+  .fa-edit{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_edit.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-reply:before{
+      content:none !important;
+  }
+  .fa-reply{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_reply.png);
+     background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-bell:before{
+      content:none !important;
+  }
+  .fa-bell{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+  .fa-bell-slash:before{
+      content:none !important;
+  }
+  .fa-bell-slash{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell_slash.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-users:before{
+      content:none !important;
+  }
+  .fa-users{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_colleagues.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-envelope:before{
+      content:none !important;
+  }
+  .fa-envelope{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mail.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-wrench:before{
+      content:none !important;
+  }
+  .fa-wrench{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+}
+
 /*
  * Mobile panel
  */

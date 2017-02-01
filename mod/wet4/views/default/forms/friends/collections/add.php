@@ -7,7 +7,11 @@
  *
  * @uses $vars['collection'] Optionally, the collection to edit
  */
-
+ /*
+ * GC_MODIFICATION
+ * Description: Added accessible labels
+ * Author: GCTools Team
+ */
 // Set title, form destination
 if (isset($vars['collection'])) {
 	$title = $vars['collection']->name;
@@ -17,12 +21,13 @@ if (isset($vars['collection'])) {
 	$highlight = 'all';
 }
 
-echo "<div class=\"mtm\"><label>" . elgg_echo("friends:collectionname") . "<br/>";
+echo "<div class=\"mtm\"><label for='collection_name'>" . elgg_echo("friends:collectionname") . "</label><br/>";
 echo elgg_view("input/text", array(
 		"name" => "collection_name",
+		"id" => "collection_name",
 		"value" => $title,
 	));
-echo "</label></div>";
+echo "</div>";
 
 echo "<div>";
 if ($vars['collection_members']) {
@@ -39,10 +44,11 @@ if (!$members) {
 	$members = array();
 }
 
-echo "<div><label>" . elgg_echo("friends:addfriends") . "</label>";
+echo "<div><label for='friends_collection'>" . elgg_echo("friends:addfriends") . "</label>";
 echo elgg_view('input/friendspicker', array(
 	'entities' => $vars['friends'],
 	'name' => 'friends_collection',
+	'id' => 'friends_collection',
 	'highlight' => $highlight,
     'value' => $members
 ));

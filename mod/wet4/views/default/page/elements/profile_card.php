@@ -1,8 +1,12 @@
-<?php 
-
-    /*
-     * USER CARD, DISPLAYS HIGH LEVEL INFORMATION ABOUT THE USER
-     */
+<?php
+/*
+ * profile_card.php
+ * 
+ * Formats the users information and the logout / settings buttons into the profile card. This drops down from the user menu
+ * 
+ * @package wet4
+ * @author GCTools Team
+ */
 
     $site_url = elgg_get_site_url();
     $userObj = get_loggedin_user();
@@ -10,7 +14,6 @@
     $displayName = $userObj->name;
     $user_avatar = $userObj->geticonURL('medium');
     $email = $userObj->email;
-
 
     $userType = $userObj->get('user_type');
     if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){

@@ -4,7 +4,11 @@
  *
  * @package Blog
  */
-
+ /*
+ * GC_MODIFICATION
+ * Description: Added accessible labels + content translation support
+ * Author: GCTools Team
+ */
 $blog = get_entity($vars['guid']);
 $vars['entity'] = $blog;
 
@@ -44,43 +48,36 @@ $save_button = elgg_view('input/submit', array(
 ));
 $action_buttons = $save_button . $preview_button . $delete_link;
 
-$french = elgg_view('input/button', array(
-	'value' => elgg_echo('french'),
-	'id' => 'btnClickfr',
-    'class' => 'btn btn-default',
-));
-
-$english = elgg_view('input/button', array(
-	'value' => elgg_echo('english'),
-	'id' => 'btnClicken',
-    'class' => 'btn btn-default',
-));
+$btn_language =  '<ul class="nav nav-tabs nav-tabs-language">
+  <li id="btnen"><a href="#" id="btnClicken">'.elgg_echo('lang:english').'</a></li>
+  <li id="btnfr"><a href="#" id="btnClickfr">'.elgg_echo('lang:french').'</a></li>
+</ul>';
 
 $label = elgg_echo('title:en');
 $input = elgg_view('input/text', array(
 	'name' => 'title',
-	'id' => 'blog_title',
+	'id' => 'blog_title_en',
 	'value' => $vars['title']
 ));
 
 $label2 = elgg_echo('title:fr');
 $input2 = elgg_view('input/text', array(
 	'name' => 'title2',
-	'id' => 'blog_title2',
+	'id' => 'blog_title_fr',
 	'value' => $vars['title2']
 ));
 
 $excerpt_label = elgg_echo('blog:excerpt:en');
 $excerpt_input = elgg_view('input/text', array(
 	'name' => 'excerpt',
-	'id' => 'blog_excerpt',
+	'id' => 'blog_excerpt_en',
 	'value' => _elgg_html_decode($vars['excerpt'])
 ));
 
 $excerpt_label2 = elgg_echo('blog:excerpt:fr');
 $excerpt_input2 = elgg_view('input/text', array(
 	'name' => 'excerpt2',
-	'id' => 'blog_excerpt2',
+	'id' => 'blog_excerpt_fr',
 	'value' => _elgg_html_decode($vars['excerpt2'])
 ));
 
@@ -94,14 +91,14 @@ $excerpt_input3 = elgg_view('input/text', array(
 $body_label = elgg_echo('blog:body:en');
 $body_input = elgg_view('input/longtext', array(
 	'name' => 'description',
-	'id' => 'blog_description',
+	'id' => 'blog_description_en',
 	'value' => $vars['description']
 ));
 
 $body_label2 = elgg_echo('blog:body:fr');
 $body_input2 = elgg_view('input/longtext', array(
 	'name' => 'description2',
-	'id' => 'blog_description2',
+	'id' => 'blog_description_fr',
 	'value' => $vars['description2']
 ));
 
@@ -151,6 +148,37 @@ $access_input = elgg_view('input/access', array(
 
 $categories_input = elgg_view('input/categories', $vars);
 
+
+// code snippet below will be for minor edit for blog revisions...
+
+if ($vars['guid'] && (strcmp($vars['status'],'draft') != 0 && elgg_is_active_plugin('cp_notifications') && !$vars['new_entity'])) {
+	// cyu - implement "minor edit" as per business requirements document
+	// this view is used by both creating new blog and edit new blog
+
+	$minor_edit = "<h2>".elgg_echo('cp_notify:minor_edit_header')."</h2>";
+    $minor_edit .= '<div class="checkbox">';
+    $minor_edit .= elgg_view('input/checkboxes', array(
+			'name' => 'chk_blog_minor_edit',
+            'label'=>elgg_echo('blog:minor_edit_label'),
+			'id' => 'chk_blog_minor_edit',
+			'value' => $blog->entity_minor_edit,
+			'options' => array(
+					elgg_echo('cp_notify:minor_edit') => 1),
+		));
+
+	// cyu - see note:
+	// upon new entity creation, it invokes two functions (event and hook) in the start.php of this plugin
+	// we need to make sure that we invoke sending notifcations only once, mark the second function as
+	// minor edit by default
+
+	if ($vars['new_entity'])
+		$entity->entity_minor_edit = true;
+
+	$minor_edit .= '</div>';
+}
+
+
+
 // hidden inputs
 $container_guid_input = elgg_view('input/hidden', array('name' => 'container_guid', 'value' => elgg_get_page_owner_guid()));
 $guid_input = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars['guid']));
@@ -159,39 +187,38 @@ $guid_input = elgg_view('input/hidden', array('name' => 'guid', 'value' => $vars
 echo <<<___HTML
 
 $draft_warning<br>
-<div class='en'>
-$french 
+<div>
+$btn_language
 </div>
-<div class='fr'>
-$english
-</div>
+
+<div class="tab-content tab-content-border">
 <div id=blog_title class='en'>
-	<label for="blog_title">$label</label>
+	<label for="blog_title_en">$label</label>
 	$input
 </div>
 
 <div id=blog_title2 class='fr'>
-	<label for="blog_title">$label2</label>
+	<label for="blog_title_fr">$label2</label>
 	$input2
 </div>
 
 <div class='en'>
-	<label for="blog_excerpt">$excerpt_label</label>
+	<label for="blog_excerpt_en">$excerpt_label</label>
 	$excerpt_input
 </div>
 
 <div class='fr'>
-	<label for="blog_excerpt">$excerpt_label2</label>
+	<label for="blog_excerpt_fr">$excerpt_label2</label>
 	$excerpt_input2
 </div>
 
 <div class='en'>
-	<label for="blog_description">$body_label</label>
+	<label for="blog_description_en">$body_label</label>
 	$body_input
 </div>
 
 <div class='fr'>
-	<label for="blog_description">$body_label2</label>
+	<label for="blog_description_fr">$body_label2</label>
 	$body_input2
 </div>
 
@@ -217,15 +244,22 @@ $categories_input
 	$status_input
 </div>
 
+<div>
+	$minor_edit
+</div>
+
 <div class="elgg-foot">
 	<div class="elgg-subtext mbm">
 	$save_status <span class="blog-save-status-time">$saved</span>
 	</div>
 
+
+
 	$guid_input
 	$container_guid_input
 
 	$action_buttons
+</div>
 </div>
 
 ___HTML;
@@ -235,6 +269,7 @@ if(get_current_language() == 'fr'){
 	<script>
 		jQuery('.fr').show();
 	    jQuery('.en').hide();
+	    jQuery('#btnfr').addClass('active');
 
 	</script>
 <?php
@@ -243,7 +278,7 @@ if(get_current_language() == 'fr'){
 	<script>
 		jQuery('.en').show();
     	jQuery('.fr').hide();
-
+    	jQuery('#btnen').addClass('active');
 	</script>
 <?php
 }
@@ -251,17 +286,21 @@ if(get_current_language() == 'fr'){
 <script>
 jQuery(function(){
 
+	var selector = '.nav li';
+
+	$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+});
+
 		jQuery('#btnClickfr').click(function(){
                jQuery('.fr').show();
                jQuery('.en').hide();
-                
         });
 
           jQuery('#btnClicken').click(function(){
                jQuery('.en').show();
                jQuery('.fr').hide();
-               
         });
-
 });
 </script>

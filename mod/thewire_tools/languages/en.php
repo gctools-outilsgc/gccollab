@@ -25,7 +25,7 @@ return array(
 	'thewire_tools:notify:mention:subject' => "You've been mentioned on the wire",
 	'thewire_tools:notify:mention:message' => "Hi %s,
 
-%s mentioned you in his/her wire post.
+%s mentioned you in their wire post.
 
 To view your mentions on the wire click here:
 %s",

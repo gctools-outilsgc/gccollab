@@ -1,5 +1,9 @@
 <?php
-
+/*
+* GC_MODIFICATION
+* Description: Added accessible labels + content translation support
+* Author: GCTools Team
+*/
 $folder = elgg_extract("folder", $vars);
 $page_owner = elgg_extract("page_owner_entity", $vars);
 
@@ -9,7 +13,7 @@ if (!empty($folder)) {
 	$title2 = $folder->title2;
 	$desc = $folder->description;
 	$desc2 = $folder->description2;
-	
+
 	if (!empty($folder->parent_guid)) {
 		$parent = $folder->parent_guid;
 	} else {
@@ -40,21 +44,14 @@ if (!empty($folder)) {
 	$submit_text = elgg_echo("save");
 }
 
-$french = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:fr'),
-    'id' => 'btnClickfr',
-    'class' => 'btn btn-default en',
-    'onclick' => 'showfr()',
-));
+$btn_language =  '<ul class="nav nav-tabs nav-tabs-language nav-tabs-language_folder">
+  <li id="btnen_folder"><a href="#" onclick="showen()">'.elgg_echo('lang:english').'</a></li>
+  <li id="btnfr_folder"><a href="#" onclick="showfr()">'.elgg_echo('lang:french').'</a></li>
+</ul>';
 
-$english = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:en'),
-    'id' => 'btnClicken',
-    'class' => 'btn btn-default fr',
-    'onclick' => 'showen()',
-));
+$form_data .= $btn_language;
 
-$form_data .= '<div id="btnfr">'.$french.'</div><div id="btnen"> '.$english.'</div>';
+$form_data .= '<div class="tab-content tab-content-border">';
 
 $form_data .= elgg_view("input/hidden", array("name" => "page_owner", "value" => $page_owner->getGUID()));
 
@@ -103,14 +100,17 @@ elgg_set_context($context);
 
 if (!empty($folder)) {
 	$form_data .= "<div id='file_tools_edit_form_access_extra'>";
-	$form_data .= "<div>" . elgg_view("input/checkboxes", array("options" => array(elgg_echo("file_tools:forms:edit:change_children_access") => "yes"), "value" => "yes", "name" => "change_children_access")) . "</div>";
-	$form_data .= "<div>" . elgg_view("input/checkboxes", array("options" => array(elgg_echo("file_tools:forms:edit:change_files_access") => "yes"), "name" => "change_files_access")) . "</div>";
-	$form_data .= "</div>";
+  $form_data .='<ul class="list-unstyled">';
+  $form_data .= '<li>'.elgg_view('input/checkbox', array('id' => 'change_children_access', 'name' => 'change_children_access', 'value' => 'yes')).'<label for="change_children_access">'.elgg_echo("file_tools:forms:edit:change_children_access").'</label></li>';
+  $form_data .= '<li>'.elgg_view('input/checkbox', array('id' => 'change_files_access', 'name' => 'change_files_access')).'<label for="change_files_access">'.elgg_echo("file_tools:forms:edit:change_files_access").'</label></li>';
+	//$form_data .= "<div>" . elgg_view("input/checkboxes", array("options" => array(elgg_echo("file_tools:forms:edit:change_children_access") => "yes"), "value" => "yes", "name" => "change_children_access")) . "</div>";
+	//$form_data .= "<div>" . elgg_view("input/checkboxes", array("options" => array(elgg_echo("file_tools:forms:edit:change_files_access") => "yes"), "name" => "change_files_access")) . "</div>";
+	$form_data .= "</ul></div>";
 }
 
 $form_data .= "<div class='elgg-foot'>";
 $form_data .= elgg_view("input/submit", array("value" => $submit_text));
-$form_data .= "</div>";
+$form_data .= "</div></div>";
 
 echo $form_data;
 
@@ -119,26 +119,27 @@ elgg_unregister_menu_item('title2', 'new_folder');
 if(get_current_language() == 'fr'){
 ?><!-- Jquerry not working -->
     <script>
-      document.getElementById('frtitle').style.display = "block";
-   document.getElementById('btnen').style.display = "block";
-   document.getElementById('frdesc').style.display = "block";
-   document.getElementById('entitle').style.display = "none";
-   document.getElementById('btnfr').style.display = "none";
-   document.getElementById('endesc').style.display = "none";
+  var btnfr_folder = document.getElementById('btnfr_folder');
+  btnfr_folder.classList.add("active");
 
-
+  document.getElementById('frtitle').style.display = "block";
+  document.getElementById('frdesc').style.display = "block";
+  document.getElementById('entitle').style.display = "none";
+  document.getElementById('endesc').style.display = "none";
 
     </script>
 <?php
 }else{
 ?>
     <script>
-        document.getElementById('entitle').style.display = "block";
-   document.getElementById('endesc').style.display = "block";
-   document.getElementById('btnfr').style.display = "block";
-   document.getElementById('frtitle').style.display = "none";
-   document.getElementById('frdesc').style.display = "none";
-   document.getElementById('btnen').style.display = "none";
+
+  var btnen_folder = document.getElementById('btnen_folder');
+  btnen_folder.classList.add("active");
+
+  document.getElementById('entitle').style.display = "block";
+  document.getElementById('endesc').style.display = "block";
+  document.getElementById('frtitle').style.display = "none";
+  document.getElementById('frdesc').style.display = "none";
 
     </script>
 <?php
@@ -146,42 +147,29 @@ if(get_current_language() == 'fr'){
 ?>
 <script>
 
+jQuery(function(){
+
+  var selector = '.nav-tabs-language_folder li';
+
+  $(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+  });
+});
+
 function showen() {
 
    document.getElementById('entitle').style.display = "block";
    document.getElementById('endesc').style.display = "block";
-   document.getElementById('btnfr').style.display = "block";
    document.getElementById('frtitle').style.display = "none";
    document.getElementById('frdesc').style.display = "none";
-   document.getElementById('btnen').style.display = "none";
 }
 function showfr() {
-	
+
    document.getElementById('frtitle').style.display = "block";
-   document.getElementById('btnen').style.display = "block";
    document.getElementById('frdesc').style.display = "block";
    document.getElementById('entitle').style.display = "none";
-   document.getElementById('btnfr').style.display = "none";
    document.getElementById('endesc').style.display = "none";
 }
 
-/*jQuery(function(){
-
-        jQuery('#btnClickfr').click(function(){
-               jQuery('.fr').show();
-               jQuery('.en').hide();
-                alert('frbtn');
-                
-        });
-
-          jQuery('#btnClicken').click(function(){
-               jQuery('.en').show();
-               jQuery('.fr').hide();
-               alert('enbtn');
-        });
-            alert('test');
-
-});*/
-
 </script>
-<?php

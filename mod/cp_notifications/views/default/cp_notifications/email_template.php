@@ -155,8 +155,6 @@ switch ($msg_type) {
 
 		// cyu - update
 		$cp_comment_txt = strip_tags($vars['cp_comment']->description);
-		//$cp_notify_msg_description_en = elgg_echo('cp_notify:body_comments:description',array($vars['cp_comment']->getURL()),'en');
-		//$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_comments:description',array($vars['cp_comment']->getURL()),'fr');
 
 		// GCCON-209: missing description (refer to requirements)
 		$cp_notify_msg_description_en = $cp_comment_txt;
@@ -171,8 +169,8 @@ switch ($msg_type) {
 			$cp_notify_msg_title_en = elgg_echo('cp_notify:body_comments:title_discussion', array($vars['cp_user_comment']->getURL(), $vars['cp_user_comment']->username, $vars['cp_topic_type'], $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'en');
 			$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_comments:title_discussion', array($vars['cp_user_comment']->getURL(), $vars['cp_user_comment']->username, $vars['cp_topic_type'], $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'fr');
 
-			$cp_notify_msg_description_en = elgg_echo('cp_notify:body_comments:description_discussion',array($vars['cp_comment']->getURL()),'en');
-			$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_comments:description_discussion',array($vars['cp_comment']->getURL()),'fr');
+			$cp_notify_msg_description_en = $vars['cp_comment']->description."<br/>".elgg_echo('cp_notify:body_comments:description_discussion',array($vars['cp_comment']->getURL()),'en');
+			$cp_notify_msg_description_fr = $vars['cp_comment']->description."<br/>".elgg_echo('cp_notify:body_comments:description_discussion',array($vars['cp_comment']->getURL()),'fr');
 		} else {
 			$cp_notify_msg_title_en = elgg_echo('cp_notify:body_comments:title', array($vars['cp_user_comment']->getURL(), $vars['cp_user_comment']->username, $vars['cp_topic_type'], $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'en');
 
@@ -526,11 +524,25 @@ $email_notif_footer_msg_en2 = elgg_echo('cp_notify:visitTutorials', array(),'en'
 
 $email_notification_footer_en = elgg_echo('cp_notify:footer',array(),'en');
 $email_notification_footer_fr = elgg_echo('cp_notify:footer',array(),'fr');
-$email_notification_footer_en2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$vars['user_name']->username}/cp_notifications"),'en');
-$email_notification_footer_fr2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$vars['user_name']->username}/cp_notifications"),'fr');
+
+
+if (!$vars['user_name']->username) {
+	$username_link = $vars['user_name'];
+} else {
+	$username_link = $vars['user_name']->username;
+}
+
+$email_notification_footer_en2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'en');
+$email_notification_footer_fr2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'fr');
 
 $french_follows = elgg_echo('cp_notify:french_follows',array());
-//error_log(">>>>>> {$email_notification_footer_en} / >>>>>>> ".elgg_get_site_url()."/settings/plugins/{$current_username}/cp_notifications");
+
+
+$current_year = date('Y');
+
+
+
+//error_log(">>>>>>>>>>>>>>>>>>>>>>>>>> {$email_notification_footer_en2} / >>>>>>> ");
 
 echo<<<___HTML
 <html>
@@ -541,14 +553,14 @@ echo<<<___HTML
 			<div>
 
 				<!-- email header -->
-		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #055959'>
+		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #79579D'>
 		        	{$email_notification_header}
 		        </div>
 				
 
-				<!-- GCconnex banner -->
-		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#047177;'>
-		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCconnex</span>
+				<!-- GCcollab banner -->
+		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
+		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCcollab</span>
 		        </div>
 
 
@@ -608,8 +620,8 @@ echo<<<___HTML
 
 
 		        <!-- email footer -->
-		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 16px; color: #055959'>
-		        	-
+		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 16px; color: #79579D'>
+		        	GCcollab © {$current_year}
 		        </div>
 
 			</div>
