@@ -131,6 +131,12 @@ $email = elgg_get_plugin_setting('email','contactform');
             ?>
             </div>
 
+            <!-- captcha -->
+            <div class='form-group'>
+            <?php
+                echo elgg_view('input/recaptcha', $vars);
+            ?>
+            </div>
 
             <div class='container pull-right'>
                 <input type='submit' class="btn btn-primary pull-right" name='Submit' value='<?php echo elgg_echo('send');?>' />
