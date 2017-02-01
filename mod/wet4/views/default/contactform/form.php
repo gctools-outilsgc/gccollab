@@ -138,11 +138,10 @@ $email = elgg_get_plugin_setting('email','contactform');
             ?>
             </div>
 
-          <div class='container pull-right'>
+            <div class='container pull-right'>
                 <input type='submit' class="btn btn-primary pull-right" name='Submit' value='<?php echo elgg_echo('send');?>' />
             </div>
 		</form>
-        
     </div>
     <?php } ?>
 </section>

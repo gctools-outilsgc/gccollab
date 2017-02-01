@@ -16,6 +16,10 @@
  * @uses $vars['container_guid']         Optional. Container GUID of the entity
  * @usee $vars['entity_allows_comments'] Optional. (bool) whether the entity uses comments - used for UI display of access change warnings
  *
+ *
+ * GC_MODIFICATION
+ * Description: Added modal that will pop up inviting the user to make their content open
+ * Author: GCTools Team
  */
 
 

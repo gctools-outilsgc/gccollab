@@ -4,12 +4,17 @@
  *
  * @uses $vars['entity'] TidypicsAlbum
  *
- * @author Cash Costello
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
+ * @author Cash Costello
+ *
+ * GC_MODIFICATION
+ * Description: Language translation changes
+ * Author: GCTools Team
  */
 
 $album = elgg_extract('entity', $vars);
 $owner = $album->getOwnerEntity();
+$lang = get_current_language();
 
 $owner_link = elgg_view('output/url', array(
 	'href' => "photos/owner/$owner->username",
@@ -22,8 +27,15 @@ $categories = elgg_view('output/categories', $vars);
 
 $subtitle = "$author_text $date $categories";
 
+if($album->title3){
+	$title_album = gc_explode_translation($album->title3, $lang);
+}else{
+	$title_album = $album->title;
+}
+
+
 $title = elgg_view('output/url', array(
-	'text' => $album->getTitle(),
+	'text' => $title_album,
 	'href' => $album->getURL(),
 ));
 

@@ -62,7 +62,6 @@ $english = array(
     'gcconnex_profile:about_me:empty' => 'Begin entering a description about yourself by clicking "Edit" in the top right corner of this box.',// prompt to add first skill
     'gcconnex_profile:about_me:access' => 'Who can see my description:',
 
-
     // BASIC INFORMATION PROFILE FORM
     'gcconnex_profile:basic:header' => 'Edit Basic Profile',
     'gcconnex_profile:basic:name' => 'Name: ',
@@ -125,6 +124,7 @@ $english = array(
     'gcconnex_profile:experience:empty' => 'Begin entering your work experience by clicking "Edit" in the top right corner of this box.',
     'gcconnex_profile:experience:colleagues_empty' => 'You haven\'t listed any colleagues for this entry.',
     'gcconnex_profile:experience:colleague_suggest' => 'In order to list a colleague for this entry, you must have already added them as a colleague to your profile.',
+    
     // SKILLS
     'gcconnex_profile:gc_skill:add' => '+ add new skill',
     'gcconnex_profile:gc_skill:delete' => 'Delete this skill',

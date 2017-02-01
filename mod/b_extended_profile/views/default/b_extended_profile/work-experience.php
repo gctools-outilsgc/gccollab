@@ -19,14 +19,13 @@ else {
         $work_experience_guid = array($work_experience_guid);
     }
 
-    usort($work_experience_guid, "sortDate");
+   // usort($work_experience_guid, "sortDate");
 
     foreach ($work_experience_guid as $guid) {
 
         if ($experience = get_entity($guid)) {
             echo '<div class="gcconnex-profile-label work-experience-title">' . $experience->title . '</div>';
             echo '<div class="gcconnex-profile-label work-experience-organization">' . $experience->organization . '</div>';
-            
             
             $cal_month = array(
                 1 => elgg_echo('gcconnex_profile:month:january'),
@@ -52,10 +51,9 @@ else {
             }
 
             echo '</div>';
-            
             echo '<div class="gcconnex-profile-label work-experience-responsibilities mrgn-tp-md">' . $experience->responsibilities . '</div>';
-
             echo '<div class="gcconnex-profile-label work-experience-colleagues">';
+            
             $colleagues = $experience->colleagues;
             if (!(is_array($colleagues))) {
                 $colleagues = array($colleagues);
@@ -67,11 +65,9 @@ else {
             ));
 
             echo '</div>'; // close div class="gcconnex-profile-label work-experience-colleagues"
-
             echo '</div>';
         }
     }
 }
 
 echo '</div>'; // close div class="gcconnex-profile-work-experience-display
-//echo '</div>'; // close div class=gcconnex-profile-section-wrapper

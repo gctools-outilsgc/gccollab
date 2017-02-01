@@ -1,5 +1,7 @@
 <?php
-/*
+/**
+ * head.php
+ *
  * The HTML head
  * 
  * JavaScript load sequence (set in views library and this view)
@@ -16,11 +18,14 @@
  * @uses $vars['metas'] Array of meta elements
  * @uses $vars['links'] Array of links
  *
- * Aug 12 2016 - CYu - removed the crawler exception
+ * @package wet4
+ * @author GCTools Team
  *
+ * GC_MODIFICATION
+ * Description: Added IE9 check that will load the wet IE9 JS
+ * Author: Nick P github.com/piet0024
  */
-
- // Nick - Added IE9 check that will load the wet IE9 JS - This needs to be tested
+ 
 $site_url = elgg_get_site_url();
 
 $metas = elgg_extract('metas', $vars, array());

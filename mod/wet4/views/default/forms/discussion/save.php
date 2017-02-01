@@ -16,39 +16,33 @@ $container_guid = elgg_extract('container_guid', $vars);
 $guid = elgg_extract('guid', $vars, null);
 
 
-$french = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:fr'),
-    'id' => 'btnClickfr',
-    'class' => 'btn btn-default en',
-));
+$btn_language =  '<ul class="nav nav-tabs nav-tabs-language">
+  <li id="btnen"><a href="#" id="btnClicken">'.elgg_echo('lang:english').'</a></li>
+  <li id="btnfr"><a href="#" id="btnClickfr">'.elgg_echo('lang:french').'</a></li>
+</ul>';
 
-$english = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:en'),
-    'id' => 'btnClicken',
-    'class' => 'btn btn-default fr',
-));
-
-echo $french,$english;
+echo $btn_language;
 ?>
+<div class="tab-content tab-content-border">
 <div class="mrgn-bttm-md en">
 	<label for="title"><?php echo elgg_echo('title:en'); ?></label><br />
 	<?php echo elgg_view('input/text', array('name' => 'title', 'value' => $title, 'id' => 'title')); ?>
 </div>
 
 <div class="mrgn-bttm-md fr">
-	<label for="title"><?php echo elgg_echo('title:fr'); ?></label><br />
+	<label for="title2"><?php echo elgg_echo('title:fr'); ?></label><br />
 	<?php echo elgg_view('input/text', array('name' => 'title2', 'value' => $title2, 'id' => 'title2')); ?>
 </div>
 <div class="quick-start-collapse">
-    
-    
+
+
 <div class="mrgn-bttm-md en">
 	<label for="description"><?php echo elgg_echo('groups:topicmessage'); ?></label>
 	<?php echo elgg_view('input/longtext', array('name' => 'description', 'value' => $desc, 'id' => 'description')); ?>
 </div>
 
 <div class="mrgn-bttm-md fr">
-	<label for="description"><?php echo elgg_echo('groups:topicmessage2'); ?></label>
+	<label for="description2"><?php echo elgg_echo('groups:topicmessage2'); ?></label>
 	<?php echo elgg_view('input/longtext', array('name' => 'description2', 'value' => $desc2, 'id' => 'description2')); ?>
 </div>
 <div>
@@ -72,7 +66,7 @@ echo $french,$english;
     ?>
 </div>
 
-<div class="mrgn-bttm-md"> 
+<div class="mrgn-bttm-md">
 	<label for="access_id"><?php echo elgg_echo('access'); ?></label><br />
 	<?php echo elgg_view('input/access', array(
 		'name' => 'access_id',
@@ -96,15 +90,16 @@ if($guid){
 } else {
     echo elgg_view('input/submit', array('value' => 'Create Discussion', 'class' => 'btn btn-primary'));
 }
-       
-    
-echo'</div></div>';
+
+
+echo'</div></div></div>';
 
 if(get_current_language() == 'fr'){
 ?>
     <script>
         jQuery('.fr').show();
         jQuery('.en').hide();
+        jQuery('#btnfr').addClass('active');
 
     </script>
 <?php
@@ -113,7 +108,7 @@ if(get_current_language() == 'fr'){
     <script>
         jQuery('.en').show();
         jQuery('.fr').hide();
-
+        jQuery('#btnen').addClass('active');
     </script>
 <?php
 }
@@ -121,17 +116,23 @@ if(get_current_language() == 'fr'){
 <script>
 jQuery(function(){
 
+    var selector = '.nav-tabs-language li';
+
+$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+});
+
         jQuery('#btnClickfr').click(function(){
                jQuery('.fr').show();
                jQuery('.en').hide();
-                
+
         });
 
           jQuery('#btnClicken').click(function(){
                jQuery('.en').show();
                jQuery('.fr').hide();
-               
-        });
 
+        })
 });
 </script>

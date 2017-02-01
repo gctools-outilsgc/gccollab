@@ -11,6 +11,8 @@ $user = elgg_get_page_owner_entity();
 $profile_fields = elgg_get_config('profile_fields');
 
 // display the username, title, phone, mobile, email, website, and user type
+// fa classes are the font-awesome icons
+
 echo '<div class="panel-heading clearfix"><div class="pull-right clearfix">';
 echo '<div class="gcconnex-profile-name">';
 
@@ -215,7 +217,6 @@ if ($user->canEdit()) {
     echo '</div>'; // close div class="basic-profile-standard-field-wrapper"
     echo '<div class="basic-profile-social-media-wrapper col-sm-6 col-xs-12">'; // container for css styling, used to group profile content and display them seperately from other fields
 
-
 	// pre-populate the social media fields and their prepended link for user profiles
     $fields = array(
         'Facebook' => "http://www.facebook.com/",
@@ -230,20 +231,17 @@ if ($user->canEdit()) {
         'Youtube' => "http://www.youtube.com/"
     );
 
-
     foreach ($fields as $field => $field_link) { // create a label and input box for each social media field on the basic profile
 
         echo '<div class="basic-profile-field-wrapper social-media-field-wrapper">'; //field wrapper for css styling
 
-        //echo '<div class="basic-profile-label social-media-label ' . $field . '-label">' . $field . ': </div>';
         $field = str_replace(' ', '-', $field); // create a css friendly version of the section name
-
         $field = strtolower($field);
+
         if ($field == "google-plus") { $field = "google"; }
         $value = $user->get($field);
 
         echo '<div class="input-group">'; // input wrapper for prepended link and input box, excludes the input label
-
         echo '<label for="' . $field . 'Input" class="input-group-addon clearfix">' . $field_link . "</label>"; // prepended link
 
         // setup the input for this field
@@ -270,13 +268,10 @@ if ($user->canEdit()) {
         echo elgg_view("input/text", $params); // input field
 
         echo '</div>'; // close div class="input-group"
-
         echo '</div>'; // close div class = basic-profile-field-wrapper
     }
 
     echo '</div>'; // close div class="basic-profile-social-media-wrapper"
-
-
     echo '
     </div>
             <div class="panel-footer text-right">
@@ -289,6 +284,7 @@ if ($user->canEdit()) {
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->';
+
 }
 
 
@@ -302,7 +298,6 @@ if (elgg_get_page_owner_guid() != elgg_get_logged_in_user_guid()) {
     $menu = $builder->getMenu();
     $actions = elgg_extract('action', $menu, array());
     $admin = elgg_extract('admin', $menu, array());
-
     $profile_actions = '';
 
 	// cyu - GCCON-151 : Add colleague in FR not there (inconsistent FR and EN menu layout) & other issues
@@ -359,14 +354,11 @@ if (elgg_is_admin_logged_in() && elgg_get_logged_in_user_guid() != elgg_get_page
                 <ul class="dropdown-menu pull-right clearfix">' . $admin_links . '</ul></div>';
 }
 
-
-
 echo '</div>'; //closes btn-group
 
 
 echo '<h1 class="pull-left group-title">' . $user->name . '</h1>';
 echo '</div>'; // close div class="panel-heading"
-
 
 
 echo '<div class="row mrgn-lft-md mrgn-rght-sm">';
@@ -409,8 +401,6 @@ if ($user->website != null) {
 
 echo '</div></div>'; // close div class="gcconnex-profile-contact-info"
 
-
-
 // pre-populate the social media links that we may or may not display depending on whether the user has entered anything for each one..
 $social = array('facebook', 'google', 'github', 'twitter', 'linkedin', 'pinterest', 'tumblr', 'instagram', 'flickr', 'youtube');
 
@@ -434,9 +424,6 @@ foreach ($social as $media) {
 echo '</div>'; // close div class="gcconnex-profile-social-media-links"
 echo '</div>';
 echo '</div>'; //closes row class
-
-
-
 
 $user = elgg_get_page_owner_entity();
 
@@ -462,4 +449,3 @@ $content_menu = elgg_view_menu('owner_block', array(
     'entity' => elgg_get_page_owner_entity(),
     'class' => 'profile-content-menu',
 ));
-

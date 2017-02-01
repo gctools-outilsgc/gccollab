@@ -62,7 +62,7 @@ try {
 // @todo we need to use the config object to store this so that the current language
 // can be changed. Refs #4171
 $display_name = $user->name;
-//setcookie('connex_lang', $user->language, time()+(1000 * 60 * 60 * 24), '/');
+setcookie('connex_lang', $user->language, time()+(1000 * 60 * 60 * 24), '/');
 if ($user->language) {
 //give user a custom welcome message
 	$message = elgg_echo('wet:loginok', array($display_name));
@@ -91,7 +91,7 @@ if (strpos($_SERVER['HTTP_REFERER'], elgg_get_site_url()."saml/idp_login")=== fa
 			 if ($gcpuser == NULL || $gcpuser == ""){
 			 	forward("saml_link/link");
 			 }else{
-			 	$forward_url = "http://gcconnex.gc.ca/simplesaml/saml2/idp/SSOService.php?spentityid=http://www.gcpedia.gc.ca/simplesaml/module.php/saml/sp/metadata.php/elgg-idp&RelayState=http://www.gcpedia.gc.ca";
+			 	$forward_url = "http://".$_SERVER[HTTP_HOST]."/simplesaml/saml2/idp/SSOService.php?spentityid=".elgg_get_plugin_setting('gcpedia_url','saml_link')."simplesaml/module.php/saml/sp/metadata.php/elgg-idp&RelayState=".elgg_get_plugin_setting('gcpedia_url','saml_link');
 		 	
 			 }
 	

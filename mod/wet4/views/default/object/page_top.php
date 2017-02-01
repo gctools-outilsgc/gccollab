@@ -7,6 +7,10 @@
  * @uses $vars['entity']    The page object
  * @uses $vars['full_view'] Whether to display the full view
  * @uses $vars['revision']  This parameter not supported by elgg_view_entity()
+ *
+ * GC_MODIFICATION
+ * Description: Styling to object and entity menu
+ * Author: GCTools Team
  */
 
 
@@ -97,6 +101,25 @@ if (!elgg_in_context('widgets')) {
 }
 
 if ($full) {
+
+	//Identify available content
+	if(($page->description2) && ($page->description)){
+		echo'<div id="change_language" class="change_language">';
+		if (get_current_language() == 'fr'){
+
+			?>			
+			<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $page->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $page->description2;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+			<?php
+
+		}else{
+					
+			?>			
+			<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $page->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $page->description2;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+			<?php	
+		}
+		echo'</div>';
+	}
+
 	if ($page->description3){
 		$annotation->value = gc_explode_translation($page->description3, $lang);
 	}
@@ -120,6 +143,13 @@ if ($full) {
 	));
 
 } else {
+
+	// identify available content
+/*	if(($page->description2) && ($page->description)){
+			
+		echo'<span class="col-md-1 col-md-offset-11"><i class="fa fa-language fa-lg mrgn-rght-sm"></i>' . '<span class="wb-inv">Content available in both language</span></span>';	
+	}*/
+
 	// brief view
 if($page->description3){
 	$excerpt = elgg_get_excerpt(gc_explode_translation($page->description3, $lang));

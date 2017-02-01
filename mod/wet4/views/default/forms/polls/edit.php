@@ -1,4 +1,9 @@
 <?php
+/*
+* GC_MODIFICATION
+* Description: Added accessible labels + content translation support
+* Author: GCTools Team
+*/
 $poll = elgg_extract('entity', $vars);
 if ($poll) {
 	$guid = $poll->guid;
@@ -8,17 +13,11 @@ if ($poll) {
 
 $lang = get_current_language();
 
-$french = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:fr'),
-    'id' => 'btnClickfr',
-    'class' => 'btn btn-default en',
-));
+$btn_language =  '<ul class="nav nav-tabs nav-tabs-language">
+  <li id="btnen"><a href="#" id="btnClicken">'.elgg_echo('lang:english').'</a></li>
+  <li id="btnfr"><a href="#" id="btnClickfr">'.elgg_echo('lang:french').'</a></li>
+</ul>';
 
-$english = elgg_view('input/button', array(
-    'value' => elgg_echo('btn:translate:en'),
-    'id' => 'btnClicken',
-    'class' => 'btn btn-default fr',
-));
 
 $question = $vars['fd']['question'];
 $question2 = $vars['fd']['question2'];
@@ -52,7 +51,8 @@ if (isset($vars['entity'])) {
 $entity_hidden .= elgg_view('input/hidden', array('name' => 'container_guid', 'value' => elgg_get_page_owner_guid()));
 
 echo <<<__HTML
-$french $english
+$btn_language
+<div class="tab-content tab-content-border">
 <div class='en'>
 		<p>
 			<label for="question">$question_label</label><br />
@@ -61,7 +61,7 @@ $french $english
 </div>
 <div class='fr'>
 		<p>
-			<label for="question">$question_label2</label><br />
+			<label for="question2">$question_label2</label><br />
 			$question_textbox2
 		</p>
 		</div>
@@ -74,7 +74,7 @@ $french $english
 			<label>$responses_label2</label><br />
 			$responses_control2
 		</p>
-		
+
 
 		<p>
 			<label for="tags">$tag_label</label><br />
@@ -88,6 +88,7 @@ $french $english
 		$entity_hidden
 		$submit_input
 		</p>
+</div>
 __HTML;
 
 		// TODO - move this JS
@@ -105,36 +106,41 @@ $('#polls_edit_cancel').click(
 
 if(get_current_language() == 'fr'){
 ?>
-    <script>
-        jQuery('.fr').show();
-        jQuery('.en').hide();
+	<script>
+		jQuery('.fr').show();
+	    jQuery('.en').hide();
+	    jQuery('#btnfr').addClass('active');
 
-    </script>
+	</script>
 <?php
 }else{
 ?>
-    <script>
-        jQuery('.en').show();
-        jQuery('.fr').hide();
-
-    </script>
+	<script>
+		jQuery('.en').show();
+    	jQuery('.fr').hide();
+    	jQuery('#btnen').addClass('active');
+	</script>
 <?php
 }
 ?>
 <script>
 jQuery(function(){
 
-        jQuery('#btnClickfr').click(function(){
+	var selector = '.nav li';
+
+	$(selector).on('click', function(){
+    $(selector).removeClass('active');
+    $(this).addClass('active');
+});
+
+		jQuery('#btnClickfr').click(function(){
                jQuery('.fr').show();
                jQuery('.en').hide();
-                
         });
 
           jQuery('#btnClicken').click(function(){
                jQuery('.en').show();
                jQuery('.fr').hide();
-               
         });
-
 });
 </script>

@@ -14,8 +14,6 @@ elgg_load_css('font-awesome'); // font-awesome icons for social media and some o
 elgg_load_js('lightbox'); // overlay for editing the basic profile fields
 elgg_load_css('lightbox'); // css for it..
 elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (sets the width)
-//elgg_load_js('bootstrap-tour');
-//elgg_load_css('bootstrap-tour-css');
 ?>
 
 <div class="profile">
@@ -24,7 +22,6 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
         <?php echo elgg_view('profile/details'); ?>
     </div>
 
-    
     <div class="gcconnex-profile-wire-post">
         <?php $user = get_user(elgg_get_page_owner_guid());
             $params = array(
@@ -35,34 +32,17 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
             );
         $latest_wire = elgg_get_entities($params);
         if ($latest_wire && count($latest_wire) > 0) {
-            //echo '<img class="profile-icons double-quotes" src="' . elgg_get_site_url() . 'mod/b_extended_profile/img/double-quotes.png">';
-            //echo elgg_view("profile/status", array("entity" => $user));
         }
         ?>
     </div>
-    
-   <?php //echo elgg_get_context(); 
-    
-    
-
-?>
 
     <div class="b_extended_profile">
         <?php
-  
 
         echo '<div role="tabpanel">';
-/* Old Tab Menu
-        
-        echo '<ul class="nav nav-tabs" role="tablist">';
-        echo '<li role="presentation" class="active"><a href="#profile-display" aria-controls="profile-display" role="tab" data-toggle="tab">' . elgg_echo('gcconnex_profile:profile') . '</a></li>';
-        echo '<li role="presentation" ><a href="#splashboard" aria-controls="splashboard" role="tab" data-toggle="tab">' . elgg_echo('gcconnex_profile:widgets') . '</a></li>';
-        echo '<li role="presentation"><a href="#portfolio" aria-controls="portfolio" role="tab" data-toggle="tab">' . elgg_echo('gcconnex_profile:portfolio') . '</a></li>';
-        echo '</ul>';
-        */
 
         //add additional tabs
-        echo elgg_view('groups/profile/tab_menu');
+        echo elgg_view('profile/profile_tab_menu');
 
         echo '<div class="tab-content">';
      if (empty($_GET['pg']))  {
@@ -72,7 +52,7 @@ $pg = '';
 
      $pg = $_GET['pg'];
  echo '<div role="tabpanel" class="tab-pane " id="profile-display">';
-} 
+}
 
         if ( has_content($user, 'description') ) {
             init_ajax_block(elgg_echo('gcconnex_profile:about_me'), 'about-me', $user);
@@ -116,8 +96,7 @@ $pg = '';
 
      $pg = $_GET['pg'];
   echo '<div role="tabpanel" class="tab-pane active clearfix" id="splashboard">';
-} 
-           
+}
 
                 $num_columns = elgg_extract('num_columns', $vars, 2);
                 $show_add_widgets = elgg_extract('show_add_widgets', $vars, true);
@@ -125,12 +104,10 @@ $pg = '';
                 $show_access = elgg_extract('show_access', $vars, true);
 
                 $owner = elgg_get_page_owner_entity();
-
                 $widget_types = elgg_get_widget_types();
 
                 $context = elgg_get_context();
                 elgg_push_context('widgets');
-
                 $widgets = elgg_get_widgets($owner->guid, $context);
 
                 if (elgg_can_edit_widget_layout($context)) {
@@ -174,7 +151,6 @@ $pg = '';
                     echo '</div>';
                 }
             echo '</div>'; // close div id="splashboard"
-
 
             echo '<div role="tabpanel" class="tab-pane" id="portfolio">';
 

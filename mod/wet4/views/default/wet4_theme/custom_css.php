@@ -10,6 +10,9 @@
 //This is a test to get images to work
 
 $site_url = elgg_get_site_url();
+
+$gsa_pagination = elgg_get_plugin_setting('gsa_pagination','gc_fedsearch_gsa');
+
 ?>
 /* <style> /**/
 
@@ -22,13 +25,11 @@ $site_url = elgg_get_site_url();
 
 }
 
-.group-summary-holder{
 
-    padding:6px 0;
-}
+.elgg-pagination_gsa {
 
-.group-summary-holder h1{
-    border-bottom:none;
+  position: relative;
+  left:<?php echo "{$gsa_pagination}%"; ?> !important;
 
 }
 
@@ -218,6 +219,18 @@ max-height: 500px;
       top: 110% !important;
     }
 
+    @media (max-width: 480px) {
+      .user-menu{
+        min-width: 355px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .user-menu{
+        min-width: 300px;
+      }
+    }
+
     .user-menu:after{
        content: '';
        display: block;
@@ -267,13 +280,10 @@ max-height: 500px;
 
  }
 
- .group-profile-image-size img{
-     width: 180% !important;
 
- }
  .elgg-module-aside .elgg-avatar {
      width:40px;
-     height:40px;
+     height:inherit;
 
  }
 
@@ -331,12 +341,7 @@ max-height: 500px;
         border: 2px solid #f5db84;
     }
 
-     .au_subgroups_group_icon-medium-wet4{
-            max-width:65%;
-            margin: 0 auto;
-            display: block !important;
 
-     }
 
 /****************************************/
 
@@ -421,15 +426,11 @@ max-height: 500px;
 }
 
 .icon-unsel:hover{
-    color:#047177;
+    color:#6B5088;
 }
 
 .icon-sel{
    color:#6B5088;
-   background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
-       background-size:cover;
-    height: 25px;
-    width:25px;
 }
 
 .icon-sel:hover{
@@ -465,9 +466,7 @@ max-height: 500px;
             font-size: 22px;
         }
 
-        .group-title {
-        font-size: 26px;
-        }
+
 
     .table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
         padding: 0;
@@ -577,7 +576,7 @@ max-height: 500px;
     }
 
     .login-engage-list i{
-        color: #047177;
+        color: #6B5088;
         padding-top: 2px;
     }
 
@@ -892,7 +891,7 @@ border:none;
 
 }
 .start-discussion-form{
-    padding-right: 20px;
+    /*padding-right: 20px;*/
 
 }
 
@@ -957,50 +956,6 @@ border:none;
     clear: both;
 }
 
-/*** Group Cover Photo ***/
-
-.groups-profile{
-    margin-top: 170px;
-    z-index: 1;
-}
-
-.group-cover-photo{
-    width:100%;
-    height: 250px;
-    position: absolute;
-    margin-top: -10px;
-    background-color:#6B5088;
-    overflow:hidden;
-}
-
-.group-cover-photo img{
-    width:100%;
-
-}
-
-
-@media (max-width: 767px) {
-  .group-cover-photo{
-      display:none;
-
-  }
-  .groups-profile{
-      margin-top: 4px !important;
-  }
-
-}
-
-@media (max-width: 992px) {
-    .group-cover-photo{
-      height: 180px;
-
-  }
-  .groups-profile{
-      margin-top: 100px;
-  }
-     }
-
-/*** end of Group Cover Photo ***/
 
 /******Padding Classes********/
 
@@ -1400,7 +1355,14 @@ details.elgg-state-success:before {
    text-decoration: none;
 }
 
+.brand h1{
+  border:none;
 
+}
+
+.brand h1 a{
+    color: #055959 !important;
+}
 
 #app-brand li a{
    text-decoration: none;
@@ -1671,4 +1633,69 @@ figcaption{
 .pager-wet-hidden{
     display:none !important;
 
+}
+/**************Tabs for toggle language*******************/
+
+.nav-tabs-language>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0
+}
+
+.nav-tabs-language>li>a:hover {
+    border-color: #eee #eee #ddd
+}
+
+.nav-tabs-language>li.active>a,
+.nav-tabs-language>li.active>a:focus,
+.nav-tabs-language>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent
+}
+
+.nav-tabs-language {
+    margin-bottom: 0;
+}
+
+.nav-tabs-language > li > a:hover {
+    background-color: #eee;
+    text-decoration: none;
+    padding-bottom: 4px;
+}
+
+.tab-content-border {
+    padding: 10px;
+    margin: 4px;
+    margin-top: 0;
+    border: 1px solid #ddd;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    padding-bottom: 7px;
+}
+
+/*Style for Available content function*/
+
+.change_language{
+  border: solid 1px #055959;
+  border-radius: 3px;
+  padding:5px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.fake-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+  
+.indicator_summary{
+  color:#D6D6D6;
+  font-size: 12px
 }

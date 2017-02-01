@@ -1,17 +1,16 @@
 <?php
 /**
- * All event handlers are bundled in this file
- */
+* All event handlers are bundled in this file
+*
+* Notify a user when a friend relationship is created
+*
+* @param string           $event       the name of the event
+* @param string           $object_type the type of the event
+* @param ElggRelationship $object      supplied realationship
+*
+* @return void
+*/
 
-/**
- * Notify a user when a friend relationship is created
- *
- * @param string           $event       the name of the event
- * @param string           $object_type the type of the event
- * @param ElggRelationship $object      supplied realationship
- *
- * @return void
- */
 function friend_request_event_create_friendrequest($event, $object_type, $object) {
 	if (($object instanceof ElggRelationship)) {
 		$user_one = get_user($object->guid_one);
@@ -42,9 +41,8 @@ function friend_request_event_create_friendrequest($event, $object_type, $object
 			$result = elgg_trigger_plugin_hook('cp_overwrite_notification', 'all', $message);
 
 		} else {
-			$site = elgg_get_site_entity();
-			notify_user($object->guid_two, $site->guid, $subject, $message, array());
-		}
 
+			notify_user($object->guid_two, $object->guid_one, $subject, $message, $params);
+		}
 	}
 }
