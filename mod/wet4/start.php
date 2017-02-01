@@ -497,7 +497,7 @@ function wet4_theme_pagesetup() {
 
     $params = array(
 				"name" => "2_a_user_notify",
-				"href" => "/notifications/personal/" . $user->username,
+				"href" => "/settings/plugins/" . $user->username . "/cp_notifications",
 				"text" =>  elgg_echo('notifications:subscriptions:changesettings'),
 				'section' => 'configure',
         "class" => 'TESTING',

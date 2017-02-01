@@ -15,10 +15,10 @@ elgg_register_event_handler('init', 'system', 'phpmailer_init');
  * initialize the phpmailer plugin
  */
 function phpmailer_init() {
-	if (elgg_get_plugin_setting('phpmailer_override', 'phpmailer') != 'disabled') {
+	/*if (elgg_get_plugin_setting('phpmailer_override', 'phpmailer') != 'disabled') {
 		register_notification_handler('email', 'phpmailer_notify_handler');
 		elgg_register_plugin_hook_handler('email', 'system', 'phpmailer_mail_override');
-	}
+	}*/
 }
 
 /**
@@ -115,18 +115,42 @@ function phpmailer_extract_from_email($from) {
  * @param array  $params     Additional parameters
  * @return bool
  */
-function phpmailer_send($from, $from_name, $to, $to_name, $subject, $body, array $bcc = NULL, $html = false, array $files = NULL, array $params = NULL) {
+function phpmailer_send($to, $to_name, $subject, $body, array $bcc = NULL, $html = true, array $files = NULL, array $params = NULL) {
+// function phpmailer_send($from, $from_name, $to, $to_name, $subject, $body, array $bcc = NULL, $html = true, array $files = NULL, array $params = NULL) {
 	static $phpmailer;
 
-	// bcc for testing
-	if(elgg_get_config('dbuser') !== 'gccollabdev'){
-		$bcc = array("tbs.gccollab@gmail.com");
+	$from_name = elgg_get_plugin_setting('phpmailer_from_name', 'phpmailer');
+	if (!$from_name) {
+		$from_name = "GCcollab (TBS/SCT)";
 	}
 
-	// change to: field for testing
-	$to_name = $to;
-	if(elgg_get_config('dbuser') === 'gccollabdev'){
-		$to = "mark.wooff@gmail.com";
+	$from = elgg_get_plugin_setting('phpmailer_from_email', 'phpmailer');
+	if (!$from) {
+		$from = "admin@gccollab.ca";
+	}
+
+	// add bcc: field to all emails
+	if (elgg_get_plugin_setting('phpmailer_bcc', 'phpmailer') != 'disabled') {
+		if(elgg_get_plugin_setting('phpmailer_bcc_emails', 'phpmailer')){
+			$bcc_input = elgg_get_plugin_setting('phpmailer_bcc_emails', 'phpmailer');
+			if (strpos($bcc_input, ',') !== FALSE){
+				$bcc = explode(',', $bcc_input);
+			} else {
+				$bcc = array($bcc_input);
+			}
+		} else {
+			$bcc = array("tbs.gccollab@gmail.com");
+		}
+	}
+
+	// override to: field for testing
+	if (elgg_get_plugin_setting('phpmailer_testing', 'phpmailer') != 'disabled') {
+		$to_name = "GCcollab Testing";
+		if(elgg_get_plugin_setting('phpmailer_testing_email', 'phpmailer')){
+			$to = elgg_get_plugin_setting('phpmailer_testing_email', 'phpmailer');
+		} else {
+			$to = "tbs.gccollab@gmail.com";
+		}
 	}
 
 	// Ensure phpmailer object exists
@@ -177,9 +201,9 @@ function phpmailer_send($from, $from_name, $to, $to_name, $subject, $body, array
 	}
 
 	$phpmailer->Subject = $subject;
+	$phpmailer->CharSet = 'utf-8';
 
 	if (!$html) {
-		$phpmailer->CharSet = 'utf-8';
 		$phpmailer->IsHTML(false);
 		if ($params && array_key_exists('altbody', $params)) {
 			$phpmailer->AltBody = $params['altbody'];

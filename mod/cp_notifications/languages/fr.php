@@ -4,7 +4,7 @@ $french = array(
 	'cp_notify:setting:no_grp_subscription' => 'Rien à charger',
 	'cp_notify:setting:loading' => 'Chargement...',
 	// e-mail header text
-	'cp_notification:email_header' => "Ceci est un message généré par le système de GCconnex. Veuillez ne pas répondre à ce message",
+	'cp_notification:email_header' => "Ceci est un message généré par le système de GCcollab. Veuillez ne pas répondre à ce message",
 	'cp_notification:email_header_msg' => "",
 
 	// add user to group section
@@ -19,7 +19,7 @@ $french = array(
 	'cp_notify:subject:edit_content' => "%s '%s' a été mis à jour par %s",
 	'cp_notify:body_edit:title' => "%s a été modifié.",
 	'cp_notify:body_edit:description' => "<a href='%s'>Visualiser ou afficher un commentaire</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
 
 	// group invite user
 	'cp_notify:subject:group_invite_user' => "%s vous a invité à joindre le groupe %s",
@@ -32,8 +32,8 @@ $french = array(
 	// group invite user by email
 	'cp_notify:subject:group_invite_email' => "%s vous a invité à joindre le groupe '%s'",
 	'cp_notify:subject:group_invite_user_by_email' => "%s vous a invité à joindre le groupe %s",
-	'cp_notify:body_group_invite_email:title' => "Vous êtes invité à joindre un groupe sur GCconnex",
-	'cp_notify:body_group_invite_email:description' => "Vous êtes invité à joindre le groupe '%s' sur GCconnex, veuillez vous inscrire ou vous connecter à GCconnex, ensuite cliquez sur ce lien : %s ou utiliser ce code dans la page d'invitation de groupe : '%s' <br/> %s", // translate
+	'cp_notify:body_group_invite_email:title' => "Vous êtes invité à joindre un groupe sur GCcollab",
+	'cp_notify:body_group_invite_email:description' => "Vous êtes invité à joindre le groupe '%s' sur GCcollab, veuillez vous inscrire ou vous connecter à GCcollab, ensuite cliquez sur ce lien : %s ou utiliser ce code dans la page d'invitation de groupe : '%s' <br/> %s", // translate
 	
 
 	// group mail section
@@ -101,7 +101,7 @@ $french = array(
 	// validate user section
 	'cp_notify:subject:validate_user' => "Veuillez valider le compte de %s",
 	'cp_notify:body_validate_user:title' => "Veuillez valider votre compte pour %s",
-	'cp_notify:body_validate_user:description' => "Bienvenue sur GCconnex. Afin de compléter votre inscription, veuillez valider votre compte enregistré sous le nom %s en cliquant sur le lien suivant : %s",
+	'cp_notify:body_validate_user:description' => "Bienvenue sur GCcollab. Afin de compléter votre inscription, veuillez valider votre compte enregistré sous le nom %s en cliquant sur le lien suivant : %s",
 
 
 	// post comment
@@ -152,18 +152,18 @@ $french = array(
 	'cp_notify:body_new_content:description' => "La description de leur nouvelle publication se lit comme suit : <br/> 
 		%s <br/>
 		<a href='%s'>Visualiser ou afficher un commentaire</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
 
 	'cp_notify:body_new_content:description_discussion' => "La description de leur nouvelle publication se lit comme suit : <br/>
 		%s <br/>
 		<a href='%s'>Visualiser ou répondre</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
 
 			'cp_notify:body_new_content:no_description_discussion' => "<a href='%s'>Visualiser ou répondre</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
 
 	// mention section
-	'cp_notify:subject:mention' => "%s vous a cité sur GCconnex",
+	'cp_notify:subject:mention' => "%s vous a cité sur GCcollab",
 	'cp_notify:body_mention:title' => "%s vous a cité dans sa publication ou réponse intitulée '%s'",
 	'cp_notify:body_mention:description' => "Voici la publication où l'on vous cite : <br/>
 		 %s <br/>
@@ -200,16 +200,16 @@ $french = array(
 
 
 	// add new user
-	'cp_notify:subject:add_new_user' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCconnex",
-	'cp_notify:body_add_new_user:title' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCconnex",
+	'cp_notify:subject:add_new_user' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCcollab",
+	'cp_notify:body_add_new_user:title' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCcollab",
 	'cp_notify:body_add_new_user:description' => "Vous pouvez maintenant vous connecter en utilisant les informations de comptes suivants<br/>
 		Nom d'utilisateur : %s  et mot de passe : %s",
 
 
-	// invite new user to GCconnex
-	'cp_notify:subject:invite_new_user' => "Vous avez été invité à joindre GCconnex",
-	'cp_notify:body_invite_new_user:title' => "Vous avez été invité à joindre GCconnex",
-	'cp_notify:body_invite_new_user:description' => "Joignez-vous à l'espace de travail collaboratif pour le réseautage professionnel pour l'ensemble de la fonction publique. Vous pouvez vous inscrire à GCconnex en cliquant sur le lien suivant %s",
+	// invite new user to GCcollab
+	'cp_notify:subject:invite_new_user' => "Vous avez été invité à joindre GCcollab",
+	'cp_notify:body_invite_new_user:title' => "Vous avez été invité à joindre GCcollab",
+	'cp_notify:body_invite_new_user:description' => "Joignez-vous à l'espace de travail collaboratif pour le réseautage professionnel pour l'ensemble de la fonction publique. Vous pouvez vous inscrire à GCcollab en cliquant sur le lien suivant %s",
 
 
 	// transfer group admin
@@ -273,8 +273,8 @@ $french = array(
 	'cp_notify:event_update:subject' => " L'événement' %s a été mis à jour", // NEW
 
 	// email notification footer text (1 and 2)	
-	'cp_notify:footer' => "Apprenez davantage au sujet des <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F/'>notifications de GCconnex</a>.",// Check URL or link
-	'cp_notify:footer2' =>  " Besoin d’aide? <a href='https://gcconnex.gc.ca/mod/contactform/'>Contactez-nous</a>.<br/>Pour vous désabonner de ces notifications, connectez-vous à GCconnex et modifiez vos <a href='%s'>paramètres de notifications</a>.",
+	'cp_notify:footer' => "",// Check URL or link
+	'cp_notify:footer2' =>  " Besoin d’aide? <a href='".elgg_get_site_url()."mod/contactform/'>Contactez-nous</a>.<br/>Pour vous désabonner de ces notifications, connectez-vous à GCcollab et modifiez vos <a href='%s'>paramètres de notifications</a>.",
 
 
 
@@ -301,7 +301,7 @@ $french = array(
 	"cp_notify:sidebar:group_title" => "Abonnement aux groupes et contenu",
 	"cp_notify:sidebar:subs_title" => "Abonnement personnel",
 	'cp_notify:pickColleagues' => 'Abonnez-vous à vos collègues', // new
-	'cp_notify:contactHelpDesk'=>'Si vous avez des questions, veuillez soumettre votre demande via le <a href="https://gcconnex.gc.ca/mod/contactform/">formulaire Contactez-nous</a>.',
+	'cp_notify:contactHelpDesk'=>'Si vous avez des questions, veuillez soumettre votre demande via le <a href="'.elgg_get_site_url().'mod/contactform/">formulaire Contactez-nous</a>.',
     'cp_notify:visitTutorials'=>"Pour de plus amples renseignements sur GCconnex et ses fonctionnalités, consultez l'<a href='http://www.gcpedia.gc.ca/wiki/Aide_%C3%A0_l%27utilisateur/Voir_Tout'>aide à l'utilisateur de GCconnex</a>.<br/>
 	                             Merci",
 

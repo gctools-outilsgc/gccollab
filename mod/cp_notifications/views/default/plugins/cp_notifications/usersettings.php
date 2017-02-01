@@ -47,7 +47,8 @@ if (strcmp($enable_digest, 'yes') == 0) {
 $content .= "<section id='notificationstable' cellspacing='0' cellpadding='4' width='100%' class='clearfix'>";
 $content .= '<div class="col-sm-12 clearfix"> <h3 class="well">'.elgg_echo('cp_notify:personalNotif').'</h3>';
 
-$personal_notifications = array('likes','mentions','content', 'opportunities'); // likes mentions content opportunities(micromissions mod)
+$personal_notifications = array('likes','mentions','content'); // likes mentions content
+// $personal_notifications = array('likes','mentions','content', 'opportunities'); // likes mentions content opportunities(micromissions mod)
 
 if (strcmp(elgg_get_plugin_setting('cp_notifications_enable_bulk','cp_notifications'),'yes') == 0)
 	$personal_notifications[] = 'bulk_notifications';	// digest enabled
@@ -454,7 +455,7 @@ foreach ($subbed_contents as $subbed_content) {
 	$content_desc = str_replace('\r\n', '', $content_desc);
 	$content_desc = str_replace('\n', '', $content_desc);
 	$content_desc = str_replace('\r', '', $content_desc);
-	$content_desc = preg_replace('/[\s]+/','',$content_desc);
+	// $content_desc = preg_replace('/[\s]+/','',$content_desc);
 	$content_desc = preg_replace("/<[a-zA-Z ]+>|<\/[a-zA-Z]+>/",'',$content_desc);
 	$content_desc = strip_tags($content_desc);
 

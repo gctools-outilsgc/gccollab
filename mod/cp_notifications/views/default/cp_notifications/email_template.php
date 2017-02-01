@@ -538,6 +538,7 @@ $email_notification_footer_fr2 = elgg_echo('cp_notify:footer2',array(elgg_get_si
 $french_follows = elgg_echo('cp_notify:french_follows',array());
 
 
+$current_year = date('Y');
 
 
 
@@ -552,14 +553,14 @@ echo<<<___HTML
 			<div>
 
 				<!-- email header -->
-		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #055959'>
+		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #79579D'>
 		        	{$email_notification_header}
 		        </div>
 				
 
-				<!-- GCconnex banner -->
-		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#047177;'>
-		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCconnex</span>
+				<!-- GCcollab banner -->
+		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
+		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCcollab</span>
 		        </div>
 
 
@@ -619,8 +620,8 @@ echo<<<___HTML
 
 
 		        <!-- email footer -->
-		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 16px; color: #055959'>
-		        	-
+		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 16px; color: #79579D'>
+		        	GCcollab © {$current_year}
 		        </div>
 
 			</div>
