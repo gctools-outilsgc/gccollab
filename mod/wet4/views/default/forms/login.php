@@ -92,6 +92,7 @@ $groups = elgg_get_entities(array('count' => true, 'types' => 'group'));
 $discussions = elgg_get_entities(array('type' => 'object', 'subtype' => 'groupforumtopic', 'count' => true));
 
     //Nick - adding some stats to the bottom of the landing / login page (Should only appear on that page)
+/*
 if(elgg_in_context('login')){
     $inside_stats =['<span class="login-big-num">'.$groups.'</span> '.elgg_echo('groups'),elgg_echo('wet:login:departments'),elgg_echo('wet:login:discussions', array($discussions))];
     foreach($inside_stats as $stat){
@@ -102,4 +103,5 @@ if(elgg_in_context('login')){
 
     echo elgg_format_element('div',array('class'=>'col-sm-12'),$nextrow);
 }
+*/
 ?>
