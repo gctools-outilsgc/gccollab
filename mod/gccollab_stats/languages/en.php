@@ -1,8 +1,8 @@
 <?php
 $english = array(
     'gccollab_stats:title' => "GCcollab Statistics",
-    'gccollab_stats:unknown' => "Unknown",
-    'gccollab_stats:membercount' => "Amount of members",
+    'gccollab_stats:unknown' => "Other",
+    'gccollab_stats:membercount' => "Registered Members",
     
     'gccollab_stats:registration:title' => "Member Registration",
 
@@ -10,7 +10,7 @@ $english = array(
 
     'gccollab_stats:federal:title' => "Federal Members",
     
-    'gccollab_stats:provincial:title' => "Provincial Members",
+    'gccollab_stats:provincial:title' => "Provincial/Territorial Members",
 
     'gccollab_stats:student:title' => "Student Members",
 

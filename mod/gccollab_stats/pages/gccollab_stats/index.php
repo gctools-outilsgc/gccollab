@@ -32,11 +32,11 @@
 
         ob_start(); ?>
 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/data.js"></script>
-        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-        <script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
+        <script src="//code.highcharts.com/highcharts.js"></script>
+        <script src="//code.highcharts.com/modules/exporting.js"></script>
+        <script src="//code.highcharts.com/modules/data.js"></script>
+        <script src="//code.highcharts.com/modules/drilldown.js"></script>
+        <script src="//highcharts.github.io/export-csv/export-csv.js"></script>
 
         <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -53,7 +53,14 @@
                 var registrations = <?php echo json_encode($registrations); ?>;
                 Highcharts.chart('registrations', {
                     chart: {
-                        zoomType: 'x'
+                        zoomType: 'x',
+                        resetZoomButton: {
+                            position: {
+                                align: 'left',
+                                x: 10,
+                            },
+                            relativeTo: 'chart'
+                        }
                     },
                     title: {
                         text: '<?php echo elgg_echo("gccollab_stats:registration:title") . " (" . $count . ")"; ?>'

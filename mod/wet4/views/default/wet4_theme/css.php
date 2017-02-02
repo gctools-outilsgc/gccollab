@@ -10623,12 +10623,12 @@ a.shr-opn, a.shr-opn:hover {
 
 /*****Custom index classes***/
 
-.index-main .panel-default{
+.index-main .panel-default:not(.newsfeed-filter){
     background:transparent !important;
     border:none !important;
     box-shadow:none !important;
 }
-.index-main .panel-default .panel-heading{
+.index-main .panel-default:not(.newsfeed-filter) .panel-heading{
     background:transparent !important;
     border:none !important;
     box-shadow:none !important;
