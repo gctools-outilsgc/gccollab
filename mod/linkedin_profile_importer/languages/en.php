@@ -28,20 +28,6 @@ $english = array(
 	'hybridauth:admin:diagnostics:pecl_oauth:pass' => 'PECL OAuth extension [http://php.net/manual/en/book.oauth.php] not installed.',
 	'hybridauth:admin:diagnostics:pecl_oauth:fail' => 'PECL OAuth extension [http://php.net/manual/en/book.oauth.php] installed. OAuth PECL extension is not compatible with this library.',
 
-	'hybridauth:admin:elgg_social_login' => 'Import user settings from elgg_social_login',
-	'hybridauth:admin:elgg_social_login:count' => 'It appears that you have had <i>elgg_social_login</i> installed on your site before enabling <i>linkedin_profile_importer</i>.<br />
-							We have found <b>%s</b> users that have used their social accounts previously to log in to your site. <br />
-							You can import their settings now so that their ability to use social accounts is not disrupted.<br />
-							In case of conflicting user records, earlier user records will be preserved',
-	'hybridauth:admin:elgg_social_login:action' => '%s records were updated',
-
-	'hybridauth:admin:social_connect' => 'Import user settings from social_connect',
-	'hybridauth:admin:social_connect:count' => 'It appears that you have had <i>social_connect</i> installed on your site before enabling <i>linkedin_profile_importer</i>.<br />
-							We have found <b>%s</b> users that have used their social accounts previously to log in to your site. <br />
-							You can import their settings now so that their ability to use social accounts is not disrupted.<br />
-							In case of conflicting user records, earlier user records will be preserved',
-	'hybridauth:admin:social_connect:action' => '%s records were updated',
-
 	'hybridauth:debug_mode' => 'Debug Mode',
 	'hybridauth:debug_mode:enable' => 'On',
 	'hybridauth:debug_mode:disable' => 'Off',
@@ -50,10 +36,6 @@ $english = array(
 	'hybridauth:provider:enabled' => 'Enable',
 	'hybridauth:provider:disabled' => 'Disable',
 
-	'hybridauth:provider:id' => 'Provider ID',
-	'hybridauth:provider:key' => 'Public Key',
-	'hybridauth:provider:secret' => 'Private Key',
-
 	'hybridauth:provider:LinkedIn:key' => 'API Key',
 	'hybridauth:provider:LinkedIn:secret' => 'Secret Key',
 
@@ -61,7 +43,6 @@ $english = array(
 	
 	'hybridauth:adapter:pass' => 'Service is active',
 
-	'hybridauth:connect' => 'or connect with:',
 	'hybridauth:login:provider' => 'You have been logged in using your %s account.',
 	'hybridauth:link:provider' => 'You have successfully linked your account with %s.',
 	'hybridauth:link:provider:error' => 'This %s account has already been linked to another profile in the system. Please log in using that profile to deauthorize it, or link this profile to another account.',
