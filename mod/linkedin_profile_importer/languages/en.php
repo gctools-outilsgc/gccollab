@@ -149,7 +149,7 @@ $english = array(
 	'linkedin:volunteer_experience:success:update' => 'Volunteer experience "%s" successfully updated',
 	'linkedin:volunteer_experience:error' => 'Volunteer experience "%s" could not be imported',
 
-	'linkedin:recommendations' => 'Recommenadtions',
+	'linkedin:recommendations' => 'Recommendations',
 	'linkedin:recommendations:label' => 'By %s %s',
 	'linkedin:recommendations:select' => 'Select recommendations you would like to import or update:',
 	'linkedin:recommendations:access' => 'Select an access level for imported items',
