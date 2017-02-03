@@ -15,14 +15,45 @@ $details = json_decode($details_json_result);
 $tag_names = elgg_trigger_plugin_hook('linkedin:fields', 'profile', NULL, array());
 
 if ($tag_names) {
-	echo '<fieldset>';
-	echo '<legend>' . elgg_echo('linkedin:general') . '</legend>';
+	echo '<div class="panel panel-custom">';
+	echo '<div class="panel-heading"><h2 class="profile-info-head panel-title">' . elgg_echo('linkedin:general') . '</h2></div>';
+	echo '<div class="panel-body">';
+
+	echo $details->pictureUrls;
+	if($details->pictureUrls){
+		echo '<div class="col-sm-4">';
+		$image_url = $details->pictureUrls->values[0];
+		echo elgg_view('output/img', array(
+	    	'src' => $image_url,
+	    	'style' => 'max-width: 100%;',
+	    ));
+	    echo elgg_view('input/hidden', array(
+			'name' => "tags[pictureUrls][value]",
+			'value' => $image_url
+		));
+
+	    echo '<div class="elgg-image-block mbl">';
+		echo '<div class="elgg-body">';
+
+		echo '<label>' . elgg_view('input/checkbox', array(
+			'name' => "tags[pictureUrls][import]",
+			'value' => 'yes',
+			'checked' => 'checked',
+		)) . '<span class="mrgn-lft-sm">' . elgg_echo("linkedin:profile:picture-url") . '</span></label>';
+		echo elgg_view('input/hidden', array(
+			'name' => "tags[pictureUrls][name]",
+			'value' => "picture-url"
+		));
+
+		echo '</div></div>';
+		echo '</div><div class="col-sm-8">';
+	}
 
 	foreach ($tag_names as $tag => $tag_name) {
 
 		$value = $details->$tag;
 
-		if (!$value) {
+		if (!$value || $tag == 'pictureUrls') {
 			continue;
 		}
 
@@ -33,7 +64,7 @@ if ($tag_names) {
 			'name' => "tags[$tag][import]",
 			'value' => 'yes',
 			'checked' => 'checked',
-		)) . '<span class="mrgn-lft-sm">' . elgg_echo("profile:$tag_name") . '</span></label>';
+		)) . '<span class="mrgn-lft-sm">' . elgg_echo("linkedin:profile:$tag_name") . '</span></label>';
 		echo elgg_view('input/hidden', array(
 			'name' => "tags[$tag][name]",
 			'value' => $tag_name
@@ -160,24 +191,16 @@ if ($tag_names) {
 					'value' => $linkedin_url
 				));
 				break;
-
-			case 'pictureUrls' :
-				$image_url = $value->values[0];
-				echo elgg_view('output/img', array(
-					'name' => "tags[$tag][value]",
-			    	'src' => $image_url
-			    ));
-			    echo elgg_view('input/hidden', array(
-					'name' => "tags[$tag][value]",
-					'value' => $image_url
-				));
-				break;
 		}
 		echo '</div>';
 		echo '</div>';
 	}
 
-	echo '</fieldset>';
+	if($details->pictureUrls){
+		echo '</div>';
+	}
+
+	echo '</div></div>';
 }
 
 $linkedin_api_result = $adapter->adapter->api->profile("~:(positions:(id,title,company:(name)),projects:(id,name),educations:(id,degree,school-name,field-of-study),publications:(id,title),patents:(id,title),certifications:(id,name,authority),courses:(id,name),volunteer:(volunteer-experiences:(id,role,organization)),recommendations-received:(id,recommender))");
@@ -192,20 +215,21 @@ if (LINKEDIN_POSITION_SUBTYPE) {
 			$positions_options[$label] = $position->id;
 		}
 
-		echo '<fieldset>';
-		echo '<legend>' . elgg_echo('linkedin:positions') . '</legend>';
+		echo '<div class="panel panel-custom">';
+		echo '<div class="panel-heading"><h2 class="profile-info-head panel-title">' . elgg_echo('linkedin:positions') . '</h2></div>';
+		echo '<div class="panel-body"><p>' . elgg_echo('linkedin:positions:select') . '</p>';
 
-		echo '<label>' . elgg_echo('linkedin:positions:select') . '</label>';
-		foreach ($linkedin->positions->values as $position) {
+		foreach ($linkedin->positions->values as $key => $position) {
 			$label = elgg_echo('linkedin:position:label', array($position->title, $position->company->name));
-			echo '<label>' . elgg_view('input/checkbox', array(
+			echo (($key + 1) == count($linkedin->positions->values)) ? '<div>' : '<div style="margin-bottom: 15px;">';
+			echo elgg_view('input/checkbox', array(
 				'name' => "positions[]",
 				'value' => $position->id,
 				'checked' => ($linkedin->positions->_total == 1) ? true : false
-			)) . ' ' . $label . '</label>';
+			)) . ' ' . $label . '</div>';
 		}
 
-		echo '</fieldset>';
+		echo '</div></div>';
 	}
 }
 
@@ -391,5 +415,6 @@ if (LINKEDIN_RECOMMENDATION_SUBTYPE) {
 }
 
 echo '<div class="elgg-foot">';
-echo elgg_view('input/submit', array('value' => elgg_echo('linkedin:submit')));
+echo elgg_view('input/submit', array('value' => elgg_echo('linkedin:submit'), 'class' => 'btn-primary pull-right mls'));
+echo elgg_view('output/url', array('text' => elgg_echo('linkedin:cancel'), 'class' => 'btn btn-default pull-right', 'href' => elgg_get_site_url() . 'profile/' . get_loggedin_user()->username));
 echo '</div>';

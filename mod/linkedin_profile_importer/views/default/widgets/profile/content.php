@@ -26,36 +26,23 @@ foreach ($providers as $provider => $settings) {
         }
 
         if ($adapter) {
-            $title = elgg_view_icon(strtolower("auth-$provider")) . " " . $provider;
+            $title = elgg_view_icon(strtolower("auth-$provider-large")) . " " . $provider;
 
             if (elgg_get_plugin_user_setting("$provider:uid", $user->guid, 'linkedin_profile_importer')) {
-                $content = '<p class="hybridauth-diagnostics-success">' . elgg_echo('hybridauth:provider:user:authenticated') . '</p>';
-
-                $content .= '<div class="col-xs-6">' . elgg_view('output/url', array(
-                    'text' => elgg_view_icon('linkedin') . '<span>' . elgg_echo('linkedin:import') . '</span>',
+                $content = '<div class="ptm">' . elgg_view('output/url', array(
                     'href' => 'linkedin/import',
-                    'class' => 'elgg-button elgg-button-action btn btn-primary'
-                )) . '</div>';
-
-                $content .= '<div class="col-xs-6">' . elgg_view('output/url', array(
-                    'href' => "action/linkedin/deauthorize?provider=$provider&guid=$user->guid",
-                    'is_action' => true,
-                    'text' => elgg_echo('hybridauth:provider:user:deauthorize'),
-                    'class' => 'elgg-button elgg-button-action btn btn-default'
+                    'text' =>  elgg_view_icon(strtolower("auth-$provider-large")),
+                    'title' => elgg_echo('linkedin:import-linkedin'),
                 )) . '</div>';
             } else {
                 $forward_url = urlencode(elgg_normalize_url("linkedin/import"));
-                $content = '<p class="hybridauth-diagnostics-success">' . elgg_echo('hybridauth:provider:user:default') . '</p>';
-                $content .= elgg_view('output/url', array(
+                $content = elgg_view('output/url', array(
                     'href' => "linkedin/authenticate?provider=$provider&elgg_forward_url=$forward_url",
                     'text' => elgg_echo('hybridauth:provider:user:authenticate'),
-                    'class' => 'elgg-button elgg-button-action btn btn-primary'
+                    'title' => elgg_echo('linkedin:import-linkedin'),
                 ));
             }
 
-            // echo elgg_view_module('info', $title, $content, array('class' => 'mrgn-bttm-0'));
-
-            echo "<h2 class='panel-title'>" . $title . "</h2>";
             echo $content;
         }
     }
