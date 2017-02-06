@@ -144,7 +144,7 @@ Open to Academics, Students and Public Servants across the country, GCcollab is 
   'contactform:department' => 'Department',
   'contactform:select' => 'Please select a category',
   'contactform:reason' => 'Select...',
-  'contactform:help_menu_item' => 'Contact / Feedback2',
+  'contactform:help_menu_item' => 'Contact / Feedback3',
   'contactform:newsletter' => 'Subscribe to the Newsletter',
   'contactform:box:message' => 'Show the information box',
   'conatactform:fr:name' => 'Name of the link in french',
