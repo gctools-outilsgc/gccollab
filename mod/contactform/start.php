@@ -12,13 +12,7 @@ function contactform_init() {
 	elgg_register_action('contactform/delete', "$action_path/delete.php");
     requirements_check2();
 	elgg_register_page_handler('contactform','contactform_page_handler');
-	// Add menu link
-	elgg_register_menu_item('site', array(
-		'name' => 'Help',
-        'href' => $CONFIG->wwwroot . "mod/contactform/",
-        'text' => elgg_echo('contactform:help_menu_item'),
-        'priority' => 1000,
-	));
+
 
 
 	// cyu - register action to send the feedback form to the helpdesk/and send copy to recipient using elgg function

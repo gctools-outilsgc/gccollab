@@ -11122,6 +11122,28 @@ border:none;
     width:25px;
   }
 
+  .fa-cog:before{
+    content:none !important;
+  }
+
+  .fa-cog {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_cog.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
+  .fa-caret-down:before{
+    content:none !important;
+  }
+
+  .fa-caret-down {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
   .fa-ellipsis-v:before{
     content:none !important;
   }
