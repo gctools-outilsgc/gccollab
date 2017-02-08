@@ -1,10 +1,9 @@
 <?php
 
-if( !empty($_POST['id']) && !empty($_POST['dept_en']) && !empty($_POST['dept_fr']) ){
-	$key = $_POST['id'];
-	$dept_en = $_POST['dept_en'];
-	$dept_fr = $_POST['dept_fr'];
+$key = $dept_en = get_input('dept_en');
+$dept_fr = get_input('dept_fr');
 
+if( !empty($key) && !empty($dept_en) && !empty($dept_fr) ){
 	$deptObj = elgg_get_entities(array(
 	   	'type' => 'object',
 	   	'subtype' => 'federal_departments',
