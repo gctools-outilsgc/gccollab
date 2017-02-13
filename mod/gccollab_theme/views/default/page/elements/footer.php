@@ -68,7 +68,10 @@ $feedbackText= elgg_echo('wet:feedbackText');
             <!-- Stay Connected -->
             <section class="col-sm-3">
                 <h3><?php echo elgg_echo('wet:footTitleSocial');?></h3>
-                <ul class="list-unstyled"><li><a href="https://twitter.com/gccollab">Twitter</a></li></ul>
+                <ul class="list-unstyled">
+                    <li><a href="https://twitter.com/gccollab">Twitter</a></li>
+                    <li><a href="https://github.com/gctools-outilsgc/GCcollab">GitHub</a></li>
+                </ul>
             </section>
       <section class="col-sm-3">
         <a href="/mod/contactform/" class="btn btn-primary">
