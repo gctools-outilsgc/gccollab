@@ -30,7 +30,7 @@ if($userEnt->description){
 //basic profile
 $basicCount = 0;
 
-if($userEnt->department){
+if($userEnt->federal || $userEnt->ministry || $userEnt->university || $userEnt->college){
     $basicCount += 20;
 }
 if($userEnt->job){
