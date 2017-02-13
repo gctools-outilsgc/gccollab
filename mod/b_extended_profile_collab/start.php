@@ -38,6 +38,9 @@ function b_extended_profile_collab_init() {
     elgg_register_ajax_view('b_extended_profile_collab/endorsements');
     elgg_register_ajax_view('b_extended_profile_collab/languages');
     elgg_register_ajax_view('b_extended_profile_collab/portfolio');
+    //Troy T. Lawson
+    elgg_register_ajax_view('b_extended_profile/skills-access');
+
 
     // edit views
     elgg_register_ajax_view('b_extended_profile_collab/edit_about-me');

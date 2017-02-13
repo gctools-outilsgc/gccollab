@@ -921,6 +921,46 @@ border:none;
 
 }
 
+    .newsfeed-filter-gear {
+        font-size: 1.75em !important;
+        margin-top: 3px;
+    }
+
+    .newsfeed-filter {
+        width:90%;
+        max-width: 500px;
+        margin-top:10px;
+    }
+
+    .newsfeed-filter:after{
+       content: '';
+    display: block;
+    position: absolute;
+    right:2%;
+    top: -12px;
+    width: 0;
+    height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+
+	border-bottom: 12px solid #fff;
+    clear: both;
+}
+
+.newsfeed-filter:before{
+       content: '';
+    display: block;
+    position: absolute;
+    right: 2%;
+    top: -14px;
+    width: 0;
+    height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+
+	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+    clear: both;
+}
 
 .newsfeed-filter-gear {
         font-size: 1.75em !important;
@@ -1700,8 +1740,23 @@ figcaption{
     text-decoration: underline;
     cursor: pointer;
 }
-  
+
 .indicator_summary{
   color:#D6D6D6;
   font-size: 12px
+}
+
+/*Related groups autocomplete*/
+.ui-autocomplete .ui-menu-item {
+  clear:both;
+  overflow:auto;
+}
+.ui-autocomplete .ui-menu-item:hover {
+  background:#eee;
+}
+.ui-autocomplete .ui-menu-item:focus {
+  background:#eee;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  border:none;
 }
