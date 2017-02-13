@@ -243,7 +243,7 @@ function groups_page_handler($page) {
 
 	switch ($page[0]) {
 		case 'all':
-			set_input('filter', 'all');
+			if(!$_GET['filter']){ set_input('filter', 'all'); }
 			groups_handle_all_page();
 			break;
 		case 'search':
