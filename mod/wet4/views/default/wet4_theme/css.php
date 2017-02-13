@@ -11253,6 +11253,46 @@ border:none;
       height: 25px;
       width:25px;
   }
+
+  .gcconnex-profile-contact-info .fa-phone:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-phone {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_phone.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-mobile:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-mobile {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mobile.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-envelope:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-envelope {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_envelope.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-globe:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-globe {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_globe.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
 }
 
 /*

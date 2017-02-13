@@ -44,7 +44,7 @@
      width:100%;
      height: 185px;
      position: relative;
-     margin-top: 60px;
+     margin-top: 10px;
      background-color:#047177;
      overflow:hidden;
  }

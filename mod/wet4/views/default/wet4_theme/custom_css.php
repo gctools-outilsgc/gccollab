@@ -121,12 +121,12 @@ max-height: 500px;
 .notif-dd-position{
   left:auto;
   top:30px;
-  right:0;
+  right:-23px;
 }
 .message-dd-position{
   left:auto;
   top:30px;
-  right:0;
+  right:-23px;
 
 }
 
@@ -1587,9 +1587,9 @@ figcaption{
 /******* Entity Menu Style ********/
 
 .entity-menu-bubble{
-   /* padding: 3px;
+    padding: 3px;
     background-color: #efefef;
-    border: 1px solid transparent;*/
+    border: 1px solid transparent;
 
 }
 
