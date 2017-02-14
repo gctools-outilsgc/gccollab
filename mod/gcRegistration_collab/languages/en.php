@@ -36,7 +36,7 @@ $english = array(
 	'gcRegister:please_enter_name' => 'Please enter display name',
 	'gcRegister:department_name' => 'Enter your Department',
 	'gcRegister:register' => 'Register',
-	'gcRegister:custom' => 'Please enter name of employer',
+	'gcRegister:other' => 'Please enter the name of your organization',
 
 	// error messages on the form
 	'gcRegister:failedMySQLconnection' => 'Unable to connect to the database',

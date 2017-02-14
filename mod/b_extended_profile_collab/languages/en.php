@@ -79,6 +79,7 @@ $english = array(
     'gcconnex_profile:basic:ministry' => 'Ministry: ',
     'gcconnex_profile:basic:university' => 'University: ',
     'gcconnex_profile:basic:college' => 'College: ',
+    'gcconnex_profile:basic:other' => 'Other: ',
     'gcconnex_profile:basic:location' => 'Location: ',
     'gcconnex_profile:basic:phone' => 'Phone: ',
     'gcconnex_profile:basic:mobile' => 'Mobile: ',

@@ -1780,3 +1780,51 @@ if ( !$colObj ){
 		$colleges->save();
 	}
 }
+
+/**** Other ****/
+
+$other_en = $other_fr = array("AbCdE Organization" => "AbCdE Organization",
+"Prime Minister's Youth Council" => "Prime Minister's Youth Council",
+"XYZ Inc." => "XYZ Inc.");
+
+$otherObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'other',
+));
+if ( !$otherObj ){
+	$other = new ElggObject();
+	$other->subtype = "other";
+	$other->title = "other";
+	$other->access_id = ACCESS_PUBLIC;
+
+	$other->set('other_en', json_encode($other_en));
+	$other->set('other_fr', json_encode($other_fr));
+	$other->save();
+} else {
+	$other = get_entity($otherObj[0]->guid);
+	if ($other->other_en != $other_en){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'other_en',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$other->set('other_en', json_encode($other_en));
+		$other->save();
+	}
+
+	if ($other->other_fr != $other_fr){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'other_fr',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$other->set('other_fr', json_encode($other_fr));
+		$other->save();
+	}
+}

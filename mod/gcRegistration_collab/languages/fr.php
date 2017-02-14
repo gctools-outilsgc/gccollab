@@ -36,7 +36,7 @@ $french = array(
 	'gcRegister:please_enter_name' => 'Veuillez inscrire votre nom à afficher',
 	'gcRegister:department_name' => 'Inscrire le nom de votre ministère',
 	'gcRegister:register' => 'S\'inscrire',
-	'gcRegister:custom' => 'Veuillez indiquer le nom de l\'employeur',
+	'gcRegister:other' => 'Veuillez indiquer le nom de l\'organisation',
 				
 	// error messages on the form			// error messages on the form			
 	'gcRegister:failedMySQLconnection' => 'Impossible de se connecter à la base de données',

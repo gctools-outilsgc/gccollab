@@ -54,7 +54,7 @@ if ($user->canEdit()) {
                 'id' => $field,
                 'class' => "gcconnex-basic-{$field}",
                 'value' => $value,
-                'options_values' => array('federal' => elgg_echo('gcconnex-profile-card:federal'), 'academic' => elgg_echo('gcconnex-profile-card:academic'), 'student' => elgg_echo('gcconnex-profile-card:student'), 'provincial' => elgg_echo('gcconnex-profile-card:provincial')),
+                'options_values' => array('federal' => elgg_echo('gcconnex-profile-card:federal'), 'academic' => elgg_echo('gcconnex-profile-card:academic'), 'student' => elgg_echo('gcconnex-profile-card:student'), 'provincial' => elgg_echo('gcconnex-profile-card:provincial'), 'other' => elgg_echo('gcconnex-profile-card:other')),
             ));
 
             // jquery for the occupation dropdown - institution
@@ -314,6 +314,38 @@ if ($user->canEdit()) {
                 'value' => $value,
                 'options_values' => $colleges, 
             ));       
+
+        } else if (strcmp($field, 'other') == 0) {
+
+            echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
+            echo '<div class="col-sm-8">';
+
+            $otherObj = elgg_get_entities(array(
+                'type' => 'object',
+                'subtype' => 'other',
+            ));
+            $others = get_entity($otherObj[0]->guid);
+
+            $other = array();
+            if (get_current_language() == 'en'){
+                $other = json_decode($others->other_en, true);
+            } else {
+                $other = json_decode($others->other_fr, true);
+            }
+
+            echo elgg_view('input/text', array(
+                'name' => $field,
+                'id' => $field,
+                'class' => "gcconnex-basic-{$field}",
+                'value' => $value,
+                'list' => $field . 'list'
+            ));
+
+            echo '<datalist id="otherlist">';
+                foreach($other as $other_name){
+                    echo '<option value="' . $other_name . '"></option>';
+                }
+            echo '</datalist>';
 
         } else {
 

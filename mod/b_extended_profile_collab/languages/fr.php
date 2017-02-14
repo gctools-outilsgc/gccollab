@@ -86,6 +86,7 @@ $french = array(
     'gcconnex_profile:basic:ministry' => 'Ministère : ',
     'gcconnex_profile:basic:university' => 'Université : ',
     'gcconnex_profile:basic:college' => 'Collège : ',
+    'gcconnex_profile:basic:other' => 'Autre : ',
     'gcconnex_profile:basic:location' => 'Adresse : ',
     'gcconnex_profile:basic:phone' => 'Téléphone : ',
     'gcconnex_profile:basic:mobile' => 'Cellulaire : ',
