@@ -312,8 +312,8 @@ return array(
  */
 
 	'PRIVATE' => "Only me",
-	'LOGGED_IN' => "Users logged in to GCconnex only",
-	'PUBLIC' => "All public servants",
+	'LOGGED_IN' => "Users logged in to GCcollab only",
+	'PUBLIC' => "All users",
 	'LOGGED_OUT' => "Logged out users",
 	'access:friends:label' => "Colleagues",
 	'access' => "Access",
