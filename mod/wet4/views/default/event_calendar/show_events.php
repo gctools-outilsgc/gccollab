@@ -72,7 +72,7 @@ if ($listing_format == 'paged' || $listing_format == 'full') {
 	}else{
 		$new_link = elgg_view('output/url', array(
         'href' => "event_calendar/add",
-        'text' => elgg_echo('event_calendar:new1'),
+        'text' => elgg_echo('event_calendar:new'),
         'class' => 'btn btn-primary pull-right',
     	));
 	}
@@ -95,25 +95,17 @@ if ($listing_format == 'paged' || $listing_format == 'full') {
 
 	
 } else {
-    
-    $new_link = elgg_view('output/url', array(
-        'href' => "event_calendar/add",
-        'text' => elgg_echo('event_calendar:new'),
-        'class' => 'btn btn-primary pull-right',
-    ));
-    
 ?>
 	<div style="width:100%">
-		<div id="event_list">
+		<div id="event_list" style="float:left;">
 			<?php
-            echo $new_link;
 			echo $event_list;
 			?>
 		</div>
 		<div style="float:right;">
 			<!-- see the calendar -->
 			<?php
-			//echo elgg_view('event_calendar/calendar', $vars);
+			echo elgg_view('event_calendar/calendar', $vars);
 			?>
 		</div>
 	</div>
