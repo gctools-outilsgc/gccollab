@@ -32,6 +32,9 @@ $current_language = get_current_language();
 $gsa_language = (strcmp($current_language,'en') == 0) ? 'eng' : 'fra';
 $url = "http://intranet.canada.ca/search-recherche/query-recherche-{$gsa_language}.aspx?".http_build_query($query_params); 
 
+// Override for GCcollab
+$url = elgg_get_site_url() . "search?q=".$vars['value']; 
+
 $params = array(
 	'href' => $url,
 	'text' => $vars['value'],

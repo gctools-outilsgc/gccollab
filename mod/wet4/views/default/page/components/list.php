@@ -470,15 +470,12 @@ if ($position == 'after' || $position == 'both') {
 		$subtype = $item->getSubtype();
 
 		$li_attrs['id'] = "elgg-$type-$guid";
-
-        if(elgg_in_context('ajax')){
-            $li_attrs['class'][] = "elgg-item-$type mrgn-tp-md clearfix noWrap";
-        }else{
-         $li_attrs['class'][] = "elgg-item-$type list-break mrgn-tp-md clearfix noWrap";   
-        }
         
 		
-        
+
+        $li_attrs['class'][] = "elgg-item-$type list-break mrgn-tp-md clearfix noWrap";
+
+
 		if ($subtype) {
 
 			$li_attrs['class'][] = "elgg-item-$type-$subtype clearfix";

@@ -1437,10 +1437,10 @@ details.elgg-state-success:before {
     top: 0;
     width: 0;
     height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
 
-  border-left: 17px solid #46246A;
+    border-left: 17px solid #46246A;
     clear: both;
 }
 .app-name:after{
@@ -1509,10 +1509,10 @@ details.elgg-state-success:before {
     top: -10px;
     width: 0;
     height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
 
-  border-bottom: 12px solid #fff;
+    border-bottom: 12px solid #fff;
     clear: both;
 }
 .tools-navigator-menu:after{
@@ -1523,10 +1523,10 @@ details.elgg-state-success:before {
     top: -12px;
     width: 0;
     height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
 
-  border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+    border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
     clear: both;
 }
 
@@ -1559,64 +1559,6 @@ figcaption{
 
 }
 
-
-.object-header-avatar .elgg-avatar-medium-wet4{
-    float:left;
-}
-
-.object-header-avatar img{
-    width: 75px;
-    display: inline-block !important;
-}
-
-.object-header-name{
-    margin:5px -10px;
-    float:left;
-}
-
-.object-header-name a{
-    font-size: 1.1em;
-    display: block;
-}
-
-.object-header-name time{
-    color: #6d6d6d;
-}
-
-.discussion-card{
-    border: 1px solid #ddd;
-    background-color: white;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-}
-
-.discussion-card-header{
-    border-bottom: 1px solid #ddd;
-    padding: 4px;
-}
-
-.discussion-card-body{
-    padding: 4px 8px 8ox 0px;
-}
-
-.discussion-card-footer{
-    padding: 6px 4px;
-    background-color: #f5f5f5;
-    margin-left: -10px;
-    margin-right: -10px;
-}
-
-
-.group-no-results{
- width:  100px;
-    margin:0 auto;
-    padding: 5px;
-    font-size: 1.1em;
-}
-
-
-.group-search-holder{
-    margin-right:-15px;
-}
 /****** Polls Custom stuff ******/
 .polls-table th{
        font-weight: bold;

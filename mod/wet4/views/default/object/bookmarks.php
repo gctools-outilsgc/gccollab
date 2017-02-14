@@ -35,8 +35,6 @@ $owner_link = elgg_view('output/url', array(
 $author_text = elgg_echo('byline', array($owner_link));
 
 $date = elgg_view_friendly_time($bookmark->time_created);
-//Nick - making the newer header 
-$owner_link_final = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
 
 $comments_count = $bookmark->countComments();
 //only display if there are commments
@@ -105,7 +103,7 @@ HTML;
 
 	echo elgg_view('object/elements/full', array(
 		'entity' => $bookmark,
-		'icon' => $owner_link_final,
+		'icon' => $owner_icon,
 		'summary' => $summary,
 		'body' => $body,
 	));
@@ -172,5 +170,5 @@ HTML;
 	$params = $params + $vars;
 	$body = elgg_view('object/elements/summary', $params);
 	
-	echo elgg_view_image_block($owner_link_final, $body, array('class'=>'discussion-card'));
+	echo elgg_view_image_block($owner_icon, $body);
 }
