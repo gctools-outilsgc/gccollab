@@ -100,11 +100,11 @@ if( $type == 'GPmod'){
     
 }else{ //Normal Style Below
 
-    //if($checkPage =='custom_index_widgets'){
-        //$attrs['class'][] = 'panel panel-default custom-index-panel';
-    //}else{
+    if($checkPage =='custom_index_widgets'){
+        $attrs['class'][] = 'panel panel-default custom-index-panel';
+    }else{
         $attrs['class'][] = 'panel panel-default TEST';
-    //}
+    }
     
 
     if ($type) {

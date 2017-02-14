@@ -204,7 +204,7 @@ return array(
     "missions:tentative" =>	"Provisoire",
     "missions:see_full_profile" =>	"Voir le profil complet de l'utilisateur",
     "missions:see_full_mission" => "Voir le profil complet de la possibilité",
-    "missions:paragraph:fill_mission" => "Vous pouvez inviter des utilisateurs de GCconnex à cette possibilité en entrant leur nom d'utilisateur dans les champs ci-dessous.",
+    "missions:paragraph:fill_mission" => "Vous pouvez inviter des utilisateurs de GCcollab à cette possibilité en entrant leur nom d'utilisateur dans les champs ci-dessous.",
 	"missions:search_results_display" => "Affichage des résultats de la recherche",
 	"missions:settings:search_result_per_page" => "Combien de résultats de recherche par page?",
 	"missions:invite_to_a_mission" => "Inviter à une possibilité",
@@ -272,7 +272,7 @@ return array(
     "missions:splash:missions_help_message" =>"Si vous avez besoin d’aide, <a href=' http://www.gcpedia.gc.ca/wiki/Aide_%C3%A0_l%27utilisateur/Carrefour_d%27emploi ' target='_blank'>consultez la page d’aide à l’utilisateur! </a>",
 "missions:splash:missions_right_now" =>"Possibilités en ce Moment",
 "missions:splash:what_are_missions" =>	"Comment puis-je apprendre davantage sur les genres de possibilités disponibles dans la plateforme de possibilités de ConneXions carrière?",
-"missions:splash:how_to_apply" =>	"Comment postuler? Commencez par vous inscrire dans votre profil GCconnex!",
+"missions:splash:how_to_apply" =>	"Comment postuler? Commencez par vous inscrire dans votre profil GCcollab!",
 "missions:my_opportunities" =>	"Mes possibilités",
 "missions:search_opportunities" =>	"Recherche de possibilités",
 "missions:filter_search" =>	"Filtrer la recherche",
@@ -324,7 +324,7 @@ return array(
     'missions:splash:popup_title'=>"Que possibilités êtes vous intéressé?",
     'missions:splash:popup_instruction'=> "Sélectionner les types de possibilités qui vous intéressent (soit comme un hôte ou comme participant).",
     'missions:splash:welcome'=>"Bienvenue à la Plateforme de possibilités de ConneXions Carrière au sein du Carrefour d'emploi!",
-"missions:first_splash_paragraph" =>	"Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCconnex des employés.",
+"missions:first_splash_paragraph" =>	"Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCcollab des employés.",
 "missions:second_splash_paragraph" =>	"Pour participer, consultez certaines de nos possibilités ouvertes ci-dessous et cliquez sur le bouton d'inscription et sélectionnez les types de possibilités qui vous intéressent (soit comme un hôte ou comme participant).",
     "missions:optin:success"=>"Bienvenue à la Plateforme de possibilités de ConneXions Carrière",
 "missions:graph_interval" =>	"Intervalle graphique",
@@ -446,7 +446,7 @@ return array(
 "missions:user_department" =>	"Ministère de l'utilisateur",
 "missions:error:no_departments_loaded" =>"Aucun ministère n'est chargé. L'analytique ne peut pas générer les graphiques.",
 "missions:invite_to_opt_in" =>	"Inviter à s'inscrire aux possibilités de ConneXions Carrière",
-"missions:check_micro_missions" =>	"Consultez les micro-missions ainsi que les autres possibilités interministérielles supportés par la Plateforme de possibilités de ConneXions carrière au sein du Carrefour d'emploi! Inscrivez-vous à partir de votre profil GCconnex pour participer!",
+"missions:check_micro_missions" =>	"Consultez les micro-missions ainsi que les autres possibilités interministérielles supportés par la Plateforme de possibilités de ConneXions carrière au sein du Carrefour d'emploi! Inscrivez-vous à partir de votre profil GCcollab pour participer!",
 "missions:view" =>	"Afficher",
 "missions:offer" =>	"Offrir",
 "missions:reject" =>	"Refuser",
@@ -506,7 +506,7 @@ return array(
 "missions:error:exceeds_string_length" =>	"%s dépasse la limite de %s caractères.",
 "mission:manager_information" =>	"Renseignements sur le gestionnaire",
 "missions:graph" =>	"Graphique",
-"missions:error:email_not_on_gcconnex" =>	"L'adresse de courriel '%s' n'est pas liée à un utilisateur de GCconnex.",
+"missions:error:email_not_on_gcconnex" =>	"L'adresse de courriel '%s' n'est pas liée à un utilisateur de GCcollab.",
 "mission:creator_information" =>	"Renseignements sur le créateur",
 "missions:name" =>	"Nom",
 "missions:email" =>	"Adresse de courriel",
@@ -518,7 +518,7 @@ return array(
 "missions:error:negative_time_commitment" =>	"La période d'engagement de votre possibilité doit être supérieure à 0 heure.",
 "missions:error:time_commitment_not_number" =>	"La période d'engagement que vous avez entrée n'était pas un nombre.",
 "missions:already_invited" =>	"Déjà invité à cette possibilité [ou à s'inscrire à cet outil]",
-"missions:saved_beginning_skill_match" =>	"Votre possibilité a été enregistrée. Nous générons en ce moment une liste d'utilisateurs de GCconnex ayant les compétences suivantes que vous avez entrées : %s._x000D_
+"missions:saved_beginning_skill_match" =>	"Votre possibilité a été enregistrée. Nous générons en ce moment une liste d'utilisateurs de GCcollab ayant les compétences suivantes que vous avez entrées : %s._x000D_
 Notez qu'il n'est pas garanti que les utilisateurs sur cette liste soient qualifiés pour votre possibilité; toutefois, elle devrait offrir un bon point de départ pour retrouve des candidats talentueux de façon proactive._x000D_
 Vous pouvez inviter n'importe quel employé, qu'il figure à la liste ou non, à votre possibilité. Les employés qui n'apparaissent pas dans cette liste sont aussi les bienvenus à faire part de leur intérêt dans votre possibilité.",
 "missions:no_skill_matches_found" =>	"Aucun utilisateur n'a été trouvé avec toutes les compétences suivantes : %s. Faites une rechereche à nouveau avec moins de compétences.",
@@ -533,7 +533,7 @@ Veuillez noter que les renseignements que vous saisissez dans ces champs seront 
 "missions:placeholder_i" =>	"Cela supprimera de manière permanente la personne de la liste des participants et des candidats. L'employé recevra un avis l'informant qu'il a été retiré de cette possibilité.",
 "missions:placeholder_i2" => "Cela supprimera de manière permanente la personne de la liste des participants. L'employé recevra un avis l'informant qu'il a été retiré de cette possibilité.",
 "missions:placeholder_j" =>	"Cliquez ici pour obtenir de l'orientation et des définitions au sujet de chaque type de possibilité (s'ouvre dans un nouvel onglet)",
-"missions:placeholder_k" =>	"La fonction « S'inscrire » prend en charge la fonctionnalité de la Plateforme de possibilités de ConneXions Carrière à l'intérieur du Carrefour d'emploi, en parallèle avec les renseignements de votre profil GCconnex, afin de permettre aux employés de découvrir des possibilités d'intérêt.
+"missions:placeholder_k" =>	"La fonction « S'inscrire » prend en charge la fonctionnalité de la Plateforme de possibilités de ConneXions Carrière à l'intérieur du Carrefour d'emploi, en parallèle avec les renseignements de votre profil GCcollab, afin de permettre aux employés de découvrir des possibilités d'intérêt.
 
 Cliquez ici pour en savoir plus au sujet du Carrefour d'emploi et de chaque type de possibilité.
 
@@ -543,7 +543,7 @@ L'approbation de votre superviseur est nécessaire avant que vous soyez en mesur
 "missions:diagnostic_suite:no_missions_in_db" => "Il n'y a aucune possibilité qui figure dans la base de données.",
 "missions:diagnostic_suite:no_manager_name" =>   "La possibilité '%s' n'a aucun nom de gestionnaire indiqué.",
 "missions:diagnostic_suite:invalid_email_format" =>  "La possibilité '%s' a un courriel de gestionnaire non valide : '%s'.",
-"missions:diagnostic_suite:no_account_has_email" =>  "La possibilité '%s' a un courriel qui ne figure pas dans aucun compte dans GCconnex : '%s'.",
+"missions:diagnostic_suite:no_account_has_email" =>  "La possibilité '%s' a un courriel qui ne figure pas dans aucun compte dans GCcollab : '%s'.",
 "missions:diagnostic_suite:invalid_phone_format" =>  "La possibilité '%s' a un numéro de téléphone de gestionnaire non valide : '%s'.",
 "missions:diagnostic_suite:no_mission_title" =>  "La possibilité avec ID %s n'a pas de titre de poste indiqué.",
 "missions:error:start_date_not_date" =>  "La date de début n'est pas une entrée valide.",
@@ -636,7 +636,7 @@ L'approbation de votre superviseur est nécessaire avant que vous soyez en mesur
 "missions:settings:analytics_on" =>   "Afficher l'onglet des analytiques?",
 "missions:cannot_cancel_mission_with_participants" =>     "Veuillez supprimer tout participant actif et tout participant auxquels vous avez envoyé une offre avant la désactivation de cette possibilité.",
 "missions:required" =>    "(requis)",
-"missions:placeholder_a" =>   "Bienvenue à la Plateforme de possibilités de ConneXions Carrière au sein du Carrefour d'emploi! Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCconnex des employés. On encourage les employés à s'inscrire aux types de possibilité de perfectionnement professionnel et de mobilité au même niveau dans leur profil afin de pleinement profiter de cet outil. <a href='http://www.gcpedia.gc.ca/wiki/Carrefour_d_emploi' target='_blank'>Veuillez cliquer ici pour obtenir des renseignements, des tutoriels et du matériel d'orientation</a>.",
+"missions:placeholder_a" =>   "Bienvenue à la Plateforme de possibilités de ConneXions Carrière au sein du Carrefour d'emploi! Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCcollab des employés. On encourage les employés à s'inscrire aux types de possibilité de perfectionnement professionnel et de mobilité au même niveau dans leur profil afin de pleinement profiter de cet outil. <a href='http://www.gcpedia.gc.ca/wiki/Carrefour_d_emploi' target='_blank'>Veuillez cliquer ici pour obtenir des renseignements, des tutoriels et du matériel d'orientation</a>.",
 
 /*Notifictaions*/
         "missions:new_micromission_notification"=>"Une nouvelle opportunité a été créée dans la Plateforme de possibilités de ConneXions Carrière",
@@ -644,7 +644,7 @@ L'approbation de votre superviseur est nécessaire avant que vous soyez en mesur
     "cp_notify:personal_opportunities"=>"Envoyez-moi une notification quand une nouvelle opportunité que j'ai choisie est créée dans la Plateforme de possibilités de ConneXions Carrière",
 
 "missions:placeholder_d2" =>  " ",
-"missions:placeholder_e" =>   "La liste d'employés ci-dessous a été automatiquement générée en fonction des compétences que vous avez indiquées dans votre possibilité ou vos paramètres de recherche, lesquels ont été comparés aux profils GCconnex des employés. Notez que la présence d'un employé sur cette liste ne garantit pas qu'il est qualifié pour votre possibilité; toutefois, cela devrait vous offrir un bon point de départ pour retrouver des candidats talentueux de façon proactive.
+"missions:placeholder_e" =>   "La liste d'employés ci-dessous a été automatiquement générée en fonction des compétences que vous avez indiquées dans votre possibilité ou vos paramètres de recherche, lesquels ont été comparés aux profils GCcollab des employés. Notez que la présence d'un employé sur cette liste ne garantit pas qu'il est qualifié pour votre possibilité; toutefois, cela devrait vous offrir un bon point de départ pour retrouver des candidats talentueux de façon proactive.
 
 Vous pouvez inviter n'importe quel employé à votre possibilité, qu'il figure à la liste ou non. Les employés qui n'apparaissent pas dans cette liste sont aussi les bienvenus à faire part de leur intérêt dans votre possibilité.",
 "missions:confirm:remove_applicant" =>    "Cette mesure supprimera l'utilisateur qui correspond de la liste des candidats pour cette possibilité." ,

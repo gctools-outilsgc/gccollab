@@ -132,7 +132,7 @@ return array(
     "missions:end" =>"End",
     "missions:settings:advanced_element_limit" =>   "How many fields are in the advanced search form?",
     "missions:apply_for_mission" => "Apply for opportunity '%s'",
-    "missions:application_paragraph" => "Please write out the message you wish to send to this opportunity creator. Note that the public portions of your GCconnex profile will be included in the email to the opportunity creator.",
+    "missions:application_paragraph" => "Please write out the message you wish to send to this opportunity creator. Note that the public portions of your GCcollab profile will be included in the email to the opportunity creator.",
     "missions:application_to" =>    "Application to: ",
     "missions:applicant_profile" => "What is the number of river elements you wish to display per page?",
     "missions:settings:river_element_limit" =>  "Please choose values to search.",
@@ -203,7 +203,7 @@ return array(
     "missions:tentative" => "Tentative",
     "missions:see_full_profile" =>  "See full user profile",
     "missions:see_full_mission" =>  "See full Opportunity poster",
-    "missions:paragraph:fill_mission" =>    "You can share this opportunity with GCconnex users by entering their usernames in the fields below.",
+    "missions:paragraph:fill_mission" =>    "You can share this opportunity with GCcollab users by entering their usernames in the fields below.",
     "missions:search_results_display" =>    "Search results display",
     "missions:settings:search_result_per_page" =>   "How many search results per page?",
     "missions:invite_to_a_mission" =>   "Share an opportunity",
@@ -321,7 +321,7 @@ return array(
 "missions:feedback_explanation_two" =>  "Checking the checkbox will endorse the user in regards to this opportunity. This will appear on the employee&rsquo;s profile page with your avatar.",
 "missions:error:cannot_complete_mission_no_participants" => "You cannot complete an opportunity with no active participants.",
     'missions:splash:welcome'=>"Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace!",
-"missions:first_splash_paragraph" =>    "This is a tool that quickly matches at-level mobility (i.e. micro-missions and job swapping) and development (i.e. mentoring and job shadowing) opportunities with talented employees by leveraging the content in employees&rsquo; GCconnex profiles.",
+"missions:first_splash_paragraph" =>    "This is a tool that quickly matches at-level mobility (i.e. micro-missions and job swapping) and development (i.e. mentoring and job shadowing) opportunities with talented employees by leveraging the content in employees&rsquo; GCcollab profiles.",
 "missions:second_splash_paragraph" =>   "To participate, check out some of our open opportunities below and click the opt in button. Select the types of opportunities that interest you (as either a host or participant).",
     "missions:optin:success"=>"Welcome to the Career ConneXions Opportunities Platform",
 "missions:graph_interval" =>    "Graph interval",
@@ -443,7 +443,7 @@ return array(
 "missions:user_department" =>   "User department",
 "missions:error:no_departments_loaded" =>   "There are no departments loaded. Analytics can not build graphs.",
 "missions:invite_to_opt_in" =>  "Invite to opt in to Career ConneXions Opportunities",
-"missions:check_micro_missions" =>  "You should check out Micro-Missions and the other interdepartmental at-level mobility and development opportunities in the Career ConneXions Opportunities Platform within Jobs Marketplace! Opt in now from your GCconnex profile to participate!",
+"missions:check_micro_missions" =>  "You should check out Micro-Missions and the other interdepartmental at-level mobility and development opportunities in the Career ConneXions Opportunities Platform within Jobs Marketplace! Opt in now from your GCcollab profile to participate!",
 "missions:view" =>  "View",
 "missions:offer" => "Offer",
 "missions:reject" =>    "Reject",
@@ -503,7 +503,7 @@ return array(
 "missions:error:exceeds_string_length" =>   "%s exceeds the %s character limit.",
 "mission:manager_information" =>    "Opportunity Creator Information",
 "missions:graph" => "Graph",
-"missions:error:email_not_on_gcconnex" =>   "The email '%s' is not connected to a GCconnex user.",
+"missions:error:email_not_on_gcconnex" =>   "The email '%s' is not connected to a GCcollab user.",
 "mission:creator_information" =>    "Creator Information",
 "missions:name" =>  "Name",
 "missions:email" => "Email",
@@ -515,7 +515,7 @@ return array(
 "missions:error:negative_time_commitment" => "The time commitment for your opportunity must be greater than 0 hours.",
 "missions:error:time_commitment_not_number" => "The time commitment you input was not a number.",
 "missions:already_invited" => "Already invited to this opportunity [or to opt in to this tool]",
-"missions:saved_beginning_skill_match" => "Your opportunity has been successfully saved. A list of GCconnex users is being found with the following skills you input: %s.
+"missions:saved_beginning_skill_match" => "Your opportunity has been successfully saved. A list of GCcollab users is being found with the following skills you input: %s.
 
 Note that users  on this list are not guaranteed to be qualified for your opportunity however the list should provide a good starting point for proactively seeking out talented candidates.
 
@@ -531,7 +531,7 @@ Please note that information you input in these fields will be stored in your ca
 "missions:placeholder_i" => "This will permanently remove the individual from the participant and applicant list. The employee will receive a notification advising (s)he has been removed from this opportunity.",
 "missions:placeholder_i2" =>    "This will permanently remove the individual from the participant list. The employee will receive a notification advising (s)he has been removed from this opportunity.",
 "missions:placeholder_j" => "<a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Click here for guidance and definitions about each type of opportunity</a>",
-"missions:placeholder_k" => "The 'opt-in' feature supports the functionality of the Career ConneXions Opportunities Platform within the Jobs Marketplace in tandem with the information in your GCconnex profile to facilitate connecting employees with opportunities of interest.
+"missions:placeholder_k" => "The 'opt-in' feature supports the functionality of the Career ConneXions Opportunities Platform within the Jobs Marketplace in tandem with the information in your GCcollab profile to facilitate connecting employees with opportunities of interest.
 <a herf='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Click here for more information about the Jobs Marketplace and each opportunity type.</a>
 The approval of your supervisor will be required before an offer for any type of opportunity can be accepted. By opting in to an opportunity type you certify that you have had an initial conversation with your supervisor about leveraging these professional development and mobility tools.",
 
@@ -544,7 +544,7 @@ The approval of your supervisor will be required before an offer for any type of
 "missions:diagnostic_suite:no_missions_in_db" =>"There are no opportunities in the database.",
 "missions:diagnostic_suite:no_manager_name" =>  "The opportunity '%s' has an empty manager name.",
 "missions:diagnostic_suite:invalid_email_format" => "The opportunity '%s' has an invalid manager email: '%s'.",
-"missions:diagnostic_suite:no_account_has_email" => "The opportunity '%s' has an email which does not appear in any account on GCconnex: '%s'.",
+"missions:diagnostic_suite:no_account_has_email" => "The opportunity '%s' has an email which does not appear in any account on GCcollab: '%s'.",
 "missions:diagnostic_suite:invalid_phone_format" => "The opportunity '%s'  has an invalid manager phone number: '%s'.",
 "missions:diagnostic_suite:no_mission_title" => "The opportunity with ID %s has an empty job title.",
 "missions:error:start_date_not_date" => "The start date is not a valid entry.",
@@ -640,10 +640,10 @@ Should you no longer be available to participate in this opportunity, please wit
 "missions:settings:analytics_on" =>  "Display analytics tab?",
 "missions:cannot_cancel_mission_with_participants" => "Please remove all active participants and all applicants to whom you have sent an offer before deactivating this opportunity.",
 "missions:required" =>    "(required)",
-"missions:placeholder_a" =>   "Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace! This is a tool that quickly matches at-level mobility (i.e. micro-missions and job swapping) and development (i.e. mentoring and job shadowing) opportunities with talented employees by leveraging the content in employees&rsquo; GCconnex profiles.
+"missions:placeholder_a" =>   "Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace! This is a tool that quickly matches at-level mobility (i.e. micro-missions and job swapping) and development (i.e. mentoring and job shadowing) opportunities with talented employees by leveraging the content in employees&rsquo; GCcollab profiles.
 Employees are encouraged to opt in to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.
 <a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Please click here for more information, tutorials and guidance materials</a>.","Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace!
-This is a tool that quickly matches opportunities with talented employees by leveraging the content in employees&rsquo; GCconnex profiles.
+This is a tool that quickly matches opportunities with talented employees by leveraging the content in employees&rsquo; GCcollab profiles.
 Employees are encouraged to &rsquo;opt in&rsquo; to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.
 <a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Please click here for more information, tutorials and guidance materials</a>.",
 "missions:placeholder_d2" =>  " ",
@@ -667,12 +667,12 @@ Employees are encouraged to &rsquo;opt in&rsquo; to the professional development
 "missions:error:completion_date_not_formatted_properly" => "Your completion date is not formatted correctly. The correct format is: yyyy-mm-dd.",
     "missions:error:deadline_not_formatted_properly" => "Your application deadline is not formatted correctly. The correct format is: yyyy-mm-dd.",
     "missions:error:email_needs_input" => "Please enter an email address.",
-"missions:placeholder_e" =>    "The below list of employees was automatically generated based on the skills you identified in your opportunity which were cross-referenced with employees&rsquo; GCconnex profiles. Note that being on this list does not guarantee the employee is qualified for your opportunity however it should provide a good starting point for proactively seeking out talented candidates.
+"missions:placeholder_e" =>    "The below list of employees was automatically generated based on the skills you identified in your opportunity which were cross-referenced with employees&rsquo; GCcollab profiles. Note that being on this list does not guarantee the employee is qualified for your opportunity however it should provide a good starting point for proactively seeking out talented candidates.
 You can share your opportunity with any employee whether on this list or not. Employees who do not appear on this list are also welcome to express interest in your opportunity.",
 "missions:confirm:remove_applicant" =>    "This action will remove the corresponding user from the list of applicants for this opportunity." ,
 "missions:confirm:remove_participant" =>   "This action will remove the corresponding user from the list of participants and applicants for this opportunity.",
 "missions:supervisor_notice_sentence" =>  "%s is notifying you that they have applied to the opportunity '%s'.",
-"missions:application_notice_sentence" =>     "%s has applied to your opportunity '%s'. Below you will find an extract of their GCconnex profile. Go to your opportunity to offer it to the candidate of your choice.",
+"missions:application_notice_sentence" =>     "%s has applied to your opportunity '%s'. Below you will find an extract of their GCcollab profile. Go to your opportunity to offer it to the candidate of your choice.",
 "missions:reason_to_decline_invite" =>    "Reason to decline applying to opportunity '%s'.",
 "missions:reason_to_decline_offer" =>     "Reason to decline the offer to participate in opportunity '%s'.",
 "missions:reason_to_withdraw_application" =>  "Reason to withdraw your application to '%s'.",
