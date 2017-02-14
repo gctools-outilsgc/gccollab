@@ -100,17 +100,17 @@ if ($title_link) {
 if($entity->getType() == 'group'){
    echo '';
 }else{
-  //echo "<div class=\" mrgn-bttm-sm mrgn-tp-sm  timeStamp clearfix\">$subtitle</div>";
+  echo "<div class=\" mrgn-bttm-sm mrgn-tp-sm  timeStamp clearfix\">$subtitle</div>";
 
 }
 
-//echo "<div class=\"tags col-xs-12\">$tags</div>";
+echo "<div class=\"tags col-xs-12\">$tags</div>";
 
 
 echo elgg_view('object/summary/extend', $vars);
 
 if ($content) {
-	echo "<div class=\"elgg-content mrgn-tp-sm\">$content</div>";
+	echo "<div class=\"elgg-content mrgn-tp-sm mrgn-lft-sm\">$content</div>";
 }
 
 if($entity->getType() == 'group' ){

@@ -50,7 +50,6 @@ $date = elgg_view_friendly_time($topic->time_created);
 $replies_link = '';
 $reply_text = '';
 
-$poster_icon_final = '<div class="col-sm-12 object-header-avatar">'.$poster_icon. '<div class="object-header-name">'.$poster_link . $date .'</div></div>';
 $num_replies = elgg_get_entities(array(
 	'type' => 'object',
 	'subtype' => 'discussion_reply',
@@ -124,13 +123,13 @@ if($english != $french){
 	if (get_current_language() == 'fr'){
 		
 		?>			
-		<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo clean_up_content($english);?></span><span id="fr_content" class="testClass hidden" ><?php echo clean_up_content($french);?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+		<span id="indicator_language_en" onclick="change_en('.content_desc');"><span id="en_content" class="testClass hidden" ><?php echo clean_up_content($english);?></span><span id="fr_content" class="testClass hidden" ><?php echo clean_up_content($french);?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
 		<?php
 
 	}else{
 				
 		?>			
-		<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo clean_up_content($english);?></span><span id="fr_content" class="testClass hidden" ><?php echo clean_up_content($french);?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+		<span id="indicator_language_fr" onclick="change_fr('.content_desc');"><span id="en_content" class="testClass hidden" ><?php echo clean_up_content($english);?></span><span id="fr_content" class="testClass hidden" ><?php echo clean_up_content($french);?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
 		<?php	
 	}
 	echo'</div>';
@@ -146,11 +145,11 @@ if($english != $french){
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 
-	$info = elgg_view_image_block($poster_icon_final, $list_body);
+	$info = elgg_view_image_block($poster_icon, $list_body);
 
 	$body = elgg_view('output/longtext', array(
 		'value' => $description,
-		'class' => 'clearfix mrgn-lft-sm mrgn-rght-sm mrgn-tp-md',
+		'class' => 'clearfix mrgn-lft-sm mrgn-rght-sm mrgn-tp-md content_desc',
 	));
     
     $repliesFoot = '<div class="col-xs-12 text-right">' . $replies_link . '</div>';
@@ -179,10 +178,9 @@ HTML;
 		'subtitle' => $subtitle,
 		'tags' => $tags,
 		'content' => $excerpt,
-        'class'=>'discussion-card-body',
 	);
 	$params = $params + $vars;
 	$list_body = elgg_view('object/elements/summary', $params);
 
-    echo elgg_view_image_block($poster_icon_final, $list_body, array('class'=>'discussion-card'));
+    echo elgg_view_image_block($poster_icon, $list_body);
 }

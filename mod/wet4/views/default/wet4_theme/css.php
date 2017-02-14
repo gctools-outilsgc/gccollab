@@ -4834,9 +4834,7 @@ a.list-group-item-danger {
       border-bottom: 1px solid #ddd; }
 
 .panel-default {
-  border-color: #ddd;
-box-shadow: 1px 1px 3px #CCC;
-}
+  border-color: #ddd; }
   .panel-default > .panel-heading {
     color: #333333;
     background-color: #f5f5f5;
@@ -4921,7 +4919,6 @@ box-shadow: 1px 1px 3px #CCC;
 
   .panel-custom{
       border: 1px solid #ddd;
-      box-shadow: 1px 1px 3px #CCC;
 
   }
 
@@ -10640,342 +10637,6 @@ a.shr-opn, a.shr-opn:hover {
 }
 
 
-.elgg-state-draggable .elgg-widget-handle{
-    cursor:move;
-    border:none;
-}
-
-.elgg-button-action{
-    cursor:pointer;
-
-}
-
-.elgg-module-widget .elgg-menu-widget .elgg-menu-item-settings, .elgg-module-widget .elgg-menu-widget .elgg-menu-item-delete, .elgg-module-widget .elgg-menu-widget .elgg-menu-item-collapse{
-    display:inline-block;
-
-}
-
-.elgg-state-unavailable .btn{
-    background-color: #F2DEDE;
-    border: 1px solid #843534;
-
-}
-
-.wet-widget-menu li{
-    padding: 2px 6px 0 0;
-
-}
-
-.elgg-widget-placeholder{
-    border: dashed 2px #DDDDDD;
-
-}
-
-.elgg-widget-content ul li .panel-river{
-    border:none;
-    box-shadow:none;
-    -webkit-box-shadow:none;
-}
-
-.wet-river-album{
-    margin: 0 !important;
-
-}
-
-
-#albums .elgg-item-object-album {
-
-    display:inline-block;
-
-    margin: 5px;
-    clear:both;
-
-}
-#widget_manager_widgets_select .panel-heading{
-    position: absolute;
-    z-index: 44444;
-    width: 91%;
-}
-
-#widget_manager_widgets_select .panel-body{
-   margin-top:70px;
-}
-
-.multi-widget-count{
-    -webkit-box-shadow:none;
-    box-shadow:none;
-    height:1em;
-    color:#333333;
-    margin:10px 0 0 0;
-    text-shadow:none;
-    border-radius:0px;
-    padding:10px;
-    background-color: #fff;
-}
-
-.elgg-layout-one-column #widgets-add-panel{
-    margin-top: -15px;
-        z-index: 1;
-
-}
-
-.min-height-cs{
-    min-height: 15px;
-
-}
-
-.col-md-4 .panel ul li .panel-river{
-border:none;
-    box-shadow:none;
-    -webkit-box-shadow:none;
-}
-
-.elgg-foot{
-    margin-bottom: 5px;
-
-}
-
-.quick-discuss panel-body, panel-footer{
-    padding:1px;
-
-}
-.start-discussion-form{
-    padding-right: 20px;
-
-}
-
-.quick-discuss-action-btn{
-    font-size: 1.3em;
-
-}
-.toggle-quick-discuss{
-    cursor:pointer;
-    background-color: #f5f5f5;
-    border-top: solid 1px #ddd;
-
-}
-#quick-discuss-panel .quick-start-collapse, #quick-discuss-panel  .quick-start-hide, #quick-discuss-panel  .alert-info{
-    display:none;
-
-}
-.quick-start-discussion{
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 5px;
-
-}
-
-
-/******Padding Classes********/
-
-.pad-lft-0 {
-    padding-left: 0;
-}/*
-.pad-lft-xs {
-    padding-left: 5px;
-}
-.pad-lft-sm {
-    padding-left: 10px;
-}
-.pad-lft-md {
-    padding-left: 15px;
-}
-
-.pad-rght-0 {
-    padding-right: 0;
-}
-.pad-rght-xs {
-    padding-right: 5px;
-}
-.pad-rght-sm {
-    padding-right: 10px;
-}
-.pad-rght-md {
-    padding-right: 15px;
-}
-*/
-.list-inline .pad-rght-xs {
-    padding-right: 5px;
-}
-
-.list-inline .pad-lft-0 {
-    padding-left: 0;
-}
-
-
-/* Red Flag */
-.red {
-    background: red;
-}
-
-.replyContainer {
-    max-width: 510px;
-
-}
-
-.thewire-characters-remaining {
-    background: none;
-}
-
-.img-tn{
-    width:60px;
-    height: 60px;
-    float: left;
-    margin: 1%;
-
-}
-
-.img-act{
-    width: 60px;
-    height: 60px;
-    margin: 1%;
-}
-
-.img-disc{
-    width:85px;
-    height: 85px;
-}
-.add-margin{
-    margin: 1%;
-}
-
-.btn-discuss{
-    margin: 2% 10%;
-}
-
-#profileContent{
-    margin-top: 10px;
-}
-
-.profileStr{
-    padding: 5px;
-    margin-bottom: 10px;
-}
-
-.profileNavHolder{
-    margin-bottom: 20px;
-}
-
-
-.newsfeed-button{
-    width: 50%;
-    left: 25%;
-    position: relative;
-    margin-top:8px;
-}
-.tab-content {
-    padding: 5px;
-    /*border: 1px solid #ddd;*/
-}
-
-.tab-pane {
-    /*margin-top: -25px;*/
-}
-
-.nav-tabs {
-    /*border-bottom: none;*/
-}
-
-.tags {
-    font-size: 13px;
-}
-
-
-    .gsa-radio-filter li{
-        float: left !important;
-        padding: 8px;
-    }
-
-
-#userMenu p {
-    display: inline;
-}
-
-#groupSearchDropdown {
-    padding: 10px;
-}
-
-#groupSearchDropdown button {
-    margin-top: 10px;
-}
-
-.group-tab-menu-search-box{
-    width:65% !important;
-    margin-right: 3px;
-
-}
-
-.search-dropdown{
-    padding:5px;
-
-}
-
-.gsa-filter-text{
-    margin:8px;
-    font-weight:bold;
-
-}
-
-.gsa-search-title{
-    font-size:1.3em;
-}
-.gallery-margin li{
-    margin:5px;
-    border:none;
-}
-
-.removeMe {
-    display: none;
-}
-
-.wet-ajax-loader{
-    width: 31px;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom:20px;
-
-}
-
-/*Color box - Nick */
-
-/*
-    User Style:
-    Change the following styles to modify the appearance of Colorbox.  They are
-    ordered & tabbed in a way that represents the nesting of the generated HTML.
-*/
-#cboxOverlay{background:#efefef;}
-#colorbox{outline:0;}
-    #cboxTopLeft{width:25px; height:25px; background:none}
-    #cboxTopCenter{height:25px; background:none;}
-    #cboxTopRight{width:25px; height:25px; background:none;}
-    #cboxBottomLeft{width:25px; height:25px; background:none;}
-    #cboxBottomCenter{height:25px; background:none;}
-    #cboxBottomRight{width:25px; height:25px; background:none;}
-    #cboxMiddleLeft{width:25px; background:none;}
-    #cboxMiddleRight{width:25px; background:none;}
-    #cboxContent{background:#fff; overflow:hidden; border: solid 2px #ddd;
-                         -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-
-    }
-        .cboxIframe{background:#fff;}
-        #cboxError{padding:50px; border:1px solid #ccc;}
-        #cboxLoadedContent{margin-bottom:20px; padding: 35px;}
-        #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
-        #cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
-        #cboxLoadingOverlay{background:#fff url(<?php echo $site_url.'vendors/jquery/colorbox/theme/images/loading.gif';?>) no-repeat center center;}
-
-        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
-        #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; width:auto; background:none; }
-
-        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
-        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
-
-        #cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
-        #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
-        #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
-        #cboxClose{position:absolute; bottom:100%; height: 25px; top:8px; right:20px; display:block; color:#444;}
-
-
 /* SPLASH PAGE */
 
 .splash object {
@@ -11249,6 +10910,46 @@ border:none;
   }
   .fa-wrench{
       background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-phone:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-phone {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_phone.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-mobile:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-mobile {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mobile.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-envelope:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-envelope {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_envelope.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-globe:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-globe {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_globe.png);
       background-size:cover;
       height: 25px;
       width:25px;

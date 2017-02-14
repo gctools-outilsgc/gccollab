@@ -43,7 +43,7 @@ if(elgg_is_admin_logged_in()) {
         'href' => $site_url . 'admin',
         'text' => '<i class="fa fa-wrench fa-lg mrgn-rght-sm"></i>',
         'title' => 'Admin',
-        'item_class' => '',
+        'item_class' => 'brdr-rght',
         'class' => '',
         'priority' => '0',
     ));
@@ -69,7 +69,7 @@ elgg_register_menu_item('user_menu', array(
     'name' => 'Profile',
     'text' => $dropdown_avatar . $dropdown,
     'title' => elgg_echo('userMenu:usermenuTitle'),
-    'item_class' => 'dropdown',
+    'item_class' => 'brdr-lft dropdown',
     'data-toggle' => 'dropdown',
     'class' => 'dropdown-toggle  dropdownToggle dd-close',
     'priority' => '3',
@@ -101,7 +101,7 @@ if (elgg_is_active_plugin('messages')) {
 //Nick - Removed the href and created my own in the text to hold hidden messages dropdown
 elgg_register_menu_item('user_menu', array(
     'name' => 'messages',
-    'text' => '<a href="'.elgg_get_site_url().'messages/inbox/' . $user.'"><i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-lg">' . elgg_echo('messages') . '</span>' . $msgbadge .'</a>'.$focus_dd .$ajax_dd_messages,
+    'text' => '<a href="'.elgg_get_site_url().'messages/inbox/' . $user.'"><i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i>' . $msgbadge .'</a>'.$focus_dd .$ajax_dd_messages,
     'title' => elgg_echo('userMenu:messages') . $title,
     'item_class' => 'brdr-lft messagesLabel close-msg-dd',
     'data-toggle' => '',
@@ -135,8 +135,8 @@ if (elgg_is_active_plugin('messages')) {
 // notifications inbox menu item
 elgg_register_menu_item('user_menu', array(
     'name' => 'notifications',
-    'text' => '<a href="'.elgg_get_site_url().'messages/notifications/' . $user.'"><i class="fa fa-bell mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-lg">' . elgg_echo('notifications:subscriptions:changesettings') . '</span>' . $msgbadge .'</a>'.$focus_dd.'<div>'.$ajax_dd_notification.'</div>',
-    'title' => elgg_echo('userMenu:notifications') . $title,
+    'text' => '<a href="'.elgg_get_site_url().'messages/notifications/' . $user.'"><i class="fa fa-bell mrgn-rght-sm mrgn-tp-sm fa-lg"></i>' . $msgbadge .'</a>'.$focus_dd.'<div>'.$ajax_dd_notification.'</div>',
+    'title' => elgg_echo('messages:notifications') . $title,
     'item_class' => 'brdr-lft messagesLabel close-notif-dd',
     'class' => '',
     'priority' => '2',

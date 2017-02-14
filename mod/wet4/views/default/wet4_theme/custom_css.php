@@ -121,12 +121,12 @@ max-height: 500px;
 .notif-dd-position{
   left:auto;
   top:30px;
-  right:0;
+  right:-23px;
 }
 .message-dd-position{
   left:auto;
   top:30px;
-  right:0;
+  right:-23px;
 
 }
 
@@ -921,6 +921,46 @@ border:none;
 
 }
 
+    .newsfeed-filter-gear {
+        font-size: 1.75em !important;
+        margin-top: 3px;
+    }
+
+    .newsfeed-filter {
+        width:90%;
+        max-width: 500px;
+        margin-top:10px;
+    }
+
+    .newsfeed-filter:after{
+       content: '';
+    display: block;
+    position: absolute;
+    right:2%;
+    top: -12px;
+    width: 0;
+    height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+
+	border-bottom: 12px solid #fff;
+    clear: both;
+}
+
+.newsfeed-filter:before{
+       content: '';
+    display: block;
+    position: absolute;
+    right: 2%;
+    top: -14px;
+    width: 0;
+    height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+
+	border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+    clear: both;
+}
 
 .newsfeed-filter-gear {
         font-size: 1.75em !important;
@@ -1397,10 +1437,10 @@ details.elgg-state-success:before {
     top: 0;
     width: 0;
     height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
 
-  border-left: 17px solid #46246A;
+    border-left: 17px solid #46246A;
     clear: both;
 }
 .app-name:after{
@@ -1469,10 +1509,10 @@ details.elgg-state-success:before {
     top: -10px;
     width: 0;
     height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
 
-  border-bottom: 12px solid #fff;
+    border-bottom: 12px solid #fff;
     clear: both;
 }
 .tools-navigator-menu:after{
@@ -1483,10 +1523,10 @@ details.elgg-state-success:before {
     top: -12px;
     width: 0;
     height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
 
-  border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
+    border-bottom: 12px solid rgba(0, 0, 0, 0.15) ;
     clear: both;
 }
 
@@ -1519,64 +1559,6 @@ figcaption{
 
 }
 
-
-.object-header-avatar .elgg-avatar-medium-wet4{
-    float:left;
-}
-
-.object-header-avatar img{
-    width: 75px;
-    display: inline-block !important;
-}
-
-.object-header-name{
-    margin:5px -10px;
-    float:left;
-}
-
-.object-header-name a{
-    font-size: 1.1em;
-    display: block;
-}
-
-.object-header-name time{
-    color: #6d6d6d;
-}
-
-.discussion-card{
-    border: 1px solid #ddd;
-    background-color: white;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-}
-
-.discussion-card-header{
-    border-bottom: 1px solid #ddd;
-    padding: 4px;
-}
-
-.discussion-card-body{
-    padding: 4px 8px 8ox 0px;
-}
-
-.discussion-card-footer{
-    padding: 6px 4px;
-    background-color: #f5f5f5;
-    margin-left: -10px;
-    margin-right: -10px;
-}
-
-
-.group-no-results{
- width:  100px;
-    margin:0 auto;
-    padding: 5px;
-    font-size: 1.1em;
-}
-
-
-.group-search-holder{
-    margin-right:-15px;
-}
 /****** Polls Custom stuff ******/
 .polls-table th{
        font-weight: bold;
@@ -1587,9 +1569,9 @@ figcaption{
 /******* Entity Menu Style ********/
 
 .entity-menu-bubble{
-   /* padding: 3px;
+    padding: 3px;
     background-color: #efefef;
-    border: 1px solid transparent;*/
+    border: 1px solid transparent;
 
 }
 
@@ -1700,8 +1682,23 @@ figcaption{
     text-decoration: underline;
     cursor: pointer;
 }
-  
+
 .indicator_summary{
   color:#D6D6D6;
   font-size: 12px
+}
+
+/*Related groups autocomplete*/
+.ui-autocomplete .ui-menu-item {
+  clear:both;
+  overflow:auto;
+}
+.ui-autocomplete .ui-menu-item:hover {
+  background:#eee;
+}
+.ui-autocomplete .ui-menu-item:focus {
+  background:#eee;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  border:none;
 }

@@ -179,7 +179,7 @@ $english = array(
 
 	// invited to join GCcollab section
 	'cp_notify:subject:invite_new_user' => "You have been invited to join GCcollab",
-	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCcollab",
+	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCcollab by %s",
 	'cp_notify:body_invite_new_user:description' => "Join the professionnal networking and collaborative workspace for all public service. You can proceed to your GCcollab registration through this link %s", 
 
 

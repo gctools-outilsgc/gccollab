@@ -64,10 +64,6 @@ if (elgg_instanceof($container, "group") && ($container->getGUID() !== elgg_get_
 $tags = elgg_view('output/tags', array('tags' => $blog->tags));
 $date = elgg_view_friendly_time($blog->time_created);
 
-if(elgg_in_context('ajax')){
-    $owner_icon = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
-}
-
 $info_class = "";
 $blog_icon = "";
 $title = "";
@@ -139,7 +135,7 @@ if ($full) {
 
 	echo elgg_view("object/elements/full", array(
         'entity' => $blog,
-		"summary" => $subtitle . $summary,
+		"summary" => $summary,
 		"icon" => $owner_icon,
 		"body" => $blog_icon . $body,
 	));
@@ -189,18 +185,15 @@ if ($full) {
 		'metadata' => $metadata,
 		'subtitle' => $subtitle,
 		'tags' => $tags,
-		'content' => $subtitle .'<br>' . $excerpt,
+		'content' => $excerpt,
 	);
 
 	$params = $params + $vars;
-    if(elgg_in_context('ajax')){
-        $additional_class = 'discussion-card';
-    }
     
 	$list_body = elgg_view('object/elements/summary', $params);
     
 
-	echo elgg_view_image_block($owner_icon, $list_body, array('class'=>$additional_class,));
+	echo elgg_view_image_block($owner_icon, $list_body);
 
 	
 
