@@ -138,6 +138,10 @@
         <div role="tabpanel" class="tab-pane active" id="all">
 
     <?php
+        function compare_count($a, $b){
+            return ($b[1] - $a[1]);
+        }
+
         // Get 'all' member API data
         $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=all&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
@@ -153,7 +157,7 @@
             $allMembersCount += $value;
         }
         if($unknownCount > 0){ $allMembers[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
-        sort($allMembers);
+        usort($allMembers, "compare_count");
     ?>
 
         <div id="allMembers" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
