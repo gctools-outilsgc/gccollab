@@ -38,8 +38,36 @@
         <script src="//code.highcharts.com/modules/data.js"></script>
         <script src="//code.highcharts.com/modules/drilldown.js"></script>
         <script src="//highcharts.github.io/export-csv/export-csv.js"></script>
-
+        <script>var lang = '<?php echo get_current_language(); ?>';</script>
+    
         <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <?php if(get_current_language() == "fr"): ?>
+        <script>
+            Highcharts.setOptions({
+                lang: {
+                    months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                    weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi',
+                        'Jeudi', 'Vendredi', 'Samedi'],
+                    shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil',
+                            'Aout', 'Sept', 'Oct', 'Nov', 'Déc'],
+                    decimalPoint: ',',
+                    downloadPNG: 'Télécharger en image PNG',
+                    downloadJPEG: 'Télécharger en image JPEG',
+                    downloadPDF: 'Télécharger en document PDF',
+                    downloadSVG: 'Télécharger en document Vectoriel',
+                    exportButtonTitle: 'Export du graphique',
+                    loading: 'Chargement en cours...',
+                    printButtonTitle: 'Imprimer le graphique',
+                    resetZoom: 'Réinitialiser le zoom',
+                    resetZoomTitle: 'Réinitialiser le zoom au niveau 1:1',
+                    thousandsSep: ' ',
+                    decimalPoint: ','
+                }
+            });
+        </script>
+    <?php endif; ?>
 
         <script>
             $(function () {
@@ -67,7 +95,7 @@
                         text: '<?php echo elgg_echo("gccollab_stats:registration:title") . " (" . $count . ")"; ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: lang == "fr" ? (document.ontouchstart === undefined ? 'Cliquez et faites glisser dans la zone de tracé pour faire un zoom avant' : 'Pincer le graphique pour le zoomer') : (document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in')
                     },
                     xAxis: {
                         type: 'datetime'
@@ -109,14 +137,14 @@
                     },
                     tooltip: {
                         formatter: function() {
-                            return '<b>Date:</b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate()
-                            	+ '<br /><b>Signups:</b> ' + registrations[this.series.data.indexOf(this.point)][2]
-                            	+ '<br /><b>Total:</b> ' + registrations[this.series.data.indexOf(this.point)][1];
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(registrations[this.series.data.indexOf(this.point)][0]).niceDate()
+                            	+ '<br /><b><?php echo elgg_echo("gccollab_stats:signups"); ?></b> ' + registrations[this.series.data.indexOf(this.point)][2]
+                            	+ '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + registrations[this.series.data.indexOf(this.point)][1];
                         }
                     },
                     series: [{
                         type: 'area',
-                        name: 'Registered Members',
+                        name: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>',
                         data: registrations
                     }]
                 });
@@ -195,10 +223,10 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: 'Member Type',
+                        name: '<?php echo elgg_echo("gccollab_stats:types:title"); ?>',
                         colorByPoint: true,
                         data: allMembers
                     }]
@@ -263,10 +291,10 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: 'Department',
+                        name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
                         colorByPoint: true,
                         data: federalMembers
                     }]
@@ -320,7 +348,7 @@
                         text: '<?php echo elgg_echo("gccollab_stats:provincial:title") . " (" . $provincialMembersCount . ")"; ?>'
                     },
                     subtitle: {
-                        text: 'Click the columns to view the ministries within the province/territory.'
+                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les ministères de la province ou du territoire' : 'Click the columns to view the ministries within the province/territory'
                     },
                     xAxis: {
                         type: 'category'
@@ -345,10 +373,10 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: 'Province/Territory',
+                        name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
                         colorByPoint: true,
                         data: provincialMembers
                     }],
@@ -401,7 +429,7 @@
                         text: '<?php echo elgg_echo("gccollab_stats:student:title") . " (" . $studentMembersCount . ")"; ?>'
                     },
                     subtitle: {
-                        text: 'Click the columns to view the various schools.'
+                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les différentes écoles' : 'Click the columns to view the various schools'
                     },
                     xAxis: {
                         type: 'category'
@@ -426,7 +454,7 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
                         name: 'Institution',
@@ -485,7 +513,7 @@
                         text: '<?php echo elgg_echo("gccollab_stats:academic:title") . " (" . $academicMembersCount . ")"; ?>'
                     },
                     subtitle: {
-                        text: 'Click the columns to view the various schools.'
+                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les différentes écoles' : 'Click the columns to view the various schools'
                     },
                     xAxis: {
                         type: 'category'
@@ -509,7 +537,7 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
                         name: 'Institution',
@@ -578,10 +606,10 @@
                     },
                     tooltip: {
                         headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: 'Other Members',
+                        name: '<?php echo elgg_echo("gccollab_stats:other:title"); ?>',
                         colorByPoint: true,
                         data: otherMembers
                     }]

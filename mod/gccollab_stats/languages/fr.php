@@ -11,6 +11,13 @@ $french = array(
     'gccollab_stats:student:title' => "Membres étudiants",
     'gccollab_stats:academic:title' => "Membres académiques",
     'gccollab_stats:other:title' => "Autres membres",
+
+    'gccollab_stats:date' => "Date :",
+    'gccollab_stats:signups' => "Inscriptions :",
+    'gccollab_stats:total' => "Total :",
+    'gccollab_stats:users' => "utilisateurs",
+    'gccollab_stats:department' => "Département",
+    'gccollab_stats:province' => "Province / Territoire",
 );
 
 add_translation("fr", $french);
