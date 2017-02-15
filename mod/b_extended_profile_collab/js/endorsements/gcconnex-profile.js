@@ -588,6 +588,8 @@ function saveProfile(event) {
             profile.provincial = $('.gcconnex-basic-provincial').is(":visible") ? $('.gcconnex-basic-provincial').val() : "";
             profile.ministry = $('.gcconnex-basic-ministry').is(":visible") ? $('.gcconnex-basic-ministry:visible').val() : "";
 
+            profile.other = $('.gcconnex-basic-other').is(":visible") ? $('.gcconnex-basic-other:visible').val() : "";
+
             profile.location = $(".gcconnex-basic-location").val();
             profile.phone = $(".gcconnex-basic-phone").val();
             profile.mobile = $(".gcconnex-basic-mobile").val();

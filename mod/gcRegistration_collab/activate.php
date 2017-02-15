@@ -1783,9 +1783,19 @@ if ( !$colObj ){
 
 /**** Other ****/
 
-$other_en = $other_fr = array("AbCdE Organization" => "AbCdE Organization",
-"Prime Minister's Youth Council" => "Prime Minister's Youth Council",
-"XYZ Inc." => "XYZ Inc.");
+$other_en = array("Universities Canada" => "Universities Canada",
+"UnivCan" => "UnivCan",
+"Colleges and Institutes Canada" => "Colleges and Institutes Canada",
+"CICan" => "CICan",
+"MaRS Discovery District" => "MaRS Discovery District",
+"The Prime Minister’s Youth Council" => "The Prime Minister’s Youth Council");
+
+$other_fr = array("Universities Canada" => "Universités Canada",
+"UnivCan" => "UnivCan",
+"Colleges and Institutes Canada" => "Collèges et instituts Canada",
+"CICan" => "CICan",
+"MaRS Discovery District" => "Mars",
+"The Prime Minister’s Youth Council" => "Le conseil jeunesse du Premier Ministre");
 
 $otherObj = elgg_get_entities(array(
    	'type' => 'object',

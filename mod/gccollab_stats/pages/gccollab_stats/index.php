@@ -32,6 +32,7 @@
 
         ob_start(); ?>
 
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="//code.highcharts.com/highcharts.js"></script>
         <script src="//code.highcharts.com/modules/exporting.js"></script>
         <script src="//code.highcharts.com/modules/data.js"></script>
@@ -122,119 +123,19 @@
             });
         </script>
 
-    <?php
-        /*
-        // Get GCcollab API data
-        $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx?d=1');
-        $json = json_decode($json_raw, true);
+        <br />
 
-        // Get data ready for Member Organizations Highcharts
-        $organizations = array();
-        $topOrgs = array();
+    <ul id="stats-nav" class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:types:title"); ?></a></li>
+        <li role="presentation"><a href="#federal" aria-controls="federal" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:federal:title"); ?></a></li>
+        <li role="presentation"><a href="#provincial" aria-controls="provincial" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:provincial:title"); ?></a></li>
+        <li role="presentation"><a href="#student" aria-controls="student" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:student:title"); ?></a></li>
+        <li role="presentation"><a href="#academic" aria-controls="academic" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:academic:title"); ?></a></li>
+        <li role="presentation"><a href="#other" aria-controls="other" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:other:title"); ?></a></li>
+    </ul>
 
-        foreach( $json as $key => $value ){
-            if($value['Org']){
-                if($value['Org'] == "Government of Canada"){
-                    $regGC = $value['cnt'];
-                }else if( $value['cnt'] < 16){
-                    $organizations[] = array($value['Org'], $value['cnt']);
-                }else{
-                    $topOrgs[] = array($value['Org'], $value['cnt']);
-                    $regOrg++;
-                }
-            }
-
-        }
-        sort($organizations);
-        $display .= "<script>var regGC=" . $regGC . ";var topOrgs=". json_encode($topOrgs) .
-            ";var organizations = " . json_encode($organizations) . ";</script>";
-
-        $display .= '<div id="topOrganizations" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div><div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
-        $display .= "<script>$(function () {
-                    Highcharts.chart('topOrganizations', {
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: 'Top Organizations: ' + topOrgs.length
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Member Organizations'
-                            }
-
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        plotOptions: {
-                            series: {
-                                borderWidth: 0,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.y}'
-                                }
-                            }
-                        },
-                        tooltip: {
-                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-                        },
-                        series: [{
-                            name: 'Top Organizations',
-                            colorByPoint: true,
-                            data: topOrgs
-                        }]
-                    });
-        });</script>";
-
-        $display .= "<script>$(function () {
-            Highcharts.chart('organizations', {
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Member Organizations:' + organizations.length
-                },
-                xAxis: {
-                    type: 'category'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Organization Registrations'
-                    }
-
-                },
-                legend: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y}'
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                    pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-                },
-                series: [{
-                    name: 'Organization',
-                    colorByPoint: true,
-                    data: organizations
-                }]
-            });
-        });</script>";
-        */
-    ?>
-
-        <hr />
+    <div class="tab-content" style="width: 100%; max-width:100%;">
+        <div role="tabpanel" class="tab-pane active" id="all">
 
     <?php
         // Get 'all' member API data
@@ -255,7 +156,7 @@
         sort($allMembers);
     ?>
 
-        <div id="allMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
+        <div id="allMembers" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
@@ -300,8 +201,9 @@
                 });
             });
         </script>
+        </div>
 
-        <hr />
+        <div role="tabpanel" class="tab-pane" id="federal">
         
     <?php
         // Get 'federal' member API data
@@ -322,7 +224,7 @@
         sort($federalMembers);
     ?>
 
-        <div id="federalMembers" style="min-width: 310px; min-height: 950px; margin: 0 auto"></div>
+        <div id="federalMembers" style="width: 100%; max-width:100%; min-height: 1000px; margin: 0 auto"></div>
 
         <script>
             $(function () {
@@ -367,9 +269,10 @@
                 });
             });
         </script>
+        </div>
 
-        <hr />
-        
+        <div role="tabpanel" class="tab-pane" id="provincial">
+
     <?php
         // Get 'provincial' member API data
         $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=provincial&lang=' . get_current_language());
@@ -399,7 +302,7 @@
         sort($provincialMembersDrilldown);
     ?>
 
-        <div id="provincialMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
+        <div id="provincialMembers" style="width: 100%; max-width:100%; min-height: 400px; margin: 0 auto"></div>
 
         <script>
             $(function () {
@@ -407,7 +310,7 @@
                 var provincialMembersDrilldown = <?php echo json_encode($provincialMembersDrilldown); ?>;
                 Highcharts.chart('provincialMembers', {
                     chart: {
-                        type: 'column'
+                        type: 'bar'
                     },
                     title: {
                         text: '<?php echo elgg_echo("gccollab_stats:provincial:title") . " (" . $provincialMembersCount . ")"; ?>'
@@ -451,21 +354,21 @@
                 });
             });
         </script>
+        </div>
 
-        <hr />
-        
+        <div role="tabpanel" class="tab-pane" id="student">
+
     <?php
         // Get 'student' member API data
         $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=student&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $studentMembers = $studentMembersMinistry = $studentMembersDrilldown = array();
+        $studentMembers = $studentMembersDrilldown = array();
         $studentMembersCount = 0;
         $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
         foreach( $json['result'] as $key => $value ){
             if($key == 'college' || $key == 'university'){
                 $studentMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
-                $studentMembersMinistry[$institutionName[$key]] += $value['total'];
                 $studentMembersCount += $value['total'];
             }
 
@@ -480,7 +383,7 @@
         sort($studentMembersDrilldown);
     ?>
 
-        <div id="studentMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
+        <div id="studentMembers" style="width: 100%; max-width:100%; min-height: 800px; margin: 0 auto"></div>
 
         <script>
             $(function () {
@@ -488,7 +391,7 @@
                 var studentMembersDrilldown = <?php echo json_encode($studentMembersDrilldown); ?>;
                 Highcharts.chart('studentMembers', {
                     chart: {
-                        type: 'column'
+                        type: 'bar'
                     },
                     title: {
                         text: '<?php echo elgg_echo("gccollab_stats:student:title") . " (" . $studentMembersCount . ")"; ?>'
@@ -533,36 +436,38 @@
                 });
             });
         </script>
+        </div>
 
-        <hr />
-        
+        <div role="tabpanel" class="tab-pane" id="academic">
+
     <?php
         // Get 'academic' member API data
         $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=academic&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $academicMembers = $academicMembersMinistry = $academicMembersDrilldown = array();
+        $academicMembers = $academicMembersDrilldown = array();
         $academicMembersCount = 0;
         $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
         foreach( $json['result'] as $key => $value ){
             if($key == 'college' || $key == 'university'){
                 $academicMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
-                $academicMembersMinistry[$institutionName[$key]] += $value['total'];
                 $academicMembersCount += $value['total'];
             }
 
             $institutionData = array();
             foreach( $value as $school => $count ){
-                if($school != 'total') $institutionData[] = array($school, $count);
+                if($school != 'total') $institutionData[$school] = array($school, $count);
             }
             sort($institutionData);
+            // Reducing amount of universities by half fixes the display issue, HighCharts unable to show all
+            // $institutionData = array_slice($institutionData, count($institutionData) / 2);
             $academicMembersDrilldown[] = array('name' => $institutionName[$key], 'id' => $institutionName[$key], 'data' => $institutionData);
         }
         sort($academicMembers);
         sort($academicMembersDrilldown);
     ?>
 
-        <div id="academicMembers" style="min-width: 310px; min-height: 350px; margin: 0 auto"></div>
+        <div id="academicMembers" style="width: 100%; max-width:100%; min-height: 800px; margin: 0 auto"></div>
 
         <script>
             $(function () {
@@ -570,7 +475,7 @@
                 var academicMembersDrilldown = <?php echo json_encode($academicMembersDrilldown); ?>;
                 Highcharts.chart('academicMembers', {
                     chart: {
-                        type: 'column'
+                        type: 'bar'
                     },
                     title: {
                         text: '<?php echo elgg_echo("gccollab_stats:academic:title") . " (" . $academicMembersCount . ")"; ?>'
@@ -585,7 +490,6 @@
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
                         }
-
                     },
                     legend: {
                         enabled: false
@@ -615,6 +519,90 @@
                 });
             });
         </script>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="other">
+
+    <?php
+        // Get 'other' member API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=other&lang=' . get_current_language());
+        $json = json_decode($json_raw, true);
+
+        $otherMembers = array();
+        $otherMembersCount = 0;
+        foreach( $json['result'] as $key => $value ){
+            if($key != 'total'){
+                $otherMembers[] = array(ucfirst($key), $value);
+                $otherMembersCount += $value;
+            }
+        }
+        sort($otherMembers);
+    ?>
+
+        <div id="otherMembers" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
+
+        <script>
+            $(function () {
+                var otherMembers = <?php echo json_encode($otherMembers); ?>;
+                Highcharts.chart('otherMembers', {
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: '<?php echo elgg_echo("gccollab_stats:other:title") . " (" . $otherMembersCount . ")"; ?>'
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                        }
+
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
+                    },
+                    series: [{
+                        name: 'Other Members',
+                        colorByPoint: true,
+                        data: otherMembers
+                    }]
+                });
+            });
+        </script>
+        </div>
+
+    </div>
+
+    <script>
+        $(function () {
+            $("#stats-nav li a").click(function() {
+                setTimeout(function(){
+                    $("#registrations").highcharts().reflow();
+                    $("#allMembers").highcharts().reflow();
+                    $("#federalMembers").highcharts().reflow();
+                    $("#provincialMembers").highcharts().reflow();
+                    $("#studentMembers").highcharts().reflow();
+                    $("#academicMembers").highcharts().reflow();
+                    $("#otherMembers").highcharts().reflow();
+                }, 1);
+            });
+        });
+    </script>
 
     <?php
 
@@ -623,24 +611,19 @@
         // Use code below to see which profiles are missing data (aka show up as 'Unknown')
         /*
         ini_set("memory_limit", -1);
-        $all_users = elgg_get_entities(array(
+        $users = elgg_get_entities_from_metadata(array(
             'type' => 'user',
             'limit' => 0
         ));
-
-        $count = $unknown = 0;
-        $display .= "<ul>";
-        foreach($all_users as $key => $obj){
-            if($obj->user_type != "federal" && $obj->user_type != "provincial" && $obj->user_type != "student" && $obj->user_type != "academic"){
-                $display .= "<li><a target='_blank' href='https://gccollab.ca/profile/" . $obj->username . "'>" . $obj->username . "</a></li>";
-                $unknown++;
-            } else {
-                $count++;
+        $otherCount = 0;
+        echo "<ul>";
+        foreach($users as $user){
+            if($user->user_type == "public_servant" || $user->user_type == ""){
+                echo "<li><a href='" . elgg_get_site_url() . "profile/" . $user->username . "' target='_blank'>" . $user->username . "</a></li>";
+                $otherCount++;
             }
         }
-        $display .= "</ul>";
-        $display .= "<p>Count: " . $count . "</p>";
-        $display .= "<p>Unknown: " . $unknown . "</p>";
+        echo "</ul>Count: " . $otherCount;
         */
 
         return $display;

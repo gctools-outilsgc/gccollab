@@ -36,7 +36,7 @@ $french = array(
 	'gcRegister:please_enter_name' => 'Veuillez inscrire votre nom à afficher',
 	'gcRegister:department_name' => 'Inscrire le nom de votre ministère',
 	'gcRegister:register' => 'S\'inscrire',
-	'gcRegister:other' => 'Veuillez indiquer le nom de l\'organisation',
+	'gcRegister:other' => 'Veuillez indiquer le nom de votre organisation',
 				
 	// error messages on the form			// error messages on the form			
 	'gcRegister:failedMySQLconnection' => 'Impossible de se connecter à la base de données',
@@ -53,6 +53,7 @@ $french = array(
 	'gcRegister:CollegeNotSelected' => '<a href="#college">Collège n\'a pas été sélectionnée</a>',
 	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province / territoire n\'a pas été sélectionnée</a>',
 	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministère n\'a pas été sélectionnée</a>',
+	'gcRegister:OtherNotSelected' => '<a href="#other">Organisation n\'a pas été indiqué</a>',
 				
 	// notice			// avis			
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',

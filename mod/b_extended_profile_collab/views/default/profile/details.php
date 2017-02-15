@@ -33,7 +33,7 @@ if ($user->canEdit()) {
     echo '<div class="basic-profile-standard-field-wrapper col-sm-6 col-xs-12">'; 
 
     // form that displays the user fields
-    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
+    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Other', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
 
     foreach ($fields as $field) {
 
@@ -69,6 +69,7 @@ if ($user->canEdit()) {
                     $(".federal").hide();
                     $(".provincial").hide();
                     $(".ministry").hide();
+                    $(".other").hide();
 
                     if(user_institution_top == "university"){
                         $(".college").hide();
@@ -80,16 +81,26 @@ if ($user->canEdit()) {
                     $(".institution").hide();
                     $(".university").hide();
                     $(".college").hide();
+                    $(".other").hide();
 
                     $(".ministry").hide();
                     var province = $("#provincial").val();
                     $('.' + province.replace(/\s+/g, '-').toLowerCase()).show();
+                } else if (user_occupation_top == 'other') {
+                    $(".job").hide();
+                    $(".federal").hide();
+                    $(".provincial").hide();
+                    $(".ministry").hide();
+                    $(".institution").hide();
+                    $(".university").hide();
+                    $(".college").hide();
                 } else {
                     $(".provincial").hide();
                     $(".ministry").hide();
                     $(".institution").hide();
                     $(".university").hide();
                     $(".college").hide();
+                    $(".other").hide();
                 }
 
                 $("#user_type").change(function() {
@@ -101,6 +112,7 @@ if ($user->canEdit()) {
                         $(".college").hide();
                         $(".provincial").hide();
                         $(".ministry").hide();
+                        $(".other").hide();
 
                         $(".job").show();
                         $(".federal").show();
@@ -109,6 +121,7 @@ if ($user->canEdit()) {
                         $(".university").hide();
                         $(".college").hide();
                         $(".federal").hide();
+                        $(".other").hide();
 
                         $(".job").show();
                         $(".provincial").show();
@@ -121,9 +134,19 @@ if ($user->canEdit()) {
                         $(".federal").hide();
                         $(".provincial").hide();
                         $(".ministry").hide();
+                        $(".other").hide();
 
                         $(".institution").show();
                         $("." + user_institution).show();
+                    } else if (user_occupation == "other") {
+                        $(".institution").hide();
+                        $(".university").hide();
+                        $(".college").hide();
+                        $(".federal").hide();
+                        $(".job").hide();
+                        $(".provincial").hide();
+
+                        $(".other").show();
                     }
                 });
 
@@ -224,7 +247,7 @@ if ($user->canEdit()) {
                     'id' => $prov_id . '-choices',
                     'class' => 'form-control gcconnex-basic-ministry',
                     'value' => $prov_value,
-                    'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
+                    'options_values' => $ministries[$province],
                 ));
                 if($province != "Yukon"){ echo '</div></div>'; }
             }
@@ -530,7 +553,13 @@ echo elgg_view('profile/owner_block');
 echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
 
 // if user is student or professor, display the correlated information
-if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
+if (strcmp($user->user_type, 'other') == 0 ) {
+    echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
+    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
+    echo '<div class="gcconnex-profile-dept">' . $user->other . '</div>';
+
+// if user is student or professor, display the correlated information
+} else if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
     echo '<h3 class="mrgn-tp-0">'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</h3>';
     $institution = ($user->institution == "university") ? $user->university : $user->college;
     $job = ($user->job != "") ? $user->job : "";

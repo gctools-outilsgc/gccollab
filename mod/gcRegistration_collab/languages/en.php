@@ -53,6 +53,7 @@ $english = array(
 	'gcRegister:CollegeNotSelected' => '<a href="#college">College not selected</a>',
 	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province/Territory not selected</a>',
 	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministry not selected</a>',
+	'gcRegister:OtherNotSelected' => '<a href="#other">Organization not entered</a>',
 
 	// notice
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
