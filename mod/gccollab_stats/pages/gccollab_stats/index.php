@@ -39,19 +39,23 @@
         <script src="//code.highcharts.com/modules/drilldown.js"></script>
         <script src="//highcharts.github.io/export-csv/export-csv.js"></script>
         <script>var lang = '<?php echo get_current_language(); ?>';</script>
+        <style>
+        @media (max-width: 480px) { 
+            .nav-tabs > li {
+                float:none;
+            }
+        }
+        </style>
     
-        <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div id="registrations" style="width: 100%; height: 400px; margin: 0 auto"></div>
 
     <?php if(get_current_language() == "fr"): ?>
         <script>
             Highcharts.setOptions({
                 lang: {
-                    months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
-                        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
-                    weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi',
-                        'Jeudi', 'Vendredi', 'Samedi'],
-                    shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil',
-                            'Aout', 'Sept', 'Oct', 'Nov', 'Déc'],
+                    months: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                    weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                    shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Déc'],
                     decimalPoint: ',',
                     downloadPNG: 'Télécharger en image PNG',
                     downloadJPEG: 'Télécharger en image JPEG',
@@ -63,7 +67,11 @@
                     resetZoom: 'Réinitialiser le zoom',
                     resetZoomTitle: 'Réinitialiser le zoom au niveau 1:1',
                     thousandsSep: ' ',
-                    decimalPoint: ','
+                    decimalPoint: ',',
+                    printChart: 'Imprimer le graphique',
+                    downloadCSV: 'Télécharger en CSV',
+                    downloadXLS: 'Télécharger en XLS',
+                    viewData: 'Afficher la table des données'
                 }
             });
         </script>
@@ -72,11 +80,19 @@
         <script>
             $(function () {
                 Date.prototype.niceDate = function() {
-                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                    var mm = this.getMonth();
-                    var dd = this.getDate();
-                    var yy = this.getFullYear();
-                    return months[mm] + ' ' + dd + ', ' + yy;
+                    if(lang == "fr"){
+                        var months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+                        var mm = this.getMonth();
+                        var dd = this.getDate();
+                        var yy = this.getFullYear();
+                        return dd + ' ' + months[mm] + ' ' + yy;
+                    } else {
+                        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                        var mm = this.getMonth();
+                        var dd = this.getDate();
+                        var yy = this.getFullYear();
+                        return months[mm] + ' ' + dd + ', ' + yy;
+                    }
                 };
 
                 var registrations = <?php echo json_encode($registrations); ?>;
@@ -226,7 +242,7 @@
                         pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:types:title"); ?>',
+                        name: '<?php echo elgg_echo("gccollab_stats:membertype"); ?>',
                         colorByPoint: true,
                         data: allMembers
                     }]
@@ -609,7 +625,7 @@
                         pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:other:title"); ?>',
+                        name: '<?php echo elgg_echo("gccollab_stats:other"); ?>',
                         colorByPoint: true,
                         data: otherMembers
                     }]
@@ -631,7 +647,7 @@
                     $("#studentMembers").highcharts().reflow();
                     $("#academicMembers").highcharts().reflow();
                     $("#otherMembers").highcharts().reflow();
-                }, 1);
+                }, 5);
             });
         });
     </script>

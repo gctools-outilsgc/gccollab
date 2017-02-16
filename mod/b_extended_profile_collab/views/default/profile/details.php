@@ -365,7 +365,7 @@ if ($user->canEdit()) {
             ));
 
             echo '<datalist id="otherlist">';
-                foreach($other as $other_name){
+                foreach($other as $other_name => $value){
                     echo '<option value="' . $other_name . '"></option>';
                 }
             echo '</datalist>';

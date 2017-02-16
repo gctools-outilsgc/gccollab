@@ -12,6 +12,8 @@ $french = array(
     'gccollab_stats:academic:title' => "Membres académiques",
     'gccollab_stats:other:title' => "Autres membres",
 
+    'gccollab_stats:membertype' => "Type de membre",
+    'gccollab_stats:other' => "Autre membre",
     'gccollab_stats:date' => "Date :",
     'gccollab_stats:signups' => "Inscriptions :",
     'gccollab_stats:total' => "Total :",

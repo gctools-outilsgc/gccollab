@@ -48,7 +48,7 @@ $french = array(
             
     'gcc_profile:error' => "La modification n'a pas été sauvegardée : ",
     'gcc_profile:missingemail' => "Adresse de courriel manquante",
-    'gcc_profile:notaccepted' => "Vous devez donner une adresse de courriel du Gouvernement du Canada",
+    'gcc_profile:notaccepted' => "Vous devez donner une adresse de courriel approuvée",
             
 /*MAIN PROFILE PAGE   */      
             

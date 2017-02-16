@@ -392,7 +392,7 @@ function validateEmail(email) {
 					<?php echo $other_choices; ?>
 					<datalist id="otherlist">
 						<?php
-							foreach($other as $other_name){
+							foreach($other as $other_name => $value){
 								echo '<option value="' . $other_name . '"></option>';
 							}
 						?>

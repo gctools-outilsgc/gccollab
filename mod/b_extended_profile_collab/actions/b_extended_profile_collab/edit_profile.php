@@ -36,9 +36,7 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                             
                             $query = "SELECT * FROM email_extensions WHERE ext = '{$user_email[1]}'";
                             $result = get_data($query);
-                            if (count($result) < 0)
-                                $error_message = elgg_echo('gcc_profile:error').elgg_echo('gcc_profile:notaccepted');
-                            else
+                            if (count($result) > 0)
                                 $isValid = true;
 
                             $wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";

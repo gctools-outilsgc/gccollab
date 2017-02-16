@@ -1785,19 +1785,23 @@ if ( !$colObj ){
 
 /**** Other ****/
 
-$other_en = array("Universities Canada" => "Universities Canada",
-"UnivCan" => "UnivCan",
+$other_en = array("CICan" => "CICan",
+"City of Ottawa" => "City of Ottawa",
 "Colleges and Institutes Canada" => "Colleges and Institutes Canada",
-"CICan" => "CICan",
 "MaRS Discovery District" => "MaRS Discovery District",
-"The Prime Minister’s Youth Council" => "The Prime Minister’s Youth Council");
-
-$other_fr = array("Universities Canada" => "Universités Canada",
+"Quebec Federal Council" => "Quebec Federal Council",
+"The Prime Minister’s Youth Council" => "The Prime Minister’s Youth Council",
 "UnivCan" => "UnivCan",
-"Colleges and Institutes Canada" => "Collèges et instituts Canada",
-"CICan" => "CICan",
-"MaRS Discovery District" => "Mars",
-"The Prime Minister’s Youth Council" => "Le conseil jeunesse du Premier Ministre");
+"Universities Canada" => "Universities Canada");
+
+$other_fr = array("CICan" => "CICan",
+"Collèges et instituts Canada" => "Colleges and Institutes Canada",
+"Conseil fédéral du Québec" => "Quebec Federal Council",
+"Le conseil jeunesse du Premier Ministre" => "The Prime Minister’s Youth Council",
+"Mars" => "MaRS Discovery District",
+"UnivCan" => "UnivCan",
+"Universités Canada" => "Universities Canada",
+"Ville d'Ottawa" => "City of Ottawa");
 
 $otherObj = elgg_get_entities(array(
    	'type' => 'object',

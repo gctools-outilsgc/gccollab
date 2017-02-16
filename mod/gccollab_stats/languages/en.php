@@ -12,6 +12,8 @@ $english = array(
     'gccollab_stats:academic:title' => "Academic Members",
     'gccollab_stats:other:title' => "Other Members",
 
+    'gccollab_stats:membertype' => "Member Type",
+    'gccollab_stats:other' => "Other Member",
     'gccollab_stats:date' => "Date:",
     'gccollab_stats:signups' => "Signups:",
     'gccollab_stats:total' => "Total:",
