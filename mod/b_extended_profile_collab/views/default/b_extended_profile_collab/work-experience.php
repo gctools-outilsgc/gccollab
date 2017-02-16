@@ -24,7 +24,7 @@ else {
     foreach ($work_experience_guid as $guid) {
 
         if ($experience = get_entity($guid)) {
-            echo '<div class="gcconnex-profile-label work-experience-title">' . $experience->title . '</div>';
+            echo '<div class="gcconnex-profile-label work-experience-title">' . htmlspecialchars_decode($experience->title) . '</div>';
             echo '<div class="gcconnex-profile-label work-experience-organization">' . $experience->organization . '</div>';
             
             
