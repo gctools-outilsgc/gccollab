@@ -20,6 +20,14 @@ $french = array(
     'gccollab_stats:users' => "utilisateurs",
     'gccollab_stats:department' => "Département",
     'gccollab_stats:province' => "Province / Territoire",
+
+    'gccollab_stats:wireposts:title' => "Messages sur le fil",
+    'gccollab_stats:blogposts:title' => "Blogues",
+    'gccollab_stats:blogcomments:title' => "Commentaires blogue",
+    'gccollab_stats:groupscreated:title' => "Groupes créés",
+    'gccollab_stats:groupsjoined:title' => "Groupes rejoints",
+    'gccollab_stats:likes:title' => "Aimes",
+    'gccollab_stats:messages:title' => "Messages",
 );
 
 add_translation("fr", $french);

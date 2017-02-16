@@ -20,6 +20,14 @@ $english = array(
     'gccollab_stats:users' => "users",
     'gccollab_stats:department' => "Department",
     'gccollab_stats:province' => "Province/Territory",
+
+    'gccollab_stats:wireposts:title' => "Wire Posts",
+    'gccollab_stats:blogposts:title' => "Blog Posts",
+    'gccollab_stats:blogcomments:title' => "Blog Comments",
+    'gccollab_stats:groupscreated:title' => "Groups Created",
+    'gccollab_stats:groupsjoined:title' => "Groups Joined",
+    'gccollab_stats:likes:title' => "Likes",
+    'gccollab_stats:messages:title' => "Messages",
 );
 
 add_translation("en", $english);
