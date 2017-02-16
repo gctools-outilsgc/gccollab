@@ -164,6 +164,7 @@ $federal_departments_en = array("Aboriginal Business Canada" => "Aboriginal Busi
 "Passport Canada" => "Passport Canada",
 "Patented Medicine Prices Review Board Canada" => "Patented Medicine Prices Review Board Canada",
 "Polar Knowledge Canada" => "Polar Knowledge Canada",
+"Policy Horizons Canada" => "Policy Horizons Canada",
 "PPP Canada" => "PPP Canada",
 "Prime Minister of Canada" => "Prime Minister of Canada",
 "Privacy Commissioner (Office of the)" => "Privacy Commissioner (Office of the)",
@@ -344,6 +345,7 @@ $federal_departments_fr = array("Canadian Air Transport Security Authority" => "
 "Governor General of Canada" => "Gouverneur général du Canada",
 "Registry of the Specific Claims Tribunal of Canada" => "Greffe du Tribunal des revendications particulières du Canada",
 "Clerk of the Privy Council" => "Greffier du Conseil privé",
+"Policy Horizons Canada" => "Horizons de politiques Canada",
 "Immigration, Refugees and Citizenship Canada" => "Immigration, Réfugiés, et Citoyenneté Canada",
 "Infrastructure Canada" => "Infrastructure Canada",
 "Federal Economic Development Initiative for Northern Ontario (FedNor)" => "Initiative fédérale de développement économique pour le Nord de l'Ontario (FedNor)",
@@ -1778,5 +1780,67 @@ if ( !$colObj ){
 		}
 		$colleges->set('colleges_fr', json_encode($colleges_fr));
 		$colleges->save();
+	}
+}
+
+/**** Other ****/
+
+$other_en = array("CICan" => "CICan",
+"City of Ottawa" => "City of Ottawa",
+"Colleges and Institutes Canada" => "Colleges and Institutes Canada",
+"MaRS Discovery District" => "MaRS Discovery District",
+"Quebec Federal Council" => "Quebec Federal Council",
+"The Prime Minister’s Youth Council" => "The Prime Minister’s Youth Council",
+"UnivCan" => "UnivCan",
+"Universities Canada" => "Universities Canada");
+
+$other_fr = array("CICan" => "CICan",
+"Collèges et instituts Canada" => "Colleges and Institutes Canada",
+"Conseil fédéral du Québec" => "Quebec Federal Council",
+"Le conseil jeunesse du Premier Ministre" => "The Prime Minister’s Youth Council",
+"Mars" => "MaRS Discovery District",
+"UnivCan" => "UnivCan",
+"Universités Canada" => "Universities Canada",
+"Ville d'Ottawa" => "City of Ottawa");
+
+$otherObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'other',
+));
+if ( !$otherObj ){
+	$other = new ElggObject();
+	$other->subtype = "other";
+	$other->title = "other";
+	$other->access_id = ACCESS_PUBLIC;
+
+	$other->set('other_en', json_encode($other_en));
+	$other->set('other_fr', json_encode($other_fr));
+	$other->save();
+} else {
+	$other = get_entity($otherObj[0]->guid);
+	if ($other->other_en != $other_en){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'other_en',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$other->set('other_en', json_encode($other_en));
+		$other->save();
+	}
+
+	if ($other->other_fr != $other_fr){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'other_fr',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$other->set('other_fr', json_encode($other_fr));
+		$other->save();
 	}
 }

@@ -36,7 +36,7 @@ $english = array(
 	'gcRegister:please_enter_name' => 'Please enter display name',
 	'gcRegister:department_name' => 'Enter your Department',
 	'gcRegister:register' => 'Register',
-	'gcRegister:custom' => 'Please enter name of employer',
+	'gcRegister:other' => 'Please enter the name of your organization',
 
 	// error messages on the form
 	'gcRegister:failedMySQLconnection' => 'Unable to connect to the database',
@@ -53,6 +53,7 @@ $english = array(
 	'gcRegister:CollegeNotSelected' => '<a href="#college">College not selected</a>',
 	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province/Territory not selected</a>',
 	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministry not selected</a>',
+	'gcRegister:OtherNotSelected' => '<a href="#other">Organization not entered</a>',
 
 	// notice
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',

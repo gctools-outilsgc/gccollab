@@ -71,10 +71,13 @@ $(document).ready(function() {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
 			$('#international-wrapper').show();
+		} else if (type == 'other') {
+			$('.ministry-choices').hide();
+			$('.student-choices').hide();
+			$('#other-wrapper').show();
 		} else {
 			$('.ministry-choices').hide();
 			$('.student-choices').hide();
-			$('#custom-wrapper').show();
 		}
 	});
 
@@ -115,7 +118,7 @@ function validateEmail(email) {
 
 	<?php
 		function show_field( $field ){
-			$enabled_fields = array('academic', 'student', 'federal', 'provincial');
+			$enabled_fields = array('academic', 'student', 'federal', 'provincial', 'other');
 			// $enabled_fields = array('academic', 'student', 'federal', 'provincial', 'municipal', 'international', 'community', 'business', 'media', 'other');
 			return in_array($field, $enabled_fields);
 		}
@@ -360,19 +363,40 @@ function validateEmail(email) {
 
 <?php endif; ?>
 
-<?php if(show_field("community") || show_field("business") || show_field("media") || show_field("other")): ?>
+<?php if(show_field("other")): ?>
 
 <?php
-	$custom = elgg_view('input/text', array(
-		'name' => 'custom',
-		'id' => 'custom',
+	$otherObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'other',
+	));
+	$others = get_entity($otherObj[0]->guid);
+
+	$other = array();
+	if (get_current_language() == 'en'){
+		$other = json_decode($others->other_en, true);
+	} else {
+		$other = json_decode($others->other_fr, true);
+	}
+
+	$other_choices = elgg_view('input/text', array(
+		'name' => 'other',
+		'id' => 'other',
         'class' => 'form-control',
+        'list' => 'otherlist'
 	));
 ?>
 
-				<div class="form-group occupation-choices" id="custom-wrapper" hidden>
-					<label for="custom" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:custom'); ?></span></label>
-					<?php echo $custom; ?>
+				<div class="form-group occupation-choices" id="other-wrapper" hidden>
+					<label for="other" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:other'); ?></span></label>
+					<?php echo $other_choices; ?>
+					<datalist id="otherlist">
+						<?php
+							foreach($other as $other_name => $value){
+								echo '<option value="' . $other_name . '"></option>';
+							}
+						?>
+					</datalist>
 				</div>
 
 <?php endif; ?>

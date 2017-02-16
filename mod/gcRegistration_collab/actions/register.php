@@ -40,9 +40,7 @@ $meta_fields = array('user_type',
 				'federal',
 				'provincial',
 				'ministry',
-				'municipal',
-				'international',
-				'custom_occupation');
+				'other');
 foreach($meta_fields as $field){
 	$$field = get_input($field);
 }
@@ -125,6 +123,10 @@ if (elgg_get_config('allow_registration')) {
 			if($ministry === 'default_invalid_value')
 				$resulting_error .= elgg_echo('gcRegister:MinistryNotSelected').'<br/>';
 		}
+
+		// check if the federal department is filled
+		if ($user_type === 'other' && $other === '')
+			$resulting_error .= elgg_echo('gcRegister:OtherNotSelected').'<br/>';
 
 		// if there are any registration error, throw an exception
 		if (!empty($resulting_error))

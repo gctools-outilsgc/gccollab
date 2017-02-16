@@ -41,7 +41,7 @@ function get_member_data($type, $lang) {
 		));
 
 		if ($lang == 'fr'){
-			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'etudiant', 'public_servant' => 'public_servant');
+			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'etudiant', 'other' => 'autre');
 
 			foreach($users as $key => $obj){
 				$data[$users_types[$obj->user_type]]++;
@@ -161,6 +161,18 @@ function get_member_data($type, $lang) {
 		foreach($users as $key => $obj){
 			$data['total']++;
 			$data[$obj->college]++;
+		}
+	} else if ($type === 'other') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'other')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->other]++;
 		}
 	} 
     return $data;

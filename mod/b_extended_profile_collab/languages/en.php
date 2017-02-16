@@ -45,7 +45,7 @@ $english = array(
     // Email Verification
     'gcc_profile:error' => 'Did not save: ',
     'gcc_profile:missingemail' => 'Email address is missing',
-    'gcc_profile:notaccepted' => 'A Government of Canada email address is required',
+    'gcc_profile:notaccepted' => 'An approved email address is required',
 
     // MAIN PROFILE PAGE
     'gcconnex_profile:edit_profile' => 'Edit',
@@ -79,6 +79,7 @@ $english = array(
     'gcconnex_profile:basic:ministry' => 'Ministry: ',
     'gcconnex_profile:basic:university' => 'University: ',
     'gcconnex_profile:basic:college' => 'College: ',
+    'gcconnex_profile:basic:other' => 'Other: ',
     'gcconnex_profile:basic:location' => 'Location: ',
     'gcconnex_profile:basic:phone' => 'Phone: ',
     'gcconnex_profile:basic:mobile' => 'Mobile: ',

@@ -48,7 +48,7 @@ $french = array(
             
     'gcc_profile:error' => "La modification n'a pas été sauvegardée : ",
     'gcc_profile:missingemail' => "Adresse de courriel manquante",
-    'gcc_profile:notaccepted' => "Vous devez donner une adresse de courriel du Gouvernement du Canada",
+    'gcc_profile:notaccepted' => "Vous devez donner une adresse de courriel approuvée",
             
 /*MAIN PROFILE PAGE   */      
             
@@ -86,6 +86,7 @@ $french = array(
     'gcconnex_profile:basic:ministry' => 'Ministère : ',
     'gcconnex_profile:basic:university' => 'Université : ',
     'gcconnex_profile:basic:college' => 'Collège : ',
+    'gcconnex_profile:basic:other' => 'Autre : ',
     'gcconnex_profile:basic:location' => 'Adresse : ',
     'gcconnex_profile:basic:phone' => 'Téléphone : ',
     'gcconnex_profile:basic:mobile' => 'Cellulaire : ',
