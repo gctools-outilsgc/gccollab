@@ -50,6 +50,7 @@ error_log("INSTITUTION - {$institution}");
 
 $username = get_input('username');
 $email = str_replace(' ','',trim(get_input('email')));
+$email2 = str_replace(' ','',trim(get_input('email2')));
 $password = trim(get_input('password', null, false));
 $password2 = trim(get_input('password2', null, false));
 $name = get_input('name');
@@ -90,6 +91,10 @@ if (elgg_get_config('allow_registration')) {
 		// if domain doesn't exist in database, check if it's a gc.ca domain
 		if ($dept_exist[0]->num <= 0 && strcmp($gcca, 'gc.ca') != 0 && !$wildcard_match)
 			$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
+
+		// check if two emails match
+		if (strcmp($email, $email2) != 0)
+			$resulting_error .= elgg_echo('gcRegister:email_mismatch').'<br/>';
 
 		// check if two passwords are not empty
 		if (empty(trim($password)) || empty(trim($password2)))

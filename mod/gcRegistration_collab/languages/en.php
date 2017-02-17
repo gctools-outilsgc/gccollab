@@ -27,6 +27,7 @@ $english = array(
 	// labels
     'gcRegister:form' => 'Registration form',
 	'gcRegister:email' => 'Enter your e-mail',
+	'gcRegister:email_secondary' => 'Confirm your e-mail',
 	'gcRegister:username' => 'Your username (auto-generated)',
 	'gcRegister:password_initial' => 'Password',
 	'gcRegister:password_secondary' => 'Confirm your password',
@@ -67,6 +68,7 @@ $english = array(
 	'gcRegister:email_in_use' => 'This email address has already been registered',
 	'gcRegister:password_mismatch' => '<a href="#password">Passwords do not match</a>', 
 	'gcRegister:password_too_short' => '<a href="#password">Password must contain minimum of 6 characters</a>',
+	'gcRegister:email_mismatch' => '<a href="#email">Emails do not match</a>',
 	'gcRegister:display_name_is_empty' => '<a href="#name">Display name cannot be empty</a>',
 );
 
