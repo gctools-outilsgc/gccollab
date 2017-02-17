@@ -23,7 +23,8 @@ $english = array(
 
     'gccollab_stats:wireposts:title' => "Wire Posts",
     'gccollab_stats:blogposts:title' => "Blog Posts",
-    'gccollab_stats:blogcomments:title' => "Blog Comments",
+    'gccollab_stats:comments:title' => "Comments",
+    'gccollab_stats:groups' => "Groups",
     'gccollab_stats:groupscreated:title' => "Groups Created",
     'gccollab_stats:groupsjoined:title' => "Groups Joined",
     'gccollab_stats:likes:title' => "Likes",

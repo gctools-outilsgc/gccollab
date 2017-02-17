@@ -652,14 +652,16 @@
         });
     </script>
 
+<?php if( elgg_is_admin_logged_in() ): ?>
+    
     <hr />
 
     <ul id="site-stats-nav" class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#wireposts" aria-controls="wireposts" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:wireposts:title"); ?></a></li>
         <li role="presentation"><a href="#blogposts" aria-controls="blogposts" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:blogposts:title"); ?></a></li>
-        <li role="presentation"><a href="#blogcomments" aria-controls="blogcomments" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:blogcomments:title"); ?></a></li>
+        <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:comments:title"); ?></a></li>
         <li role="presentation"><a href="#groupscreated" aria-controls="groupscreated" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:groupscreated:title"); ?></a></li>
-        <li role="presentation"><a href="#groupsjoined" aria-controls="groupsjoined" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:groupsjoined:title"); ?></a></li>
+        <?php /* <li role="presentation"><a href="#groupsjoined" aria-controls="groupsjoined" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:groupsjoined:title"); ?></a></li> */ ?>
         <li role="presentation"><a href="#likes" aria-controls="likes" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:likes:title"); ?></a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:messages:title"); ?></a></li>
     </ul>
@@ -668,69 +670,82 @@
         <div role="tabpanel" class="tab-pane active" id="wireposts">
 
     <?php
-        function compare_count($a, $b){
-            return ($b[1] - $a[1]);
-        }
-
-        // Get 'all' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=all&lang=' . get_current_language());
+        // Get Wire Posts API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=wireposts&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $allMembers = array();
-        $allMembersCount = $unknownCount = 0;
+        $dates = $wireposts = array();
         foreach( $json['result'] as $key => $value ){
-            if($key != 'public_servant' && $key != ''){
-                $allMembers[] = array(ucfirst($key), $value);
-            } else {
-                $unknownCount += $value;
-            }
-            $allMembersCount += $value;
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        if($unknownCount > 0){ $allMembers[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
-        usort($allMembers, "compare_count");
+        foreach( $dates as $key => $value ){
+            $wireposts[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($wireposts);
     ?>
 
         <div id="wirepostsChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var allMembers = <?php echo json_encode($allMembers); ?>;
+                var wireposts = <?php echo json_encode($wireposts); ?>;
                 Highcharts.chart('wirepostsChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:types:title") . " (" . $allMembersCount . ")"; ?>'
+                        text: 'Daily Wire Posts'
+                    },
+                    subtitle: {
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Wire Posts'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(wireposts[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + wireposts[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:membertype"); ?>',
-                        colorByPoint: true,
-                        data: allMembers
+                        type: 'area',
+                        name: 'Daily Wire Posts',
+                        data: wireposts
                     }]
                 });
             });
@@ -740,151 +755,168 @@
         <div role="tabpanel" class="tab-pane" id="blogposts">
         
     <?php
-        // Get 'federal' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=federal&lang=' . get_current_language());
+        // Get Blog Posts API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=blogposts&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $federalMembers = array();
-        $federalMembersCount = $unknownCount = 0;
+        $dates = $blogposts = array();
         foreach( $json['result'] as $key => $value ){
-            if($key != 'default_invalid_value' && $key != ''){
-                $federalMembers[] = array(ucfirst($key), $value);
-            } else {
-                $unknownCount += $value;
-            }
-            $federalMembersCount += $value;
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        if($unknownCount > 0){ $federalMembers[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
-        sort($federalMembers);
+        foreach( $dates as $key => $value ){
+            $blogposts[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($blogposts);
     ?>
 
-        <div id="blogpostsChart" style="width: 100%; max-width:100%; min-height: 1000px; margin: 0 auto"></div>
+        <div id="blogpostsChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var federalMembers = <?php echo json_encode($federalMembers); ?>;
+                var blogposts = <?php echo json_encode($blogposts); ?>;
                 Highcharts.chart('blogpostsChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:federal:title") . " (" . $federalMembersCount . ")"; ?>'
+                        text: 'Daily Blog Posts'
+                    },
+                    subtitle: {
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Blog Posts'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(blogposts[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + blogposts[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
-                        colorByPoint: true,
-                        data: federalMembers
+                        type: 'area',
+                        name: 'Daily Blog Posts',
+                        data: blogposts
                     }]
                 });
             });
         </script>
         </div>
 
-        <div role="tabpanel" class="tab-pane" id="blogcomments">
+        <div role="tabpanel" class="tab-pane" id="comments">
 
     <?php
-        // Get 'provincial' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=provincial&lang=' . get_current_language());
+        // Get Comments API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=comments&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $provincialMembers = $provincialMembersMinistry = $provincialMembersDrilldown = array();
-        $provincialMembersCount = 0;
+        $dates = $comments = array();
         foreach( $json['result'] as $key => $value ){
-            $provincialMembers[] = array('name' => $key, 'y' => $value['total'], 'drilldown' => $key);
-            $provincialMembersMinistry[$key] += $value['total'];
-            $provincialMembersCount += $value['total'];
-
-            $provinceData = array();
-            $unknownCount = 0;
-            foreach( $value as $ministry => $count ){
-                if($ministry != 'total' && $ministry != 'default_invalid_value' && $ministry != ''){
-                    $provinceData[] = array($ministry, $count);
-                } else if($ministry === 'default_invalid_value' || $ministry === ''){
-                    $unknownCount += $count;
-                }
-            }
-            if($unknownCount > 0){ $provinceData[] = array(elgg_echo('gccollab_stats:unknown'), $unknownCount); }
-            sort($provinceData);
-            $provincialMembersDrilldown[] = array('name' => $key, 'id' => $key, 'data' => $provinceData);
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        sort($provincialMembers);
-        sort($provincialMembersDrilldown);
+        foreach( $dates as $key => $value ){
+            $comments[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($comments);
     ?>
 
-        <div id="blogcommentsChart" style="width: 100%; max-width:100%; min-height: 400px; margin: 0 auto"></div>
+        <div id="commentsChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var provincialMembers = <?php echo json_encode($provincialMembers); ?>;
-                var provincialMembersDrilldown = <?php echo json_encode($provincialMembersDrilldown); ?>;
-                Highcharts.chart('blogcommentsChart', {
+                var comments = <?php echo json_encode($comments); ?>;
+                Highcharts.chart('commentsChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:provincial:title") . " (" . $provincialMembersCount . ")"; ?>'
+                        text: 'Daily Comments'
                     },
                     subtitle: {
-                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les ministères de la province ou du territoire' : 'Click the columns to view the ministries within the province/territory'
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Comments'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(comments[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + comments[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
-                        colorByPoint: true,
-                        data: provincialMembers
-                    }],
-                    drilldown: {
-                        series: provincialMembersDrilldown
-                    }
+                        type: 'area',
+                        name: 'Daily Comments',
+                        data: comments
+                    }]
                 });
             });
         </script>
@@ -893,227 +925,261 @@
         <div role="tabpanel" class="tab-pane" id="groupscreated">
 
     <?php
-        // Get 'student' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=student&lang=' . get_current_language());
+        // Get Groups Created API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=groupscreated&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $studentMembers = $studentMembersDrilldown = array();
-        $studentMembersCount = 0;
-        $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
+        $dates = $groupscreated = array();
         foreach( $json['result'] as $key => $value ){
-            if($key == 'college' || $key == 'university'){
-                $studentMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
-                $studentMembersCount += $value['total'];
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]['count']++;
+            if($dates[strtotime($date)]['names']){
+                $dates[strtotime($date)]['names'] = $dates[strtotime($date)]['names'] . ", " . $value[1];;
+            } else {
+                $dates[strtotime($date)]['names'] = $value[1];
             }
-
-            $institutionData = array();
-            foreach( $value as $school => $count ){
-                if($school != 'total') $institutionData[] = array($school, $count);
-            }
-            sort($institutionData);
-            $studentMembersDrilldown[] = array('name' => $institutionName[$key], 'id' => $institutionName[$key], 'data' => $institutionData);
         }
-        sort($studentMembers);
-        sort($studentMembersDrilldown);
+        foreach( $dates as $key => $value ){
+            $groupscreated[] = array($key * 1000, $value['count'], date("F j, Y", $key), $value['names']);
+        }
+        sort($groupscreated);
     ?>
 
-        <div id="groupscreatedChart" style="width: 100%; max-width:100%; min-height: 800px; margin: 0 auto"></div>
+        <div id="groupscreatedChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var studentMembers = <?php echo json_encode($studentMembers); ?>;
-                var studentMembersDrilldown = <?php echo json_encode($studentMembersDrilldown); ?>;
+                var groupscreated = <?php echo json_encode($groupscreated); ?>;
                 Highcharts.chart('groupscreatedChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:student:title") . " (" . $studentMembersCount . ")"; ?>'
+                        text: 'Groups Created'
                     },
                     subtitle: {
-                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les différentes écoles' : 'Click the columns to view the various schools'
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Groups Created'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:groups"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][3] + '<br /><b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(groupscreated[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: 'Institution',
-                        colorByPoint: true,
-                        data: studentMembers
-                    }],
-                    drilldown: {
-                        series: studentMembersDrilldown
-                    },
-                    colors: ['#7cb5ec', '#f45b5b']
+                        type: 'area',
+                        name: 'Groups Created',
+                        data: groupscreated
+                    }]
                 });
             });
         </script>
         </div>
+
+    <?php /*
 
         <div role="tabpanel" class="tab-pane" id="groupsjoined">
 
     <?php
-        // Get 'academic' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=academic&lang=' . get_current_language());
+        // Get Groups Joined API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=groupsjoined&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $academicMembers = $academicMembersDrilldown = array();
-        $academicMembersCount = 0;
-        $institutionName = (get_current_language() == "fr") ? array("college" => "Collège", "university" => "Université") : array("college" => "College", "university" => "University");
+        $dates = $groupsjoined = array();
         foreach( $json['result'] as $key => $value ){
-            if($key == 'college' || $key == 'university'){
-                $academicMembers[] = array('name' => $institutionName[$key], 'y' => $value['total'], 'drilldown' => $institutionName[$key]);
-                $academicMembersCount += $value['total'];
-            }
-
-            $institutionData = array();
-            foreach( $value as $school => $count ){
-                if($school != 'total') $institutionData[$school] = array($school, $count);
-            }
-            sort($institutionData);
-            // Reducing amount of universities by half fixes the display issue, HighCharts unable to show all
-            // $institutionData = array_slice($institutionData, count($institutionData) / 2);
-            $academicMembersDrilldown[] = array('name' => $institutionName[$key], 'id' => $institutionName[$key], 'data' => $institutionData);
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        sort($academicMembers);
-        sort($academicMembersDrilldown);
+        foreach( $dates as $key => $value ){
+            $groupsjoined[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($groupsjoined);
     ?>
 
-        <div id="groupsjoinedChart" style="width: 100%; max-width:100%; min-height: 800px; margin: 0 auto"></div>
+        <div id="groupsjoinedChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var academicMembers = <?php echo json_encode($academicMembers); ?>;
-                var academicMembersDrilldown = <?php echo json_encode($academicMembersDrilldown); ?>;
+                var groupsjoined = <?php echo json_encode($groupsjoined); ?>;
                 Highcharts.chart('groupsjoinedChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:academic:title") . " (" . $academicMembersCount . ")"; ?>'
+                        text: 'Groups Joined'
                     },
                     subtitle: {
-                        text: lang == "fr" ? 'Cliquez sur les colonnes pour afficher les différentes écoles' : 'Click the columns to view the various schools'
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Groups Joined'
                         }
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(groupsjoined[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupsjoined[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: 'Institution',
-                        colorByPoint: true,
-                        data: academicMembers
-                    }],
-                    drilldown: {
-                        series: academicMembersDrilldown
-                    },
-                    colors: ['#7cb5ec', '#f45b5b']
+                        type: 'area',
+                        name: 'Groups Joined',
+                        data: groupsjoined
+                    }]
                 });
             });
         </script>
         </div>
 
+    */ ?>
+
         <div role="tabpanel" class="tab-pane" id="likes">
 
     <?php
-        // Get 'other' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=other&lang=' . get_current_language());
+        // Get Likes API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=likes&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $otherMembers = array();
-        $otherMembersCount = 0;
+        $dates = $likes = array();
         foreach( $json['result'] as $key => $value ){
-            if($key != 'total'){
-                $otherMembers[] = array(ucfirst($key), $value);
-                $otherMembersCount += $value;
-            }
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        sort($otherMembers);
+        foreach( $dates as $key => $value ){
+            $likes[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($likes);
     ?>
 
         <div id="likesChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var otherMembers = <?php echo json_encode($otherMembers); ?>;
+                var likes = <?php echo json_encode($likes); ?>;
                 Highcharts.chart('likesChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:other:title") . " (" . $otherMembersCount . ")"; ?>'
+                        text: 'Likes'
+                    },
+                    subtitle: {
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Likes'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(likes[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + likes[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:other"); ?>',
-                        colorByPoint: true,
-                        data: otherMembers
+                        type: 'area',
+                        name: 'Likes',
+                        data: likes
                     }]
                 });
             });
@@ -1123,62 +1189,82 @@
         <div role="tabpanel" class="tab-pane" id="messages">
 
     <?php
-        // Get 'other' member API data
-        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=member.stats&type=other&lang=' . get_current_language());
+        // Get Messages API data
+        $json_raw = file_get_contents(elgg_get_site_url() . 'services/api/rest/json/?method=site.stats&type=messages&lang=' . get_current_language());
         $json = json_decode($json_raw, true);
 
-        $otherMembers = array();
-        $otherMembersCount = 0;
+        $dates = $messages = array();
         foreach( $json['result'] as $key => $value ){
-            if($key != 'total'){
-                $otherMembers[] = array(ucfirst($key), $value);
-                $otherMembersCount += $value;
-            }
+            $date = date("F j, Y", $value[0]);
+            $dates[strtotime($date)]++;
         }
-        sort($otherMembers);
+        foreach( $dates as $key => $value ){
+            $messages[] = array($key * 1000, $value, date("F j, Y", $key));
+        }
+        sort($messages);
     ?>
 
         <div id="messagesChart" style="width: 100%; max-width:100%; min-height: 350px; margin: 0 auto"></div>
 
         <script>
             $(function () {
-                var otherMembers = <?php echo json_encode($otherMembers); ?>;
+                var messages = <?php echo json_encode($messages); ?>;
                 Highcharts.chart('messagesChart', {
                     chart: {
-                        type: 'bar'
+                        zoomType: 'x'
                     },
                     title: {
-                        text: '<?php echo elgg_echo("gccollab_stats:other:title") . " (" . $otherMembersCount . ")"; ?>'
+                        text: 'Messages Sent'
+                    },
+                    subtitle: {
+                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
                     },
                     xAxis: {
-                        type: 'category'
+                        type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            text: '# of Messages Sent'
                         }
-
                     },
                     legend: {
                         enabled: false
                     },
                     plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
+                        area: {
+                            fillColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            marker: {
+                                radius: 2
+                            },
+                            lineWidth: 1,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
                         }
                     },
                     tooltip: {
-                        headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                        pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        formatter: function() {
+                            return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(messages[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + messages[this.series.data.indexOf(this.point)][1];
+                        }
                     },
                     series: [{
-                        name: '<?php echo elgg_echo("gccollab_stats:other"); ?>',
-                        colorByPoint: true,
-                        data: otherMembers
+                        type: 'area',
+                        name: 'Messages Sent',
+                        data: messages
                     }]
                 });
             });
@@ -1191,17 +1277,19 @@
         $(function () {
             $("#site-stats-nav li a").click(function() {
                 setTimeout(function(){
-                    $("#wireposts").highcharts().reflow();
-                    $("#blogposts").highcharts().reflow();
-                    $("#blogcomments").highcharts().reflow();
-                    $("#groupscreated").highcharts().reflow();
-                    $("#groupsjoined").highcharts().reflow();
-                    $("#likes").highcharts().reflow();
-                    $("#messages").highcharts().reflow();
+                    $("#wirepostsChart").highcharts().reflow();
+                    $("#blogpostsChart").highcharts().reflow();
+                    $("#commentsChart").highcharts().reflow();
+                    $("#groupscreatedChart").highcharts().reflow();
+                    <?php /* $("#groupsjoinedChart").highcharts().reflow(); */ ?>
+                    $("#likesChart").highcharts().reflow();
+                    $("#messagesChart").highcharts().reflow();
                 }, 5);
             });
         });
     </script>
+
+<?php endif; ?>
 
     <?php
 

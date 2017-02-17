@@ -23,7 +23,8 @@ $french = array(
 
     'gccollab_stats:wireposts:title' => "Messages sur le fil",
     'gccollab_stats:blogposts:title' => "Blogues",
-    'gccollab_stats:blogcomments:title' => "Commentaires blogue",
+    'gccollab_stats:comments:title' => "Commentaires",
+    'gccollab_stats:groups' => "Groupes",
     'gccollab_stats:groupscreated:title' => "Groupes créés",
     'gccollab_stats:groupsjoined:title' => "Groupes rejoints",
     'gccollab_stats:likes:title' => "Aimes",

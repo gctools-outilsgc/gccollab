@@ -43,6 +43,7 @@ function get_member_data($type, $lang) {
 
 	$data = array();
 	ini_set("memory_limit", -1);
+	elgg_set_ignore_access(true);
 
 	if ($type === 'all') {
 		$users = elgg_get_entities(array(
@@ -193,6 +194,7 @@ function get_site_data($type, $lang) {
 
 	$data = array();
 	ini_set("memory_limit", -1);
+	elgg_set_ignore_access(true);
 
 	if ($type === 'wireposts') {
 		$wireposts = elgg_get_entities(array(
@@ -203,7 +205,7 @@ function get_site_data($type, $lang) {
 
 		foreach($wireposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array(date("F j, Y", $obj->time_created), $obj->description, $user->name);
+			$data[] = array($obj->time_created, $obj->description, $user->name);
 		}
 	} else if ($type === 'blogposts') {
 		$blogposts = elgg_get_entities(array(
@@ -214,31 +216,29 @@ function get_site_data($type, $lang) {
 
 		foreach($blogposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array(date("F j, Y", $obj->time_created), $obj->title, $obj->description, $user->name);
+			$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
 		}
-	} else if ($type === 'blogcomments') {
-		$blogcomments = elgg_get_entities(array(
+	} else if ($type === 'comments') {
+		$comments = elgg_get_entities(array(
 			'type' => 'object',
 			'subtype' => 'comment',
 			'limit' => 0
 		));
 
-		foreach($blogcomments as $key => $obj){
+		foreach($comments as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array(date("F j, Y", $obj->time_created), $obj->description, $user->name);
+			$data[] = array($obj->time_created, $obj->description, $user->name);
 		}
 	} else if ($type === 'groupscreated') {
-		// $groupscreated = elgg_get_entities(array(
-		// 	'type' => 'object',
-		// 	'subtype' => 'comment',
-		// 	'limit' => 0
-		// ));
+		$groupscreated = elgg_get_entities(array(
+			'type' => 'group',
+			'limit' => 0
+		));
 
-		// foreach($groupscreated as $key => $obj){
-		// 	$user = get_user($obj->owner_guid);
-		// 	$data[] = array(date("F j, Y", $obj->time_created), $obj->title, $obj->description, $user->name);
-		// 	if($key == 0) print_r($obj);
-		// }
+		foreach($groupscreated as $key => $obj){
+			$user = get_user($obj->owner_guid);
+			$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
+		}
 	} else if ($type === 'groupsjoined') {
 		// $groupsjoined = elgg_get_entities(array(
 		// 	'type' => 'object',
@@ -248,19 +248,20 @@ function get_site_data($type, $lang) {
 
 		// foreach($groupsjoined as $key => $obj){
 		// 	$user = get_user($obj->owner_guid);
-		// 	$data[] = array(date("F j, Y", $obj->time_created), $obj->title, $obj->description, $user->name);
+		// 	$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
 		// }
 	} else if ($type === 'likes') {
-		// $likes = elgg_get_entities(array(
-		// 	'type' => 'object',
-		// 	'subtype' => 'comment',
-		// 	'limit' => 0
-		// ));
+		$likes = elgg_get_annotations(array(
+			'annotation_names' => array('likes'),
+			'limit' => 0
+		));
 
-		// foreach($likes as $key => $obj){
-		// 	$user = get_user($obj->owner_guid);
-		// 	$data[] = array(date("F j, Y", $obj->time_created), $obj->title, $obj->description, $user->name);
-		// }
+		foreach($likes as $key => $obj){
+			$entity = get_entity($obj->entity_guid);
+			$user = get_user($obj->owner_guid);
+			$user_liked = ($entity->title != "" ? $entity->title : ($entity->name != "" ? $entity->name : $entity->description));
+			$data[] = array($obj->time_created, $user->name, $user_liked);
+		}
 	} else if ($type === 'messages') {
 		$messages = elgg_get_entities(array(
 			'type' => 'object',
@@ -270,7 +271,7 @@ function get_site_data($type, $lang) {
 
 		foreach($messages as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array(date("F j, Y", $obj->time_created), $obj->title, $user->name);
+			$data[] = array($obj->time_created, $obj->title, $user->name);
 		}
 	} 
     return $data;
