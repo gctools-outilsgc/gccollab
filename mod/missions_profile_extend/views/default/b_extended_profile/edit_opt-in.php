@@ -146,6 +146,7 @@ foreach($opt_in_set as $k => $v){
 ?>
 
 <div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder gcconnex-profile-opt-in-options-table">
+<?php /*
     <div class="col-sm-6">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:atlevel'); ?></h4>
         <ul class="list-unstyled">
@@ -270,6 +271,7 @@ foreach($opt_in_set as $k => $v){
             
         </ul>
     </div>
+*/ ?>
 
     <div class="col-sm-6">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:development'); ?></h4>
@@ -281,33 +283,34 @@ foreach($opt_in_set as $k => $v){
                 
                 <ul class="clearfix brdr-lft mrgn-lft-md list-unstyled">
                 <li class="clearfix pull-left mrgn-lft-md">
-                <?php
-                	echo elgg_view ( "input/checkbox", array (
-			         'name' => 'mentored_check',
-			         'checked' => $opt_in_set[2],
-			         'id' => 'gcconnex-opt-in-mentored-check',
-                        'class'=>'pull-left',
-                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentored' ),
-	               ));
-                    
-                ?>
-            </li>
-            
-            <li class="clearfix pull-left mrgn-lft-md">
-                <?php
-                	echo elgg_view ( "input/checkbox", array (
-                        'name' => 'mentoring_check',
-			         'checked' => $opt_in_set[3],
-			         'id' => 'gcconnex-opt-in-mentoring-check',
-                        'class'=>'pull-left',
-                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentoring' ),
-	               ));
-                    
-                ?>
-            </li>
+	                <?php
+	                	echo elgg_view ( "input/checkbox", array (
+				         'name' => 'mentored_check',
+				         'checked' => $opt_in_set[2],
+				         'id' => 'gcconnex-opt-in-mentored-check',
+	                        'class'=>'pull-left',
+	                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentored' ),
+		               ));
+	                    
+	                ?>
+	            </li>
+	            
+	            <li class="clearfix pull-left mrgn-lft-md">
+	                <?php
+	                	echo elgg_view ( "input/checkbox", array (
+	                        'name' => 'mentoring_check',
+				         'checked' => $opt_in_set[3],
+				         'id' => 'gcconnex-opt-in-mentoring-check',
+	                        'class'=>'pull-left',
+	                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentoring' ),
+		               ));
+	                    
+	                ?>
+	            </li>
                 </ul>
             </li>
             
+            <?php /*
             <li class="clearfix">
                 <?php echo elgg_echo ( 'missions:job_shadowing' ); ?>
                 
@@ -417,7 +420,7 @@ foreach($opt_in_set as $k => $v){
                     
                 ?>
             </li>
-            
+            */ ?>
         </ul>
     </div>
 </div>

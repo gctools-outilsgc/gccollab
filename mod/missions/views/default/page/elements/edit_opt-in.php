@@ -34,6 +34,7 @@ if (elgg_is_xhr) {
 }
 ?>
 <div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder">
+<?php /*
     <div class="col-sm-4 col-sm-offset-2">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:atlevel'); ?></h4>
         <ul class="list-unstyled">
@@ -158,6 +159,7 @@ if (elgg_is_xhr) {
             
         </ul>
     </div>
+*/ ?>
 
     <div class="col-sm-4">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:development'); ?></h4>
@@ -195,6 +197,8 @@ if (elgg_is_xhr) {
             </li>
                 </ul>
             </li>
+
+            <?php /*
             
             <li class="clearfix">
                 <?php echo elgg_echo ( 'missions:job_shadowing' ); ?>
@@ -305,6 +309,8 @@ if (elgg_is_xhr) {
                     
                 ?>
             </li>
+
+            */ ?>
             
         </ul>
     </div>

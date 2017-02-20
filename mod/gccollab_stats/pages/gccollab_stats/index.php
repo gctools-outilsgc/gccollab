@@ -120,7 +120,7 @@
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
                         },
-                        floor: 0
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -706,7 +706,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:wireposts:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -791,7 +792,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:blogposts:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -876,7 +878,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:comments:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -966,7 +969,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:groupscreated:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -1053,7 +1057,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:groupsjoined:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -1140,7 +1145,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:likes:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
@@ -1225,7 +1231,8 @@
                     yAxis: {
                         title: {
                             text: '<?php echo elgg_echo("gccollab_stats:messages:amount"); ?>'
-                        }
+                        },
+                        min: 0
                     },
                     legend: {
                         enabled: false
