@@ -111,7 +111,7 @@
                         text: '<?php echo elgg_echo("gccollab_stats:registration:title") . " (" . $count . ")"; ?>'
                     },
                     subtitle: {
-                        text: lang == "fr" ? (document.ontouchstart === undefined ? 'Cliquez et faites glisser dans la zone de tracé pour faire un zoom avant' : 'Pincer le graphique pour le zoomer') : (document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in')
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
@@ -695,17 +695,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Daily Wire Posts'
+                        text: '<?php echo elgg_echo("gccollab_stats:wireposts:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Wire Posts'
+                            text: '<?php echo elgg_echo("gccollab_stats:wireposts:amount"); ?>'
                         }
                     },
                     legend: {
@@ -744,7 +744,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Daily Wire Posts',
+                        name: '<?php echo elgg_echo("gccollab_stats:wireposts:title"); ?>',
                         data: wireposts
                     }]
                 });
@@ -780,17 +780,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Daily Blog Posts'
+                        text: '<?php echo elgg_echo("gccollab_stats:blogposts:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Blog Posts'
+                            text: '<?php echo elgg_echo("gccollab_stats:blogposts:amount"); ?>'
                         }
                     },
                     legend: {
@@ -829,7 +829,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Daily Blog Posts',
+                        name: '<?php echo elgg_echo("gccollab_stats:blogposts:title"); ?>',
                         data: blogposts
                     }]
                 });
@@ -865,17 +865,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Daily Comments'
+                        text: '<?php echo elgg_echo("gccollab_stats:comments:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Comments'
+                            text: '<?php echo elgg_echo("gccollab_stats:comments:amount"); ?>'
                         }
                     },
                     legend: {
@@ -914,7 +914,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Daily Comments',
+                        name: '<?php echo elgg_echo("gccollab_stats:comments:title"); ?>',
                         data: comments
                     }]
                 });
@@ -934,7 +934,7 @@
             $date = date("F j, Y", $value[0]);
             $dates[strtotime($date)]['count']++;
             if($dates[strtotime($date)]['names']){
-                $dates[strtotime($date)]['names'] = $dates[strtotime($date)]['names'] . ", " . $value[1];;
+                $dates[strtotime($date)]['names'] = $dates[strtotime($date)]['names'] . "<br />" . $value[1];;
             } else {
                 $dates[strtotime($date)]['names'] = $value[1];
             }
@@ -955,17 +955,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Groups Created'
+                        text: '<?php echo elgg_echo("gccollab_stats:groupscreated:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Groups Created'
+                            text: '<?php echo elgg_echo("gccollab_stats:groupscreated:amount"); ?>'
                         }
                     },
                     legend: {
@@ -999,12 +999,12 @@
                     },
                     tooltip: {
                         formatter: function() {
-                            return '<b><?php echo elgg_echo("gccollab_stats:groups"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][3] + '<br /><b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(groupscreated[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
+                            return '<b><?php echo elgg_echo("gccollab_stats:groups:label"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][3] + '<br /><b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + new Date(groupscreated[this.series.data.indexOf(this.point)][2]).niceDate() + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
                         }
                     },
                     series: [{
                         type: 'area',
-                        name: 'Groups Created',
+                        name: '<?php echo elgg_echo("gccollab_stats:groupscreated:title"); ?>',
                         data: groupscreated
                     }]
                 });
@@ -1042,17 +1042,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Groups Joined'
+                        text: '<?php echo elgg_echo("gccollab_stats:groupsjoined:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Groups Joined'
+                            text: '<?php echo elgg_echo("gccollab_stats:groupsjoined:amount"); ?>'
                         }
                     },
                     legend: {
@@ -1091,7 +1091,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Groups Joined',
+                        name: '<?php echo elgg_echo("gccollab_stats:groupsjoined:title"); ?>',
                         data: groupsjoined
                     }]
                 });
@@ -1129,17 +1129,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Likes'
+                        text: '<?php echo elgg_echo("gccollab_stats:likes:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Likes'
+                            text: '<?php echo elgg_echo("gccollab_stats:likes:amount"); ?>'
                         }
                     },
                     legend: {
@@ -1178,7 +1178,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Likes',
+                        name: '<?php echo elgg_echo("gccollab_stats:likes:title"); ?>',
                         data: likes
                     }]
                 });
@@ -1214,17 +1214,17 @@
                         zoomType: 'x'
                     },
                     title: {
-                        text: 'Messages Sent'
+                        text: '<?php echo elgg_echo("gccollab_stats:messages:title"); ?>'
                     },
                     subtitle: {
-                        text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+                        text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
                     },
                     xAxis: {
                         type: 'datetime'
                     },
                     yAxis: {
                         title: {
-                            text: '# of Messages Sent'
+                            text: '<?php echo elgg_echo("gccollab_stats:messages:amount"); ?>'
                         }
                     },
                     legend: {
@@ -1263,7 +1263,7 @@
                     },
                     series: [{
                         type: 'area',
-                        name: 'Messages Sent',
+                        name: '<?php echo elgg_echo("gccollab_stats:messages:title"); ?>',
                         data: messages
                     }]
                 });
@@ -1294,24 +1294,6 @@
     <?php
 
         $display = ob_get_clean();
-
-        // Use code below to see which profiles are missing data (aka show up as 'Unknown')
-        /*
-        ini_set("memory_limit", -1);
-        $users = elgg_get_entities_from_metadata(array(
-            'type' => 'user',
-            'limit' => 0
-        ));
-        $otherCount = 0;
-        echo "<ul>";
-        foreach($users as $user){
-            if($user->user_type == "public_servant" || $user->user_type == ""){
-                echo "<li><a href='" . elgg_get_site_url() . "profile/" . $user->username . "' target='_blank'>" . $user->username . "</a></li>";
-                $otherCount++;
-            }
-        }
-        echo "</ul>Count: " . $otherCount;
-        */
 
         return $display;
     }

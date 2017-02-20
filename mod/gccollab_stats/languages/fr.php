@@ -22,13 +22,24 @@ $french = array(
     'gccollab_stats:province' => "Province / Territoire",
 
     'gccollab_stats:wireposts:title' => "Messages sur le fil",
+    'gccollab_stats:wireposts:amount' => "Nombre de messages sur le fil",
     'gccollab_stats:blogposts:title' => "Blogues",
+    'gccollab_stats:blogposts:amount' => "Nombre de blogues",
     'gccollab_stats:comments:title' => "Commentaires",
-    'gccollab_stats:groups' => "Groupes",
+    'gccollab_stats:comments:amount' => "Nombre de commentaires",
+    'gccollab_stats:groups:label' => "Groupes :",
+    'gccollab_stats:groups:amount' => "Nombre de groupes",
     'gccollab_stats:groupscreated:title' => "Groupes créés",
+    'gccollab_stats:groupscreated:amount' => "Nombre de groupes créés",
     'gccollab_stats:groupsjoined:title' => "Groupes rejoints",
+    'gccollab_stats:groupsjoined:amount' => "Nombre de groupes rejoints",
     'gccollab_stats:likes:title' => "Aimes",
+    'gccollab_stats:likes:amount' => "Nombre d\'aimes",
     'gccollab_stats:messages:title' => "Messages",
+    'gccollab_stats:messages:amount' => "Nombre de messages",
+
+    'gccollab_stats:zoommessage' => "Cliquez et faites glisser dans la zone de tracé pour faire un zoom avant",
+    'gccollab_stats:pinchmessage' => "Pincer le graphique pour le zoomer",
 );
 
 add_translation("fr", $french);
