@@ -13,6 +13,7 @@
  */
 
 return array(
-	'autosubscribe:enabled' => "Enabled",
-	'autosubscribe:name'	=> "Name"
+	'autosubscribe:name'	=> "Name",
+	'autosubscribe:autogroups' => "All Users",
+	'autosubscribe:admingroups' => "Group Admins",
 );

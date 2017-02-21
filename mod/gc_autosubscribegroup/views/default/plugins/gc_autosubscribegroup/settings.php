@@ -33,39 +33,51 @@ function limit_text($text, $limit = 30) {
 
 <script type="text/javascript">
 	$(function() {
-		var enabledGroups = $("#group-list").val();
-		var enabledGroupsArray = "";
-		if(enabledGroups != ""){ enabledGroupsArray = enabledGroups.split(','); }
+		var autoGroups = $("#autoGroupList").val();
+		var autoGroupsArray = "";
+		if(autoGroups != ""){ autoGroupsArray = autoGroups.split(','); }
 
 		$(".auto-subscribe").change(function(e){
 			var id = $(this).val();
-			enabledGroupsArray = jQuery.grep(enabledGroupsArray, function(value) { return value != id; });
-			if(this.checked){ enabledGroupsArray.push(id); }
-		    $("#group-list").val(enabledGroupsArray.join(","));
+			autoGroupsArray = jQuery.grep(autoGroupsArray, function(value) { return value != id; });
+			if(this.checked){ autoGroupsArray.push(id); }
+		    $("#autoGroupList").val(autoGroupsArray.join(","));
+		});
+
+		$(".admin-subscribe").change(function(e){
+			$(".admin-subscribe").attr('checked', false);
+			$(this).attr('checked', true);
+			var id = $(this).val();
+		    $("#adminGroupList").val(id);
 		});
 	});
 </script>
 
 <?php
 
-$enabledGroups = explode(',', $vars['entity']->systemgroups);
+$autoGroups = explode(',', $vars['entity']->autogroups);
+$adminGroups = explode(',', $vars['entity']->admingroups);
 $groups = elgg_get_entities(array(
 	'types' => 'group',
 	'limit' => 0,
 ));
+sort($groups);
 
-echo '<table class="group-table"><thead><tr><th>ID</th><th>' . elgg_echo('autosubscribe:name') . '</th><th>Description</th><th>' . elgg_echo('autosubscribe:enabled') . '</th></tr></thead><tbody>';
+echo '<table class="group-table"><thead><tr><th>ID</th><th>' . elgg_echo('autosubscribe:name') . '</th><th>Description</th><th>' . elgg_echo('autosubscribe:autogroups') . '</th><th>' . elgg_echo('autosubscribe:admingroups') . '</th></tr></thead><tbody>';
 foreach($groups as $group){
-	$checked = (in_array($group->guid, $enabledGroups)) ? " checked": "";
+	$autoChecked = (in_array($group->guid, $autoGroups)) ? " checked": "";
+	$adminChecked = (in_array($group->guid, $adminGroups)) ? " checked": "";
 	if($group->enabled == "yes"){
 		echo '<tr>';
 		echo '<td>' . $group->guid . '</td>';
 		echo '<td>' . $group->name . '</td>';
 		echo '<td>' . limit_text(strip_tags($group->description)) . '</td>';
-		echo '<td class="align-center"><input class="auto-subscribe" type="checkbox" value="' . $group->guid . '"' . $checked . ' /></td>';
+		echo '<td class="align-center"><input class="auto-subscribe" type="checkbox" value="' . $group->guid . '"' . $autoChecked . ' /></td>';
+		echo '<td class="align-center"><input class="admin-subscribe" type="checkbox" value="' . $group->guid . '"' . $adminChecked . ' /></td>';
 		echo '</tr>';
 	}
 }
 echo '</tbody></table>';
 
-echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'group-list', 'name' => 'params[systemgroups]', 'value' => $vars['entity']->systemgroups));
+echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'autoGroupList', 'name' => 'params[autogroups]', 'value' => $vars['entity']->autogroups));
+echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'adminGroupList', 'name' => 'params[admingroups]', 'value' => $vars['entity']->admingroups));
