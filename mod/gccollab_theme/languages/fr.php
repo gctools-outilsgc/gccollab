@@ -88,7 +88,7 @@ return array(
     'wet:errmess' => "<h3 class='h3'>Le formulaire n'a pu être soumis, car une ou des erreurs ont été trouvées.</h3>",
 
     'wet:footAbout' => 'Au sujet de GCcollab',
-    'wet:footTerms' => 'Modalités',
+    // 'wet:footTerms' => 'Modalités',
     'wet:footPrivacy'  => 'Politique de confidentialité',
     'wet:footTutorials' => 'Tutoriels de GCcollab',
     'wet:footTitleAbout' => 'Infos',
