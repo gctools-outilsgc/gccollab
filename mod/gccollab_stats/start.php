@@ -52,7 +52,7 @@ function get_member_data($type, $lang) {
 		));
 
 		if ($lang == 'fr'){
-			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'etudiant', 'other' => 'autre');
+			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'étudiant', 'other' => 'autre');
 
 			foreach($users as $key => $obj){
 				$data[$users_types[$obj->user_type]]++;
