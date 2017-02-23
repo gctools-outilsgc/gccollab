@@ -45,8 +45,9 @@ function limit_text($text, $limit = 30) {
 		});
 
 		$(".admin-subscribe").change(function(e){
+			var checked = $(this).attr('checked');
 			$(".admin-subscribe").attr('checked', false);
-			$(this).attr('checked', true);
+			if(checked == "checked"){ $(this).attr('checked', true); } else { $(this).attr('checked', false); }
 			var id = $(this).val();
 		    $("#adminGroupList").val(id);
 		});

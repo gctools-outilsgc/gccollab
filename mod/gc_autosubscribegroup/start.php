@@ -26,8 +26,7 @@ function gc_autosubscribegroup_init() {
 }
 
 /**
- * auto join group define in plugin settings
- *
+ * Autosubscribe new users upon registration
  */
 function gc_autosubscribegroup_join($event, $object_type, $object) {
 
@@ -56,8 +55,7 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 }
 
 /**
- * auto join group define in plugin settings
- *
+ * Autosubscribe group admins upon group creation
  */
 function gc_autosubscribegroup_create($event, $object_type, $object) {
 	if (($object instanceof ElggGroup) && ($event == 'create') && ($object_type == 'group')) {
