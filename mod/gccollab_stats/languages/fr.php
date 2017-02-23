@@ -3,6 +3,7 @@ $french = array(
     'gccollab_stats:title' => "Statistiques de GCcollab",
     'gccollab_stats:unknown' => "Inconnu",
     'gccollab_stats:membercount' => "Nombre de membres",
+    'gccollab_stats:loading' => "Chargement des données...",
     
     'gccollab_stats:registration:title' => "Inscription des membres",
     'gccollab_stats:types:title' => "Types de membres",
@@ -38,6 +39,8 @@ $french = array(
     'gccollab_stats:messages:title' => "Messages",
     'gccollab_stats:messages:amount' => "Nombre de messages",
 
+    'gccollab_stats:ministrymessage' => "Cliquez sur les colonnes pour afficher les ministères de la province ou du territoire",
+    'gccollab_stats:schoolmessage' => "Cliquez sur les colonnes pour afficher les différentes écoles",
     'gccollab_stats:zoommessage' => "Cliquez et faites glisser dans la zone de tracé pour faire un zoom avant",
     'gccollab_stats:pinchmessage' => "Pincer le graphique pour le zoomer",
 );

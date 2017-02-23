@@ -3,6 +3,7 @@ $english = array(
     'gccollab_stats:title' => "GCcollab Statistics",
     'gccollab_stats:unknown' => "Other",
     'gccollab_stats:membercount' => "Registered Members",
+    'gccollab_stats:loading' => "Loading data...",
     
     'gccollab_stats:registration:title' => "Member Registration",
     'gccollab_stats:types:title' => "Member Types",
@@ -38,6 +39,8 @@ $english = array(
     'gccollab_stats:messages:title' => "Messages",
     'gccollab_stats:messages:amount' => "Amount of Messages",
 
+    'gccollab_stats:ministrymessage' => "Click the columns to view the ministries within the province/territory",
+    'gccollab_stats:schoolmessage' => "Click the columns to view the various schools",
     'gccollab_stats:zoommessage' => "Click and drag in the plot area to zoom in",
     'gccollab_stats:pinchmessage' => "Pinch the chart to zoom in",
 );

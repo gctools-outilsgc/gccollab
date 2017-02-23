@@ -240,16 +240,14 @@ function get_site_data($type, $lang) {
 			$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
 		}
 	} else if ($type === 'groupsjoined') {
-		// $groupsjoined = elgg_get_entities(array(
-		// 	'type' => 'object',
-		// 	'subtype' => 'comment',
-		// 	'limit' => 0
-		// ));
+		$query = "SELECT * FROM elggentity_relationships WHERE relationship = 'member'";
+		$groupsjoined = get_data($query);
 
-		// foreach($groupsjoined as $key => $obj){
-		// 	$user = get_user($obj->owner_guid);
-		// 	$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
-		// }
+		foreach($groupsjoined as $key => $obj){
+			$user = get_user($obj->guid_one);
+			$group = get_entity($obj->guid_two);
+			$data[] = array($obj->time_created, $user->name, $group->name);
+		}
 	} else if ($type === 'likes') {
 		$likes = elgg_get_annotations(array(
 			'annotation_names' => array('likes'),
