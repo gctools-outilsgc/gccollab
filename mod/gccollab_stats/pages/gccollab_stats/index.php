@@ -140,7 +140,7 @@
                             }
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:registration:title"); ?>' + '(' + registrationsCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:registration:title"); ?> (' + registrationsCount + ')'
                         },
                         subtitle: {
                             text: document.ontouchstart === undefined ? '<?php echo elgg_echo("gccollab_stats:zoommessage"); ?>' : '<?php echo elgg_echo("gccollab_stats:pinchmessage"); ?>'
@@ -237,7 +237,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:types:title"); ?>' + '(' + allMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:types:title"); ?> (' + allMembersCount + ')'
                         },
                         xAxis: {
                             type: 'category'
@@ -301,7 +301,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:federal:title"); ?>' + '(' + federalMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:federal:title"); ?> (' + federalMembersCount + ')'
                         },
                         xAxis: {
                             type: 'category'
@@ -374,7 +374,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:provincial:title"); ?>' + '(' + provincialMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:provincial:title"); ?> (' + provincialMembersCount + ')'
                         },
                         subtitle: {
                             text: '<?php echo elgg_echo("gccollab_stats:ministrymessage"); ?>'
@@ -468,7 +468,7 @@
                             }
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:student:title"); ?>' + '(' + studentMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:student:title"); ?> (' + studentMembersCount + ')'
                         },
                         subtitle: {
                             text: '<?php echo elgg_echo("gccollab_stats:schoolmessage"); ?>'
@@ -566,7 +566,7 @@
                             }
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:academic:title"); ?>' + '(' + academicMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:academic:title"); ?> (' + academicMembersCount + ')'
                         },
                         subtitle: {
                             text: '<?php echo elgg_echo("gccollab_stats:schoolmessage"); ?>'
@@ -635,7 +635,7 @@
                             type: 'bar'
                         },
                         title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:other:title"); ?>' + '(' + otherMembersCount + ')'
+                            text: '<?php echo elgg_echo("gccollab_stats:other:title"); ?> (' + otherMembersCount + ')'
                         },
                         xAxis: {
                             type: 'category'
