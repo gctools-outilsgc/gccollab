@@ -7,11 +7,11 @@ $english = array(
     
     'gccollab_stats:registration:title' => "Member Registration",
     'gccollab_stats:types:title' => "Member Types",
-    'gccollab_stats:federal:title' => "Federal Members",
-    'gccollab_stats:provincial:title' => "Provincial/Territorial Members",
-    'gccollab_stats:student:title' => "Student Members",
-    'gccollab_stats:academic:title' => "Academic Members",
-    'gccollab_stats:other:title' => "Other Members",
+    'gccollab_stats:federal:title' => "Federal",
+    'gccollab_stats:provincial:title' => "Provincial/Territorial",
+    'gccollab_stats:student:title' => "Student",
+    'gccollab_stats:academic:title' => "Academic",
+    'gccollab_stats:other:title' => "Other",
 
     'gccollab_stats:membertype' => "Member Type",
     'gccollab_stats:other' => "Other Member",

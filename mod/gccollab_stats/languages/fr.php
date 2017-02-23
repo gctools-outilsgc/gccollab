@@ -7,11 +7,11 @@ $french = array(
     
     'gccollab_stats:registration:title' => "Inscription des membres",
     'gccollab_stats:types:title' => "Types de membres",
-    'gccollab_stats:federal:title' => "Membres fédéraux",
-    'gccollab_stats:provincial:title' => "Membres provinciaux",
-    'gccollab_stats:student:title' => "Membres étudiants",
-    'gccollab_stats:academic:title' => "Membres académiques",
-    'gccollab_stats:other:title' => "Autres membres",
+    'gccollab_stats:federal:title' => "Fédéraux",
+    'gccollab_stats:provincial:title' => "Provinciaux",
+    'gccollab_stats:student:title' => "Étudiants",
+    'gccollab_stats:academic:title' => "Académiques",
+    'gccollab_stats:other:title' => "Autres",
 
     'gccollab_stats:membertype' => "Type de membre",
     'gccollab_stats:other' => "Autre membre",
