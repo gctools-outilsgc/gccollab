@@ -45,6 +45,9 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 			if ($groupEnt) {
 				//join group succeed?
 				if ($groupEnt->join($object)) {
+					add_entity_relationship($object->guid, 'cp_subscribed_to_email', $groupEnt->guid);
+					add_entity_relationship($object->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
+
 					// Remove any invite or join request flags
 					elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
 					elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));
@@ -70,6 +73,9 @@ function gc_autosubscribegroup_create($event, $object_type, $object) {
 		if ($groupEnt) {
 			//join group succeed?
 			if ($groupEnt->join($userEnt)) {
+				add_entity_relationship($userEnt->guid, 'cp_subscribed_to_email', $groupEnt->guid);
+				add_entity_relationship($userEnt->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
+
 				// Remove any invite or join request flags
 				elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
 				elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));

@@ -430,7 +430,7 @@ function validateEmail(email) {
 							},
 							success: function (x) {
 			    				if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>") {
-					                $('#email_error').html("<?php echo elgg_echo('registration:userexists'); ?>").removeClass('hidden');
+					                $('#email_error').html("<?php echo elgg_echo('gcRegister:email_in_use'); ?>").removeClass('hidden');
 			    				} else if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:invalid_email'); ?>") {
 					                $('#email_error').text("<?php echo elgg_echo('gcRegister:invalid_email'); ?>").removeClass('hidden');
 			    				} else {
