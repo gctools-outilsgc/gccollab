@@ -176,6 +176,7 @@
 		'widget_manager:widgets:image_slider:overlay_color' => "Couleur de la couche (hex)",
 		'widget_manager:widgets:image_slider:title' => "Diapositive",
 		'widget_manager:widgets:image_slider:label:url' => "Adresse URL de l'image",
+		'widget_manager:widgets:image_slider:label:alt' => "Texte alternatif",
 		'widget_manager:widgets:image_slider:label:text' => "Texte",
 		'widget_manager:widgets:image_slider:label:link' => 	"Lien",
 		'widget_manager:widgets:image_slider:label:direction' => "Orientation",
