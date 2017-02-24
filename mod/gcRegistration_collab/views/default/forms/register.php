@@ -546,6 +546,11 @@ function validateEmail(email) {
         }
     });
 
+    // Disable cut/copying content from email field
+	$('#email').bind("cut copy", function(e) {
+		e.preventDefault();
+	});
+
     // check if secondary email is valid, then check if email fields match
     $('#email2').on("focusout", function() {
     	var val = $(this).val();
@@ -567,6 +572,11 @@ function validateEmail(email) {
 			}
         }
     });
+
+    // Disable pasting content into secondary email field
+	$('#email2').bind("paste", function(e) {
+		e.preventDefault();
+	});
 
     $('.password_test').on("focusout", function() {
     	var val = $(this).val();
