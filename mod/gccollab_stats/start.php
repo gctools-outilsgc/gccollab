@@ -240,7 +240,8 @@ function get_site_data($type, $lang) {
 			$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
 		}
 	} else if ($type === 'groupsjoined') {
-		$query = "SELECT * FROM elggentity_relationships WHERE relationship = 'member'";
+		$dbprefix = elgg_get_config('dbprefix');
+		$query = "SELECT * FROM {$dbprefix}entity_relationships WHERE relationship = 'member'";
 		$groupsjoined = get_data($query);
 
 		foreach($groupsjoined as $key => $obj){
