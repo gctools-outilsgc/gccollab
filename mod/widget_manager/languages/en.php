@@ -148,6 +148,7 @@
 		'widget_manager:widgets:image_slider:overlay_color' => "Overlay Color (hex)",
 		'widget_manager:widgets:image_slider:title' => "Slide",
 		'widget_manager:widgets:image_slider:label:url' => "Image url",
+		'widget_manager:widgets:image_slider:label:alt' => "Alt text",
 		'widget_manager:widgets:image_slider:label:text' => "Text",
 		'widget_manager:widgets:image_slider:label:link' => "Link",
 		'widget_manager:widgets:image_slider:label:direction' => "Direction",

@@ -134,6 +134,10 @@ if(!$entity && ($container instanceof ElggGroup)){
     }
 }
 
+//MW - Fall back on default_access if value is set to ACCESS_DEFAULT or ACCESS_PUBLIC
+if($vars['value'] == ACCESS_DEFAULT || $vars['value'] == ACCESS_PUBLIC){
+	$vars['value'] = elgg_get_config('default_access');
+}
 
 echo elgg_view('input/select', $vars);
 if ($show_override_notice) {

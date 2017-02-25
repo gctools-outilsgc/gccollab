@@ -420,7 +420,7 @@ function validateEmail(email) {
 				<div class="form-group">
 					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span></label>
 	    			<font id="email_error" color="red"></font>
-					<input id="email" class="form-control" type="text" value='<?php echo $email ?>' name="email" onBlur="" />
+					<input id="email" class="form-control" type="text" name="email" />
 
 	    		<script>	
 	        		$('#email').blur(function () {
@@ -430,7 +430,7 @@ function validateEmail(email) {
 							},
 							success: function (x) {
 			    				if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>") {
-					                $('#email_error').html("<?php echo elgg_echo('registration:userexists'); ?>").removeClass('hidden');
+					                $('#email_error').html("<?php echo elgg_echo('gcRegister:email_in_use'); ?>").removeClass('hidden');
 			    				} else if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:invalid_email'); ?>") {
 					                $('#email_error').text("<?php echo elgg_echo('gcRegister:invalid_email'); ?>").removeClass('hidden');
 			    				} else {
@@ -454,6 +454,12 @@ function validateEmail(email) {
 
 				</div> <!-- end form-group div -->
 		    	<div class="return_message"></div>
+
+				<div class="form-group">
+					<label for="email2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span></label>
+					<font id="email_secondary_error" color="red"></font>
+					<input id="email2" class="form-control" type="text" name="email2" />
+				</div>
 
 				<!-- Username (auto-generate) -->
 				<div class="form-group" style="display:none">
@@ -539,6 +545,38 @@ function validateEmail(email) {
             }
         }
     });
+
+    // Disable cut/copying content from email field
+	$('#email').bind("cut copy", function(e) {
+		e.preventDefault();
+	});
+
+    // check if secondary email is valid, then check if email fields match
+    $('#email2').on("focusout", function() {
+    	var val = $(this).val();
+        if ( val === '' ) {
+        	var c_err_msg = '<?php echo elgg_echo('gcRegister:empty_field') ?>';
+            document.getElementById('email_secondary_error').innerHTML = c_err_msg;
+        } else if ( val !== '' ) {
+            document.getElementById('email_secondary_error').innerHTML = '';
+            
+            if (!validateEmail(val)) {
+            	var c_err_msg = '<?php echo elgg_echo('gcRegister:invalid_email') ?>';
+            	document.getElementById('email_secondary_error').innerHTML = c_err_msg;
+            }
+
+            var val2 = $('#email').attr('value');
+			if (val2.toLowerCase() != val.toLowerCase()){
+				var c_err_msg = "<?php echo elgg_echo('gcRegister:mismatch') ?>";
+				document.getElementById('email_secondary_error').innerHTML = c_err_msg;
+			}
+        }
+    });
+
+    // Disable pasting content into secondary email field
+	$('#email2').bind("paste", function(e) {
+		e.preventDefault();
+	});
 
     $('.password_test').on("focusout", function() {
     	var val = $(this).val();

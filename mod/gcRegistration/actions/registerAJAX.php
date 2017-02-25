@@ -165,7 +165,7 @@ function checkInvalidDomain($dom)
 				$regex = str_replace(".", "\.", $wildcard->ext);
 				$regex = str_replace("*", "[\w-.]+", $regex);
 				$regex = "/^@" . $regex . "$/";
-				if(preg_match($regex, "@".$dom) || str_replace("*.", "", $wildcard->ext) == $dom){
+				if(preg_match($regex, "@".$dom) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($dom)){
 					$isNotValid = false;
 				}
 			}

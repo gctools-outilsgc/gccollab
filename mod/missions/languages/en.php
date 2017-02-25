@@ -271,7 +271,7 @@ return array(
 "missions:apply_by" =>  "Apply by",
     'missions:splash:popup_title'=>"What type of opportunities are you interested in?",
     'missions:splash:popup_instruction'=> "Select the types of opportunities that interest you (as either a host or participant).",
-"missions:splash:missions_help_message" => "If you require any help, <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Jobs_Marketplace' target='_blank'>view our help page</a>.",
+"missions:splash:missions_help_message" => "",
 "missions:splash:missions_right_now" => "Opportunities Happening Right Now",
 "missions:splash:what_are_missions" =>  "How can I learn more about the types of opportunities supported by the Career ConneXions Opportunities Platform?",
 "missions:splash:how_to_apply" =>   "Get started by opting in",
@@ -522,17 +522,15 @@ Note that users  on this list are not guaranteed to be qualified for your opport
 You can share your opportunity with any employee whether on this list or not.  Employees who do not appear on this list are also welcome to express interest in your opportunity.",
 "missions:no_skill_matches_found" => "There were no users found with all the following skills: %s.",
 "missions:all_feedback_finished" => "All feedback for opportunity '%s' has been submitted.",
-"missions:placeholder_b" => "The Career ConneXions Opportunities Platform is a reality thanks to the collaboration of many passionate employees and supportive departments. <a href='http://www.gcpedia.gc.ca/wiki/Micro-Missions#Acknowledgements' target='_blank'>Click here for the full list of contributors.</a>",
+"missions:placeholder_b" => "The Career ConneXions Opportunities Platform is a reality thanks to the collaboration of many passionate employees and supportive departments.",
 "missions:placeholder_c" => "Placeholder C",
-"missions:placeholder_d" => "<a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Please click here for more information, tutorials and guidance materials</a>.
-Please note that information you input in these fields will be stored in your cache for several minutes. Inactivity for extended periods of time may result in lost information.",
-"missions:placeholder_f" => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_Skill_List_-_Liste_des_comp%C3%A9tences_se_trouvant_sur_GCconnex' target='_blank'>View the complete Skills Inventory here</a>",
+"missions:placeholder_d" => "Please note that information you input in these fields will be stored in your cache for several minutes. Inactivity for extended periods of time may result in lost information.",
+"missions:placeholder_f" => "",
 "missions:placeholder_h" => "The below employee has applied to your opportunity '%s'. Should you chose to offer him/her this opportunity, (s)he will receive an automatic notification and be asked to accept or decline the offer. Should you remove this candidate (s)he will no longer be considered an applicant to this opportunity.",
 "missions:placeholder_i" => "This will permanently remove the individual from the participant and applicant list. The employee will receive a notification advising (s)he has been removed from this opportunity.",
 "missions:placeholder_i2" =>    "This will permanently remove the individual from the participant list. The employee will receive a notification advising (s)he has been removed from this opportunity.",
-"missions:placeholder_j" => "<a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Click here for guidance and definitions about each type of opportunity</a>",
+"missions:placeholder_j" => "",
 "missions:placeholder_k" => "The 'opt-in' feature supports the functionality of the Career ConneXions Opportunities Platform within the Jobs Marketplace in tandem with the information in your GCcollab profile to facilitate connecting employees with opportunities of interest.
-<a herf='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Click here for more information about the Jobs Marketplace and each opportunity type.</a>
 The approval of your supervisor will be required before an offer for any type of opportunity can be accepted. By opting in to an opportunity type you certify that you have had an initial conversation with your supervisor about leveraging these professional development and mobility tools.",
 
 
@@ -641,11 +639,9 @@ Should you no longer be available to participate in this opportunity, please wit
 "missions:cannot_cancel_mission_with_participants" => "Please remove all active participants and all applicants to whom you have sent an offer before deactivating this opportunity.",
 "missions:required" =>    "(required)",
 "missions:placeholder_a" =>   "Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace! This is a tool that quickly matches at-level mobility (i.e. micro-missions and job swapping) and development (i.e. mentoring and job shadowing) opportunities with talented employees by leveraging the content in employees&rsquo; GCcollab profiles.
-Employees are encouraged to opt in to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.
-<a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Please click here for more information, tutorials and guidance materials</a>.","Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace!
+Employees are encouraged to opt in to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.","Welcome to the Career ConneXions Opportunities Platform within Jobs Marketplace!
 This is a tool that quickly matches opportunities with talented employees by leveraging the content in employees&rsquo; GCcollab profiles.
-Employees are encouraged to &rsquo;opt in&rsquo; to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.
-<a href='http://www.gcpedia.gc.ca/wiki/Jobs_Marketplace' target='_blank'>Please click here for more information, tutorials and guidance materials</a>.",
+Employees are encouraged to &rsquo;opt in&rsquo; to the professional development and at-level mobility opportunities in their profiles to take full advantage of this tool.",
 "missions:placeholder_d2" =>  " ",
 
 "missions:per_day" => "per day",

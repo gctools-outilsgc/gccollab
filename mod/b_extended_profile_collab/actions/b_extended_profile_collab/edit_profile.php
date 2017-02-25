@@ -47,7 +47,7 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                                     $regex = str_replace(".", "\.", $wildcard->ext);
                                     $regex = str_replace("*", "[\w-.]+", $regex);
                                     $regex = "/^@" . $regex . "$/";
-                                    if(preg_match($regex, "@".$user_email[1]) || str_replace("*.", "", $wildcard->ext) == $user_email[1]){
+                                    if(preg_match($regex, "@".$user_email[1]) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($user_email[1])){
                                         $isValid = true;
                                     }
                                 }

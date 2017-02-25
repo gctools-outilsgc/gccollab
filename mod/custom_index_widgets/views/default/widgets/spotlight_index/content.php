@@ -28,6 +28,7 @@ for ($i = 1; $i <= $max_slider_options; $i++) {
 	$url = $widget->{"slider_" . $i . "_url"};
 	if (!empty($url)) {
 		
+		$alt = (get_current_language() == 'fr') ? $widget->{"slider_" . $i . "_alt_fr"} : $widget->{"slider_" . $i . "_alt_en"};
 		$text = $widget->{"slider_" . $i . "_text"};
 		$link = $widget->{"slider_" . $i . "_link"};
 		$direction = "";
@@ -37,6 +38,7 @@ for ($i = 1; $i <= $max_slider_options; $i++) {
 	
 		$configured_slides[] = array(
 			"url" => $url,
+			"alt" => $alt,
 			"text" => $text,
 			"link" => $link,
 			"direction" => $direction
@@ -48,30 +50,35 @@ if (empty($configured_slides)) {
 	$configured_slides = array(
 		array(
 			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/1.jpg",
+			"alt" => "",
 			"text" => "<strong>Lorem ipsum dolor</strong><br>Consectetuer adipiscing elit. Donec eu massa vitae arcu laoreet aliquet.",
 			"link" => false,
 			"direction" => "top"
 		),
 		array(
 			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/2.jpg",
+			"alt" => "",
 			"text" => "<strong>Praesent</strong><br>Maecenas est erat, aliquam a, ornare eu, pretium nec, pede.",
 			"link" => false,
 			"direction" => "top"
 		),
 		array(
 			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/3.jpg",
+			"alt" => "",
 			"text" => "<strong>In hac habitasse</strong><br>Quisque ipsum est, fermentum quis, sodales nec, consectetuer sed, quam. Nulla feugiat lacinia odio.",
 			"link" => false,
 			"direction" => "bottom"
 		),
 		array(
 			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/4.jpg",
+			"alt" => "",
 			"text" => "<strong>Fusce rhoncus</strong><br>Praesent pellentesque nibh sed nibh. Sed ac libero. Etiam quis libero.",
 			"link" => false,
 			"direction" => "bottom"
 		),
 		array(
 			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/5.jpg",
+			"alt" => "",
 			"text" => "<strong>Morbi malesuada</strong><br>Vivamus molestie leo sed justo. In rhoncus, enim non imperdiet feugiat,	felis elit ultricies tortor.",
 			"link" => false,
 			"direction" => "bottom"
@@ -86,14 +93,14 @@ if ($slider_type == "flexslider") {
 	echo '<ul class="slides">';
 
 	foreach ($configured_slides as $slide) {
-		
+
 		echo '<li>';
 		
 		if (!empty($slide["link"])) {
 			echo '<a href="' . $slide["link"] . '">';
 		}
 		
-		echo '<img class="slider_img" src="' . $slide["url"] . '" />';
+		echo '<img class="slider_img" alt="' . $slide["alt"] . '" src="' . $slide["url"] . '" />';
 		
 		if (!empty($slide["text"])) {
 			echo '<div class="flex-caption">' . $slide["text"] . '</div>';

@@ -32,6 +32,7 @@
 	}
 	else {
 		echo '<div class="gcconnex-profile-opt-in-display-table" style="margin: 10px;">';
+		/*
         echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h4>';
 			echo '<ul class="list-unstyled">';
                 echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:micro_missionseek');
@@ -55,7 +56,7 @@
         
 				
                 
-        echo '</ul></div>';
+        echo '</ul></div>';*/
         echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:development').'</h4>';
         echo '<ul class="list-unstyled">';
                 
@@ -64,7 +65,7 @@
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_mentored) . '</span></li>';
 				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:mentoring');
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_mentoring) . '</span></li>';
-			
+			/*
 				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowed');
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_shadowed) . '</span></li>';
 				echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:shadowing');
@@ -82,7 +83,7 @@
         
                 echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:skill_sharing_create');
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_ssCreate) . '</span></li>';
-				
+			*/
                 
                 
         
