@@ -60,6 +60,23 @@ elgg_register_css('cp_notifications-css','mod/cp_notifications/css/notifications
 	// cron job - for daily/weekly newsletter (digest requirement)
 	elgg_register_plugin_hook_handler('cron', 'daily', 'cp_digest_cron_handler');
 	// http://gcconnex12_dev.gc.ca/cron/daily  --> go here to execute cron jobs
+	
+	elgg_register_event_handler('create', 'user', 'cp_autoset_personal_notifications', 501);
+}
+
+/**
+ * Automatically sets Personal Notifications options to "on" for new users
+ */
+function cp_autoset_personal_notifications($event, $object_type, $user) {
+	if (($user instanceof ElggUser) && ($event == 'create') && ($object_type == 'user')) {
+		$plugin = elgg_get_plugin_from_id('cp_notifications');
+		$plugin->setUserSetting('cpn_likes_email', 'likes_email', $user->guid);
+		$plugin->setUserSetting('cpn_likes_site', 'likes_site', $user->guid);
+		$plugin->setUserSetting('cpn_mentions_email', 'mentions_email', $user->guid);
+		$plugin->setUserSetting('cpn_mentions_site', 'mentions_site', $user->guid);
+		$plugin->setUserSetting('cpn_content_email', 'content_email', $user->guid);
+		$plugin->setUserSetting('cpn_content_site', 'content_site', $user->guid);
+	}
 }
 
 function cp_digest_cron_handler($hook, $entity_type, $return_value, $params) {
