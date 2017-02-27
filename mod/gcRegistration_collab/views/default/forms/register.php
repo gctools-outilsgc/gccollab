@@ -546,8 +546,8 @@ function validateEmail(email) {
         }
     });
 
-    // Disable cut/copying content from email field
-	$('#email').bind("cut copy", function(e) {
+    // Disable cut/copy/paste for email fields
+	$('#email, #email2').bind("cut copy paste", function(e) {
 		e.preventDefault();
 	});
 
@@ -572,11 +572,6 @@ function validateEmail(email) {
 			}
         }
     });
-
-    // Disable pasting content into secondary email field
-	$('#email2').bind("paste", function(e) {
-		e.preventDefault();
-	});
 
     $('.password_test').on("focusout", function() {
     	var val = $(this).val();
