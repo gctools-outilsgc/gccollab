@@ -62,10 +62,10 @@ $french = array(
 	'linkedin:profile:industry' => '',
 	'linkedin:profile:awards' => '',
 	'linkedin:profile:associations' => '',
-	'linkedin:profile:location' => 'Lieu',
-	'linkedin:profile:description' => 'À propos de moi',
-	'linkedin:profile:profile-url' => 'Lien du profil',
 	'linkedin:profile:picture-url' => 'Image du profil',
+	'linkedin:profile:profile-url' => 'Lien du profil',
+	'linkedin:profile:description' => 'À propos de moi',
+	'linkedin:profile:location' => 'Adresse',
 
 	'linkedin:tag_names:languages' => '',
 	'linkedin:tag_names:industry' => '',
@@ -77,7 +77,7 @@ $french = array(
 	'linkedin:import-linkedin' => 'Importer le profil LinkedIn',
 	'linkedin:import:instructions' => 'Utilisez les cases pour indiquer que contenu vous voulez importer',
 	'linkedin:cancel' => 'Annuler',
-	'linkedin:submit' => 'Enregistrer',
+	'linkedin:submit' => 'Sauvegarder',
 
 	'linkedin:profile' => 'Synchroniser le profil',
 
@@ -87,7 +87,7 @@ $french = array(
 	'linkedin:general:success:picture-url' => '&bull; Avatar',
 	'linkedin:general:success:profile-url' => '&bull; Lien du profil',
 	'linkedin:general:success:description' => '&bull; À propos de moi',
-	'linkedin:general:success:location' => '&bull; Lieu',
+	'linkedin:general:success:location' => '&bull; Adresse',
 	'linkedin:general:success:position' => '&bull; Poste',
 
 	'linkedin:positions' => 'Expérience professionnelle',

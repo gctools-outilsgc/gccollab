@@ -62,10 +62,10 @@ $english = array(
 	'linkedin:profile:industry' => 'Industry',
 	'linkedin:profile:awards' => 'Awards',
 	'linkedin:profile:associations' => 'Associations',
-	'linkedin:profile:location' => 'Location',
-	'linkedin:profile:description' => 'About Me',
-	'linkedin:profile:profile-url' => 'Profile Link',
 	'linkedin:profile:picture-url' => 'Profile Image',
+	'linkedin:profile:profile-url' => 'Profile Link',
+	'linkedin:profile:description' => 'About Me',
+	'linkedin:profile:location' => 'Location',
 
 	'linkedin:tag_names:languages' => 'Languages',
 	'linkedin:tag_names:industry' => 'Industry',
