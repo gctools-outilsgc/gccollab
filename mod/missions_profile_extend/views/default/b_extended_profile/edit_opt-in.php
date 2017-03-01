@@ -146,7 +146,7 @@ foreach($opt_in_set as $k => $v){
 ?>
 
 <div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder gcconnex-profile-opt-in-options-table">
-<?php /*
+<?php /* MW - Changed for GCcollab version of Opp Platform
     <div class="col-sm-6">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:atlevel'); ?></h4>
         <ul class="list-unstyled">
@@ -310,7 +310,7 @@ foreach($opt_in_set as $k => $v){
                 </ul>
             </li>
             
-            <?php /*
+            <?php /* MW - Changed for GCcollab version of Opp Platform
             <li class="clearfix">
                 <?php echo elgg_echo ( 'missions:job_shadowing' ); ?>
                 

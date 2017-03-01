@@ -390,6 +390,7 @@ $button_set = mm_create_button_set_full($mission);
 				<?php echo $input_remotely;?>
 			</div>
 		</div>
+		<?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="form-group">
 			<label for='edit-mission-openess-checkbox-input' class="col-sm-3" style="text-align:right;">
 				<?php echo $openess_string;?>
@@ -398,6 +399,7 @@ $button_set = mm_create_button_set_full($mission);
 				<?php echo $input_openess; ?>
 			</div>
 		</div>
+		*/ ?>
 		<div class="form-group">
 			<label class="col-sm-3 required" for="edit-mission-location-dropdown-input" style="text-align:right;" aria-required="true">
 				<?php echo elgg_echo('missions:location') . ':';?>

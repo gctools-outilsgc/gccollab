@@ -20,7 +20,10 @@ return array(
     "missions:first_post:paragraph_three" => "Veuillez entrer votre numéro de téléphone ci-dessous si vous souhaitez le fournir comme un moyen pour les candidats intéressés de vous joindre au sujet de cette possibilité. Si vous n'entrez pas votre numéro de téléphone, les candidats verront plutôt votre adresse de courriel.",
     "missions:first_post:paragraph_four" =>	"Je consens à fournir à tous les candidats sélectionnés les conseils et l'orientation appropriés pour les tâches relatives à cette possibilité. J'accepte aussi de remplir les formulaires de rétroaction qui peuvent m'être envoyés à la fin de la possibilité.",
     "missions:your_name" =>	"Votre nom",
-    "missions:your_department" =>	"Votre ministère ou organisme",
+    /* MW - Changed for GCcollab
+    "missions:your_department" =>   "Votre ministère ou organisme",
+    */
+    "missions:your_department" =>	"Votre organisation, agence ou département",
     "missions:your_email" =>	"Votre adresse de courriel",
     "missions:your_phone" =>	"Numero de téléphone",
     "missions:next" =>	"Prochaine étape",
@@ -247,7 +250,10 @@ return array(
 "missions:create_opportunity" => "Créer une possibilité",
 "missions:first_post_form_title" =>	"Étape 1 : Renseignements sur l'auteur",
 "missions:post_contact_disclaimer" =>	"Si vous n'entrez pas votre numéro de téléphone, votre adresse de courriel s'affichera aux candidats à la place.",
-"missions:post_disclaimer" =>	"Je consens à fournir à tous les candidats sélectionnés les conseils et l'orientation appropriés pour les tâches relatives à cette possibilité. J'accepte aussi de remplir les formulaires de rétroaction qui peuvent m'être envoyés à la fin de la possibilité.",
+/* MW - Changed for GCcollab version of Opp Platform
+"missions:post_disclaimer" =>   "*Je consens à fournir à tous les candidats sélectionnés les conseils et l'orientation appropriés pour les tâches relatives à cette possibilité. J'accepte aussi de remplir les formulaires de rétroaction qui peuvent m'être envoyés à la fin de la possibilité.",
+*/
+"missions:post_disclaimer" =>	"*Je consens à fournir à tous les candidats sélectionnés les conseils et l'orientation appropriés. J'accepte aussi de remplir les formulaires de rétroaction qui peuvent m'être envoyés à la fin de la possibilité.",
 "missions:error:dislcaimer_needs_to_be_checked" =>	"Veuillez lire l'avertissement ci-dessous.",
 "missions:second_post_form_title" =>	"Étape 2 : Détails de la possibilité",
 "missions:back" =>	"Retour",
@@ -269,6 +275,9 @@ return array(
 "missions:posted_by" =>	"Publié par",
 "missions:date" =>	"Date",
 "missions:apply_by" =>	"Postuler d'ici",
+/* MW - Changed for GCcollab version of Opp Platform
+    "missions:splash:missions_help_message" =>"Si vous avez besoin d’aide, <a href=' http://www.gcpedia.gc.ca/wiki/Aide_%C3%A0_l%27utilisateur/Carrefour_d%27emploi ' target='_blank'>consultez la page d’aide à l’utilisateur! </a>",
+*/
     "missions:splash:missions_help_message" =>"",
 "missions:splash:missions_right_now" =>"Possibilités en ce Moment",
 "missions:splash:what_are_missions" =>	"Comment puis-je apprendre davantage sur les genres de possibilités disponibles dans la plateforme de possibilités de ConneXions carrière?",
@@ -523,10 +532,20 @@ Notez qu'il n'est pas garanti que les utilisateurs sur cette liste soient qualif
 Vous pouvez inviter n'importe quel employé, qu'il figure à la liste ou non, à votre possibilité. Les employés qui n'apparaissent pas dans cette liste sont aussi les bienvenus à faire part de leur intérêt dans votre possibilité.",
 "missions:no_skill_matches_found" =>	"Aucun utilisateur n'a été trouvé avec toutes les compétences suivantes : %s. Faites une rechereche à nouveau avec moins de compétences.",
 "missions:all_feedback_finished" =>	"L'ensemble de la rétroaction pour la possibilité '%s' a été soumis.",
+/* MW - Changed for GCcollab version of Opp Platform
+"missions:placeholder_b" =>"La Plateforme de possibilités de ConneXions Carrière est une réalité grâce à la collaboration de nombreux employés passionnés et ministères coopératifs. <a href='http://www.gcpedia.gc.ca/wiki/Micro-missions_-_Page_d%27accueil#Remerciementss' target='_blank'>Cliquez ici pour la liste complète des contributeurs.</a>",
+*/
 "missions:placeholder_b" =>"La Plateforme de possibilités de ConneXions Carrière est une réalité grâce à la collaboration de nombreux employés passionnés et ministères coopératifs.",
 //"missions:placeholder_c"
+/* MW - Changed for GCcollab version of Opp Platform
+"missions:placeholder_d" => "<a href='http://www.gcpedia.gc.ca/wiki/Carrefour_d_emploi' target='_blank'>Veuillez cliquer ici pour obtenir des renseignements, des tutoriels et du matériel d'orientation.</a>
+Veuillez noter que les renseignements que vous saisissez dans ces champs seront conservés dans votre mémoire cache pendant à peu près 10 minutes. Une période d'inactivité surpassant ce délai peut entraîner la perte de renseignements.",
+*/
 "missions:placeholder_d" =>	"Veuillez noter que les renseignements que vous saisissez dans ces champs seront conservés dans votre mémoire cache pendant à peu près 10 minutes. Une période d'inactivité surpassant ce délai peut entraîner la perte de renseignements.",
 
+/* MW - Changed for GCcollab version of Opp Platform
+"missions:placeholder_f" => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_Skill_List_-_Liste_des_comp%C3%A9tences_se_trouvant_sur_GCconnex' target='_blank'>Afficher l'inventaire complet des compétences.</a>",
+*/
 "missions:placeholder_f" =>	"",
 "missions:placeholder_h" =>	"L'employé ci-dessous a postulé à votre possibilité '%s'. Si vous choisissez de lui offrir cette possibilité, vous recevrez un avis automatique et devrez accepter ou refuser l'offre. Si vous supprimez ce candidat, il ne sera plus considéré comme candidat à cette possibilité.",
 "missions:placeholder_i" =>	"Cela supprimera de manière permanente la personne de la liste des participants et des candidats. L'employé recevra un avis l'informant qu'il a été retiré de cette possibilité.",
@@ -635,6 +654,9 @@ L'approbation de votre superviseur est nécessaire avant que vous soyez en mesur
 "missions:settings:analytics_on" =>   "Afficher l'onglet des analytiques?",
 "missions:cannot_cancel_mission_with_participants" =>     "Veuillez supprimer tout participant actif et tout participant auxquels vous avez envoyé une offre avant la désactivation de cette possibilité.",
 "missions:required" =>    "(requis)",
+/* MW - Changed for GCcollab version of Opp Platform
+"missions:placeholder_a" =>   "Bienvenue à la Plateforme de possibilités de ConneXions Carrière au sein du Carrefour d'emploi! Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCcollab des employés. On encourage les employés à s'inscrire aux types de possibilité de perfectionnement professionnel et de mobilité au même niveau dans leur profil afin de pleinement profiter de cet outil. <a href='http://www.gcpedia.gc.ca/wiki/Carrefour_d_emploi' target='_blank'>Veuillez cliquer ici pour obtenir des renseignements, des tutoriels et du matériel d'orientation</a>.",
+*/
 "missions:placeholder_a" =>   "Bienvenue à la Plateforme de possibilités de ConneXions Carrière au sein du Carrefour d'emploi! Il s’agit d’un outil qui jumèle rapidement les opportunités de mobilité d'emplois au même niveau (Micro-Missions, Échange d'emploi) et de perfectionnement professionnel (Mentorat, Observation au poste de travail) aux employés talentueux en utilisant le contenu affiché dans les profils GCcollab des employés. On encourage les employés à s'inscrire aux types de possibilité de perfectionnement professionnel et de mobilité au même niveau dans leur profil afin de pleinement profiter de cet outil.",
 
 /*Notifictaions*/
