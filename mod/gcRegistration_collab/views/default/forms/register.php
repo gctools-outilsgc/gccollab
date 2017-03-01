@@ -344,14 +344,13 @@ function validateEmail(email) {
 								email: $('#email').val()
 							},
 							success: function (x) {
-			    				if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>") {
-					                $('#email_error').html("<?php echo elgg_echo('gcRegister:email_in_use'); ?>").removeClass('hidden');
-			    				} else if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:invalid_email'); ?>") {
-					                $('#email_error').text("<?php echo elgg_echo('gcRegister:invalid_email'); ?>").removeClass('hidden');
-			    				} else {
+								var message = x.output;
+								if(message.indexOf(">") >= 0){
+									$('#email_error').html(message).removeClass('hidden');
+								} else {
 			    					$('#email_error').addClass('hidden');
 			    				}
-							},   
+							}
 						});
 	        		});
 
@@ -361,8 +360,9 @@ function validateEmail(email) {
 								name: $('#name').val()
 							},
 							success: function (x) {
-			    				$('.username_test').val(x.output);
-							},   
+								var message = x.output;
+			    				$('.username_test').val(message);
+							}
 						});
 	        		});
 	    		</script>
