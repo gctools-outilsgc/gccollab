@@ -269,8 +269,10 @@ function get_site_data($type, $lang) {
 		));
 
 		foreach($messages as $key => $obj){
-			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->title, $user->name);
+			if($obj->fromId && $obj->fromId !== 1){
+				$user = get_user($obj->owner_guid);
+				$data[] = array($obj->time_created, $user->name, $obj->title);
+			}
 		}
 	} 
     return $data;
