@@ -38,64 +38,37 @@ $site_url = elgg_get_site_url();
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
-
 	$("#user_type").change(function() {
 		var type = $(this).val();
 		$('.occupation-choices').hide();
-		if (type == 'student' || type == 'academic') {
-			$('.ministry-choices').hide();
-			$('#institution-wrapper').show();
 
+		if (type == 'federal') {
+			$('#federal-wrapper').fadeIn();
+		} else if (type == 'academic' || type == 'student') {
+			$('#institution-wrapper').fadeIn();
 			var institution = $('#institution').val();
-			if (institution == 'university') {
-				$('#university-wrapper').show();
-			} else if (institution == 'college') {
-				$('#college-wrapper').show();
-			}
-		} else if (type == 'federal') {
-			$('.ministry-choices').hide();
-			$('.student-choices').hide();
-			$('#federal-wrapper').show();
+			$('#' + institution + '-wrapper').fadeIn();
 		} else if (type == 'provincial') {
-			$('.student-choices').hide();
-			$('#provincial-wrapper').show();
-
+			$('#provincial-wrapper').fadeIn();
 			var province = $('#provincial').val();
 			province = province.replace(/\s+/g, '-').toLowerCase();
-			$('#' + province + '-wrapper').show();
-		} else if (type == 'municipal') {
-			$('.ministry-choices').hide();
-			$('.student-choices').hide();
-			$('#municipal-wrapper').show();
-		} else if (type == 'international') {
-			$('.ministry-choices').hide();
-			$('.student-choices').hide();
-			$('#international-wrapper').show();
+			$('#' + province + '-wrapper').fadeIn();
 		} else if (type == 'other') {
-			$('.ministry-choices').hide();
-			$('.student-choices').hide();
-			$('#other-wrapper').show();
-		} else {
-			$('.ministry-choices').hide();
-			$('.student-choices').hide();
+			$('#other-wrapper').fadeIn();
 		}
 	});
 
 	$("#institution").change(function() {
 		var type = $(this).val();
 		$('.student-choices').hide();
-		if (type == 'university') {
-			$('#university-wrapper').show();
-		} else if (type == 'college') {
-			$('#college-wrapper').show();
-		}
+		$('#' + type + '-wrapper').fadeIn();
 	});
 
 	$("#provincial").change(function() {
 		var province = $(this).val();
 		province = province.replace(/\s+/g, '-').toLowerCase();
-		$('.ministry-choices').hide();
-		$('#' + province + '-wrapper').show();
+		$('.provincial-choices').hide();
+		$('#' + province + '-wrapper').fadeIn();
 	});
 });
 
@@ -119,7 +92,6 @@ function validateEmail(email) {
 	<?php
 		function show_field( $field ){
 			$enabled_fields = array('academic', 'student', 'federal', 'provincial', 'other');
-			// $enabled_fields = array('academic', 'student', 'federal', 'provincial', 'municipal', 'international', 'community', 'business', 'media', 'other');
 			return in_array($field, $enabled_fields);
 		}
 	?>
@@ -134,16 +106,11 @@ function validateEmail(email) {
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
 					<font id="user_type_error" color="red"></font>
-	    			<select id="user_type" name="user_type" class="form-control" >
+	    			<select id="user_type" name="user_type" class="form-control">
 	    				<?php if(show_field("federal")): ?><option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
 	    				<?php if(show_field("provincial")): ?><option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option><?php endif; ?>
-	    				<?php if(show_field("municipal")): ?><option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option><?php endif; ?>
-	    				<?php if(show_field("international")): ?><option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option><?php endif; ?>
-	    				<?php if(show_field("community")): ?><option value="community"><?php echo elgg_echo('gcRegister:occupation:community'); ?></option><?php endif; ?>
-	    				<?php if(show_field("business")): ?><option value="business"><?php echo elgg_echo('gcRegister:occupation:business'); ?></option><?php endif; ?>
-	    				<?php if(show_field("media")): ?><option value="media"><?php echo elgg_echo('gcRegister:occupation:media'); ?></option><?php endif; ?>
 	    				<?php if(show_field("other")): ?><option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option><?php endif; ?>
 	    			</select>
 				</div>
@@ -216,7 +183,7 @@ function validateEmail(email) {
 ?>
 
 				<!-- Universities -->
-				<div class="form-group student-choices" id="university-wrapper" hidden>
+				<div class="form-group occupation-choices student-choices" id="university-wrapper" hidden>
 					<label for="university" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:university'); ?></span></label>
 					<?php echo $university_choices; ?>
 				</div>
@@ -245,7 +212,7 @@ function validateEmail(email) {
 ?>
 
 				<!-- Colleges -->
-				<div class="form-group student-choices" id="college-wrapper" hidden>
+				<div class="form-group occupation-choices student-choices" id="college-wrapper" hidden>
 					<label for="college" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label>
 					<?php echo $college_choices; ?>
 				</div>
@@ -298,7 +265,7 @@ function validateEmail(email) {
 
 	foreach($provincial_departments as $province => $province_name){
 		$prov_id = str_replace(" ", "-", strtolower($province));
-		echo '<div class="form-group ministry-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
+		echo '<div class="form-group occupation-choices provincial-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
 		echo elgg_view('input/select', array(
 			'name' => 'ministry',
 			'id' => $prov_id,
@@ -308,58 +275,6 @@ function validateEmail(email) {
 		echo '</div>';
 	}
 ?>
-
-<?php endif; ?>
-
-<?php if(show_field("municipal")): ?>
-
-<?php
-	$municipal_governments = array();
-	if (get_current_language() == 'en'){
-		$municipal_governments = array("one", "two", "three");
-	} else {
-		$municipal_governments = array("un", "deux", "trois");
-	}
-
-	// default to invalid value, so it encourages users to select
-	$municipal_choices = elgg_view('input/select', array(
-		'name' => 'municipal',
-		'id' => 'municipal',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $municipal_governments),
-	));
-?>
-
-				<div class="form-group occupation-choices" id="municipal-wrapper" hidden>
-					<label for="municipal" class="required"><span class="field-name"><?php echo elgg_echo('Municipal'); ?></span></label>
-					<?php echo $municipal_choices; ?>
-				</div>
-
-<?php endif; ?>
-
-<?php if(show_field("international")): ?>
-
-<?php
-	$international_governments = array();
-	if (get_current_language() == 'en'){
-		$international_governments = array("one", "two", "three");
-	} else {
-		$international_governments = array("un", "deux", "trois");
-	}
-
-	// default to invalid value, so it encourages users to select
-	$international_choices = elgg_view('input/select', array(
-		'name' => 'international',
-		'id' => 'international',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $international_governments),
-	));
-?>
-
-				<div class="form-group occupation-choices" id="international-wrapper" hidden>
-					<label for="international" class="required"><span class="field-name"><?php echo elgg_echo('International'); ?></span></label>
-					<?php echo $international_choices; ?>
-				</div>
 
 <?php endif; ?>
 
@@ -429,14 +344,13 @@ function validateEmail(email) {
 								email: $('#email').val()
 							},
 							success: function (x) {
-			    				if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:email_in_use'); ?>") {
-					                $('#email_error').html("<?php echo elgg_echo('gcRegister:email_in_use'); ?>").removeClass('hidden');
-			    				} else if (x.output == "<?php echo '> ' . elgg_echo('gcRegister:invalid_email'); ?>") {
-					                $('#email_error').text("<?php echo elgg_echo('gcRegister:invalid_email'); ?>").removeClass('hidden');
-			    				} else {
+								var message = x.output;
+								if(message.indexOf(">") >= 0){
+									$('#email_error').html(message).removeClass('hidden');
+								} else {
 			    					$('#email_error').addClass('hidden');
 			    				}
-							},   
+							}
 						});
 	        		});
 
@@ -446,8 +360,9 @@ function validateEmail(email) {
 								name: $('#name').val()
 							},
 							success: function (x) {
-			    				$('.username_test').val(x.output);
-							},   
+								var message = x.output;
+			    				$('.username_test').val(message);
+							}
 						});
 	        		});
 	    		</script>
@@ -546,8 +461,8 @@ function validateEmail(email) {
         }
     });
 
-    // Disable cut/copying content from email field
-	$('#email').bind("cut copy", function(e) {
+    // Disable cut/copy/paste for email fields
+	$('#email, #email2').bind("cut copy paste", function(e) {
 		e.preventDefault();
 	});
 
@@ -572,11 +487,6 @@ function validateEmail(email) {
 			}
         }
     });
-
-    // Disable pasting content into secondary email field
-	$('#email2').bind("paste", function(e) {
-		e.preventDefault();
-	});
 
     $('.password_test').on("focusout", function() {
     	var val = $(this).val();
@@ -623,8 +533,8 @@ function validateEmail(email) {
     });
 
     $("form.elgg-form-register").on("submit", function(){
-	    $(".occupation-choices select:not(:visible), .occupation-choices input:not(:visible), .student-choices select:not(:visible), .ministry-choices select:not(:visible)").attr('disabled', 'disabled');
-	    $(".occupation-choices select:visible, .occupation-choices input:visible, .student-choices select:visible, .ministry-choices select:visible").removeAttr('disabled');
+	    $(".occupation-choices select:not(:visible), .occupation-choices input:not(:visible)").attr('disabled', 'disabled');
+	    $(".occupation-choices select:visible, .occupation-choices input:visible").removeAttr('disabled');
 	});
 </script>
 

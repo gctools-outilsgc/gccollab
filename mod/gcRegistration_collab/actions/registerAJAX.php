@@ -24,9 +24,6 @@
 
 global $CONFIG;
 
-$emailInput = trim(get_input('email'));
-$nameInput = trim(get_input('name'));
-
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/engine/settings.php');
 
 // Establish MySQL connection link
@@ -36,31 +33,89 @@ if (mysqli_connect_errno($connection)) {
 	exit;
 }
 
-$email = $emailInput;
+if ( $_POST['email'] ) {
 
-if (strlen( $email ) > 0) {
-	$domainPos = strpos($email, '@') + 1;
-	$domain = substr($email, $domainPos);
-	
-	// count number of emails
-	$query2 = "SELECT count(*) AS num FROM `elggusers_entity` WHERE email = '". $email ."'";
+	$email = trim(get_input('email'));
 
-	$result2 = mysqli_query($connection, $query2);
-	$result2 = mysqli_fetch_array($result2);
-	$emailrow = $result2['num'];
+	if (strlen( $email ) > 0) {
 		
-	// check if email in use
-	// NOTE: the '>' character is used to make the username invalid.
-	if ( $emailrow[0] > 0 ) {
-		echo '> ' . elgg_echo('gcRegister:email_in_use');
+		$domainPos = strpos($email, '@') + 1;
+		$domain = substr($email, $domainPos);
+		
+		// count number of emails
+		$query2 = "SELECT count(*) AS num FROM `elggusers_entity` WHERE email = '". $email ."'";
 
-	// make sure selected domain is not the example domain (this is already checked for in the JS, but do it anyway)
-	} else if( checkInvalidDomain($domain) ) {
-		echo '> ' . elgg_echo('gcRegister:invalid_email');
-	
+		$result2 = mysqli_query($connection, $query2);
+		$result2 = mysqli_fetch_array($result2);
+		$emailrow = $result2['num'];
+			
+		// check if email in use
+		// NOTE: the '>' character is used to make the username invalid.
+		if ( $emailrow[0] > 0 ) {
+			echo '> ' . elgg_echo('gcRegister:email_in_use');
+
+		// make sure selected domain is not the example domain (this is already checked for in the JS, but do it anyway)
+		} else if( checkInvalidDomain($domain) ) {
+			echo '> ' . elgg_echo('gcRegister:invalid_email');
+		
+		} else {
+
+			$usrname = str_replace( "'", "", usernameize( $email ) );
+
+			// Troy - fix for usernames generated with "-" in them; better solution may present itself.
+			while (strpos($usrname,'-')!==false ){
+				$usrname = substr_replace($usrname, ".", strpos($usrname,'-'),1);
+			}
+
+			if(rtrim($usrname, "0..9") != "") {
+				$usrname = rtrim($usrname, "0..9");
+			}
+
+			// select matching usernames
+			$query1 = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $usrname ."'";
+
+			$result1 = mysqli_query($connection, $query1);
+			$result1 = mysqli_fetch_array($result1);
+
+			// check if username exists and increment it
+			if ( $result1['num'][0] > 0 ){
+				
+				$unamePostfix = 0;
+				$usrnameQuery = $usrname;
+				
+				do {
+					$unamePostfix++;
+					
+					$tmpUsrnameQuery = $usrnameQuery . $unamePostfix;
+					
+					$query = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $tmpUsrnameQuery ."'";
+					$tmpResult = mysqli_query($connection, $query);
+					$tmpResult = mysqli_fetch_array($tmpResult);
+					
+					$uname = $tmpUsrnameQuery;
+					
+				} while ( $tmpResult['num'][0] > 0);
+				
+			}else{
+				// username is available
+				$uname = $usrname;
+			}
+			// username output
+			echo $uname;
+		}							
 	} else {
+		echo '> '.elgg_echo("gcRegister:please_enter_email");
+	}
+}
 
-		$usrname = str_replace( "'", "", usernameize( $email ) );
+if ( $_POST['name'] ) {
+
+	$name = trim(get_input('name'));
+	
+	if (strlen( $name ) > 0) {
+
+		$name = str_replace( " ", ".", $name );
+		$usrname = str_replace( "'", "", usernameize( $name ) );
 
 		// Troy - fix for usernames generated with "-" in them; better solution may present itself.
 		while (strpos($usrname,'-')!==false ){
@@ -102,61 +157,9 @@ if (strlen( $email ) > 0) {
 		}
 		// username output
 		echo $uname;
-	}							
-} else if( $nameInput === "" ) {
-	echo '> '.elgg_echo("gcRegister:please_enter_email");
-}
-
-
-$name = $nameInput;
-
-if (strlen( $name ) > 0) {
-
-	$name = str_replace( " ", ".", $name );
-	$usrname = str_replace( "'", "", usernameize( $name ) );
-
-	// Troy - fix for usernames generated with "-" in them; better solution may present itself.
-	while (strpos($usrname,'-')!==false ){
-		$usrname = substr_replace($usrname, ".", strpos($usrname,'-'),1);
+	} else {
+		echo '> '.elgg_echo("gcRegister:please_enter_name");
 	}
-
-	if(rtrim($usrname, "0..9") != "") {
-		$usrname = rtrim($usrname, "0..9");
-	}
-
-	// select matching usernames
-	$query1 = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $usrname ."'";
-
-	$result1 = mysqli_query($connection, $query1);
-	$result1 = mysqli_fetch_array($result1);
-
-	// check if username exists and increment it
-	if ( $result1['num'][0] > 0 ){
-		
-		$unamePostfix = 0;
-		$usrnameQuery = $usrname;
-		
-		do {
-			$unamePostfix++;
-			
-			$tmpUsrnameQuery = $usrnameQuery . $unamePostfix;
-			
-			$query = "SELECT count(*) AS 'num' FROM `elggusers_entity` WHERE username = '". $tmpUsrnameQuery ."'";
-			$tmpResult = mysqli_query($connection, $query);
-			$tmpResult = mysqli_fetch_array($tmpResult);
-			
-			$uname = $tmpUsrnameQuery;
-			
-		} while ( $tmpResult['num'][0] > 0);
-		
-	}else{
-		// username is available
-		$uname = $usrname;
-	}
-	// username output
-	echo $uname;
-} else if( $emailInput === "" ) {
-	echo '> '.elgg_echo("gcRegister:please_enter_name");
 }
 
 /* +++ DEFINED FUNCTION +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

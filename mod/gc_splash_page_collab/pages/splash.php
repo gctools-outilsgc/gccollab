@@ -28,7 +28,7 @@ $body .= <<<__BODY
 		function form_submit(language_selected) {
 			//document.getElementById('formtoggle').submit();
 
-			var c_name = "collab_lang";
+			var c_name = "connex_lang";
 			var c_value = document.cookie;
 			var c_start = c_value.indexOf(" " + c_name + "=");
 

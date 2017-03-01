@@ -15,10 +15,20 @@ $password2 = get_input('password2', null, false);
 $email = get_input('email');
 $name = get_input('name');
 
+$user_type = get_input('user_type');
+$federal = get_input('federal');
+$institution = get_input('institution');
+$university = get_input('university');
+$college = get_input('college');
+$provincial = get_input('provincial');
+$ministry = get_input('ministry');
+$other = get_input('other');
+
 $admin = get_input('admin');
 if (is_array($admin)) {
 	$admin = $admin[0];
 }
+$sendemail = get_input('sendemail');
 
 // no blank fields
 if ($username == '' || $password == '' || $password2 == '' || $email == '' || $name == '') {
@@ -47,6 +57,15 @@ try {
 		// @todo ugh, saving a guid as metadata!
 		$new_user->created_by_guid = elgg_get_logged_in_user_guid();
 
+		if($user_type){ $new_user->user_type = $user_type; }
+		if($federal){ $new_user->federal = $federal; }
+		if($institution){ $new_user->institution = $institution; }
+		if($university){ $new_user->university = $university; }
+		if($college){ $new_user->college = $college; }
+		if($provincial){ $new_user->provincial = $provincial; }
+		if($ministry){ $new_user->ministry = $ministry; }
+		if($other){ $new_user->other = $other; }
+
 		$subject = elgg_echo('useradd:subject', array(), $new_user->language);
 		$body = elgg_echo('useradd:body', array(
 			$name,
@@ -69,7 +88,9 @@ try {
 			);
 			$result = elgg_trigger_plugin_hook('cp_overwrite_notification','all',$message);
 		} else {
-			notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
+			if($sendemail) {
+				notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
+			}
 		}
 
 		system_message(elgg_echo("adduser:ok", array(elgg_get_site_entity()->name)));

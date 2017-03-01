@@ -42,7 +42,13 @@ if ($user->canEdit()) {
         $value = $user->get($field);
         $value = htmlspecialchars_decode($value);
 
-        echo "<div class='form-group col-xs-12 {$field}'>";
+        if(in_array($field, array("federal", "institution", "provincial", "other"))) {
+            echo "<div class='form-group col-xs-12 occupation-choices' id='{$field}-wrapper'>";
+        } else if(in_array($field, array("university", "college"))) {
+            echo "<div class='form-group col-xs-12 occupation-choices student-choices' id='{$field}-wrapper'>";
+        } else {
+            echo "<div class='form-group col-xs-12 {$field}'>";
+        }
 
         // occupation input
         if (strcmp($field, 'user_type') == 0) {
@@ -62,108 +68,55 @@ if ($user->canEdit()) {
 
         <script>
             $(document).ready(function () {
-                var user_occupation_top = $("#user_type").val();
-                var user_institution_top = $("#institution").val();
-                if (user_occupation_top == 'student' || user_occupation_top == 'academic') {
-                    $(".job").hide();
-                    $(".federal").hide();
-                    $(".provincial").hide();
-                    $(".ministry").hide();
-                    $(".other").hide();
 
-                    if(user_institution_top == "university"){
-                        $(".college").hide();
-                    } else if (user_institution_top == "college"){
-                        $(".university").hide();
-                    }
-                } else if (user_occupation_top == 'provincial') {
-                    $(".federal").hide();
-                    $(".institution").hide();
-                    $(".university").hide();
-                    $(".college").hide();
-                    $(".other").hide();
-
-                    $(".ministry").hide();
-                    var province = $("#provincial").val();
-                    $('.' + province.replace(/\s+/g, '-').toLowerCase()).show();
-                } else if (user_occupation_top == 'other') {
-                    $(".job").hide();
-                    $(".federal").hide();
-                    $(".provincial").hide();
-                    $(".ministry").hide();
-                    $(".institution").hide();
-                    $(".university").hide();
-                    $(".college").hide();
-                } else {
-                    $(".provincial").hide();
-                    $(".ministry").hide();
-                    $(".institution").hide();
-                    $(".university").hide();
-                    $(".college").hide();
-                    $(".other").hide();
+                var user_type = $("#user_type").val();
+                $('.occupation-choices').hide();
+                if (user_type == 'federal') {
+                    $('#federal-wrapper').fadeIn();
+                } else if (user_type == 'academic' || user_type == 'student') {
+                    $('#institution-wrapper').fadeIn();
+                    var institution = $('#institution').val();
+                    $('#' + institution + '-wrapper').fadeIn();
+                } else if (user_type == 'provincial') {
+                    $('#provincial-wrapper').fadeIn();
+                    var province = $('#provincial').val();
+                    province = province.replace(/\s+/g, '-').toLowerCase();
+                    $('#' + province + '-wrapper').fadeIn();
+                } else if (user_type == 'other') {
+                    $('#other-wrapper').fadeIn();
                 }
 
                 $("#user_type").change(function() {
-                    var user_occupation = $(this).val();
-                    var user_institution = $("#institution").val();
-                    if (user_occupation == "federal") {
-                        $(".institution").hide();
-                        $(".university").hide();
-                        $(".college").hide();
-                        $(".provincial").hide();
-                        $(".ministry").hide();
-                        $(".other").hide();
+                    var type = $(this).val();
+                    $('.occupation-choices').hide();
 
-                        $(".job").show();
-                        $(".federal").show();
-                    } else if (user_occupation == "provincial") {
-                        $(".institution").hide();
-                        $(".university").hide();
-                        $(".college").hide();
-                        $(".federal").hide();
-                        $(".other").hide();
-
-                        $(".job").show();
-                        $(".provincial").show();
-
-                        $('.ministry').hide();
-                        var province = $("#provincial").val();
-                        $('.' + province.replace(/\s+/g, '-').toLowerCase()).show();
-                    } else if (user_occupation == "student" || user_occupation == "academic") {
-                        $(".job").hide();
-                        $(".federal").hide();
-                        $(".provincial").hide();
-                        $(".ministry").hide();
-                        $(".other").hide();
-
-                        $(".institution").show();
-                        $("." + user_institution).show();
-                    } else if (user_occupation == "other") {
-                        $(".institution").hide();
-                        $(".university").hide();
-                        $(".college").hide();
-                        $(".federal").hide();
-                        $(".job").hide();
-                        $(".provincial").hide();
-
-                        $(".other").show();
+                    if (type == 'federal') {
+                        $('#federal-wrapper').fadeIn();
+                    } else if (type == 'academic' || type == 'student') {
+                        $('#institution-wrapper').fadeIn();
+                        var institution = $('#institution').val();
+                        $('#' + institution + '-wrapper').fadeIn();
+                    } else if (type == 'provincial') {
+                        $('#provincial-wrapper').fadeIn();
+                        var province = $('#provincial').val();
+                        province = province.replace(/\s+/g, '-').toLowerCase();
+                        $('#' + province + '-wrapper').fadeIn();
+                    } else if (type == 'other') {
+                        $('#other-wrapper').fadeIn();
                     }
                 });
 
                 $("#institution").change(function() {
-                    if($(this).val() == "university"){
-                        $(".university").show();
-                        $(".college").hide();
-                    } else if($(this).val() == "college"){
-                        $(".college").show();
-                        $(".university").hide();
-                    }
+                    var type = $(this).val();
+                    $('.student-choices').hide();
+                    $('#' + type + '-wrapper').fadeIn();
                 });
 
                 $("#provincial").change(function() {
                     var province = $(this).val();
-                    $('.ministry').hide();
-                    $('.' + province.replace(/\s+/g, '-').toLowerCase()).show();
+                    province = province.replace(/\s+/g, '-').toLowerCase();
+                    $('.provincial-choices').hide();
+                    $('#' + province + '-wrapper').fadeIn();
                 });
             });
         </script>
@@ -199,6 +152,7 @@ if ($user->canEdit()) {
         
         // provincial input field
         } else if ($field == 'provincial') {
+
             echo "<label for='{$field}' class='col-sm-4 {$field}'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
             echo '<div class="col-sm-8">';
 
@@ -241,7 +195,7 @@ if ($user->canEdit()) {
             foreach($provincial_departments as $province => $name){
                 $prov_value = ($user->get('provincial') == $province) ? $user->get('ministry'): "";
                 $prov_id = str_replace(" ", "-", strtolower($province));
-                echo '<div class="form-group col-xs-12 ministry ' . $prov_id . '"><label for="' . $prov_id . '" class="col-sm-4">' . elgg_echo('gcconnex_profile:basic:ministry') . '</label><div class="col-sm-8">';
+                echo '<div class="form-group col-xs-12 occupation-choices provincial-choices" id="' . $prov_id . '-wrapper"><label for="' . $prov_id . '-choices" class="col-sm-4">' . elgg_echo('gcconnex_profile:basic:ministry') . '</label><div class="col-sm-8">';
                 echo elgg_view('input/select', array(
                     'name' => 'ministry',
                     'id' => $prov_id . '-choices',
@@ -256,25 +210,6 @@ if ($user->canEdit()) {
 
             echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
             echo '<div class="col-sm-8">';
-
-            /*
-            // re-use the data that we've already put into the domain module
-            $query = "SELECT ext, dept FROM email_extensions WHERE dept LIKE '%University%' OR dept LIKE '%College%' OR dept LIKE '%Institute%' OR dept LIKE '%Université%' OR dept LIKE '%Cégep%' OR dept LIKE '%Institut%'";
-            $universities = get_data($query);
-            $university_list = array();
-            // this is bad programming but... reconstructing the array
-            foreach ($universities as $university) {
-                $university_list[$university->ext] = $university->dept;
-            }
-
-            echo elgg_view('input/select', array(
-                'name' => $field,
-                'id' => $field,
-                'class' => "gcconnex-basic-{$field}",
-                'value' => $value,
-                'options_values' => $university_list, 
-            ));
-            */
 
             $institution_list = array("university" => elgg_echo('gcconnex-profile-card:university'), "college" => elgg_echo('gcconnex-profile-card:college'));
 
