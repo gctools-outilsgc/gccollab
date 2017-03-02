@@ -47,8 +47,31 @@ $input_name = elgg_view('input/text', array(
 	    'id' => 'edit-mission-name-text-input'
 ));
 
+/* MW - Changed for GCcollab version of Opp Platform
 $input_department = elgg_view('page/elements/organization-input', array(
 		'organization_string' => $mission->department
+));
+*/
+
+$deptObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'federal_departments',
+));
+$depts = get_entity($deptObj[0]->guid);
+
+$federal_departments = array();
+if (get_current_language() == 'en'){
+	$federal_departments = json_decode($depts->federal_departments_en, true);
+} else {
+	$federal_departments = json_decode($depts->federal_departments_fr, true);
+}
+
+// default to invalid value, so it encourages users to select
+$input_department = elgg_view('input/select', array(
+	'name' => 'department',
+	'id' => 'org-no-tree-exists-text-input',
+	'value' => $mission->department,
+	'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $federal_departments),
 ));
 
 $input_email = elgg_view('input/text', array(
@@ -270,12 +293,8 @@ $button_set = mm_create_button_set_full($mission);
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 required" style="text-align:right;" aria-required="true">
-			<?php echo elgg_echo('missions:department');?>
-			<strong class="required" aria-required="true">
-				<?php echo elgg_echo('missions:required'); ?>
-			</strong>
-			:
+		<label class="col-sm-3" style="text-align:right;" aria-required="true">
+			<?php echo elgg_echo('missions:department') . ':';?>
 		</label>
 		<div class="col-sm-5">
 			<?php echo $input_department;?>
@@ -306,6 +325,7 @@ $button_set = mm_create_button_set_full($mission);
 		<div>
 			<h4><?php echo elgg_echo('mission:opportunity_details') . ':'; ?></h4>
 		</div>
+		<?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="form-group">
 			<label for='post-mission-gl-group' class="col-sm-3" style="text-align:right;">
 				<?php echo elgg_echo('missions:groupandlevel') . ':';?>
@@ -318,7 +338,7 @@ $button_set = mm_create_button_set_full($mission);
 				</div>
 				<div class="col-sm-6">
 					<label for="numeric1"><?php echo elgg_echo('missions:gl:level'); ?></label>
-					<input class="form-control" id="numeric1" name="level" type="number" data-rule-digits="true" min="1" max="10" step="1" value="<?php echo $mission->gl_level; /*Nick - put the value in the input*/?>"/>
+					<input class="form-control" id="numeric1" name="level" type="number" data-rule-digits="true" min="1" max="10" step="1" value="<?php echo $mission->gl_level; ?>"/>
 				</div>
 
 			</div>
@@ -328,7 +348,7 @@ $button_set = mm_create_button_set_full($mission);
 					})
 			</script>
 		</div>
-
+		*/ ?>
 
 		<div class="form-group">
 			<label for='edit-mission-area-dropdown-input' class="col-sm-3" style="text-align:right;">
@@ -412,6 +432,7 @@ $button_set = mm_create_button_set_full($mission);
 				<?php echo $input_location;?>
 			</div>
 		</div>
+		<?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="form-group">
 			<label class="col-sm-3" for="edit-mission-security-dropdown-input" style="text-align:right;">
 				<?php echo elgg_echo('missions:security_level') . ':';?>
@@ -420,6 +441,7 @@ $button_set = mm_create_button_set_full($mission);
 				<?php echo $input_security;?>
 			</div>
 		</div>
+		*/ ?>
 		<div class="form-group">
 			<label class="col-sm-3" style="text-align:right;">
 				<?php echo elgg_echo('missions:skills') . ':';?>
