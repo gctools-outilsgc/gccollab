@@ -34,8 +34,8 @@ $french = array(
     'gccollab_stats:groupscreated:amount' => "Nombre de groupes créés",
     'gccollab_stats:groupsjoined:title' => "Groupes rejoints",
     'gccollab_stats:groupsjoined:amount' => "Nombre de groupes rejoints",
-    'gccollab_stats:likes:title' => "Mentions « j\'aime »",
-    'gccollab_stats:likes:amount' => "Nombre de mentions « j\'aime »",
+    'gccollab_stats:likes:title' => "J\'aimes",
+    'gccollab_stats:likes:amount' => "Nombre de j\'aimes",
     'gccollab_stats:messages:title' => "Messages",
     'gccollab_stats:messages:amount' => "Nombre de messages",
 

@@ -52,9 +52,33 @@ $input_name = elgg_view('input/text', array(
     'id' => 'post-mission-name-text-input'
 ));
 
+/* MW - Changed for GCcollab version of Opp Platform
 $input_department = elgg_view('page/elements/organization-input', array(
 		'organization_string' => $extracted_org
 ));
+*/
+
+$deptObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'federal_departments',
+));
+$depts = get_entity($deptObj[0]->guid);
+
+$federal_departments = array();
+if (get_current_language() == 'en'){
+	$federal_departments = json_decode($depts->federal_departments_en, true);
+} else {
+	$federal_departments = json_decode($depts->federal_departments_fr, true);
+}
+
+// default to invalid value, so it encourages users to select
+$input_department = elgg_view('input/select', array(
+	'name' => 'department',
+	'id' => 'org-no-tree-exists-text-input',
+	'value' => elgg_get_logged_in_user_entity()->federal,
+	'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+));
+
 
 $input_email = elgg_view('input/text', array(
     'name' => 'email',
@@ -89,11 +113,7 @@ $input_disclaimer = elgg_view('input/checkbox', array(
 </div>
 <div class="form-group">
 	<label class="col-sm-3 required" style="text-align:right;" aria-required="true">
-		<?php echo elgg_echo('missions:your_department');?>
-		<strong class="required" aria-required="true">
-			<?php echo elgg_echo('missions:required'); ?>
-		</strong>
-		:
+		<?php echo elgg_echo('missions:your_department') . ':';?>
 	</label>
 	<div class="col-sm-3">
 		<?php echo $input_department; ?>
@@ -124,7 +144,7 @@ $input_disclaimer = elgg_view('input/checkbox', array(
 	</div>
 </div>
 <div class="form-group">
-	<label for='post-mission-phone-text-input' class="col-sm-1" style="text-align:right;">
+	<label for='post-mission-disclaimer-checkbox-input' class="col-sm-1" style="text-align:right;">
 		<?php echo $input_disclaimer;?>
 	</label>
 	<div class="col-sm-8">

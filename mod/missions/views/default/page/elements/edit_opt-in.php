@@ -34,7 +34,7 @@ if (elgg_is_xhr) {
 }
 ?>
 <div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder">
-<?php /*
+<?php /* MW - Changed for GCcollab version of Opp Platform
     <div class="col-sm-4 col-sm-offset-2">
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:atlevel'); ?></h4>
         <ul class="list-unstyled">
@@ -198,7 +198,7 @@ if (elgg_is_xhr) {
                 </ul>
             </li>
 
-            <?php /*
+            <?php /* MW - Changed for GCcollab version of Opp Platform
             
             <li class="clearfix">
                 <?php echo elgg_echo ( 'missions:job_shadowing' ); ?>

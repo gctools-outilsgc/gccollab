@@ -35,7 +35,7 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
             );
         $latest_wire = elgg_get_entities($params);
         if ($latest_wire && count($latest_wire) > 0) {
-            //echo '<img class="profile-icons double-quotes" src="' . elgg_get_site_url() . 'mod/b_extended_profile/img/double-quotes.png">';
+            //echo '<img class="profile-icons double-quotes" src="' . elgg_get_site_url() . 'mod/b_extended_profile_collab/img/double-quotes.png">';
             //echo elgg_view("profile/status", array("entity" => $user));
         }
         ?>
@@ -75,26 +75,26 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
 
         if ( has_content($user, 'description') ) {
             init_ajax_block(elgg_echo('gcconnex_profile:about_me'), 'about-me', $user);
-            echo elgg_view('b_extended_profile/about-me');
+            echo elgg_view('b_extended_profile_collab/about-me');
             finit_ajax_block('about-me');
         }
 
         if ( has_content($user, 'education') ) {
             init_ajax_block(elgg_echo('gcconnex_profile:education'), 'education', $user);
-            echo elgg_view('b_extended_profile/education');
+            echo elgg_view('b_extended_profile_collab/education');
             finit_ajax_block('education');
         }
 
         if ( has_content($user, 'work') ) {
             init_ajax_block(elgg_echo('gcconnex_profile:experience'), 'work-experience', $user);
-            echo elgg_view('b_extended_profile/work-experience');
+            echo elgg_view('b_extended_profile_collab/work-experience');
             finit_ajax_block('work-experience');
         }
 
         //if(elgg_is_logged_in()){
             if ( has_content($user, 'gc_skills') ) {
                 init_ajax_block(elgg_echo('gcconnex_profile:gc_skills'), 'skills', $user);
-                echo elgg_view('b_extended_profile/skills');
+                echo elgg_view('b_extended_profile_collab/skills');
                 finit_ajax_block('skills');
             }
         //}
@@ -112,7 +112,7 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
 
         if ( has_content($user, 'english') || has_content($user, 'french') ) {
             //init_ajax_block(elgg_echo('gcconnex_profile:sle'), 'languages', $user);
-            //echo elgg_view('b_extended_profile/languages');
+            //echo elgg_view('b_extended_profile_collab/languages');
             //finit_ajax_block('languages');
         }
 
@@ -202,7 +202,7 @@ elgg_load_js('basic-profile'); // load js file to init the lightbox overlay (set
             echo '<div role="tabpanel" class="tab-pane" id="portfolio">';
 
                 init_ajax_block(elgg_echo('gcconnex_profile:portfolio'), 'portfolio', $user);
-                echo elgg_view('b_extended_profile/portfolio'); // call the proper view for the section
+                echo elgg_view('b_extended_profile_collab/portfolio'); // call the proper view for the section
                 finit_ajax_block('portfolio');
             echo '</div>'; // close div id="#portfolio"
 

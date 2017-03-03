@@ -69,11 +69,13 @@ $advanced_field = elgg_view('page/elements/hidden-field', array(
     <h4 class=""><?php echo elgg_echo('missions:splash:how_to_apply'); ?></h4>
     <div class="col-sm-8">
         <?php echo elgg_echo('missions:second_splash_paragraph'); ?>
+        <?php /* MW - Changed for GCcollab version of Opp Platform
         <div class="col-sm-12 alert alert-info mrgn-tp-sm clearfix">
             <p>
                 <?php echo elgg_echo('missions:splash:missions_help_message'); ?>
             </p>
         </div>
+        */ ?>
     </div>
 	
 </div>
