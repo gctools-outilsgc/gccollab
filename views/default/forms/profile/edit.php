@@ -5,6 +5,8 @@
  * @uses vars['entity']
  */
 
+forward(elgg_get_site_url() . 'profile/' . elgg_get_logged_in_user_entity()->username);
+
 ?>
 
 <div>
