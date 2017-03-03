@@ -10776,13 +10776,6 @@ a.shr-opn, a.shr-opn:hover {
 
 /* IE Icon Tweaks */
 @media all and (-ms-high-contrast:none) {
-  .icon-sel{
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
-    background-size:cover;
-    height: 25px;
-    width:25px;
-  }
-
   .fa-cog:before{
     content:none !important;
   }
@@ -10821,6 +10814,13 @@ a.shr-opn, a.shr-opn:hover {
   }
   .fa-thumbs-up{
       background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_like.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .icon-sel{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
       background-size:cover;
       height: 25px;
       width:25px;
