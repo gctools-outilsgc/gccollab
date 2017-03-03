@@ -73,6 +73,7 @@ $english = array(
 	'linkedin:tag_names:associations' => 'Associations',
 
 	'linkedin' => 'HybridAuth LinkedIn tools',
+	'linkedin:settings' => 'LinkedIn Account',
 	'linkedin:import' => 'Import Profile',
 	'linkedin:import-linkedin' => 'Import LinkedIn Profile',
 	'linkedin:import:instructions' => 'Use the checkboxes to specify which content you would like to import.',

@@ -73,6 +73,7 @@ $french = array(
 	'linkedin:tag_names:associations' => '',
 
 	'linkedin' => '',
+	'linkedin:settings' => 'Compte LinkedIn',
 	'linkedin:import' => 'Importer le profil',
 	'linkedin:import-linkedin' => 'Importer le profil LinkedIn',
 	'linkedin:import:instructions' => 'Utilisez les cases pour indiquer que contenu vous voulez importer',
@@ -88,7 +89,7 @@ $french = array(
 	'linkedin:general:success:profile-url' => '&bull; Lien du profil',
 	'linkedin:general:success:description' => '&bull; À propos de moi',
 	'linkedin:general:success:location' => '&bull; Adresse',
-	'linkedin:general:success:position' => '&bull; Poste',
+	'linkedin:general:success:position' => '&bull; Poste "%s"',
 
 	'linkedin:positions' => 'Expérience professionnelle',
 	'linkedin:position:label' => '<span style="padding-top: 5px; font-size: 20px; padding-bottom: 2px">%s</span><br>%s',

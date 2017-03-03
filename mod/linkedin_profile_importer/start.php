@@ -40,6 +40,10 @@ function linkedin_profile_importer_init() {
 	// Add linkedin settings to the user profile page
 	// elgg_extend_view('profile/details', 'linkedin/settings');
 	elgg_extend_view('profile/sidebar', 'profile/sidebar/linkedin_profile_importer', 450);
+
+	// Add linkedin settings to the user settings page
+    // elgg_extend_view('forms/account/settings', 'profile/settings/linkedin_profile_importer');
+
     elgg_register_widget_type('linkedin_profile_importer', elgg_echo('linkedin:profile'), 'LinkedIn Profile Importer Widget', array('custom_index_widgets'), false);
 
 	// Add linkedin metatags to the list of profile fields

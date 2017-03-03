@@ -1,9 +1,5 @@
 <?php
 
-echo '<div class="hybridauth-linkedin-instructions mam">';
-echo elgg_echo('linkedin:import:instructions');
-echo '</div>';
-
 $ha = new ElggHybridAuth();
 $adapter = $ha->getAdapter('LinkedIn');
 $adapter->adapter->api->setResponseFormat('JSON');
@@ -12,27 +8,36 @@ $details_api_result = $adapter->adapter->api->profile("~:(public-profile-url,pic
 $details_json_result = $details_api_result['linkedin'];
 $details = json_decode($details_json_result);
 
+// If auth token is invalid, prompt user to re-auth
+if(strpos($details->message, 'unauthorized') !== false){
+	$user = get_loggedin_user();
+
+	$adapter = $ha->getAdapter('linkedin');
+	if ($adapter->isUserConnected()) {
+		$adapter->logout();
+	}
+
+	elgg_unset_plugin_user_setting('linkedin:uid', $user->guid, 'linkedin_profile_importer');
+	elgg_trigger_plugin_hook('hybridauth:deauthenticate', 'linkedin', array('entity' => $user));
+
+	$forward_url = elgg_get_site_url() . 'linkedin/import';
+	forward($forward_url);
+}
+
+echo '<div class="hybridauth-linkedin-instructions mam">';
+echo elgg_echo('linkedin:import:instructions');
+echo '</div>';
+
 $tag_names = elgg_trigger_plugin_hook('linkedin:fields', 'profile', NULL, array());
 
 if ($tag_names) {
 	echo '<div class="panel panel-custom">';
 	echo '<div class="panel-heading"><h2 class="profile-info-head panel-title">' . elgg_echo('linkedin:general') . '</h2></div>';
-	echo '<div class="panel-body">';
+	echo '<div class="panel-body" style="padding-top: 15px;">';
 
-	echo $details->pictureUrls;
-	if($details->pictureUrls){
+	if($details->pictureUrls->values[0]){
 		echo '<div class="col-sm-4">';
-		$image_url = $details->pictureUrls->values[0];
-		echo elgg_view('output/img', array(
-	    	'src' => $image_url,
-	    	'style' => 'max-width: 100%;',
-	    ));
-	    echo elgg_view('input/hidden', array(
-			'name' => "tags[pictureUrls][value]",
-			'value' => $image_url
-		));
-
-	    echo '<div class="elgg-image-block mbl">';
+	    echo '<div class="elgg-image-block">';
 		echo '<div class="elgg-body">';
 
 		echo '<label>' . elgg_view('input/checkbox', array(
@@ -44,8 +49,18 @@ if ($tag_names) {
 			'name' => "tags[pictureUrls][name]",
 			'value' => "picture-url"
 		));
-
 		echo '</div></div>';
+
+		$image_url = $details->pictureUrls->values[0];
+		echo elgg_view('output/img', array(
+	    	'src' => $image_url,
+	    	'style' => 'max-width: 100%;',
+	    ));
+	    echo elgg_view('input/hidden', array(
+			'name' => "tags[pictureUrls][value]",
+			'value' => $image_url
+		));
+
 		echo '</div><div class="col-sm-8">';
 	}
 
