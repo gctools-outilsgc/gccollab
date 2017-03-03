@@ -36,9 +36,9 @@ foreach ($providers as $provider => $settings) {
                 )) . '</div>';
             } else {
                 $forward_url = urlencode(elgg_normalize_url("linkedin/import"));
-                $content = elgg_view('output/url', array(
+                $content = '<div class="ptm">' . elgg_view('output/url', array(
                     'href' => "linkedin/authenticate?provider=$provider&elgg_forward_url=$forward_url",
-                    'text' => elgg_echo('hybridauth:provider:user:authenticate'),
+                    'text' =>  elgg_view_icon(strtolower("auth-$provider-large")),
                     'title' => elgg_echo('linkedin:import-linkedin'),
                 ));
             }
