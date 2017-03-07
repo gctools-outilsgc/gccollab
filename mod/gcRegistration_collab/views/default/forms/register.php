@@ -105,7 +105,6 @@ function validateEmail(email) {
 				<!-- Options for the users enabled in $enabled_fields above -->
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
-					<font id="user_type_error" color="red"></font>
 	    			<select id="user_type" name="user_type" class="form-control">
 	    				<?php if(show_field("federal")): ?><option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>

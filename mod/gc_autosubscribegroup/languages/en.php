@@ -16,4 +16,5 @@ return array(
 	'autosubscribe:name'	=> "Name",
 	'autosubscribe:autogroups' => "All Users",
 	'autosubscribe:admingroups' => "Group Admins",
+	'autosubscribe:organizationgroups' => "Users by Organization",
 );

@@ -22,6 +22,9 @@ function limit_text($text, $limit = 30) {
 	return $text;
 }
 
+elgg_load_js('lightbox');
+elgg_load_css('lightbox');
+
 ?>
 
 <style type="text/css">
@@ -29,6 +32,7 @@ function limit_text($text, $limit = 30) {
 	table.group-table th 	{ background:#eee; padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
 	table.group-table td 	{ padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
 	.align-center			{ text-align: center; }
+	.elgg-form-settings		{ max-width: none; }
 </style>
 
 <script type="text/javascript">
@@ -51,6 +55,15 @@ function limit_text($text, $limit = 30) {
 			var id = $(this).val();
 		    $("#adminGroupList").val(id);
 		});
+
+		var organizationGroups = $("#autoGroupList").val();
+		var organizationGroupsArray = "";
+		if(organizationGroups != ""){ organizationGroupsArray = organizationGroups.split(','); }
+
+		$(".organization-subscribe").change(function(e){
+			var id = $(this).val();
+			$(".organization-form[data-group='" + id + "']").fadeToggle();
+		});
 	});
 </script>
 
@@ -58,16 +71,26 @@ function limit_text($text, $limit = 30) {
 
 $autoGroups = explode(',', $vars['entity']->autogroups);
 $adminGroups = explode(',', $vars['entity']->admingroups);
+$organizationGroups = explode(',', $vars['entity']->organizationgroups);
 $groups = elgg_get_entities(array(
 	'types' => 'group',
 	'limit' => 0,
 ));
 sort($groups);
 
-echo '<table class="group-table"><thead><tr><th>ID</th><th>' . elgg_echo('autosubscribe:name') . '</th><th>Description</th><th>' . elgg_echo('autosubscribe:autogroups') . '</th><th>' . elgg_echo('autosubscribe:admingroups') . '</th></tr></thead><tbody>';
+echo '<table class="group-table"><thead><tr>
+	<th width="5%">ID</th>
+	<th width="25%">' . elgg_echo('autosubscribe:name') . '</th>
+	<th width="30%">Description</th>
+	<th width="5%">' . elgg_echo('autosubscribe:autogroups') . '</th>
+	<th width="5%">' . elgg_echo('autosubscribe:admingroups') . '</th>
+	<th width="30%">' . elgg_echo('autosubscribe:organizationgroups') . '</th>
+	</tr></thead><tbody>';
 foreach($groups as $group){
 	$autoChecked = (in_array($group->guid, $autoGroups)) ? " checked": "";
 	$adminChecked = (in_array($group->guid, $adminGroups)) ? " checked": "";
+	$organizationChecked = (in_array($group->guid, $organizationGroups)) ? " checked": "";
+	$organizationHidden = (in_array($group->guid, $organizationGroups)) ? "": " hidden";
 	if($group->enabled == "yes"){
 		echo '<tr>';
 		echo '<td>' . $group->guid . '</td>';
@@ -75,6 +98,16 @@ foreach($groups as $group){
 		echo '<td>' . limit_text(strip_tags($group->description)) . '</td>';
 		echo '<td class="align-center"><input class="auto-subscribe" type="checkbox" value="' . $group->guid . '"' . $autoChecked . ' /></td>';
 		echo '<td class="align-center"><input class="admin-subscribe" type="checkbox" value="' . $group->guid . '"' . $adminChecked . ' /></td>';
+		echo '<td><input class="organization-subscribe" type="checkbox" value="' . $group->guid . '"' . $organizationChecked . ' /><div class="organization-form" data-group="' . $group->guid . '"' . $organizationHidden . '>';
+		echo elgg_view('output/url', [
+			'text' => 'Add Organization',
+			'href' => 'ajax/view/organization_form/form?group_id=' . $group->guid,
+			'class' => 'elgg-lightbox elgg-button elgg-button-action',
+			'data-colorbox-opts' => json_encode([
+			  'width' => '600px',
+			  'height' => '400px',
+			])
+		]) . '</div></td>';
 		echo '</tr>';
 	}
 }
@@ -82,3 +115,4 @@ echo '</tbody></table>';
 
 echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'autoGroupList', 'name' => 'params[autogroups]', 'value' => $vars['entity']->autogroups));
 echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'adminGroupList', 'name' => 'params[admingroups]', 'value' => $vars['entity']->admingroups));
+echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'organizationGroupList', 'name' => 'params[organizationgroups]', 'value' => $vars['entity']->organizationgroups));
