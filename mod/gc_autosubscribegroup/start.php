@@ -32,7 +32,7 @@ function gc_autosubscribegroup_init() {
  */
 function gc_autosubscribegroup_join($event, $object_type, $object) {
 	if (($object instanceof ElggUser) && ($event == 'create') && ($object_type == 'user')) {
-		//retrieve groups ids from plugin
+		//retrieve group ids from plugin
 		$groups = elgg_get_plugin_setting('autogroups', 'gc_autosubscribegroup');
 		$groups = split(',', $groups);
 
@@ -62,23 +62,27 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
  */
 function gc_autosubscribegroup_create($event, $object_type, $object) {
 	if (($object instanceof ElggGroup) && ($event == 'create') && ($object_type == 'group')) {
-		//retrieve group id from plugin
-		$admingroup = elgg_get_plugin_setting('admingroups', 'gc_autosubscribegroup');
+		//retrieve group ids from plugin
+		$groups = elgg_get_plugin_setting('admingroups', 'gc_autosubscribegroup');
+		$groups = split(',', $groups);
 
-		$ia = elgg_set_ignore_access(true);
-		$groupEnt = get_entity($admingroup);
-		$userEnt = get_user($object->owner_guid);
-		elgg_set_ignore_access($ia);
-		//if group exists, submit to group
-		if ($groupEnt) {
-			//join group succeed?
-			if ($groupEnt->join($userEnt)) {
-				add_entity_relationship($userEnt->guid, 'cp_subscribed_to_email', $groupEnt->guid);
-				add_entity_relationship($userEnt->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
+		//for each group id
+		foreach($groups as $groupId) {
+			$ia = elgg_set_ignore_access(true);
+			$groupEnt = get_entity($groupId);
+			elgg_set_ignore_access($ia);
+			$userEnt = get_user($object->owner_guid);
+			//if group exists, submit to group
+			if ($groupEnt) {
+				//join group succeed?
+				if ($groupEnt->join($userEnt)) {
+					add_entity_relationship($userEnt->guid, 'cp_subscribed_to_email', $groupEnt->guid);
+					add_entity_relationship($userEnt->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
 
-				// Remove any invite or join request flags
-				elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
-				elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+					// Remove any invite or join request flags
+					elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+					elgg_delete_metadata(array('guid' => $userEnt->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+				}
 			}
 		}
 	}
@@ -90,7 +94,7 @@ function gc_autosubscribegroup_create($event, $object_type, $object) {
 function gc_autosubscribegroup_organization($event, $object_type, $object) {
 	if (($object instanceof ElggUser) && ($event == 'create') && ($object_type == 'user')) {
 		//retrieve groups ids from plugin
-		$groups = elgg_get_plugin_setting('autogroups', 'gc_autosubscribegroup');
+		$groups = elgg_get_plugin_setting('organizationgroups', 'gc_autosubscribegroup');
 		$groups = split(',', $groups);
 
 		//for each group id

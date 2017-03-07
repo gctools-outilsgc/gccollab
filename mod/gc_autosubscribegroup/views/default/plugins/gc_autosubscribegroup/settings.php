@@ -33,12 +33,13 @@ elgg_load_css('lightbox');
 	table.group-table td 	{ padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
 	.align-center			{ text-align: center; }
 	.elgg-form-settings		{ max-width: none; }
+	.organization-list		{ list-style-type: circle; margin-left: 1.5em; }
 </style>
 
 <script type="text/javascript">
 	$(function() {
 		var autoGroups = $("#autoGroupList").val();
-		var autoGroupsArray = "";
+		var autoGroupsArray = [];
 		if(autoGroups != ""){ autoGroupsArray = autoGroups.split(','); }
 
 		$(".auto-subscribe").change(function(e){
@@ -48,21 +49,15 @@ elgg_load_css('lightbox');
 		    $("#autoGroupList").val(autoGroupsArray.join(","));
 		});
 
+		var adminGroups = $("#adminGroupList").val();
+		var adminGroupsArray = [];
+		if(adminGroups != ""){ adminGroupsArray = adminGroups.split(','); }
+
 		$(".admin-subscribe").change(function(e){
-			var checked = $(this).attr('checked');
-			$(".admin-subscribe").attr('checked', false);
-			if(checked == "checked"){ $(this).attr('checked', true); } else { $(this).attr('checked', false); }
 			var id = $(this).val();
-		    $("#adminGroupList").val(id);
-		});
-
-		var organizationGroups = $("#autoGroupList").val();
-		var organizationGroupsArray = "";
-		if(organizationGroups != ""){ organizationGroupsArray = organizationGroups.split(','); }
-
-		$(".organization-subscribe").change(function(e){
-			var id = $(this).val();
-			$(".organization-form[data-group='" + id + "']").fadeToggle();
+			adminGroupsArray = jQuery.grep(adminGroupsArray, function(value) { return value != id; });
+			if(this.checked){ adminGroupsArray.push(id); }
+		    $("#autoGroupList").val(adminGroupsArray.join(","));
 		});
 	});
 </script>
@@ -71,7 +66,7 @@ elgg_load_css('lightbox');
 
 $autoGroups = explode(',', $vars['entity']->autogroups);
 $adminGroups = explode(',', $vars['entity']->admingroups);
-$organizationGroups = explode(',', $vars['entity']->organizationgroups);
+$organizationGroups = json_decode($vars['entity']->organizationgroups, true);
 $groups = elgg_get_entities(array(
 	'types' => 'group',
 	'limit' => 0,
@@ -89,8 +84,6 @@ echo '<table class="group-table"><thead><tr>
 foreach($groups as $group){
 	$autoChecked = (in_array($group->guid, $autoGroups)) ? " checked": "";
 	$adminChecked = (in_array($group->guid, $adminGroups)) ? " checked": "";
-	$organizationChecked = (in_array($group->guid, $organizationGroups)) ? " checked": "";
-	$organizationHidden = (in_array($group->guid, $organizationGroups)) ? "": " hidden";
 	if($group->enabled == "yes"){
 		echo '<tr>';
 		echo '<td>' . $group->guid . '</td>';
@@ -98,8 +91,11 @@ foreach($groups as $group){
 		echo '<td>' . limit_text(strip_tags($group->description)) . '</td>';
 		echo '<td class="align-center"><input class="auto-subscribe" type="checkbox" value="' . $group->guid . '"' . $autoChecked . ' /></td>';
 		echo '<td class="align-center"><input class="admin-subscribe" type="checkbox" value="' . $group->guid . '"' . $adminChecked . ' /></td>';
-		echo '<td><input class="organization-subscribe" type="checkbox" value="' . $group->guid . '"' . $organizationChecked . ' /><div class="organization-form" data-group="' . $group->guid . '"' . $organizationHidden . '>';
-		echo elgg_view('output/url', [
+		echo '<td data-group="' . $group->guid . '"><ul class="organization-list">';
+		foreach($organizationGroups[$group->guid] as $value){
+			echo '<li>' . $value . '</li>';
+		}
+		echo '</ul>' . elgg_view('output/url', [
 			'text' => 'Add Organization',
 			'href' => 'ajax/view/organization_form/form?group_id=' . $group->guid,
 			'class' => 'elgg-lightbox elgg-button elgg-button-action',
@@ -107,7 +103,7 @@ foreach($groups as $group){
 			  'width' => '600px',
 			  'height' => '400px',
 			])
-		]) . '</div></td>';
+		]) . '</td>';
 		echo '</tr>';
 	}
 }

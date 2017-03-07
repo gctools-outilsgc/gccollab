@@ -1,11 +1,10 @@
 <?php
 	$group_id = get_input("group_id");
-	echo "Group ID: " . $group_id;
 ?>
 
 <style type="text/css">
-	select, input	{ font: 100% Arial, Helvetica, sans-serif; border: 1px solid #ccc; color: #666; border-radius: 5px; }
-	label 			{ display: block; margin-top: 8px; }
+	select, input	{ font: 100% Arial, Helvetica, sans-serif; border: 1px solid #ccc; color: #666; border-radius: 5px; margin-bottom: 8px; }
+	label 			{ display: block; }
 </style>
 
 <script>
@@ -41,6 +40,31 @@
 			province = province.replace(/\s+/g, '-').toLowerCase();
 			$('.provincial-choices').hide();
 			$('#' + province + '-wrapper').fadeIn();
+		});
+
+		$(".add-organization").click(function(e){
+			var group_id = $(this).data('group');
+			var organizationGroupsArray = ($("#organizationGroupList").val() !== "") ? JSON.parse($("#organizationGroupList").val()) : {};
+			organizationGroupsArray[group_id] = $("#federal").val();
+			$("#organizationGroupList").val(JSON.stringify(organizationGroupsArray));
+
+			var organization = "";
+			if( $("#federal").is(":visible") ){
+				organization = $("#federal").val();
+			} else if ( $("#university").is(":visible") ){
+				organization = $("#university").val();
+			} else if ( $("#college").is(":visible") ){
+				organization = $("#college").val();
+			} else if ( $("[name=ministry]").is(":visible") ){
+				organization = $("[name=ministry]").val();
+			} else if ( $("#other").is(":visible") ){
+				organization = $("#other").val();
+			} else {
+				return;
+			}
+
+			$("td[data-group='" + group_id + "'] ul").append('<li>' + organization + '</li>');
+			$("#cboxClose").click();
 		});
 	});
 </script>
@@ -240,3 +264,12 @@
 		?>
 	</datalist>
 </div>
+
+<?php
+	echo elgg_view('output/url', [
+		'text' => 'Add Organization',
+		'href' => '#',
+		'class' => 'elgg-button elgg-button-action add-organization',
+		'data-group' => $group_id
+	]);
+?>
