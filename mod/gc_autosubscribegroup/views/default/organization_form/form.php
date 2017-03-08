@@ -9,6 +9,16 @@
 
 <script>
 	$(function() {
+		function titleCase(str) {  
+			str = str.toLowerCase().split(' ');
+			for(var i = 0; i < str.length; i++){
+				str[i] = str[i].split('');
+				str[i][0] = str[i][0].toUpperCase(); 
+				str[i] = str[i].join('');
+			}
+			return str.join(' ');
+		}
+
 		$("#user_type").change(function() {
 			var type = $(this).val();
 			$('.occupation-choices').hide();
@@ -43,27 +53,52 @@
 		});
 
 		$(".add-organization").click(function(e){
+			e.preventDefault();
 			var group_id = $(this).data('group');
 			var organizationGroupsArray = ($("#organizationGroupList").val() !== "") ? JSON.parse($("#organizationGroupList").val()) : {};
-			organizationGroupsArray[group_id] = $("#federal").val();
-			$("#organizationGroupList").val(JSON.stringify(organizationGroupsArray));
 
+			var user_type = $("#user_type").val();
+			var institution = "";
 			var organization = "";
-			if( $("#federal").is(":visible") ){
+			var organizationObject = {};
+			if( $("#federal").is(":visible") && $("#federal").val() !== "default_invalid_value" ){
 				organization = $("#federal").val();
-			} else if ( $("#university").is(":visible") ){
+				organizationObject[user_type] = organization;
+			} else if ( $("#university").is(":visible") && $("#university").val() !== "default_invalid_value" ){
+				institution = $("#institution").val();
 				organization = $("#university").val();
-			} else if ( $("#college").is(":visible") ){
+				organizationObject[user_type] = {};
+				organizationObject[user_type][institution] = organization;
+			} else if ( $("#college").is(":visible") && $("#college").val() !== "default_invalid_value" ){
+				institution = $("#institution").val();
 				organization = $("#college").val();
-			} else if ( $("[name=ministry]").is(":visible") ){
-				organization = $("[name=ministry]").val();
-			} else if ( $("#other").is(":visible") ){
+				organizationObject[user_type] = {};
+				organizationObject[user_type][institution] = organization;
+			} else if ( $("[name=ministry]").is(":visible") && $("[name=ministry]:visible").val() !== "default_invalid_value" ){
+				institution = $("#provincial").val();
+				organization = $("[name=ministry]:visible").val();
+				organizationObject[user_type] = {};
+				organizationObject[user_type][institution] = organization;
+			} else if ( $("#other").is(":visible") && $("#other").val() !== "" ){
 				organization = $("#other").val();
+				organizationObject[user_type] = organization;
 			} else {
 				return;
 			}
 
-			$("td[data-group='" + group_id + "'] ul").append('<li>' + organization + '</li>');
+			if( !$.isArray(organizationGroupsArray[group_id]) ){
+				organizationGroupsArray[group_id] = [];
+			}
+			organizationGroupsArray[group_id].push(organizationObject);
+			$("#organizationGroupList").val(JSON.stringify(organizationGroupsArray));
+
+			var name = titleCase(user_type);
+			if(institution){ name += ', ' + titleCase(institution); }
+			if(organization){ name += ', ' + organization; }
+
+			var html = '<li>' + name + ' <a class="delete-organization" data-group="' + group_id + '" data-user-type="' + user_type + '" data-institution="' + institution + '" data-organization="' + organization + '">X</a></li>';
+			$("td[data-group='" + group_id + "'] ul").append(html);
+
 			$("#cboxClose").click();
 		});
 	});

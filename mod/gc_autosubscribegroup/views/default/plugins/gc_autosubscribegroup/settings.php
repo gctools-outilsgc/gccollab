@@ -34,13 +34,15 @@ elgg_load_css('lightbox');
 	.align-center			{ text-align: center; }
 	.elgg-form-settings		{ max-width: none; }
 	.organization-list		{ list-style-type: circle; margin-left: 1.5em; }
+	.add-organization		{ text-align: center; display: block; margin-top: 10px; }
+	.delete-organization	{ font-weight: bold; color: red; cursor: pointer; }
 </style>
 
 <script type="text/javascript">
 	$(function() {
 		var autoGroups = $("#autoGroupList").val();
 		var autoGroupsArray = [];
-		if(autoGroups != ""){ autoGroupsArray = autoGroups.split(','); }
+		if(autoGroups !== ""){ autoGroupsArray = autoGroups.split(','); }
 
 		$(".auto-subscribe").change(function(e){
 			var id = $(this).val();
@@ -51,13 +53,42 @@ elgg_load_css('lightbox');
 
 		var adminGroups = $("#adminGroupList").val();
 		var adminGroupsArray = [];
-		if(adminGroups != ""){ adminGroupsArray = adminGroups.split(','); }
+		if(adminGroups !== ""){ adminGroupsArray = adminGroups.split(','); }
 
 		$(".admin-subscribe").change(function(e){
 			var id = $(this).val();
 			adminGroupsArray = jQuery.grep(adminGroupsArray, function(value) { return value != id; });
 			if(this.checked){ adminGroupsArray.push(id); }
 		    $("#autoGroupList").val(adminGroupsArray.join(","));
+		});
+
+		$(".group-table").on('click', '.delete-organization', function(e){
+			e.preventDefault();
+			var group_id = $(this).data('group');
+			var user_type = $(this).data('user-type');
+			var institution = $(this).data('institution');
+			var organization = $(this).data('organization');
+
+			var organizationGroupsArray = JSON.parse($("#organizationGroupList").val());
+			$(organizationGroupsArray[group_id]).each(function(index, value) {
+				if(Object.keys(value)[0] == user_type){
+					var next = value[Object.keys(value)[0]];
+
+					if(next == organization){
+						organizationGroupsArray[group_id].splice(index, 1);
+					} else if(Object.keys(next)[0] == institution){
+						if(next[Object.keys(next)[0]] == organization){
+							organizationGroupsArray[group_id].splice(index, 1);
+						}
+					}
+				}
+				if(organizationGroupsArray[group_id].length === 0){
+					delete organizationGroupsArray[group_id];
+				}
+			});
+
+			$("#organizationGroupList").val(JSON.stringify(organizationGroupsArray));
+			$(this).closest('li').remove();
 		});
 	});
 </script>
@@ -93,15 +124,28 @@ foreach($groups as $group){
 		echo '<td class="align-center"><input class="admin-subscribe" type="checkbox" value="' . $group->guid . '"' . $adminChecked . ' /></td>';
 		echo '<td data-group="' . $group->guid . '"><ul class="organization-list">';
 		foreach($organizationGroups[$group->guid] as $value){
-			echo '<li>' . $value . '</li>';
+			$user_type = $institution = $organization = "";
+			if(is_array($value)){
+				$user_type = array_keys($value)[0];
+				$organization = array_values($value)[0];
+			}
+			if(is_array($organization)){
+				$institution = $organization;
+				$organization = array_values($institution)[0];
+				$institution = array_keys($institution)[0];
+			}
+			$name = ucfirst($user_type);
+			if($institution){ $name .= ', ' . ucfirst($institution); }
+			if($organization){ $name .= ', ' . $organization; }
+			echo '<li>' . $name . ' <a class="delete-organization" data-group="' . $group->guid . '" data-user-type="' . $user_type . '" data-institution="' . $institution . '" data-organization="' . $organization . '">X</a></li>';
 		}
 		echo '</ul>' . elgg_view('output/url', [
 			'text' => 'Add Organization',
 			'href' => 'ajax/view/organization_form/form?group_id=' . $group->guid,
-			'class' => 'elgg-lightbox elgg-button elgg-button-action',
+			'class' => 'elgg-lightbox elgg-button elgg-button-action add-organization',
 			'data-colorbox-opts' => json_encode([
-			  'width' => '600px',
-			  'height' => '400px',
+				'width' => '600px',
+				'height' => '400px',
 			])
 		]) . '</td>';
 		echo '</tr>';
