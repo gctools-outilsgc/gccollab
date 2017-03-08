@@ -118,7 +118,7 @@ foreach($groups as $group){
 	if($group->enabled == "yes"){
 		echo '<tr>';
 		echo '<td>' . $group->guid . '</td>';
-		echo '<td>' . $group->name . '</td>';
+		echo '<td><a href="' . elgg_get_site_url() . 'groups/profile/' . $group->guid . '/' . elgg_get_friendly_title($group->name) . '" target="_blank">' . $group->name . '</a></td>';
 		echo '<td>' . limit_text(strip_tags($group->description)) . '</td>';
 		echo '<td class="align-center"><input class="auto-subscribe" type="checkbox" value="' . $group->guid . '"' . $autoChecked . ' /></td>';
 		echo '<td class="align-center"><input class="admin-subscribe" type="checkbox" value="' . $group->guid . '"' . $adminChecked . ' /></td>';

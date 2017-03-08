@@ -32,20 +32,20 @@ function gc_autosubscribegroup_init() {
  * Autosubscribe new users by organization upon registration
  */
 function gc_autosubscribegroup_join($event, $object_type, $object) {
-	if (($object instanceof ElggUser) && ($event == 'create') && ($object_type == 'user')) {
+	if( ($object instanceof ElggUser) && ($event == 'create') && ($object_type == 'user') ){
 		//retrieve group ids from plugin
 		$autogroups = elgg_get_plugin_setting('autogroups', 'gc_autosubscribegroup');
 		$autogroups = split(',', $autogroups);
 
 		//for each group id
-		foreach($autogroups as $group) {
+		foreach($autogroups as $group){
 			$ia = elgg_set_ignore_access(true);
 			$groupEnt = get_entity($group);
 			elgg_set_ignore_access($ia);
 			//if group exists, submit to group
-			if ($groupEnt) {
+			if( $groupEnt ){
 				//join group succeed?
-				if ($groupEnt->join($object)) {
+				if( $groupEnt->join($object) ){
 					add_entity_relationship($object->guid, 'cp_subscribed_to_email', $groupEnt->guid);
 					add_entity_relationship($object->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
 
@@ -66,7 +66,7 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 		}
 
 		//for each group id
-		foreach($organizationgroups as $group => $organizations) {
+		foreach($organizationgroups as $group => $organizations){
 			$ia = elgg_set_ignore_access(true);
 			$groupEnt = get_entity($group);
 			elgg_set_ignore_access($ia);
@@ -74,37 +74,39 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 			foreach($organizations as $value){
 				$match = false;
 				$user_type2 = $institution2 = $organization2 = "";
-				if(is_array($value)){
+				if( is_array($value) ){
 					$user_type2 = array_keys($value)[0];
 					$organization2 = array_values($value)[0];
 				}
-				if(is_array($organization2)){
+				if( is_array($organization2) ){
 					$institution2 = $organization2;
 					$organization2 = array_values($institution2)[0];
 					$institution2 = array_keys($institution2)[0];
 				}
 				
-				if($user_type == $user_type2){
-					if($$user_type == $organization2){
+				if( $user_type == $user_type2 ){
+					if( $$user_type == $organization2 ){
 						$match = true;
-					} else if($institution == $institution2){
+					} else if( $institution == $institution2 ){
 						if($university == $organization2 || $college == $organization2){
 							$match = true;
 						}
-					} else if($provincial == $institution2){
+					} else if( $provincial == $institution2 ){
 						if($ministry == $organization2){
 							$match = true;
 						}
 					}
-					if ($groupEnt && $match) {
-						//join group succeed?
-						if ($groupEnt->join($object)) {
-							add_entity_relationship($object->guid, 'cp_subscribed_to_email', $groupEnt->guid);
-							add_entity_relationship($object->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
+					if( $match ){
+						if( $groupEnt ){
+							//join group succeed?
+							if( $groupEnt->join($object) ){
+								add_entity_relationship($object->guid, 'cp_subscribed_to_email', $groupEnt->guid);
+								add_entity_relationship($object->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
 
-							// Remove any invite or join request flags
-							elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
-							elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+								// Remove any invite or join request flags
+								elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_invite', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+								elgg_delete_metadata(array('guid' => $object->guid, 'metadata_name' => 'group_join_request', 'metadata_value' => $groupEnt->guid, 'limit' => false));
+							}
 						}
 					}
 				}
@@ -117,21 +119,21 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
  * Autosubscribe group admins upon group creation
  */
 function gc_autosubscribegroup_create($event, $object_type, $object) {
-	if (($object instanceof ElggGroup) && ($event == 'create') && ($object_type == 'group')) {
+	if( ($object instanceof ElggGroup) && ($event == 'create') && ($object_type == 'group') ){
 		//retrieve group ids from plugin
 		$groups = elgg_get_plugin_setting('admingroups', 'gc_autosubscribegroup');
 		$groups = split(',', $groups);
 
 		//for each group id
-		foreach($groups as $groupId) {
+		foreach($groups as $groupId){
 			$ia = elgg_set_ignore_access(true);
 			$groupEnt = get_entity($groupId);
 			elgg_set_ignore_access($ia);
 			$userEnt = get_user($object->owner_guid);
 			//if group exists, submit to group
-			if ($groupEnt) {
+			if( $groupEnt ){
 				//join group succeed?
-				if ($groupEnt->join($userEnt)) {
+				if( $groupEnt->join($userEnt) ){
 					add_entity_relationship($userEnt->guid, 'cp_subscribed_to_email', $groupEnt->guid);
 					add_entity_relationship($userEnt->guid, 'cp_subscribed_to_site_mail', $groupEnt->guid);
 
