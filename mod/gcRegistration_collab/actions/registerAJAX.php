@@ -36,6 +36,7 @@ if (mysqli_connect_errno($connection)) {
 if ( $_POST['email'] ) {
 
 	$email = trim(get_input('email'));
+	$email = strtolower($email);
 
 	if (strlen( $email ) > 0) {
 		
@@ -55,7 +56,7 @@ if ( $_POST['email'] ) {
 			echo '> ' . elgg_echo('gcRegister:email_in_use');
 
 		// make sure selected domain is not the example domain (this is already checked for in the JS, but do it anyway)
-		} else if( checkInvalidDomain($domain) ) {
+		} else if( checkInvalidDomain($domain, $email) ) {
 			echo '> ' . elgg_echo('gcRegister:invalid_email');
 		
 		} else {
@@ -188,41 +189,51 @@ function usernameize($str,$a_char = array("'","-","."))
  * Checks for invalid / external domains
  * 
  * @param  $domain <string> domain part of the user's email address
+ * @param  $email <string> the user's full email address
  * @return true if domain is invalid, false otherwise
  * 
  **/
-function checkInvalidDomain($dom) 
-{
+function checkInvalidDomain($dom, $email){
 	$isNotValid = true;
 
-	$query = "SELECT * FROM email_extensions WHERE ext = '{$dom}'";
-	$result = get_data($query);
+	if( elgg_is_active_plugin('c_email_extensions') ){
+		$query = "SELECT * FROM email_extensions WHERE ext = '{$dom}'";
+		$result = get_data($query);
 
-	if (count($result) > 0) 
-		$isNotValid = false;
-
-	if ($isNotValid)
-	{
-		$domain_addr = explode('.', $dom);
-		$domain_len = count($domain_addr) - 1;
-		if ($domain_addr[$domain_len - 1].'.'.$domain_addr[$domain_len] === 'gc.ca')
+		if( count($result) > 0 ) 
 			$isNotValid = false;
-		else
-			$isNotValid = true;
-		
-		$wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
-		$wildcard_emails = get_data($wildcard_query);
 
-		if($wildcard_emails){
-			foreach($wildcard_emails as $wildcard){
-				$regex = str_replace(".", "\.", $wildcard->ext);
-				$regex = str_replace("*", "[\w-.]+", $regex);
-				$regex = "/^@" . $regex . "$/";
-				if(preg_match($regex, "@".$dom) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($dom)){
-					$isNotValid = false;
+		if( $isNotValid ){
+			$domain_addr = explode('.', $dom);
+			$domain_len = count($domain_addr) - 1;
+			if( $domain_addr[$domain_len - 1].'.'.$domain_addr[$domain_len] === 'gc.ca' )
+				$isNotValid = false;
+			else
+				$isNotValid = true;
+			
+			$wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
+			$wildcard_emails = get_data($wildcard_query);
+
+			if( $wildcard_emails ){
+				foreach($wildcard_emails as $wildcard){
+					$regex = str_replace(".", "\.", $wildcard->ext);
+					$regex = str_replace("*", "[\w-.]+", $regex);
+					$regex = "/^@" . $regex . "$/";
+					if(preg_match($regex, "@".$dom) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($dom)){
+						$isNotValid = false;
+						break;
+					}
 				}
 			}
 		}
+	}
+
+	if( elgg_is_active_plugin('gcRegistration_invitation') ){
+		$query = "SELECT email FROM email_invitations WHERE email = '{$email}'";
+		$result = get_data($query);
+
+		if( count($result) > 0 ) 
+			$isNotValid = false;
 	}
 
 	return $isNotValid;

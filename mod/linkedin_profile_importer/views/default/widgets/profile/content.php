@@ -40,7 +40,7 @@ foreach ($providers as $provider => $settings) {
                     'href' => "linkedin/authenticate?provider=$provider&elgg_forward_url=$forward_url",
                     'text' =>  elgg_view_icon(strtolower("auth-$provider-large")),
                     'title' => elgg_echo('linkedin:import-linkedin'),
-                ));
+                )) . '</div>';
             }
 
             echo $content;

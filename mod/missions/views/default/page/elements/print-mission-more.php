@@ -334,7 +334,9 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
                             $federal_departments = json_decode($departments->federal_departments_fr, true);
                         }
 
-                        echo elgg_get_excerpt($federal_departments[$department_path], 500);
+                        $department = isset($federal_departments[$department_path]) ? $federal_departments[$department_path] : $department_path;
+
+                        echo elgg_get_excerpt($department, 500);
 
                         /* MW - Changed for GCcollab version of Opp Platform
                         echo elgg_get_excerpt($department_path, 500);

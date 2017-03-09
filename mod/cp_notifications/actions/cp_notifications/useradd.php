@@ -29,6 +29,9 @@ if (is_array($admin)) {
 	$admin = $admin[0];
 }
 $sendemail = get_input('sendemail');
+if (is_array($sendemail)) {
+	$sendemail = $sendemail[0];
+}
 
 // no blank fields
 if ($username == '' || $password == '' || $password2 == '' || $email == '' || $name == '') {
@@ -86,7 +89,9 @@ try {
 				'cp_password' => $password,
 				'cp_user' => $new_user, 
 			);
-			$result = elgg_trigger_plugin_hook('cp_overwrite_notification','all',$message);
+			if($sendemail) {
+				$result = elgg_trigger_plugin_hook('cp_overwrite_notification','all',$message);
+			}
 		} else {
 			if($sendemail) {
 				notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);

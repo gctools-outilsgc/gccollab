@@ -430,6 +430,6 @@ if (LINKEDIN_RECOMMENDATION_SUBTYPE) {
 }
 
 echo '<div class="elgg-foot">';
-echo elgg_view('input/submit', array('value' => elgg_echo('linkedin:submit'), 'class' => 'btn-primary pull-right mls'));
+echo elgg_view('input/submit', array('value' => elgg_echo('linkedin:submit'), 'class' => 'btn-primary pull-right mls', 'onclick' => 'ga(\'send\', \'event\', {\'eventCategory\': \'LinkedIn\',\'eventAction\': \'Save\',\'eventLabel\': \'' . get_loggedin_user()->name . '\'});'));
 echo elgg_view('output/url', array('text' => elgg_echo('linkedin:cancel'), 'class' => 'btn btn-default pull-right', 'href' => elgg_get_site_url() . 'profile/' . get_loggedin_user()->username));
 echo '</div>';

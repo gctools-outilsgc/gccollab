@@ -71,14 +71,17 @@ if (get_current_language() == 'en'){
 	$federal_departments = json_decode($depts->federal_departments_fr, true);
 }
 
-// default to invalid value, so it encourages users to select
-$input_department = elgg_view('input/select', array(
+$input_department = elgg_view('input/text', array(
 	'name' => 'department',
 	'id' => 'org-no-tree-exists-text-input',
 	'value' => elgg_get_logged_in_user_entity()->federal,
-	'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+    'list' => 'departmentlist'
 ));
-
+$input_department .= '<datalist id="departmentlist">';
+foreach($federal_departments as $key => $value){
+	$input_department .= '<option value="' . $key . '">' . $value . '</option>';
+}
+$input_department .= '</datalist>';
 
 $input_email = elgg_view('input/text', array(
     'name' => 'email',
@@ -112,7 +115,7 @@ $input_disclaimer = elgg_view('input/checkbox', array(
 	</div>
 </div>
 <div class="form-group">
-	<label class="col-sm-3 required" style="text-align:right;" aria-required="true">
+	<label class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:your_department') . ':';?>
 	</label>
 	<div class="col-sm-3">
