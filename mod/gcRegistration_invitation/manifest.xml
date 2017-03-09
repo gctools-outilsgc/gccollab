@@ -16,4 +16,8 @@
 		<type>plugin</type>
 		<name>gcRegistration_collab</name>
 	</requires>
+	<requires>
+		<type>plugin</type>
+		<name>invitefriends</name>
+	</requires>
 </plugin_manifest>

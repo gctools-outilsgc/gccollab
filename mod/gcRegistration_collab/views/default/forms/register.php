@@ -83,9 +83,63 @@ function validateEmail(email) {
 <div id="standard_version" class="row">
 
 	<section class="col-md-6">
-	<?php
-		echo elgg_echo('gcRegister:email_notice') ;
-		$js_disabled = false;
+
+<?php
+    $InviteGUID = get_input('friend_guid');
+    
+    if($InviteGUID){
+
+		$userObj = get_user($InviteGUID);
+
+		if($userObj){
+              
+		    $userType = $userObj->get('user_type');
+		    if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
+		        $institution = $userObj->get('institution');
+		        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
+		    } else if (strcmp($userType, 'provincial') == 0) {
+		        $department = elgg_echo('gcRegister:occupation:provincial');
+		    } else if (strcmp($userType, 'federal') == 0) {
+		        $deptObj = elgg_get_entities(array(
+		            'type' => 'object',
+		            'subtype' => 'federal_departments',
+		        ));
+		        $depts = get_entity($deptObj[0]->guid);
+
+		        $federal_departments = array();
+		        if (get_current_language() == 'en'){
+		            $federal_departments = json_decode($depts->federal_departments_en, true);
+		        } else {
+		            $federal_departments = json_decode($depts->federal_departments_fr, true);
+		        }
+
+		        $department = $federal_departments[$userObj->get('federal')];
+		    } else if (strcmp($userType, 'public_servant') == 0) {
+		        $department = $userObj->get('department');
+		    }
+
+?>
+	<h2 class="plm"><?php echo $userObj->name . elgg_echo('gcRegister:has_invited'); ?></h2>
+    <div class="clearfix mrgn-bttm-sm">
+        <div class="row mrgn-lft-0 mrgn-rght-sm">
+            <div class="col-xs-4">
+                <div class="mrgn-tp-sm">
+                <?php echo elgg_view_entity_icon($userObj, 'medium', array('use_hover' => false, 'class' => 'pro-avatar', 'force_size' => true)); ?>
+                </div>
+            </div>
+
+            <div class="col-xs-8">
+                <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $userObj->name; ?></h4>
+                <div><?php echo $userObj->job; ?></div>
+                <div><?php echo $department; ?></div>
+            </div>
+        </div>
+    </div>
+
+<?php
+    	}
+    }
+    
 	?>
 	</section>
 

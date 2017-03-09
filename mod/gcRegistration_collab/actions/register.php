@@ -68,9 +68,14 @@ if (elgg_get_config('allow_registration')) {
 		$gcca = $emailgc[count($emailgc) - 2] .".".$emailgc[count($emailgc) - 1];
 		$resulting_error = "";
 
+		$validemail = false;
+		// if domain doesn't exist in database, check if it's a gc.ca domain
+		if ($dept_exist[0]->num > 0 && strcmp($gcca, 'gc.ca') == 0){
+			$validemail = true;
+		}
+
 		if( elgg_is_active_plugin('c_email_extensions') ){
 			// Checks against the domain manager list...
-			$wildcard_match = false;
 			$wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
 			$wildcard_emails = get_data($wildcard_query);
 			
@@ -80,7 +85,7 @@ if (elgg_get_config('allow_registration')) {
 					$regex = str_replace("*", "[\w-.]+", $regex);
 					$regex = "/^@" . $regex . "$/";
 					if(preg_match($regex, "@".$emaildomain[1]) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($emaildomain[1])){
-						$wildcard_match = true;
+						$validemail = true;
 						break;
 					}
 				}
@@ -89,34 +94,20 @@ if (elgg_get_config('allow_registration')) {
 
 		if( elgg_is_active_plugin('gcRegistration_invitation') ){
 			// Checks against the email invitation list...
-			$invitation_match = false;
 			$email = strtolower($email);
 			$invitation_query = "SELECT email FROM email_invitations WHERE email = '{$email}'";
 			$result = get_data($invitation_query);
 
 			if( count($result) > 0 ) 
-				$invitation_match = true;
+				$validemail = true;
 		}
 
 		// check if toc is checked, user agrees to TOC
 		if ($toc[0] != 1)
 			$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
-		
-		// if domain doesn't exist in database, check if it's a gc.ca domain
-		if ($dept_exist[0]->num <= 0 && strcmp($gcca, 'gc.ca') != 0)
+
+		if( !$validemail )
 			$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
-
-		if( elgg_is_active_plugin('c_email_extensions') ){
-			// check if email is in domain manager list
-			if( !$wildcard_match )
-				$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
-		}
-
-		if( elgg_is_active_plugin('gcRegistration_invitation') ){
-			// check if email is in email invitation list
-			if( !$invitation_match )
-				$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
-		}
 
 		// check if two emails match
 		if (strcmp($email, $email2) != 0)
@@ -180,6 +171,10 @@ if (elgg_get_config('allow_registration')) {
 				'invitecode' => $invitecode,
 			);
 
+			if (elgg_is_active_plugin('gcRegistration_invitation')) {
+				$data = array('invitee' => $guid, 'email' => $new_user->email);
+				elgg_trigger_plugin_hook('gcRegistration_invitation_register', 'all', $data);
+			}
 
 			// @todo should registration be allowed no matter what the plugins return?
 			if (!elgg_trigger_plugin_hook('register', 'user', $params, TRUE)) {
