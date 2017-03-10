@@ -86,6 +86,10 @@
 
 <?php
 
+function deptSort($a, $b){
+    return ($a[0] < $b[0]) ? -1 : 1;
+}
+
 echo '<br />';
 echo "<table width='100%' cellpadding='0' cellspacing='0' class='fed-table'>";
 echo '<tr> <th>'.elgg_echo('add').'</th> </tr>';
@@ -102,6 +106,7 @@ $deptObj = elgg_get_entities(array(
 $departments = get_entity($deptObj[0]->guid);
 $depts_en = json_decode($departments->federal_departments_en, true);
 $depts_fr = json_decode($departments->federal_departments_fr, true);
+ksort($depts_en);
 
 if (count($depts_en) > 0) {
 	echo "<table width='100%' cellpadding='0' cellspacing='0' class='fed-table'>";
