@@ -19,7 +19,7 @@ GCconnex is based on Elgg. https://github.com/Elgg/Elgg
 
 ###Installation
 
-Follow instructions in INSTALL.md
+Follow instructions in [INSTALL.md](https://github.com/gctools-outilsgc/gccollab/blob/gccollab/INSTALL.md)
 
 
 ###Contributing
