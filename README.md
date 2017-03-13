@@ -14,7 +14,7 @@ discussions, ask and answer each other's questions about anything from learning
 to technology. It acts as a professional platform to create your professional
 C.V., share ideas and connect you with people and information that you need.
 
-GCconnex is based on Elgg. https://github.com/Elgg/Elgg
+GCcollab is based on GCconnex - https://github.com/gctools-outilsgc/gcconnex - which is based on the open source project Elgg - https://github.com/Elgg/Elgg
 
 
 ###Installation
