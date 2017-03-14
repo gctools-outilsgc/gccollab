@@ -1,10 +1,10 @@
 ##GCcollab
 
-GCcollab is a professional networking and collaborative workspace allowing
+[GCcollab](https://gccollab.ca/) is a professional networking and collaborative workspace allowing
 people to connect and share information, leveraging the power of networking
 towards a more effective and efficient public service. 
 
-Hosted by the Canadian federal public service, GCcollab is open to all Canadian
+Hosted by the Government of Canada, GCcollab is open to all Canadian
 public servants, academics and post-secondary students, as well as partners by
 invitation. 
 
