@@ -14,9 +14,15 @@
 <script type="text/javascript">
 	$(function() {
 		function toggleButtons(key, province){
-			$('input[data-id="' + key + '"][data-province="' + province + '"]').prop("disabled", function(i, v){ return !v; });
-		    $('a.save[data-id="' + key + '"][data-province="' + province + '"]').toggleClass('hidden');
-		    $('a.cancel[data-id="' + key + '"][data-province="' + province + '"]').toggleClass('hidden');
+			if(province){
+				$('input[data-id="' + key + '"][data-province="' + province + '"]').prop("disabled", function(i, v){ return !v; });
+			    $('a.save[data-id="' + key + '"][data-province="' + province + '"]').toggleClass('hidden');
+			    $('a.cancel[data-id="' + key + '"][data-province="' + province + '"]').toggleClass('hidden');
+			} else {
+				$('input[data-id="' + key + '"]').prop("disabled", function(i, v){ return !v; });
+			    $('a.save[data-id="' + key + '"]').toggleClass('hidden');
+			    $('a.cancel[data-id="' + key + '"]').toggleClass('hidden');
+			}
 		}
 
 		function showMessage(key, msg){
@@ -84,7 +90,7 @@
 				  	success: function (wrapper) {
 					    if (wrapper.output == 1) {
 					    	showMessage(id, "Saved!");
-					    	toggleButtons(id);
+					    	toggleButtons(id, province);
 					    } else {
 					    	showMessage(id, "Error!");
 					    }
