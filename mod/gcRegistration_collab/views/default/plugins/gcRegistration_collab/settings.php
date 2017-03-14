@@ -1,11 +1,12 @@
 <style type="text/css">
-	table.fed-table      { border-right:1px solid #ccc; border-bottom:1px solid #ccc; }
-	table.fed-table th   { background:#eee; padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
-	table.fed-table td   { padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
+	table.fed-table     { border-right:1px solid #ccc; border-bottom:1px solid #ccc; margin-top: 10px; }
+	table.fed-table th 	{ background:#eee; padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
+	table.fed-table td 	{ padding:5px; border-left:1px solid #ccc; border-top:1px solid #ccc; }
 	.save-button		{ margin-top: 10px; }
 	.dept_en, .dept_fr 	{ font-size: 14px; width: 100%; }
 	input:disabled 		{ background: #ddd; }
 	.edit-message 		{ font-weight: bold; }
+	.elgg-tabs ul 		{ display: inline-block; }
 </style>
 
 <script type="text/javascript">
@@ -79,6 +80,8 @@
 			    }
 			});
 		});
+
+		$( "#tabs" ).tabs();
 	});
 </script>
 
@@ -91,13 +94,21 @@ function deptSort($a, $b){
 }
 
 echo '<br />';
+echo '<div id="tabs"><ul class="elgg-tabs">
+	<li><a href="#federal">Federal Departments</a></li>
+	<li><a href="#provincial">Provincial/Territorial Departments</a></li>
+	<li><a href="#universities">Universities</a></li>
+	<li><a href="#colleges">Colleges</a></li>
+	<li><a href="#other">Other</a></li></ul>';
+echo '<div id="federal">';
+
 echo "<table width='100%' cellpadding='0' cellspacing='0' class='fed-table'>";
 echo '<tr> <th>'.elgg_echo('add').'</th> </tr>';
 echo '<tr><td>';
 echo elgg_echo('gcRegister:occupation:federal').' (EN): '.elgg_view('input/text', array('id' => 'add_federal_en')).'<br/>';
 echo elgg_echo('gcRegister:occupation:federal').' (FR): '.elgg_view('input/text', array('id' => 'add_federal_fr')).'<br/>';
 echo "<a class='add-federal elgg-button elgg-button-submit btn btn-primary mtm' href='#'>".elgg_echo('add')."</a></td></tr>";
-echo "</table><br />";
+echo "</table>";
 
 $deptObj = elgg_get_entities(array(
    	'type' => 'object',
@@ -125,6 +136,13 @@ if (count($depts_en) > 0) {
 	}
 	echo "</tbody></table>";
 }
+
+echo '</div>
+  <div id="provincial">Provincial/Territorial departments go here.</div>
+  <div id="universities">Universities go here.</div>
+  <div id="colleges">Colleges go here.</div>
+  <div id="other">Others go here.</div>
+</div>';
 
 ?>
 
