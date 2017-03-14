@@ -33,5 +33,3 @@ Submit your pull requests.
 GNU General Public License (GPL) Version 2
 
 Elgg Copyright (c) 2008-2016, see COPYRIGHT.txt
-
-Note: Pushing to the master branch automatically updates gccollab.ca and clears the views / system caches.
