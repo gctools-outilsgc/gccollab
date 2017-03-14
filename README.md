@@ -1,4 +1,4 @@
-##GCcollab
+## GCcollab
 
 [GCcollab](https://gccollab.ca/) is a professional networking and collaborative workspace allowing
 people to connect and share information, leveraging the power of networking
@@ -17,18 +17,18 @@ C.V., share ideas and connect you with people and information that you need.
 GCcollab is based on GCconnex - https://github.com/gctools-outilsgc/gcconnex - which is based on the open source project Elgg - https://github.com/Elgg/Elgg
 
 
-###Installation
+### Installation
 
 Follow instructions in [INSTALL.md](https://github.com/gctools-outilsgc/gccollab/blob/gccollab/INSTALL.md)
 
 
-###Contributing
+### Contributing
 
 We welcome your contributions. Create Issues for bugs or feature requests.
 Submit your pull requests.
 
 
-###License
+### License
 
 GNU General Public License (GPL) Version 2
 
