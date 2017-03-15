@@ -576,19 +576,18 @@ function saveProfile(event) {
 
             profile.name = $(".gcconnex-basic-name").val();
             profile.job = $(".gcconnex-basic-job").val();
-            profile.department = $('.gcconnex-basic-department').is(":visible") ? $('.gcconnex-basic-department').val() : "";
 
-            profile.user_type = $('.gcconnex-basic-user_type').val();
-            profile.federal = $('.gcconnex-basic-federal').is(":visible") ? $('.gcconnex-basic-federal').val() : "";
+            profile.user_type = $(".gcconnex-basic-user_type").val();
+            profile.federal = $(".gcconnex-basic-federal").is(":visible") ? $(".gcconnex-basic-federal").val() : "";
 
-            profile.institution = $('.gcconnex-basic-institution').is(":visible") ? $('.gcconnex-basic-institution').val() : "";
-            profile.university = $('.gcconnex-basic-university').is(":visible") ? $('.gcconnex-basic-university').val() : "";
-            profile.college = $('.gcconnex-basic-college').is(":visible") ? $('.gcconnex-basic-college').val() : "";
+            profile.institution = $(".gcconnex-basic-institution").is(":visible") ? $(".gcconnex-basic-institution").val() : "";
+            profile.university = $(".gcconnex-basic-university").is(":visible") ? $(".gcconnex-basic-university").val() : "";
+            profile.college = $(".gcconnex-basic-college").is(":visible") ? $(".gcconnex-basic-college").val() : "";
             
-            profile.provincial = $('.gcconnex-basic-provincial').is(":visible") ? $('.gcconnex-basic-provincial').val() : "";
-            profile.ministry = $('.gcconnex-basic-ministry').is(":visible") ? $('.gcconnex-basic-ministry:visible').val() : "";
+            profile.provincial = $(".gcconnex-basic-provincial").is(":visible") ? $(".gcconnex-basic-provincial").val() : "";
+            profile.ministry = $(".gcconnex-basic-ministry").is(":visible") ? $(".gcconnex-basic-ministry:visible").val() : "";
 
-            profile.other = $('.gcconnex-basic-other').is(":visible") ? $('.gcconnex-basic-other:visible').val() : "";
+            profile.other = $(".gcconnex-basic-other").is(":visible") ? $(".gcconnex-basic-other:visible").val() : "";
 
             profile.location = $(".gcconnex-basic-location").val();
             profile.phone = $(".gcconnex-basic-phone").val();

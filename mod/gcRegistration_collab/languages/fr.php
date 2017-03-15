@@ -12,6 +12,7 @@ $french = array(
 	'gcRegister:occupation:community' => "Collectivité/Sans but lucratif",
 	'gcRegister:occupation:business' => "Entreprise",
 	'gcRegister:occupation:media' => "Média",
+	'gcRegister:occupation:retired' => "Fonctionnaire à la retraité(e)",
 	'gcRegister:occupation:other' => "Autres renseignements",
 
 	'gcRegister:occupation:university' => "Université ou collège",

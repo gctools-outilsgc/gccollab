@@ -111,6 +111,7 @@
 		<option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option>
 		<option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option>
 		<option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option>
+		<option value="retired"><?php echo elgg_echo('gcRegister:occupation:retired'); ?></option>
 		<option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option>
 	</select>
 </div>

@@ -26,6 +26,7 @@ $english = array(
     'gcconnex-profile-card:community' => 'Community/Non-profit',
     'gcconnex-profile-card:business' => 'Business',
     'gcconnex-profile-card:media' => 'Media',
+    'gcconnex-profile-card:retired' => 'Retired Public Servant',
     'gcconnex-profile-card:other' => 'Other',
 
     'gcconnex-profile-card:university' => 'University',

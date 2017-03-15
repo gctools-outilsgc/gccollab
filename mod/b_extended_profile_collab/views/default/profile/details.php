@@ -60,7 +60,7 @@ if ($user->canEdit()) {
                 'id' => $field,
                 'class' => "gcconnex-basic-{$field}",
                 'value' => $value,
-                'options_values' => array('federal' => elgg_echo('gcconnex-profile-card:federal'), 'academic' => elgg_echo('gcconnex-profile-card:academic'), 'student' => elgg_echo('gcconnex-profile-card:student'), 'provincial' => elgg_echo('gcconnex-profile-card:provincial'), 'other' => elgg_echo('gcconnex-profile-card:other')),
+                'options_values' => array('federal' => elgg_echo('gcconnex-profile-card:federal'), 'academic' => elgg_echo('gcconnex-profile-card:academic'), 'student' => elgg_echo('gcconnex-profile-card:student'), 'provincial' => elgg_echo('gcconnex-profile-card:provincial'), 'retired' => elgg_echo('gcconnex-profile-card:retired'), 'other' => elgg_echo('gcconnex-profile-card:other')),
             ));
 
             // jquery for the occupation dropdown - institution
@@ -492,6 +492,11 @@ if (strcmp($user->user_type, 'other') == 0 ) {
     echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
     echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
     echo '<div class="gcconnex-profile-dept">' . $user->other . '</div>';
+
+// if user is retired, display the correlated information
+} else if (strcmp($user->user_type, 'retired') == 0 ) {
+    echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
+    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
 
 // if user is student or professor, display the correlated information
 } else if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
