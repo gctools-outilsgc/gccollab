@@ -19,8 +19,8 @@
 function gcRegistration_collab_init() {
 	elgg_register_action('register/ajax', elgg_get_plugins_path() . "gcRegistration_collab/actions/registerAJAX.php", 'public');
 	elgg_register_action('register', elgg_get_plugins_path() . 'gcRegistration_collab/actions/register.php', 'public');
-	elgg_register_action('gcRegistration_collab/add', elgg_get_plugins_path() . 'gcRegistration_collab/actions/gcRegistration_collab/add.php');
-	elgg_register_action('gcRegistration_collab/edit', elgg_get_plugins_path() . 'gcRegistration_collab/actions/gcRegistration_collab/edit.php');
+	
+	elgg_register_action('gcRegistration_collab/save', elgg_get_plugins_path() . 'gcRegistration_collab/actions/gcRegistration_collab/save.php');
 	elgg_register_action('gcRegistration_collab/delete', elgg_get_plugins_path() . 'gcRegistration_collab/actions/gcRegistration_collab/delete.php');
 
 	elgg_register_simplecache_view('js/gcRegistration_collab/registration_js');

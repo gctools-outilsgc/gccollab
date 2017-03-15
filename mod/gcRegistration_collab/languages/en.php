@@ -12,6 +12,7 @@ $english = array(
 	'gcRegister:occupation:community' => "Community/Non-profit",
 	'gcRegister:occupation:business' => "Business",
 	'gcRegister:occupation:media' => "Media",
+	'gcRegister:occupation:retired' => "Retired Public Servant",
 	'gcRegister:occupation:other' => "Other",
 
 	'gcRegister:occupation:university' => "University or College",

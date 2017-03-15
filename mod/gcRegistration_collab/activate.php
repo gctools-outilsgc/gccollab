@@ -1795,13 +1795,13 @@ $other_en = array("CICan" => "CICan",
 "Universities Canada" => "Universities Canada");
 
 $other_fr = array("CICan" => "CICan",
-"Collèges et instituts Canada" => "Colleges and Institutes Canada",
-"Conseil fédéral du Québec" => "Quebec Federal Council",
-"Le conseil jeunesse du Premier Ministre" => "The Prime Minister’s Youth Council",
-"Mars" => "MaRS Discovery District",
+"Colleges and Institutes Canada" => "Collèges et instituts Canada",
+"Quebec Federal Council" => "Conseil fédéral du Québec",
+"The Prime Minister’s Youth Council" => "Le conseil jeunesse du Premier Ministre",
+"MaRS Discovery District" => "Mars",
 "UnivCan" => "UnivCan",
-"Universités Canada" => "Universities Canada",
-"Ville d'Ottawa" => "City of Ottawa");
+"Universities Canada" => "Universités Canada",
+"City of Ottawa" => "Ville d'Ottawa");
 
 $otherObj = elgg_get_entities(array(
    	'type' => 'object',

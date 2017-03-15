@@ -8,7 +8,6 @@
 
 $french = array(
     'temp:languages:disabled:message' => "<br />Nous sommes en train de re-travailler comment les compétences linguistiques apparaîtront dans les profils GCconnex.<br />Restez à l'écoute pour des mises à jour.",
-
     //edit profile message
     'profile:notsaved' => 'Not all information could be saved, empty fields are not allowed', /* NEW */
     'profile:title' => "%s's Profile", /* NEW */
@@ -27,6 +26,7 @@ $french = array(
     'gcconnex-profile-card:community' => 'Collectivité/Sans but lucratif',
     'gcconnex-profile-card:business' => 'Entreprise',
     'gcconnex-profile-card:media' => 'Média',
+    'gcconnex-profile-card:retired' => 'Fonctionnaire à la retraité(e)',
     'gcconnex-profile-card:other' => 'Autres renseignements',
 
     'gcconnex-profile-card:university' => 'Université',

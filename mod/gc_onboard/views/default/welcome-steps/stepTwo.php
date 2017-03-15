@@ -65,8 +65,7 @@
               ),
             ));
 
-            //set keys for array as the user's guid
-            //remove friends or if user is returned
+            //set keys for array as the user's guid, removes friends and the current user
             foreach($students as $f => $l){
               $students['"'.$l->guid.'"'] = $l;
               unset($students[$f]);
@@ -88,11 +87,11 @@
                 ),
               ));
 
-              //set keys for array as the guid and remove people who are already friends
+              //set keys for array as the user's guid, removes friends and the current user
               foreach($academics as $f => $l){
                 $academics['"'.$l->guid.'"'] = $l;
                 unset($academics[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
+                if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
                   unset($academics['"'.$l->guid.'"']);
                 }
               }
@@ -138,11 +137,11 @@
                 ),
               ));
 
-              //set keys for array as the guid and remove people who are already friends
+              //set keys for array as the user's guid, removes friends and the current user
               foreach($same_institution as $f => $l){
                 $same_institution['"'.$l->guid.'"'] = $l;
                 unset($same_institution[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
+                if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
                   unset($same_institution[$l->guid]);
                 }
               }
@@ -190,135 +189,6 @@
 
               echo $htmloutput . '';
             }
-          } else {
-            ///OPTION 1///
-
-            //random offset so we do not recommend the same people all the time
-            $student_count = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'count' => true,
-              'metadata_name_value_pairs' => array(
-                array('name' => 'user_type', 'value' => $userType),
-                array('name' => 'institution', 'value' => $user->institution)
-              ),
-            ));
-
-            if($student_count > 10){
-              $offset = rand(0, $student_count - 10);
-            } else {
-              $offset = 0;
-            }
-
-            //get students from the same institution
-            $students = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'offset' => $offset,
-              'metadata_name_value_pairs' => array(
-                array('name' => 'user_type', 'value' => $userType),
-                array('name' => 'institution', 'value' => $user->institution)
-              ),
-            ));
-
-            //set keys for array as the user's guid
-            //remove friends or if user is returned
-            foreach($students as $f => $l){
-              $students['"'.$l->guid.'"'] = $l;
-              unset($students[$f]);
-              //remove friend or logged in user
-              if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
-                unset($students['"'.$l->guid.'"']);
-              }
-            }
-
-            ///OPTION 2///
-
-            //If we dont have six users to recommend, expand search to academics from same institution
-            if(count($students) < 6){
-              $academics = elgg_get_entities_from_metadata(array(
-                'type' => 'user',
-                'metadata_name_value_pairs' => array(
-                  array('name' => 'user_type', 'value' => 'academic'),
-                  array('name' => 'institution', 'value' => $user->institution)
-                ),
-              ));
-
-              //set keys for array as the guid and remove people who are already friends
-              foreach($academics as $f => $l){
-                $academics['"'.$l->guid.'"'] = $l;
-                unset($academics[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
-                  unset($academics[$l->guid]);
-                }
-              }
-              //combine students with academics
-              $students = array_merge($students, $academics);
-            }
-
-            ///OPTION 3///
-
-            //If we still dont have 6 users, use user's skills to recommend people from the site
-            if(count($students) < 6){
-              //retrieve users based on similiar skills
-              $match = user_skill_match();
-
-              if($match){
-                foreach($match as $k => $l){
-                  $match['"'.$l->guid.'"'] = $l;
-                  unset($match[$k]);
-
-                  //remove self or friends from retrieved list
-                  if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
-                    unset($match['"'.$l->guid.'"']);
-                  }
-                }
-
-                //get feed back string which shows how they were matched
-                $status = $_SESSION['candidate_search_feedback'];
-
-                //combine students with skill matched users
-                $students = array_merge($students, $match);
-              }
-            }
-
-            //we only need six different people to display so lets split the array of users to have only 6
-            $students = array_slice($students, 0, 6);
-
-            //make display order random
-            shuffle($students);
-
-            if(count($students) == 0){
-              echo elgg_echo('onboard:welcome:two:noresults');
-            }
-
-            //output the student
-            foreach($students as $f => $l){
-              $htmloutput = '';
-              $site_url = elgg_get_site_url();
-              $userGUID=$l->guid;
-              $job=$l->job;
-              $institution = $l->institution;
-
-              $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">';
-              $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
-
-              $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
-              if(($l->user_type == 'student' || $l->user_type == 'academic') && $institution == $user->institution){
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.elgg_echo('gcRegister:occupation:'.$l->user_type).'</p>';
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$institution.'</p>';
-              } else {
-                if($l->department){
-                  $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->department.'</p>';
-                } else if($institution){
-                  $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$institution.'</p>';
-                }
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
-              }
-              //changed connect button to send a friend request we should change the wording
-              $htmloutput=$htmloutput.'<a href="#" class="add-friend btn btn-primary mrgn-tp-sm" onclick="addFriendOnboard('.$userGUID.')" id="'.$userGUID.'">'.elgg_echo('friend:add').'</a>';
-              $htmloutput=$htmloutput.'</div>';
-
-              echo $htmloutput . '';
-            }
           }
         /////ACADEMICS
         } else if($userType == 'academic') {
@@ -355,8 +225,7 @@
               ),
             ));
 
-            //set keys for array as the user's guid
-            //remove friends or if user is returned
+            //set keys for array as the user's guid, removes friends and the current user
             foreach($academics as $f => $l){
               $academics['"'.$l->guid.'"'] = $l;
               unset($academics[$f]);
@@ -378,11 +247,11 @@
                 ),
               ));
 
-              //set keys for array as the guid and remove people who are already friends
+              //set keys for array as the user's guid, removes friends and the current user
               foreach($students as $f => $l){
                 $students['"'.$l->guid.'"'] = $l;
                 unset($students[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
+                if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
                   unset($students['"'.$l->guid.'"']);
                 }
               }
@@ -428,11 +297,11 @@
                 ),
               ));
 
-              //set keys for array as the guid and remove people who are already friends
+              //set keys for array as the user's guid, removes friends and the current user
               foreach($same_institution as $f => $l){
                 $same_institution['"'.$l->guid.'"'] = $l;
                 unset($same_institution[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
+                if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
                   unset($same_institution[$l->guid]);
                 }
               }
@@ -473,135 +342,6 @@
                   $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->department.'</p>';
                 } else if($institution){
                   $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$school.'</p>';
-                }
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
-              }
-              //changed connect button to send a friend request we should change the wording
-              $htmloutput=$htmloutput.'<a href="#" class="add-friend btn btn-primary mrgn-tp-sm" onclick="addFriendOnboard('.$userGUID.')" id="'.$userGUID.'">'.elgg_echo('friend:add').'</a>';
-              $htmloutput=$htmloutput.'</div>';
-
-              echo $htmloutput . '';
-            }
-          } else {
-            ///OPTION 1///
-
-            //random offset so we do not recommend the same people all the time
-            $academic_count = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'count' => true,
-              'metadata_name_value_pairs' => array(
-                array('name' => 'user_type', 'value' => $userType),
-                array('name' => 'institution', 'value' => $user->institution)
-              ),
-            ));
-
-            if($academic_count > 10){
-              $offset = rand(0, $academic_count - 10);
-            } else {
-              $offset = 0;
-            }
-
-            //get academics from the same institution
-            $academics = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'offset' => $offset,
-              'metadata_name_value_pairs' => array(
-                array('name' => 'user_type', 'value' => $userType),
-                array('name' => 'institution', 'value' => $user->institution)
-              ),
-            ));
-
-            //set keys for array as the user's guid
-            //remove friends or if user is returned
-            foreach($academics as $f => $l){
-              $academics['"'.$l->guid.'"'] = $l;
-              unset($academics[$f]);
-              //remove friend or logged in user
-              if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
-                unset($academics['"'.$l->guid.'"']);
-              }
-            }
-
-            ///OPTION 2///
-
-            //If we dont have six users to recommend, expand search to academics from same institution
-            if(count($academics) < 6){
-              $students = elgg_get_entities_from_metadata(array(
-                'type' => 'user',
-                'metadata_name_value_pairs' => array(
-                  array('name' => 'user_type', 'value' => 'student'),
-                  array('name' => 'institution', 'value' => $user->institution)
-                ),
-              ));
-
-              //set keys for array as the guid and remove people who are already friends
-              foreach($students as $f => $l){
-                $students['"'.$l->guid.'"'] = $l;
-                unset($students[$f]);
-                if(check_entity_relationship($user->guid, 'friend', $l->guid)){
-                  unset($students['"'.$l->guid.'"']);
-                }
-              }
-              //combine students with academics
-              $academics = array_merge($academics, $students);
-            }
-
-            ///OPTION 3///
-
-            //If we still dont have 6 users, use user's skills to recommend people from the site
-            if(count($academics) < 6){
-              //retrieve users based on similiar skills
-              $match = user_skill_match();
-
-              if($match){
-                foreach($match as $k => $v){
-                  $match['"'.$v->guid.'"'] = $v;
-                  unset($match[$k]);
-
-                  if($user->guid == $v->guid || check_entity_relationship($user->guid, 'friend', $v->guid)){
-                    unset($match['"'.$v->guid.'"']);
-                  }
-                }
-
-                $status = $_SESSION['candidate_search_feedback'];
-
-                //combine students with academics
-                $academics = array_merge($academics, $match);
-              }
-            }
-
-            //we only need six different people to display so lets split the array of users to have only 6
-            $academics = array_slice($academics, 0, 6);
-
-            //make display order random
-            shuffle($academics);
-
-            if(count($academics) == 0){
-              echo elgg_echo('onboard:welcome:two:noresults');
-            }
-
-            //output the student
-            foreach($academics as $f => $l){
-              $htmloutput = '';
-              $site_url = elgg_get_site_url();
-              $userGUID=$l->guid;
-              $job=$l->job;
-              $institution = $l->institution;
-
-              $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">';
-
-              //EW - change to render icon so new ambassador badges can be shown
-              $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
-
-              $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
-              if(($l->user_type == 'student' || $l->user_type == 'academic') && $institution == $user->institution){
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.elgg_echo('gcRegister:occupation:'.$l->user_type).'</p>';
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$institution.'</p>';
-              } else {
-                if($l->department){
-                  $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->department.'</p>';
-                } else if($institution){
-                  $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$institution.'</p>';
                 }
                 $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
               }
@@ -692,51 +432,6 @@
             }
           }
 
-          ///OPTION 3///
-          
-          //If we dont have six users to recommend, expand search to 'public_servant' user type
-          if(count($federal_employees) < 6){
-            //explode to look for opposite version (e.g. english / french, french / english)
-
-            $depart1 = $federal_departments_en[$federal]  . ' / ' . $federal_departments_fr[$federal];
-            $depart2 = $federal_departments_fr[$federal]  . ' / ' . $federal_departments_en[$federal];
-
-            //popular members in department
-            $public_servants_count = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'limit' => 50,
-              'count' => true,
-              'metadata_name'  => 'department',
-              'metadata_values'  => array($depart1, $depart2),
-            ));
-
-            if($public_servants_count > 10){
-              $offset = rand(0, $public_servants_count - 6);
-            } else {
-              $offset = 0;
-            }
-
-            //popular members in department
-            $public_servants = elgg_get_entities_from_metadata(array(
-              'type' => 'user',
-              'limit' => 50,
-              'offset' => $offset,
-              'metadata_name'  => 'department',
-              'metadata_values'  => array($depart1, $depart2),
-            ));
-
-            //set keys for array as the guid and remove people who are already friends
-            foreach($public_servants as $f => $l){
-              $public_servants['"'.$l->guid.'"'] = $l;
-              unset($public_servants[$f]);
-              if(check_entity_relationship($user->guid, 'friend', $l->guid)){
-                unset($public_servants['"'.$l->guid.'"']);
-              }
-            }
-            //combine federal_employees with public_servants
-            $federal_employees = array_merge($federal_employees, $public_servants);
-          }
-
           $federal_employees = array_splice($federal_employees, 0, 6);
 
           shuffle($federal_employees);
@@ -763,104 +458,6 @@
                 $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
             }else if($l->federal == $depart1 || $l->federal == $depart2){
                 $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
-            }else{
-              $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
-            }
-
-            //changed connect button to send a friend request we should change the wording
-            $htmloutput=$htmloutput.'<a href="#" class="add-friend btn btn-primary mrgn-tp-sm" onclick="addFriendOnboard('.$userGUID.')" id="'.$userGUID.'">'.elgg_echo('friend:add').'</a>';
-            $htmloutput=$htmloutput.'</div>';
-
-            echo $htmloutput . '';
-          }
-        } else if($userType == 'public_servant') {
-
-          //get user's department
-          $depart = elgg_get_logged_in_user_entity()->department;
-
-          //explode to look for opposite version (e.g. english / french, french / english)
-          $departSeperate = explode(' / ', $depart);
-
-          $depart1 = $departSeperate[0]  . ' / ' . $departSeperate[1];
-          $depart2 = $departSeperate[1]  . ' / ' . $departSeperate[0];
-
-          //popular members in department
-          $public_servant_count = elgg_get_entities_from_metadata(array(
-            'type' => 'user',
-            'limit' => 50,
-            'count' => true,
-            'metadata_name'  => 'department',
-            'metadata_values'  => array($depart1, $depart2),
-          ));
-
-          if($public_servant_count > 10){
-            $offset = rand(0, $public_servant_count - 6);
-          } else {
-            $offset = 0;
-          }
-
-          //popular members in department
-          $public_servant = elgg_get_entities_from_metadata(array(
-            'type' => 'user',
-            'limit' => 50,
-            'offset' => $offset,
-            'metadata_name'  => 'department',
-            'metadata_values'  => array($depart1, $depart2),
-          ));
-
-          //set guids as key for each array items
-          foreach($public_servant as $f => $l){
-            $public_servant['"'.$l->guid.'"'] = $l;
-            unset($public_servant[$f]);
-            if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
-             unset($public_servant['"'.$l->guid.'"']);
-            }
-          }
-
-          if(count($public_servant) < 6){
-            //retrieve users based on similiar skills
-            $match = user_skill_match();
-
-            if($match){
-              foreach($match as $k => $v){
-                $match['"'.$v->guid.'"'] = $v;
-                unset($match[$k]);
-
-                if($user->guid == $v->guid || check_entity_relationship($user->guid, 'friend', $v->guid)){
-                  unset($match['"'.$v->guid.'"']);
-                }
-              }
-
-              $status = $_SESSION['candidate_search_feedback'];
-
-              //combine students with academics
-              $public_servant = array_merge($public_servant, $match);
-            }
-          }
-
-          $public_servant = array_splice($public_servant, 0, 6);
-
-          shuffle($public_servant);
-
-          //if the search does not find anyone, grb 6 random ambassadors for the user
-          if(count($public_servant) == 0){
-            echo elgg_echo('onboard:welcome:two:noresults');
-          }
-
-          foreach($public_servant as $f => $l){
-            $htmloutput = '';
-            $site_url = elgg_get_site_url();
-            $userGUID=$l->guid;
-            $job=$l->job;
-
-            $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">'; // suggested friend link to profile
-
-            //EW - change to render icon so new ambassador badges can be shown
-            $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
-
-            $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
-            if($l->department == $user->department){ // Nick - Adding department if no job, if none add a space
-                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->department.'</p>';
             }else{
               $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
             }
@@ -950,6 +547,212 @@
             $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
             if($l->province == $user->province){ // Nick - Adding department if no job, if none add a space
                 $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->province.'</p>';
+            }else{
+              $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
+            }
+
+            //changed connect button to send a friend request we should change the wording
+            $htmloutput=$htmloutput.'<a href="#" class="add-friend btn btn-primary mrgn-tp-sm" onclick="addFriendOnboard('.$userGUID.')" id="'.$userGUID.'">'.elgg_echo('friend:add').'</a>';
+            $htmloutput=$htmloutput.'</div>';
+
+            echo $htmloutput . '';
+          }
+        } else if($userType == 'other') {
+
+          //get user's other department
+          $other = elgg_get_logged_in_user_entity()->other;
+
+          ///OPTION 1///
+
+          //popular members in other
+          $other_count = elgg_get_entities_from_metadata(array(
+            'type' => 'user',
+            'limit' => 50,
+            'count' => true,
+            'metadata_name'  => 'other',
+            'metadata_values'  => $other,
+          ));
+
+          if($other_count > 10){
+            $offset = rand(0, $other_count - 6);
+          } else {
+            $offset = 0;
+          }
+
+          //popular members in other
+          $other_members = elgg_get_entities_from_metadata(array(
+            'type' => 'user',
+            'limit' => 50,
+            'offset' => $offset,
+            'metadata_name'  => 'other',
+            'metadata_values'  => $other,
+          ));
+
+          //set guids as key for each array items
+          foreach($other_members as $f => $l){
+            $other_members['"'.$l->guid.'"'] = $l;
+            unset($other_members[$f]);
+            if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
+              unset($other_members['"'.$l->guid.'"']);
+            }
+          }
+
+          ///OPTION 2///
+          
+          //If we dont have six users to recommend, use user's skills to recommend people from the site
+          if(count($other_members) < 6){
+            //retrieve users based on similiar skills
+            $match = user_skill_match();
+
+            if($match){
+              foreach($match as $k => $v){
+                $match['"'.$v->guid.'"'] = $v;
+                unset($match[$k]);
+
+                if($user->guid == $v->guid || check_entity_relationship($user->guid, 'friend', $v->guid)){
+                  unset($match['"'.$v->guid.'"']);
+                }
+              }
+
+              $status = $_SESSION['candidate_search_feedback'];
+
+              //combine students with academics
+              $other_members = array_merge($other_members, $match);
+            }
+          }
+
+          ///OPTION 3///
+          
+          //If we dont have six users to recommend, expand search to all 'others'
+          if(count($other_members) < 6){
+            $more_others = elgg_get_entities_from_metadata(array(
+              'type' => 'user',
+              'metadata_name_value_pairs' => array(
+                array('name' => 'user_type', 'value' => 'other'),
+              ),
+            ));
+
+            //set keys for array as the user's guid, removes friends and the current user
+            foreach($more_others as $f => $l){
+              $more_others['"'.$l->guid.'"'] = $l;
+              unset($more_others[$f]);
+              if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
+                unset($more_others['"'.$l->guid.'"']);
+              }
+            }
+
+            //combine both sets of 'others'
+            $other_members = array_merge($other_members, $more_others);
+          }
+
+          $other_members = array_splice($other_members, 0, 6);
+
+          shuffle($other_members);
+
+          //if the search does not find anyone, grb 6 random ambassadors for the user
+          if(count($other_members) == 0){
+            echo elgg_echo('onboard:welcome:two:noresults');
+          }
+
+          //output the employee
+          foreach($other_members as $f => $l){
+            $htmloutput = '';
+            $site_url = elgg_get_site_url();
+            $userGUID=$l->guid;
+            $job=$l->job;
+
+            $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">'; // suggested friend link to profile
+
+            //EW - change to render icon so new ambassador badges can be shown
+            $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
+
+            $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
+            if($l->federal == $user->federal){
+                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
+            }else if($l->federal == $depart1 || $l->federal == $depart2){
+                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
+            }else{
+              $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
+            }
+
+            //changed connect button to send a friend request we should change the wording
+            $htmloutput=$htmloutput.'<a href="#" class="add-friend btn btn-primary mrgn-tp-sm" onclick="addFriendOnboard('.$userGUID.')" id="'.$userGUID.'">'.elgg_echo('friend:add').'</a>';
+            $htmloutput=$htmloutput.'</div>';
+
+            echo $htmloutput . '';
+          }
+        } else if($userType == 'retired') {
+
+          ///OPTION 1///
+          
+          $retired_members = elgg_get_entities_from_metadata(array(
+            'type' => 'user',
+            'metadata_name_value_pairs' => array(
+              array('name' => 'user_type', 'value' => 'retired'),
+            ),
+          ));
+
+          //set keys for array as the user's guid, removes friends and the current user
+          foreach($retired_members as $f => $l){
+            $retired_members['"'.$l->guid.'"'] = $l;
+            unset($retired_members[$f]);
+            if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
+              unset($retired_members['"'.$l->guid.'"']);
+            }
+          }
+
+          ///OPTION 2///
+
+          //If we still dont have 6 users, use user's skills to recommend people from the site
+          if(count($retired_members) < 6){
+            //retrieve users based on similiar skills
+            $match = user_skill_match();
+
+            if($match){
+              foreach($match as $k => $l){
+                $match['"'.$l->guid.'"'] = $l;
+                unset($match[$k]);
+
+                //remove self or friends from retrieved list
+                if($user->guid == $l->guid || check_entity_relationship($user->guid, 'friend', $l->guid)){
+                  unset($match['"'.$l->guid.'"']);
+                }
+              }
+
+              //get feed back string which shows how they were matched
+              $status = $_SESSION['candidate_search_feedback'];
+
+              //combine 'others' with skill matched users
+              $retired_members = array_merge($retired_members, $match);
+            }
+          }
+
+          $retired_members = array_splice($retired_members, 0, 6);
+
+          shuffle($retired_members);
+
+          //if the search does not find anyone, grb 6 random ambassadors for the user
+          if(count($retired_members) == 0){
+            echo elgg_echo('onboard:welcome:two:noresults');
+          }
+
+          //output the employee
+          foreach($retired_members as $f => $l){
+            $htmloutput = '';
+            $site_url = elgg_get_site_url();
+            $userGUID=$l->guid;
+            $job=$l->job;
+
+            $htmloutput=$htmloutput.'<div style="height:200px; margin-top:25px;" class="col-xs-4 text-center hght-inhrt  onboard-coll">'; // suggested friend link to profile
+
+            //EW - change to render icon so new ambassador badges can be shown
+            $htmloutput.= elgg_view_entity_icon($l, 'medium', array('use_hover' => false, 'use_link' => false, 'class' => 'elgg-avatar-wet4-sf'));
+
+            $htmloutput=$htmloutput.'<h4 class="h4 mrgn-tp-sm mrgn-bttm-sm"><span class="text-primary">'.$l->getDisplayName().'</span></h4>';
+            if($l->federal == $user->federal){
+                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
+            }else if($l->federal == $depart1 || $l->federal == $depart2){
+                $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
             }else{
               $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
             }

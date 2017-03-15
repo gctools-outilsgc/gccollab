@@ -145,7 +145,7 @@ function validateEmail(email) {
 
 	<?php
 		function show_field( $field ){
-			$enabled_fields = array('academic', 'student', 'federal', 'provincial', 'other');
+			$enabled_fields = array('academic', 'student', 'federal', 'provincial', 'retired', 'other');
 			return in_array($field, $enabled_fields);
 		}
 	?>
@@ -164,6 +164,7 @@ function validateEmail(email) {
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
 	    				<?php if(show_field("provincial")): ?><option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option><?php endif; ?>
+	    				<?php if(show_field("retired")): ?><option value="retired"><?php echo elgg_echo('gcRegister:occupation:retired'); ?></option><?php endif; ?>
 	    				<?php if(show_field("other")): ?><option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option><?php endif; ?>
 	    			</select>
 				</div>
@@ -361,7 +362,7 @@ function validateEmail(email) {
 					<datalist id="otherlist">
 						<?php
 							foreach($other as $other_name => $value){
-								echo '<option value="' . $other_name . '"></option>';
+								echo '<option value="' . $other_name . '">' . $value . '</option>';
 							}
 						?>
 					</datalist>

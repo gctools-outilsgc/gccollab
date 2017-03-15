@@ -6945,6 +6945,27 @@ q:after {
 .tbl-gridify td {
   display: block; }
 
+@media screen and (max-width: 767px) {
+  .mrgn-lft-0-xs {
+    margin-left: 0;
+  }
+  .mrgn-btm-0-xs {
+    margin-bottom: 0;
+  }
+  .mrgn-tp-0-xs {
+    margin-top: 0;
+  }
+  .mrgn-rght-0-xs {
+    margin-right: 0;
+  }
+  .mrgn-0-xs {
+    margin: 0;
+  }
+  .clear-xs {
+    clear: both;
+  }
+}
+
 /*
  *	Fix for missing bullets in Chrome and Safari
  */

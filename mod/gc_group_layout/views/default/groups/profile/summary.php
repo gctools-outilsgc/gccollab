@@ -39,7 +39,7 @@ if($group->cover_photo =='nope' || $group->cover_photo ==''){
 ?>
 <div class="panel panel-custom clearfix elgg-image-block col-xs-12 <?php echo $c_photo_top_margin; ?>">
    <div class="group-summary-holder clearfix">
-	   <div class="col-xs-9">
+	   <div class="col-xs-12 col-sm-7">
 
 		   <div class="col-xs-2 col-md-2 mrgn-tp-sm group-profile-image-size">
 			<?php
@@ -79,7 +79,7 @@ if($group->cover_photo =='nope' || $group->cover_photo ==''){
 			</div>
 
 
-			<div class="mrgn-bttm-sm pull-left mrgn-lft-md">
+			<div class="mrgn-bttm-sm pull-left mrgn-lft-md mrgn-lft-0-xs clear-xs">
 			<?php
 				$num_members = $group->getMembers(array('count' => true));
                 $members_link = 'groups/members/' . $group->guid;
@@ -131,7 +131,7 @@ if($group->cover_photo =='nope' || $group->cover_photo ==''){
 
     </div>
       </div>
-        <div class="btn-group text-right col-xs-3">
+        <div class="btn-group text-right col-xs-12 col-sm-5">
 
 
             <div class="groups-stats mrgn-tp-sm mrgn-bttm-sm text-right"></div>
