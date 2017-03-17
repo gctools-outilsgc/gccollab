@@ -691,7 +691,7 @@
         });
     </script>
 
-<?php if( elgg_is_admin_logged_in() ): ?>
+<?php //if( elgg_is_admin_logged_in() ): ?>
     
     <hr />
 
@@ -1321,7 +1321,7 @@
         });
     </script>
 
-<?php endif; ?>
+<?php //endif; ?>
 
     <?php
 
