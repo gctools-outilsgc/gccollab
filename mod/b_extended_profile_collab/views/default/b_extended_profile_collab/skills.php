@@ -35,7 +35,7 @@ echo '<div class="gcconnex-skills-skills-list-wrapper">';
 if (elgg_is_logged_in()){
     //elgg_get_logged_in_user_entity()->isFriendsWith($user->guid)
     //if ( elgg_get_logged_in_user_guid() != elgg_get_page_owner_guid() ) {
-    if($user->skill_access == ACCESS_PUBLIC || elgg_get_logged_in_user_entity()->isFriendsWith($user->guid) )
+    if((elgg_get_logged_in_user_guid() != elgg_get_page_owner_guid()) && ($user->skill_access == ACCESS_PUBLIC || elgg_get_logged_in_user_entity()->isFriendsWith($user->guid) ) && ($user->skill_access != ACCESS_PRIVATE))
         echo '<div class="gcconnex-skill-limit">' . elgg_echo('gcconnex_profile:gc_skill:click') . '</div>';
     //}
 }
@@ -66,7 +66,7 @@ else {
                     $endorsements = array($endorsements);
                 }
 
-                if ($user->skill_access == ACCESS_PUBLIC){
+                if ($user->skill_access == ACCESS_PUBLIC || $user->skill_access == ACCESS_LOGGED_IN){
                     if (!elgg_is_logged_in() || elgg_get_logged_in_user_guid() == elgg_get_page_owner_guid()){
                         echo '<div class="gcconnex-skill-entry clearfix" data-guid="' . $skill_guid . '"><div class="skill-container clearfix" style="display:inline-block">';
                         echo '<div class="gcconnex-endorsements-count gcconnex-endorsements-count-' . $skill_class . '">' . count($skill->endorsements) . '</div><div class="gcconnex-endorsements-skill" data-type="skill">' . $skill->title . '</div>';

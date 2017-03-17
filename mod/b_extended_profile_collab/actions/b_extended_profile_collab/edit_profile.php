@@ -385,6 +385,7 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
 
             //$user->gc_skills = null; // dev stuff... delete me
             //$user->skillsupgraded = NULL; // dev stuff.. delete me
+            $user->skill_access = $access;
             $user->save();
             
             break;
