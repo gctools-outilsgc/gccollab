@@ -1783,6 +1783,60 @@ if ( !$colObj ){
 	}
 }
 
+/**** Municipal ****/
+
+$municipal_en = array();
+// $municipal_en = array("XXX" => "YYY",
+// "XXX" => "YYY",
+// "XXX" => "YYY");
+
+$municipal_fr = array();
+// $municipal_fr = array("XXX" => "YYY",
+// "XXX" => "YYY",
+// "XXX" => "YYY");
+
+$munObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'municipal',
+));
+if ( !$munObj ){
+	$municipal = new ElggObject();
+	$municipal->subtype = "municipal";
+	$municipal->title = "municipal";
+	$municipal->access_id = ACCESS_PUBLIC;
+
+	$municipal->set('municipal_en', json_encode($municipal_en));
+	$municipal->set('municipal_fr', json_encode($municipal_fr));
+	$municipal->save();
+} else {
+	$municipal = get_entity($munObj[0]->guid);
+	if ($municipal->municipal_en != $municipal_en){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'municipal_en',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$municipal->set('municipal_en', json_encode($municipal_en));
+		$municipal->save();
+	}
+
+	if ($municipal->municipal_fr != $municipal_fr){
+		$meta = elgg_get_metadata(array(
+			'metadata_name' => 'municipal_fr',
+		));
+		if($meta){
+			foreach ($meta as $x){
+				$x->delete();
+			}
+		}
+		$municipal->set('municipal_fr', json_encode($municipal_fr));
+		$municipal->save();
+	}
+}
+
 /**** Other ****/
 
 $other_en = array("CICan" => "CICan",

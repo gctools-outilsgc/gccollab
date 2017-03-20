@@ -16,12 +16,8 @@
     $email = $userObj->email;
 
     $userType = $userObj->get('user_type');
-    if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
-        $institution = $userObj->get('institution');
-        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
-    } else if (strcmp($userType, 'provincial') == 0) {
-        $department = elgg_echo('gcRegister:occupation:provincial');
-    } else if (strcmp($userType, 'federal') == 0) {
+    // if user is public servant
+    if (strcmp($userType, 'federal') == 0) {
         $deptObj = elgg_get_entities(array(
             'type' => 'object',
             'subtype' => 'federal_departments',
@@ -36,8 +32,46 @@
         }
 
         $department = $federal_departments[$userObj->get('federal')];
-    } else if (strcmp($userType, 'public_servant') == 0) {
-        $department = $userObj->get('department');
+
+    // otherwise if user is student or academic
+    } else if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
+        $institution = $userObj->get('institution');
+        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
+
+    // otherwise if user is provincial employee
+    } else if (strcmp($userType, 'provincial') == 0 ) {
+        $provObj = elgg_get_entities(array(
+            'type' => 'object',
+            'subtype' => 'provinces',
+        ));
+        $provs = get_entity($provObj[0]->guid);
+
+        $provinces = array();
+        if (get_current_language() == 'en'){
+            $provinces = json_decode($provs->provinces_en, true);
+        } else {
+            $provinces = json_decode($provs->provinces_fr, true);
+        }
+
+        $minObj = elgg_get_entities(array(
+            'type' => 'object',
+            'subtype' => 'ministries',
+        ));
+        $mins = get_entity($minObj[0]->guid);
+
+        $ministries = array();
+        if (get_current_language() == 'en'){
+            $ministries = json_decode($mins->ministries_en, true);
+        } else {
+            $ministries = json_decode($mins->ministries_fr, true);
+        }
+
+        $department = $provinces[$userObj->provincial];
+        if($userObj->ministry && $userObj->ministry !== "default_invalid_value"){ $department .= ' / ' . $ministries[$userObj->provincial][$userObj->ministry]; }
+
+    // otherwise show basic info
+    } else {
+        $department = $userObj->get($userType);
     }
 
 ?>

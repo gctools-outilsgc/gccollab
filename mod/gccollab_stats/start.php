@@ -52,7 +52,7 @@ function get_member_data($type, $lang) {
 		));
 
 		if ($lang == 'fr'){
-			$users_types = array('federal' => 'féderal', 'provincial' => 'provincial', 'academic' => 'milieu universitaire', 'student' => 'étudiant', 'other' => 'autre');
+			$users_types = array('federal' => 'féderal', 'academic' => 'milieu universitaire', 'student' => 'étudiant', 'provincial' => 'provincial', 'municipal' => 'municipale', 'international' => 'international', 'ngo' => 'ngo', 'community' => 'collectivité', 'business' => 'entreprise', 'media' => 'média', 'retired' => 'retraité(e)', 'other' => 'autre');
 
 			foreach($users as $key => $obj){
 				$data[$users_types[$obj->user_type]]++;
@@ -86,6 +86,58 @@ function get_member_data($type, $lang) {
 			foreach($users as $key => $obj){
 				$data[$obj->federal]++;
 			}
+		}
+	} else if ($type === 'academic') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'academic'),
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data[$obj->institution]['total']++;
+			if($obj->university) $data[$obj->institution][$obj->university]++;
+			if($obj->college) $data[$obj->institution][$obj->college]++;
+		}
+	} else if ($type === 'student') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'student'),
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data[$obj->institution]['total']++;
+			if($obj->university) $data[$obj->institution][$obj->university]++;
+			if($obj->college) $data[$obj->institution][$obj->college]++;
+		}
+	} else if ($type === 'university') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'academic'),
+				array('name' => 'institution', 'value' => 'university'),
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->university]++;
+		}
+	} else if ($type === 'college') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'academic'),
+				array('name' => 'institution', 'value' => 'college'),
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->college]++;
 		}
 	} else if ($type === 'provincial') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -121,57 +173,89 @@ function get_member_data($type, $lang) {
 				$data[$obj->provincial][$obj->ministry]++;
 			}
 		}
-	} else if ($type === 'student') {
+	} else if ($type === 'municipal') {
 		$users = elgg_get_entities_from_metadata(array(
 			'type' => 'user',
 			'metadata_name_value_pairs' => array(
-				array('name' => 'user_type', 'value' => 'student'),
-			),
-			'limit' => 0
-		));
-		foreach($users as $key => $obj){
-			$data[$obj->institution]['total']++;
-			if($obj->university) $data[$obj->institution][$obj->university]++;
-			if($obj->college) $data[$obj->institution][$obj->college]++;
-		}
-	} else if ($type === 'academic') {
-		$users = elgg_get_entities_from_metadata(array(
-			'type' => 'user',
-			'metadata_name_value_pairs' => array(
-				array('name' => 'user_type', 'value' => 'academic'),
-			),
-			'limit' => 0
-		));
-		foreach($users as $key => $obj){
-			$data[$obj->institution]['total']++;
-			if($obj->university) $data[$obj->institution][$obj->university]++;
-			if($obj->college) $data[$obj->institution][$obj->college]++;
-		}
-	} else if ($type === 'university') {
-		$users = elgg_get_entities_from_metadata(array(
-			'type' => 'user',
-			'metadata_name_value_pairs' => array(
-				array('name' => 'user_type', 'value' => 'academic'),
-				array('name' => 'institution', 'value' => 'university'),
+				array('name' => 'user_type', 'value' => 'municipal')
 			),
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
 			$data['total']++;
-			$data[$obj->university]++;
+			$data[$obj->municipal]++;
 		}
-	} else if ($type === 'college') {
+	} else if ($type === 'international') {
 		$users = elgg_get_entities_from_metadata(array(
 			'type' => 'user',
 			'metadata_name_value_pairs' => array(
-				array('name' => 'user_type', 'value' => 'academic'),
-				array('name' => 'institution', 'value' => 'college'),
+				array('name' => 'user_type', 'value' => 'international')
 			),
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
 			$data['total']++;
-			$data[$obj->college]++;
+			$data[$obj->international]++;
+		}
+	} else if ($type === 'ngo') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'ngo')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->ngo]++;
+		}
+	} else if ($type === 'community') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'community')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->community]++;
+		}
+	} else if ($type === 'business') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'business')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->business]++;
+		}
+	} else if ($type === 'media') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'media')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->media]++;
+		}
+	} else if ($type === 'retired') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'retired')
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->retired]++;
 		}
 	} else if ($type === 'other') {
 		$users = elgg_get_entities_from_metadata(array(
