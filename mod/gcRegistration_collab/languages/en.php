@@ -40,7 +40,6 @@ $english = array(
 	'gcRegister:please_enter_name' => 'Please enter display name',
 	'gcRegister:department_name' => 'Enter your Department',
 	'gcRegister:register' => 'Register',
-	'gcRegister:other' => 'Please enter the name of your organization',
 	'gcRegister:has_invited' => ' invited you to join GCcollab',
 
 	// error messages on the form

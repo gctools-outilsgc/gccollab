@@ -516,7 +516,7 @@ function validateEmail(email) {
 ?>
 
 				<div class="form-group occupation-choices" id="other-wrapper" hidden>
-					<label for="other" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:other'); ?></span></label>
+					<label for="other" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
 					<?php echo $other_choices; ?>
 					<datalist id="other-list">
 						<?php

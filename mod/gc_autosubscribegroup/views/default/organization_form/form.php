@@ -431,7 +431,7 @@
 ?>
 
 <div class="occupation-choices" id="other-wrapper" hidden>
-	<label for="other" class="required"><?php echo elgg_echo('gcRegister:other'); ?></label>
+	<label for="other" class="required"><?php echo elgg_echo('gcRegister:department'); ?></label>
 	<?php echo $other_choices; ?>
 	<datalist id="other-list">
 		<?php
