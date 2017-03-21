@@ -7,7 +7,7 @@ elgg_ws_expose_function("get.profile","get_api_profile", array("id" => array('ty
 	'provide user GUID number and all profile information is returned',
                'GET', false, false);
 
-elgg_ws_expose_function("get.posts","get_user_posts", array("id" => array('type' => 'string'), "type" => array('type' => 'string')),
+elgg_ws_expose_function("get.posts","get_user_posts", array("id" => array('type' => 'string'), "type" => array('type' => 'string'), "limit" => array('type' => 'int'), "offset" => array('type' => 'int', 'required' => false)),
 	'provides latest posts by their type and their user id', 'GET', true, false);
 
 elgg_ws_expose_function("profile.update","profileUpdate", array("id" => array('type' => 'string'), "data" => array('type'=>'string')),
@@ -289,28 +289,61 @@ function get_api_profile($id){
 	return $user;
 }
 
-function get_user_posts($id, $type){
+function get_user_posts($id, $type, $limit, $offset){
 	$user = getUserFromID($id);
 	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
-	
-	elgg_set_ignore_access(true);
+	login($user);
+
+	if( !$offset )
+		$offset = 0;
+
 	$db_prefix = elgg_get_config('dbprefix');
-	$data = array();
 
 	switch( $type ){
     	case "blog":
-	        $data['return'] = "Blog posts will go here";
+	        $data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'blog',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
 	        break;
 	    case "wire":
-	        $data['return'] = "Wire posts will go here";
+	        $data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'thewire',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
 	        break;
 	    case "discussion":
-	        $data['return'] = "Discussion posts will go here";
+	    	$data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'groupforumtopic',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
 	        break;
-	    default:
-	    	// $data['return'] = "Please use either 'blog', 'wire', or 'discussion' for post type";
-
+	    case "newsfeed":
 		    if( $user ){
 		        //check if user exists and has friends or groups
 		        $hasfriends = $user->getFriends();
@@ -342,7 +375,7 @@ function get_user_posts($id, $type){
 		        //filter out preference
 		        $optionsf['action_types'] = array_diff( $actionTypes, $filteredItems);
 
-		        $activity = newsfeed_list_river($optionsf);
+		        $activity = json_decode(newsfeed_list_river($optionsf));
 		    } else if( !$hasfriends && $hasgroups ){
 		        //if no friends but groups
 		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
@@ -351,7 +384,7 @@ function get_user_posts($id, $type){
 		        $optionsg['wheres'] = array("( oe.container_guid IN({$guids_in})
 		         OR te.container_guid IN({$guids_in}) )");
 		        $optionsg['pagination'] = true;
-		        $activity = newsfeed_list_river($optionsg);
+		        $activity = json_decode(newsfeed_list_river($optionsg));
 		    } else {
 		        //if friends and groups :3
 		        //turn off friend connections
@@ -372,74 +405,17 @@ function get_user_posts($id, $type){
 		        OR rv.subject_guid IN (SELECT guid_two FROM {$db_prefix}entity_relationships WHERE guid_one=$user->guid AND relationship='friend')
 		        ");
 		        $optionsfg['pagination'] = true;
-		        $activity = newsfeed_list_river($optionsfg);
+		        $activity = json_decode(newsfeed_list_river($optionsfg));
 		    }
 
-		    if (!$activity) {
-		        //if the user doesn't have any friends or activity display this message
-		        $site_url = elgg_get_site_url();
-		        $featuredGroupButton = elgg_view('output/url', array(
-		            'href' => $site_url .'groups/all?filter=popular',
-		            'text' => elgg_echo('wetActivity:browsegroups'),
-		            'class' => 'btn btn-primary',
-		            'is_trusted' => true,
-		        ));
-		        //$activity = elgg_echo('river:none');
-		        //placeholder panel
-		        $activity .= '<div class="panel panel-custom elgg-list-river"><div class="panel-body">';
-		        $activity .= '<h3 class="panel-title mrgn-tp-md">'.elgg_echo('wetActivity:welcome').'</h3>';
-		        $activity .= '<div class="mrgn-bttm-md mrgn-tp-sm">'.elgg_echo('wetActivity:nocollorgroup').'</div>';
-		        $activity .= '<div>'.$featuredGroupButton.'</div>';
-		        $activity .= '</div></div>';
-		    } else if ( is_null( get_input('offset', null) ) ){
-		        // add a "Show All button"
-		        $moreButton = elgg_view('output/url', array(
-		            'href' => $site_url .'newsfeed/?offset=20',
-		            'text' => elgg_echo('wet:more'),
-		            'class' => 'btn btn-primary newsfeed-button',
-		            'is_trusted' => true,
-		        ));
-		        $activity .= $moreButton;
-		    }
-
-	    	$data['return'] = $activity;
-
+	    	$data = $activity;
 	        break;
+	    default:
+			$data = "Please use either 'blog', 'wire', 'discussion', or 'newsfeed' for the 'type' parameter";
+			break;
 	}
 
-	/*
-	$user['id'] = $user_entity->guid;
-
-	$user['username'] = $user_entity->username;
-
-	//get and store user display name
-	$user['displayName'] = $user_entity->name;
-
-	$user['email'] = $user_entity->email;
-
-	//get and store URL for profile
-	$user['profileURL'] = $user_entity->getURL();
-
-	//get and store URL of profile avatar
-	$user['iconURL'] = $user_entity->geticon();
-	
-	$user['jobTitle'] = $user_entity->job;
-
-	$user['department'] = $user_entity->department;
-
-	$user['telephone'] = $user_entity->phone;
-
-	$user['mobile'] = $user_entity->mobile;
-
-	$user['Website'] = $user_entity->website;
-
-	$user['dateJoined'] = date("Y-m-d H:i:s",$user_entity->time_created);
-
-	$user['lastActivity'] = date("Y-m-d H:i:s",$user_entity->last_action);
-
-	$user['lastLogin'] = date("Y-m-d H:i:s",$user_entity->last_login);
-	*/
-
+	logout();
 	return $data;
 }
 
