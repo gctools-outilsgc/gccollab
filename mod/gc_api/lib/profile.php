@@ -1,35 +1,25 @@
 <?php
 
+//global $CONFIG;
+//error_log($CONFIG->dbhost.' '.$CONFIG->dbuser.' '.$CONFIG->dbpass.' '.$CONFIG->dbname);
+
 elgg_ws_expose_function("get.profile","get_api_profile", array("id" => array('type' => 'string')),
 	'provide user GUID number and all profile information is returned',
                'GET', false, false);
 
+elgg_ws_expose_function("get.posts","get_user_posts", array("id" => array('type' => 'string'), "type" => array('type' => 'string'), "limit" => array('type' => 'int'), "offset" => array('type' => 'int', 'required' => false)),
+	'provides latest posts by their type and their user id', 'GET', true, false);
+
+elgg_ws_expose_function("profile.update","profileUpdate", array("id" => array('type' => 'string'), "data" => array('type'=>'string')),
+	'update a user profile based on id passed',
+               'POST', true, false);
+
+
+
 function get_api_profile($id){
-	global $CONFIG;
+	//global $CONFIG;
 	//$string = "User was not found. Please try a different GUID, username, or email address";
-	if (is_numeric($id)){
-		$user_entity = get_user($id);
-		//$string = $user_entity->username;
-	}
-	else{
-		if (strpos($id, '@')){
-			$user_entity = get_user_by_email($id);
-			if (is_array($user_entity)){
-				if (count($user_entity)>1)
-					//$string = "Found more than 1 user, please use username or GUID";
-					return "Found more than 1 user, please use username or GUID";
-				else{
-					$user_entity = $user_entity[0];
-					//$string = $user_entity->username;
-				}
-			}
-		}else{
-			$user_entity = get_user_by_username($id);
-			//$string = $user_entity->username;
-		}
-		
-		
-	}
+	$user_entity = getUserFromID($id);
 	if (!$user_entity)
 		return "User was not found. Please try a different GUID, username, or email address";
 	
@@ -41,6 +31,8 @@ function get_api_profile($id){
 
 	//get and store user display name
 	$user['displayName'] = $user_entity->name;
+
+	$user['email'] = $user_entity->email;
 
 	//get and store URL for profile
 	$user['profileURL'] = $user_entity->getURL();
@@ -295,6 +287,557 @@ function get_api_profile($id){
 
 
 	return $user;
+}
+
+function get_user_posts($id, $type, $limit, $offset){
+	$user = getUserFromID($id);
+	if( !$user )
+		return "User was not found. Please try a different GUID, username, or email address";
+	login($user);
+
+	if( !$offset )
+		$offset = 0;
+
+	$db_prefix = elgg_get_config('dbprefix');
+
+	switch( $type ){
+    	case "blog":
+	        $data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'blog',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
+	        break;
+	    case "wire":
+	        $data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'thewire',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
+	        break;
+	    case "discussion":
+	    	$data = elgg_list_entities(array(
+				'type' => 'object',
+				'subtype' => 'groupforumtopic',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($data);
+	        break;
+	    case "newsfeed":
+		    if( $user ){
+		        //check if user exists and has friends or groups
+		        $hasfriends = $user->getFriends();
+		        $hasgroups = $user->getGroups();
+		        if( $hasgroups ){
+		            //loop through group guids
+		            $groups = $user->getGroups(array('limit'=>0,)); //increased limit from 10 groups to all
+		            $group_guids = array();
+		            foreach( $groups as $group ){
+		                $group_guids[] = $group->getGUID();
+		            }
+		        }
+		    }
+
+		    if( !$hasgroups && !$hasfriends ){
+		        //no friends and no groups :(
+		        $activity = '';
+		    } else if( !$hasgroups && $hasfriends ){
+		        //has friends but no groups
+		        $optionsf['relationship_guid'] = elgg_get_logged_in_user_guid();
+		        $optionsf['relationship'] = 'friend';
+		        $optionsf['pagination'] = true;
+
+		        //turn off friend connections
+		        //remove friend connections from action types
+		        $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
+		        //load user's preference
+		        $filteredItems = array($user->colleagueNotif);
+		        //filter out preference
+		        $optionsf['action_types'] = array_diff( $actionTypes, $filteredItems);
+
+		        $activity = json_decode(newsfeed_list_river($optionsf));
+		    } else if( !$hasfriends && $hasgroups ){
+		        //if no friends but groups
+		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
+		        
+		        //display created content and replies and comments
+		        $optionsg['wheres'] = array("( oe.container_guid IN({$guids_in})
+		         OR te.container_guid IN({$guids_in}) )");
+		        $optionsg['pagination'] = true;
+		        $activity = json_decode(newsfeed_list_river($optionsg));
+		    } else {
+		        //if friends and groups :3
+		        //turn off friend connections
+		        //remove friend connections from action types
+		        $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
+		        //load user's preference
+		        $filteredItems = array($user->colleagueNotif);
+		        //filter out preference
+		        $optionsfg['action_types'] = array_diff( $actionTypes, $filteredItems);
+
+		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
+		        
+		        //Groups + Friends activity query
+		        //This query grabs new created content and comments and replies in the groups the user is a member of *** te.container_guid grabs comments and replies
+		        $optionsfg['wheres'] = array(
+		    "( oe.container_guid IN({$guids_in})
+		         OR te.container_guid IN({$guids_in}) )
+		        OR rv.subject_guid IN (SELECT guid_two FROM {$db_prefix}entity_relationships WHERE guid_one=$user->guid AND relationship='friend')
+		        ");
+		        $optionsfg['pagination'] = true;
+		        $activity = json_decode(newsfeed_list_river($optionsfg));
+		    }
+
+	    	$data = $activity;
+	        break;
+	    default:
+			$data = "Please use either 'blog', 'wire', 'discussion', or 'newsfeed' for the 'type' parameter";
+			break;
+	}
+
+	logout();
+	return $data;
+}
+
+function profileUpdate($id, $data){
+	global $CONFIG;
+	$response['error'] = 0;
+	$user_entity = getUserFromID($id);
+	if (!$user_entity){
+		$response['error'] = 1;
+		$response['message'] = 'Invalid user id, username, or email';
+		return $response;
+		//return "Not a valid user";
+	}
+	
+	if ($data == ''){
+		$response['error'] = 2;
+		$response['message'] = 'data must be a string representing a JSON object.';
+		return $response;
+	}
+	$userDataObj = json_decode($data, true);
+	if (json_last_error() !== 0){
+		$response['error'] = 2;
+		$response['message'] = 'invalid JSON - data was unable to be parsed';
+		return $response;
+		//return "invalid JSON format of data";
+	}
+	
+	//error_log(json_encode($userDataObj));
+	/*
+{ 
+	"name": {
+		"firstName": "Troy",
+		"lastName": "Lawson"
+	},
+	"title": {
+		"en": "GCconnex King",
+		"fr": "le King"
+	},
+	"classification": {
+		"group": "CS",
+		"level": "03"
+	},
+	"department":{
+		"en": "Treasury Board of Canada Secretariat",
+		"fr":	"Secrétariat Conseil du Trésor du Canada"
+	},
+	"branch":{
+		"en": "Information Management and Technology Directorate",
+		"fr": "Direction générale de la gestion d'information et de la technologie"
+	},
+	"sector":{
+		"en": "Corporate Services Sector",
+		"fr": "Secteur des services ministériels"
+	},
+	"location":{
+		"en": {
+			"street": "140 O'Connor St",
+			"city": "Ottawa",
+			"province": "Ontario",
+			"postalCode": "K1A 0R5",
+			"country": "Canada",
+			"building": "L'Esplanade Laurier",
+			"floor": "6",
+			"officeNum": "06062"
+		},
+		"fr": {
+			"street": "140, rue O'Connor",
+			"city": "Ottawa",
+			"province": "Ontario",
+			"postalCode": "K1A 0R5",
+			"country": "Canada",
+			"building": "L'Esplanade Laurier",
+			"floor": "6",
+			"officeNum": "06062"			
+		}
+	},
+	"phone": "613-979-0315",
+	"mobile": "613-979-0315",
+	"email": "Troy.Lawson@tbs-sct.gc.ca",
+	"secondLanguage": {
+		"firstLang": "en",
+		"secondLang": {
+			"lang": "fr",
+			"writtenComp": {
+				"level": "B",
+				"expire": "2016-12-29"
+			},
+			"writtenExpression": {
+				"level": "C",
+				"expire": "2016-12-29"
+			},
+			"oral": {
+				"level": "B",
+				"expire": "2016-12-29"
+			}
+			
+		}
+	}
+}
+	*
+	*
+	*/
+	foreach ($userDataObj as $field => $value){
+		//error_log('in loop');
+		switch($field){
+			case 'name':
+			elgg_set_ignore_access(true);
+			
+				//error_log(json_encode($value));
+				$nameData = json_decode(json_encode($value), true);
+
+				if (!isset($nameData["firstName"])||!isset($nameData["lastName"])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing first or last name';
+						return $response;
+
+				}
+				if (!isset($nameData["firstName"])&&!isset($nameData["lastName"])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing first or last name';
+						return $response;
+
+				}
+
+				$name = $nameData["firstName"].' '.$nameData["lastName"];
+				//error_log($name);
+				//$user_entity->set('name', $name);
+				$owner = get_entity($id);
+				if (elgg_strlen($name) > 50) {
+					register_error(elgg_echo('user:name:fail'));
+
+				} elseif ($owner->name != $name) {
+										
+					$user=get_user($user_entity->guid);
+					$user->name= $name;
+					$user_entity->save();
+					
+				}
+				elgg_set_ignore_access(false);
+				break;
+			case 'title':
+				
+				$titleData = json_decode(json_encode($value), true);
+				if (!isset($titleData['fr'])||!isset($titleData['en'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing french or english title';
+						return $response;
+
+				}
+				if (!isset($titleData['fr'])&&!isset($titleData['en'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing french and english title';
+						return $response;
+
+				}
+				if ($user_entity->language === 'fr'){
+					$user_entity->set('job', $titleData['fr'].' / '.$titleData['en']);
+				}
+				else{
+					$user_entity->set('job', $titleData['en'].' / '.$titleData['fr']);
+				}
+				
+				break;
+			case 'classification':
+				//error_log(json_encode($value));
+				$classificationData = json_decode(json_encode($value), true);
+				if (!isset($classificationData['group'])||!isset($classificationData['level'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing classification group or level';
+						return $response;
+
+				}
+				if (!isset($classificationData['group'])&&!isset($classificationData['level'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing classification group and level';
+						return $response;
+
+				}
+				$user_entity->set('classification', json_encode($value));
+				break;
+			case 'department':
+				$deptData = json_decode(json_encode($value), true);
+				if (!isset($deptData['fr'])||!isset($deptData['en'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing french or english department';
+						return $response;
+
+				}
+				if (!isset($deptData['fr'])&&!isset($deptData['en'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - department format';
+						return $response;
+
+				}
+
+				$obj = elgg_get_entities(array(
+   					'type' => 'object',
+   					'subtype' => 'dept_list',
+   					'owner_guid' => elgg_get_logged_in_user_guid()
+				));
+				$deptListEn = json_decode($obj[0]->deptsEn, true);
+				$provinces = array();
+				$provinces['pov-alb'] = 'Government of Alberta';
+				$provinces['pov-bc'] = 'Government of British Columbia';
+				$provinces['pov-man'] = 'Government of Manitoba';
+				$provinces['pov-nb'] = 'Government of New Brunswick';
+				$provinces['pov-nfl'] = 'Government of Newfoundland and Labrador';
+				$provinces['pov-ns'] = 'Government of Nova Scotia';
+				$provinces['pov-nwt'] = 'Government of Northwest Territories';
+				$provinces['pov-nun'] = 'Government of Nunavut';
+				$provinces['pov-ont'] = 'Government of Ontario';
+				$provinces['pov-pei'] = 'Government of Prince Edward Island';
+				$provinces['pov-que'] = 'Government of Quebec';
+				$provinces['pov-sask'] = 'Government of Saskatchewan';
+				$provinces['pov-yuk'] = 'Government of Yukon';
+				$deptAndProvincesEn = array_merge($deptListEn,$provinces);
+
+
+				$deptListFr = json_decode($obj[0]->deptsFr, true);
+				$provinces = array();
+				$provinces['pov-alb'] = 'Government of Alberta';
+				$provinces['pov-bc'] = 'Government of British Columbia';
+				$provinces['pov-man'] = 'Government of Manitoba';
+				$provinces['pov-nb'] = 'Government of New Brunswick';
+				$provinces['pov-nfl'] = 'Government of Newfoundland and Labrador';
+				$provinces['pov-ns'] = 'Government of Nova Scotia';
+				$provinces['pov-nwt'] = 'Government of Northwest Territories';
+				$provinces['pov-nun'] = 'Government of Nunavut';
+				$provinces['pov-ont'] = 'Government of Ontario';
+				$provinces['pov-pei'] = 'Government of Prince Edward Island';
+				$provinces['pov-que'] = 'Government of Quebec';
+				$provinces['pov-sask'] = 'Government of Saskatchewan';
+				$provinces['pov-yuk'] = 'Government of Yukon';
+				$deptAndProvincesFr = array_merge($deptListFr,$provinces);
+
+				if(!in_array($deptData['en'], $deptAndProvincesEn)){
+						$response['error'] = 5;
+						$response['message'] = 'invalid english department name. valid names: '.json_encode($deptAndProvincesEn);
+						return $response;
+				}
+
+				if(!in_array($deptData['fr'], $deptAndProvincesFr)){
+						$response['error'] = 5;
+						$response['message'] = 'invalid french department name. valid names: '.json_encode($deptAndProvincesFr);
+						return $response;
+				}
+				//error_log(json_encode($value));
+				
+				if ($user_entity->language === 'fr'){
+					$user_entity->set('department', $deptData['fr'].' / '.$deptData['en']);
+				}
+				else{
+					$user_entity->set('department', $deptData['en'].' / '.$deptData['fr']);
+				}
+
+
+				break;
+			case 'branch':
+				$branchData = json_decode(json_encode($value), true);
+				if (!isset($branchData['en'])||!isset($branchData['fr'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing english or french branch name';
+						return $response;
+
+				}
+				if (!isset($branchData['en'])&&!isset($branchData['fr'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing english and french branch name';
+						return $response;
+
+				}
+				$user_entity->set('branch', json_encode($value));
+				break;
+			case 'sector':
+				$sectorData = json_decode(json_encode($value), true);
+				if (!isset($sectorData['en'])||!isset($sectorData['fr'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing english or french sector name';
+						return $response;
+
+				}
+				if (!isset($sectorData['en'])&&!isset($sectorData['fr'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid data format - missing english and french sector name';
+						return $response;
+
+				}
+				$user_entity->set('sector', json_encode($value));
+				break;
+			case 'location':
+				if (!isset($value['en'])){
+						$response['error'] = 4;
+						$response['message'] = 'missing english location data';
+						return $response;
+
+				}
+				$locationData = json_decode(json_encode($value['en']), true);
+				if(!isset($locationData['street'])||!isset($locationData['city'])||!isset($locationData['province'])||!isset($locationData['postalCode'])||!isset($locationData['country'])||!isset($locationData['building'])||!isset($locationData['floor'])||!isset($locationData['officeNum'])){
+						$response['error'] = 4;
+						$response['message'] = 'missing location data';
+						return $response;
+				}
+				if(!isset($locationData['street'])&&!isset($locationData['city'])&&!isset($locationData['province'])&&!isset($locationData['postalCode'])&&!isset($locationData['country'])&&!isset($locationData['building'])&&!isset($locationData['floor'])&&!isset($locationData['officeNum'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid location data';
+						return $response;
+				}
+				if (!isset($value['fr'])){
+						$response['error'] = 4;
+						$response['message'] = 'missing french location data';
+						return $response;
+
+				}
+				$locationData = json_decode(json_encode($value['fr']), true);
+				if(!isset($locationData['street'])||!isset($locationData['city'])||!isset($locationData['province'])||!isset($locationData['postalCode'])||!isset($locationData['country'])||!isset($locationData['building'])||!isset($locationData['floor'])||!isset($locationData['officeNum'])){
+						$response['error'] = 4;
+						$response['message'] = 'missing location data';
+						return $response;
+				}
+				if(!isset($locationData['street'])&&!isset($locationData['city'])&&!isset($locationData['province'])&&!isset($locationData['postalCode'])&&!isset($locationData['country'])&&!isset($locationData['building'])&&!isset($locationData['floor'])&&!isset($locationData['officeNum'])){
+						$response['error'] = 4;
+						$response['message'] = 'invalid location data';
+						return $response;
+				}
+				$user_entity->set('addressString', json_encode($value["en"]));
+				$user_entity->set('addressStringFr', json_encode($value["fr"]));
+				break;
+			case 'phone':
+				
+				$user_entity->set('phone', $value);
+				break;
+			case 'mobile':
+				
+				$user_entity->set('mobile', $value);
+				break;
+			case 'email':
+				
+				elgg_set_ignore_access(true);
+				$connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname)or die(mysqli_error($connection));
+				//error_log($CONFIG->dbhost.' '.$CONFIG->dbuser.' '.$CONFIG->dbpass.' '.$CONFIG->dbname);
+				mysqli_select_db($connection,$CONFIG->dbname);
+				$emaildomain = explode('@',$value);
+				$query = "SELECT count(*) AS num FROM email_extensions WHERE ext ='".$emaildomain[1]."'";
+			
+				$result = mysqli_query($connection, $query)or die(mysqli_error($connection));
+				$result = mysqli_fetch_array($result);
+		
+				$emailgc = explode('.',$emaildomain[1]);
+				$gcca = $emailgc[count($emailgc) - 2] .".".$emailgc[count($emailgc) - 1];
+		
+				mysqli_close($connection);
+
+				$resulting_error = "";
+
+				//if ($toc[0] != 1)
+				//{
+				//throw new RegistrationException(elgg_echo('gcRegister:toc_error'));
+				//	$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
+				//}
+				//error_log('num - '.is_null($result));
+				// if domain doesn't exist in database, check if it's a gc.ca domain
+				if ($result['num'][0] <= 0) 
+				{
+					if ($gcca !== 'gc.ca')
+						//throw new RegistrationException(elgg_echo('gcRegister:email_error'));
+						$resulting_error .= elgg_echo('gcRegister:invalid_email');
+			
+				}
+
+
+				if ($resulting_error !== "")
+				{
+					//throw new RegistrationException($resulting_error);
+					///error_log($resulting_error);
+						$response['error'] = 3;
+						$response['message'] = 'invalid email or email domain - must be a valid Government of Canada email address';
+						return $response;
+				}
+				$user_entity->set('email', $value);
+				$user_entity->save();
+				
+				elgg_set_ignore_access(false);
+				break;
+			case 'secondLanguage':
+				
+				$user_entity->set('english', $value["ENG"]);
+				$user_entity->set('french', $value["FRA"]);
+            	$user_entity->set('officialLanguage', $value["firstLanguage"]);
+
+				break;
+		}
+	}
+	
+	$user_entity->save();
+	return 'success';
+}
+
+function getUserFromID($id){
+	if (is_numeric($id)){
+		$user_entity = get_user($id);
+		//$string = $user_entity->username;
+	}
+	else{
+		if (strpos($id, '@')){
+			$user_entity = get_user_by_email($id);
+			if (is_array($user_entity)){
+				if (count($user_entity)>1)
+					//$string = "Found more than 1 user, please use username or GUID";
+					return "Found more than 1 user, please use username or GUID";
+				else{
+					$user_entity = $user_entity[0];
+					//$string = $user_entity->username;
+				}
+			}
+		}else{
+			$user_entity = get_user_by_username($id);
+			//$string = $user_entity->username;
+		}
+		
+		
+	}
+	return $user_entity;
 }
 
 function buildDate($month, $year){

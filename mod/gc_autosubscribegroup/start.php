@@ -60,7 +60,7 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 		$organizationgroups = elgg_get_plugin_setting('organizationgroups', 'gc_autosubscribegroup');
 		$organizationgroups = json_decode($organizationgroups, true);
 
-		$meta_fields = array('user_type', 'institution', 'university', 'college', 'federal', 'provincial', 'ministry', 'other');
+		$meta_fields = array('user_type', 'federal', 'institution', 'university', 'college', 'provincial', 'ministry', 'municipal', 'international', 'ngo', 'community', 'business', 'media', 'retired', 'other');
 		foreach($meta_fields as $field){
 			$$field = get_input($field);
 		}

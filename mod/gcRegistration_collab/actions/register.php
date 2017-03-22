@@ -37,9 +37,17 @@ $meta_fields = array('user_type',
 				'institution',
 				'university',
 				'college',
+				'highschool',
 				'federal',
 				'provincial',
 				'ministry',
+				'municipal',
+				'international',
+				'ngo',
+				'community',
+				'business',
+				'media',
+				'retired',
 				'other');
 foreach($meta_fields as $field){
 	$$field = get_input($field);
@@ -135,6 +143,9 @@ if (elgg_get_config('allow_registration')) {
 
 			if($institution === 'college' && $college === 'default_invalid_value')
 				$resulting_error .= elgg_echo('gcRegister:CollegeNotSelected').'<br/>';
+
+			if($institution === 'highschool' && $highschool === '')
+				$resulting_error .= elgg_echo('gcRegister:HighschoolNotSelected').'<br/>';
 		}
 
 		// check if the provincial department is filled
@@ -146,7 +157,35 @@ if (elgg_get_config('allow_registration')) {
 				$resulting_error .= elgg_echo('gcRegister:MinistryNotSelected').'<br/>';
 		}
 
-		// check if the federal department is filled
+		// check if the municipal department is filled
+		if ($user_type === 'municipal' && $municipal === '')
+			$resulting_error .= elgg_echo('gcRegister:MunicipalNotSelected').'<br/>';
+
+		// check if the international department is filled
+		if ($user_type === 'international' && $international === '')
+			$resulting_error .= elgg_echo('gcRegister:InternationalNotSelected').'<br/>';
+
+		// check if the NGO department is filled
+		if ($user_type === 'ngo' && $ngo === '')
+			$resulting_error .= elgg_echo('gcRegister:NGONotSelected').'<br/>';
+
+		// check if the community department is filled
+		if ($user_type === 'community' && $community === '')
+			$resulting_error .= elgg_echo('gcRegister:CommunityNotSelected').'<br/>';
+
+		// check if the business department is filled
+		if ($user_type === 'business' && $business === '')
+			$resulting_error .= elgg_echo('gcRegister:BusinessNotSelected').'<br/>';
+
+		// check if the media department is filled
+		if ($user_type === 'media' && $media === '')
+			$resulting_error .= elgg_echo('gcRegister:MediaNotSelected').'<br/>';
+
+		// check if the retired department is filled
+		if ($user_type === 'retired' && $retired === '')
+			$resulting_error .= elgg_echo('gcRegister:RetiredNotSelected').'<br/>';
+
+		// check if the other department is filled
 		if ($user_type === 'other' && $other === '')
 			$resulting_error .= elgg_echo('gcRegister:OtherNotSelected').'<br/>';
 

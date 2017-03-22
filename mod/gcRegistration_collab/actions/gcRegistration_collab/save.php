@@ -99,6 +99,29 @@ if( !empty($type) && !empty($key) && !empty($dept_en) && !empty($dept_fr) ){
 		$colleges->save();
 
 		echo true;
+	} else if($type == 'municipal'){
+		$munObj = elgg_get_entities(array(
+		   	'type' => 'object',
+		   	'subtype' => 'municipal',
+		));
+		$municipals = get_entity($munObj[0]->guid);
+
+		$municipals_en = json_decode($municipals->municipal_en, true);
+		$municipals_fr = json_decode($municipals->municipal_fr, true);
+
+		if( isset($id) ){
+			$municipals_en[$id] = $dept_en;
+			$municipals_fr[$id] = $dept_fr;
+		} else {
+			$municipals_en[$key] = $dept_en;
+			$municipals_fr[$key] = $dept_fr;
+		}
+
+		$municipals->set('municipal_en', json_encode($municipals_en));
+		$municipals->set('municipal_fr', json_encode($municipals_fr));
+		$municipals->save();
+
+		echo true;
 	} else if($type == 'other'){
 		$otherObj = elgg_get_entities(array(
 		   	'type' => 'object',

@@ -450,31 +450,27 @@ if ( !$deptObj ){
 	$depts->set('federal_departments_fr', json_encode($federal_departments_fr));
 	$depts->save();
 } else {
-	$departments = get_entity($deptObj[0]->guid);
-	if ($departments->federal_departments_en != $federal_departments_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'federal_departments_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$depts = get_entity($deptObj[0]->guid);
+	$depts_en = json_decode($depts->federal_departments_en, true);
+	if ($depts_en != $federal_departments_en){
+		foreach ($federal_departments_en as $key => $value){
+			if ($depts_en[$key] != $value){
+				$depts_en[$key] = $value;
 			}
 		}
-		$departments->set('federal_departments_en', json_encode($federal_departments_en));
-		$departments->save();
+		$depts->set('federal_departments_en', json_encode($depts_en));
+		$depts->save();
 	}
 
-	if ($departments->federal_departments_fr != $federal_departments_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'federal_departments_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$depts_fr = json_decode($depts->federal_departments_fr, true);
+	if ($depts_fr != $federal_departments_fr){
+		foreach ($federal_departments_fr as $key => $value){
+			if ($depts_fr[$key] != $value){
+				$depts_fr[$key] = $value;
 			}
 		}
-		$departments->set('federal_departments_fr', json_encode($federal_departments_fr));
-		$departments->save();
+		$depts->set('federal_departments_fr', json_encode($depts_fr));
+		$depts->save();
 	}
 }
 
@@ -522,31 +518,27 @@ if ( !$provObj ){
 	$provs->set('provinces_fr', json_encode($provinces_fr));
 	$provs->save();
 } else {
-	$provinces = get_entity($provObj[0]->guid);
-	if ($provinces->provinces_en != $provinces_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'provinces_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$provs = get_entity($provObj[0]->guid);
+	$provs_en = json_decode($provs->provinces_en, true);
+	if ($provs_en != $provinces_en){
+		foreach ($provinces_en as $key => $value){
+			if ($provs_en[$key] != $value){
+				$provs_en[$key] = $value;
 			}
 		}
-		$provinces->set('provinces_en', json_encode($provinces_en));
-		$provinces->save();
+		$provs->set('provinces_en', json_encode($provs_en));
+		$provs->save();
 	}
 
-	if ($provinces->provinces_fr != $provinces_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'provinces_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$provs_fr = json_decode($provs->provinces_fr, true);
+	if ($provs_fr != $provinces_fr){
+		foreach ($provinces_fr as $key => $value){
+			if ($provs_fr[$key] != $value){
+				$provs_fr[$key] = $value;
 			}
 		}
-		$provinces->set('provinces_fr', json_encode($provinces_fr));
-		$provinces->save();
+		$provs->set('provinces_fr', json_encode($provs_fr));
+		$provs->save();
 	}
 }
 
@@ -1440,31 +1432,27 @@ if ( !$minObj ){
 	$mins->set('ministries_fr', json_encode($ministries_fr));
 	$mins->save();
 } else {
-	$ministries = get_entity($minObj[0]->guid);
-	if ($ministries->ministries_en != $ministries_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'ministries_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$mins = get_entity($minObj[0]->guid);
+	$mins_en = json_decode($mins->ministries_en, true);
+	if ($mins_en != $ministries_en){
+		foreach ($ministries_en as $key => $value){
+			if ($mins_en[$key] != $value){
+				$mins_en[$key] = $value;
 			}
 		}
-		$ministries->set('ministries_en', json_encode($ministries_en));
-		$ministries->save();
+		$mins->set('ministries_en', json_encode($mins_en));
+		$mins->save();
 	}
 
-	if ($ministries->ministries_fr != $ministries_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'ministries_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$mins_fr = json_decode($mins->ministries_fr, true);
+	if ($mins_fr != $ministries_fr){
+		foreach ($ministries_fr as $key => $value){
+			if ($mins_fr[$key] != $value){
+				$mins_fr[$key] = $value;
 			}
 		}
-		$ministries->set('ministries_fr', json_encode($ministries_fr));
-		$ministries->save();
+		$mins->set('ministries_fr', json_encode($mins_fr));
+		$mins->save();
 	}
 }
 
@@ -1583,31 +1571,27 @@ if ( !$uniObj ){
 	$unis->set('universities_fr', json_encode($universities_fr));
 	$unis->save();
 } else {
-	$universities = get_entity($uniObj[0]->guid);
-	if ($universities->universities_en != $universities_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'universities_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$unis = get_entity($uniObj[0]->guid);
+	$unis_en = json_decode($unis->universities_en, true);
+	if ($unis_en != $universities_en){
+		foreach ($universities_en as $key => $value){
+			if ($unis_en[$key] != $value){
+				$unis_en[$key] = $value;
 			}
 		}
-		$universities->set('universities_en', json_encode($universities_en));
-		$universities->save();
+		$unis->set('universities_en', json_encode($unis_en));
+		$unis->save();
 	}
 
-	if ($universities->universities_fr != $universities_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'universities_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$unis_fr = json_decode($unis->universities_fr, true);
+	if ($unis_fr != $universities_fr){
+		foreach ($universities_fr as $key => $value){
+			if ($unis_fr[$key] != $value){
+				$unis_fr[$key] = $value;
 			}
 		}
-		$universities->set('universities_fr', json_encode($universities_fr));
-		$universities->save();
+		$unis->set('universities_fr', json_encode($unis_fr));
+		$unis->save();
 	}
 }
 
@@ -1755,31 +1739,77 @@ if ( !$colObj ){
 	$cols->set('colleges_fr', json_encode($colleges_fr));
 	$cols->save();
 } else {
-	$colleges = get_entity($colObj[0]->guid);
-	if ($colleges->colleges_en != $colleges_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'colleges_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$cols = get_entity($colObj[0]->guid);
+	$cols_en = json_decode($cols->colleges_en, true);
+	if ($cols_en != $colleges_en){
+		foreach ($colleges_en as $key => $value){
+			if ($cols_en[$key] != $value){
+				$cols_en[$key] = $value;
 			}
 		}
-		$colleges->set('colleges_en', json_encode($colleges_en));
-		$colleges->save();
+		$cols->set('colleges_en', json_encode($cols_en));
+		$cols->save();
 	}
 
-	if ($colleges->colleges_fr != $colleges_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'colleges_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$cols_fr = json_decode($cols->colleges_fr, true);
+	if ($cols_fr != $colleges_fr){
+		foreach ($colleges_fr as $key => $value){
+			if ($cols_fr[$key] != $value){
+				$cols_fr[$key] = $value;
 			}
 		}
-		$colleges->set('colleges_fr', json_encode($colleges_fr));
-		$colleges->save();
+		$cols->set('colleges_fr', json_encode($cols_fr));
+		$cols->save();
+	}
+}
+
+/**** Municipal ****/
+
+$municipal_en = array();
+// $municipal_en = array("XXX" => "YYY",
+// "XXX" => "YYY",
+// "XXX" => "YYY");
+
+$municipal_fr = array();
+// $municipal_fr = array("XXX" => "YYY",
+// "XXX" => "YYY",
+// "XXX" => "YYY");
+
+$munObj = elgg_get_entities(array(
+   	'type' => 'object',
+   	'subtype' => 'municipal',
+));
+if ( !$munObj ){
+	$muns = new ElggObject();
+	$muns->subtype = "municipal";
+	$muns->title = "municipal";
+	$muns->access_id = ACCESS_PUBLIC;
+
+	$muns->set('municipal_en', json_encode($municipal_en));
+	$muns->set('municipal_fr', json_encode($municipal_fr));
+	$muns->save();
+} else {
+	$muns = get_entity($munObj[0]->guid);
+	$muns_en = json_decode($muns->municipal_en, true);
+	if ($muns_en != $municipal_en){
+		foreach ($municipal_en as $key => $value){
+			if ($muns_en[$key] != $value){
+				$muns_en[$key] = $value;
+			}
+		}
+		$muns->set('municipal_en', json_encode($muns_en));
+		$muns->save();
+	}
+
+	$muns_fr = json_decode($muns->municipal_fr, true);
+	if ($muns_fr != $municipal_fr){
+		foreach ($municipal_fr as $key => $value){
+			if ($muns_fr[$key] != $value){
+				$muns_fr[$key] = $value;
+			}
+		}
+		$muns->set('municipal_fr', json_encode($muns_fr));
+		$muns->save();
 	}
 }
 
@@ -1808,39 +1838,35 @@ $otherObj = elgg_get_entities(array(
    	'subtype' => 'other',
 ));
 if ( !$otherObj ){
-	$other = new ElggObject();
-	$other->subtype = "other";
-	$other->title = "other";
-	$other->access_id = ACCESS_PUBLIC;
+	$oths = new ElggObject();
+	$oths->subtype = "other";
+	$oths->title = "other";
+	$oths->access_id = ACCESS_PUBLIC;
 
-	$other->set('other_en', json_encode($other_en));
-	$other->set('other_fr', json_encode($other_fr));
-	$other->save();
+	$oths->set('other_en', json_encode($other_en));
+	$oths->set('other_fr', json_encode($other_fr));
+	$oths->save();
 } else {
-	$other = get_entity($otherObj[0]->guid);
-	if ($other->other_en != $other_en){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'other_en',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$oths = get_entity($otherObj[0]->guid);
+	$oths_en = json_decode($oths->other_en, true);
+	if ($oths_en != $other_en){
+		foreach ($other_en as $key => $value){
+			if ($oths_en[$key] != $value){
+				$oths_en[$key] = $value;
 			}
 		}
-		$other->set('other_en', json_encode($other_en));
-		$other->save();
+		$oths->set('other_en', json_encode($oths_en));
+		$oths->save();
 	}
 
-	if ($other->other_fr != $other_fr){
-		$meta = elgg_get_metadata(array(
-			'metadata_name' => 'other_fr',
-		));
-		if($meta){
-			foreach ($meta as $x){
-				$x->delete();
+	$oths_fr = json_decode($oths->other_fr, true);
+	if ($oths_fr != $other_fr){
+		foreach ($other_fr as $key => $value){
+			if ($oths_fr[$key] != $value){
+				$oths_fr[$key] = $value;
 			}
 		}
-		$other->set('other_fr', json_encode($other_fr));
-		$other->save();
+		$oths->set('other_fr', json_encode($oths_fr));
+		$oths->save();
 	}
 }

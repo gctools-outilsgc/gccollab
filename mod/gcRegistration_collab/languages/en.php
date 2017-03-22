@@ -9,6 +9,7 @@ $english = array(
 	'gcRegister:occupation:provincial' => "Provincial/Territorial Government",
 	'gcRegister:occupation:municipal' => "Municipal Government",
 	'gcRegister:occupation:international' => "International/Foreign Government",
+	'gcRegister:occupation:ngo' => "Non-Governmental Organization",
 	'gcRegister:occupation:community' => "Community/Non-profit",
 	'gcRegister:occupation:business' => "Business",
 	'gcRegister:occupation:media' => "Media",
@@ -22,6 +23,7 @@ $english = array(
 	'gcRegister:department' => 'Organization',
 	'gcRegister:university' => 'University',
 	'gcRegister:college' => 'College',
+	'gcRegister:highschool' => 'High School',
 	'gcRegister:province' => 'Province/Territory',
 	'gcRegister:ministry' => 'Ministry',
 
@@ -38,7 +40,6 @@ $english = array(
 	'gcRegister:please_enter_name' => 'Please enter display name',
 	'gcRegister:department_name' => 'Enter your Department',
 	'gcRegister:register' => 'Register',
-	'gcRegister:other' => 'Please enter the name of your organization',
 	'gcRegister:has_invited' => ' invited you to join GCcollab',
 
 	// error messages on the form
@@ -54,8 +55,16 @@ $english = array(
 	'gcRegister:InstitutionNotSelected' => '<a href="#institution">Institution not selected</a>',
 	'gcRegister:UniversityNotSelected' => '<a href="#university">University not selected</a>',
 	'gcRegister:CollegeNotSelected' => '<a href="#college">College not selected</a>',
+	'gcRegister:HighschoolNotSelected' => '<a href="#highschool">High School not entered</a>',
 	'gcRegister:ProvincialNotSelected' => '<a href="#provincial">Province/Territory not selected</a>',
 	'gcRegister:MinistryNotSelected' => '<a href="#ministry">Ministry not selected</a>',
+	'gcRegister:MunicipalNotSelected' => '<a href="#municipal">Organization not entered</a>',
+	'gcRegister:InternationalNotSelected' => '<a href="#international">Organization not entered</a>',
+	'gcRegister:NGONotSelected' => '<a href="#ngo">Organization not entered</a>',
+	'gcRegister:CommunityNotSelected' => '<a href="#community">Organization not entered</a>',
+	'gcRegister:BusinessNotSelected' => '<a href="#business">Organization not entered</a>',
+	'gcRegister:MediaNotSelected' => '<a href="#media">Organization not entered</a>',
+	'gcRegister:RetiredNotSelected' => '<a href="#retired">Organization not entered</a>',
 	'gcRegister:OtherNotSelected' => '<a href="#other">Organization not entered</a>',
 
 	// notice

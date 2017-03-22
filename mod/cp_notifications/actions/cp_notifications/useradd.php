@@ -22,6 +22,13 @@ $university = get_input('university');
 $college = get_input('college');
 $provincial = get_input('provincial');
 $ministry = get_input('ministry');
+$municipal = get_input('municipal');
+$international = get_input('international');
+$ngo = get_input('ngo');
+$community = get_input('community');
+$business = get_input('business');
+$media = get_input('media');
+$retired = get_input('retired');
 $other = get_input('other');
 
 $admin = get_input('admin');
@@ -67,6 +74,13 @@ try {
 		if($college){ $new_user->college = $college; }
 		if($provincial){ $new_user->provincial = $provincial; }
 		if($ministry){ $new_user->ministry = $ministry; }
+		if($municipal){ $new_user->municipal = $municipal; }
+		if($international){ $new_user->international = $international; }
+		if($ngo){ $new_user->ngo = $ngo; }
+		if($community){ $new_user->community = $community; }
+		if($business){ $new_user->business = $business; }
+		if($media){ $new_user->media = $media; }
+		if($retired){ $new_user->retired = $retired; }
 		if($other){ $new_user->other = $other; }
 
 		$subject = elgg_echo('useradd:subject', array(), $new_user->language);

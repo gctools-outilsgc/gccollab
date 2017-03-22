@@ -34,6 +34,7 @@ $(document).ready(function() {
 		if (type == 'federal') {
 			$('#federal-wrapper').fadeIn();
 		} else if (type == 'academic' || type == 'student') {
+			if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
 			$('#institution-wrapper').fadeIn();
 			var institution = $('#institution').val();
 			$('#' + institution + '-wrapper').fadeIn();
@@ -42,8 +43,8 @@ $(document).ready(function() {
 			var province = $('#provincial').val();
 			province = province.replace(/\s+/g, '-').toLowerCase();
 			$('#' + province + '-wrapper').fadeIn();
-		} else if (type == 'other') {
-			$('#other-wrapper').fadeIn();
+		} else {
+			$('#' + type + '-wrapper').fadeIn();
 		}
 	});
 
@@ -74,6 +75,12 @@ $(document).ready(function() {
 		<option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option>
 		<option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option>
 		<option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option>
+		<option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option>
+		<option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option>
+		<option value="ngo"><?php echo elgg_echo('gcRegister:occupation:ngo'); ?></option>
+		<option value="community"><?php echo elgg_echo('gcRegister:occupation:community'); ?></option>
+		<option value="business"><?php echo elgg_echo('gcRegister:occupation:business'); ?></option>
+		<option value="media"><?php echo elgg_echo('gcRegister:occupation:media'); ?></option>
 		<option value="retired"><?php echo elgg_echo('gcRegister:occupation:retired'); ?></option>
 		<option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option>
 	</select>
@@ -102,13 +109,13 @@ $(document).ready(function() {
 	));
 ?>
 
-<div class="occupation-choices" id="federal-wrapper">
+<div class="form-group occupation-choices" id="federal-wrapper">
 	<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
 	<?php echo $federal_choices; ?>
 </div>
 
 <!-- Universities or Colleges -->
-<div class="occupation-choices" id="institution-wrapper" hidden>
+<div class="form-group occupation-choices" id="institution-wrapper" hidden>
 	<label for="institution" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label><br />
 	<select id="institution" name="institution" class="form-control">
 		<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
@@ -197,7 +204,7 @@ $(document).ready(function() {
 	));
 ?>
 
-<div class="occupation-choices" id="provincial-wrapper" hidden>
+<div class="form-group occupation-choices" id="provincial-wrapper" hidden>
 	<label for="provincial" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:province'); ?></span></label><br />
 	<?php echo $provincial_choices; ?>
 </div>
@@ -230,6 +237,118 @@ $(document).ready(function() {
 ?>
 
 <?php
+	$munObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'municipal',
+	));
+	$municipals = get_entity($munObj[0]->guid);
+
+	$municipal = array();
+	if (get_current_language() == 'en'){
+		$municipal = json_decode($municipals->municipal_en, true);
+	} else {
+		$municipal = json_decode($municipals->municipal_fr, true);
+	}
+
+	$municipal_choices = elgg_view('input/text', array(
+		'name' => 'municipal',
+		'id' => 'municipal',
+        'class' => 'form-control',
+        'list' => 'municipal-list'
+	));
+?>
+
+<div class="form-group occupation-choices" id="municipal-wrapper" hidden>
+	<label for="municipal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $municipal_choices; ?>
+	<datalist id="municipal-list">
+		<?php
+			foreach($municipal as $municipal_name => $value){
+				echo '<option value="' . $municipal_name . '">' . $value . '</option>';
+			}
+		?>
+	</datalist>
+</div>
+
+<?php
+	$international_choices = elgg_view('input/text', array(
+		'name' => 'international',
+		'id' => 'international',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="international-wrapper" hidden>
+	<label for="international" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $international_choices; ?>
+</div>
+
+<?php
+	$ngo_choices = elgg_view('input/text', array(
+		'name' => 'ngo',
+		'id' => 'ngo',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="ngo-wrapper" hidden>
+	<label for="ngo" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $ngo_choices; ?>
+</div>
+
+<?php
+	$community_choices = elgg_view('input/text', array(
+		'name' => 'community',
+		'id' => 'community',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="community-wrapper" hidden>
+	<label for="community" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $community_choices; ?>
+</div>
+
+<?php
+	$business_choices = elgg_view('input/text', array(
+		'name' => 'business',
+		'id' => 'business',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="business-wrapper" hidden>
+	<label for="business" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $business_choices; ?>
+</div>
+
+<?php
+	$media_choices = elgg_view('input/text', array(
+		'name' => 'media',
+		'id' => 'media',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="media-wrapper" hidden>
+	<label for="media" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $media_choices; ?>
+</div>
+
+<?php
+	$retired_choices = elgg_view('input/text', array(
+		'name' => 'retired',
+		'id' => 'retired',
+        'class' => 'form-control',
+	));
+?>
+
+<div class="form-group occupation-choices" id="retired-wrapper" hidden>
+	<label for="retired" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $retired_choices; ?>
+</div>
+
+<?php
 	$otherObj = elgg_get_entities(array(
 	   	'type' => 'object',
 	   	'subtype' => 'other',
@@ -247,14 +366,14 @@ $(document).ready(function() {
 		'name' => 'other',
 		'id' => 'other',
         'class' => 'form-control',
-        'list' => 'otherlist'
+        'list' => 'other-list'
 	));
 ?>
 
-<div class="occupation-choices" id="other-wrapper" hidden>
+<div class="form-group occupation-choices" id="other-wrapper" hidden>
 	<label for="other" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:other'); ?></span></label><br />
 	<?php echo $other_choices; ?>
-	<datalist id="otherlist">
+	<datalist id="other-list">
 		<?php
 			foreach($other as $other_name => $value){
 				echo '<option value="' . $other_name . '"></option>';

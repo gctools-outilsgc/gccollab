@@ -201,18 +201,26 @@
         </script>
 
         <hr />
+    <div class="form-group">
+        <label for="user-stats"><?php echo elgg_echo("gccollab_stats:types:select"); ?></label>
+        <select id="user-stats" class="form-control user-select">
+            <option value="all"><?php echo elgg_echo("gccollab_stats:types:title"); ?></option>
+            <option value="federal"><?php echo elgg_echo("gccollab_stats:federal:title"); ?></option>
+            <option value="student"><?php echo elgg_echo("gccollab_stats:student:title"); ?></option>
+            <option value="academic"><?php echo elgg_echo("gccollab_stats:academic:title"); ?></option>
+            <option value="provincial"><?php echo elgg_echo("gccollab_stats:provincial:title"); ?></option>
+            <option value="municipal"><?php echo elgg_echo("gccollab_stats:municipal:title"); ?></option>
+            <option value="international"><?php echo elgg_echo("gccollab_stats:international:title"); ?></option>
+            <option value="ngo"><?php echo elgg_echo("gccollab_stats:ngo:title"); ?></option>
+            <option value="community"><?php echo elgg_echo("gccollab_stats:community:title"); ?></option>
+            <option value="business"><?php echo elgg_echo("gccollab_stats:business:title"); ?></option>
+            <option value="media"><?php echo elgg_echo("gccollab_stats:media:title"); ?></option>
+            <option value="retired"><?php echo elgg_echo("gccollab_stats:retired:title"); ?></option>
+            <option value="other"><?php echo elgg_echo("gccollab_stats:other:title"); ?></option>
+        </select>
+    </div>
 
-    <ul id="member-stats-nav" class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:types:title"); ?></a></li>
-        <li role="presentation"><a href="#federal" aria-controls="federal" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:federal:title"); ?></a></li>
-        <li role="presentation"><a href="#provincial" aria-controls="provincial" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:provincial:title"); ?></a></li>
-        <li role="presentation"><a href="#student" aria-controls="student" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:student:title"); ?></a></li>
-        <li role="presentation"><a href="#academic" aria-controls="academic" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:academic:title"); ?></a></li>
-        <li role="presentation"><a href="#other" aria-controls="other" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:other:title"); ?></a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="all">
+    <div class="user-stats" id="all">
 
         <div class="chart" id="allMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
@@ -273,9 +281,9 @@
                 });
             });
         </script>
-        </div>
+    </div>
 
-        <div role="tabpanel" class="tab-pane" id="federal">
+    <div class="user-stats" id="federal">
 
         <div class="chart" id="federalMembers" style="min-height: 1000px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
@@ -337,88 +345,9 @@
                 });
             });
         </script>
-        </div>
+    </div>
 
-        <div role="tabpanel" class="tab-pane" id="provincial">
-
-        <div class="chart" id="provincialMembers" style="min-height: 400px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
-
-        <script>
-            $(function () {
-                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=provincial&lang=' + lang, function (data) {
-                    var provincialMembers = [];
-                    var provincialMembersDrilldown = [];
-                    var provincialMembersCount = 0;
-                    $.each(data.result, function(key, value) {
-                        provincialMembers.push({'name': key, 'y': value['total'], 'drilldown': key});
-                        provincialMembersCount += value['total'];
-
-                        var provinceData = [];
-                        var unknownCount = 0;
-                        $.each(value, function(ministry, count){
-                            if(ministry != 'total' && ministry != 'default_invalid_value' && ministry != ''){
-                                provinceData.push([ministry, count]);
-                            } else if(ministry === 'default_invalid_value' || ministry === ''){
-                                unknownCount += count;
-                            }
-                        });
-                        if(unknownCount > 0){ provinceData.push(['<?php echo elgg_echo('gccollab_stats:unknown'); ?>', unknownCount]); }
-                        provinceData.sort();
-                        provincialMembersDrilldown.push({'name': key, 'id': key, 'data': provinceData});
-                    });
-                    provincialMembers.sort(SortByName);
-                    provincialMembersDrilldown.sort(SortByName);
-
-                    Highcharts.chart('provincialMembers', {
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: '<?php echo elgg_echo("gccollab_stats:provincial:title"); ?> (' + provincialMembersCount + ')'
-                        },
-                        subtitle: {
-                            text: '<?php echo elgg_echo("gccollab_stats:ministrymessage"); ?>'
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        yAxis: {
-                            title: {
-                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
-                            }
-
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        plotOptions: {
-                            series: {
-                                borderWidth: 0,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.y}'
-                                }
-                            }
-                        },
-                        tooltip: {
-                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
-                        },
-                        series: [{
-                            name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
-                            colorByPoint: true,
-                            data: provincialMembers
-                        }],
-                        drilldown: {
-                            series: provincialMembersDrilldown
-                        }
-                    });
-                });
-            });
-        </script>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="student">
+    <div class="user-stats" id="student">
 
         <div class="chart" id="studentMembers" style="min-height: 800px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
@@ -514,9 +443,9 @@
                 });
             });
         </script>
-        </div>
+    </div>
 
-        <div role="tabpanel" class="tab-pane" id="academic">
+    <div class="user-stats" id="academic">
 
         <div class="chart" id="academicMembers" style="min-height: 800px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
@@ -611,9 +540,501 @@
                 });
             });
         </script>
-        </div>
+    </div>
 
-        <div role="tabpanel" class="tab-pane" id="other">
+    <div class="user-stats" id="provincial">
+
+        <div class="chart" id="provincialMembers" style="min-height: 400px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=provincial&lang=' + lang, function (data) {
+                    var provincialMembers = [];
+                    var provincialMembersDrilldown = [];
+                    var provincialMembersCount = 0;
+                    $.each(data.result, function(key, value) {
+                        provincialMembers.push({'name': key, 'y': value['total'], 'drilldown': key});
+                        provincialMembersCount += value['total'];
+
+                        var provinceData = [];
+                        var unknownCount = 0;
+                        $.each(value, function(ministry, count){
+                            if(ministry != 'total' && ministry != 'default_invalid_value' && ministry != ''){
+                                provinceData.push([ministry, count]);
+                            } else if(ministry === 'default_invalid_value' || ministry === ''){
+                                unknownCount += count;
+                            }
+                        });
+                        if(unknownCount > 0){ provinceData.push(['<?php echo elgg_echo('gccollab_stats:unknown'); ?>', unknownCount]); }
+                        provinceData.sort();
+                        provincialMembersDrilldown.push({'name': key, 'id': key, 'data': provinceData});
+                    });
+                    provincialMembers.sort(SortByName);
+                    provincialMembersDrilldown.sort(SortByName);
+
+                    Highcharts.chart('provincialMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:provincial:title"); ?> (' + provincialMembersCount + ')'
+                        },
+                        subtitle: {
+                            text: '<?php echo elgg_echo("gccollab_stats:ministrymessage"); ?>'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:department"); ?>',
+                            colorByPoint: true,
+                            data: provincialMembers
+                        }],
+                        drilldown: {
+                            series: provincialMembersDrilldown
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="municipal">
+        <div class="chart" id="municipalMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=municipal&lang=' + lang, function (data) {
+                    var municipalMembers = [];
+                    var municipalMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            municipalMembers.push([key.capitalizeFirstLetter(), value]);
+                            municipalMembersCount += value;
+                        }
+                    });
+                    municipalMembers.sort();
+
+                    Highcharts.chart('municipalMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:municipal:title"); ?> (' + municipalMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: municipalMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="international">
+        <div class="chart" id="internationalMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=international&lang=' + lang, function (data) {
+                    var internationalMembers = [];
+                    var internationalMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            internationalMembers.push([key.capitalizeFirstLetter(), value]);
+                            internationalMembersCount += value;
+                        }
+                    });
+                    internationalMembers.sort();
+
+                    Highcharts.chart('internationalMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:international:title"); ?> (' + internationalMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: internationalMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="ngo">
+        <div class="chart" id="ngoMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=ngo&lang=' + lang, function (data) {
+                    var ngoMembers = [];
+                    var ngoMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            ngoMembers.push([key.capitalizeFirstLetter(), value]);
+                            ngoMembersCount += value;
+                        }
+                    });
+                    ngoMembers.sort();
+
+                    Highcharts.chart('ngoMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:ngo:title"); ?> (' + ngoMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: ngoMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="community">
+        <div class="chart" id="communityMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=community&lang=' + lang, function (data) {
+                    var communityMembers = [];
+                    var communityMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            communityMembers.push([key.capitalizeFirstLetter(), value]);
+                            communityMembersCount += value;
+                        }
+                    });
+                    communityMembers.sort();
+
+                    Highcharts.chart('communityMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:community:title"); ?> (' + communityMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: communityMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="business">
+        <div class="chart" id="businessMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=business&lang=' + lang, function (data) {
+                    var businessMembers = [];
+                    var businessMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            businessMembers.push([key.capitalizeFirstLetter(), value]);
+                            businessMembersCount += value;
+                        }
+                    });
+                    businessMembers.sort();
+
+                    Highcharts.chart('businessMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:business:title"); ?> (' + businessMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: businessMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="media">
+        <div class="chart" id="mediaMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=media&lang=' + lang, function (data) {
+                    var mediaMembers = [];
+                    var mediaMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            mediaMembers.push([key.capitalizeFirstLetter(), value]);
+                            mediaMembersCount += value;
+                        }
+                    });
+                    mediaMembers.sort();
+
+                    Highcharts.chart('mediaMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:media:title"); ?> (' + mediaMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: mediaMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="retired">
+        <div class="chart" id="retiredMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=retired&lang=' + lang, function (data) {
+                    var retiredMembers = [];
+                    var retiredMembersCount = 0
+                    $.each(data.result, function(key, value) {
+                        if(key != 'total'){
+                            retiredMembers.push([key.capitalizeFirstLetter(), value]);
+                            retiredMembersCount += value;
+                        }
+                    });
+                    retiredMembers.sort();
+
+                    Highcharts.chart('retiredMembers', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:retired:title"); ?> (' + retiredMembersCount + ')'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:membercount"); ?>'
+                            }
+
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
+                            colorByPoint: true,
+                            data: retiredMembers
+                        }]
+                    });
+                });
+            });
+        </script>
+    </div>
+
+    <div class="user-stats" id="other">
 
         <div class="chart" id="otherMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
@@ -663,7 +1084,7 @@
                             pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
                         },
                         series: [{
-                            name: '<?php echo elgg_echo("gccollab_stats:other"); ?>',
+                            name: '<?php echo elgg_echo("gccollab_stats:organization"); ?>',
                             colorByPoint: true,
                             data: otherMembers
                         }]
@@ -671,27 +1092,38 @@
                 });
             });
         </script>
-        </div>
-
     </div>
 
     <script>
         $(function () {
-            $("#member-stats-nav li a").click(function() {
+            $(".user-stats").not(':eq(0)').hide();
+
+            $(".user-select").change(function(){
+                var type = $(this).val();
+                $(".user-stats").hide();
+                $(".user-stats#" + type).fadeIn();
+
                 setTimeout(function(){
                     $("#registrations").highcharts().reflow();
                     $("#allMembers").highcharts().reflow();
                     $("#federalMembers").highcharts().reflow();
-                    $("#provincialMembers").highcharts().reflow();
                     $("#studentMembers").highcharts().reflow();
                     $("#academicMembers").highcharts().reflow();
+                    $("#provincialMembers").highcharts().reflow();
+                    $("#municipalMembers").highcharts().reflow();
+                    $("#internationalMembers").highcharts().reflow();
+                    $("#ngoMembers").highcharts().reflow();
+                    $("#communityMembers").highcharts().reflow();
+                    $("#businessMembers").highcharts().reflow();
+                    $("#mediaMembers").highcharts().reflow();
+                    $("#retiredMembers").highcharts().reflow();
                     $("#otherMembers").highcharts().reflow();
                 }, 5);
             });
         });
     </script>
 
-<?php if( elgg_is_admin_logged_in() ): ?>
+<?php //if( elgg_is_admin_logged_in() ): ?>
     
     <hr />
 
@@ -1321,7 +1753,7 @@
         });
     </script>
 
-<?php endif; ?>
+<?php //endif; ?>
 
     <?php
 

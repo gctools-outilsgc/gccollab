@@ -664,6 +664,13 @@ function saveProfile(event) {
             profile.provincial = $(".gcconnex-basic-provincial").is(":visible") ? $(".gcconnex-basic-provincial").val() : "";
             profile.ministry = $(".gcconnex-basic-ministry").is(":visible") ? $(".gcconnex-basic-ministry:visible").val() : "";
 
+            profile.municipal = $(".gcconnex-basic-municipal").is(":visible") ? $(".gcconnex-basic-municipal:visible").val() : "";
+            profile.international = $(".gcconnex-basic-international").is(":visible") ? $(".gcconnex-basic-international:visible").val() : "";
+            profile.ngo = $(".gcconnex-basic-ngo").is(":visible") ? $(".gcconnex-basic-ngo:visible").val() : "";
+            profile.community = $(".gcconnex-basic-community").is(":visible") ? $(".gcconnex-basic-community:visible").val() : "";
+            profile.business = $(".gcconnex-basic-business").is(":visible") ? $(".gcconnex-basic-business:visible").val() : "";
+            profile.media = $(".gcconnex-basic-media").is(":visible") ? $(".gcconnex-basic-media:visible").val() : "";
+            profile.retired = $(".gcconnex-basic-retired").is(":visible") ? $(".gcconnex-basic-retired:visible").val() : "";
             profile.other = $(".gcconnex-basic-other").is(":visible") ? $(".gcconnex-basic-other:visible").val() : "";
             
             profile.location = $(".gcconnex-basic-location").val();

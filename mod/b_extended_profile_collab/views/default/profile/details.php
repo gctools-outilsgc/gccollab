@@ -33,7 +33,7 @@ if ($user->canEdit()) {
     echo '<div class="basic-profile-standard-field-wrapper col-sm-6 col-xs-12">'; 
 
     // form that displays the user fields
-    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Other', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
+    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Municipal', 'International', 'NGO', 'Community', 'Business', 'Media', 'Retired', 'Other', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
 
     foreach ($fields as $field) {
 
@@ -42,7 +42,7 @@ if ($user->canEdit()) {
         $value = $user->get($field);
         $value = htmlspecialchars_decode($value);
 
-        if(in_array($field, array("federal", "institution", "provincial", "other"))) {
+        if(in_array($field, array("federal", "institution", "provincial", "municipal", "international", "ngo", "community", "business", "media", "retired", "other"))) {
             echo "<div class='form-group col-xs-12 occupation-choices' id='{$field}-wrapper'>";
         } else if(in_array($field, array("university", "college"))) {
             echo "<div class='form-group col-xs-12 occupation-choices student-choices' id='{$field}-wrapper'>";
@@ -60,7 +60,20 @@ if ($user->canEdit()) {
                 'id' => $field,
                 'class' => "gcconnex-basic-{$field}",
                 'value' => $value,
-                'options_values' => array('federal' => elgg_echo('gcconnex-profile-card:federal'), 'academic' => elgg_echo('gcconnex-profile-card:academic'), 'student' => elgg_echo('gcconnex-profile-card:student'), 'provincial' => elgg_echo('gcconnex-profile-card:provincial'), 'retired' => elgg_echo('gcconnex-profile-card:retired'), 'other' => elgg_echo('gcconnex-profile-card:other')),
+                'options_values' => array(
+                    'federal' => elgg_echo('gcconnex-profile-card:federal'),
+                    'academic' => elgg_echo('gcconnex-profile-card:academic'),
+                    'student' => elgg_echo('gcconnex-profile-card:student'),
+                    'provincial' => elgg_echo('gcconnex-profile-card:provincial'),
+                    'municipal' => elgg_echo('gcconnex-profile-card:municipal'),
+                    'international' => elgg_echo('gcconnex-profile-card:international'),
+                    'ngo' => elgg_echo('gcconnex-profile-card:ngo'),
+                    'community' => elgg_echo('gcconnex-profile-card:community'),
+                    'business' => elgg_echo('gcconnex-profile-card:business'),
+                    'media' => elgg_echo('gcconnex-profile-card:media'),
+                    'retired' => elgg_echo('gcconnex-profile-card:retired'),
+                    'other' => elgg_echo('gcconnex-profile-card:other')
+                ),
             ));
 
             // jquery for the occupation dropdown - institution
@@ -82,8 +95,8 @@ if ($user->canEdit()) {
                     var province = $('#provincial').val();
                     province = province.replace(/\s+/g, '-').toLowerCase();
                     $('#' + province + '-wrapper').fadeIn();
-                } else if (user_type == 'other') {
-                    $('#other-wrapper').fadeIn();
+                } else {
+                    $('#' + user_type + '-wrapper').fadeIn();
                 }
 
                 $("#user_type").change(function() {
@@ -93,6 +106,7 @@ if ($user->canEdit()) {
                     if (type == 'federal') {
                         $('#federal-wrapper').fadeIn();
                     } else if (type == 'academic' || type == 'student') {
+                        if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
                         $('#institution-wrapper').fadeIn();
                         var institution = $('#institution').val();
                         $('#' + institution + '-wrapper').fadeIn();
@@ -101,8 +115,8 @@ if ($user->canEdit()) {
                         var province = $('#provincial').val();
                         province = province.replace(/\s+/g, '-').toLowerCase();
                         $('#' + province + '-wrapper').fadeIn();
-                    } else if (type == 'other') {
-                        $('#other-wrapper').fadeIn();
+                    } else {
+                        $('#' + type + '-wrapper').fadeIn();
                     }
                 });
 
@@ -150,62 +164,6 @@ if ($user->canEdit()) {
                 'options_values' => $federal_departments,
             ));
         
-        // provincial input field
-        } else if ($field == 'provincial') {
-
-            echo "<label for='{$field}' class='col-sm-4 {$field}'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
-            echo '<div class="col-sm-8">';
-
-            $provObj = elgg_get_entities(array(
-                'type' => 'object',
-                'subtype' => 'provinces',
-            ));
-            $provs = get_entity($provObj[0]->guid);
-
-            $provincial_departments = array();
-            if (get_current_language() == 'en'){
-                $provincial_departments = json_decode($provs->provinces_en, true);
-            } else {
-                $provincial_departments = json_decode($provs->provinces_fr, true);
-            }
-
-            echo elgg_view('input/select', array(
-                'name' => $field,
-                'id' => $field,
-                'class' => ' gcconnex-basic-' . $field,
-                'value' => $value,
-                'options_values' => $provincial_departments,
-            ));
-
-            echo "</div></div>";
-
-            $minObj = elgg_get_entities(array(
-                'type' => 'object',
-                'subtype' => 'ministries',
-            ));
-            $mins = get_entity($minObj[0]->guid);
-
-            $ministries = array();
-            if (get_current_language() == 'en'){
-                $ministries = json_decode($mins->ministries_en, true);
-            } else {
-                $ministries = json_decode($mins->ministries_fr, true);
-            }
-
-            foreach($provincial_departments as $province => $name){
-                $prov_value = ($user->get('provincial') == $province) ? $user->get('ministry'): "";
-                $prov_id = str_replace(" ", "-", strtolower($province));
-                echo '<div class="form-group col-xs-12 occupation-choices provincial-choices" id="' . $prov_id . '-wrapper"><label for="' . $prov_id . '-choices" class="col-sm-4">' . elgg_echo('gcconnex_profile:basic:ministry') . '</label><div class="col-sm-8">';
-                echo elgg_view('input/select', array(
-                    'name' => 'ministry',
-                    'id' => $prov_id . '-choices',
-                    'class' => 'form-control gcconnex-basic-ministry',
-                    'value' => $prov_value,
-                    'options_values' => $ministries[$province],
-                ));
-                if($province != "Yukon"){ echo '</div></div>'; }
-            }
-            
         } else if (strcmp($field, 'institution') == 0) {
 
             echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
@@ -273,6 +231,94 @@ if ($user->canEdit()) {
                 'options_values' => $colleges, 
             ));       
 
+        // provincial input field
+        } else if ($field == 'provincial') {
+
+            echo "<label for='{$field}' class='col-sm-4 {$field}'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
+            echo '<div class="col-sm-8">';
+
+            $provObj = elgg_get_entities(array(
+                'type' => 'object',
+                'subtype' => 'provinces',
+            ));
+            $provs = get_entity($provObj[0]->guid);
+
+            $provincial_departments = array();
+            if (get_current_language() == 'en'){
+                $provincial_departments = json_decode($provs->provinces_en, true);
+            } else {
+                $provincial_departments = json_decode($provs->provinces_fr, true);
+            }
+
+            echo elgg_view('input/select', array(
+                'name' => $field,
+                'id' => $field,
+                'class' => ' gcconnex-basic-' . $field,
+                'value' => $value,
+                'options_values' => $provincial_departments,
+            ));
+
+            echo "</div></div>";
+
+            $minObj = elgg_get_entities(array(
+                'type' => 'object',
+                'subtype' => 'ministries',
+            ));
+            $mins = get_entity($minObj[0]->guid);
+
+            $ministries = array();
+            if (get_current_language() == 'en'){
+                $ministries = json_decode($mins->ministries_en, true);
+            } else {
+                $ministries = json_decode($mins->ministries_fr, true);
+            }
+
+            foreach($provincial_departments as $province => $name){
+                $prov_value = ($user->get('provincial') == $province) ? $user->get('ministry'): "";
+                $prov_id = str_replace(" ", "-", strtolower($province));
+                echo '<div class="form-group col-xs-12 occupation-choices provincial-choices" id="' . $prov_id . '-wrapper"><label for="' . $prov_id . '-choices" class="col-sm-4">' . elgg_echo('gcconnex_profile:basic:ministry') . '</label><div class="col-sm-8">';
+                echo elgg_view('input/select', array(
+                    'name' => 'ministry',
+                    'id' => $prov_id . '-choices',
+                    'class' => 'form-control gcconnex-basic-ministry',
+                    'value' => $prov_value,
+                    'options_values' => $ministries[$province],
+                ));
+                if($province != "Yukon"){ echo '</div></div>'; }
+            }
+            
+        } else if (strcmp($field, 'municipal') == 0) {
+
+            echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
+            echo '<div class="col-sm-8">';
+
+            $munObj = elgg_get_entities(array(
+                'type' => 'object',
+                'subtype' => 'municipal',
+            ));
+            $municipals = get_entity($munObj[0]->guid);
+
+            $municipal = array();
+            if (get_current_language() == 'en'){
+                $municipal = json_decode($municipals->other_en, true);
+            } else {
+                $municipal = json_decode($municipals->other_fr, true);
+            }
+
+            echo elgg_view('input/text', array(
+                'name' => $field,
+                'id' => $field,
+                'class' => "gcconnex-basic-{$field}",
+                'value' => $value,
+                'list' => $field . '-list'
+            ));
+
+            echo '<datalist id="municipal-list">';
+                foreach($municipal as $municipal_name => $value){
+                    echo '<option value="' . $municipal_name . '">' . $value . '</option>';
+                }
+            echo '</datalist>';
+
         } else if (strcmp($field, 'other') == 0) {
 
             echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
@@ -296,10 +342,10 @@ if ($user->canEdit()) {
                 'id' => $field,
                 'class' => "gcconnex-basic-{$field}",
                 'value' => $value,
-                'list' => $field . 'list'
+                'list' => $field . '-list'
             ));
 
-            echo '<datalist id="otherlist">';
+            echo '<datalist id="other-list">';
                 foreach($other as $other_name => $value){
                     echo '<option value="' . $other_name . '">' . $value . '</option>';
                 }
@@ -487,18 +533,25 @@ echo '<div class="row mrgn-lft-md mrgn-rght-sm">';
 echo elgg_view('profile/owner_block');
 echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
 
-// if user is student or professor, display the correlated information
-if (strcmp($user->user_type, 'other') == 0 ) {
-    echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
-    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
-    echo '<div class="gcconnex-profile-dept">' . $user->other . '</div>';
+// if user is public servant
+if(strcmp($user->user_type, 'federal') == 0 ) {
+    $deptObj = elgg_get_entities(array(
+        'type' => 'object',
+        'subtype' => 'federal_departments',
+    ));
+    $depts = get_entity($deptObj[0]->guid);
 
-// if user is retired, display the correlated information
-} else if (strcmp($user->user_type, 'retired') == 0 ) {
-    echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
-    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
+    $federal_departments = array();
+    if (get_current_language() == 'en'){
+        $federal_departments = json_decode($depts->federal_departments_en, true);
+    } else {
+        $federal_departments = json_decode($depts->federal_departments_fr, true);
+    }
 
-// if user is student or professor, display the correlated information
+    echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
+    echo '<div class="gcconnex-profile-dept">' . $federal_departments[$user->federal] . '</div>';
+
+// otherwise if user is student or academic
 } else if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
     echo '<h3 class="mrgn-tp-0">'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</h3>';
     $institution = ($user->institution == "university") ? $user->university : $user->college;
@@ -538,23 +591,12 @@ if (strcmp($user->user_type, 'other') == 0 ) {
     $provString = $provinces[$user->provincial];
     if($user->ministry && $user->ministry !== "default_invalid_value"){ $provString .= ' / ' . $ministries[$user->provincial][$user->ministry]; }
     echo '<div class="gcconnex-profile-dept">' . $provString . '</div>';
-// otherwise if user is public servant
-} else if(strcmp($user->user_type, 'federal') == 0 ) {
-    $deptObj = elgg_get_entities(array(
-        'type' => 'object',
-        'subtype' => 'federal_departments',
-    ));
-    $depts = get_entity($deptObj[0]->guid);
 
-    $federal_departments = array();
-    if (get_current_language() == 'en'){
-        $federal_departments = json_decode($depts->federal_departments_en, true);
-    } else {
-        $federal_departments = json_decode($depts->federal_departments_fr, true);
-    }
-
-    echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
-    echo '<div class="gcconnex-profile-dept">' . $federal_departments[$user->federal] . '</div>';
+// otherwise show basic info
+} else {
+    echo '<h3 class="mrgn-tp-0">' . elgg_echo("gcconnex-profile-card:{$user->user_type}") . '</h3>';
+    echo '<div class="gcconnex-profile-job">' . $user->job . '</div>';
+    echo '<div class="gcconnex-profile-dept">' . $user->{$user->user_type} . '</div>';
 }
 
 echo '<div class="gcconnex-profile-location">' . $user->location . '</div>';
