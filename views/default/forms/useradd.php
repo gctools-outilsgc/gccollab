@@ -34,7 +34,12 @@ $(document).ready(function() {
 		if (type == 'federal') {
 			$('#federal-wrapper').fadeIn();
 		} else if (type == 'academic' || type == 'student') {
-			if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+			if( type == 'academic' ){
+				if( $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+				$("#institution option[value='highschool']").hide();
+			} else {
+				$("#institution option[value='highschool']").show();
+			}
 			$('#institution-wrapper').fadeIn();
 			var institution = $('#institution').val();
 			$('#' + institution + '-wrapper').fadeIn();
