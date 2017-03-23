@@ -27,7 +27,7 @@
 				$('#federal-wrapper').fadeIn();
 			} else if (type == 'academic' || type == 'student') {
 				if( type == 'academic' ){
-					if( $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+					if( $("#institution").val() == 'highschool' ){ $("#institution").val(''); }
 					$("#institution option[value='highschool']").hide();
 				} else {
 					$("#institution option[value='highschool']").show();
@@ -67,47 +67,47 @@
 			var institution = "";
 			var organization = "";
 			var organizationObject = {};
-			if( $("#federal").is(":visible") && $("#federal").val() !== "default_invalid_value" ){
+			if( $("#federal").is(":visible") ){
 				organization = $("#federal").val();
 				organizationObject[user_type] = organization;
-			} else if ( $("#university").is(":visible") && $("#university").val() !== "default_invalid_value" ){
+			} else if ( $("#university").is(":visible") ){
 				institution = $("#institution").val();
 				organization = $("#university").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("#college").is(":visible") && $("#college").val() !== "default_invalid_value" ){
+			} else if ( $("#college").is(":visible") ){
 				institution = $("#institution").val();
 				organization = $("#college").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("[name=ministry]").is(":visible") && $("[name=ministry]:visible").val() !== "default_invalid_value" ){
+			} else if ( $("[name=ministry]").is(":visible") ){
 				institution = $("#provincial").val();
 				organization = $("[name=ministry]:visible").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("#municipal").is(":visible") && $("#municipal").val() !== "" ){
-				organization = $("#municipal").val();
+			} else if ( $("#municipal").is(":visible") ){
+				organization = $.trim( $("#municipal").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#international").is(":visible") && $("#international").val() !== "" ){
-				organization = $("#international").val();
+			} else if ( $("#international").is(":visible") ){
+				organization = $.trim( $("#international").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#ngo").is(":visible") && $("#ngo").val() !== "" ){
-				organization = $("#ngo").val();
+			} else if ( $("#ngo").is(":visible") ){
+				organization = $.trim( $("#ngo").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#community").is(":visible") && $("#community").val() !== "" ){
-				organization = $("#community").val();
+			} else if ( $("#community").is(":visible") ){
+				organization = $.trim( $("#community").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#business").is(":visible") && $("#business").val() !== "" ){
-				organization = $("#business").val();
+			} else if ( $("#business").is(":visible") ){
+				organization = $.trim( $("#business").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#media").is(":visible") && $("#media").val() !== "" ){
-				organization = $("#media").val();
+			} else if ( $("#media").is(":visible") ){
+				organization = $.trim( $("#media").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#retired").is(":visible") && $("#retired").val() !== "" ){
-				organization = $("#retired").val();
+			} else if ( $("#retired").is(":visible") ){
+				organization = $.trim( $("#retired").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#other").is(":visible") && $("#other").val() !== "" ){
-				organization = $("#other").val();
+			} else if ( $("#other").is(":visible") ){
+				organization = $.trim( $("#other").val() );
 				organizationObject[user_type] = organization;
 			} else {
 				$('p#error').show().delay(2000).fadeOut();
@@ -169,7 +169,7 @@
 		'name' => 'federal',
 		'id' => 'federal',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $federal_departments),
 	));
 ?>
 
@@ -182,7 +182,7 @@
 <div class="occupation-choices" id="institution-wrapper" hidden>
 	<label for="institution" class="required"><?php echo elgg_echo('Institution'); ?></label>
 	<select id="institution" name="institution" class="form-control">
-		<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
+		<option selected="selected" value=""> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
 		<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
 		<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
 	</select>
@@ -207,7 +207,7 @@
 		'name' => 'university',
 		'id' => 'university',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $universities),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $universities),
 	));
 ?>
 
@@ -236,7 +236,7 @@
 		'name' => 'college',
 		'id' => 'college',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $colleges),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $colleges),
 	));
 ?>
 
@@ -265,7 +265,7 @@
 		'name' => 'provincial',
 		'id' => 'provincial',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $provincial_departments),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $provincial_departments),
 	));
 ?>
 
@@ -295,7 +295,7 @@
 			'name' => 'ministry',
 			'id' => $prov_id,
 	        'class' => 'form-control',
-			'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
+			'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
 		));
 		echo '</div>';
 	}
@@ -405,12 +405,20 @@
 		'name' => 'retired',
 		'id' => 'retired',
         'class' => 'form-control',
+        'list' => 'retired-list'
 	));
 ?>
 
 <div class="form-group occupation-choices" id="retired-wrapper" hidden>
 	<label for="retired" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
 	<?php echo $retired_choices; ?>
+	<datalist id="retired-list">
+		<?php
+			foreach($federal_departments as $federal_name => $value){
+				echo '<option value="' . $value . '"></option>';
+			}
+		?>
+	</datalist>
 </div>
 
 <?php

@@ -53,6 +53,8 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                                 }
                             }
 
+                            if($user->email == $v) $isValid = true;
+
                             if (!$isValid) { // check if domain is gc.ca
                                 $govt_domain = explode('.',$user_email[1]);
                                 $govt_domain_len = count($govt_domain) - 1;                           

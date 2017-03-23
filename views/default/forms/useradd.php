@@ -345,12 +345,20 @@ $(document).ready(function() {
 		'name' => 'retired',
 		'id' => 'retired',
         'class' => 'form-control',
+        'list' => 'retired-list'
 	));
 ?>
 
 <div class="form-group occupation-choices" id="retired-wrapper" hidden>
 	<label for="retired" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
 	<?php echo $retired_choices; ?>
+	<datalist id="retired-list">
+		<?php
+			foreach($federal_departments as $federal_name => $value){
+				echo '<option value="' . $value . '"></option>';
+			}
+		?>
+	</datalist>
 </div>
 
 <?php
@@ -381,7 +389,7 @@ $(document).ready(function() {
 	<datalist id="other-list">
 		<?php
 			foreach($other as $other_name => $value){
-				echo '<option value="' . $other_name . '"></option>';
+				echo '<option value="' . $other_name . '">' . $value . '</option>';
 			}
 		?>
 	</datalist>
