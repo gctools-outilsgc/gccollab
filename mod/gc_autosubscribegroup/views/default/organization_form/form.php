@@ -151,12 +151,13 @@
 </div>
 
 <!-- Universities or Colleges -->
-<div class="occupation-choices" id="institution-wrapper" hidden>
+<div class="occupation-choices" id="institution-wrapper">
 	<label for="institution" class="required"><?php echo elgg_echo('Institution'); ?></label>
 	<select id="institution" name="institution" class="form-control">
 		<option selected="selected" value=""> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
 		<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
 		<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
+		<option value="highschool" hidden> <?php echo elgg_echo('gcRegister:highschool'); ?> </option>
 	</select>
 </div>
 
@@ -241,7 +242,7 @@
 	));
 ?>
 
-<div class="occupation-choices" id="federal-wrapper">
+<div class="occupation-choices" id="federal-wrapper" hidden>
 	<label for="federal" class="required"><?php echo elgg_echo('gcRegister:department'); ?></label>
 	<?php echo $federal_choices; ?>
 </div>
