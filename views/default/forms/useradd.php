@@ -76,9 +76,9 @@ $(document).ready(function() {
 <div>
 	<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label><br />
 	<select id="user_type" name="user_type" class="form-control">
-		<option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option>
 		<option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option>
 		<option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option>
+		<option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option>
 		<option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option>
 		<option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option>
 		<option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option>
@@ -89,34 +89,6 @@ $(document).ready(function() {
 		<option value="retired"><?php echo elgg_echo('gcRegister:occupation:retired'); ?></option>
 		<option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option>
 	</select>
-</div>
-
-<?php
-	$deptObj = elgg_get_entities(array(
-	   	'type' => 'object',
-	   	'subtype' => 'federal_departments',
-	));
-	$depts = get_entity($deptObj[0]->guid);
-
-	$federal_departments = array();
-	if (get_current_language() == 'en'){
-		$federal_departments = json_decode($depts->federal_departments_en, true);
-	} else {
-		$federal_departments = json_decode($depts->federal_departments_fr, true);
-	}
-
-	// default to invalid value, so it encourages users to select
-	$federal_choices = elgg_view('input/select', array(
-		'name' => 'federal',
-		'id' => 'federal',
-        'class' => 'form-control',
-		'options_values' => $federal_departments,
-	));
-?>
-
-<div class="form-group occupation-choices" id="federal-wrapper">
-	<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
-	<?php echo $federal_choices; ?>
 </div>
 
 <!-- Universities or Colleges -->
@@ -184,6 +156,34 @@ $(document).ready(function() {
 <div class="occupation-choices student-choices" id="college-wrapper" hidden>
 	<label for="college" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:college'); ?></span></label><br />
 	<?php echo $college_choices; ?>
+</div>
+
+<?php
+	$deptObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'federal_departments',
+	));
+	$depts = get_entity($deptObj[0]->guid);
+
+	$federal_departments = array();
+	if (get_current_language() == 'en'){
+		$federal_departments = json_decode($depts->federal_departments_en, true);
+	} else {
+		$federal_departments = json_decode($depts->federal_departments_fr, true);
+	}
+
+	// default to invalid value, so it encourages users to select
+	$federal_choices = elgg_view('input/select', array(
+		'name' => 'federal',
+		'id' => 'federal',
+        'class' => 'form-control',
+		'options_values' => $federal_departments,
+	));
+?>
+
+<div class="form-group occupation-choices" id="federal-wrapper">
+	<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label><br />
+	<?php echo $federal_choices; ?>
 </div>
 
 <?php

@@ -164,9 +164,9 @@ function validateEmail(email) {
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
 	    			<select id="user_type" name="user_type" class="form-control">
-	    				<?php if(show_field("federal")): ?><option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
+	    				<?php if(show_field("federal")): ?><option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 	    				<?php if(show_field("provincial")): ?><option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option><?php endif; ?>
 	    				<?php if(show_field("municipal")): ?><option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option><?php endif; ?>
 	    				<?php if(show_field("international")): ?><option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option><?php endif; ?>
@@ -178,38 +178,6 @@ function validateEmail(email) {
 	    				<?php if(show_field("other")): ?><option value="other"><?php echo elgg_echo('gcRegister:occupation:other'); ?></option><?php endif; ?>
 	    			</select>
 				</div>
-
-<?php if(show_field("federal")): ?>
-
-<?php
-	$deptObj = elgg_get_entities(array(
-	   	'type' => 'object',
-	   	'subtype' => 'federal_departments',
-	));
-	$depts = get_entity($deptObj[0]->guid);
-
-	$federal_departments = array();
-	if (get_current_language() == 'en'){
-		$federal_departments = json_decode($depts->federal_departments_en, true);
-	} else {
-		$federal_departments = json_decode($depts->federal_departments_fr, true);
-	}
-
-	// default to invalid value, so it encourages users to select
-	$federal_choices = elgg_view('input/select', array(
-		'name' => 'federal',
-		'id' => 'federal',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
-	));
-?>
-
-				<div class="form-group occupation-choices" id="federal-wrapper">
-					<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
-					<?php echo $federal_choices; ?>
-				</div>
-
-<?php endif; ?>
 
 <?php if(show_field("academic") || show_field("student")): ?>
 
@@ -293,6 +261,38 @@ function validateEmail(email) {
 				<div class="form-group occupation-choices student-choices" id="highschool-wrapper" hidden>
 					<label for="highschool" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:highschool'); ?></span></label>
 					<?php echo $highschool_choices; ?>
+				</div>
+
+<?php endif; ?>
+
+<?php if(show_field("federal")): ?>
+
+<?php
+	$deptObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'federal_departments',
+	));
+	$depts = get_entity($deptObj[0]->guid);
+
+	$federal_departments = array();
+	if (get_current_language() == 'en'){
+		$federal_departments = json_decode($depts->federal_departments_en, true);
+	} else {
+		$federal_departments = json_decode($depts->federal_departments_fr, true);
+	}
+
+	// default to invalid value, so it encourages users to select
+	$federal_choices = elgg_view('input/select', array(
+		'name' => 'federal',
+		'id' => 'federal',
+        'class' => 'form-control',
+		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+	));
+?>
+
+				<div class="form-group occupation-choices" id="federal-wrapper">
+					<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
+					<?php echo $federal_choices; ?>
 				</div>
 
 <?php endif; ?>
