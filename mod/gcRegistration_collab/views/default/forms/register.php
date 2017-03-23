@@ -46,7 +46,7 @@ $(document).ready(function() {
 			$('#federal-wrapper').fadeIn();
 		} else if (type == 'academic' || type == 'student') {
 			if( type == 'academic' ){
-				if( $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+				if( $("#institution").val() == 'highschool' ){ $("#institution").prop('selectedIndex', 0); }
 				$("#institution option[value='highschool']").hide();
 			} else {
 				$("#institution option[value='highschool']").show();

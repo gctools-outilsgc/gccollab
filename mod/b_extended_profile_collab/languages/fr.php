@@ -32,6 +32,7 @@ $french = array(
 
     'gcconnex-profile-card:university' => 'Université',
     'gcconnex-profile-card:college' => 'Collège',
+    'gcconnex-profile-card:highschool' => 'École secondaire',
     'gcconnex-profile-card:province' => 'Province / territoire',
     'gcconnex-profile-card:ministry' => 'Ministère',
 
@@ -86,6 +87,7 @@ $french = array(
     'gcconnex_profile:basic:ministry' => 'Ministère : ',
     'gcconnex_profile:basic:university' => 'Université : ',
     'gcconnex_profile:basic:college' => 'Collège : ',
+    'gcconnex_profile:basic:highschool' => 'École secondaire : ',
     'gcconnex_profile:basic:provincial' => 'Province / territoire : ',
     'gcconnex_profile:basic:municipal' => 'Organisation : ',
     'gcconnex_profile:basic:international' => 'Organisation : ',
