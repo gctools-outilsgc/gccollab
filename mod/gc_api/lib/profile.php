@@ -315,6 +315,12 @@ function get_user_posts($id, $type, $limit, $offset){
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "wire":
 	        $data = elgg_list_entities(array(
@@ -329,6 +335,12 @@ function get_user_posts($id, $type, $limit, $offset){
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "discussion":
 	    	$data = elgg_list_entities(array(
@@ -343,6 +355,12 @@ function get_user_posts($id, $type, $limit, $offset){
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "newsfeed":
 		    if( $user ){
@@ -409,6 +427,15 @@ function get_user_posts($id, $type, $limit, $offset){
 		        $activity = json_decode(newsfeed_list_river($optionsfg));
 		    }
 
+		    foreach($activity as $event){
+				$subject = get_user($event->subject_guid);
+				$object = get_entity($event->object_guid);
+				$event->displayName = $subject->name;
+				$event->profileURL = $subject->getURL();
+				$event->iconURL = $subject->geticon();
+				$event->objectName = $object->title;
+			}
+
 	    	$data = $activity;
 	        break;
 	    default:
@@ -416,7 +443,7 @@ function get_user_posts($id, $type, $limit, $offset){
 			break;
 	}
 
-	logout();
+	// logout();
 	return $data;
 }
 
