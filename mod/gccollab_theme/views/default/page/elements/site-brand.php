@@ -25,7 +25,7 @@ if (strcmp('gsa-crawler',strtolower($_SERVER['HTTP_USER_AGENT'])) != 0) {
 
                     
                 </div>
-                <div class="col-md-6 col-sm-4 col-xs-hidden">
+                <div class="col-md-6 col-sm-4 hidden-xs">
                  <?php echo elgg_view('search/search_box', $vars); ?>
                 </div>
                 <div class="col-md-3 col-sm-5 col-xs-12">

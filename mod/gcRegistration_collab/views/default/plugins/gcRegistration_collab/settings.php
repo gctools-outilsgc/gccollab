@@ -123,10 +123,10 @@ function deptSort($a, $b){
 
 echo '<br />';
 echo '<div id="tabs"><ul class="elgg-tabs">
-	<li><a href="#federal">Federal Departments</a></li>
+	<li><a href="#federal">Federal</a></li>
 	<li><a href="#universities">Universities</a></li>
 	<li><a href="#colleges">Colleges</a></li>
-	<li><a href="#provincial">Provincial/Territorial Departments</a></li>
+	<li><a href="#provincial">Provincial/Territorial</a></li>
 	<li><a href="#municipal">Municipal</a></li>
 	<li><a href="#other">Other</a></li></ul>';
 
