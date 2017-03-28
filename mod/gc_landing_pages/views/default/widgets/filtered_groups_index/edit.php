@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Custom index widgets
+ * Landing page widgets
  */
 
   $widget_groups = $vars['entity']->widget_groups;
   $widget_title = $vars['entity']->widget_title;
 	
 	$guest_only = $vars['entity']->guest_only;
-	if (!isset($guest_only)) $guest_only = "no";
+	if ( !isset($guest_only) ) $guest_only = "no";
 	
 	$box_style = $vars['entity']->box_style;
-	if (!isset($box_style)) $box_style = "collapsable";
+	if ( !isset($box_style) ) $box_style = "collapsable";
 ?>
 <p>
   <?php echo elgg_echo('custom_index_widgets:widget_title'); ?>:
@@ -29,9 +29,9 @@
     $group_list = array();
     $group_list[0] = elgg_echo('custom_index_widgets:widget_all_groups');
     if ($groups) {
-        foreach ($groups as $group) {
-            $group_list[$group->getGUID()] = $group->name;
-        }
+      foreach ($groups as $group) {
+        $group_list[$group->getGUID()] = $group->name;
+      }
     }
     echo elgg_view('input/dropdown', array('name' => 'params[widget_groups]', 'options_values' => $group_list, 'value' => $widget_groups, 'multiple' => true));
   ?>

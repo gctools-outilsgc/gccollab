@@ -1,14 +1,12 @@
 <?php 
 
 /**
- * Custom index widgets
- * 
- * @author Fx NION
+ * Landing page widgets
  */
  
 	$num_items = $vars['entity']->num_items;
 	$widget_hashtag = $vars['entity']->widget_hashtag;
-	if (!isset($num_items)) $num_items = 10;
+	if ( !isset($num_items) ) $num_items = 10;
 	elgg_set_context('search');
  	
  	$wire_ids = array();

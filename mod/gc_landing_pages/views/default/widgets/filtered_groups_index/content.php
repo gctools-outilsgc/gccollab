@@ -1,9 +1,7 @@
 <?php
  
- /**
- * Custom index widgets
- * 
- * @author Fx NION
+/**
+ * Landing page widgets
  */
 
   $widget_groups = $vars['entity']->widget_groups;
@@ -11,14 +9,14 @@
   if (!isset($widget_context_mode)) $widget_context_mode = 'search';
   elgg_set_context($widget_context_mode);
  
-  if(!empty($widget_groups)){
+  if( !empty($widget_groups) ){
     $widget_datas = elgg_list_entities(array(
-  		'type'=>'group',
-  		'limit'=>0,
+  		'type' => 'group',
+  		'limit' => 0,
   		'full_view' => false,
   		'list_type_toggle' => false,
   		'pagination' => false,
-      'guids' => $widget_groups,
+      'guids' => $widget_groups
     ));
   }
 

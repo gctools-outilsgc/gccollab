@@ -1,7 +1,6 @@
 <?php
-return array(
-  'gc_landing_pages:menu' => "Le gouvernement au 21e siècle",
 
+return array(
   'gc_landing_pages:title' => "Titre de la page d'arrivée",
   'gc_landing_pages:url' => "URL de la page d'arrivée",
   'gc_landing_pages:delete' => "Supprimer la page d'arrivée",

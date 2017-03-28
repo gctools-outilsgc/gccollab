@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Landing page widgets
+ */
+
 $widget = $vars["entity"];
 
 $max_slider_options = 5;

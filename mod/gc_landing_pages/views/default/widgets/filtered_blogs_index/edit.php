@@ -1,28 +1,28 @@
 <?php
 
 /**
- * Custom index widgets
+ * Landing page widgets
  */
   
 	$num_items = $vars['entity']->num_items;
-	if (!isset($num_items)) $num_items = 10;
+	if ( !isset($num_items) ) $num_items = 10;
 	
 	$widget_groups = $vars["entity"]->widget_groups;
-  if (!isset($widget_groups)) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
+  if ( !isset($widget_groups) ) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
 	
   $site_categories = elgg_get_site_entity()->categories; 
   $widget_categorie = $vars['entity']->widget_categorie;
 	$widget_context_mode = $vars['entity']->widget_context_mode;
-	if (!isset($widget_context_mode)) $widget_context_mode = 'search';
+	if ( !isset($widget_context_mode) ) $widget_context_mode = 'search';
 	
 	$widget_title = $vars['entity']->widget_title;
 	$widget_groups = $vars["entity"]->widget_groups;
 	
 	$guest_only = $vars['entity']->guest_only;
-	if (!isset($guest_only)) $guest_only = "no";
+	if ( !isset($guest_only) ) $guest_only = "no";
 	
 	$box_style = $vars['entity']->box_style;
-	if (!isset($box_style)) $box_style = "collapsable";
+	if ( !isset($box_style) ) $box_style = "collapsable";
 ?>
 <p>
   <?php echo elgg_echo('custom_index_widgets:widget_title'); ?>:
@@ -71,7 +71,7 @@
   <?php echo elgg_echo('custom_index_widgets:box_style'); ?>:
   <?php
     echo elgg_view('input/dropdown', array('name' => 'params[box_style]', 'options_values' => array('plain' => 'Plain', 'plain collapsable' => 'Plain and collapsable', 'collapsable' => 'Collapsable', 'standard' => 'No Collapsable'), 'value' => $box_style));
-?>
+  ?>
 </p>
 <p>
   <?php echo elgg_echo('custom_index_widgets:guest_only'); ?>:

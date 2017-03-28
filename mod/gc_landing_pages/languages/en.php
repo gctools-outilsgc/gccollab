@@ -1,7 +1,6 @@
 <?php
-return array(
-  'gc_landing_pages:menu' => "Government in the 21st Century",
 
+return array(
   'gc_landing_pages:title' => "Landing Page Title",
   'gc_landing_pages:url' => "Landing Page URL",
   'gc_landing_pages:delete' => "Delete Landing Page",

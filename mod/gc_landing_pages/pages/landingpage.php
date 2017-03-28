@@ -1,10 +1,13 @@
 <?php
 
 /**
- * Create landing page using custom_index_widgets index page
+ * Create generic landing page that will display customized widgets
  */
 
-elgg_set_context('gc_landing_pages');
+$page_url = get_input('page_url');
+$page_name_en = get_input('page_name_en');
+$page_name_fr = get_input('page_name_fr');
+elgg_set_context('gc_landing_pages-' . $page_url);
 elgg_set_page_owner_guid(elgg_get_config('site_guid'));
 
 $widgettypes = elgg_get_widget_types();
@@ -24,8 +27,12 @@ if( empty($area1widgets) && empty($area2widgets) ){
 $leftcolumn_widgets_view = gc_landing_pages_build_columns($area1widgets, $widgettypes);
 $rightcolumn_widgets_view = gc_landing_pages_build_columns($area2widgets, $widgettypes);
 
-$title = '<h1>'.elgg_echo('gc_landing_pages:menu').'</h1>';
+$title = (get_current_language() == 'en') ? '<h1>'.$page_name_en.'</h1>' : '<h1>'.$page_name_fr.'</h1>';
 
 $content = $title . elgg_view_layout($layout, array('area1' => $leftcolumn_widgets_view, 'area2' => $rightcolumn_widgets_view, 'layoutmode' => 'index_mode'));
 
-echo elgg_view_page( elgg_echo('gc_landing_pages:menu'), $content );
+if (get_current_language() == 'en'){
+	echo elgg_view_page( $page_name_en, $content );
+} else {
+	echo elgg_view_page( $page_name_fr, $content );
+}

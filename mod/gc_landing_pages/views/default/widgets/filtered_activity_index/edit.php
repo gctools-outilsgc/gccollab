@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom index widgets
+ * Landing page widgets
  */
 
   $num_items = $vars['entity']->num_items;
@@ -24,28 +24,28 @@
 </p>
 <p>
   <?php echo elgg_echo('group'); ?>: 
-<?php
-  $groups = elgg_get_entities(array('type' => 'group', 'limit' => 0));
-  $group_list = array();
-  $group_list[0] = elgg_echo('custom_index_widgets:widget_all_groups');
-  if ($groups) {
-    foreach ($groups as $group) {
-      $group_list[$group->getGUID()] = $group->name;
+  <?php
+    $groups = elgg_get_entities(array('type' => 'group', 'limit' => 0));
+    $group_list = array();
+    $group_list[0] = elgg_echo('custom_index_widgets:widget_all_groups');
+    if ($groups) {
+      foreach ($groups as $group) {
+        $group_list[$group->getGUID()] = $group->name;
+      }
     }
-  }
-  echo elgg_view('input/dropdown', array('name' => 'params[widget_groups]', 'options_values' => $group_list, 'value' => $widget_groups, 'multiple' => true));
-?>
+    echo elgg_view('input/dropdown', array('name' => 'params[widget_groups]', 'options_values' => $group_list, 'value' => $widget_groups, 'multiple' => true));
+  ?>
 </p>
 <p>
   <?php echo elgg_echo('custom_index_widgets:num_items'); ?>:
   <?php
-  echo elgg_view('input/dropdown', array('name' => 'params[num_items]', 'options_values' => array('1' => '1', '3' => '3', '5' => '5', '8' => '8', '10' => '10', '12' => '12', '15' => '15', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '100' => '100', ), 'value' => $num_items));
+    echo elgg_view('input/dropdown', array('name' => 'params[num_items]', 'options_values' => array('1' => '1', '3' => '3', '5' => '5', '8' => '8', '10' => '10', '12' => '12', '15' => '15', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '100' => '100', ), 'value' => $num_items));
   ?>
 </p>
 <p>
   <?php echo elgg_echo('custom_index_widgets:box_style'); ?>:
   <?php
-  echo elgg_view('input/dropdown', array('name' => 'params[box_style]', 'options_values' => array('plain' => 'Plain', 'plain collapsable' => 'Plain and collapsable', 'collapsable' => 'Collapsable', 'standard' => 'No Collapsable'), 'value' => $box_style));
+    echo elgg_view('input/dropdown', array('name' => 'params[box_style]', 'options_values' => array('plain' => 'Plain', 'plain collapsable' => 'Plain and collapsable', 'collapsable' => 'Collapsable', 'standard' => 'No Collapsable'), 'value' => $box_style));
   ?>
 </p>
 <p>
