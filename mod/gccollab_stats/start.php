@@ -112,6 +112,7 @@ function get_member_data($type, $lang) {
 			$data[$obj->institution]['total']++;
 			if($obj->university) $data[$obj->institution][$obj->university]++;
 			if($obj->college) $data[$obj->institution][$obj->college]++;
+			if($obj->highschool) $data[$obj->institution][$obj->highschool]++;
 		}
 	} else if ($type === 'university') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -138,6 +139,19 @@ function get_member_data($type, $lang) {
 		foreach($users as $key => $obj){
 			$data['total']++;
 			$data[$obj->college]++;
+		}
+	}  else if ($type === 'highschool') {
+		$users = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'metadata_name_value_pairs' => array(
+				array('name' => 'user_type', 'value' => 'student'),
+				array('name' => 'institution', 'value' => 'highschool'),
+			),
+			'limit' => 0
+		));
+		foreach($users as $key => $obj){
+			$data['total']++;
+			$data[$obj->highschool]++;
 		}
 	} else if ($type === 'provincial') {
 		$users = elgg_get_entities_from_metadata(array(

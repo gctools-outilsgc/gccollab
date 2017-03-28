@@ -51,16 +51,16 @@
             }
 
             function SortByName(a, b){
-                var one = a.name.toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i');
-                var two = b.name.toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i');
+                var one = (a.name != null) ? a.name.toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i') : "";
+                var two = (b.name != null) ? b.name.toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i') : "";
                 if(one < two) return -1;
                 if(one > two) return 1;
                 return 0;
             }
 
             function SortInstitutionByName(a, b){
-                var one = a[0].toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i');
-                var two = b[0].toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i');
+                var one = (a[0] != null) ? a[0].toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i') : "";
+                var two = (b[0] != null) ? b[0].toLowerCase().replace(/é/g, 'e').replace(/è/g, 'e').replace(/î/g, 'i') : "";
                 if(one < two) return -1;
                 if(one > two) return 1;
                 return 0;
@@ -390,9 +390,9 @@
                     var studentMembers = [];
                     var studentMembersDrilldown = [];
                     var studentMembersCount = 0;
-                    var institutionName = (lang == "fr") ? {"college": "Collège", "university": "Université"} : {"college": "College", "university": "University"};
+                    var institutionName = (lang == "fr") ? {"college": "Collège", "university": "Université", "highschool": "École secondaire"} : {"college": "College", "university": "University", "highschool": "High School"};
                     $.each(data.result, function(key, value) {
-                        if(key == 'college' || key == 'university'){
+                        if(key == 'college' || key == 'university' || key == 'highschool'){
                             studentMembers.push({'name': institutionName[key], 'y': value['total'], 'drilldown': institutionName[key]});
                             studentMembersCount += value['total'];
                         }
@@ -419,6 +419,10 @@
                                     } else if(e.seriesOptions.id == "University" || e.seriesOptions.id == "Université"){
                                         this.xAxis[0].update({
                                             max: studentMembersDrilldown[1].data.length - 1
+                                        });
+                                    } else if(e.seriesOptions.id == "High School" || e.seriesOptions.id == "École secondaire"){
+                                        this.xAxis[0].update({
+                                            max: studentMembersDrilldown[2].data.length - 1
                                         });
                                     }
                                 },
@@ -976,7 +980,7 @@
     </div>
 
     <div class="user-stats" id="retired">
-        <div class="chart" id="retiredMembers" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+        <div class="chart" id="retiredMembers" style="min-height: 1000px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
 
         <script>
             $(function () {
