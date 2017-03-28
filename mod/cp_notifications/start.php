@@ -2,6 +2,9 @@
 
 elgg_register_event_handler('init','system','cp_notifications_init');
 
+
+
+
 function cp_notifications_init() {
 
 elgg_register_css('cp_notifications-css','mod/cp_notifications/css/notifications-table.css');
@@ -37,6 +40,8 @@ elgg_register_css('cp_notifications-css','mod/cp_notifications/css/notifications
 	elgg_register_action('useradd',"$actions_base/useradd.php",'admin');	// cyu - actions/useradd.php (core file)
 
     elgg_extend_view("js/elgg", "js/notification");							// add some notification js 
+    elgg_extend_view("js/elgg", "js/popup");
+     elgg_extend_view("js/elgg","js/wet4/language_ajax");							// add some notification js 
 
     // remove core notification settings portion of the main settings page
     elgg_unextend_view('forms/account/settings', 'core/settings/account/notifications');
@@ -184,7 +189,9 @@ function cp_overwrite_notification_hook($hook, $type, $value, $params) {
 				'cp_invitation_code' => $params['cp_invitation_code'],
 				'cp_invitation_msg' => $params['cp_invitation_msg'],
 				'cp_msg_type' => $cp_msg_type,
-				'_user_e-mail' => $params['cp_invitee']
+				'_user_e-mail' => $params['cp_invitee'],
+				'group_link' => $params['group_link'],
+				'cp_user_profile' => $params['cp_user_profile'],
 			);
 			$template = elgg_view('cp_notifications/email_template', $message);
 			$user_obj = get_user_by_email($params['cp_invitee']);
@@ -880,7 +887,6 @@ function cp_create_annotation_notification($event, $type, $object) {
 
 
 
-
 /*
  * cp_create_notification
  * 
@@ -961,11 +967,25 @@ function cp_create_notification($event, $type, $object) {
 				'cp_comment' => $object,
 				'cp_msg_type' => 'cp_reply_type',
 			);
+$entity = get_entity($container_entity->getGUID());
+$container = $entity->getContainerEntity();
 
-			// the user creating the content is automatically subscribed to it
-			add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_email', $container_entity->getGUID());
-			add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_site_mail', $container_entity->getGUID());
+if (elgg_instanceof($container, 'group')) {
+	 if($container->isMember($user_comment)){
+
+		add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_email', $container_entity->getGUID());
+		add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_site_mail', $container_entity->getGUID());
+	}
+ }else{
+
+	add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_email', $container_entity->getGUID());
+	add_entity_relationship($object->getOwnerGUID(), 'cp_subscribed_to_site_mail', $container_entity->getGUID());
+}
+			
 			break;
+
+
+
 
 		// micromissions / opportunities
 		case 'mission':
@@ -1087,10 +1107,12 @@ function cp_create_notification($event, $type, $object) {
 					}
 				}
    
+   			//$object_description = ($object->description != strip_tags($object->description)) ? "" : $object->description;
 			$message = array(
 				'cp_topic' => $object, 
 				'cp_msg_type' => 'cp_new_type',
-				'cp_topic_description' => $object->description,
+				'cp_topic_description_discussion' => $object->description,
+				'cp_topic_description_discussion2' => $object->description2,
 			);
 
 			$email_only = false;
@@ -1214,7 +1236,7 @@ function cp_send_new_password_request($user_guid) {
  *
  */
 
-function cp_get_headers($event) { 	// $event will be null if nothing is passed into it (no default value set)
+function cp_get_headers(/*$event*/) { 	// $event will be null if nothing is passed into it (no default value set)
 
 	$email_address = elgg_get_plugin_setting('cp_notifications_email_addr','cp_notifications');
 	if (!$email_address || $email_address === '')
@@ -1341,7 +1363,7 @@ function notify_entity_menu_setup($hook, $type, $return, $params) {
 	    if ( check_entity_relationship(elgg_get_logged_in_user_guid(), 'cp_subscribed_to_email', $entity->getGUID()) || check_entity_relationship(elgg_get_logged_in_user_guid(), 'cp_subscribed_to_site_mail', $entity->getGUID()) ) {
 
 			if (elgg_is_active_plugin('wet4')) // check if plugin for wet is enabled (if disabled, FontAwesome will not show up)
-			 	$bell_status = '<i class="icon-unsel fa fa-lg fa-bell"></i>';
+			 	$bell_status = '<i class="icon-unsel fa fa-lg fa-bell"></i><span class="wb-inv">'.elgg_echo('cp_notify:stop_subscribe').'</span>';
 		    else
 			    $bell_status = elgg_echo('cp_notify:stop_subscribe');
 		
@@ -1358,7 +1380,7 @@ function notify_entity_menu_setup($hook, $type, $return, $params) {
 	    } else {
 
 		    if (elgg_is_active_plugin('wet4')) // check if plugin for wet is enabled
-			   $bell_status = '<i class="icon-unsel fa fa-lg fa-bell-slash-o"></i>';
+			   $bell_status = '<i class="icon-unsel fa fa-lg fa-bell-slash-o"></i><span class="wb-inv">'.elgg_echo('cp_notify:start_subscribe').'</span>';
 		    else
 			   $bell_status = elgg_echo('cp_notify:start_subscribe');
 

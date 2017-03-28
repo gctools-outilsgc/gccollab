@@ -71,7 +71,7 @@ $group_entity = get_entity($welcomeGroup_guid);
             success: function (output) {
 
                 $('#welcome-step').html(output);
-
+                $('#welcome-step').focus();
             }
         });
     });

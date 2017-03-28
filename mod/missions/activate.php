@@ -47,6 +47,9 @@ elgg_set_plugin_setting('duration_string', $duration_string, 'missions');
 $time_rate_string = 'missions:total' . ',' . 'missions:per_day' . ',' . 'missions:per_week' . ',' . 'missions:per_month';
 elgg_set_plugin_setting('time_rate_string', $time_rate_string, 'missions');
 
+$opportunity_role_string = 'missions:offering' . ',' .'missions:seeking';
+elgg_set_plugin_setting('opportunity_role_string', $opportunity_role_string, 'missions');
+
 /*$opportunity_type_string = 'missions:micro_mission' . ',' . 'missions:job_swap' . ',' . 'missions:mentoring' . ','
 		. 'missions:shadowing' . ',' . 'missions:peer_coaching' . ',' . 'missions:skill_sharing' . ','
 				. 'missions:job_sharing';*/
@@ -55,6 +58,9 @@ $opportunity_type_string = 'missions:micro_mission' . ',' . 'missions:mentoring'
 */
 $opportunity_type_string = 'missions:mentoring';
 elgg_set_plugin_setting('opportunity_type_string', $opportunity_type_string, 'missions');
+
+$opportunity_status_string = 'missions:posted' . ',' .'missions:completed' . ',' . 'missions:cancelled';
+elgg_set_plugin_setting('opportunity_status_string', $opportunity_status_string, 'missions');
 
 $province_string = ',' . 'missions:alberta' . ',' . 'missions:british_columbia' . ',' . 'missions:manitoba' . ','
 		. 'missions:new_brunswick' . ',' . 'missions:newfoundland_and_labrador' . ',' . 'missions:northwest_territories' . ','

@@ -92,17 +92,21 @@ $navbar
 
 $breadcrumbs
 
-</header>
-<div class="elgg-page-messages container">
-	$messages
-   </div>
-$group_cover_image
-<main role="main" property="mainContentOfPage" class="container">
+	</header>
+    <div class="elgg-page-messages container">
+		$messages
+	   </div>
+       <div class="container">
+       $userMenu
+       </div>
+       
+    $group_cover_image
+	<main role="main" property="mainContentOfPage" class="container">
 
-<!--<div class="elgg-inner">-->
-    
-<!--<section>-->
-		$content
+        <!--<div class="elgg-inner">-->
+            
+        <!--<section>-->
+			$content
 <!--</section>
 	</div>-->
 <div class="row pagedetails">

@@ -4,6 +4,10 @@
 $cp_topic_title = $vars['cp_topic_title'];
 $cp_msg_title = $vars['cp_msg_title'];
 $cp_topic_description = $vars['cp_topic_description'];
+$cp_topic_description_discussion = $vars['cp_topic_description_discussion'];
+$cp_topic_description_discussion2 = $vars['cp_topic_description_discussion2'];
+;
+//error_log(message)
 $cp_msg_content = $vars['cp_msg_content'];
 $cp_topic_author = get_user($vars['cp_topic_author']);
 $cp_topic_author = get_user($vars['cp_topic_author']);
@@ -218,9 +222,13 @@ switch ($msg_type) {
 			$vars['cp_topic']->title =$vars['cp_topic']->title1;
 		}
 
+		if (empty($vars['cp_topic']->title2)){
+			$vars['cp_topic']->title2 = $vars['cp_topic']->title;
+		}
+
 		$cp_notify_msg_title_en = elgg_echo('cp_notify:body_new_content:title',array($topic_author->getURL(), $topic_author->username, cp_translate_subtype($vars['cp_topic']->getSubtype()), $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'en');
 		if (array_key_exists($vars['cp_topic']->getSubtype(),$entity_f))
-			$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_new_content:title_f',array($topic_author->getURL(), $topic_author->username, $entity_f[$vars['cp_topic']->getSubtype()], $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'fr');
+			$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_new_content:title_f',array($topic_author->getURL(), $topic_author->username, $entity_f[$vars['cp_topic']->getSubtype()], $vars['cp_topic']->getURL(), $vars['cp_topic']->title2),'fr');
 		else if (array_key_exists($vars['cp_topic']->getSubtype(),$entity_m))
 			$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_new_content:title_m',array($topic_author->getURL(), $topic_author->username, $entity_m[$vars['cp_topic']->getSubtype()], $vars['cp_topic']->getURL(), $vars['cp_topic']->title),'fr');
 		else if (array_key_exists($vars['cp_topic']->getSubtype(),$entity_f2))
@@ -236,15 +244,27 @@ switch ($msg_type) {
         }
 
 		$cp_topic_description_en = $cp_topic_description;
-		$cp_topic_description_fr = $cp_topic_description;
+		$cp_topic_description_fr = $cp_topic_description2;
+
+		$cp_topic_description_discussion_en = $cp_topic_description_discussion;
+		$cp_topic_description_discussion_fr = $cp_topic_description_discussion2;
+
+		if (empty($cp_topic_description_discussion2)){
+			$cp_topic_description_discussion_fr = $cp_topic_description_discussion;
+		}
+
+		if (empty($cp_topic_description_discussion)){
+			$cp_topic_description_discussion_en = $cp_topic_description_discussion2;
+		}
+
 		if (strlen($cp_topic_description) > 200) {
 			$cp_topic_description = substr($cp_topic_description, 0, 200);
 			$cp_topic_description_en = substr($cp_topic_description, 0, strrpos($cp_topic_description, ' ')).'... '.elgg_echo('cp_notify:readmore',array($vars['cp_topic']->getURL()),'en');
 			$cp_topic_description_fr = substr($cp_topic_description, 0, strrpos($cp_topic_description, ' ')).'... '.elgg_echo('cp_notify:readmore',array($vars['cp_topic']->getURL()),'fr');
 		}
 		if ($vars['cp_topic']->getSubtype() === 'groupforumtopic' /*|| $vars['cp_topic']->getContainerEntity() instanceof ElggGroup*/) {
-			$cp_notify_msg_description_en = elgg_echo('cp_notify:body_new_content:description_discussion',array("<i>{$cp_topic_description_en}</i><br/>", $vars['cp_topic']->getURL()),'en');
-			$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_new_content:description_discussion',array("<i>{$cp_topic_description_fr}</i><br/>", $vars['cp_topic']->getURL()),'fr');
+			$cp_notify_msg_description_en = elgg_echo('cp_notify:body_new_content:description_discussion',array("<i>{$cp_topic_description_discussion_en}</i><br/>", $vars['cp_topic']->getURL()),'en');
+			$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_new_content:description_discussion',array("<i>{$cp_topic_description_discussion_fr}</i><br/>", $vars['cp_topic']->getURL()),'fr');
 		} else if (!$cp_topic_description) {
 			$cp_notify_msg_description_en = elgg_echo('cp_notify:body_new_content:no_description_discussion',array($vars['cp_topic']->getURL()),'en');
 			$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_new_content:no_description_discussion',array($vars['cp_topic']->getURL()),'fr');
@@ -311,12 +331,23 @@ switch ($msg_type) {
 
 
 	case 'cp_group_invite_email':	// inviting non user to group
-		$cp_notify_msg_title_en = elgg_echo('cp_notify:body_group_invite_email:title',array(),'en');
-		$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_group_invite_email:title',array(),'fr');
-
-		$cp_notify_msg_description_en = elgg_echo('cp_notify:body_group_invite_email:description',array($vars['cp_group_invite']->name,$vars['cp_invitation_url'],$vars['cp_invitation_code'],$vars['cp_invitation_msg']),'en');
-		$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_group_invite_email:description',array($vars['cp_group_invite']->name,$vars['cp_invitation_url'],$vars['cp_invitation_code'],$vars['cp_invitation_msg']),'fr');
+		$cp_notify_msg_title_en = elgg_echo('cp_notify:body_group_invite_email:title',array($vars['cp_user_profile'],$vars['cp_email_invited_by']->name,$vars['group_link'],$vars['cp_group_invite']->name),'en');
+		$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_group_invite_email:title',array($vars['cp_user_profile'],$vars['cp_email_invited_by']->name,$vars['group_link'],$vars['cp_group_invite']->name),'fr');
+		//$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_group_invite_email:title',array(),'fr');
 		
+		if($vars['cp_invitation_msg']){
+			$cp_notify_msg_description_en = elgg_echo('cp_personalized_message',array($vars['cp_email_invited_by']->name,$vars['cp_invitation_msg']),'en');
+			$cp_notify_msg_description_fr = elgg_echo('cp_personalized_message',array($vars['cp_email_invited_by']->name,$vars['cp_invitation_msg']),'fr');
+		}
+
+		$cp_notify_msg_description_en .= elgg_echo('cp_notify:body_group_invite_email:description',array($vars['cp_invitation_non_user_url'],'http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Content_Management_and_Collaboration/How_Do_I_Access_and_Join_a_Group%3F',$vars['cp_invitation_code']),'en');
+		$cp_notify_msg_description_fr .= elgg_echo('cp_notify:body_group_invite_email:description',array($vars['cp_invitation_non_user_url'],'http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/Pour_commencer/Comment_puis-je_acc%C3%A9der_%C3%A0_un_groupe_et_m%E2%80%99y_joindre%3F',$vars['cp_invitation_code']),'fr');
+		//$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_group_invite_email:description',array($vars['cp_group_invite']->name,$vars['cp_invitation_non_user_url'],$vars['cp_invitation_code'],$vars['cp_invitation_msg']),'fr');
+		
+		$email_notification_footer_non_user_en = elgg_echo('cp_notify:footer:no_user',array(),'en');	
+		$email_notification_footer_non_user_fr = elgg_echo('cp_notify:footer:no_user',array(),'fr');	
+		//$email_notification_footer_non_user_fr = elgg_echo('cp_notify:body_group_invite_email:title',array(),'fr');
+
 		break;
 
 
@@ -522,8 +553,8 @@ $email_notif_footer_msg_en1 = elgg_echo('cp_notify:contactHelpDesk', array(),'en
 $email_notif_footer_msg_en2 = elgg_echo('cp_notify:visitTutorials', array(),'en');
 
 
-$email_notification_footer_en = elgg_echo('cp_notify:footer',array(),'en');
-$email_notification_footer_fr = elgg_echo('cp_notify:footer',array(),'fr');
+//$email_notification_footer_en = elgg_echo('cp_notify:footer',array(),'en');
+//$email_notification_footer_fr = elgg_echo('cp_notify:footer',array(),'fr');
 
 
 if (!$vars['user_name']->username) {
@@ -532,8 +563,14 @@ if (!$vars['user_name']->username) {
 	$username_link = $vars['user_name']->username;
 }
 
-$email_notification_footer_en2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'en');
-$email_notification_footer_fr2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'fr');
+if ($email_notification_footer_non_user_en || $email_notification_footer_non_user_fr){
+	$email_notification_footer_en2 = $email_notification_footer_non_user_en;
+	$email_notification_footer_fr2 = $email_notification_footer_non_user_fr;
+}else{
+	$email_notification_footer_en2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'en');
+	$email_notification_footer_fr2 = elgg_echo('cp_notify:footer2',array(elgg_get_site_url()."settings/plugins/{$username_link}/cp_notifications"),'fr');
+}
+
 
 $french_follows = elgg_echo('cp_notify:french_follows',array());
 
