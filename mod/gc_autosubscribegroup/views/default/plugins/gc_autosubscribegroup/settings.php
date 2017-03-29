@@ -135,8 +135,8 @@ foreach($groups as $group){
 				$institution = array_keys($institution)[0];
 			}
 			$name = ucfirst($user_type);
-			if($institution){ $name .= ', ' . ucfirst($institution); }
-			if($organization){ $name .= ', ' . $organization; }
+			if(trim($institution) !== ""){ $name .= ', ' . ucfirst($institution); }
+			if(trim($organization) !== ""){ $name .= ', ' . $organization; }
 			echo '<li>' . $name . ' <a class="delete-organization" data-group="' . $group->guid . '" data-user-type="' . $user_type . '" data-institution="' . $institution . '" data-organization="' . $organization . '">X</a></li>';
 		}
 		echo '</ul>' . elgg_view('output/url', [

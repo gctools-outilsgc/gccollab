@@ -54,8 +54,11 @@ return array(
   'wet:login_engage_2'=>"Trouvez les gens dont vous avez besoin.",
   'wet:login_engage_3'=>"Promouvoir les activités GC à l'échelle du gouvernement.",
   'wet:login_welcome'=>'Welcome to GCcollab',
+
   'wet:jobs:link' => 'emplois.gc.ca <i class="fa fa-external-link mrgn-lft-sm"></i>',
   'wet:jobs:href' => "http://jobs-emplois.gc.ca/index-fra.htm",
+  'wet:marketplace:link' => "Carrefour d'emploi",
+  'wet:marketplace:href' => $site_url . "groups/profile/6161",
 
   "wet:messagedd:no_results"=>"Vous êtes tous à jour!",
 

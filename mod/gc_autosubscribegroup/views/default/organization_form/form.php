@@ -26,7 +26,12 @@
 			if (type == 'federal') {
 				$('#federal-wrapper').fadeIn();
 			} else if (type == 'academic' || type == 'student') {
-				if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+				if( type == 'academic' ){
+					if( $("#institution").val() == 'highschool' ){ $("#institution").prop('selectedIndex', 0); }
+					$("#institution option[value='highschool']").hide();
+				} else {
+					$("#institution option[value='highschool']").show();
+				}
 				$('#institution-wrapper').fadeIn();
 				var institution = $('#institution').val();
 				$('#' + institution + '-wrapper').fadeIn();
@@ -62,47 +67,47 @@
 			var institution = "";
 			var organization = "";
 			var organizationObject = {};
-			if( $("#federal").is(":visible") && $("#federal").val() !== "default_invalid_value" ){
+			if( $("#federal").is(":visible") ){
 				organization = $("#federal").val();
 				organizationObject[user_type] = organization;
-			} else if ( $("#university").is(":visible") && $("#university").val() !== "default_invalid_value" ){
+			} else if ( $("#university").is(":visible") ){
 				institution = $("#institution").val();
 				organization = $("#university").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("#college").is(":visible") && $("#college").val() !== "default_invalid_value" ){
+			} else if ( $("#college").is(":visible") ){
 				institution = $("#institution").val();
 				organization = $("#college").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("[name=ministry]").is(":visible") && $("[name=ministry]:visible").val() !== "default_invalid_value" ){
+			} else if ( $("[name=ministry]").is(":visible") ){
 				institution = $("#provincial").val();
 				organization = $("[name=ministry]:visible").val();
 				organizationObject[user_type] = {};
 				organizationObject[user_type][institution] = organization;
-			} else if ( $("#municipal").is(":visible") && $("#municipal").val() !== "" ){
-				organization = $("#municipal").val();
+			} else if ( $("#municipal").is(":visible") ){
+				organization = $.trim( $("#municipal").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#international").is(":visible") && $("#international").val() !== "" ){
-				organization = $("#international").val();
+			} else if ( $("#international").is(":visible") ){
+				organization = $.trim( $("#international").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#ngo").is(":visible") && $("#ngo").val() !== "" ){
-				organization = $("#ngo").val();
+			} else if ( $("#ngo").is(":visible") ){
+				organization = $.trim( $("#ngo").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#community").is(":visible") && $("#community").val() !== "" ){
-				organization = $("#community").val();
+			} else if ( $("#community").is(":visible") ){
+				organization = $.trim( $("#community").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#business").is(":visible") && $("#business").val() !== "" ){
-				organization = $("#business").val();
+			} else if ( $("#business").is(":visible") ){
+				organization = $.trim( $("#business").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#media").is(":visible") && $("#media").val() !== "" ){
-				organization = $("#media").val();
+			} else if ( $("#media").is(":visible") ){
+				organization = $.trim( $("#media").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#retired").is(":visible") && $("#retired").val() !== "" ){
-				organization = $("#retired").val();
+			} else if ( $("#retired").is(":visible") ){
+				organization = $.trim( $("#retired").val() );
 				organizationObject[user_type] = organization;
-			} else if ( $("#other").is(":visible") && $("#other").val() !== "" ){
-				organization = $("#other").val();
+			} else if ( $("#other").is(":visible") ){
+				organization = $.trim( $("#other").val() );
 				organizationObject[user_type] = organization;
 			} else {
 				$('p#error').show().delay(2000).fadeOut();
@@ -130,9 +135,9 @@
 <div>
 	<label for="user_type" class="required"><?php echo elgg_echo('gcRegister:occupation'); ?></label>
 	<select id="user_type" name="user_type" class="form-control">
-		<option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option>
 		<option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option>
 		<option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option>
+		<option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option>
 		<option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option>
 		<option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option>
 		<option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option>
@@ -145,41 +150,14 @@
 	</select>
 </div>
 
-<?php
-	$deptObj = elgg_get_entities(array(
-	   	'type' => 'object',
-	   	'subtype' => 'federal_departments',
-	));
-	$depts = get_entity($deptObj[0]->guid);
-
-	$federal_departments = array();
-	if (get_current_language() == 'en'){
-		$federal_departments = json_decode($depts->federal_departments_en, true);
-	} else {
-		$federal_departments = json_decode($depts->federal_departments_fr, true);
-	}
-
-	// default to invalid value, so it encourages users to select
-	$federal_choices = elgg_view('input/select', array(
-		'name' => 'federal',
-		'id' => 'federal',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
-	));
-?>
-
-<div class="occupation-choices" id="federal-wrapper">
-	<label for="federal" class="required"><?php echo elgg_echo('gcRegister:department'); ?></label>
-	<?php echo $federal_choices; ?>
-</div>
-
 <!-- Universities or Colleges -->
-<div class="occupation-choices" id="institution-wrapper" hidden>
+<div class="occupation-choices" id="institution-wrapper">
 	<label for="institution" class="required"><?php echo elgg_echo('Institution'); ?></label>
 	<select id="institution" name="institution" class="form-control">
-		<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
+		<option selected="selected" value=""> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
 		<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
 		<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
+		<option value="highschool" hidden> <?php echo elgg_echo('gcRegister:highschool'); ?> </option>
 	</select>
 </div>
 
@@ -202,7 +180,7 @@
 		'name' => 'university',
 		'id' => 'university',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $universities),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $universities),
 	));
 ?>
 
@@ -231,7 +209,7 @@
 		'name' => 'college',
 		'id' => 'college',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $colleges),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $colleges),
 	));
 ?>
 
@@ -239,6 +217,34 @@
 <div class="occupation-choices student-choices" id="college-wrapper" hidden>
 	<label for="college" class="required"><?php echo elgg_echo('gcRegister:college'); ?></label>
 	<?php echo $college_choices; ?>
+</div>
+
+<?php
+	$deptObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'federal_departments',
+	));
+	$depts = get_entity($deptObj[0]->guid);
+
+	$federal_departments = array();
+	if (get_current_language() == 'en'){
+		$federal_departments = json_decode($depts->federal_departments_en, true);
+	} else {
+		$federal_departments = json_decode($depts->federal_departments_fr, true);
+	}
+
+	// default to invalid value, so it encourages users to select
+	$federal_choices = elgg_view('input/select', array(
+		'name' => 'federal',
+		'id' => 'federal',
+        'class' => 'form-control',
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+	));
+?>
+
+<div class="occupation-choices" id="federal-wrapper" hidden>
+	<label for="federal" class="required"><?php echo elgg_echo('gcRegister:department'); ?></label>
+	<?php echo $federal_choices; ?>
 </div>
 
 <?php
@@ -260,7 +266,7 @@
 		'name' => 'provincial',
 		'id' => 'provincial',
         'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $provincial_departments),
+		'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $provincial_departments),
 	));
 ?>
 
@@ -290,7 +296,7 @@
 			'name' => 'ministry',
 			'id' => $prov_id,
 	        'class' => 'form-control',
-			'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
+			'options_values' => array_merge(array('' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
 		));
 		echo '</div>';
 	}
@@ -400,12 +406,20 @@
 		'name' => 'retired',
 		'id' => 'retired',
         'class' => 'form-control',
+        'list' => 'retired-list'
 	));
 ?>
 
 <div class="form-group occupation-choices" id="retired-wrapper" hidden>
 	<label for="retired" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
 	<?php echo $retired_choices; ?>
+	<datalist id="retired-list">
+		<?php
+			foreach($federal_departments as $federal_name => $value){
+				echo '<option value="' . $value . '"></option>';
+			}
+		?>
+	</datalist>
 </div>
 
 <?php

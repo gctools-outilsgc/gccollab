@@ -45,7 +45,12 @@ $(document).ready(function() {
 		if (type == 'federal') {
 			$('#federal-wrapper').fadeIn();
 		} else if (type == 'academic' || type == 'student') {
-			if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+			if( type == 'academic' ){
+				if( $("#institution").val() == 'highschool' ){ $("#institution").prop('selectedIndex', 0); }
+				$("#institution option[value='highschool']").hide();
+			} else {
+				$("#institution option[value='highschool']").show();
+			}
 			$('#institution-wrapper').fadeIn();
 			var institution = $('#institution').val();
 			$('#' + institution + '-wrapper').fadeIn();
@@ -94,8 +99,9 @@ function validateEmail(email) {
 
 		if($userObj){
               
-		    $userType = $userObj->get('user_type');
-		    if (strcmp($userType, 'federal') == 0) {
+		    $userType = $userObj->user_type;
+		    // if user is public servant
+		    if( $userType == 'federal' ){
 		        $deptObj = elgg_get_entities(array(
 		            'type' => 'object',
 		            'subtype' => 'federal_departments',
@@ -109,12 +115,47 @@ function validateEmail(email) {
 		            $federal_departments = json_decode($depts->federal_departments_fr, true);
 		        }
 
-		        $department = $federal_departments[$userObj->get('federal')];
-		    } else if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
-		        $institution = $userObj->get('institution');
-		        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
-		    } else if (strcmp($userType, 'provincial') == 0) {
-		        $department = elgg_echo('gcRegister:occupation:provincial');
+		        $department = $federal_departments[$userObj->federal];
+
+		    // otherwise if user is student or academic
+		    } else if( $userType == 'student' || $userType == 'academic' ){
+		        $institution = $userObj->institution;
+		        $department = ($institution == 'university') ? $userObj->university : $userObj->college;
+
+		    // otherwise if user is provincial employee
+		    } else if( $userType == 'provincial' ){
+		        $provObj = elgg_get_entities(array(
+		            'type' => 'object',
+		            'subtype' => 'provinces',
+		        ));
+		        $provs = get_entity($provObj[0]->guid);
+
+		        $provinces = array();
+		        if (get_current_language() == 'en'){
+		            $provinces = json_decode($provs->provinces_en, true);
+		        } else {
+		            $provinces = json_decode($provs->provinces_fr, true);
+		        }
+
+		        $minObj = elgg_get_entities(array(
+		            'type' => 'object',
+		            'subtype' => 'ministries',
+		        ));
+		        $mins = get_entity($minObj[0]->guid);
+
+		        $ministries = array();
+		        if (get_current_language() == 'en'){
+		            $ministries = json_decode($mins->ministries_en, true);
+		        } else {
+		            $ministries = json_decode($mins->ministries_fr, true);
+		        }
+
+		        $department = $provinces[$userObj->provincial];
+		        if($userObj->ministry && $userObj->ministry !== "default_invalid_value"){ $department .= ' / ' . $ministries[$userObj->provincial][$userObj->ministry]; }
+
+		    // otherwise show basic info
+		    } else {
+		        $department = $userObj->$userType;
 		    }
 
 ?>
@@ -159,9 +200,9 @@ function validateEmail(email) {
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
 	    			<select id="user_type" name="user_type" class="form-control">
-	    				<?php if(show_field("federal")): ?><option selected="selected" value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
+	    				<?php if(show_field("federal")): ?><option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
 	    				<?php if(show_field("provincial")): ?><option value="provincial"><?php echo elgg_echo('gcRegister:occupation:provincial'); ?></option><?php endif; ?>
 	    				<?php if(show_field("municipal")): ?><option value="municipal"><?php echo elgg_echo('gcRegister:occupation:municipal'); ?></option><?php endif; ?>
 	    				<?php if(show_field("international")): ?><option value="international"><?php echo elgg_echo('gcRegister:occupation:international'); ?></option><?php endif; ?>
@@ -174,48 +215,16 @@ function validateEmail(email) {
 	    			</select>
 				</div>
 
-<?php if(show_field("federal")): ?>
-
-<?php
-	$deptObj = elgg_get_entities(array(
-	   	'type' => 'object',
-	   	'subtype' => 'federal_departments',
-	));
-	$depts = get_entity($deptObj[0]->guid);
-
-	$federal_departments = array();
-	if (get_current_language() == 'en'){
-		$federal_departments = json_decode($depts->federal_departments_en, true);
-	} else {
-		$federal_departments = json_decode($depts->federal_departments_fr, true);
-	}
-
-	// default to invalid value, so it encourages users to select
-	$federal_choices = elgg_view('input/select', array(
-		'name' => 'federal',
-		'id' => 'federal',
-        'class' => 'form-control',
-		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
-	));
-?>
-
-				<div class="form-group occupation-choices" id="federal-wrapper">
-					<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
-					<?php echo $federal_choices; ?>
-				</div>
-
-<?php endif; ?>
-
 <?php if(show_field("academic") || show_field("student")): ?>
 
 				<!-- Universities or Colleges -->
-				<div class="form-group occupation-choices" id="institution-wrapper" hidden>
+				<div class="form-group occupation-choices" id="institution-wrapper">
 					<label for="institution" class="required"><span class="field-name"><?php echo elgg_echo('Institution'); ?></span></label>
 					<select id="institution" name="institution" class="form-control">
 						<option selected="selected" value="default_invalid_value"> <?php echo elgg_echo('gcRegister:make_selection'); ?> </option>
 						<option value="university"> <?php echo elgg_echo('gcRegister:university'); ?> </option>
 						<option value="college"> <?php echo elgg_echo('gcRegister:college'); ?> </option>
-						<option value="highschool"> <?php echo elgg_echo('gcRegister:highschool'); ?> </option>
+						<option value="highschool" hidden> <?php echo elgg_echo('gcRegister:highschool'); ?> </option>
 					</select>
 				</div>
 
@@ -288,6 +297,38 @@ function validateEmail(email) {
 				<div class="form-group occupation-choices student-choices" id="highschool-wrapper" hidden>
 					<label for="highschool" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:highschool'); ?></span></label>
 					<?php echo $highschool_choices; ?>
+				</div>
+
+<?php endif; ?>
+
+<?php if(show_field("federal")): ?>
+
+<?php
+	$deptObj = elgg_get_entities(array(
+	   	'type' => 'object',
+	   	'subtype' => 'federal_departments',
+	));
+	$depts = get_entity($deptObj[0]->guid);
+
+	$federal_departments = array();
+	if (get_current_language() == 'en'){
+		$federal_departments = json_decode($depts->federal_departments_en, true);
+	} else {
+		$federal_departments = json_decode($depts->federal_departments_fr, true);
+	}
+
+	// default to invalid value, so it encourages users to select
+	$federal_choices = elgg_view('input/select', array(
+		'name' => 'federal',
+		'id' => 'federal',
+        'class' => 'form-control',
+		'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $federal_departments),
+	));
+?>
+
+				<div class="form-group occupation-choices" id="federal-wrapper" hidden>
+					<label for="federal" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
+					<?php echo $federal_choices; ?>
 				</div>
 
 <?php endif; ?>
@@ -481,12 +522,20 @@ function validateEmail(email) {
 		'name' => 'retired',
 		'id' => 'retired',
         'class' => 'form-control',
+        'list' => 'retired-list'
 	));
 ?>
 
 				<div class="form-group occupation-choices" id="retired-wrapper" hidden>
 					<label for="retired" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:department'); ?></span></label>
 					<?php echo $retired_choices; ?>
+					<datalist id="retired-list">
+						<?php
+							foreach($federal_departments as $federal_name => $value){
+								echo '<option value="' . $value . '"></option>';
+							}
+						?>
+					</datalist>
 				</div>
 
 <?php endif; ?>

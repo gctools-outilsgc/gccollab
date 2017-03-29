@@ -43,7 +43,11 @@ else {
                 12 => elgg_echo('gcconnex_profile:month:december')
             );
             echo '<div class="gcconnex-profile-work-experience-display gcconnex-work-experience-' . $experience->guid . '">';
-            echo '<div class="gcconnex-profile-label timeStamp mrgn-tp-sm">' . $cal_month[$experience->startdate] . ' ' . $experience->startyear . ' - ';
+            echo '<div class="gcconnex-profile-label timeStamp mrgn-tp-sm">';
+
+            if ($experience->not_applicable !== 'true') {
+                echo $cal_month[$experience->startdate] . ' ' . $experience->startyear . ' - ';
+            }
 
             if ($experience->ongoing == 'true') {
                 echo elgg_echo('gcconnex_profile:experience:present');

@@ -114,7 +114,7 @@ function main() {
 
                         	var metadataBlock = document.createElement("DIV");
                         	metadataBlock.className = "wire-widget-user";
-                        	metadataBlock.innerHTML = '<a href="'+postArray[num].user.profileURL+'">'+postArray[num].user.dispalyName+'</a> <span class="timeStamp">'+postArray[num].time_since+'</span>';
+                        	metadataBlock.innerHTML = '<a href="'+postArray[num].user.profileURL+'">'+postArray[num].user.displayName+'</a> <span class="timeStamp">'+postArray[num].time_since+'</span>';
                         
                         	postContent.appendChild(metadataBlock);
 

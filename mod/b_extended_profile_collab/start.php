@@ -404,14 +404,25 @@ function cmpStartDate($foo, $bar)
     $a = get_entity($foo);
     $b = get_entity($bar);
 
-    if ($a->startyear == $b->startyear) {
+    if ($a->not_applicable == "true" && $b->not_applicable == "true") {
         return (0);
     }
-    else if ($a->startyear > $b->startyear) {
+    else if ($a->not_applicable == "true" && $b->not_applicable != "true") {
         return (-1);
     }
-    else if ($a->startyear < $b->startyear) {
+    else if ($a->not_applicable != "true" && $b->not_applicable == "true") {
         return (1);
+    }
+    else {
+        if ($a->startyear == $b->startyear) {
+            return (0);
+        }
+        else if ($a->startyear > $b->startyear) {
+            return (-1);
+        }
+        else if ($a->startyear < $b->startyear) {
+            return (1);
+        }
     }
 }
 

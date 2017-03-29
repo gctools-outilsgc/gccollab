@@ -79,13 +79,15 @@ function gc_autosubscribegroup_join($event, $object_type, $object) {
 					$organization2 = array_values($value)[0];
 				}
 				if( is_array($organization2) ){
-					$institution2 = $organization2;
-					$organization2 = array_values($institution2)[0];
-					$institution2 = array_keys($institution2)[0];
+					$temp = $organization2;
+					$institution2 = array_keys($temp)[0];
+					$organization2 = array_values($temp)[0];
 				}
 				
 				if( $user_type == $user_type2 ){
-					if( $$user_type == $organization2 ){
+					if( empty(trim($organization2)) ){
+						$match = true;
+					} else if( $$user_type == trim($organization2) ){
 						$match = true;
 					} else if( $institution == $institution2 ){
 						if($university == $organization2 || $college == $organization2){

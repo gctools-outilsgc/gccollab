@@ -8,7 +8,7 @@ elgg_ws_expose_function("get.profile","get_api_profile", array("id" => array('ty
                'GET', false, false);
 
 elgg_ws_expose_function("get.posts","get_user_posts", array("id" => array('type' => 'string'), "type" => array('type' => 'string'), "limit" => array('type' => 'int'), "offset" => array('type' => 'int', 'required' => false)),
-	'provides latest posts by their type and their user id', 'GET', true, false);
+	'provides latest posts by their type and their user id', 'POST', true, false);
 
 elgg_ws_expose_function("profile.update","profileUpdate", array("id" => array('type' => 'string'), "data" => array('type'=>'string')),
 	'update a user profile based on id passed',
@@ -290,7 +290,8 @@ function get_api_profile($id){
 }
 
 function get_user_posts($id, $type, $limit, $offset){
-	$user = getUserFromID($id);
+	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
 	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
 	login($user);
@@ -307,13 +308,19 @@ function get_user_posts($id, $type, $limit, $offset){
 				'subtype' => 'blog',
 				'order_by' => 'e.last_action desc',
 				'full_view' => false,
-				'no_results' => elgg_echo('discussion:none'),
+				'no_results' => elgg_echo('blog:none'),
 				'preload_owners' => true,
 				'preload_containers' => true,
 				'limit' => $limit,
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "wire":
 	        $data = elgg_list_entities(array(
@@ -321,13 +328,19 @@ function get_user_posts($id, $type, $limit, $offset){
 				'subtype' => 'thewire',
 				'order_by' => 'e.last_action desc',
 				'full_view' => false,
-				'no_results' => elgg_echo('discussion:none'),
+				'no_results' => elgg_echo('wire:none'),
 				'preload_owners' => true,
 				'preload_containers' => true,
 				'limit' => $limit,
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "discussion":
 	    	$data = elgg_list_entities(array(
@@ -342,6 +355,12 @@ function get_user_posts($id, $type, $limit, $offset){
 				'offset' => $offset
 			));
 			$data = json_decode($data);
+			foreach($data as $object){
+				$owner = get_user($object->owner_guid);
+				$object->displayName = $owner->name;
+				$object->profileURL = $owner->getURL();
+				$object->iconURL = $owner->geticon();
+			}
 	        break;
 	    case "newsfeed":
 		    if( $user ){
@@ -358,6 +377,8 @@ function get_user_posts($id, $type, $limit, $offset){
 		        }
 		    }
 
+		    $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
+
 		    if( !$hasgroups && !$hasfriends ){
 		        //no friends and no groups :(
 		        $activity = '';
@@ -369,11 +390,10 @@ function get_user_posts($id, $type, $limit, $offset){
 
 		        //turn off friend connections
 		        //remove friend connections from action types
-		        $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
 		        //load user's preference
 		        $filteredItems = array($user->colleagueNotif);
 		        //filter out preference
-		        $optionsf['action_types'] = array_diff( $actionTypes, $filteredItems);
+		        $optionsf['action_types'] = array_diff( $actionTypes, $filteredItems );
 
 		        $activity = json_decode(newsfeed_list_river($optionsf));
 		    } else if( !$hasfriends && $hasgroups ){
@@ -389,11 +409,10 @@ function get_user_posts($id, $type, $limit, $offset){
 		        //if friends and groups :3
 		        //turn off friend connections
 		        //remove friend connections from action types
-		        $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
 		        //load user's preference
 		        $filteredItems = array($user->colleagueNotif);
 		        //filter out preference
-		        $optionsfg['action_types'] = array_diff( $actionTypes, $filteredItems);
+		        $optionsfg['action_types'] = array_diff( $actionTypes, $filteredItems );
 
 		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
 		        
@@ -408,6 +427,15 @@ function get_user_posts($id, $type, $limit, $offset){
 		        $activity = json_decode(newsfeed_list_river($optionsfg));
 		    }
 
+		    foreach($activity as $event){
+				$subject = get_user($event->subject_guid);
+				$object = get_entity($event->object_guid);
+				$event->displayName = $subject->name;
+				$event->profileURL = $subject->getURL();
+				$event->iconURL = $subject->geticon();
+				$event->objectName = $object->title;
+			}
+
 	    	$data = $activity;
 	        break;
 	    default:
@@ -415,7 +443,7 @@ function get_user_posts($id, $type, $limit, $offset){
 			break;
 	}
 
-	logout();
+	// logout();
 	return $data;
 }
 

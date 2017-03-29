@@ -15,9 +15,9 @@
     $user_avatar = $userObj->geticonURL('medium');
     $email = $userObj->email;
 
-    $userType = $userObj->get('user_type');
+    $userType = $userObj->user_type;
     // if user is public servant
-    if (strcmp($userType, 'federal') == 0) {
+    if( $userType == 'federal' ){
         $deptObj = elgg_get_entities(array(
             'type' => 'object',
             'subtype' => 'federal_departments',
@@ -31,15 +31,15 @@
             $federal_departments = json_decode($depts->federal_departments_fr, true);
         }
 
-        $department = $federal_departments[$userObj->get('federal')];
+        $department = $federal_departments[$userObj->federal];
 
     // otherwise if user is student or academic
-    } else if (strcmp($userType, 'student') == 0 || strcmp($userType, 'academic') == 0){
-        $institution = $userObj->get('institution');
-        $department = ($institution == 'university') ? $userObj->get('university') : $userObj->get('college');
+    } else if( $userType == 'student' || $userType == 'academic' ){
+        $institution = $userObj->institution;
+        $department = ($institution == 'university') ? $userObj->university : $userObj->college;
 
     // otherwise if user is provincial employee
-    } else if (strcmp($userType, 'provincial') == 0 ) {
+    } else if( $userType == 'provincial' ){
         $provObj = elgg_get_entities(array(
             'type' => 'object',
             'subtype' => 'provinces',
@@ -71,7 +71,7 @@
 
     // otherwise show basic info
     } else {
-        $department = $userObj->get($userType);
+        $department = $userObj->$userType;
     }
 
 ?>

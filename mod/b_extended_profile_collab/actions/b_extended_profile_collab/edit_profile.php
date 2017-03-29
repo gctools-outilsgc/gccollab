@@ -53,6 +53,8 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                                 }
                             }
 
+                            if($user->email == $v) $isValid = true;
+
                             if (!$isValid) { // check if domain is gc.ca
                                 $govt_domain = explode('.',$user_email[1]);
                                 $govt_domain_len = count($govt_domain) - 1;                           
@@ -299,6 +301,7 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                         $experience->organization = htmlentities($work['organization']);
                         $experience->startdate = $work['startdate'];
                         $experience->startyear = $work['startyear'];
+                        $experience->not_applicable = $work['not_applicable'];
                         $experience->enddate = $work['enddate'];
                         $experience->endyear = $work['endyear'];
                         $experience->ongoing = $work['ongoing'];

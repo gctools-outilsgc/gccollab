@@ -33,7 +33,7 @@ if ($user->canEdit()) {
     echo '<div class="basic-profile-standard-field-wrapper col-sm-6 col-xs-12">'; 
 
     // form that displays the user fields
-    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Municipal', 'International', 'NGO', 'Community', 'Business', 'Media', 'Retired', 'Other', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
+    $fields = array('Name', 'user_type', 'Federal', 'Provincial', 'Institution', 'University', 'College', 'Highschool', 'Municipal', 'International', 'NGO', 'Community', 'Business', 'Media', 'Retired', 'Other', 'Job', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
 
     foreach ($fields as $field) {
 
@@ -44,7 +44,7 @@ if ($user->canEdit()) {
 
         if(in_array($field, array("federal", "institution", "provincial", "municipal", "international", "ngo", "community", "business", "media", "retired", "other"))) {
             echo "<div class='form-group col-xs-12 occupation-choices' id='{$field}-wrapper'>";
-        } else if(in_array($field, array("university", "college"))) {
+        } else if(in_array($field, array("university", "college", "highschool"))) {
             echo "<div class='form-group col-xs-12 occupation-choices student-choices' id='{$field}-wrapper'>";
         } else {
             echo "<div class='form-group col-xs-12 {$field}'>";
@@ -61,9 +61,9 @@ if ($user->canEdit()) {
                 'class' => "gcconnex-basic-{$field}",
                 'value' => $value,
                 'options_values' => array(
-                    'federal' => elgg_echo('gcconnex-profile-card:federal'),
                     'academic' => elgg_echo('gcconnex-profile-card:academic'),
                     'student' => elgg_echo('gcconnex-profile-card:student'),
+                    'federal' => elgg_echo('gcconnex-profile-card:federal'),
                     'provincial' => elgg_echo('gcconnex-profile-card:provincial'),
                     'municipal' => elgg_echo('gcconnex-profile-card:municipal'),
                     'international' => elgg_echo('gcconnex-profile-card:international'),
@@ -106,7 +106,12 @@ if ($user->canEdit()) {
                     if (type == 'federal') {
                         $('#federal-wrapper').fadeIn();
                     } else if (type == 'academic' || type == 'student') {
-                        if( type == 'academic' && $("#institution").val() == 'highschool' ){ $("#institution").val('default_invalid_value'); }
+                        if( type == 'academic' ){
+                            if( $("#institution").val() == 'highschool' ){ $("#institution").prop('selectedIndex', 0); }
+                            $("#institution option[value='highschool']").hide();
+                        } else {
+                            $("#institution option[value='highschool']").show();
+                        }
                         $('#institution-wrapper').fadeIn();
                         var institution = $('#institution').val();
                         $('#' + institution + '-wrapper').fadeIn();
@@ -169,7 +174,7 @@ if ($user->canEdit()) {
             echo "<label for='{$field}' class='col-sm-4'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
             echo '<div class="col-sm-8">';
 
-            $institution_list = array("university" => elgg_echo('gcconnex-profile-card:university'), "college" => elgg_echo('gcconnex-profile-card:college'));
+            $institution_list = array("university" => elgg_echo('gcconnex-profile-card:university'), "college" => elgg_echo('gcconnex-profile-card:college'), "highschool" => elgg_echo('gcconnex-profile-card:highschool'));
 
             echo elgg_view('input/select', array(
                 'name' => $field,
