@@ -15,7 +15,7 @@ elgg_ws_expose_function(
 		"profileemail" => array('type' => 'string', 'required' => false)
 	),
 	'provides user information based on user id',
-	'GET',
+	'POST',
 	true,
 	false
 );
