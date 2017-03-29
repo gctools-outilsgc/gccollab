@@ -416,11 +416,11 @@
                                         this.xAxis[0].update({
                                             max: studentMembersDrilldown[0].data.length - 1
                                         });
-                                    } else if(e.seriesOptions.id == "University" || e.seriesOptions.id == "Université"){
+                                    } else if(e.seriesOptions.id == "High School" || e.seriesOptions.id == "École secondaire"){
                                         this.xAxis[0].update({
                                             max: studentMembersDrilldown[1].data.length - 1
                                         });
-                                    } else if(e.seriesOptions.id == "High School" || e.seriesOptions.id == "École secondaire"){
+                                    } else if(e.seriesOptions.id == "University" || e.seriesOptions.id == "Université"){
                                         this.xAxis[0].update({
                                             max: studentMembersDrilldown[2].data.length - 1
                                         });
