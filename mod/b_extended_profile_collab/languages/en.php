@@ -138,6 +138,7 @@ $english = array(
     'gcconnex_profile:experience:start_month' => 'Start Month: ',
     'gcconnex_profile:experience:year' => 'Year: ',
     'gcconnex_profile:experience:end_month' => 'End Month: ',
+    'gcconnex_profile:experience:not_applicable' => 'Not Applicable',
     'gcconnex_profile:experience:ongoing' => 'Present',
     'gcconnex_profile:experience:responsibilities' => 'Responsibilities',
     'gcconnex_profile:experience:delete' => 'Delete this entry',

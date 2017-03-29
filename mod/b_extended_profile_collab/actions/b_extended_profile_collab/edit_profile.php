@@ -301,6 +301,7 @@ if (elgg_is_xhr()) {  // This is an Ajax call!
                         $experience->organization = htmlentities($work['organization']);
                         $experience->startdate = $work['startdate'];
                         $experience->startyear = $work['startyear'];
+                        $experience->not_applicable = $work['not_applicable'];
                         $experience->enddate = $work['enddate'];
                         $experience->endyear = $work['endyear'];
                         $experience->ongoing = $work['ongoing'];

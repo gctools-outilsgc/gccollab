@@ -938,6 +938,7 @@ function saveProfile(event) {
                         'title': $(this).find('.gcconnex-work-experience-title').val(),
                         'startdate': $(this).find('.gcconnex-work-experience-startdate').val(),
                         'startyear': $(this).find('.gcconnex-work-experience-start-year').val(),
+                        'not_applicable': $(this).find('.gcconnex-work-experience-not_applicable').prop('checked'),
                         'enddate': $(this).find('.gcconnex-work-experience-enddate').val(),
                         'endyear': $(this).find('.gcconnex-work-experience-end-year').val(),
                         'ongoing': $(this).find('.gcconnex-work-experience-ongoing').prop('checked'),
@@ -967,7 +968,10 @@ function saveProfile(event) {
                     }
 
                     //start year field
-                    if($.trim(experience['startyear']) == ''){
+                    if(experience['not_applicable'] == true){
+                      $(this).find('.gcconnex-work-experience-start-year').removeClass('input-error').removeAttr('aria-invalid', "true");
+                      //dont do any validation on startyear since it doesnt matter while not_applicable is active
+                    } else if($.trim(experience['startyear']) == ''){
                       $(this).find('.gcconnex-work-experience-start-year').addClass('input-error').attr('aria-invalid', "true");
                       $valid_form = false;
                     } else {
@@ -1342,6 +1346,15 @@ function isNumberKey(evt){
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     return true;
+}
+
+/*
+ * Purpose: disable the start date inputs when a user selects "Not Applicable"
+ */
+function toggleStartDate(section, evt) {
+
+    $(evt).closest('.gcconnex-' + section + '-entry').find('.gcconnex-' + section + '-start-year').attr('disabled', evt.checked);
+    $(evt).closest('.gcconnex-' + section + '-entry').find('.gcconnex-' + section + '-startdate').attr('disabled', evt.checked);
 }
 
 /*
