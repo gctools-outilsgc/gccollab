@@ -72,7 +72,8 @@ echo elgg_view("input/text", array(
         'value' => $work_experience->startyear));
 
 // Add a "Not Applicable" start date for Retired Public Servants
-if(elgg_get_logged_in_user_entity()->user_type == "retired"){
+// $user = get_user($work_experience->owner_guid);
+// if($user->user_type == "retired"){
     $params = array(
         'name' => 'not_applicable',
         'class' => 'gcconnex-work-experience-not_applicable',
@@ -84,7 +85,7 @@ if(elgg_get_logged_in_user_entity()->user_type == "retired"){
 
     echo  '<label>' . elgg_view('input/checkbox', $params);
     echo elgg_echo('gcconnex_profile:experience:not_applicable') . '</label>';
-}
+// }
 
 // disable the end dates if the user is still currently working here
 

@@ -7,8 +7,33 @@ elgg_ws_expose_function("get.profile","get_api_profile", array("id" => array('ty
 	'provide user GUID number and all profile information is returned',
                'GET', false, false);
 
-elgg_ws_expose_function("get.posts","get_user_posts", array("id" => array('type' => 'string'), "type" => array('type' => 'string'), "limit" => array('type' => 'int'), "offset" => array('type' => 'int', 'required' => false)),
-	'provides latest posts by their type and their user id', 'POST', true, false);
+elgg_ws_expose_function(
+	"get.user",
+	"get_user_data",
+	array(
+		"id" => array('type' => 'string', 'required' => true),
+		"profileemail" => array('type' => 'string', 'required' => false)
+	),
+	'provides user information based on user id',
+	'GET',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
+	"get.posts",
+	"get_user_posts",
+	array(
+		"id" => array('type' => 'string', 'required' => true),
+		"type" => array('type' => 'string'),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'provides latest posts based on the post type and the user id',
+	'POST',
+	true,
+	false
+);
 
 elgg_ws_expose_function("profile.update","profileUpdate", array("id" => array('type' => 'string'), "data" => array('type'=>'string')),
 	'update a user profile based on id passed',
@@ -83,14 +108,14 @@ function get_api_profile($id){
 	/////////////////////////////////////////////////////////////////////////////////
 	//eductation
 	//////////////////////////////////////////////////////////////////////
-	$eductationEntity = elgg_get_entities(array(
+	$educationEntity = elgg_get_entities(array(
 		'owner_guid'=>$user['id'],
 		'subtype'=>'education',
 		'type' => 'object',
 		'limit' => 0
 		));
 	$i=0;
-	foreach ($eductationEntity as $school){
+	foreach ($educationEntity as $school){
 		if($school->access_id==2){
 
 			$user['education']['item_'.$i]['school_name'] = $school->school;
@@ -289,15 +314,291 @@ function get_api_profile($id){
 	return $user;
 }
 
-function get_user_posts($id, $type, $limit, $offset){
+function get_user_data( $id, $profileemail ){
+	$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+	if( !$viewer )
+		return "Viewer user was not found. Please try a different GUID, username, or email address";
+
+	if( !$profileemail ){
+		$user_entity = $viewer;
+		$friends = true;
+	} else {
+		$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+		
+		if( !$user_entity )
+			return "Profile user was not found. Please try a different GUID, username, or email address";
+		
+		$friends = $viewer->isFriendsWith($user_entity->guid);
+	}
+
+	$user['id'] = $user_entity->guid;
+	$user['user_type'] = $user_entity->user_type;
+	$user['username'] = $user_entity->username;
+	$user['displayName'] = $user_entity->name;
+	$user['email'] = $user_entity->email;
+	$user['profileURL'] = $user_entity->getURL();
+	$user['iconURL'] = $user_entity->geticon();
+	$user['jobTitle'] = $user_entity->job;
+
+	switch ($user_entity->user_type) {
+		case "federal":
+			$user['department'] = $user_entity->federal;
+			break;
+		case "student":
+		case "academic":
+			$institution = $user_entity->institution;
+		    $user['department'] = ($institution == 'university') ? $user_entity->university : $user_entity->college;
+			break;
+		case "provincial":
+			$user['department'] = $user_entity->provincial . ' / ' . $user_entity->ministry;
+			break;
+		default:
+			$user['department'] = $user_entity->{$user_entity->user_type};
+			break;
+	}
+
+	$user['telephone'] = $user_entity->phone;
+	$user['mobile'] = $user_entity->mobile;
+	$user['website'] = $user_entity->website;
+
+	if( $user_entity->facebook )
+		$user['links']['facebook'] = "http://www.facebook.com/".$user_entity->facebook;
+	if( $user_entity->google )
+		$user['links']['google'] = "http://www.google.com/".$user_entity->google;
+	if( $user_entity->github )
+		$user['links']['github'] = "https://github.com/".$user_entity->github;
+	if( $user_entity->twitter )
+		$user['links']['twitter'] = "https://twitter.com/".$user_entity->twitter;
+	if( $user_entity->linkedin )
+		$user['links']['linkedin'] = "http://ca.linkedin.com/in/".$user_entity->linkedin;
+	if( $user_entity->pinterest )
+		$user['links']['pinterest'] = "http://www.pinterest.com/".$user_entity->pinterest;
+	if( $user_entity->tumblr )
+		$user['links']['tumblr'] = "https://www.tumblr.com/blog/".$user_entity->tumblr;
+	if( $user_entity->instagram )
+		$user['links']['instagram'] = "http://instagram.com/".$user_entity->instagram;
+	if( $user_entity->flickr )
+		$user['links']['flickr'] = "http://flickr.com/".$user_entity->flickr;
+	if( $user_entity->youtube )
+		$user['links']['youtube'] = "http://www.youtube.com/".$user_entity->youtube;
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//about me
+	////////////////////////////////////////////////////////////////////////
+	$aboutMeMetadata = elgg_get_metadata(array('guids'=>array($user['id']),'limit'=>0,'metadata_names'=>array('description')));
+	
+	if( $aboutMeMetadata[0]->access_id == ACCESS_PUBLIC || $aboutMeMetadata[0]->access_id == ACCESS_LOGGED_IN || ($friends && $aboutMeMetadata[0]->access_id == ACCESS_FRIENDS) ){
+		$user['about_me'] = $aboutMeMetadata[0]->value;
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	//education
+	//////////////////////////////////////////////////////////////////////
+	$educationEntity = elgg_get_entities(array(
+		'owner_guid'=>$user['id'],
+		'subtype'=>'education',
+		'type' => 'object',
+		'limit' => 0
+	));
+	$i=0;
+	foreach( $educationEntity as $school ){
+		if( $school->access_id == ACCESS_PUBLIC || $school->access_id == ACCESS_LOGGED_IN || ($friends && $school->access_id == ACCESS_FRIENDS) ){
+			$user['education']['item_'.$i]['school_name'] = $school->school;
+			
+			$user['education']['item_'.$i]['start_date'] = buildDate($school->startdate, $school->startyear);
+			
+			if($school->ongoing == "false"){
+				$user['education']['item_'.$i]['end_date'] = buildDate($school->enddate,$school->endyear);
+			}else{
+				$user['education']['item_'.$i]['end_date'] = "present/actuel";
+			}
+			$user['education']['item_'.$i]['degree'] = $school->degree;
+			$user['education']['item_'.$i]['field_of_study'] = $school->field;
+			$i++;
+		}
+	}
+	////////////////////////////////////////////////////////
+	//experience
+	//////////////////////////////////////
+	$experienceEntity = elgg_get_entities(array(
+		'owner_guid'=>$user['id'],
+		'subtype'=>'experience',
+		'type' => 'object',
+		'limit' => 0
+	));
+	usort($experienceEntity, "sortDate");
+	$i=0;
+	foreach( $experienceEntity as $job ){
+		if( $job->access_id == ACCESS_PUBLIC || $job->access_id == ACCESS_LOGGED_IN || ($friends && $job->access_id == ACCESS_FRIENDS) ){
+			$jobMetadata = elgg_get_metadata(array(
+				'guid' => $job->guid,
+				'limit' => 0
+			));
+			//foreach ($jobMetadata as $data)
+			//	$user['job'][$i++][$data->name] = $data->value;
+
+			$user['experience']['item_'.$i]['job_title'] = $job->title;
+			$user['experience']['item_'.$i]['organization'] = $job->organization;
+			$user['experience']['item_'.$i]['start_date'] = buildDate($job->startdate, $job->startyear);
+			if ($job->ongoing == "false"){
+				$user['experience']['item_'.$i]['end_date'] = buildDate($job->enddate, $job->endyear);
+			}else{
+				$user['experience']['item_'.$i]['end_date'] = "present/actuel";
+			}
+			$user['experience']['item_'.$i]['responsibilities'] = $job->responsibilities;
+			//$user['experience']['item_'.$i]['colleagues'] = $job->colleagues;
+			$j = 0;
+			if( is_array($job->colleagues) ){
+				foreach( $job->colleagues as $friend ){
+					$friendEntity = get_user($friend);
+					$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["id"] = $friendEntity->guid;
+					$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["username"] = $friendEntity->username;
+	
+					//get and store user display name
+					$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["displayName"] = $friendEntity->name;
+	
+					//get and store URL for profile
+					$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["profileURL"] = $friendEntity->getURL();
+	
+					//get and store URL of profile avatar
+					$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["iconURL"] = $friendEntity->geticon();
+					$j++;
+				}
+			} else if( !is_null($job->colleagues) ){
+				$friendEntity = get_user($job->colleagues);
+				$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["id"] = $friendEntity->guid;
+				$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["username"] = $friendEntity->username;
+	
+				//get and store user display name
+				$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["displayName"] = $friendEntity->name;
+		
+				//get and store URL for profile
+				$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["profileURL"] = $friendEntity->getURL();
+	
+				//get and store URL of profile avatar
+				$user['experience']['item_'.$i]['colleagues']['colleague_'.$j]["iconURL"] = $friendEntity->geticon();
+					
+			}
+			$i++;
+		}
+	}
+	/////////////////////////////////////////////////////////
+	//Skills
+	///////////////////////////////////////////////////////
+	if( $user_entity->skill_access == ACCESS_PUBLIC || $user_entity->skill_access == ACCESS_LOGGED_IN || ($friends && $user_entity->skill_access == ACCESS_FRIENDS) ){
+		$skillsEntity = elgg_get_entities(array(
+			'owner_guid'=>$user['id'],
+			'subtype'=>'MySkill',
+			'type' => 'object',
+			'limit' => 0
+		));
+	}
+	$i=0;
+	foreach($skillsEntity as $skill){
+		$user['skills']['item_'.$i]['skill'] = $skill->title;
+		//$user['skills']['item_'.$i]['endorsements'] = $skill->endorsements;
+		$j = 0;
+		if( is_array($skill->endorsements) ){
+			foreach( $skill->endorsements as $friend ){
+				$friendEntity = get_user($friend);
+				$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
+				$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
+				$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
+				$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
+				$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+				$j++;
+			}
+		} else if( !is_null($skill->endorsements) ){
+			$friendEntity = get_user($skill->endorsements);
+			$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
+			$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
+			$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
+			$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
+			$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+		}
+		$i++;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//Language
+	////////////////////////////////////////////////////////////////////
+	//$user['language']["format"] = "Written Comprehension / Written Expression / Oral Proficiency";
+	/*$languageMetadata =  elgg_get_metadata(array(
+		'guid'=>$user['id'],
+		'limit'=>0,
+		'metadata_name'=>'english'
+		));
+	if (!is_null($languageMetadata)){
+		if($languageMetadata[0]->access_id == 2){
+			$user['language']["format"] = "Written Comprehension / Written Expression / Oral Proficiency";
+		}
+		$i = 0;
+		foreach($languageMetadata as $grade){
+			if($grade->access_id == 2){
+				
+				if($i < 3)
+					$user['language']["english"]['level'] .= $grade->value;
+				if($i<2){
+					$user['language']["english"]['level'].=" / ";
+				}
+				if($i == 3)
+					$user['language']["english"]['expire'] = $grade->value;
+			}
+			$i++;
+		}
+	}
+	$languageMetadata =  elgg_get_metadata(array(
+		'guid'=>$user['id'],
+		'limit'=>0,
+		'metadata_name'=>'french'
+		));
+	if (!is_null($languageMetadata)){
+		$i = 0;
+		foreach($languageMetadata as $grade){
+			if($grade->access_id == 2){
+				if ($i<3)
+					$user['language']["french"]['level'] .= $grade->value;
+				if($i<2){
+					$user['language']["french"]['level'] .= " / ";
+				}
+				if($i == 3)
+					$user['language']["french"]['expire'] = $grade->value;
+			}
+			$i++;
+		}
+	}*/
+	//////////////////////////////////////////////////////////////////////////////////////
+	//portfolio
+	///////////////////////////////////////////////////////////////////
+	$portfolioEntity = elgg_get_entities(array(
+		'owner_guid'=>$user['id'],
+		'subtype'=>'portfolio',
+		'type' => 'object',
+		'limit' => 0
+	));
+	$i=0;
+	foreach( $portfolioEntity as $portfolio ){
+		if( $portfolio->access_id == ACCESS_PUBLIC || $portfolio->access_id == ACCESS_LOGGED_IN || ($friends && $portfolio->access_id == ACCESS_FRIENDS) ){
+			$user['portfolio']['item_'.$i]['title'] = $portfolio->title;
+			$user['portfolio']['item_'.$i]['link'] = $portfolio->link;
+			if($portfolio->datestamped == "on")
+				$user['portfolio']['item_'.$i]['date'] = $portfolio->publishdate;
+			$user['portfolio']['item_'.$i]['description'] = $portfolio->description;
+		}
+	}
+
+	$user['dateJoined'] = date("Y-m-d H:i:s", $user_entity->time_created);
+	$user['lastActivity'] = date("Y-m-d H:i:s", $user_entity->last_action);
+	$user['lastLogin'] = date("Y-m-d H:i:s", $user_entity->last_login);
+
+	return $user;
+}
+
+function get_user_posts( $id, $type, $limit, $offset ){
 	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 
 	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
 	login($user);
-
-	if( !$offset )
-		$offset = 0;
 
 	$db_prefix = elgg_get_config('dbprefix');
 
