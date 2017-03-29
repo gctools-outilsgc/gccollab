@@ -16,6 +16,7 @@
 	$widget_categories = $vars['entity']->widget_categories;
 	$widget_context_mode = $vars['entity']->widget_context_mode;
 	if ( !isset($widget_context_mode) ) $widget_context_mode = 'search';
+	
 	elgg_set_context($widget_context_mode);
 
 	if ($site_categories == NULL || $widget_categories == NULL) {

@@ -11,20 +11,28 @@ function gc_landing_pages_init(){
     $landingpages = json_decode($landingpages, true);
     $context = array();
 
-    foreach($landingpages as $landingpage){
-        //Register landing page handler
-        elgg_register_page_handler($landingpage['landing_url'], 'gc_landing_page_handler');
+    if( count($landingpages) > 0 ){
+        $parent = new ElggMenuItem('communities', elgg_echo('gc_landing_page:communities') . '<span class="expicon glyphicon glyphicon-chevron-down"></span>', '#communities_menu');
+        elgg_register_menu_item('site', $parent);
 
-        $text = (get_current_language() == 'en') ? $landingpage['landing_en'] : $landingpage['landing_fr'];
+        foreach( $landingpages as $landingpage ){
+            //Register landing page handler
+            elgg_register_page_handler($landingpage['landing_url'], 'gc_landing_page_handler');
 
-        //Register the site menu link
-        elgg_register_menu_item('site', array(
-            'name' => $landingpage['landing_url'],
-            'href' => elgg_get_site_url() . $landingpage['landing_url'],
-            'text' => $text,
-        ));
+            $text = (get_current_language() == 'en') ? $landingpage['landing_en'] : $landingpage['landing_fr'];
 
-        $context[] = "gc_landing_pages-" . $landingpage['landing_url'];
+            //Register each landing page menu link
+            elgg_register_menu_item('landingpages', array(
+                'name' => $landingpage['landing_url'],
+                'href' => elgg_get_site_url() . $landingpage['landing_url'],
+                'text' => $text,
+            ));
+
+            $parent->addChild( elgg_get_menu_item('landingpages', $landingpage['landing_url']) );
+            $parent->setLinkClass('item');
+
+            $context[] = "gc_landing_pages-" . $landingpage['landing_url'];
+        }
     }
 
     // Register widgets for custom landing pages
@@ -33,9 +41,14 @@ function gc_landing_pages_init(){
     if( elgg_is_active_plugin('blog') ){
         elgg_register_widget_type('filtered_blogs_index', elgg_echo('gc_landing_pages:filtered_blogs_index'), elgg_echo('gc_landing_pages:filtered_blogs_index'), $context, true);
     }
+    if( elgg_is_active_plugin('event_calendar') ){
+        elgg_register_widget_type('filtered_events_index', elgg_echo('gc_landing_pages:filtered_events_index'), elgg_echo('gc_landing_pages:filtered_events_index'), $context, true);
+    }
     if( elgg_is_active_plugin('groups') ){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_landing_pages:filtered_groups_index'), elgg_echo('gc_landing_pages:filtered_groups_index'), $context, true);
     }
+
+    elgg_register_widget_type('filtered_members_index', elgg_echo('gc_landing_pages:filtered_members_index'), elgg_echo('gc_landing_pages:filtered_members_index'), $context, true);
 
     elgg_register_widget_type('filtered_spotlight_index', elgg_echo('gc_landing_pages:filtered_spotlight_index'), elgg_echo('gc_landing_pages:filtered_spotlight_index'), $context, true);
 
@@ -44,9 +57,6 @@ function gc_landing_pages_init(){
     }
 }
 
-/*
- *  Custom Landing Page
- */
 function gc_landing_page_handler($page, $url){
     $landingpages = elgg_get_plugin_setting('landingpages', 'gc_landing_pages');
     $landingpages = json_decode($landingpages, true);

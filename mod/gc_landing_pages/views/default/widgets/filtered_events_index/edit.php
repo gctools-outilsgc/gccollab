@@ -4,25 +4,28 @@
  * Landing page widgets
  */
   
-	$num_items = $vars['entity']->num_items;
-	if ( !isset($num_items) ) $num_items = 10;
-	
-	$widget_groups = $vars["entity"]->widget_groups;
-  if ( !isset($widget_groups) ) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
-	
-  $site_categories = elgg_get_site_entity()->categories; 
+  $num_items = $vars['entity']->num_items;
+  if ( !isset($num_items) ) $num_items = 10;
+
+  $mode = $vars['entity']->mode;
+  if ( !isset($mode) ) $mode = "month";
+
+  $widget_groups = $vars["entity"]->widget_groups;
+  if ( !isset($widget_groups) ) $widget_groups = 0;
+
+  $site_categories = elgg_get_site_entity()->categories;
   $widget_categories = $vars['entity']->widget_categories;
-	$widget_context_mode = $vars['entity']->widget_context_mode;
-	if ( !isset($widget_context_mode) ) $widget_context_mode = 'search';
-	
-	$widget_title = $vars['entity']->widget_title;
-	$widget_groups = $vars["entity"]->widget_groups;
-	
-	$guest_only = $vars['entity']->guest_only;
-	if ( !isset($guest_only) ) $guest_only = "no";
-	
-	$box_style = $vars['entity']->box_style;
-	if ( !isset($box_style) ) $box_style = "collapsable";
+  $widget_context_mode = $vars['entity']->widget_context_mode;
+  if ( !isset($widget_context_mode) ) $widget_context_mode = 'search';
+
+  $widget_title = $vars['entity']->widget_title;
+  $widget_groups = $vars["entity"]->widget_groups;
+
+  $guest_only = $vars['entity']->guest_only;
+  if ( !isset($guest_only) ) $guest_only = "no";
+
+  $box_style = $vars['entity']->box_style;
+  if ( !isset($box_style) ) $box_style = "collapsable";
 ?>
 <p>
   <?php echo elgg_echo('custom_index_widgets:widget_title'); ?>:
@@ -68,6 +71,12 @@
   ?>
 </p>
 <p>
+  <?php echo elgg_echo('event_calendar:widget_title'); ?>:
+  <?php
+    echo elgg_view('input/dropdown', array('name' => 'params[mode]', 'options_values' => array('day' => elgg_echo('event_calendar:day_label'), 'week' => elgg_echo('event_calendar:week_label'), 'month' => elgg_echo('event_calendar:month_label'), '90 days' => '90 days'), 'value' => $mode));
+  ?>
+</p>
+<p>
   <?php echo elgg_echo('custom_index_widgets:box_style'); ?>:
   <?php
     echo elgg_view('input/dropdown', array('name' => 'params[box_style]', 'options_values' => array('plain' => 'Plain', 'plain collapsable' => 'Plain and collapsable', 'collapsable' => 'Collapsable', 'standard' => 'No Collapsable'), 'value' => $box_style));
@@ -78,4 +87,4 @@
   <?php
     echo elgg_view('input/dropdown', array('name' => 'params[guest_only]', 'options_values' => array('yes' => 'yes', 'no' => 'no'), 'value' => $guest_only));
   ?>
-</p>  
+</p>
