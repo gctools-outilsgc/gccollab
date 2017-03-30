@@ -15,7 +15,8 @@
 	$widget_context_mode = $vars['entity']->widget_context_mode;
 	if ( !isset($widget_context_mode) ) $widget_context_mode = 'search';
 	
-	$widget_title = $vars['entity']->widget_title;
+  $widget_title = $vars['entity']->widget_title;
+	$widget_tags = $vars['entity']->widget_tags;
 	$widget_groups = $vars["entity"]->widget_groups;
 	
 	$guest_only = $vars['entity']->guest_only;
@@ -31,7 +32,7 @@
   ?>
 </p>
 <p>
-  <?php echo elgg_echo('group'); ?>: 
+  <?php echo elgg_echo('groups'); ?>: 
   <?php
     $groups = elgg_get_entities(array("type" => 'group', 'limit' => 100));
     $group_list = array();
@@ -42,6 +43,15 @@
       }
     }
     echo elgg_view('input/dropdown', array('name' => 'params[widget_groups]', 'options_values' => $group_list, 'value' => $widget_groups, 'multiple' => true));
+  ?>
+</p>
+<p>
+  <?php echo elgg_echo('tags'); ?>:
+  <?php
+    echo elgg_view('input/text', array(
+      'name' => 'params[widget_tags]',                       
+      'value' => $widget_tags
+    ));
   ?>
 </p>
 

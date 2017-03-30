@@ -4,8 +4,12 @@
  * Landing page widgets
  */
 
+  $num_items = $vars['entity']->num_items;
+  if ( !isset($num_items) ) $num_items = 10;
+
   $widget_groups = $vars['entity']->widget_groups;
   $widget_title = $vars['entity']->widget_title;
+  $widget_tags = $vars['entity']->widget_tags;
 	
 	$guest_only = $vars['entity']->guest_only;
 	if ( !isset($guest_only) ) $guest_only = "no";
@@ -23,7 +27,7 @@
   ?>
 </p>
 <p>
-  <?php echo elgg_echo('group'); ?>: 
+  <?php echo elgg_echo('groups'); ?>: 
   <?php
     $groups = elgg_get_entities(array('type' => 'group', 'limit' => 0));
     $group_list = array();
@@ -34,6 +38,21 @@
       }
     }
     echo elgg_view('input/dropdown', array('name' => 'params[widget_groups]', 'options_values' => $group_list, 'value' => $widget_groups, 'multiple' => true));
+  ?>
+</p>
+<p>
+  <?php echo elgg_echo('tags'); ?>:
+  <?php
+    echo elgg_view('input/text', array(
+      'name' => 'params[widget_tags]',                       
+      'value' => $widget_tags
+    ));
+  ?>
+</p>
+<p>
+  <?php echo elgg_echo('custom_index_widgets:num_items'); ?>:
+  <?php
+    echo elgg_view('input/dropdown', array('name' => 'params[num_items]', 'options_values' => array('1' => '1', '3' => '3', '5' => '5', '8' => '8', '10' => '10', '12' => '12', '15' => '15', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '100' => '100', ), 'value' => $num_items));
   ?>
 </p>
 <p>
