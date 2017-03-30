@@ -13,6 +13,19 @@ elgg_ws_expose_function(
 	false
 );
 
+elgg_ws_expose_function(
+	"like.count",
+	"like_count",
+	array(
+		"id" => array('type' => 'string', 'required' => true),
+		"guid" => array('type' => 'int', 'required' => true)
+	),
+	'Retreives a like count on an entity based on user id and entity id',
+	'POST',
+	true,
+	false
+);
+
 function like_item( $id, $guid ){
 	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 
@@ -20,7 +33,7 @@ function like_item( $id, $guid ){
 		return "User was not found. Please try a different GUID, username, or email address";
 
 	if( !$guid )
-		return "Entity was not found. Please try a different GUID";
+		return "GUID not found. Please enter a GUID";
 
 	// Let's see if we can get a Wire Post with the specified GUID
 	$entity = get_entity($guid);
@@ -34,15 +47,18 @@ function like_item( $id, $guid ){
 		'annotation_name' => 'likes'
 	));
 
+	$liked = false;
+
 	// check to see if the user has already liked the item
 	if( !empty($likes) ){
 		$like = $likes[0];
 		if( $like && $like->canEdit() ){
 			$like->delete();
-			return elgg_echo("likes:deleted");
+			$data['message'] = elgg_echo("likes:deleted");
 		}
 	} else {
 		$annotation_id = create_annotation($entity->guid, 'likes', "likes", "", $user->guid, $entity->access_id);
+		$liked = true;
 
 		// notify if poster wasn't owner
 		if( $entity->owner_guid != $user->guid ){
@@ -87,6 +103,47 @@ function like_item( $id, $guid ){
 			);
 		}
 
-		return elgg_echo("likes:likes");
+		$data['message'] = elgg_echo("likes:likes");
 	}
+
+	$likes = elgg_get_annotations(array(
+		'guid' => $guid,
+		'annotation_name' => 'likes'
+	));
+	$data['count'] = count($likes);
+
+	$data['liked'] = $liked;
+
+	return $data;
+}
+
+function like_count( $id, $guid ){
+	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+ 	if( !$user )
+		return "User was not found. Please try a different GUID, username, or email address";
+
+	if( !$guid )
+		return "GUID not found. Please enter a GUID";
+
+	// Let's see if we can get a Wire Post with the specified GUID
+	$entity = get_entity($guid);
+	if( !$entity ) {
+		return elgg_echo("likes:notfound");
+	}
+
+	$likes = elgg_get_annotations(array(
+		'guid' => $guid,
+		'annotation_name' => 'likes'
+	));
+	$data['count'] = count($likes);
+
+	$likes = elgg_get_annotations(array(
+		'guid' => $guid,
+		'annotation_owner_guid' => $user->guid,
+		'annotation_name' => 'likes'
+	));
+	$data['liked'] = count($likes) > 0;
+
+	return $data;
 }
