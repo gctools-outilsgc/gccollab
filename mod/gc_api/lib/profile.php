@@ -11,8 +11,8 @@ elgg_ws_expose_function(
 	"get.user",
 	"get_user_data",
 	array(
-		"id" => array('type' => 'string', 'required' => true),
-		"profileemail" => array('type' => 'string', 'required' => false)
+		"profileemail" => array('type' => 'string', 'required' => true),
+		"id" => array('type' => 'string', 'required' => false)
 	),
 	'provides user information based on user id',
 	'POST',
@@ -25,7 +25,7 @@ elgg_ws_expose_function(
 	"get_user_posts",
 	array(
 		"id" => array('type' => 'string', 'required' => true),
-		"type" => array('type' => 'string'),
+		"type" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
 		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
 	),
@@ -314,21 +314,20 @@ function get_api_profile($id){
 	return $user;
 }
 
-function get_user_data( $id, $profileemail ){
-	$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-	if( !$viewer )
-		return "Viewer user was not found. Please try a different GUID, username, or email address";
+function get_user_data( $profileemail, $id ){
+	$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+	if( !$user_entity )
+		return "User profile was not found. Please try a different GUID, username, or email address";
 
-	if( !$profileemail ){
-		$user_entity = $viewer;
-		$friends = true;
-	} else {
-		$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+	if( $id ){
+		$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 		
-		if( !$user_entity )
-			return "Profile user was not found. Please try a different GUID, username, or email address";
+		if( !$viewer )
+			return "Viewer profile was not found. Please try a different GUID, username, or email address";
 		
 		$friends = $viewer->isFriendsWith($user_entity->guid);
+	} else {
+		$friends = true;
 	}
 
 	$user['id'] = $user_entity->guid;
@@ -619,6 +618,7 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			foreach($data as $object){
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
+				$object->email = $owner->email;
 				$object->profileURL = $owner->getURL();
 				$object->iconURL = $owner->geticon();
 			}
@@ -639,6 +639,7 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			foreach($data as $object){
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
+				$object->email = $owner->email;
 				$object->profileURL = $owner->getURL();
 				$object->iconURL = $owner->geticon();
 			}
@@ -659,6 +660,7 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			foreach($data as $object){
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
+				$object->email = $owner->email;
 				$object->profileURL = $owner->getURL();
 				$object->iconURL = $owner->geticon();
 			}
