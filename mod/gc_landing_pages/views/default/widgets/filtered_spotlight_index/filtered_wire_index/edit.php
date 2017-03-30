@@ -7,7 +7,7 @@
  	$widget = $vars['entity'];
  	
 	$num_items = $widget->num_items;
-	if ( !isset($num_items) ) $num_items = 5;
+	if ( !isset($num_items) ) $num_items = 10;
 	
 	$widget_title = $widget->widget_title;
 	$widget_hashtag = $widget->widget_hashtag;
@@ -32,7 +32,7 @@
 	?>
 </p>
 <p>
-	<?php echo elgg_echo('Hashtag/Keyword'); ?>:
+	<?php echo elgg_echo('Hashtag'); ?>:
 	<?php
 		echo elgg_view('input/text', array(
 			'name' => 'params[widget_hashtag]',                        

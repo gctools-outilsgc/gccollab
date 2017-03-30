@@ -3,6 +3,10 @@
 /**
  * Landing page widgets
  */
+
+ 	$widget = $vars['entity'];
+	$object_type = 'event_calendar';
+
 	require_once($CONFIG->pluginspath.'event_calendar/models/model.php');
 
 	if( !function_exists('getLastDayOfMonth') ){
@@ -11,20 +15,18 @@
 		}
 	}
 
-	$object_type = 'event_calendar';
-
-	$num_items = $vars['entity']->num_items;
+	$num_items = $widget->num_items;
 	if( !isset($num_items) ) $num_items = 10;
 
-	$widget_groups = $vars["entity"]->widget_groups;
+	$widget_groups = $widget->widget_groups;
 	if( !isset($widget_groups) ) $widget_groups = 0;
 	    
-	$mode = $vars['entity']->mode;
+	$mode = $widget->mode;
 	if( !isset($mode) ) $mode = "month";
 
 	$site_categories = elgg_get_site_entity()->categories;
-	$widget_categories = $vars['entity']->widget_categories;
-	$widget_context_mode = $vars['entity']->widget_context_mode;
+	$widget_categories = $widget->widget_categories;
+	$widget_context_mode = $widget->widget_context_mode;
 	if( !isset($widget_context_mode) ) $widget_context_mode = 'search';
 
 	elgg_set_context($widget_context_mode);
@@ -80,7 +82,7 @@
 
 		$events = elgg_get_entities_from_metadata(array(
 			'type' => 'object',
-			'subtype' => 'event_calendar',
+			'subtype' => $object_type,
 			'metadata_name_value_pair' => array( 
 				array('name' => 'start_date', 'value' => time(),  'operand' => '>='),
 				array('name' => 'start_date', 'value' => $end_ts,  'operand' => '<')

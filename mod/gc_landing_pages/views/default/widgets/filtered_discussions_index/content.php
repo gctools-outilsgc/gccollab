@@ -5,7 +5,7 @@
  */
  
  	$widget = $vars['entity'];
-	$object_type = 'blog';
+	$object_type = 'groupforumtopic';
 
 	$num_items = $widget->num_items;
 	if ( !isset($num_items) ) $num_items = 10;
@@ -17,14 +17,15 @@
   	if( $widget_tags ) $widget_tags = explode(',', $widget_tags);
 	
 	$widget_tag_logic = $widget->widget_tag_logic;
+	$widget_add_button = $widget->widget_add_button;
 
 	$options = array(
-		'type' => 'object',
-		'subtype' => $object_type,
-		'limit' => $num_items,
-		'full_view' => false,
-		'list_type_toggle' => false,
-		'pagination' => false
+		"type" => "object",
+		"subtype" => $object_type,
+		"limit" => $num_items,
+		"order_by" => "e.last_action desc",
+		"pagination" => false,
+		"full_view" => false
 	);
 
 	if( !empty($widget_tags) ){
@@ -43,7 +44,21 @@
 	    $options['container_guids'] = $widget_groups;
 	}
 
-  	$widget_datas = ( isset($options['metadata_name']) || isset($options['metadata_name_value_pairs']) ) ?  elgg_list_entities_from_metadata($options) : elgg_list_entities($options);
+	if( $widget_add_button == "yes" ){
+		$params = $vars;
+		$params["embed"] = true;
+		echo elgg_view("widgets/start_discussion/content", $params);
+	}
+
+	$widget_datas = ( isset($options['metadata_name']) || isset($options['metadata_name_value_pairs']) ) ?  elgg_list_entities_from_metadata($options) : elgg_list_entities($options);
+
+	if( empty($widget_datas) ){
+		$widget_datas = elgg_echo("grouptopic:notcreated");
+	} else {
+		$widget_datas .= "<div class='elgg-widget-more'>";
+		$widget_datas .= elgg_view("output/url", array("text" => elgg_echo("widgets:discussion:more"), "href" => "discussion/all"));
+		$widget_datas .= "</div>";
+	}
 	
 	echo $widget_datas;
 ?>

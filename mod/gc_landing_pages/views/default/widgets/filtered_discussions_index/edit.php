@@ -10,11 +10,12 @@
 	if ( !isset($num_items) ) $num_items = 5;
 	
 	$widget_groups = $widget->widget_groups;
-  if ( !isset($widget_groups) ) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
-	
-  $widget_title = $widget->widget_title;
-  $widget_tags = $widget->widget_tags;
+	if ( !isset($widget_groups) ) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
+
+	$widget_title = $widget->widget_title;
+	$widget_tags = $widget->widget_tags;
 	$widget_tag_logic = $widget->widget_tag_logic;
+	$widget_add_button = $widget->widget_add_button;
 ?>
 <p>
   <?php echo elgg_echo('widget_manager:widgets:edit:custom_title'); ?>:
@@ -54,6 +55,12 @@
 <p>
   <?php echo elgg_echo('widget:numbertodisplay'); ?>:
   <?php
-    echo elgg_view('input/dropdown', array('name' => 'params[num_items]', 'options_values' => array('1' => '1', '3' => '3', '5' => '5', '8' => '8', '10' => '10', '12' => '12', '15' => '15', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '100' => '100', ), 'value' => $num_items));
+    echo elgg_view('input/dropdown', array('name' => 'params[num_items]', 'value' => $num_items, 'options' => range(1, 10)));
+  ?>
+</p>
+<p>
+  <?php echo elgg_echo('Show "Add discussion topic" button'); ?>:
+  <?php
+    echo elgg_view('input/dropdown', array('name' => 'params[widget_add_button]', 'options_values' => array('yes' => 'Yes', 'no' => 'No'), 'value' => $widget_add_button));
   ?>
 </p>

@@ -41,6 +41,9 @@ function gc_landing_pages_init(){
     if( elgg_is_active_plugin('blog') ){
         elgg_register_widget_type('filtered_blogs_index', elgg_echo('gc_landing_pages:filtered_blogs_index'), elgg_echo('gc_landing_pages:filtered_blogs_index'), $context, true);
     }
+    
+    elgg_register_widget_type('filtered_discussions_index', elgg_echo('gc_landing_pages:filtered_discussions_index'), elgg_echo('gc_landing_pages:filtered_discussions_index'), $context, true);
+
     if( elgg_is_active_plugin('event_calendar') ){
         elgg_register_widget_type('filtered_events_index', elgg_echo('gc_landing_pages:filtered_events_index'), elgg_echo('gc_landing_pages:filtered_events_index'), $context, true);
     }
