@@ -619,8 +619,11 @@ function get_usergroups( $id ){
 
 	$data = json_decode($groups);
 	foreach($data as $object){
-		$owner = get_entity($object->owner_guid);
-		$object->iconURL = $owner->geticon();
+		$group = get_entity($object->guid);
+		$object->iconURL = $group->geticon();
+
+		$num_members = $group->getMembers(array('count' => true));
+		$object->count = $num_members;
 	}
 
 	return $data;
