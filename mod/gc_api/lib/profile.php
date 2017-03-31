@@ -21,6 +21,19 @@ elgg_ws_expose_function(
 );
 
 elgg_ws_expose_function(
+	"get.usergroups",
+	"get_usergroups",
+	array(
+		"profileemail" => array('type' => 'string', 'required' => true),
+		"id" => array('type' => 'string', 'required' => false)
+	),
+	'provides a user\'s group information based on user id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"get.posts",
 	"get_user_posts",
 	array(
@@ -590,6 +603,39 @@ function get_user_data( $profileemail, $id ){
 	$user['lastLogin'] = date("Y-m-d H:i:s", $user_entity->last_login);
 
 	return $user;
+}
+
+function get_usergroups( $profileemail, $id ){ 
+	$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+	if( !$user_entity )
+		return "User profile was not found. Please try a different GUID, username, or email address";
+
+	if( $id ){
+		$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+		
+		if( !$viewer )
+			return "Viewer profile was not found. Please try a different GUID, username, or email address";
+		
+		$friends = $viewer->isFriendsWith($user_entity->guid);
+	} else {
+		$friends = true;
+	}
+
+	$groups = elgg_list_entities_from_relationship(array(
+	    'relationship'=> 'member', 
+	    'relationship_guid'=> $user_entity->guid, 
+	    'inverse_relationship'=> FALSE, 
+	    'type'=> 'group', 
+	    'limit'=> 0
+	));
+
+	$data = json_decode($groups);
+	foreach($data as $object){
+		$owner = get_entity($object->owner_guid);
+		$object->iconURL = $owner->geticon();
+	}
+
+	return $data;
 }
 
 function get_user_posts( $id, $type, $limit, $offset ){
