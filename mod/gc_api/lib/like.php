@@ -17,8 +17,8 @@ elgg_ws_expose_function(
 	"like.count",
 	"like_count",
 	array(
-		"id" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"id" => array('type' => 'string', 'required' => false)
 	),
 	'Retreives a like count on an entity based on user id and entity id',
 	'POST',
@@ -117,12 +117,7 @@ function like_item( $id, $guid ){
 	return $data;
 }
 
-function like_count( $id, $guid ){
-	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-
- 	if( !$user )
-		return "User was not found. Please try a different GUID, username, or email address";
-
+function like_count( $guid, $id ){
 	if( !$guid )
 		return "GUID not found. Please enter a GUID";
 
@@ -138,12 +133,18 @@ function like_count( $id, $guid ){
 	));
 	$data['count'] = count($likes);
 
-	$likes = elgg_get_annotations(array(
-		'guid' => $guid,
-		'annotation_owner_guid' => $user->guid,
-		'annotation_name' => 'likes'
-	));
-	$data['liked'] = count($likes) > 0;
+	if( $id ){
+		$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+		if( $user ){
+			$likes = elgg_get_annotations(array(
+				'guid' => $guid,
+				'annotation_owner_guid' => $user->guid,
+				'annotation_name' => 'likes'
+			));
+			$data['liked'] = count($likes) > 0;
+		}
+	}
 
 	return $data;
 }

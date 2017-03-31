@@ -24,8 +24,7 @@ elgg_ws_expose_function(
 	"get.usergroups",
 	"get_usergroups",
 	array(
-		"profileemail" => array('type' => 'string', 'required' => true),
-		"id" => array('type' => 'string', 'required' => false)
+		"id" => array('type' => 'string', 'required' => true)
 	),
 	'provides a user\'s group information based on user id',
 	'POST',
@@ -605,21 +604,10 @@ function get_user_data( $profileemail, $id ){
 	return $user;
 }
 
-function get_usergroups( $profileemail, $id ){ 
-	$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+function get_usergroups( $id ){ 
+	$user_entity = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 	if( !$user_entity )
 		return "User profile was not found. Please try a different GUID, username, or email address";
-
-	if( $id ){
-		$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-		
-		if( !$viewer )
-			return "Viewer profile was not found. Please try a different GUID, username, or email address";
-		
-		$friends = $viewer->isFriendsWith($user_entity->guid);
-	} else {
-		$friends = true;
-	}
 
 	$groups = elgg_list_entities_from_relationship(array(
 	    'relationship'=> 'member', 
