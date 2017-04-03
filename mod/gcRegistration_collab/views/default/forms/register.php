@@ -76,6 +76,17 @@ $(document).ready(function() {
 		$('.provincial-choices').hide();
 		$('#' + province + '-wrapper').fadeIn();
 	});
+
+	// Preload form options if page was reloaded
+	if(sessionStorage.length > 0){
+		$('.occupation-choices').hide();
+		$.each(sessionStorage, function(key, value){
+			if( $("#" + key).length > 0 ){
+				$("#" + key).val(value);
+				$("#" + key).closest('.occupation-choices').show();
+			}
+		});
+	}
 });
 
 // make sure the email address given does not contain invalid characters
@@ -83,6 +94,16 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; 
     return re.test(email);
 }
+
+// Save form options if page was reloaded
+$(window).on('beforeunload', function(){
+	sessionStorage.clear();
+	$("form.elgg-form-register input[type=text], form.elgg-form-register select").each(function(key, value) {
+		if( $(value).is(":visible") && $(value).attr('type') != 'hidden' && $(value).attr('type') != 'password' && $(value).attr('id') != 'email2' ){
+			sessionStorage.setItem( $(value).attr('id'), $(value).val() );
+		}
+	});
+});
 </script>
 
 <!-- start of standard form -->
