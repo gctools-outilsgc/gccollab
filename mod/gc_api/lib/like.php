@@ -4,7 +4,7 @@ elgg_ws_expose_function(
 	"like.item",
 	"like_item",
 	array(
-		"id" => array('type' => 'string', 'required' => true),
+		"user" => array('type' => 'string', 'required' => true),
 		"guid" => array('type' => 'int', 'required' => true)
 	),
 	'Submits a like/unlike on an entity based on user id and entity id',
@@ -18,7 +18,7 @@ elgg_ws_expose_function(
 	"like_count",
 	array(
 		"guid" => array('type' => 'int', 'required' => true),
-		"id" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false)
 	),
 	'Retreives a like count on an entity based on user id and entity id',
 	'POST',

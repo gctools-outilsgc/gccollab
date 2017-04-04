@@ -12,7 +12,7 @@ elgg_ws_expose_function(
 	"get_user_data",
 	array(
 		"profileemail" => array('type' => 'string', 'required' => true),
-		"id" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false)
 	),
 	'provides user information based on user id',
 	'POST',
@@ -24,7 +24,7 @@ elgg_ws_expose_function(
 	"get.usergroups",
 	"get_usergroups",
 	array(
-		"id" => array('type' => 'string', 'required' => true)
+		"user" => array('type' => 'string', 'required' => true)
 	),
 	'provides a user\'s group information based on user id',
 	'POST',
@@ -36,7 +36,7 @@ elgg_ws_expose_function(
 	"get.posts",
 	"get_user_posts",
 	array(
-		"id" => array('type' => 'string', 'required' => true),
+		"user" => array('type' => 'string', 'required' => true),
 		"type" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
 		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
@@ -653,6 +653,19 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			));
 			$data = json_decode($data);
 			foreach($data as $object){
+				$likes = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_owner_guid' => $user->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->liked = count($liked) > 0;
+
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
 				$object->email = $owner->email;
@@ -674,6 +687,19 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			));
 			$data = json_decode($data);
 			foreach($data as $object){
+				$likes = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_owner_guid' => $user->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->liked = count($liked) > 0;
+
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
 				$object->email = $owner->email;
@@ -695,6 +721,19 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			));
 			$data = json_decode($data);
 			foreach($data as $object){
+				$likes = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $object->guid,
+					'annotation_owner_guid' => $user->guid,
+					'annotation_name' => 'likes'
+				));
+				$object->liked = count($liked) > 0;
+				
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
 				$object->email = $owner->email;

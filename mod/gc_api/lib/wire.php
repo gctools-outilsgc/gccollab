@@ -1,16 +1,30 @@
 <?php
 
-elgg_ws_expose_function("get.wire","get_wire_posts", array(
+elgg_ws_expose_function("get.wires","get_wire_posts", array(
 "query" => array('type' => 'string','required' => false, 'default' => ' '),
 "limit" => array('type' => 'int','required' => false, 'default' => 15),
 ),'returns wire posts based on query',
 'GET', false, false);
 
 elgg_ws_expose_function(
+	"get.wire",
+	"get_wire",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"guid" => array('type' => 'int', 'required' => true),
+		"thread" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'Retrieves a wire post & all replies based on user id and wire post id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"reply.wire",
 	"reply_wire",
 	array(
-		"id" => array('type' => 'string', 'required' => true),
+		"user" => array('type' => 'string', 'required' => true),
 		"guid" => array('type' => 'int', 'required' => true),
 		"message" => array('type' => 'string', 'required' => true)
 	),
@@ -128,6 +142,84 @@ function time_elapsed_B($secs){
     }
 	
     return $num.$string;
+}
+
+function get_wire( $id, $guid, $thread ){
+	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+ 	if( !$user )
+		return "User was not found. Please try a different GUID, username, or email address";
+
+	if( !$user instanceof \ElggUser ){
+		return "Invalid user. Please try a different GUID, username, or email address";
+	}
+
+	if( !$guid )
+		return "Wire Post was not found. Please try a different GUID";
+
+	$wire_post = get_entity($guid);
+	$thread_id = $wire_post->wire_thread;
+
+	if( $thread ){
+		$wire_posts = elgg_list_entities_from_metadata(array(
+			"metadata_name" => "wire_thread",
+			"metadata_value" => $thread_id,
+			"type" => "object",
+			"subtype" => "thewire",
+			"limit" => max(20, elgg_get_config('default_limit')),
+			'preload_owners' => true,
+		));
+		$wire_posts = json_decode($wire_posts);
+		foreach($wire_posts as $object){
+			$likes = elgg_get_annotations(array(
+				'guid' => $object->guid,
+				'annotation_name' => 'likes'
+			));
+			$object->likes = count($likes);
+
+			$liked = elgg_get_annotations(array(
+				'guid' => $object->guid,
+				'annotation_owner_guid' => $user->guid,
+				'annotation_name' => 'likes'
+			));
+			$object->liked = count($liked) > 0;
+
+			$owner = get_user($object->owner_guid);
+			$object->displayName = $owner->name;
+			$object->email = $owner->email;
+			$object->profileURL = $owner->getURL();
+			$object->iconURL = $owner->geticon();
+			$object->thread_id = $wire_post->wire_thread;
+		}
+	} else {
+		$wire_posts = elgg_list_entities(array(
+			'guids' => array($guid)
+		));
+		$wire_posts = json_decode($wire_posts);
+		foreach($wire_posts as $object){
+			$likes = elgg_get_annotations(array(
+				'guid' => $object->guid,
+				'annotation_name' => 'likes'
+			));
+			$object->likes = count($likes);
+
+			$liked = elgg_get_annotations(array(
+				'guid' => $object->guid,
+				'annotation_owner_guid' => $user->guid,
+				'annotation_name' => 'likes'
+			));
+			$object->liked = count($liked) > 0;
+
+			$owner = get_user($object->owner_guid);
+			$object->displayName = $owner->name;
+			$object->email = $owner->email;
+			$object->profileURL = $owner->getURL();
+			$object->iconURL = $owner->geticon();
+			$object->thread_id = $wire_post->wire_thread;
+		}
+	}
+
+	return $wire_posts;
 }
 
 function reply_wire( $id, $guid, $message ){
