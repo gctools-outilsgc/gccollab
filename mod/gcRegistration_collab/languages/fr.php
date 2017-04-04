@@ -2,6 +2,8 @@
 
 $french = array(
 
+	'gcRegister:membertype' => "Type de membre",
+	
 	'gcRegister:occupation' => "Occupation",
 	'gcRegister:occupation:academic' => "Milieu universitaire",
 	'gcRegister:occupation:student' => "Étudiant",

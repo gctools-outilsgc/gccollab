@@ -406,6 +406,10 @@ function elgg_solr_user_search($hook, $type, $return, $params) {
         'rows'   => $params['limit'] ? $params['limit'] : 10,
         'fields' => array('id','name','username', 'description', 'score')
     );
+
+    if( $params['user_type'] ){
+    	$select['fields'][] = 'user_type';
+    }
 	
 	if ($params['select'] && is_array($params['select'])) {
         $select = array_merge($select, $params['select']);
@@ -431,6 +435,11 @@ function elgg_solr_user_search($hook, $type, $return, $params) {
 	// get the dismax component and set a boost query
 	$dismax = $query->getEDisMax();
 	$qf = "name^{$title_boost} username^{$title_boost} description^{$description_boost}";
+
+	if( $params['user_type'] ){
+		$qf .= " user_type^{$title_boost}";
+	}
+
 	if ($params['qf']) {
 		$qf = $params['qf'];
 	}
@@ -451,6 +460,10 @@ function elgg_solr_user_search($hook, $type, $return, $params) {
 
 	// make sure we're only getting users
 	$params['fq']['type'] = 'type:user';
+
+	if( $params['user_type'] ){
+		$params['fq']['user_type'] = 'user_type:"' . $params['user_type'] . '"';
+	}
 
 	$default_fq = elgg_solr_get_default_fq($params);
 	if ($params['fq']) {
