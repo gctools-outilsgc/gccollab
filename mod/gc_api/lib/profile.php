@@ -601,6 +601,27 @@ function get_user_data( $profileemail, $id ){
 	$user['lastActivity'] = date("Y-m-d H:i:s", $user_entity->last_action);
 	$user['lastLogin'] = date("Y-m-d H:i:s", $user_entity->last_login);
 
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'thewire',
+		'owner_guids' => array($user_entity->guid),
+		'limit' => 0
+	);
+	$wires = elgg_get_entities($options);
+	$user['wires'] = count($wires);
+
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'blog',
+		'owner_guids' => array($user_entity->guid),
+		'limit' => 0
+	);
+	$blogs = elgg_get_entities($options);
+	$user['blogs'] = count($blogs);
+
+	$colleagues = $user_entity->getFriends(array('limit' => 0));
+	$user['colleagues'] = count($colleagues);
+
 	return $user;
 }
 
