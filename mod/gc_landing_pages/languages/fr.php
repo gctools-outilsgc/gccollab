@@ -9,6 +9,7 @@ return array(
 
   'gc_landing_pages:filtered_activity_index' => "En bref",
   'gc_landing_pages:filtered_blogs_index' => "Derniers billets dans les blogues",
+  'gc_landing_pages:filtered_discussions_index' => "Discussions filtrées",
   'gc_landing_pages:filtered_events_index' => "Prochains évènements",
   'gc_landing_pages:filtered_groups_index' => "Groupes en vedette",
   'gc_landing_pages:filtered_members_index' => "Membres filtrés",

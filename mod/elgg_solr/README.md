@@ -34,3 +34,10 @@ Enter and save the connection information on the plugin settings page.
 Trigger a reindex from the plugin setting page.
 
 Ensure daily cron is configured and active
+
+## Tips
+
+Add the following line to the 'schema.xml' file to allow French characters to be ignored during search:
+
+`<tokenizer class="solr.WhitespaceTokenizerFactory"/>`
+`<filter class="solr.ASCIIFoldingFilterFactory"/>`

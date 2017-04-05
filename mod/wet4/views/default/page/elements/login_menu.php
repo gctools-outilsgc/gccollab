@@ -246,7 +246,6 @@ $site_url = elgg_get_site_url();
 	<label for='username'><?php echo elgg_echo('loginusername'); ?></label>
 	<?php echo elgg_view('input/text', array(
 		'name' => 'username',
-		'autofocus' => true,
         'placeholder' => elgg_echo('loginusername'),
         'id' => 'username',
         'class' => 'form-control',
@@ -338,7 +337,7 @@ if (!$user) {
 try {
 	login($user, $persistent);
 	// re-register at least the core language file for users with language other than site default
-	register_translations(dirname(dirname(__FILE__)) . "/languages/");
+	register_translations(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/languages/");
 } catch (LoginException $e) {
 	register_error($e->getMessage());
 	forward(REFERER);

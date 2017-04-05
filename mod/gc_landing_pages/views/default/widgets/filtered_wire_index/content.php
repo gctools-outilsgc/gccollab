@@ -4,8 +4,11 @@
  * Landing page widgets
  */
  
-	$num_items = $vars['entity']->num_items;
-	$widget_hashtag = $vars['entity']->widget_hashtag;
+ 	$widget = $vars['entity'];
+	$object_type = 'thewire';
+	
+	$num_items = $widget->num_items;
+	$widget_hashtag = $widget->widget_hashtag;
 	if ( !isset($num_items) ) $num_items = 10;
 	elgg_set_context('search');
  	
@@ -23,7 +26,7 @@
 
 	$widget_datas = elgg_list_entities(array(
 		'type' => 'object',
-		'subtype' => 'thewire',
+		'subtype' => $object_type,
 		'limit' => $num_items,
 		'full_view' => false,
 		'list_type_toggle' => false,

@@ -3,14 +3,15 @@
 elgg_register_event_handler('init', 'system', 'contactform_init');
 
 function contactform_init() {
-	// Get config
-	global $CONFIG;
-	elgg_extend_view('css/elgg', 'pages/css');
-	elgg_register_library('contact_lib', elgg_get_plugins_path().'contactform/lib/functions.php');
+
+	// get the site's main url path
+	$site = elgg_get_site_entity();
+	$action_path = elgg_get_plugins_path() . 'contactform/';
+    
+    elgg_register_library('contact_lib', "{$action_path}/lib/functions.php");
     elgg_load_library('contact_lib');
-  	$action_path = elgg_get_plugins_path() . 'contactform/actions/contactform';
-	elgg_register_action('contactform/delete', "$action_path/delete.php");
-    requirements_check2();
+
+	elgg_register_action('contactform/delete', "{$action_path}/actions/contactform/delete.php");
 	elgg_register_page_handler('contactform','contactform_page_handler');
 
 
@@ -18,16 +19,20 @@ function contactform_init() {
 	// cyu - register action to send the feedback form to the helpdesk/and send copy to recipient using elgg function
 	elgg_register_action('contactform/send_feedback', "$action_path/send_feedback.php",'public');
 
+	elgg_extend_view('css/elgg', 'pages/css');
+
+    requirements_check2();
+	
+	// Add menu link
+	elgg_register_menu_item('site', array(
+		'name' => 'Help',
+        'href' => "{$site->getURL()}mod/contactform/",
+        'text' => elgg_echo('contactform:help_menu_item'),
+        'priority' => 1000,
+	));
 }
 
 function contactform_page_handler($page) {
-	global $CONFIG;
-	switch ($page[0])
-	{
-		default:
-			include $CONFIG->pluginspath . 'contactform/index.php';
-			break;
-	}
-	exit;
+	include elgg_get_plugins_path() . 'contactform/index.php';
 }
 

@@ -95,7 +95,7 @@ if (! empty($unpacked_array['lwe_english']) || ! empty($unpacked_array['lwe_fren
         $unpacked_language .= '<span name="mission-lwe-english">' . elgg_echo('missions:formatted:english', array($unpacked_array['lwe_english'])) . '</span> ';
     }
     if (! empty($unpacked_array['lwe_french'])) {
-        $unpacked_language .= '<span name="mission-lwe-french">' . elgg_echo('missions:formatted:french', array($unpacked_array['lwc_french'])) . '</span>';
+        $unpacked_language .= '<span name="mission-lwe-french">' . elgg_echo('missions:formatted:french', array($unpacked_array['lwe_french'])) . '</span>';
     }
     $unpacked_language .= '<br>';
 }
@@ -183,7 +183,7 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
 	</div>
         <div class="mission-details mrgn-bttm-lg">
 
-		<span name="mission-job-type"><?php echo elgg_echo($mission->job_type);?></span> <i class="fa fa-circle mrgn-lft-sm timeStamp mrgn-bttm-sm" aria-hidden="true" style="font-size:8px"></i>
+		<span name="mission-job-type"><?php echo elgg_echo($mission->job_type); if (!empty($mission->role_type)) { echo ' (' . strtolower(elgg_echo($mission->role_type)) . ')'; } ?></span> <i class="fa fa-circle mrgn-lft-sm timeStamp mrgn-bttm-sm" aria-hidden="true" style="font-size:8px"></i>
             <span class="mrgn-lft-sm"><?php echo elgg_get_friendly_time($mission->time_created); ?></span>
 	</div>
 	<div name="mission-description">

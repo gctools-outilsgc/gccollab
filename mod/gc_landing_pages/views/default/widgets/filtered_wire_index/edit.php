@@ -4,20 +4,16 @@
  * Landing page widgets
  */
 
-	$num_items = $vars['entity']->num_items;
-	if ( !isset($num_items) ) $num_items = 10;
+ 	$widget = $vars['entity'];
+ 	
+	$num_items = $widget->num_items;
+	if ( !isset($num_items) ) $num_items = 5;
 	
-	$widget_title = $vars['entity']->widget_title;
-	$widget_hashtag = $vars['entity']->widget_hashtag;
-	
-	$guest_only = $vars['entity']->guest_only;
-	if ( !isset($guest_only) ) $guest_only = "no";
-	
-	$box_style = $vars['entity']->box_style;
-	if ( !isset($box_style) ) $box_style = "collapsable";
+	$widget_title = $widget->widget_title;
+	$widget_hashtag = $widget->widget_hashtag;
 ?>
 <p>
-	<?php echo elgg_echo('custom_index_widgets:widget_title'); ?>:
+	<?php echo elgg_echo('widget_manager:widgets:edit:custom_title'); ?>:
 	<?php
 		echo elgg_view('input/text', array(
 			'name' => 'params[widget_title]',                        
@@ -26,7 +22,7 @@
 	?>
 </p>
 <p>
-	<?php echo elgg_echo('custom_index_widgets:num_items'); ?>	
+	<?php echo elgg_echo('widget:numbertodisplay'); ?>	
 	<?php
 		echo elgg_view('input/dropdown', array(
 			'name' => 'params[num_items]',
@@ -36,23 +32,11 @@
 	?>
 </p>
 <p>
-	<?php echo elgg_echo('Hashtag'); ?>:
+	<?php echo elgg_echo('Hashtag/Keyword'); ?>:
 	<?php
 		echo elgg_view('input/text', array(
 			'name' => 'params[widget_hashtag]',                        
 			'value' => $widget_hashtag
 		));
-	?>
-</p>
-<p>
-	<?php echo elgg_echo('custom_index_widgets:box_style'); ?>:
-	<?php
-		echo elgg_view('input/dropdown', array('name' => 'params[box_style]', 'options_values' => array('plain' => 'Plain', 'plain collapsable' => 'Plain and collapsable', 'collapsable' => 'Collapsable', 'standard' => 'No Collapsable'), 'value' => $box_style));
-	?>
-</p>
-<p>
-	<?php echo elgg_echo('custom_index_widgets:guest_only'); ?>:
-	<?php
-		echo elgg_view('input/dropdown', array('name' => 'params[guest_only]', 'options_values' => array('yes' => 'yes', 'no' => 'no'), 'value' => $guest_only));
 	?>
 </p>

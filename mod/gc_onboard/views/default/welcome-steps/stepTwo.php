@@ -673,6 +673,18 @@
                 $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$l->federal.'</p>';
             }else{
               $htmloutput=$htmloutput.'<p class="small mrgn-tp-0 job-length">'.$status[$l->guid].'</p>';
+/*=======
+    //skip to next step
+    $('#next').on('click', function () {
+        elgg.get('ajax/view/welcome-steps/stepThree', {
+            success: function (output) {
+               // var oldHeight = $('#welcome-step').css('height');
+                $('#welcome-step').html(output);
+                $('#welcome-step').focus();
+               // var newHeight = $('#welcome-step').children().css('height');
+                //console.log('new:' + newHeight + ' old:' + oldHeight);
+                //animateStep(oldHeight, newHeight);
+>>>>>>> connex/gcconnex*/
             }
 
             //changed connect button to send a friend request we should change the wording

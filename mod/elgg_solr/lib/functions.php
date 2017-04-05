@@ -756,6 +756,7 @@ function elgg_solr_add_update_user($entity) {
 	$doc->time_created = $entity->time_created;
 	$doc = elgg_solr_add_tags($doc, $entity);
 	$doc->enabled = $entity->enabled;
+	$doc->user_type = $entity->user_type;
 
 	$params = array('entity' => $entity);
 	$doc = elgg_trigger_plugin_hook('elgg_solr:index', $entity->type, $params, $doc);

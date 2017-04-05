@@ -1,7 +1,7 @@
 <?php
 
 //This is an Ajax call
-if (elgg_is_xhr()) {  
+if (elgg_is_xhr()) {
 
     $user_guid = get_input('guid');
     $user = get_user($user_guid);
@@ -146,6 +146,31 @@ if (elgg_is_xhr()) {
                     if (filter_var($link, FILTER_VALIDATE_URL) == false)
                         $user->set($f, $link);
                 }
+
+/*                } else if($f == 'location' && $v) {
+
+                    //check to see if addressString exists
+                    if($user->addressString && $user->addressStringFr){
+
+                      //split up location field value
+                      $address = explode(',', $v);
+
+                      //Add cut up location field to address string
+                      //if user enters a proper address the address wil display nicely. If not the map will not display right
+                      //sadly we cannot extract all the same information from the location field properly to complete the json string
+                      $user->addressString = '{"street":"'.$address[0].'","city":"'.$address[1].'","province":"'.$address[2].'","country":"Canada","pc":""}';
+                      $user->addressStringFr = '{"street":"'.$address[0].'","city":"'.$address[1].'","province":"'.$address[2].'","country":"Canada","pc":""}';
+
+                    }
+
+                    //set value like normal
+                    $user->set($f, $v);
+
+                  } else {
+                		$user->set($f, $v);
+                	}
+                }
+            }*/
 
                 $user->save();
 
@@ -408,7 +433,7 @@ if (elgg_is_xhr()) {
             }
 
             $user->save();
-            
+
             break;
         case 'old-skills':
             $user->skillsupgraded = TRUE;
@@ -424,7 +449,7 @@ if (elgg_is_xhr()) {
             $user->french = $french;
             $user->officialLanguage = $firstlang;
             $user->save();
-			
+
 			$metadata = elgg_get_metadata(array(
                 'metadata_names' => array('english'),
                 'metadata_owner_guids' => array(elgg_get_logged_in_user_guid()),
@@ -432,7 +457,7 @@ if (elgg_is_xhr()) {
             ));
             if ($metadata){
                 foreach ($metadata as $data){
-					
+
                     update_metadata($data->id, $data->name, $data->value, $data->value_type, $data->owner_guid, $access);
                 }
             }
@@ -443,7 +468,7 @@ if (elgg_is_xhr()) {
             ));
             if ($metadata){
                 foreach ($metadata as $data){
-                    
+
                     update_metadata($data->id, $data->name, $data->value, $data->value_type, $data->owner_guid, $access);
                 }
             }
@@ -454,11 +479,11 @@ if (elgg_is_xhr()) {
             ));
             if ($metadata){
                 foreach ($metadata as $data){
-                    
+
                     update_metadata($data->id, $data->name, $data->value, $data->value_type, $data->owner_guid, $access);
                 }
             }
-			
+
             break;
         case 'portfolio':
             $portfolio = get_input('portfolio');
