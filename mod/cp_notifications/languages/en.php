@@ -7,11 +7,9 @@ $contact_us = "{$site->getURL()}mod/contactform/";
 $english = array(
 	'cp_notify:setting:no_grp_subscription' => 'Nothing to load',
 	'cp_notify:setting:loading' => 'Loading...',
-	// e-mail header text
-	'cp_notification:email_header' => 'This is a system-generated message from GCcollab. Please do not reply to this message',
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choose how you want to be notified of GCconnex activities of interest to you. The <strong>notification digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/'>Account Settings</a>.",
+	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notification digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/'>Account Settings</a>.",
 	'cp_newsletter:notice:disable_digest' => "The notification digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section.",
 
 	'cp_newsletter:subject:daily' => 'Your Daily Digest', 
@@ -115,7 +113,7 @@ $english = array(
 	
 	/// (NEWSLETTER) THROUGH EMAIL SERVER, EMAIL CONTENT: Newsletter email notifications
 	'cp_newsletter:title:nothing' => "Your {$site_name} Digest: Nothing to report today",
-	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCconnex. Join <a href='{$site->getURL()}groups/all?filter=popular'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular'>colleagues</a> to stay informed and grow your network!",
+	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular'>colleagues</a> to stay informed and grow your network!",
 	'cp_newsletter:title' => "Your {$site_name} Digest: New activities to report!", 
 	'cp_newsletter:greeting' => "Good morning %s. Here are your notifications for <strong>%s</strong>",
 
@@ -169,7 +167,7 @@ $english = array(
 
 
 	/// notification header
-	'cp_notification:email_header' => 'This is a system-generated message from GCconnex. Please do not reply to this message',
+	'cp_notification:email_header' => 'This is a system-generated message from GCcollab. Please do not reply to this message',
 	'cp_notification:email_header_msg' => "",	
 
 	// add user to group section
@@ -201,15 +199,15 @@ $english = array(
 	'cp_notify:subject:group_invite_user_by_email' => "%s invited you to join the group %s",
 	
 	'cp_notify:body_group_invite_email:description' => "You are invited to join the '%s' GCcollab group, please register or log in to GCcollab, then click on this link: %s or use this code on the group invitation page: '%s' <br/> %s",
-	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCconnex. <br>",
+	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCcollab. <br>",
 	'cp_notify:body_group_invite_email:description' => "<a href='%s'>Register now</a> and be automatically added to the group.<br/><br/>
 
-	If you would like to register at a later time using the <a href='https://gcconnex.gc.ca/register'>Registration form</a> on GCconnex, you can join the group by using the following code on your <a href='%s'>group invitations</a> page: %s .<br/><br/>
+	If you would like to register at a later time using the <a href='".elgg_get_site_url()."register'>Registration form</a> on GCcollab, you can join the group by using the following code on your <a href='%s'>group invitations</a> page: %s .<br/><br/>
  
-	Already on GCcollab? Your email address may out of date. <a href='https://gcconnex.gc.ca/login'>Login</a> and update your account settings.<br/> ",
+	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
 	'cp_notify:footer:no_user' => 'Learn more about <a href="http://www.gcpedia.gc.ca/wiki/GCTools/GCconnex">GCconnex</a>, the professional networking and collaborative workspace for the public service.<br/>
-	Need help? <a href="https://gcconnex.gc.ca/mod/contactform/">Contact us</a>.',
+	Need help? <a href="'.elgg_get_site_url().'mod/contactform/">Contact us</a>.',
 	//'cp_personalized_message' => 'Personalized message from %s.',
 	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 

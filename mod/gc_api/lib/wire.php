@@ -1,14 +1,14 @@
 <?php
 
-elgg_ws_expose_function("get.wires","get_wire_posts", array(
+elgg_ws_expose_function("get.wire","get_wire_post", array(
 "query" => array('type' => 'string','required' => false, 'default' => ' '),
 "limit" => array('type' => 'int','required' => false, 'default' => 15),
 ),'returns wire posts based on query',
 'GET', false, false);
 
 elgg_ws_expose_function(
-	"get.wire",
-	"get_wire",
+	"get.wirepost",
+	"get_wirepost",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"guid" => array('type' => 'int', 'required' => true),
@@ -34,7 +34,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_wire_posts($query, $limit){
+function get_wire_post($query, $limit){
 	$posts = array();	
 	$result = 'Nothing to return';
 	$query = trim($query,' \"');
@@ -144,7 +144,7 @@ function time_elapsed_B($secs){
     return $num.$string;
 }
 
-function get_wire( $id, $guid, $thread ){
+function get_wirepost( $id, $guid, $thread ){
 	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 
  	if( !$user )
