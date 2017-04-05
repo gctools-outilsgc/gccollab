@@ -158,6 +158,10 @@
     });
 
     newSkill.initialize();
+/*=======
+                        $('#welcome-step').html(output);
+                        $('#welcome-step').focus();
+>>>>>>> connex/gcconnex*/
 
     $('.gcconnex-endorsements-input-skill').typeahead(null, {
         name: 'newSkill',
@@ -213,12 +217,16 @@
         }
     });
 
-    //pop skills
-    $('#popSkills').on('keypress', '.gcconnex-skill-entry', function (e) {
-        e.preventDefault();
-        if (e.keyCode == 13) {
-            $(this).trigger('click');
-        }
+/*=======
+    //skip to next step
+    $('#skip').on('click', function () {
+        elgg.get('ajax/view/welcome-steps/stepTwo', {
+            success: function (output) {
+                $('#welcome-step').html(output);
+                $('#welcome-step').focus();
+            }
+        });
+>>>>>>> connex/gcconnex*/
     });
 
     function addNewSkill(newSkill) {

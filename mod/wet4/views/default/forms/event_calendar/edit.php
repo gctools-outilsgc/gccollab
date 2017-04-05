@@ -42,6 +42,12 @@ $(document).ready(function () {
 	    }
 	});
 
+	$("input[name=submit]").click(function(){//if no title in english, copy the french one
+	   	if( !$("input[name=title]").val() ){
+			$("input[name=title]").val($("input[name=title2]").val());
+	  	}
+	});
+
 });
 
 </script>
@@ -55,9 +61,9 @@ $schedule_options = array(
 );
 
 $language_options = array(
-	elgg_echo('English'),
-  elgg_echo('Français'),
-	elgg_echo('Bilingual'),
+	elgg_echo('event_calendar:lang:french'),
+	elgg_echo('event_calendar:lang:english'),
+	elgg_echo('event_calendar:lang:bilingual'),
 );
 
 if (elgg_is_active_plugin('event_poll')) {
@@ -249,7 +255,7 @@ $vars['prefix'] = $prefix;
 //$body .= $key;
 $body .= '<div style="float:left">';
 $body .= elgg_view('event_calendar/schedule_section', $vars);
-$body .= '</div></ul>';
+$body .= '</ul>';
 
 
 if ($event_calendar_spots_display == 'yes') {

@@ -40,6 +40,10 @@ $gsa_pagination = elgg_get_plugin_setting('gsa_pagination','gc_fedsearch_gsa');
         padding-right: 5px;
     }
 
+    .col-xs-2 {
+          width: 16.6666666667% !important;
+    }
+
   /****************************************/
 
   /******************** Widgets ********************/
@@ -87,6 +91,28 @@ max-height: 500px;
 .user-menu-message-dd{
   width:400px;
   min-height: 75px;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: #055959;
+}
+
+.no-style-link:hover {
+  text-decoration: none;
+  color: #047177;
+}
+
+.login-as-out {
+  border: 1px solid rgba(188, 192, 198, 0);
+  padding: 2px 10px;
+}
+
+.login-as-out:hover {
+  border-radius:4px;
+  background: #cfd1d5;
+  border: 1px solid #bbbfc5;
+  padding: 2px 10px;
 }
 
 .user-menu-message-dd:before{
@@ -156,6 +182,10 @@ max-height: 500px;
 
 
     /******************** user menu ********************/
+
+    .sr_menu_item {
+      padding: 0 !important;
+    }
 
     .dropdown .elgg-menu {
         padding: 0;
@@ -1701,4 +1731,33 @@ figcaption{
 }
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
   border:none;
+}
+
+.event-calendar-repeating-unselected {
+    background-color: #fff;
+  width: auto;
+  color:#000;
+
+}
+
+.event-calendar-repeating-selected {
+    background-color:#047177;
+    color: #fff !important;
+    width: auto;
+
+}
+
+.event-calendar-repeating-selected:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+.event-calendar-repeating-unselected:hover {
+    text-decoration: none;
+    background-color:#047177;
+    color: #fff;
+}
+
+.space_event{
+  margin-right:5px;
 }

@@ -147,6 +147,7 @@ return array(
     'onboard:profile:finish' 		=> "Finish",
 
     'onboard:steps' => "Steps",
+    'onboard:steps:sr' => "Step %s of %s",
 
     /**Contact Form Links**/
     'onboard:helpHeader'		=> 'Tutorial Modules',

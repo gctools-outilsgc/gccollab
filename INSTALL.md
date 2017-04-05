@@ -1,31 +1,31 @@
 ## Installation instructions
-**Note: GCconnex does not work with PHP7 - GCconnex ne fonctionne pas avec PHP7**
+**Note: GCcollab does not work with PHP7 - GCcollab ne fonctionne pas avec PHP7**
 
 ### Ubuntu 14.04
 #### Install Git, Apache, MySQL, PHP and libs
     sudo aptitude install git apache2 mysql-server php5 libapache2-mod-php php5-mysql php5-gd
 When prompted, enter a root password for MySQL.
 
-#### Fork and Clone GCConnex Github Repo
-    git clone -b gcconnex https://github.com/tbs-sct/gcconnex.git
+#### Fork and Clone GCcollab Github Repo
+    git clone -b gccollab https://github.com/tbs-sct/gccollab.git
 
 #### Create data directory
-    mkdir gcconnex_data
+    mkdir gccollab_data
 
 #### Set permissions
-    chmod 777 gcconnex
-    chmod 777 gcconnex/engine
-    chmod 700 gcconnex_data
-    sudo chown www-data:www-data gcconnex_data
+    chmod 777 gccollab
+    chmod 777 gccollab/engine
+    chmod 700 gccollab_data
+    sudo chown www-data:www-data gccollab_data
 
-#### Create link to gcconnex in /var/www/html folder
+#### Create link to gccollab in /var/www/html folder
     cd /var/www/html/
-    sudo ln -s /path/to/gcconnex gcconnex
+    sudo ln -s /path/to/gccollab gccollab
 
 #### Create a database and a user for the database
     mysql -u root -p
-    CREATE DATABASE gcconnexdb;
-    GRANT ALL ON gcconnexdb.* TO gcconnex@localhost IDENTIFIED BY 'password';
+    CREATE DATABASE gccollabdb;
+    GRANT ALL ON gccollabdb.* TO gccollab@localhost IDENTIFIED BY 'password';
     QUIT;
 Choose a better password
 
@@ -35,7 +35,7 @@ Choose a better password
 
 Add the following inside the ```<VirtualHost *:80></VirtualHost>``` tag
 ```
-<Directory /var/www/html/gcconnex>
+<Directory /var/www/html/gccollab>
   Options Indexes FollowSymLinks MultiViews
   AllowOverride All
   Order allow,deny
@@ -48,14 +48,14 @@ Save and close (Ctrl-o then Ctrl-x if you are using nano)
     sudo service apache2 restart
 
 #### Install Elgg
-Goto ```http://localhost/gcconnex```.  Follow instructions.  You will need to enter the database information and the path to the data folder.
+Goto ```http://localhost/gccollab```.  Follow instructions.  You will need to enter the database information and the path to the data folder.
 
 #### Reset permissions
-    chmod 775 gcconnex
-    chmod 775 gcconnex/engine
+    chmod 775 gccollab
+    chmod 775 gccollab/engine
 
 #### Configure Plugins
-The final step to getting the GCconnex experience is to reorder and enable/disable plugins in the Administration section of your installation.
+The final step to getting the GCcollab experience is to reorder and enable/disable plugins in the Administration section of your installation.
 
 ### Elgg Installation Instructions
 http://learn.elgg.org/en/1.x/intro/install.html

@@ -48,6 +48,10 @@ return array(
   'wet:search_in_group'=>'Search in this Group',
   'wet:cover_photo_alt'=>'Graphic Element for the Group',
 
+	'loginok' => "Welcome to GCcollab %s.", /*NEW but doesn't work :3*/
+
+    "wet:messagedd:no_results"=>"You're all caught up!",
+
     'newsfeed:filter' => "Filter your News Feed",
   'newsfeed:label' => "Show colleague connections on your News Feed",
   'wet:login_engage_0'=>'Join your colleagues across Canada to something something something dark side!',

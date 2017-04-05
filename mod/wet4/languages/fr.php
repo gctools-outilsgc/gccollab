@@ -76,6 +76,9 @@ return array(
   'friendlytime:month:11' => 'Novembre',
   'friendlytime:month:12' => 'Décembre',
 
+    'wet:usermenu:helpertext' => "Menu Utilisateur. Liens vers Notifications, Profil et Déconnexion",
+    'wet:dd:expand'=>"Open drop down of most recent messages(fr)",
+
 
   /**
    * The Wire
@@ -156,6 +159,7 @@ return array(
   'profile:viewall:groups' => 'Voir tous mes groupes',
   'photos:none' => 'Aucun album d\'image',
   'gcforums:enable_group_forums' => 'Activé les forums de groupe',
+  'gprofile:contentMenu' => "Menu de contenu du groupe",
 
 	'login' => "Ouvrir une session",
 
@@ -305,7 +309,7 @@ return array(
 	'LOGGED_IN' => "Usagers connectés à GCcollab seulement",
 'PUBLIC' => "Tous les utilisateurs",
 'LOGGED_OUT' => "Utilisateurs hors connexion",
-	'access:friends:label' => "Amis",
+	'access:friends:label' => "Mes Collègues sur GCconnex seulement",
 	'access' => "Accès",
 'access:overridenotice' => "Note : En raison des règles de ce groupe, ce contenu ne sera accessible qu'aux membres du groupe. ",
 	'access:limited:label' => "Limité",
@@ -1716,7 +1720,7 @@ return array(
   'contactform:select' => 'Veuillez sélectionner une catégorie',
   'contactform:reason' => 'Choisir...',
   'contactform:help_menu_item' => "Aide / Contactez-nous",
-  'contactform:newsletter' => 'Abonnez à l’Infolettre',
+  'contactform:newsletter' => "Abonnez-vous à l'Infolettre",
   'contactform:box:message' => 'Afficher la boîte d\'information',
   'conatactform:fr:name' => 'Le nom du lien en français',
   'conatactform:eng:name' => 'Le nom du lien en anglais',
@@ -1761,6 +1765,10 @@ return array(
 'event_calendar_contact' => "Vous n'êtes pas la personne contact?",
 "event_calendar:email" => "Adresse courriel",
 "event_calendar:phone" => "Numéro de téléphone",
+'event_calendar:lang:french'=>"Français",
+'event_calendar:lang:english'=>"Anglais",
+'event_calendar:lang:bilingual'=>"Bilingue",
+'event_calendar:add_recurrence' => "Ajouter une récurrence",
 
 /*Change access*/
 
@@ -1819,8 +1827,23 @@ return array(
 'indicator:click:fr' => 'français',
 'box:indicator:en' => 'This content is also available in ',
 'indicator:click:en' => 'english.',
+
+/*Rotate content*/
+'rotate:image' => 'Tourner l\'image',
+
 'indicator:summary' => '(EN/FR)',
+
 'indicator:summary:title' => 'This content is also available in English',
+
+/*Modal from comment(notifaction)*/
+
+'comment_notif_title' => "Vous n’êtes pas membre du groupe %s!",
+/*'comment_notif_description' => "<p>Vous n'êtes pas membre de ce groupe. Joignez-vous au groupe pour être informé lorsque du nouveau contenu est ajouté et pour suivre ce fil. Remarque: Vous pouvez ajuster vos préférences de notification dans vos paramètres de compte de GCconnex.</p>
+ 
+<p>Vous n’êtes pas encore prêt à joindre le groupe? Allez-y et affichez votre commentaire, mais n'oubliez pas de revenir vérifier ce fil pour voir les nouveaux commentaires affichés.</p> ",
+*/'not_now' => 'Pas maintenant',
+
+  
 /**
  * Languages according to ISO 639-1 (with a couple of exceptions)
  */
