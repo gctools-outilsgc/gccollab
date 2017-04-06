@@ -69,7 +69,12 @@ $feedbackText= elgg_echo('wet:feedbackText');
             <section class="col-sm-3">
                 <h3><?php echo elgg_echo('wet:footTitleSocial');?></h3>
                 <ul class="list-unstyled">
-                    <li><a href="https://twitter.com/gccollab">Twitter</a></li>
+                <?php if( get_current_language() == "fr" ): ?>
+                    <li><a href="https://twitter.com/SCT_Canada">Twitter</a></li>
+                <?php else: ?>
+                    <li><a href="https://twitter.com/TBS_Canada">Twitter</a></li>
+                <?php endif; ?>
+                    <!-- <li><a href="https://twitter.com/GCcollab">Twitter</a></li> -->
                     <li><a href="https://github.com/gctools-outilsgc/GCcollab">GitHub</a></li>
                 </ul>
             </section>
