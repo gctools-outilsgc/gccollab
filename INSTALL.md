@@ -10,6 +10,9 @@ When prompted, enter a root password for MySQL.
     git clone -b gccollab https://github.com/tbs-sct/gccollab.git
 
 #### Create data directory
+
+This directory can be anywhere.  Its abosule path will be specified during installation of Ellg.
+
     mkdir gccollab_data
 
 #### Set permissions
@@ -42,6 +45,8 @@ Add the following inside the ```<VirtualHost *:80></VirtualHost>``` tag
   allow from all
 </Directory>
 ```
+
+If you copied from another vhost apache configuration file, make sure the path after the Directory instructions matches where the gccollab symlink is.
 
 Save and close (Ctrl-o then Ctrl-x if you are using nano)
 
