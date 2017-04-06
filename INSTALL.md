@@ -11,7 +11,7 @@ When prompted, enter a root password for MySQL.
 
 #### Create data directory
 
-This directory can be anywhere.  Its abosule path will be specified during installation of Ellg.
+This directory can be anywhere.  Its absolute path will be specified during installation of Ellg.
 
     mkdir gccollab_data
 
