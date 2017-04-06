@@ -622,6 +622,25 @@ function get_user_data( $profileemail, $id ){
 	$colleagues = $user_entity->getFriends(array('limit' => 0));
 	$user['colleagues'] = count($colleagues);
 
+	$groupObj = elgg_list_entities_from_relationship(array(
+	    'relationship'=> 'member', 
+	    'relationship_guid'=> $user_entity->guid, 
+	    'inverse_relationship'=> FALSE, 
+	    'type'=> 'group', 
+	    'limit'=> 0
+	));
+
+	$groups = json_decode($groupObj);
+	foreach($groups as $object){
+		$group = get_entity($object->guid);
+		$object->iconURL = $group->geticon();
+
+		$num_members = $group->getMembers(array('count' => true));
+		$object->count = $num_members;
+	}
+
+	$user['groups'] = $groups;
+
 	return $user;
 }
 
