@@ -66,7 +66,7 @@ if (elgg_is_logged_in() && $ciw_showdashboard=="yes"){
 }
 
 //EW - Department verification
-<<<<<<< HEAD
+//@TODO: Set up reminder for GCcollab users to fill out their profile
 /*if(elgg_is_logged_in()){
 
     //load int value

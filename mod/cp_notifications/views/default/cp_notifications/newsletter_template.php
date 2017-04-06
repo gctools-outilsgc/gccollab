@@ -14,7 +14,6 @@ else
 
 $current_year = date('Y');
 /*
-<<<<<<< HEAD
 echo <<<___HTML
 <html>
 <body>
@@ -40,19 +39,19 @@ echo <<<___HTML
 
 		        <p>English section</p>
 				<div> {$email_content} </div>
-=======*/
+*/
 ?>
 
 
 
 <html>
-  <body style='font-family: sans-serif; color: #055959'>
+  <body style='font-family: sans-serif; color: #79579d'>
     <h2><?php echo elgg_echo('cp_newsletter:title',$language_preference); ?></h2>
     <sub><center><?php echo elgg_echo('cp_notification:email_header',array(),$language_preference); ?></center></sub>
     <div width='100%' bgcolor='#fcfcfc'>
 
       <?php // notification GCconnex banner ?>
-      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#047177;'>
+      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246a;'>
         <span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'><?php echo $site->name; ?></span>
       </div>
 
@@ -124,7 +123,7 @@ echo <<<___HTML
       <?php echo elgg_echo('cp_newsletter:ending', array('some username'), $language_preference); ?>
 
       <?php // notification footer ?>
-      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #055959'>
+      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #79579d'>
         <center><p><?php echo elgg_echo('cp_newsletter:footer:notification_settings', array($to->username), $language_preference); ?></p>
         <p><?php echo elgg_echo('cp_notifications:contact_help_desk', array(), $language_preference); ?></p> </center>	
       </div>

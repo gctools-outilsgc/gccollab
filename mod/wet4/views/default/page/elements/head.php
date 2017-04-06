@@ -124,25 +124,6 @@ foreach ($js as $url) {
 	echo elgg_format_element('script', array('src' => $url));
 }
 
-  <script><?php echo $elgg_init; ?></script>
-
-<?php
-
-foreach ($js as $url) {
-
-  if (strpos($url,'jquery-1.11.0.min.js') !== false) {
-      //$url = 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js';
-  }
-  
-  if (strpos($url,'require-2.1.10.min.js') !== false) {
-      //$url= str_replace($url,'require-2.1.10.min.js','require-2.1.20.min.js');
-  }
-  
-  echo elgg_format_element('script', array('src' => $url));
-
-}
-
-
 echo elgg_view_deprecated('page/elements/shortcut_icon', array(), "Use the 'head', 'page' plugin hook.", 1.9);
 echo elgg_view_deprecated('metatags', array(), "Use the 'head', 'page' plugin hook.", 1.8);
 

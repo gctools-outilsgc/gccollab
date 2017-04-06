@@ -74,7 +74,9 @@ __BODY;
 
 //$body .= elgg_view('page/elements/topbar_wrapper', $vars);
 
-$userMenu = elgg_view('page/elements/topbar_wrapper', $vars);
+// GCcollab displays user menu elsewhere
+// $userMenu = elgg_view('page/elements/topbar_wrapper', $vars);
+$userMenu = "";
 
 $body .= <<<__BODY
 	<header role="banner">
