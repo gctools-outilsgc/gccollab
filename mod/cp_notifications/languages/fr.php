@@ -473,7 +473,7 @@ $french = array(
 	"cp_notify:sidebar:subs_title" => "Abonnement personnel",
 	'cp_notify:pickColleagues' => 'Abonnez-vous à vos collègues', // new
 	'cp_notify:contactHelpDesk'=>'Si vous avez des questions, veuillez soumettre votre demande via le <a href="'.elgg_get_site_url().'mod/contactform/">formulaire Contactez-nous</a>.',
-    'cp_notify:visitTutorials'=>"Pour de plus amples renseignements sur GCconnex et ses fonctionnalités, consultez l'<a href='http://www.gcpedia.gc.ca/wiki/Aide_%C3%A0_l%27utilisateur/Voir_Tout'>aide à l'utilisateur de GCconnex</a>.<br/>
+    'cp_notify:visitTutorials'=>"Pour de plus amples renseignements sur GCconnex et ses fonctionnalités, consultez l'<a href='http://www.gcpedia.gc.ca/wiki/Aide_%C3%A0_l%27utilisateur/Voir_Tout'>aide à l'utilisateur de GCconnex</a>.<br/>",
 
 
 	'cp_notify:visitTutorials'=>"Pour de plus amples renseignements sur GCconnex et ses fonctionnalités, consultez l'<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/Modifier_mes_param%C3%A8tres_de_compte/Comment_puis-je_modifier_mes_param%C3%A8tres_de_notification%3F'>aide à l'utilisateur de GCconnex</a>.<br/>
