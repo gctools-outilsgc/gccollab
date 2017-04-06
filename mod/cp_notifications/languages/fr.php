@@ -7,7 +7,7 @@ $contact_us = "{$site->getURL()}mod/contactform/";
 $french = array( 
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choisissez le moyen par lequel vous souhaitez recevoir des avis sur les activités de GCconnex qui vous intéressent. Le <strong>résumé des notifications</strong> vous permet de recevoir un courriel quotidien ou hebdomadaire contenant un sommaire des activités auxquelles vous êtes abonné. Vous préférez recevoir un avis instantané? Oubliez le résumé et sélectionnez le contenu pour lequel vous souhaitez recevoir des avis en temps réel. Veuillez noter que les avis par courriel sont envoyés à l’adresse électronique utilisée dans vos <a href='{$site->getURL()}settings/user/'>paramètres d’utilisateur</a>.",
+	'cp_newsletter:notice' => "Choisissez le moyen par lequel vous souhaitez recevoir des avis sur les activités de GCcollab qui vous intéressent. Le <strong>résumé des notifications</strong> vous permet de recevoir un courriel quotidien ou hebdomadaire contenant un sommaire des activités auxquelles vous êtes abonné. Vous préférez recevoir un avis instantané? Oubliez le résumé et sélectionnez le contenu pour lequel vous souhaitez recevoir des avis en temps réel. Veuillez noter que les avis par courriel sont envoyés à l’adresse électronique utilisée dans vos <a href='{$site->getURL()}settings/user/'>paramètres d’utilisateur</a>.",
 	'cp_newsletter:notice:disable_digest' => "Le résumé des avis est maintenant activé; veuillez choisir ci après vos préférences applicables au résumé (fréquence et langue). Le résumé comprendra tout le contenu sélectionné dans la colonne « Courriel », de même que les abonnements dans la section « Autres abonnements de contenu ».",
 	'cp_newsletter:subject:daily' => "Votre résumé quotidien", 
 	'cp_newsletter:subject:weekly' => "Votre résumé hebdomadaire", 
@@ -107,7 +107,7 @@ $french = array(
 
 
 	'cp_newsletter:title:nothing' => "Votre résumé {$site_name} : Rien à signaler aujourd’hui.",
-	'cp_newsletter:body:nothing' => "Il semble que c'était calme dans votre réseau sur GCconnex. Joignez-vous à des <a href='{$site->getURL()}groups/all?filter=popular'>groupes</a> d'intérêt, partagez des informations et ajoutez des nouveaux <a href='{$site->getURL()}members/popular'>collègues</a> pour rester informé et grandir votre réseau!", //CHANGE
+	'cp_newsletter:body:nothing' => "Il semble que c'était calme dans votre réseau sur GCcollab. Joignez-vous à des <a href='{$site->getURL()}groups/all?filter=popular'>groupes</a> d'intérêt, partagez des informations et ajoutez des nouveaux <a href='{$site->getURL()}members/popular'>collègues</a> pour rester informé et grandir votre réseau!", //CHANGE
 	'cp_newsletter:title' => "Votre résumé {$site_name} : De nouvelles activités à signaler!", 
 	'cp_newsletter:greeting' => "Bonjour %s. Voici vos notifications pour le <strong>%s</strong>",
 
@@ -196,15 +196,15 @@ $french = array(
 	'cp_notify:subject:group_invite_user_by_email' => "%s vous a invité à joindre le groupe %s",
 	'cp_notify:body_group_invite_email:title' => "Vous êtes invité à joindre un groupe sur GCcollab",
 	'cp_notify:body_group_invite_email:description' => "Vous êtes invité à joindre le groupe '%s' sur GCcollab, veuillez vous inscrire ou vous connecter à GCcollab, ensuite cliquez sur ce lien : %s ou utiliser ce code dans la page d'invitation de groupe : '%s' <br/> %s", // translate
-	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> vous a invité à joindre le groupe <a href='%s'>%s</a>  sur GCconnex. <br>",
+	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> vous a invité à joindre le groupe <a href='%s'>%s</a>  sur GCcollab. <br>",
 	'cp_notify:body_group_invite_email:description' => "<a href='%s'>Inscrivez-vous maintenant</a> et vous serez automatiquement ajouté au groupe.<br/><br/>
 
-	Si vous désirez vous inscrire à une date ultérieure en utilisant le <a href='https://gcconnex.gc.ca/register'>formulaire d’inscription</a> sur GCconnex, vous pouvez vous joindre au groupe en utilisant le code suivant sur votre page d'<a href='%s'>invitation de groupe</a> : %s .<br/><br/>
+	Si vous désirez vous inscrire à une date ultérieure en utilisant le <a href='".elgg_get_site_url()."register'>formulaire d’inscription</a> sur GCcollab, vous pouvez vous joindre au groupe en utilisant le code suivant sur votre page d'<a href='%s'>invitation de groupe</a> : %s .<br/><br/>
 
-	Vous-êtes déjà sur GCconnex? Votre adresse est peut-être désuète. <a href='https://gcconnex.gc.ca/login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
+	Vous-êtes déjà sur GCcollab? Votre adresse est peut-être désuète. <a href='".elgg_get_site_url()."login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
 
 	'cp_notify:footer:no_user' => 'Apprenez davantage au sujet de <a href=http://www.gcpedia.gc.ca/wiki/OutilsGC/GCconnex">GCconnex</a>, l’espace de travail collaboratif pour le réseautage professionnel à l\'ensemble de la fonction publique.<br/>
-	Besoin d\'aide? <a href="https://gcconnex.gc.ca/mod/contactform/">Contactez-nous</a>.',
+	Besoin d\'aide? <a href="'.elgg_get_site_url().'mod/contactform/">Contactez-nous</a>.',
 	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
 
 

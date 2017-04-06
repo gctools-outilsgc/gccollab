@@ -21,7 +21,7 @@
 		    var landing_url = $("#add-landing-page-url").val();
 
 		    if(landing_en !== "" && landing_fr !== "" && landing_url !== ""){
-				var landingPagesArray = JSON.parse($("#landingpages").val());
+				var landingPagesArray = ($("#landingpages").val() != "") ? JSON.parse($("#landingpages").val()) : [];
 		    	var landingPage = { 'landing_en': landing_en, 'landing_fr': landing_fr, 'landing_url': landing_url };
 			    landingPagesArray.push(landingPage);
 		    	$("#landingpages").val(JSON.stringify(landingPagesArray));
