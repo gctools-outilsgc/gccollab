@@ -52,6 +52,9 @@ function like_item( $id, $guid ){
 	// check to see if the user has already liked the item
 	if( !empty($likes) ){
 		$like = $likes[0];
+		
+		elgg_set_ignore_access(true);
+
 		if( $like && $like->canEdit() ){
 			$like->delete();
 			$data['message'] = elgg_echo("likes:deleted");

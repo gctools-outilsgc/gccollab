@@ -163,10 +163,33 @@ function get_blogpost( $id, $guid ){
 	if( !$guid )
 		return "Wire Post was not found. Please try a different GUID";
 
+	elgg_set_ignore_access(true);
+	
 	$blog_post = elgg_list_entities(array(
 		'guid' => $guid
 	));
 	$data = json_decode($blog_post);
+
+	foreach($data as $object){
+		$likes = elgg_get_annotations(array(
+			'guid' => $object->guid,
+			'annotation_name' => 'likes'
+		));
+		$object->likes = count($likes);
+
+		$liked = elgg_get_annotations(array(
+			'guid' => $object->guid,
+			'annotation_owner_guid' => $user->guid,
+			'annotation_name' => 'likes'
+		));
+		$object->liked = count($liked) > 0;
+
+		$owner = get_user($object->owner_guid);
+		$object->displayName = $owner->name;
+		$object->email = $owner->email;
+		$object->profileURL = $owner->getURL();
+		$object->iconURL = $owner->geticon();
+	}
 
 	return $data;
 }

@@ -25,8 +25,8 @@ elgg_ws_expose_function(
 	"reply_wire",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true),
-		"message" => array('type' => 'string', 'required' => true)
+		"message" => array('type' => 'string', 'required' => true),
+		"guid" => array('type' => 'int', 'required' => false, 'default' => 0)
 	),
 	'Submits a reply to a wire post based on user id and wire post id',
 	'POST',
@@ -222,14 +222,11 @@ function get_wirepost( $id, $guid, $thread ){
 	return $wire_posts;
 }
 
-function reply_wire( $id, $guid, $message ){
+function reply_wire( $id, $message, $guid ){
 	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 
  	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
-
-	if( !$guid )
-		return "Wire Post was not found. Please try a different GUID";
 
 	if( !$message )
 		return "A message must be sent to reply to the Wire Post";
@@ -238,15 +235,16 @@ function reply_wire( $id, $guid, $message ){
 	$entity = get_entity($guid);
 	
 	$access_id = ACCESS_PUBLIC;
-	$method = 'site';
 
 	// make sure the post isn't blank
 	if( empty($message) ){
 		return elgg_echo("thewire:blank");
 	}
 
-	$guid = thewire_save_post($message, $user->guid, $access_id, $guid, $method);
-	if( !$guid ){
+	elgg_set_ignore_access(true);
+
+	$new_wire = thewire_save_post($message, $user->guid, $access_id, $guid);
+	if( !$new_wire ){
 		return elgg_echo("thewire:notsaved");
 	}
 
