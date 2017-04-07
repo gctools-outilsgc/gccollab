@@ -21,6 +21,20 @@ elgg_ws_expose_function(
 );
 
 elgg_ws_expose_function(
+	"get.useractivity",
+	"get_useractivity",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'provides a user\'s activity information based on user id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"get.usergroups",
 	"get_usergroups",
 	array(
@@ -629,7 +643,6 @@ function get_user_data( $profileemail, $id ){
 	    'type'=> 'group', 
 	    'limit'=> 0
 	));
-
 	$groups = json_decode($groupObj);
 	foreach($groups as $object){
 		$group = get_entity($object->guid);
@@ -638,10 +651,110 @@ function get_user_data( $profileemail, $id ){
 		$num_members = $group->getMembers(array('count' => true));
 		$object->count = $num_members;
 	}
-
 	$user['groups'] = $groups;
 
+	$activityObj = elgg_list_river(array(
+		'subject_guid' => $user_entity->guid,
+		'distinct' => false,
+		'limit' => 10,
+		'offset' => 0
+	));
+
+	$activity = json_decode($activityObj);
+	foreach($activity as $event){
+		$subject = get_user($event->subject_guid);
+		$object = get_entity($event->object_guid);
+		$event->displayName = $subject->name;
+		$event->profileURL = $subject->getURL();
+		$event->iconURL = $subject->geticon();
+
+		if( $object instanceof ElggUser ){
+			$event->object['type'] = 'user';
+			$event->object['name'] = $object->name;
+			$event->object['profileURL'] = $object->getURL();
+			$event->object['iconURL'] = $object->geticon();
+		} else if( $object instanceof ElggWire ){
+			$event->object['type'] = 'wire';
+			$event->object['wire'] = $object->description;
+		} else if( $object instanceof ElggGroup ){
+			$event->object['type'] = 'group';
+			$event->object['name'] = $object->name;
+		} else if( $object instanceof ElggDiscussionReply ){
+			$event->object['type'] = 'discussion-reply';
+			$original_discussion = get_entity($object->container_guid);
+			$event->object['name'] = $original_discussion->title;
+			$event->object['description'] = $object->description;
+		} else if( $object instanceof ElggFile ){
+			$event->object['type'] = 'file';
+			$event->object['name'] = $object->title;
+			$event->object['description'] = $object->description;
+		} else if( $object instanceof ElggObject ){
+			$event->object['type'] = 'discussion-add';
+			$group = get_entity($object->container_guid);
+			$event->object['name'] = $object->title;
+			$event->object['description'] = $object->description;
+			$event->object['group'] = $group->name;
+		} else {
+			//@TODO handle any unknown events
+		}
+	}
+	$user['activity'] = $activity;
+
 	return $user;
+}
+
+function get_useractivity( $id, $limit, $offset ){ 
+	$user_entity = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+	if( !$user_entity )
+		return "User profile was not found. Please try a different GUID, username, or email address";
+
+	$activity = elgg_list_river(array(
+		'subject_guid' => $user_entity->guid,
+		'distinct' => false,
+		'limit' => $limit,
+		'offset' => $offset
+	));
+
+	$data = json_decode($activity);
+	foreach($data as $event){
+		$subject = get_user($event->subject_guid);
+		$object = get_entity($event->object_guid);
+		$event->displayName = $subject->name;
+		$event->profileURL = $subject->getURL();
+		$event->iconURL = $subject->geticon();
+
+		if( $object instanceof ElggUser ){
+			$event->object['type'] = 'user';
+			$event->object['name'] = $object->name;
+			$event->object['profileURL'] = $object->getURL();
+			$event->object['iconURL'] = $object->geticon();
+		} else if( $object instanceof ElggWire ){
+			$event->object['type'] = 'wire';
+			$event->object['wire'] = $object->description;
+		} else if( $object instanceof ElggGroup ){
+			$event->object['type'] = 'group';
+			$event->object['name'] = $object->name;
+		} else if( $object instanceof ElggDiscussionReply ){
+			$event->object['type'] = 'discussion-reply';
+			$original_discussion = get_entity($object->container_guid);
+			$event->object['name'] = $original_discussion->title;
+			$event->object['description'] = $object->description;
+		} else if( $object instanceof ElggFile ){
+			$event->object['type'] = 'file';
+			$event->object['name'] = $object->title;
+			$event->object['description'] = $object->description;
+		} else if( $object instanceof ElggObject ){
+			$event->object['type'] = 'discussion-add';
+			$group = get_entity($object->container_guid);
+			$event->object['name'] = $object->title;
+			$event->object['description'] = $object->description;
+			$event->object['group'] = $group->name;
+		} else {
+			//@TODO handle any unknown events
+		}
+	}
+
+	return $data;
 }
 
 function get_usergroups( $id ){ 
@@ -852,7 +965,36 @@ function get_user_posts( $id, $type, $limit, $offset ){
 				$event->displayName = $subject->name;
 				$event->profileURL = $subject->getURL();
 				$event->iconURL = $subject->geticon();
-				$event->objectName = $object->title;
+
+				if( $object instanceof ElggUser ){
+					$event->object['type'] = 'user';
+					$event->object['name'] = $object->name;
+					$event->object['profileURL'] = $object->getURL();
+					$event->object['iconURL'] = $object->geticon();
+				} else if( $object instanceof ElggWire ){
+					$event->object['type'] = 'wire';
+					$event->object['wire'] = $object->description;
+				} else if( $object instanceof ElggGroup ){
+					$event->object['type'] = 'group';
+					$event->object['name'] = $object->name;
+				} else if( $object instanceof ElggDiscussionReply ){
+					$event->object['type'] = 'discussion-reply';
+					$original_discussion = get_entity($object->container_guid);
+					$event->object['name'] = $original_discussion->title;
+					$event->object['description'] = $object->description;
+				} else if( $object instanceof ElggFile ){
+					$event->object['type'] = 'file';
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
+				} else if( $object instanceof ElggObject ){
+					$event->object['type'] = 'discussion-add';
+					$group = get_entity($object->container_guid);
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
+					$event->object['group'] = $group->name;
+				} else {
+					//@TODO handle any unknown events
+				}
 			}
 
 	    	$data = $activity;

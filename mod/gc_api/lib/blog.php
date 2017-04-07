@@ -4,6 +4,19 @@ elgg_ws_expose_function("get.blog","get_api_entity", array("id" => array('type' 
 	'Takes a blog id and returns the Title, exerpt, and body of the blog',
                'GET', false, false);
 
+elgg_ws_expose_function(
+	"get.blogpost",
+	"get_blogpost",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"guid" => array('type' => 'int', 'required' => true)
+	),
+	'Retrieves a wire post & all replies based on user id and wire post id',
+	'POST',
+	true,
+	false
+);
+
 function get_api_entity($id) {
 	$entity = get_entity($id);
 	if ($entity == null){
@@ -135,4 +148,25 @@ function get_userBlock($userid){
 	
 	//return user array
 	return $user;
+}
+
+function get_blogpost( $id, $guid ){
+	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+ 	if( !$user )
+		return "User was not found. Please try a different GUID, username, or email address";
+
+	if( !$user instanceof \ElggUser ){
+		return "Invalid user. Please try a different GUID, username, or email address";
+	}
+
+	if( !$guid )
+		return "Wire Post was not found. Please try a different GUID";
+
+	$blog_post = elgg_list_entities(array(
+		'guid' => $guid
+	));
+	$data = json_decode($blog_post);
+
+	return $data;
 }
