@@ -21,6 +21,20 @@ elgg_ws_expose_function(
 );
 
 elgg_ws_expose_function(
+	"get.wireposts",
+	"get_wireposts",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'Retrieves a user\'s wire posts based on user id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"reply.wire",
 	"reply_wire",
 	array(
@@ -50,7 +64,7 @@ function get_wire_post($query, $limit){
 			$options = array(
 				'subtype'=>'thewire',
 				'type' => 'object',
-				'owner_guids' => array($user->guid),
+				'owner_guid' => $user->guid,
 				'limit' => $limit
 			);
 			$wire_posts = elgg_get_entities($options);
@@ -166,7 +180,7 @@ function get_wirepost( $id, $guid, $thread ){
 			"metadata_value" => $thread_id,
 			"type" => "object",
 			"subtype" => "thewire",
-			"limit" => max(20, elgg_get_config('default_limit')),
+			"limit" => 0,
 			'preload_owners' => true,
 		));
 		$wire_posts = json_decode($wire_posts);
@@ -184,6 +198,15 @@ function get_wirepost( $id, $guid, $thread ){
 			));
 			$object->liked = count($liked) > 0;
 
+			$replied = elgg_get_entities_from_metadata(array(
+				"metadata_name" => "wire_thread",
+				"metadata_value" => $thread_id,
+				"type" => "object",
+				"subtype" => "thewire",
+				'owner_guid' => $user->guid
+			));
+			$object->replied = count($replied) > 0;
+
 			$owner = get_user($object->owner_guid);
 			$object->displayName = $owner->name;
 			$object->email = $owner->email;
@@ -193,7 +216,7 @@ function get_wirepost( $id, $guid, $thread ){
 		}
 	} else {
 		$wire_posts = elgg_list_entities(array(
-			'guids' => array($guid)
+			'guid' => $guid
 		));
 		$wire_posts = json_decode($wire_posts);
 		foreach($wire_posts as $object){
@@ -210,6 +233,15 @@ function get_wirepost( $id, $guid, $thread ){
 			));
 			$object->liked = count($liked) > 0;
 
+			$replied = elgg_get_entities_from_metadata(array(
+				"metadata_name" => "wire_thread",
+				"metadata_value" => $thread_id,
+				"type" => "object",
+				"subtype" => "thewire",
+				'owner_guid' => $user->guid
+			));
+			$object->replied = count($replied) > 0;
+
 			$owner = get_user($object->owner_guid);
 			$object->displayName = $owner->name;
 			$object->email = $owner->email;
@@ -218,6 +250,28 @@ function get_wirepost( $id, $guid, $thread ){
 			$object->thread_id = $wire_post->wire_thread;
 		}
 	}
+
+	return $wire_posts;
+}
+
+function get_wireposts( $id, $limit, $offset ){
+	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+ 	if( !$user )
+		return "User was not found. Please try a different GUID, username, or email address";
+
+	if( !$user instanceof \ElggUser ){
+		return "Invalid user. Please try a different GUID, username, or email address";
+	}
+
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'thewire',
+		'owner_guid' => $user->guid,
+		'limit' => $limit,
+		'limit' => $offset
+	);
+	$wire_posts = elgg_get_entities($options);
 
 	return $wire_posts;
 }

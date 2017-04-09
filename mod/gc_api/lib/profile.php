@@ -618,7 +618,7 @@ function get_user_data( $profileemail, $id ){
 	$options = array(
 		'type' => 'object',
 		'subtype' => 'thewire',
-		'owner_guids' => array($user_entity->guid),
+		'owner_guid' => $user_entity->guid,
 		'limit' => 0
 	);
 	$wires = elgg_get_entities($options);
@@ -627,7 +627,7 @@ function get_user_data( $profileemail, $id ){
 	$options = array(
 		'type' => 'object',
 		'subtype' => 'blog',
-		'owner_guids' => array($user_entity->guid),
+		'owner_guid' => $user_entity->guid,
 		'limit' => 0
 	);
 	$blogs = elgg_get_entities($options);
@@ -840,6 +840,9 @@ function get_user_posts( $id, $type, $limit, $offset ){
 			));
 			$data = json_decode($data);
 			foreach($data as $object){
+				$wire_post = get_entity($object->guid);
+				$thread_id = $wire_post->wire_thread;
+
 				$likes = elgg_get_annotations(array(
 					'guid' => $object->guid,
 					'annotation_name' => 'likes'
@@ -852,6 +855,15 @@ function get_user_posts( $id, $type, $limit, $offset ){
 					'annotation_name' => 'likes'
 				));
 				$object->liked = count($liked) > 0;
+
+				$replied = elgg_get_entities_from_metadata(array(
+					"metadata_name" => "wire_thread",
+					"metadata_value" => $thread_id,
+					"type" => "object",
+					"subtype" => "thewire",
+					'owner_guid' => $user->guid
+				));
+				$object->replied = count($replied) > 0;
 
 				$owner = get_user($object->owner_guid);
 				$object->displayName = $owner->name;
