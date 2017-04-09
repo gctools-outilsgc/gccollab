@@ -24,6 +24,7 @@ elgg_ws_expose_function(
 	"get.wireposts",
 	"get_wireposts",
 	array(
+		"profileemail" => array('type' => 'string', 'required' => true),
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
 		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
@@ -164,7 +165,7 @@ function get_wirepost( $id, $guid, $thread ){
  	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
 
-	if( !$user instanceof \ElggUser ){
+	if( !$user instanceof ElggUser ){
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
 
@@ -254,25 +255,51 @@ function get_wirepost( $id, $guid, $thread ){
 	return $wire_posts;
 }
 
-function get_wireposts( $id, $limit, $offset ){
-	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-
- 	if( !$user )
+function get_wireposts( $profileemail, $id, $limit, $offset ){
+	$user = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
+	if( !$user )
 		return "User was not found. Please try a different GUID, username, or email address";
 
-	if( !$user instanceof \ElggUser ){
+	if( !$user instanceof ElggUser )
 		return "Invalid user. Please try a different GUID, username, or email address";
-	}
 
-	$options = array(
+	$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
+
+ 	if( !$viewer )
+		return "Viewer was not found. Please try a different GUID, username, or email address";
+
+	if( !$viewer instanceof ElggUser )
+		return "Invalid viewer. Please try a different GUID, username, or email address";
+
+	$data = elgg_list_entities(array(
 		'type' => 'object',
 		'subtype' => 'thewire',
 		'owner_guid' => $user->guid,
 		'limit' => $limit,
 		'offset' => $offset
-	);
-	$wire_posts = elgg_list_entities($options);
-	$wire_posts = json_decode($wire_posts);
+	));
+	$wire_posts = json_decode($data);
+
+	foreach($wire_posts as $object){
+		$likes = elgg_get_annotations(array(
+			'guid' => $object->guid,
+			'annotation_name' => 'likes'
+		));
+		$object->likes = count($likes);
+
+		$liked = elgg_get_annotations(array(
+			'guid' => $object->guid,
+			'annotation_owner_guid' => $viewer->guid,
+			'annotation_name' => 'likes'
+		));
+		$object->liked = count($liked) > 0;
+
+		$owner = get_user($object->owner_guid);
+		$object->displayName = $owner->name;
+		$object->email = $owner->email;
+		$object->profileURL = $owner->getURL();
+		$object->iconURL = $owner->geticon();
+	}
 
 	return $wire_posts;
 }

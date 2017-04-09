@@ -343,13 +343,19 @@ function get_api_profile($id){
 function get_user_data( $profileemail, $id ){
 	$user_entity = ( strpos($profileemail, '@') !== FALSE ) ? get_user_by_email($profileemail)[0] : getUserFromID($profileemail);
 	if( !$user_entity )
-		return "User profile was not found. Please try a different GUID, username, or email address";
+		return "User was not found. Please try a different GUID, username, or email address";
+
+	if( !$user_entity instanceof ElggUser )
+		return "Invalid user. Please try a different GUID, username, or email address";
 
 	if( $id ){
 		$viewer = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 		
 		if( !$viewer )
-			return "Viewer profile was not found. Please try a different GUID, username, or email address";
+			return "Viewer was not found. Please try a different GUID, username, or email address";
+
+		if( !$viewer instanceof ElggUser )
+			return "Invalid viewer. Please try a different GUID, username, or email address";
 		
 		$friends = $viewer->isFriendsWith($user_entity->guid);
 	} else {
@@ -706,7 +712,7 @@ function get_user_data( $profileemail, $id ){
 function get_useractivity( $id, $limit, $offset ){ 
 	$user_entity = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 	if( !$user_entity )
-		return "User profile was not found. Please try a different GUID, username, or email address";
+		return "User was not found. Please try a different GUID, username, or email address";
 
 	$activity = elgg_list_river(array(
 		'subject_guid' => $user_entity->guid,
@@ -760,7 +766,7 @@ function get_useractivity( $id, $limit, $offset ){
 function get_usergroups( $id ){ 
 	$user_entity = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
 	if( !$user_entity )
-		return "User profile was not found. Please try a different GUID, username, or email address";
+		return "User was not found. Please try a different GUID, username, or email address";
 
 	$groups = elgg_list_entities_from_relationship(array(
 	    'relationship'=> 'member', 
