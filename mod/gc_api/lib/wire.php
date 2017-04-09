@@ -269,9 +269,10 @@ function get_wireposts( $id, $limit, $offset ){
 		'subtype' => 'thewire',
 		'owner_guid' => $user->guid,
 		'limit' => $limit,
-		'limit' => $offset
+		'offset' => $offset
 	);
-	$wire_posts = elgg_get_entities($options);
+	$wire_posts = elgg_list_entities($options);
+	$wire_posts = json_decode($wire_posts);
 
 	return $wire_posts;
 }
