@@ -6,6 +6,8 @@
   
  	$widget = $vars['entity'];
  	
+	$widget->title = ( get_current_language() == "fr" ) ? $widget->widget_title_fr : $widget->widget_title_en;
+	
 	$display_avatar = $widget->display_avatar;
 	if( !isset($display_avatar) ) $display_avatar = 'yes';
 

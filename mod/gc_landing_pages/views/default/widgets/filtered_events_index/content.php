@@ -7,6 +7,8 @@
  	$widget = $vars['entity'];
 	$object_type = 'event_calendar';
 
+	$widget->title = ( get_current_language() == "fr" ) ? $widget->widget_title_fr : $widget->widget_title_en;
+	
 	require_once($CONFIG->pluginspath.'event_calendar/models/model.php');
 
 	if( !function_exists('getLastDayOfMonth') ){

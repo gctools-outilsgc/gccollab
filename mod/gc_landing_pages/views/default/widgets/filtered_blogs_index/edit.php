@@ -12,14 +12,27 @@
 	$widget_groups = $widget->widget_groups;
   if ( !isset($widget_groups) ) $widget_groups = ELGG_ENTITIES_ANY_VALUE;
 	
-  $widget_title = $widget->widget_title;
+  $widget_title_en = $widget->widget_title_en;
+  $widget_title_fr = $widget->widget_title_fr;
   $widget_tags = $widget->widget_tags;
 	$widget_tag_logic = $widget->widget_tag_logic;
 ?>
 <p>
-  <?php echo elgg_echo('widget_manager:widgets:edit:custom_title'); ?>:
+  <?php echo elgg_echo('widget_manager:widgets:edit:custom_title'); ?> (EN):
   <?php
-    echo elgg_view('input/text', array('name' => 'params[widget_title]', 'value' => $widget_title));
+    echo elgg_view('input/text', array(
+      'name' => 'params[widget_title_en]',                       
+      'value' => $widget_title_en
+    ));
+  ?>
+</p>
+<p>
+  <?php echo elgg_echo('widget_manager:widgets:edit:custom_title'); ?> (FR):
+  <?php
+    echo elgg_view('input/text', array(
+      'name' => 'params[widget_title_fr]',                       
+      'value' => $widget_title_fr
+    ));
   ?>
 </p>
 <p>
