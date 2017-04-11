@@ -98,7 +98,7 @@ function get_message( $user, $guid ){
 
 	$liked = elgg_get_annotations(array(
 		'guid' => $message->guid,
-		'annotation_owner_guid' => $user->guid,
+		'annotation_owner_guid' => $user_entity->guid,
 		'annotation_name' => 'likes'
 	));
 	$message->liked = count($liked) > 0;

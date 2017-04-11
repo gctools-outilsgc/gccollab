@@ -514,7 +514,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 
 				$liked = elgg_get_annotations(array(
 					'guid' => $blog->guid,
-					'annotation_owner_guid' => $user->guid,
+					'annotation_owner_guid' => $user_entity->guid,
 					'annotation_name' => 'likes'
 				));
 				$blog->liked = count($liked) > 0;
@@ -547,7 +547,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 
 				$liked = elgg_get_annotations(array(
 					'guid' => $wire->guid,
-					'annotation_owner_guid' => $user->guid,
+					'annotation_owner_guid' => $user_entity->guid,
 					'annotation_name' => 'likes'
 				));
 				$wire->liked = count($liked) > 0;
@@ -555,8 +555,9 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$replied = elgg_get_entities_from_metadata(array(
 					"metadata_name" => "wire_thread",
 					"metadata_value" => $thread_id,
+					"type" => "object",
 					"subtype" => "thewire",
-					'owner_guid' => $user->guid
+					'owner_guid' => $user_entity->guid
 				));
 				$wire->replied = count($replied) > 0;
 
@@ -585,7 +586,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 
 				$liked = elgg_get_annotations(array(
 					'guid' => $discussion->guid,
-					'annotation_owner_guid' => $user->guid,
+					'annotation_owner_guid' => $user_entity->guid,
 					'annotation_name' => 'likes'
 				));
 				$discussion->liked = count($liked) > 0;
