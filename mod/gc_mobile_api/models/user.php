@@ -357,9 +357,7 @@ function get_user_data( $profileemail, $user ){
 	foreach($groups as $object){
 		$group = get_entity($object->guid);
 		$object->iconURL = $group->geticon();
-
-		$num_members = $group->getMembers(array('count' => true));
-		$object->count = $num_members;
+		$object->count = $group->getMembers(array('count' => true));
 	}
 	$user['groups'] = $groups;
 
@@ -476,9 +474,7 @@ function get_user_groups( $user ){
 	foreach($groups as $group){
 		$groupObj = get_entity($group->guid);
 		$group->iconURL = $groupObj->geticon();
-
-		$num_members = $groupObj->getMembers(array('count' => true));
-		$group->count = $num_members;
+		$group->count = $groupObj->getMembers(array('count' => true));
 	}
 
 	return $groups;

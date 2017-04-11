@@ -22,8 +22,8 @@ function get_blogpost( $user, $guid ){
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
 	$entity = get_entity( $guid );
-	if( !$entity ) return "Blog was not found. Please try a different GUID";
-	if( !$entity instanceof ElggBlog ) return "Invalid blog. Please try a different GUID";
+	if( !isset($entity) ) return "Blog was not found. Please try a different GUID";
+	// if( !$entity instanceof ElggBlog ) return "Invalid blog. Please try a different GUID";
 
 	elgg_set_ignore_access(true);
 	
