@@ -4,19 +4,6 @@ elgg_ws_expose_function("get.blog","get_api_entity", array("id" => array('type' 
 	'Takes a blog id and returns the Title, exerpt, and body of the blog',
                'GET', false, false);
 
-elgg_ws_expose_function(
-	"get.blogpost",
-	"get_blogpost",
-	array(
-		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
-	),
-	'Retrieves a wire post & all replies based on user id and wire post id',
-	'POST',
-	true,
-	false
-);
-
 function get_api_entity($id) {
 	$entity = get_entity($id);
 	if ($entity == null){
@@ -135,7 +122,7 @@ function get_userBlock($userid){
 	$user['username'] = $user_entity->username;
 
 	//get and store user display name
-	$user['displayName'] = $user_entity->name;
+	$user['dispalyName'] = $user_entity->name;
 
 	//get and store URL for profile
 	$user['profileURL'] = $user_entity->getURL();
@@ -148,48 +135,4 @@ function get_userBlock($userid){
 	
 	//return user array
 	return $user;
-}
-
-function get_blogpost( $id, $guid ){
-	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-
- 	if( !$user )
-		return "User was not found. Please try a different GUID, username, or email address";
-
-	if( !$user instanceof \ElggUser ){
-		return "Invalid user. Please try a different GUID, username, or email address";
-	}
-
-	if( !$guid )
-		return "Wire Post was not found. Please try a different GUID";
-
-	elgg_set_ignore_access(true);
-	
-	$blog_post = elgg_list_entities(array(
-		'guid' => $guid
-	));
-	$data = json_decode($blog_post);
-
-	foreach($data as $object){
-		$likes = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->likes = count($likes);
-
-		$liked = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_owner_guid' => $user->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->liked = count($liked) > 0;
-
-		$owner = get_user($object->owner_guid);
-		$object->displayName = $owner->name;
-		$object->email = $owner->email;
-		$object->profileURL = $owner->getURL();
-		$object->iconURL = $owner->geticon();
-	}
-
-	return $data;
 }
