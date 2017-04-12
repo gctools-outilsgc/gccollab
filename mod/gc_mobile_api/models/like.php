@@ -29,6 +29,19 @@ elgg_ws_expose_function(
 	false
 );
 
+elgg_ws_expose_function(
+	"like.users",
+	"like_users",
+	array(
+		"guid" => array('type' => 'int', 'required' => true),
+		"user" => array('type' => 'string', 'required' => false)
+	),
+	'Retrieves all users who liked an entity based on user id and entity id',
+	'POST',
+	true,
+	false
+);
+
 function like_item( $user, $guid ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
@@ -126,6 +139,43 @@ function like_count( $guid, $user ){
 		'guid' => $guid,
 		'annotation_name' => 'likes'
 	));
+	$data['count'] = count($likes);
+
+	if( $user ){
+		$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+	 	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
+		if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
+
+		if( $user_entity ){
+			$likes = elgg_get_annotations(array(
+				'guid' => $guid,
+				'annotation_owner_guid' => $user_entity->guid,
+				'annotation_name' => 'likes'
+			));
+			$data['liked'] = count($likes) > 0;
+		}
+	}
+
+	return $data;
+}
+
+function like_users( $guid, $user ){
+	$entity = get_entity( $guid );
+	if( !$entity ) return "Object was not found. Please try a different GUID";
+	if( !$entity instanceof ElggObject ) return "Invalid object. Please try a different GUID";
+
+	$likes = elgg_get_annotations(array(
+		'guid' => $guid,
+		'annotation_name' => 'likes'
+	));
+	$data = array();
+
+	foreach( $likes as $key => $like ){
+		$item = get_user_block($like->owner_guid);
+		$item['time_created'] = date("Y-m-d H:i:s", $like->time_created);
+		$data['users'][] = $item;
+	}
+
 	$data['count'] = count($likes);
 
 	if( $user ){

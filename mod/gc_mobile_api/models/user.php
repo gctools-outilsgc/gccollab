@@ -17,6 +17,18 @@ elgg_ws_expose_function(
 );
 
 elgg_ws_expose_function(
+	"get.userexists",
+	"get_user_exists",
+	array(
+		"user" => array('type' => 'string', 'required' => false)
+	),
+	'Retrieves whether a user exists based on user id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"get.useractivity",
 	"get_user_activity",
 	array(
@@ -56,6 +68,63 @@ elgg_ws_expose_function(
 	true,
 	false
 );
+
+elgg_ws_expose_function(
+	"get.usercolleagueposts",
+	"get_user_colleague_posts",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"type" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'Retrieves a user\'s colleague\'s post information based on post type and user id',
+	'POST',
+	true,
+	false
+);
+
+function build_date($month, $year){
+	switch($month){
+		case 1:
+			$string = "01/";
+			break;
+		case 2:
+			$string = "02/";
+			break;
+		case 3:
+			$string = "03/";
+			break;
+		case 4:
+			$string = "04/";
+			break;
+		case 5:
+			$string = "05/";
+			break;
+		case 6:
+			$string = "06/";
+			break;
+		case 7:
+			$string = "07/";
+			break;
+		case 8:
+			$string = "08/";
+			break;
+		case 9:
+			$string = "09/";
+			break;
+		case 10:
+			$string = "10/";
+			break;
+		case 11:
+			$string = "11/";
+			break;
+		case 12:
+			$string = "12/";
+			break;
+	}	
+	return $string . $year;
+}
 
 function get_user_data( $profileemail, $user ){
 	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
@@ -407,6 +476,21 @@ function get_user_data( $profileemail, $user ){
 	return $user;
 }
 
+function get_user_exists( $user ){
+	$exists = elgg_get_entities_from_metadata(array(
+		'type' => 'user',
+		'metadata_name_value_pairs' => array(
+			array('name' => 'guid', 'value' => $user),
+			array('name' => 'email', 'value' => $user),
+			array('name' => 'username', 'value' => $user)
+		),
+		'pair_operator' => 'OR',
+		'limit' => 0
+	));
+
+	return ($exists > 0);
+}
+
 function get_user_activity( $user, $limit, $offset ){ 
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
@@ -700,44 +784,231 @@ function get_user_posts( $user, $type, $limit, $offset ){
 	return $data;
 }
 
-function build_date($month, $year){
-	switch($month){
-		case 1:
-			$string = "01/";
+function get_user_colleague_posts( $user, $type, $limit, $offset ){
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+ 	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
+	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
+	
+	elgg_set_ignore_access(true);
+
+	switch( $type ){
+    	case "blog":
+	        $blogs = elgg_list_entities_from_relationship(array(
+	        	'type' => 'object',
+				'subtype' => 'blog',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('blog:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'relationship' => 'friend',
+				'relationship_guid' => $user_entity->guid,
+				'relationship_join_on' => 'container_guid',
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($blogs);
+			foreach( $data as $blog ){
+				$likes = elgg_get_annotations(array(
+					'guid' => $blog->guid,
+					'annotation_name' => 'likes'
+				));
+				$blog->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $blog->guid,
+					'annotation_owner_guid' => $user_entity->guid,
+					'annotation_name' => 'likes'
+				));
+				$blog->liked = count($liked) > 0;
+
+				$blog->userDetails = get_user_block($blog->owner_guid);
+			}
+	        break;
+	    case "wire":
+	        $wires = elgg_list_entities_from_relationship(array(
+	        	'type' => 'object',
+				'subtype' => 'thewire',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('wire:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'relationship' => 'friend',
+				'relationship_guid' => $user_entity->guid,
+				'relationship_join_on' => 'container_guid',
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($wires);
+			foreach( $data as $wire ){
+				$wire_post = get_entity($wire->guid);
+				$thread_id = $wire_post->wire_thread;
+
+				$likes = elgg_get_annotations(array(
+					'guid' => $wire->guid,
+					'annotation_name' => 'likes'
+				));
+				$wire->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $wire->guid,
+					'annotation_owner_guid' => $user_entity->guid,
+					'annotation_name' => 'likes'
+				));
+				$wire->liked = count($liked) > 0;
+
+				$replied = elgg_get_entities_from_metadata(array(
+					"metadata_name" => "wire_thread",
+					"metadata_value" => $thread_id,
+					"type" => "object",
+					"subtype" => "thewire",
+					'owner_guid' => $user_entity->guid
+				));
+				$wire->replied = count($replied) > 0;
+
+				$wire->userDetails = get_user_block($wire->owner_guid);
+			}
+	        break;
+	    case "discussion":
+	    	$discussions = elgg_list_entities_from_relationship(array(
+	        	'type' => 'object',
+				'subtype' => 'groupforumtopic',
+				'order_by' => 'e.last_action desc',
+				'full_view' => false,
+				'no_results' => elgg_echo('discussion:none'),
+				'preload_owners' => true,
+				'preload_containers' => true,
+				'relationship' => 'friend',
+				'relationship_guid' => $user_entity->guid,
+				'relationship_join_on' => 'container_guid',
+				'limit' => $limit,
+				'offset' => $offset
+			));
+			$data = json_decode($discussions);
+			foreach( $data as $discussion ){
+				$likes = elgg_get_annotations(array(
+					'guid' => $discussion->guid,
+					'annotation_name' => 'likes'
+				));
+				$discussion->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $discussion->guid,
+					'annotation_owner_guid' => $user_entity->guid,
+					'annotation_name' => 'likes'
+				));
+				$discussion->liked = count($liked) > 0;
+				
+				$discussion->userDetails = get_user_block($discussion->owner_guid);
+			}
+	        break;
+	    case "newsfeed":
+			$db_prefix = elgg_get_config('dbprefix');
+		    
+		    if( $user_entity ){
+		        // check if user exists and has friends or groups
+		        $hasfriends = $user_entity->getFriends();
+		        $hasgroups = $user_entity->getGroups();
+		        if( $hasgroups ){
+		            // loop through group guids
+		            $groups = $user_entity->getGroups(array('limit'=>0));
+		            $group_guids = array();
+		            foreach( $groups as $group ){
+		                $group_guids[] = $group->getGUID();
+		            }
+		        }
+		    }
+
+		    $actionTypes = array('comment', 'create', 'join', 'update', 'friend', 'reply');
+
+		    if( !$hasgroups && !$hasfriends ){
+		        // no friends and no groups :(
+		        $activity = '';
+		    } else if( !$hasgroups && $hasfriends ){
+		        // has friends but no groups
+		        $optionsf['relationship_guid'] = $user_entity->guid;
+		        $optionsf['relationship'] = 'friend';
+		        $optionsf['pagination'] = true;
+
+		        // turn off friend connections
+		        // remove friend connections from action types
+		        // load user's preference
+		        $filteredItems = array($user_entity->colleagueNotif);
+		        // filter out preference
+		        $optionsf['action_types'] = array_diff( $actionTypes, $filteredItems );
+
+		        $activity = json_decode(newsfeed_list_river($optionsf));
+		    } else if( !$hasfriends && $hasgroups ){
+		        // if no friends but groups
+		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
+		        
+		        // display created content and replies and comments
+		        $optionsg['wheres'] = array("( oe.container_guid IN({$guids_in}) OR te.container_guid IN({$guids_in}) )");
+		        $optionsg['pagination'] = true;
+		        $activity = json_decode(newsfeed_list_river($optionsg));
+		    } else {
+		        // if friends and groups :3
+		        // turn off friend connections
+		        // remove friend connections from action types
+		        // load user's preference
+		        $filteredItems = array($user_entity->colleagueNotif);
+		        // filter out preference
+		        $optionsfg['action_types'] = array_diff( $actionTypes, $filteredItems );
+
+		        $guids_in = implode(',', array_unique(array_filter($group_guids)));
+
+		        // Groups + Friends activity query
+		        // This query grabs new created content and comments and replies in the groups the user is a member of *** te.container_guid grabs comments and replies
+		        $optionsfg['wheres'] = array(
+		    		"( oe.container_guid IN({$guids_in})
+		         	OR te.container_guid IN({$guids_in}) )
+		        	OR rv.subject_guid IN (SELECT guid_two FROM {$db_prefix}entity_relationships WHERE guid_one=$user_entity->guid AND relationship='friend')"
+		        );
+		        $optionsfg['pagination'] = true;
+		        $activity = json_decode(newsfeed_list_river($optionsfg));
+		    }
+
+		    foreach( $activity as $event ){
+				$subject = get_user($event->subject_guid);
+				$object = get_entity($event->object_guid);
+				$event->userDetails = get_user_block($event->subject_guid);
+
+				if( $object instanceof ElggUser ){
+					$event->object = get_user_block($event->object_guid);
+					$event->object['type'] = 'user';
+				} else if( $object instanceof ElggWire ){
+					$event->object['type'] = 'wire';
+					$event->object['wire'] = $object->description;
+				} else if( $object instanceof ElggGroup ){
+					$event->object['type'] = 'group';
+					$event->object['name'] = $object->name;
+				} else if( $object instanceof ElggDiscussionReply ){
+					$event->object['type'] = 'discussion-reply';
+					$original_discussion = get_entity($object->container_guid);
+					$event->object['name'] = $original_discussion->title;
+					$event->object['description'] = $object->description;
+				} else if( $object instanceof ElggFile ){
+					$event->object['type'] = 'file';
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
+				} else if( $object instanceof ElggObject ){
+					$event->object['type'] = 'discussion-add';
+					$group = get_entity($object->container_guid);
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
+					$event->object['group'] = $group->name;
+				} else {
+					//@TODO handle any unknown events
+				}
+			}
+
+	    	$data = $activity;
+	        break;
+	    default:
+			$data = "Please use either 'blog', 'wire', 'discussion', or 'newsfeed' for the 'type' parameter";
 			break;
-		case 2:
-			$string = "02/";
-			break;
-		case 3:
-			$string = "03/";
-			break;
-		case 4:
-			$string = "04/";
-			break;
-		case 5:
-			$string = "05/";
-			break;
-		case 6:
-			$string = "06/";
-			break;
-		case 7:
-			$string = "07/";
-			break;
-		case 8:
-			$string = "08/";
-			break;
-		case 9:
-			$string = "09/";
-			break;
-		case 10:
-			$string = "10/";
-			break;
-		case 11:
-			$string = "11/";
-			break;
-		case 12:
-			$string = "12/";
-			break;
-	}	
-	return $string . $year;
+	}
+
+	return $data;
 }
