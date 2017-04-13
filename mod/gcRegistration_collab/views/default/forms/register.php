@@ -220,7 +220,7 @@ $(window).on('beforeunload', function(){
 				<!-- Options for the users enabled in $enabled_fields above -->
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
-	    			<select id="user_type" name="user_type" class="form-control">
+	    			<select id="user_type" name="user_type" class="form-control" aria-required="true">
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
 	    				<?php if(show_field("federal")): ?><option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
@@ -609,16 +609,18 @@ $(window).on('beforeunload', function(){
 				'id' => 'name',
 		        'class' => 'form-control display_name',
 				'value' => $name,
+				'aria-describedby' => 'display_name_notice',
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
-		    	<div class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
+		    	<div id="display_name_notice" class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
 
 				<!-- Email -->
 				<div class="form-group">
 					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span></label>
 	    			<font id="email_error" color="red"></font>
-					<input id="email" class="form-control" type="text" name="email" />
+					<input id="email" class="form-control" type="text" name="email" aria-required="true">
 
 	    		<script>	
 	        		$('#email').blur(function () {
@@ -656,7 +658,7 @@ $(window).on('beforeunload', function(){
 				<div class="form-group">
 					<label for="email2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span></label>
 					<font id="email_secondary_error" color="red"></font>
-					<input id="email2" class="form-control" type="text" name="email2" />
+					<input id="email2" class="form-control" type="text" name="email2" aria-required="true">
 				</div>
 
 				<!-- Username (auto-generate) -->
@@ -668,7 +670,7 @@ $(window).on('beforeunload', function(){
 				'name' => 'username',
 				'id' => 'username',
 		        'class' => 'username_test form-control',
-				// 'readonly' => 'readonly',
+				'readonly' => 'readonly',
 				'value' => $username,
 			));
 ?>
@@ -682,8 +684,9 @@ $(window).on('beforeunload', function(){
 			echo elgg_view('input/password', array(
 				'name' => 'password',
 				'id' => 'password1',
-		        'class'=>'password_test form-control',
+		        'class' => 'password_test form-control',
 				'value' => $password,
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
@@ -697,12 +700,13 @@ $(window).on('beforeunload', function(){
 				'name' => 'password2',
 				'value' => $password2,
 				'id' => 'password2',
-		        'class'=>'password2_test form-control',
+		        'class' => 'password2_test form-control',
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
 
-			    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" /><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
+			    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" aria-required="true"><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
 
 <?php
 			// view to extend to add more fields to the registration form
