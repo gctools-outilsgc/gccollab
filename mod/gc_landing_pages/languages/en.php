@@ -11,6 +11,7 @@ return array(
   'gc_landing_pages:filtered_blogs_index' => "Filtered Blog Posts",
   'gc_landing_pages:filtered_discussions_index' => "Filtered Discussions",
   'gc_landing_pages:filtered_events_index' => "Filtered Events",
+  'gc_landing_pages:filtered_feed_index' => "Filtered Feed",
   'gc_landing_pages:filtered_groups_index' => "Filtered Groups",
   'gc_landing_pages:filtered_members_index' => "Filtered Members",
   'gc_landing_pages:filtered_spotlight_index' => "Filtered Image Gallery",
