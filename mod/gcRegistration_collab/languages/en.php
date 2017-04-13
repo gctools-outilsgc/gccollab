@@ -42,7 +42,7 @@ $english = array(
 	'gcRegister:please_enter_name' => 'Please enter display name',
 	'gcRegister:department_name' => 'Enter your Department',
 	'gcRegister:register' => 'Register',
-	'gcRegister:has_invited' => ' invited you to join GCcollab',
+	'gcRegister:has_invited' => ' invited you to join GCcollab:',
 
 	// error messages on the form
 	'gcRegister:failedMySQLconnection' => 'Unable to connect to the database',
@@ -83,6 +83,17 @@ $english = array(
 	'gcRegister:password_too_short' => '<a href="#password">Password must contain minimum of 6 characters</a>',
 	'gcRegister:email_mismatch' => '<a href="#email">Emails do not match</a>',
 	'gcRegister:display_name_is_empty' => '<a href="#name">Display name cannot be empty</a>',
+
+	'gcRegister:welcome_message' => "<p>GCcollab, hosted by the Government of Canada, facilitates collaboration between academics, students, Canadian public servants, as well as other key communities.</p>
+	<p class='ptm pbm'><strong>Who can register?</strong></p>
+	<ul>
+		<li>Canadian public servants (federal, provincial, territorial and municipal) can register by using their government email addresses.</li>
+		<li>Academics and students of all Canadian universities and colleges can register using their institution email addresses.</li>
+		<li>Other pre-approved communities can register using their own email address (personal or professional) from the list of authorized domains.</li>
+	</ul>
+	<p>Not part of these groups? Canadians are able to join GCcollab by invitation! Existing GCcollab members can invite their stakeholders and partners on to GCcollab, making it a truly collaborative environment.</p>
+	<p class='ptm pbm'><strong>Register and validate your account!</strong></p>
+	<p>After completing the registration form, you will receive a validation email. Click on the link (or copy past it in the address bar) to activate your account. If you do not receive the email, please contact the <a href='" . elgg_get_site_url() . "mod/contactform/'>GCcollab help desk</a>.</p>"
 );
 
 add_translation("en", $english);

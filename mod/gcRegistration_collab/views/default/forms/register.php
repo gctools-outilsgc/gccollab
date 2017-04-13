@@ -109,16 +109,15 @@ $(window).on('beforeunload', function(){
 <!-- start of standard form -->
 <div id="standard_version" class="row">
 
-	<section class="col-md-6">
-
+	<section class="col-md-6"><div class="plm">
 <?php
     $InviteGUID = get_input('friend_guid');
     
-    if($InviteGUID){
+    if( $InviteGUID ):
 
 		$userObj = get_user($InviteGUID);
 
-		if($userObj){
+		if( $userObj ):
               
 		    $userType = $userObj->user_type;
 		    // if user is public servant
@@ -178,31 +177,33 @@ $(window).on('beforeunload', function(){
 		    } else {
 		        $department = $userObj->$userType;
 		    }
-
 ?>
-	<h2 class="plm"><?php echo $userObj->name . elgg_echo('gcRegister:has_invited'); ?></h2>
-    <div class="clearfix mrgn-bttm-sm">
-        <div class="row mrgn-lft-0 mrgn-rght-sm">
-            <div class="col-xs-4">
-                <div class="mrgn-tp-sm">
-                <?php echo elgg_view_entity_icon($userObj, 'medium', array('use_hover' => false, 'class' => 'pro-avatar', 'force_size' => true)); ?>
-                </div>
-            </div>
+			<p><strong><?php echo $userObj->name . elgg_echo('gcRegister:has_invited'); ?></strong></p>
+		    <hr class="mtm mbm">
+		    <div class="clearfix mrgn-bttm-sm">
+		        <div class="row mrgn-lft-0 mrgn-rght-sm">
+		            <div class="col-xs-4">
+		                <div class="mrgn-tp-sm">
+		                <?php echo elgg_view_entity_icon($userObj, 'medium', array('use_hover' => false, 'class' => 'pro-avatar', 'force_size' => true)); ?>
+		                </div>
+		            </div>
 
-            <div class="col-xs-8">
-                <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $userObj->name; ?></h4>
-                <div><?php echo $userObj->job; ?></div>
-                <div><?php echo $department; ?></div>
-            </div>
-        </div>
-    </div>
-
+		            <div class="col-xs-8">
+		                <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $userObj->name; ?></h4>
+		                <div><?php echo $userObj->job; ?></div>
+		                <div><?php echo $department; ?></div>
+		            </div>
+		        </div>
+		    </div>
+		    <hr class="mtm mbl">
 <?php
-    	}
-    }
+    	endif;
+    endif;
+	
+	echo elgg_echo('gcRegister:welcome_message');
     
 	?>
-	</section>
+	</div></section>
 
 	<?php
 		function show_field( $field ){
