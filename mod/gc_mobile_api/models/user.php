@@ -531,12 +531,21 @@ function get_user_activity( $user, $limit, $offset ){
 			$event->object['description'] = $object->description;
 		} else if( $object instanceof ElggObject ){
 			$event->object['type'] = 'discussion-add';
-			$group = get_entity($object->container_guid);
-			$event->object['name'] = $object->title;
+			$event->object['name'] = ( $object->title ) ? $object->title : $object->name;
 			$event->object['description'] = $object->description;
-			$event->object['group'] = $group->name;
+
+			$other = get_entity($object->container_guid);
+			if( $other instanceof ElggGroup ){
+				if( !isset($event->object['type']) )
+					$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+			} else {
+				if( !isset($event->object['type']) )
+					$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+			}
 		} else {
 			//@TODO handle any unknown events
+			$event->object['name'] = $object->title;
+			$event->object['description'] = $object->description;
 		}
 	}
 
@@ -620,6 +629,25 @@ function get_user_posts( $user, $type, $limit, $offset ){
 			foreach( $data as $wire ){
 				$wire_post = get_entity($wire->guid);
 				$thread_id = $wire_post->wire_thread;
+
+				$reshare = $wire_post->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+				$url = "";
+				if( !empty( $reshare ) ){
+					$url = $reshare->getURL();
+				}
+
+				$text = "";
+				if ( !empty($reshare->title) ) {
+					$text = $reshare->title;
+				} else if ( !empty($reshare->name) ) {
+					$text = $reshare->name;
+				} else if ( !empty($reshare->description) ) {
+					$text = elgg_get_excerpt($reshare->description, 140);
+				}
+
+				$wire->shareURL = $url;
+				$wire->shareText = $text;
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $wire->guid,
@@ -767,12 +795,21 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					$event->object['description'] = $object->description;
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
-					$group = get_entity($object->container_guid);
-					$event->object['name'] = $object->title;
+					$event->object['name'] = ( $object->title ) ? $object->title : $object->name;
 					$event->object['description'] = $object->description;
-					$event->object['group'] = $group->name;
+
+					$other = get_entity($object->container_guid);
+					if( $other instanceof ElggGroup ){
+						if( !isset($event->object['type']) )
+							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+					} else {
+						if( !isset($event->object['type']) )
+							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+					}
 				} else {
 					//@TODO handle any unknown events
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
 				}
 			}
 
@@ -846,6 +883,25 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 			foreach( $data as $wire ){
 				$wire_post = get_entity($wire->guid);
 				$thread_id = $wire_post->wire_thread;
+
+				$reshare = $wire_post->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+				$url = "";
+				if( !empty( $reshare ) ){
+					$url = $reshare->getURL();
+				}
+
+				$text = "";
+				if ( !empty($reshare->title) ) {
+					$text = $reshare->title;
+				} else if ( !empty($reshare->name) ) {
+					$text = $reshare->name;
+				} else if ( !empty($reshare->description) ) {
+					$text = elgg_get_excerpt($reshare->description, 140);
+				}
+
+				$wire->shareURL = $url;
+				$wire->shareText = $text;
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $wire->guid,
@@ -996,12 +1052,21 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 					$event->object['description'] = $object->description;
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
-					$group = get_entity($object->container_guid);
-					$event->object['name'] = $object->title;
+					$event->object['name'] = ( $object->title ) ? $object->title : $object->name;
 					$event->object['description'] = $object->description;
-					$event->object['group'] = $group->name;
+
+					$other = get_entity($object->container_guid);
+					if( $other instanceof ElggGroup ){
+						if( !isset($event->object['type']) )
+							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+					} else {
+						if( !isset($event->object['type']) )
+							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+					}
 				} else {
 					//@TODO handle any unknown events
+					$event->object['name'] = $object->title;
+					$event->object['description'] = $object->description;
 				}
 			}
 
