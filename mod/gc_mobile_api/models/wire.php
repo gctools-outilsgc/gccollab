@@ -69,6 +69,26 @@ function get_wirepost( $user, $guid, $thread ){
 		$wire_posts = json_decode($all_wire_posts);
 
 		foreach($wire_posts as $wire_post){
+			$wire_post_obj = get_entity($wire_post->guid);
+			$reshare = $wire_post_obj->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+			$url = "";
+			if( !empty( $reshare ) ){
+				$url = $reshare->getURL();
+			}
+
+			$text = "";
+			if ( !empty($reshare->title) ) {
+				$text = $reshare->title;
+			} else if ( !empty($reshare->name) ) {
+				$text = $reshare->name;
+			} else if ( !empty($reshare->description) ) {
+				$text = elgg_get_excerpt($reshare->description, 140);
+			}
+
+			$wire_post->shareURL = $url;
+			$wire_post->shareText = $text;
+
 			$likes = elgg_get_annotations(array(
 				'guid' => $wire_post->guid,
 				'annotation_name' => 'likes'
@@ -102,6 +122,26 @@ function get_wirepost( $user, $guid, $thread ){
 			"guid" => $guid
 		));
 		$wire_post = json_decode($wire_posts)[0];
+
+		$wire_post_obj = get_entity($wire_post->guid);
+		$reshare = $wire_post_obj->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+		$url = "";
+		if( !empty( $reshare ) ){
+			$url = $reshare->getURL();
+		}
+
+		$text = "";
+		if ( !empty($reshare->title) ) {
+			$text = $reshare->title;
+		} else if ( !empty($reshare->name) ) {
+			$text = $reshare->name;
+		} else if ( !empty($reshare->description) ) {
+			$text = elgg_get_excerpt($reshare->description, 140);
+		}
+
+		$wire_post->shareURL = $url;
+		$wire_post->shareText = $text;
 
 		$likes = elgg_get_annotations(array(
 			'guid' => $wire_post->guid,
@@ -154,6 +194,26 @@ function get_wireposts( $profileemail, $user, $limit, $offset ){
 	$wire_posts = json_decode($all_wire_posts);
 
 	foreach($wire_posts as $wire_post){
+		$wire_post_obj = get_entity($wire_post->guid);
+		$reshare = $wire_post_obj->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+		$url = "";
+		if( !empty( $reshare ) ){
+			$url = $reshare->getURL();
+		}
+
+		$text = "";
+		if ( !empty($reshare->title) ) {
+			$text = $reshare->title;
+		} else if ( !empty($reshare->name) ) {
+			$text = $reshare->name;
+		} else if ( !empty($reshare->description) ) {
+			$text = elgg_get_excerpt($reshare->description, 140);
+		}
+
+		$wire_post->shareURL = $url;
+		$wire_post->shareText = $text;
+
 		$likes = elgg_get_annotations(array(
 			'guid' => $wire_post->guid,
 			'annotation_name' => 'likes'

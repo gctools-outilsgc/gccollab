@@ -415,6 +415,7 @@ function get_user_data( $profileemail, $user ){
 	$colleagues = $user_entity->getFriends(array('limit' => 0));
 	$user['colleagues'] = count($colleagues);
 
+	/*
 	$groupObj = elgg_list_entities_from_relationship(array(
 	    'relationship'=> 'member', 
 	    'relationship_guid'=> $user_entity->guid, 
@@ -472,6 +473,7 @@ function get_user_data( $profileemail, $user ){
 		}
 	}
 	$user['activity'] = $activity;
+	*/
 
 	return $user;
 }
