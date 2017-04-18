@@ -192,9 +192,6 @@ if (elgg_get_config('allow_registration')) {
 		if ($toc[0] != 1)
 			$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
 
-		if (!\Beck24\ReCaptcha\validate_recaptcha())
-	        $resulting_error .= elgg_echo('elgg_recaptcha:message:fail');
-
 		// if there are any registration error, throw an exception
 		if (!empty($resulting_error))
 			throw new RegistrationException($resulting_error);

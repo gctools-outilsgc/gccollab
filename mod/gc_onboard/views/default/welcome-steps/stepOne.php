@@ -226,8 +226,8 @@
                 $('#welcome-step').focus();
             }
         });
->>>>>>> connex/gcconnex*/
     });
+>>>>>>> connex/gcconnex*/
 
     function addNewSkill(newSkill) {
         $('.skill-count').html(($('.gcconnex-skill-entry:visible').length)+1);

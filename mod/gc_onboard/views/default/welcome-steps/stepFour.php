@@ -63,7 +63,7 @@ if(!$welcomeGroup_guid){
     </div>
 
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
-      <button type="button" class="btn btn-default got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
+      <button type="button" class="overlay-close btn btn-default got-it" data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
       <?php
       //Added the group tour as optional at the end of the tour
       echo elgg_view('output/url',array(
@@ -72,11 +72,6 @@ if(!$welcomeGroup_guid){
           'class'=>'btn btn-primary got-it',
       ));
       ?>
-
-
-
-        <button style="background:#047177;"  type="button" class="overlay-close btn btn-primary got-it " data-dismiss="modal"><?php echo elgg_echo('groupTour:done'); ?></button>
-
     </div>
 
     <script>
