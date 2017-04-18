@@ -42,7 +42,7 @@ $french = array(
 	'gcRegister:please_enter_name' => 'Veuillez inscrire votre nom à afficher',
 	'gcRegister:department_name' => 'Inscrire le nom de votre ministère',
 	'gcRegister:register' => 'S\'inscrire',
-	'gcRegister:has_invited' => ' vous a invité à joindre GCcollab',
+	'gcRegister:has_invited' => ' vous a invité à joindre GCcollab :',
 				
 	// error messages on the form			// error messages on the form			
 	'gcRegister:failedMySQLconnection' => 'Impossible de se connecter à la base de données',
@@ -83,6 +83,17 @@ $french = array(
 	'gcRegister:password_too_short' => '<a href="#password">Le mot de passe doit avoir au moins 6 caractères</a>',
 	'gcRegister:email_mismatch' => '<a href="#email">Les adresses de courriel ne sont pas identitiques</a>',
 	'gcRegister:display_name_is_empty' => '<a href="#name">Le champ « Nom à afficher » ne peut pas être laissé vide</a>',
+
+	'gcRegister:welcome_message' => "<p>GCcollab, un site qui est hébergé par le gouvernement du Canada, vient faciliter la collaboration entre les universitaires, les étudiants, les fonctionnaires canadiens, de même que d’autres collectivités importantes.</p>
+	<p class='ptm pbm'><strong>Qui peut s'inscrire?</strong></p>
+	<ul>
+		<li>Les fonctionnaires canadiens (fédéraux, provinciaux,  territoriaux et municipaux) peuvent s'inscrire en se servant de leurs adresses courriel gouvernementales.</li>
+		<li>Les universitaires et les étudiants de toutes les universités et collèges canadiens peuvent s'inscrire en utilisant les adresses courriel de leur institution.</li>
+		<li>D’autres collectivités pré-approuvées peuvent s'inscrire en utilisant leur propre adresse courriel (personnelle ou professionnelle), à partir de la liste des domaines autorisés.</li>
+	</ul>
+	<p>Vous ne faites pas partie de ces groupes? Les Canadiens peuvent se joindre à GCcollab par invitation! Les membres existants de GCcollab peuvent inviter leurs intervenants et partenaires à se joindre à GCcollab, ce qui en fait un environnement véritablement collaboratif.</p>
+	<p class='ptm pbm'><strong>Inscrivez-vous et validez votre compte!</strong></p>
+	<p>Une fois que vous aurez rempli le formulaire d'inscription, vous recevrez un courriel de validation. Cliquez sur le lien (ou copiez-le dans la barre d'adresse) pour activer votre compte. Si vous ne recevez pas de courriel, veuillez communiquer avec le <a href='" . elgg_get_site_url() . "mod/contactform/'>bureau d’aide de GCcollab</a>.</p>"
 );
  
 add_translation("fr", $french);

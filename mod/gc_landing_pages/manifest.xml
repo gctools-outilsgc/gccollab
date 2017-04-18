@@ -6,7 +6,7 @@
 	<category>enhancement</category>
   <description>Adds custom landing pages to display category-focused river content</description>
   <website>http://www.canada.ca</website>
-	<copyright>Her Majesty the Queen in Right of Canada, 2015</copyright>
+	<copyright>Her Majesty the Queen in Right of Canada, 2017</copyright>
 	<license>Creative Commons Attribution 3.0 Unported License</license>
   <requires>
     <type>elgg_release</type>

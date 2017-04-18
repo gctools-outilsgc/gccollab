@@ -7,6 +7,8 @@
  	$widget = $vars['entity'];
 	$object_type = 'thewire';
 	
+	$widget->title = ( get_current_language() == "fr" ) ? $widget->widget_title_fr : $widget->widget_title_en;
+	
 	$num_items = $widget->num_items;
 	$widget_hashtag = $widget->widget_hashtag;
 	if ( !isset($num_items) ) $num_items = 10;

@@ -54,10 +54,8 @@ $gc_language = $_COOKIE['connex_lang'];
         <?php } */ ?>
             <form action="<?php echo elgg_get_site_url(); ?>search" method="get" name="cse-search-box" class="form-inline mrgn-bttm-sm">
             <div class="form-group">
-                <label for="wb-srch-q" class="wb-inv">
-                    <?php echo elgg_echo('wet:searchweb');?>
-                </label>
-                <input class="wb-srch-q form-control" name="q"  value="" size="27" maxlength="150" placeholder="<?php echo elgg_echo('wet:searchgctools');?>">
+                <label for="wb-srch-q" class="wb-inv"><?php echo elgg_echo('wet:searchweb'); ?></label>
+                <input id="wb-srch-q" class="form-control" name="q"  value="" size="27" maxlength="150" placeholder="<?php echo elgg_echo('wet:searchgctools');?>">
             </div>
             <div class="form-group submit">
                 <!-- search button -->

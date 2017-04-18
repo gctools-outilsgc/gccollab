@@ -109,16 +109,15 @@ $(window).on('beforeunload', function(){
 <!-- start of standard form -->
 <div id="standard_version" class="row">
 
-	<section class="col-md-6">
-
+	<section class="col-md-6"><div class="plm">
 <?php
     $InviteGUID = get_input('friend_guid');
     
-    if($InviteGUID){
+    if( $InviteGUID ):
 
 		$userObj = get_user($InviteGUID);
 
-		if($userObj){
+		if( $userObj ):
               
 		    $userType = $userObj->user_type;
 		    // if user is public servant
@@ -178,31 +177,33 @@ $(window).on('beforeunload', function(){
 		    } else {
 		        $department = $userObj->$userType;
 		    }
-
 ?>
-	<h2 class="plm"><?php echo $userObj->name . elgg_echo('gcRegister:has_invited'); ?></h2>
-    <div class="clearfix mrgn-bttm-sm">
-        <div class="row mrgn-lft-0 mrgn-rght-sm">
-            <div class="col-xs-4">
-                <div class="mrgn-tp-sm">
-                <?php echo elgg_view_entity_icon($userObj, 'medium', array('use_hover' => false, 'class' => 'pro-avatar', 'force_size' => true)); ?>
-                </div>
-            </div>
+			<p><strong><?php echo $userObj->name . elgg_echo('gcRegister:has_invited'); ?></strong></p>
+		    <hr class="mtm mbm">
+		    <div class="clearfix mrgn-bttm-sm">
+		        <div class="row mrgn-lft-0 mrgn-rght-sm">
+		            <div class="col-xs-4">
+		                <div class="mrgn-tp-sm">
+		                <?php echo elgg_view_entity_icon($userObj, 'medium', array('use_hover' => false, 'class' => 'pro-avatar', 'force_size' => true)); ?>
+		                </div>
+		            </div>
 
-            <div class="col-xs-8">
-                <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $userObj->name; ?></h4>
-                <div><?php echo $userObj->job; ?></div>
-                <div><?php echo $department; ?></div>
-            </div>
-        </div>
-    </div>
-
+		            <div class="col-xs-8">
+		                <h4 class="mrgn-tp-sm mrgn-bttm-0"><?php echo $userObj->name; ?></h4>
+		                <div><?php echo $userObj->job; ?></div>
+		                <div><?php echo $department; ?></div>
+		            </div>
+		        </div>
+		    </div>
+		    <hr class="mtm mbl">
 <?php
-    	}
-    }
+    	endif;
+    endif;
+	
+	echo elgg_echo('gcRegister:welcome_message');
     
 	?>
-	</section>
+	</div></section>
 
 	<?php
 		function show_field( $field ){
@@ -220,7 +221,7 @@ $(window).on('beforeunload', function(){
 				<!-- Options for the users enabled in $enabled_fields above -->
 				<div class="form-group">
 					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span></label>
-	    			<select id="user_type" name="user_type" class="form-control">
+	    			<select id="user_type" name="user_type" class="form-control" aria-required="true">
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
 	    				<?php if(show_field("federal")): ?><option value="federal"><?php echo elgg_echo('gcRegister:occupation:federal'); ?></option><?php endif; ?>
@@ -609,16 +610,18 @@ $(window).on('beforeunload', function(){
 				'id' => 'name',
 		        'class' => 'form-control display_name',
 				'value' => $name,
+				'aria-describedby' => 'display_name_notice',
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
-		    	<div class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
+		    	<div id="display_name_notice" class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
 
 				<!-- Email -->
 				<div class="form-group">
 					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span></label>
 	    			<font id="email_error" color="red"></font>
-					<input id="email" class="form-control" type="text" name="email" />
+					<input id="email" class="form-control" type="text" name="email" aria-required="true">
 
 	    		<script>	
 	        		$('#email').blur(function () {
@@ -656,7 +659,7 @@ $(window).on('beforeunload', function(){
 				<div class="form-group">
 					<label for="email2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span></label>
 					<font id="email_secondary_error" color="red"></font>
-					<input id="email2" class="form-control" type="text" name="email2" />
+					<input id="email2" class="form-control" type="text" name="email2" aria-required="true">
 				</div>
 
 				<!-- Username (auto-generate) -->
@@ -668,7 +671,7 @@ $(window).on('beforeunload', function(){
 				'name' => 'username',
 				'id' => 'username',
 		        'class' => 'username_test form-control',
-				// 'readonly' => 'readonly',
+				'readonly' => 'readonly',
 				'value' => $username,
 			));
 ?>
@@ -682,8 +685,9 @@ $(window).on('beforeunload', function(){
 			echo elgg_view('input/password', array(
 				'name' => 'password',
 				'id' => 'password1',
-		        'class'=>'password_test form-control',
+		        'class' => 'password_test form-control',
 				'value' => $password,
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
@@ -697,12 +701,13 @@ $(window).on('beforeunload', function(){
 				'name' => 'password2',
 				'value' => $password2,
 				'id' => 'password2',
-		        'class'=>'password2_test form-control',
+		        'class' => 'password2_test form-control',
+				'aria-required' => 'true'
 			));
 ?>
 				</div>
 
-			    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" /><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
+			    <div class="checkbox"> <label><input type="checkbox" value="1" name="toc2" id="toc2" aria-required="true"><?php echo elgg_echo('gcRegister:terms_and_conditions')?></label> </div>
 
 <?php
 			// view to extend to add more fields to the registration form

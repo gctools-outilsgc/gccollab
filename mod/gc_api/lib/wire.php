@@ -1,40 +1,12 @@
 <?php
 
-elgg_ws_expose_function("get.wire","get_wire_post", array(
+elgg_ws_expose_function("get.wire","get_wire_posts", array(
 "query" => array('type' => 'string','required' => false, 'default' => ' '),
 "limit" => array('type' => 'int','required' => false, 'default' => 15),
 ),'returns wire posts based on query',
 'GET', false, false);
 
-elgg_ws_expose_function(
-	"get.wirepost",
-	"get_wirepost",
-	array(
-		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true),
-		"thread" => array('type' => 'int', 'required' => false, 'default' => 0)
-	),
-	'Retrieves a wire post & all replies based on user id and wire post id',
-	'POST',
-	true,
-	false
-);
-
-elgg_ws_expose_function(
-	"reply.wire",
-	"reply_wire",
-	array(
-		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true),
-		"message" => array('type' => 'string', 'required' => true)
-	),
-	'Submits a reply to a wire post based on user id and wire post id',
-	'POST',
-	true,
-	false
-);
-
-function get_wire_post($query, $limit){
+function get_wire_posts($query, $limit){
 	$posts = array();	
 	$result = 'Nothing to return';
 	$query = trim($query,' \"');
@@ -103,8 +75,8 @@ function get_wire_post($query, $limit){
 		$result['posts'] = $posts;
 	}
 	return $result;
+	
 }
-
 function time_elapsed_B($secs){
     /*$bit = array(
         ' day'        => $secs / 86400 % 7,
@@ -142,113 +114,4 @@ function time_elapsed_B($secs){
     }
 	
     return $num.$string;
-}
-
-function get_wirepost( $id, $guid, $thread ){
-	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-
- 	if( !$user )
-		return "User was not found. Please try a different GUID, username, or email address";
-
-	if( !$user instanceof \ElggUser ){
-		return "Invalid user. Please try a different GUID, username, or email address";
-	}
-
-	if( !$guid )
-		return "Wire Post was not found. Please try a different GUID";
-
-	$wire_post = get_entity($guid);
-	$thread_id = $wire_post->wire_thread;
-
-	if( $thread ){
-		$wire_posts = elgg_list_entities_from_metadata(array(
-			"metadata_name" => "wire_thread",
-			"metadata_value" => $thread_id,
-			"type" => "object",
-			"subtype" => "thewire",
-			"limit" => max(20, elgg_get_config('default_limit')),
-			'preload_owners' => true,
-		));
-		$wire_posts = json_decode($wire_posts);
-		foreach($wire_posts as $object){
-			$likes = elgg_get_annotations(array(
-				'guid' => $object->guid,
-				'annotation_name' => 'likes'
-			));
-			$object->likes = count($likes);
-
-			$liked = elgg_get_annotations(array(
-				'guid' => $object->guid,
-				'annotation_owner_guid' => $user->guid,
-				'annotation_name' => 'likes'
-			));
-			$object->liked = count($liked) > 0;
-
-			$owner = get_user($object->owner_guid);
-			$object->displayName = $owner->name;
-			$object->email = $owner->email;
-			$object->profileURL = $owner->getURL();
-			$object->iconURL = $owner->geticon();
-			$object->thread_id = $wire_post->wire_thread;
-		}
-	} else {
-		$wire_posts = elgg_list_entities(array(
-			'guids' => array($guid)
-		));
-		$wire_posts = json_decode($wire_posts);
-		foreach($wire_posts as $object){
-			$likes = elgg_get_annotations(array(
-				'guid' => $object->guid,
-				'annotation_name' => 'likes'
-			));
-			$object->likes = count($likes);
-
-			$liked = elgg_get_annotations(array(
-				'guid' => $object->guid,
-				'annotation_owner_guid' => $user->guid,
-				'annotation_name' => 'likes'
-			));
-			$object->liked = count($liked) > 0;
-
-			$owner = get_user($object->owner_guid);
-			$object->displayName = $owner->name;
-			$object->email = $owner->email;
-			$object->profileURL = $owner->getURL();
-			$object->iconURL = $owner->geticon();
-			$object->thread_id = $wire_post->wire_thread;
-		}
-	}
-
-	return $wire_posts;
-}
-
-function reply_wire( $id, $guid, $message ){
-	$user = ( strpos($id, '@') !== FALSE ) ? get_user_by_email($id)[0] : getUserFromID($id);
-
- 	if( !$user )
-		return "User was not found. Please try a different GUID, username, or email address";
-
-	if( !$guid )
-		return "Wire Post was not found. Please try a different GUID";
-
-	if( !$message )
-		return "A message must be sent to reply to the Wire Post";
-
-	// Let's see if we can get a Wire Post with the specified GUID
-	$entity = get_entity($guid);
-	
-	$access_id = ACCESS_PUBLIC;
-	$method = 'site';
-
-	// make sure the post isn't blank
-	if( empty($message) ){
-		return elgg_echo("thewire:blank");
-	}
-
-	$guid = thewire_save_post($message, $user->guid, $access_id, $guid, $method);
-	if( !$guid ){
-		return elgg_echo("thewire:notsaved");
-	}
-
-	return elgg_echo("thewire:posted");
-}
+ }

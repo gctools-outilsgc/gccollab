@@ -110,29 +110,6 @@ if (elgg_get_config('allow_registration')) {
 				$validemail = true;
 		}
 
-		// check if toc is checked, user agrees to TOC
-		if ($toc[0] != 1)
-			$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
-
-		if( !$validemail )
-			$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
-
-		// check if two emails match
-		if (strcmp($email, $email2) != 0)
-			$resulting_error .= elgg_echo('gcRegister:email_mismatch').'<br/>';
-
-		// check if two passwords are not empty
-		if (empty(trim($password)) || empty(trim($password2)))
-			$resulting_error .= elgg_echo('gcRegister:EmptyPassword').'<br/>';
-
-		// check if two passwords match
-		if (strcmp($password, $password2) != 0)
-			$resulting_error .= elgg_echo('gcRegister:PasswordMismatch').'<br/>';
-
-		// check if the federal department is filled
-		if ($user_type === 'federal' && $federal === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:FederalNotSelected').'<br/>';
-
 		// check if the college/university is filled
 		if ($user_type === 'student' || $user_type === 'academic') {
 			if($institution === 'default_invalid_value')
@@ -147,6 +124,10 @@ if (elgg_get_config('allow_registration')) {
 			if($institution === 'highschool' && $highschool === '')
 				$resulting_error .= elgg_echo('gcRegister:HighschoolNotSelected').'<br/>';
 		}
+
+		// check if the federal department is filled
+		if ($user_type === 'federal' && $federal === 'default_invalid_value')
+			$resulting_error .= elgg_echo('gcRegister:FederalNotSelected').'<br/>';
 
 		// check if the provincial department is filled
 		if ($user_type === 'provincial') {
@@ -188,6 +169,31 @@ if (elgg_get_config('allow_registration')) {
 		// check if the other department is filled
 		if ($user_type === 'other' && $other === '')
 			$resulting_error .= elgg_echo('gcRegister:OtherNotSelected').'<br/>';
+
+		if( empty(trim($name)) )
+			$resulting_error .= elgg_echo('gcRegister:display_name_is_empty').'<br/>';
+
+		if( !$validemail )
+			$resulting_error .= elgg_echo('gcRegister:invalid_email_link').'<br/>';
+
+		// check if two emails match
+		if (strcmp($email, $email2) != 0)
+			$resulting_error .= elgg_echo('gcRegister:email_mismatch').'<br/>';
+
+		// check if two passwords are not empty
+		if (empty(trim($password)) || empty(trim($password2)))
+			$resulting_error .= elgg_echo('gcRegister:EmptyPassword').'<br/>';
+
+		// check if two passwords match
+		if (strcmp($password, $password2) != 0)
+			$resulting_error .= elgg_echo('gcRegister:PasswordMismatch').'<br/>';
+
+		// check if toc is checked, user agrees to TOC
+		if ($toc[0] != 1)
+			$resulting_error .= elgg_echo('gcRegister:toc_error').'<br/>';
+
+		if (!\Beck24\ReCaptcha\validate_recaptcha())
+	        $resulting_error .= elgg_echo('elgg_recaptcha:message:fail');
 
 		// if there are any registration error, throw an exception
 		if (!empty($resulting_error))

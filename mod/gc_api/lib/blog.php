@@ -122,7 +122,7 @@ function get_userBlock($userid){
 	$user['username'] = $user_entity->username;
 
 	//get and store user display name
-	$user['displayName'] = $user_entity->name;
+	$user['dispalyName'] = $user_entity->name;
 
 	//get and store URL for profile
 	$user['profileURL'] = $user_entity->getURL();

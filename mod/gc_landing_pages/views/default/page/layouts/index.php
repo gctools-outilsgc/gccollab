@@ -4,7 +4,7 @@
 	$layoutmode   = $vars['layoutmode']; //edit, index
 ?>
 <div class="row">
-    <div class="col-md-8 index-main" id="wb-cont">
+    <div class="col-md-8" id="wb-cont">
         <?php gc_landing_pages_show_widget_area($area1widgets) ?>
     </div>
     <div class="col-md-4 pull-right">

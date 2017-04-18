@@ -6,6 +6,8 @@
 
   $widget = $vars['entity'];
   $object_type = 'group';
+
+  $widget->title = ( get_current_language() == "fr" ) ? $widget->widget_title_fr : $widget->widget_title_en;
   
   $num_items = $widget->num_items;
   if ( !isset($num_items) ) $num_items = 10;
