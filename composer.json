@@ -17,7 +17,18 @@
         "knplabs/gaufrette": "~0.1.0",
         "tedivm/stash": "0.14.*",
         "ircmaxell/password-compat": "~1.0",
-        "elgg/login_as": "~1.9"
+        "elgg/login_as": "~1.9",
+        "gctools-hackathon-ircc/achievement_badges": "dev-composer",
+        "gctools-hackathon-ircc/gc_group_deletion": "dev-composer",
+        "gctools-hackathon-ircc/GoC_dev_banner": "dev-composer",
+        "gctools-hackathon-ircc/missions_organization": "dev-composer",
+        "gctools-hackathon-ircc/custom_error_page": "dev-composer",
+        "gctools-hackathon-ircc/ideas": "dev-composer",
+        "gctools-hackathon-ircc/unvalidated_user_cleanup": "dev-composer",
+        "gctools-hackathon-ircc/toggle_language": "dev-composer",
+        "gctools-hackathon-ircc/gcforums": "dev-composer",
+        "gctools-hackathon-ircc/gcProfilePictureBadges": "dev-composer",
+        "gctools-hackathon-ircc/widget_manager_accessibility": "dev-composer"
     },
     "scripts": {
         "test": "phpunit",
@@ -44,5 +55,51 @@
         "elgg/sniffs": "dev-master",
         "squizlabs/php_codesniffer": "~1.5",
         "simpletest/simpletest": "~1.1"
-    }
+    },
+    "repositories": [
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/achievement_badges"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/gc_group_deletion"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/GoC_dev_banner"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/missions_organization"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/custom_error_page"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/ideas"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/unvalidated_user_cleanup"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/toggle_language"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/gcforums"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/gcProfilePictureBadges"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/gctools-hackathon-ircc/widget_manager_accessibility"
+      }
+    ]
 }

@@ -126,3 +126,18 @@ phpinfo.php
 
 # Ignore data files
 /data/
+
+# Composer files
+/vendor/
+/mod/login_as/
+/mod/achievement_badges/
+/mod/gc_group_deletion/
+/mod/GoC_dev_banner/
+/mod/missions_organization/
+/mod/custom_error_page/
+/mod/ideas/
+/mod/unvalidated_user_cleanup/
+/mod/toggle_language/
+/mod/gcforums/
+/mod/gcProfilePictureBadges/
+/mod/widget_manager_accessibility/
