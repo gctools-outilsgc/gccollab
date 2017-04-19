@@ -122,7 +122,6 @@ echo '<div role="tabpanel" class="tab-pane fade-in" id="events">';
     
     foreach($events as $event) {
 		echo elgg_view("object/event_calendar", array('entity' => $event));
-        echo '</div>';
 	}
     
     $date = date('Y-m-d'/*, strtotime("-1 days")*/);
