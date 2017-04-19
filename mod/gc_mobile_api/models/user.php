@@ -537,6 +537,8 @@ function get_user_activity( $user, $limit, $offset ){
 
 			$event->shareURL = $url;
 			$event->shareText = $text;
+
+			$event->description = wire_filter($event->description);
 		} else if( $object instanceof ElggGroup ){
 			$event->object['type'] = 'group';
 			$event->object['name'] = $object->name;
@@ -692,6 +694,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$wire->replied = count($replied) > 0;
 
 				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->description = wire_filter($wire->description);
 			}
 	        break;
 	    case "discussion":
@@ -834,6 +837,8 @@ function get_user_posts( $user, $type, $limit, $offset ){
 
 					$event->shareURL = $url;
 					$event->shareText = $text;
+
+					$event->description = wire_filter($event->description);
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
@@ -986,6 +991,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				$wire->replied = count($replied) > 0;
 
 				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->description = wire_filter($wire->description);
 			}
 	        break;
 	    case "discussion":
@@ -1098,7 +1104,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
 					$event->object['wire'] = $object->description;
-					
+
 					$thread_id = $object->wire_thread;
 					$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
 
@@ -1118,6 +1124,8 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 
 					$event->shareURL = $url;
 					$event->shareText = $text;
+
+					$event->description = wire_filter($event->description);
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;

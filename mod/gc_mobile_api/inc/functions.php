@@ -42,3 +42,25 @@ function get_entity_comments( $guid ){
 	}
 	return $comments;
 }
+
+function wire_filter( $text ){
+	$site_url = elgg_get_site_url();
+
+	$text = ''.$text;
+
+	// email addresses
+	$text = preg_replace('/(^|[^\w])([\w\-\.]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})/i', '$1<a class="external" href="mailto:$2@$3">$2@$3</a>', $text);
+
+	// links
+	$text = parse_urls($text);
+
+	// usernames
+	$text = preg_replace('/(^|[^\w])@([\p{L}\p{Nd}._]+)/u', '$1<a class="external" href="' . $site_url . 'thewire/owner/$2">@$2</a>', $text);
+
+	// hashtags
+	$text = preg_replace('/(^|[^\w])#(\w*[^\s\d!-\/:-@]+\w*)/', '$1<a class="external" href="' . $site_url . 'thewire/tag/$2">#$2</a>', $text);
+
+	$text = trim($text);
+
+	return $text;
+}
