@@ -517,6 +517,26 @@ function get_user_activity( $user, $limit, $offset ){
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
 			$event->object['wire'] = $object->description;
+					
+			$thread_id = $object->wire_thread;
+			$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+			$url = "";
+			if( !empty( $reshare ) ){
+				$url = $reshare->getURL();
+			}
+
+			$text = "";
+			if ( !empty($reshare->title) ) {
+				$text = $reshare->title;
+			} else if ( !empty($reshare->name) ) {
+				$text = $reshare->name;
+			} else if ( !empty($reshare->description) ) {
+				$text = elgg_get_excerpt($reshare->description, 140);
+			}
+
+			$event->shareURL = $url;
+			$event->shareText = $text;
 		} else if( $object instanceof ElggGroup ){
 			$event->object['type'] = 'group';
 			$event->object['name'] = $object->name;
@@ -775,12 +795,45 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$object = get_entity($event->object_guid);
 				$event->userDetails = get_user_block($event->subject_guid);
 
+				$likes = elgg_get_annotations(array(
+					'guid' => $event->object_guid,
+					'annotation_name' => 'likes'
+				));
+				$event->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $event->object_guid,
+					'annotation_owner_guid' => $user_entity->guid,
+					'annotation_name' => 'likes'
+				));
+				$event->liked = count($liked) > 0;
+
 				if( $object instanceof ElggUser ){
 					$event->object = get_user_block($event->object_guid);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
 					$event->object['wire'] = $object->description;
+					
+					$thread_id = $object->wire_thread;
+					$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+					$url = "";
+					if( !empty( $reshare ) ){
+						$url = $reshare->getURL();
+					}
+
+					$text = "";
+					if ( !empty($reshare->title) ) {
+						$text = $reshare->title;
+					} else if ( !empty($reshare->name) ) {
+						$text = $reshare->name;
+					} else if ( !empty($reshare->description) ) {
+						$text = elgg_get_excerpt($reshare->description, 140);
+					}
+
+					$event->shareURL = $url;
+					$event->shareText = $text;
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
@@ -795,7 +848,14 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					$event->object['description'] = $object->description;
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
-					$event->object['name'] = ( $object->title ) ? $object->title : $object->name;
+
+					$name = ( $object->title ) ? $object->title : $object->name;
+					if( empty(trim($name)) ){
+						$otherEntity = get_entity($object->container_guid);
+						$name = ( $otherEntity->title ) ? $otherEntity->title : $otherEntity->name;
+					}
+					$event->object['name'] = $name;
+
 					$event->object['description'] = $object->description;
 
 					$other = get_entity($object->container_guid);
@@ -1038,6 +1098,26 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
 					$event->object['wire'] = $object->description;
+					
+					$thread_id = $object->wire_thread;
+					$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+					$url = "";
+					if( !empty( $reshare ) ){
+						$url = $reshare->getURL();
+					}
+
+					$text = "";
+					if ( !empty($reshare->title) ) {
+						$text = $reshare->title;
+					} else if ( !empty($reshare->name) ) {
+						$text = $reshare->name;
+					} else if ( !empty($reshare->description) ) {
+						$text = elgg_get_excerpt($reshare->description, 140);
+					}
+
+					$event->shareURL = $url;
+					$event->shareText = $text;
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
