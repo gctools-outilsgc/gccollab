@@ -25,10 +25,12 @@ global $CONFIG;
 
 // default code (core)
 $username = get_input('username');
-$email = get_input('email');
-$password = get_input('password', null, false);
-$password2 = get_input('password2', null, false);
+$email = strtolower(str_replace(' ','',trim(get_input('email'))));
+$email2 = strtolower(str_replace(' ','',trim(get_input('email2'))));
+$password = trim(get_input('password', null, false));
+$password2 = trim(get_input('password2', null, false));
 $name = get_input('name');
+$toc = get_input('toc2');
 
 $friend_guid = (int) get_input('friend_guid', 0);
 $invitecode = get_input('invitecode');
@@ -55,14 +57,6 @@ foreach($meta_fields as $field){
 
 error_log("DEPARTMENT - {$federal}");
 error_log("INSTITUTION - {$institution}");
-
-$username = get_input('username');
-$email = str_replace(' ','',trim(get_input('email')));
-$email2 = str_replace(' ','',trim(get_input('email2')));
-$password = trim(get_input('password', null, false));
-$password2 = trim(get_input('password2', null, false));
-$name = get_input('name');
-$toc = get_input('toc2');
 
 // check form (incompleteness & validity)
 if (elgg_get_config('allow_registration')) {
@@ -102,7 +96,6 @@ if (elgg_get_config('allow_registration')) {
 
 		if( elgg_is_active_plugin('gcRegistration_invitation') ){
 			// Checks against the email invitation list...
-			$email = strtolower($email);
 			$invitation_query = "SELECT email FROM email_invitations WHERE email = '{$email}'";
 			$result = get_data($invitation_query);
 

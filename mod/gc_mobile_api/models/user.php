@@ -479,18 +479,8 @@ function get_user_data( $profileemail, $user ){
 }
 
 function get_user_exists( $user ){
-	$exists = elgg_get_entities_from_metadata(array(
-		'type' => 'user',
-		'metadata_name_value_pairs' => array(
-			array('name' => 'guid', 'value' => $user),
-			array('name' => 'email', 'value' => $user),
-			array('name' => 'username', 'value' => $user)
-		),
-		'pair_operator' => 'OR',
-		'limit' => 0
-	));
-
-	return ($exists > 0);
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+	return ( $user_entity instanceof ElggUser );
 }
 
 function get_user_activity( $user, $limit, $offset ){ 
