@@ -6,6 +6,11 @@
  * **By submitting a pull request you are agreeing to license the code under a [GPLv2 license][3] and [MIT license][4].**
  * For more information visit http://learn.elgg.org/en/stable/contribute/index.html
 
+
+ ## WRITTING EXTENSIONS
+
+  * There are some documentation on how to write your first extension at http://learn.elgg.org/en/1.9/tutorials/hello_world.html .  gccollab uses 1.8.12 .
+
  [2]: http://community.elgg.org
  [3]: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  [4]: http://en.wikipedia.org/wiki/MIT_License
