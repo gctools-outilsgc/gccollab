@@ -621,6 +621,10 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$blog->liked = count($liked) > 0;
 
 				$blog->userDetails = get_user_block($blog->owner_guid);
+
+				$group = get_entity($blog->container_guid);
+				$blog->group = $group->name;
+				$blog->groupURL = $group->getURL();
 			}
 	        break;
 	    case "wire":
@@ -828,15 +832,18 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
+					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggDiscussionReply ){
 					$event->object['type'] = 'discussion-reply';
 					$original_discussion = get_entity($object->container_guid);
 					$event->object['name'] = $original_discussion->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $original_discussion->getURL();
 				} else if( $object instanceof ElggFile ){
 					$event->object['type'] = 'file';
 					$event->object['name'] = $object->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
 
@@ -846,6 +853,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 						$name = ( $otherEntity->title ) ? $otherEntity->title : $otherEntity->name;
 					}
 					$event->object['name'] = $name;
+					$event->object['url'] = $object->getURL();
 
 					$event->object['description'] = $object->description;
 
@@ -861,6 +869,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					//@TODO handle any unknown events
 					$event->object['name'] = $object->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $object->getURL();
 				}
 			}
 

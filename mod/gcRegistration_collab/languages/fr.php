@@ -87,9 +87,8 @@ $french = array(
 	'gcRegister:welcome_message' => "<p>GCcollab, un site qui est hébergé par le gouvernement du Canada, vient faciliter la collaboration entre les universitaires, les étudiants, les fonctionnaires canadiens, de même que d’autres collectivités importantes.</p>
 	<p class='ptm pbm'><strong>Qui peut s'inscrire?</strong></p>
 	<ul>
-		<li>Les fonctionnaires canadiens (fédéraux, provinciaux,  territoriaux et municipaux) peuvent s'inscrire en se servant de leurs adresses courriel gouvernementales.</li>
+		<li>Les fonctionnaires canadiens (fédéraux, provinciaux et territoriaux) peuvent s'inscrire en se servant de leurs adresses courriel gouvernementales.</li>
 		<li>Les universitaires et les étudiants de toutes les universités et collèges canadiens peuvent s'inscrire en utilisant les adresses courriel de leur institution.</li>
-		<li>D’autres collectivités pré-approuvées peuvent s'inscrire en utilisant leur propre adresse courriel (personnelle ou professionnelle), à partir de la liste des domaines autorisés.</li>
 	</ul>
 	<p>Vous ne faites pas partie de ces groupes? Les Canadiens peuvent se joindre à GCcollab par invitation! Les membres existants de GCcollab peuvent inviter leurs intervenants et partenaires à se joindre à GCcollab, ce qui en fait un environnement véritablement collaboratif.</p>
 	<p class='ptm pbm'><strong>Inscrivez-vous et validez votre compte!</strong></p>
