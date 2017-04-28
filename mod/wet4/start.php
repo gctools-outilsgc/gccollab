@@ -813,8 +813,10 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
     
     //Nick -Remove empty comment and reply links from river menu
         foreach ($return as $key => $item){
-            if($entity->getMimeType() == "googledoc" && ($item->getName() == "download" || $item->getName() == "edit")){
-                unset($return[$key]);
+            if($entity->getSubType() == 'file' && $entity->getMimeType() == "googledoc"){
+                if($item->getName() == "download" || $item->getName() == "edit"){
+                    unset($return[$key]);
+                }
             }
 
             switch ($item->getName()) {
@@ -939,7 +941,7 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
         //checks so the edit icon is not placed on incorrect entities
         if($handler != 'group_operators'){
-            if($entity->getSubtype() != 'thewire' && $entity->getMimeType() != "googledoc"){
+            if($entity->getSubtype() != 'thewire' && ($entity->getSubType() == 'file' && $entity->getMimeType() != "googledoc")){
                 $options = array(
                     'name' => 'edit',
                     'text' => '<i class="fa fa-edit fa-lg icon-unsel"><span class="wb-inv">' . elgg_echo('edit:this') . '</span></i>',

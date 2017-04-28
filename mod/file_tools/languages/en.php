@@ -142,6 +142,8 @@ return array(
 	'file:type:application' => 'Application',
 	'file:type:text' => 'Text',
 
+	'file_tools:invalidurl' => 'Invalid link',
+
 	// widgets
 	// file tree
 	'widgets:file_tree:title' => "Folders",

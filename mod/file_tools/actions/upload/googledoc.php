@@ -10,6 +10,11 @@ $forward_url = REFERER;
 $googledoc_url = get_input("googledoc_url");
 $prefix = "file/";
 
+if( filter_var($googledoc_url, FILTER_VALIDATE_URL) === FALSE ){
+	register_error(elgg_echo("file_tools:invalidurl"));
+	forward($forward_url);
+}
+
 if( !empty($container_guid) && !empty($googledoc_url) ){
 
 	preg_match("/<title>(.+)<\/title>/siU", file_get_contents($googledoc_url), $matches);

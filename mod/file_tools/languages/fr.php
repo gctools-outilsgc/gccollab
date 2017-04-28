@@ -130,6 +130,8 @@
 		'file_tools:settings:googledoc' => 'Autoriser les téléchargements de Google Doc',
 		'file:type:application' => 'Application',
 		'file:type:text' => 'Texte',
+
+		'file_tools:invalidurl' => 'Lien invalide',
 		
 		// widgets		
 		// file tree		
