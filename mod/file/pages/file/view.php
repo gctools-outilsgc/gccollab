@@ -41,12 +41,23 @@ elgg_push_breadcrumb($crumbs_title);
 
 $content = elgg_view_entity($file, array('full_view' => true));
 $content .= elgg_view_comments($file);
-elgg_register_menu_item('title', array(
-	'name' => 'download',
-	'text' => elgg_echo('download'),
-	'href' => "file/download/$file->guid",
-	'link_class' => 'elgg-button elgg-button-action',
-));
+
+if( $file->getMimeType() == "googledoc" ){
+	elgg_register_menu_item('title', array(
+		'name' => 'open',
+		'text' => elgg_echo('open'),
+		'href' => $file->url,
+		'target' => "_blank",
+		'link_class' => 'elgg-button elgg-button-action',
+	));
+} else {
+	elgg_register_menu_item('title', array(
+		'name' => 'download',
+		'text' => elgg_echo('download'),
+		'href' => "file/download/$file->guid",
+		'link_class' => 'elgg-button elgg-button-action',
+	));
+}
 
 $body = elgg_view_layout('content', array(
 	'content' => $content,

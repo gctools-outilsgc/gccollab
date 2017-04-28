@@ -431,6 +431,7 @@ function wet4_theme_pagesetup() {
             $user = elgg_get_logged_in_user_guid();
         }
 
+    if (!empty($page_owner) && !empty($user)) {
         if ($page_owner->guid == $user) {
             // Show menu link in the correct context
             if (in_array($context, array("friends", "friendsof", "collections"))) {
@@ -464,6 +465,7 @@ function wet4_theme_pagesetup() {
 
             }
         }
+    }
 
         if(elgg_in_context('messages')){
                 elgg_unregister_menu_item("page", "friend_request");
@@ -479,6 +481,7 @@ function wet4_theme_pagesetup() {
 */
     $user = elgg_get_logged_in_user_entity();
 
+if (!empty($user)) {
     $params = array(
 				"name" => "Colleagues",
 				"href" => "friends/" . $user->username,
@@ -490,11 +493,13 @@ function wet4_theme_pagesetup() {
 			);
 
 			elgg_register_menu_item("user_menu", $params);
+}
 
 
     $context = elgg_get_context();
 	$page_owner = elgg_get_page_owner_entity();
 
+if (!empty($page_owner)) {
 	// Remove link to friendsof
 	elgg_unregister_menu_item("page", "friends:of");
     
@@ -513,6 +518,7 @@ function wet4_theme_pagesetup() {
 
 
     elgg_register_menu_item("page", $params);
+}
 
 	if (!empty($user)) {
 		$options = array(
@@ -807,6 +813,9 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
     
     //Nick -Remove empty comment and reply links from river menu
         foreach ($return as $key => $item){
+            if($entity->getMimeType() == "googledoc" && ($item->getName() == "download" || $item->getName() == "edit")){
+                unset($return[$key]);
+            }
 
             switch ($item->getName()) {
                 case 'access':
@@ -930,7 +939,7 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
         //checks so the edit icon is not placed on incorrect entities
         if($handler != 'group_operators'){
-            if($entity->getSubtype() != 'thewire'){
+            if($entity->getSubtype() != 'thewire' && $entity->getMimeType() != "googledoc"){
                 $options = array(
                     'name' => 'edit',
                     'text' => '<i class="fa fa-edit fa-lg icon-unsel"><span class="wb-inv">' . elgg_echo('edit:this') . '</span></i>',
@@ -962,16 +971,30 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
 
     if($entity->getSubType() == 'file'){
-        // download link
-		$options = array(
-			'name' => 'download',
-			'text' => '<i class="fa fa-download fa-lg icon-unsel"><span class="wb-inv">Download File</span></i>',
-			'title' => 'Download File',
-			'href' => "file/download/{$entity->getGUID()}",
-			'priority' => 300,
-            //'context' => array('file_tools_selector', 'file'),
-		);
-		$return[] = \ElggMenuItem::factory($options);
+        if( $entity->getMimeType() == "googledoc" ){
+            // open link
+            $options = array(
+                'name' => 'open',
+                'text' => '<i class="fa fa-search fa-lg icon-unsel"><span class="wb-inv">Open Google Doc</span></i>',
+                'title' => 'Open Google Doc',
+                'href' => $entity->url,
+                'priority' => 300,
+                'target' => '_blank',
+                //'context' => array('file_tools_selector', 'file'),
+            );
+            $return[] = \ElggMenuItem::factory($options);
+        } else {
+            // download link
+    		$options = array(
+    			'name' => 'download',
+    			'text' => '<i class="fa fa-download fa-lg icon-unsel"><span class="wb-inv">Download File</span></i>',
+    			'title' => 'Download File',
+    			'href' => "file/download/{$entity->getGUID()}",
+    			'priority' => 300,
+                //'context' => array('file_tools_selector', 'file'),
+    		);
+    		$return[] = \ElggMenuItem::factory($options);
+        }
     }
 
 
