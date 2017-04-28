@@ -15,6 +15,11 @@ if( filter_var($googledoc_url, FILTER_VALIDATE_URL) === FALSE ){
 	forward($forward_url);
 }
 
+if( !preg_match("~^(https?://)?(docs\.)?google\.com/?~", $googledoc_url) ){
+	register_error(elgg_echo("file_tools:invalidurl"));
+	forward($forward_url);
+}
+
 if( !empty($container_guid) && !empty($googledoc_url) ){
 
 	preg_match("/<title>(.+)<\/title>/siU", file_get_contents($googledoc_url), $matches);
