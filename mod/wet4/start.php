@@ -813,10 +813,8 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
     
     //Nick -Remove empty comment and reply links from river menu
         foreach ($return as $key => $item){
-            if($entity->getSubType() == 'file' && $entity->getMimeType() == "googledoc"){
-                if($item->getName() == "download" || $item->getName() == "edit"){
-                    unset($return[$key]);
-                }
+            if($entity->getSubType() == 'file' && $entity->getMimeType() == "googledoc" && $item->getName() == "edit"){
+                unset($return[$key]);
             }
 
             switch ($item->getName()) {
@@ -973,30 +971,16 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
 
     if($entity->getSubType() == 'file'){
-        if( $entity->getMimeType() == "googledoc" ){
-            // open link
-            $options = array(
-                'name' => 'open',
-                'text' => '<i class="fa fa-search fa-lg icon-unsel"><span class="wb-inv">Open Google Doc</span></i>',
-                'title' => 'Open Google Doc',
-                'href' => $entity->url,
-                'priority' => 300,
-                'target' => '_blank',
-                //'context' => array('file_tools_selector', 'file'),
-            );
-            $return[] = \ElggMenuItem::factory($options);
-        } else {
-            // download link
-    		$options = array(
-    			'name' => 'download',
-    			'text' => '<i class="fa fa-download fa-lg icon-unsel"><span class="wb-inv">Download File</span></i>',
-    			'title' => 'Download File',
-    			'href' => "file/download/{$entity->getGUID()}",
-    			'priority' => 300,
-                //'context' => array('file_tools_selector', 'file'),
-    		);
-    		$return[] = \ElggMenuItem::factory($options);
-        }
+        // download link
+		$options = array(
+			'name' => 'download',
+			'text' => '<i class="fa fa-download fa-lg icon-unsel"><span class="wb-inv">Download File</span></i>',
+			'title' => 'Download File',
+			'href' => "file/download/{$entity->getGUID()}",
+			'priority' => 300,
+            //'context' => array('file_tools_selector', 'file'),
+		);
+		$return[] = \ElggMenuItem::factory($options);
     }
 
 
