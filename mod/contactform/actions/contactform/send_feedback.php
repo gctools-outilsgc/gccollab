@@ -49,11 +49,20 @@
     }
 
 	if ($success === true) {
-		// send email to jeffrey outram
-		elgg_send_email($site->email, $helpdesk_email, $subject, $body);
 
-		// send email to recipient to complate transaction
-		elgg_send_email($site->email, $user_email, $subject, $body);
+		if( elgg_is_active_plugin('phpmailer') ){
+			// send email to jeffrey outram
+			phpmailer_send($helpdesk_email, $helpdesk_email, $subject, $body, NULL, true);
+			
+			// send email to recipient to complate transaction
+			phpmailer_send($user_email, $user_email, $subject, $body, NULL, true);
+		} else {
+			// send email to jeffrey outram
+			elgg_send_email($site->email, $helpdesk_email, $subject, $body);
+
+			// send email to recipient to complate transaction
+			elgg_send_email($site->email, $user_email, $subject, $body);
+		}
 
 		system_message(elgg_echo('contactform:thankyoumsg'));
 	}

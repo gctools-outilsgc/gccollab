@@ -6,7 +6,7 @@
  * @author Mathieu Blondin Ethan Wallace github.com/ethanWallace
  */
 
-$user_guid = elgg_get_logged_in_user_guid();
+$user_guid = elgg_get_page_owner_guid();
 $userEnt = get_user ( $user_guid );
 
 //avatar
@@ -30,7 +30,7 @@ if($userEnt->description){
 //basic profile
 $basicCount = 0;
 
-if($userEnt->federal || $userEnt->ministry || $userEnt->university || $userEnt->college){
+if($userEnt->federal || $userEnt->ministry || $userEnt->university || $userEnt->college || $userEnt->municipal || $userEnt->international || $userEnt->ngo || $userEnt->community || $userEnt->business || $userEnt->media || $userEnt->retired || $userEnt->other){
     $basicCount += 20;
 }
 if($userEnt->job){

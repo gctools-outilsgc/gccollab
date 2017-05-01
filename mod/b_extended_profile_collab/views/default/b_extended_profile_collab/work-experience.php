@@ -25,7 +25,7 @@ else {
 
         if ($experience = get_entity($guid)) {
             echo '<div class="gcconnex-profile-label work-experience-title">' . htmlspecialchars_decode($experience->title) . '</div>';
-            echo '<div class="gcconnex-profile-label work-experience-organization">' . $experience->organization . '</div>';
+            echo '<div class="gcconnex-profile-label work-experience-organization">' . htmlspecialchars_decode($experience->organization) . '</div>';
             
             
             $cal_month = array(

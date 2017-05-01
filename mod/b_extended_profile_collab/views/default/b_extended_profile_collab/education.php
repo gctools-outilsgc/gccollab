@@ -27,8 +27,8 @@ else {
 
             echo '<div class="gcconnex-profile-education-display gcconnex-education-' . $education->guid . '">';
             
-            echo '<div class="gcconnex-profile-label education-school">' . $education->school . '</div>';
-            echo '<div class="gcconnex-profile-label education-degree">' . $education->degree . ' - ' . $education->field . '</div>';
+            echo '<div class="gcconnex-profile-label education-school">' . htmlspecialchars_decode($education->school) . '</div>';
+            echo '<div class="gcconnex-profile-label education-degree">' . htmlspecialchars_decode($education->degree) . ' - ' . htmlspecialchars_decode($education->field) . '</div>';
             
             $cal_month = array(
                     1 => elgg_echo('gcconnex_profile:month:january'),

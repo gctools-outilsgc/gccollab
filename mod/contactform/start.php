@@ -17,7 +17,7 @@ function contactform_init() {
 
 
 	// cyu - register action to send the feedback form to the helpdesk/and send copy to recipient using elgg function
-	elgg_register_action('contactform/send_feedback', "$action_path/send_feedback.php",'public');
+	elgg_register_action('contactform/send_feedback', "$action_path/actions/contactform/send_feedback.php", 'public');
 
 	elgg_extend_view('css/elgg', 'pages/css');
 

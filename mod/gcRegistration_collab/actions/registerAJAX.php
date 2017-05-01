@@ -35,8 +35,7 @@ if (mysqli_connect_errno($connection)) {
 
 if ( $_POST['email'] ) {
 
-	$email = trim(get_input('email'));
-	$email = strtolower($email);
+	$email = strtolower(trim(get_input('email')));
 
 	if (strlen( $email ) > 0) {
 		

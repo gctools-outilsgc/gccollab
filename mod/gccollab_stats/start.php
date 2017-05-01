@@ -9,7 +9,10 @@ function gccollab_stats_init() {
 	elgg_ws_expose_function(
         "member.stats",
         "get_member_data",
-        array("type" => array('type' => 'string'), "lang" => array('type' => 'string')),
+        array(
+        	"type" => array('type' => 'string', 'required' => true),
+        	"lang" => array('type' => 'string', 'required' => false, 'default' => 'en')
+        ),
         'Exposes member data for use with dashboard',
         'GET',
         false,
@@ -19,7 +22,10 @@ function gccollab_stats_init() {
 	elgg_ws_expose_function(
         "site.stats",
         "get_site_data",
-        array("type" => array('type' => 'string'), "lang" => array('type' => 'string')),
+        array(
+        	"type" => array('type' => 'string', 'required' => true),
+        	"lang" => array('type' => 'string', 'required' => false, 'default' => 'en')
+        ),
         'Exposes site data for use with dashboard',
         'GET',
         false,
@@ -39,8 +45,6 @@ function stats_page_handler($page) {
 }
 
 function get_member_data($type, $lang) {
-	if(!isset($lang)){ $lang = 'en'; }
-
 	$data = array();
 	ini_set("memory_limit", -1);
 	elgg_set_ignore_access(true);
@@ -55,11 +59,11 @@ function get_member_data($type, $lang) {
 			$users_types = array('federal' => 'féderal', 'academic' => 'milieu universitaire', 'student' => 'étudiant', 'provincial' => 'provincial', 'municipal' => 'municipale', 'international' => 'international', 'ngo' => 'ngo', 'community' => 'collectivité', 'business' => 'entreprise', 'media' => 'média', 'retired' => 'retraité(e)', 'other' => 'autre');
 
 			foreach($users as $key => $obj){
-				$data[$users_types[$obj->user_type]]++;
+				$data[$users_types[$obj->user_type]] = isset( $data[$users_types[$obj->user_type]] ) ? $data[$users_types[$obj->user_type]] + 1 : 1;
 			}
 		} else {
 			foreach($users as $key => $obj){
-				$data[$obj->user_type]++;
+				$data[$obj->user_type] = isset( $data[$obj->user_type] ) ? $data[$obj->user_type] + 1 : 1;
 			}
 		}
 	} else if ($type === 'federal') {
@@ -80,11 +84,11 @@ function get_member_data($type, $lang) {
 			$federal_departments = json_decode($depts->federal_departments_fr, true);
 
 			foreach($users as $key => $obj){
-				$data[$federal_departments[$obj->federal]]++;
+				$data[$federal_departments[$obj->federal]] = isset( $data[$federal_departments[$obj->federal]] ) ? $data[$federal_departments[$obj->federal]] + 1 : 1;
 			}
 		} else {
 			foreach($users as $key => $obj){
-				$data[$obj->federal]++;
+				$data[$obj->federal] = isset( $data[$obj->federal] ) ? $data[$obj->federal] + 1 : 1;
 			}
 		}
 	} else if ($type === 'academic') {
@@ -96,9 +100,13 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data[$obj->institution]['total']++;
-			if($obj->university) $data[$obj->institution][$obj->university]++;
-			if($obj->college) $data[$obj->institution][$obj->college]++;
+			$data[$obj->institution]['total'] = isset( $data[$obj->institution]['total'] ) ? $data[$obj->institution]['total'] + 1 : 1;
+			if($obj->university){
+				$data[$obj->institution][$obj->university] = isset( $data[$obj->institution][$obj->university] ) ? $data[$obj->institution][$obj->university] + 1 : 1;
+			}
+			if($obj->college){
+				$data[$obj->institution][$obj->college] = isset( $data[$obj->institution][$obj->college] ) ? $data[$obj->institution][$obj->college] + 1 : 1;
+			}
 		}
 	} else if ($type === 'student') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -109,10 +117,16 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data[$obj->institution]['total']++;
-			if($obj->university) $data[$obj->institution][$obj->university]++;
-			if($obj->college) $data[$obj->institution][$obj->college]++;
-			if($obj->highschool) $data[$obj->institution][$obj->highschool]++;
+			$data[$obj->institution]['total'] = isset( $data[$obj->institution]['total'] ) ? $data[$obj->institution]['total'] + 1 : 1;
+			if($obj->university){
+				$data[$obj->institution][$obj->university] = isset( $data[$obj->institution][$obj->university] ) ? $data[$obj->institution][$obj->university] + 1 : 1;
+			}
+			if($obj->college){
+				$data[$obj->institution][$obj->college] = isset( $data[$obj->institution][$obj->college] ) ? $data[$obj->institution][$obj->college] + 1 : 1;
+			}
+			if($obj->highschool){
+				$data[$obj->institution][$obj->highschool] = isset( $data[$obj->institution][$obj->highschool] ) ? $data[$obj->institution][$obj->highschool] + 1 : 1;
+			}
 		}
 	} else if ($type === 'university') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -124,8 +138,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->university]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->university] = isset( $data[$obj->university] ) ? $data[$obj->university] + 1 : 1;
 		}
 	} else if ($type === 'college') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -137,8 +151,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->college]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->college] = isset( $data[$obj->college] ) ? $data[$obj->college] + 1 : 1;
 		}
 	}  else if ($type === 'highschool') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -150,8 +164,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->highschool]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->highschool] = isset( $data[$obj->highschool] ) ? $data[$obj->highschool] + 1 : 1;
 		}
 	} else if ($type === 'provincial') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -178,13 +192,13 @@ function get_member_data($type, $lang) {
 			$ministries = json_decode($mins->ministries_fr, true);
 
 			foreach($users as $key => $obj){
-				$data[$provincial_departments[$obj->provincial]]['total']++;
-				$data[$provincial_departments[$obj->provincial]][$ministries[$obj->provincial][$obj->ministry]]++;
+				$data[$provincial_departments[$obj->provincial]]['total'] = isset( $data[$provincial_departments[$obj->provincial]]['total'] ) ? $data[$provincial_departments[$obj->provincial]]['total'] + 1 : 1;
+				$data[$provincial_departments[$obj->provincial]][$ministries[$obj->provincial][$obj->ministry]] = isset( $data[$provincial_departments[$obj->provincial]][$ministries[$obj->provincial][$obj->ministry]] ) ? $data[$provincial_departments[$obj->provincial]][$ministries[$obj->provincial][$obj->ministry]] + 1 : 1;
 			}
 		} else {
 			foreach($users as $key => $obj){
-				$data[$obj->provincial]['total']++;
-				$data[$obj->provincial][$obj->ministry]++;
+				$data[$obj->provincial]['total'] = isset( $data[$obj->provincial]['total'] ) ? $data[$obj->provincial]['total'] + 1 : 1;
+				$data[$obj->provincial][$obj->ministry] = isset( $data[$obj->provincial][$obj->ministry] ) ? $data[$obj->provincial][$obj->ministry] + 1 : 1;
 			}
 		}
 	} else if ($type === 'municipal') {
@@ -196,8 +210,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->municipal]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->municipal] = isset( $data[$obj->municipal] ) ? $data[$obj->municipal] + 1 : 1;
 		}
 	} else if ($type === 'international') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -208,8 +222,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->international]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->international] = isset( $data[$obj->international] ) ? $data[$obj->international] + 1 : 1;
 		}
 	} else if ($type === 'ngo') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -220,8 +234,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->ngo]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->ngo] = isset( $data[$obj->ngo] ) ? $data[$obj->ngo] + 1 : 1;
 		}
 	} else if ($type === 'community') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -232,8 +246,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->community]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->community] = isset( $data[$obj->community] ) ? $data[$obj->community] + 1 : 1;
 		}
 	} else if ($type === 'business') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -244,8 +258,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->business]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->business] = isset( $data[$obj->business] ) ? $data[$obj->business] + 1 : 1;
 		}
 	} else if ($type === 'media') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -256,8 +270,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->media]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->media] = isset( $data[$obj->media] ) ? $data[$obj->media] + 1 : 1;
 		}
 	} else if ($type === 'retired') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -268,8 +282,8 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->retired]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->retired] = isset( $data[$obj->retired] ) ? $data[$obj->retired] + 1 : 1;
 		}
 	} else if ($type === 'other') {
 		$users = elgg_get_entities_from_metadata(array(
@@ -280,16 +294,14 @@ function get_member_data($type, $lang) {
 			'limit' => 0
 		));
 		foreach($users as $key => $obj){
-			$data['total']++;
-			$data[$obj->other]++;
+			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
+			$data[$obj->other] = isset( $data[$obj->other] ) ? $data[$obj->other] + 1 : 1;
 		}
 	} 
     return $data;
 }
 
 function get_site_data($type, $lang) {
-	if(!isset($lang)){ $lang = 'en'; }
-
 	$data = array();
 	ini_set("memory_limit", -1);
 	elgg_set_ignore_access(true);

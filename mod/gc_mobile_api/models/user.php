@@ -479,18 +479,8 @@ function get_user_data( $profileemail, $user ){
 }
 
 function get_user_exists( $user ){
-	$exists = elgg_get_entities_from_metadata(array(
-		'type' => 'user',
-		'metadata_name_value_pairs' => array(
-			array('name' => 'guid', 'value' => $user),
-			array('name' => 'email', 'value' => $user),
-			array('name' => 'username', 'value' => $user)
-		),
-		'pair_operator' => 'OR',
-		'limit' => 0
-	));
-
-	return ($exists > 0);
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+	return ( $user_entity instanceof ElggUser );
 }
 
 function get_user_activity( $user, $limit, $offset ){ 
@@ -516,7 +506,27 @@ function get_user_activity( $user, $limit, $offset ){
 			$event->object['type'] = 'user';
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
-			$event->object['wire'] = $object->description;
+			$event->object['wire'] = wire_filter($object->description);
+					
+			$thread_id = $object->wire_thread;
+			$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+			$url = "";
+			if( !empty( $reshare ) ){
+				$url = $reshare->getURL();
+			}
+
+			$text = "";
+			if ( !empty($reshare->title) ) {
+				$text = $reshare->title;
+			} else if ( !empty($reshare->name) ) {
+				$text = $reshare->name;
+			} else if ( !empty($reshare->description) ) {
+				$text = elgg_get_excerpt($reshare->description, 140);
+			}
+
+			$event->shareURL = $url;
+			$event->shareText = $text;
 		} else if( $object instanceof ElggGroup ){
 			$event->object['type'] = 'group';
 			$event->object['name'] = $object->name;
@@ -611,6 +621,10 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$blog->liked = count($liked) > 0;
 
 				$blog->userDetails = get_user_block($blog->owner_guid);
+
+				$group = get_entity($blog->container_guid);
+				$blog->group = $group->name;
+				$blog->groupURL = $group->getURL();
 			}
 	        break;
 	    case "wire":
@@ -672,6 +686,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$wire->replied = count($replied) > 0;
 
 				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->description = wire_filter($wire->description);
 			}
 	        break;
 	    case "discussion":
@@ -775,27 +790,71 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				$object = get_entity($event->object_guid);
 				$event->userDetails = get_user_block($event->subject_guid);
 
+				$likes = elgg_get_annotations(array(
+					'guid' => $event->object_guid,
+					'annotation_name' => 'likes'
+				));
+				$event->likes = count($likes);
+
+				$liked = elgg_get_annotations(array(
+					'guid' => $event->object_guid,
+					'annotation_owner_guid' => $user_entity->guid,
+					'annotation_name' => 'likes'
+				));
+				$event->liked = count($liked) > 0;
+
 				if( $object instanceof ElggUser ){
 					$event->object = get_user_block($event->object_guid);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
-					$event->object['wire'] = $object->description;
+					$event->object['wire'] = wire_filter($object->description);
+					
+					$thread_id = $object->wire_thread;
+					$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+					$url = "";
+					if( !empty( $reshare ) ){
+						$url = $reshare->getURL();
+					}
+
+					$text = "";
+					if ( !empty($reshare->title) ) {
+						$text = $reshare->title;
+					} else if ( !empty($reshare->name) ) {
+						$text = $reshare->name;
+					} else if ( !empty($reshare->description) ) {
+						$text = elgg_get_excerpt($reshare->description, 140);
+					}
+
+					$event->shareURL = $url;
+					$event->shareText = $text;
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
+					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggDiscussionReply ){
 					$event->object['type'] = 'discussion-reply';
 					$original_discussion = get_entity($object->container_guid);
 					$event->object['name'] = $original_discussion->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $original_discussion->getURL();
 				} else if( $object instanceof ElggFile ){
 					$event->object['type'] = 'file';
 					$event->object['name'] = $object->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
-					$event->object['name'] = ( $object->title ) ? $object->title : $object->name;
+
+					$name = ( $object->title ) ? $object->title : $object->name;
+					if( empty(trim($name)) ){
+						$otherEntity = get_entity($object->container_guid);
+						$name = ( $otherEntity->title ) ? $otherEntity->title : $otherEntity->name;
+					}
+					$event->object['name'] = $name;
+					$event->object['url'] = $object->getURL();
+
 					$event->object['description'] = $object->description;
 
 					$other = get_entity($object->container_guid);
@@ -810,6 +869,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					//@TODO handle any unknown events
 					$event->object['name'] = $object->title;
 					$event->object['description'] = $object->description;
+					$event->object['url'] = $object->getURL();
 				}
 			}
 
@@ -926,6 +986,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				$wire->replied = count($replied) > 0;
 
 				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->description = wire_filter($wire->description);
 			}
 	        break;
 	    case "discussion":
@@ -1037,7 +1098,27 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
-					$event->object['wire'] = $object->description;
+					$event->object['wire'] = wire_filter($object->description);
+
+					$thread_id = $object->wire_thread;
+					$reshare = $object->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+
+					$url = "";
+					if( !empty( $reshare ) ){
+						$url = $reshare->getURL();
+					}
+
+					$text = "";
+					if ( !empty($reshare->title) ) {
+						$text = $reshare->title;
+					} else if ( !empty($reshare->name) ) {
+						$text = $reshare->name;
+					} else if ( !empty($reshare->description) ) {
+						$text = elgg_get_excerpt($reshare->description, 140);
+					}
+
+					$event->shareURL = $url;
+					$event->shareText = $text;
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
