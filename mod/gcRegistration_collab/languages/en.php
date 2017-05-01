@@ -87,9 +87,8 @@ $english = array(
 	'gcRegister:welcome_message' => "<p>GCcollab, hosted by the Government of Canada, facilitates collaboration between academics, students, Canadian public servants, as well as other key communities.</p>
 	<p class='ptm pbm'><strong>Who can register?</strong></p>
 	<ul>
-		<li>Canadian public servants (federal, provincial, territorial and municipal) can register by using their government email addresses.</li>
+		<li>Canadian public servants (federal, provincial and territorial) can register by using their government email addresses.</li>
 		<li>Academics and students of all Canadian universities and colleges can register using their institution email addresses.</li>
-		<li>Other pre-approved communities can register using their own email address (personal or professional) from the list of authorized domains.</li>
 	</ul>
 	<p>Not part of these groups? Canadians are able to join GCcollab by invitation! Existing GCcollab members can invite their stakeholders and partners on to GCcollab, making it a truly collaborative environment.</p>
 	<p class='ptm pbm'><strong>Register and validate your account!</strong></p>

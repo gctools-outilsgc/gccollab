@@ -110,7 +110,7 @@ return array(
 
     /* Register text */
 
-    'gcconnex:registerText' => "<h3>Welcome to GCcollab!</h3><p>A collaborative and networking space open to all Canadian public servants (federal, provincial, territorial and municipal), academics and students, as well as to all Canadians by invitation. Join the conversation!</p>",
+    'gcconnex:registerText' => "<h3>Welcome to GCcollab!</h3><p>A collaborative and networking space open to all Canadian public servants (federal, provincial and territorial), academics and students, as well as to all Canadians by invitation. Join the conversation!</p>",
 
 /**
 *Contact page / FAQ

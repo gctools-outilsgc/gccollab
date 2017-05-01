@@ -431,6 +431,7 @@ function wet4_theme_pagesetup() {
             $user = elgg_get_logged_in_user_guid();
         }
 
+    if (!empty($page_owner) && !empty($user)) {
         if ($page_owner->guid == $user) {
             // Show menu link in the correct context
             if (in_array($context, array("friends", "friendsof", "collections"))) {
@@ -464,6 +465,7 @@ function wet4_theme_pagesetup() {
 
             }
         }
+    }
 
         if(elgg_in_context('messages')){
                 elgg_unregister_menu_item("page", "friend_request");
@@ -479,6 +481,7 @@ function wet4_theme_pagesetup() {
 */
     $user = elgg_get_logged_in_user_entity();
 
+if (!empty($user)) {
     $params = array(
 				"name" => "Colleagues",
 				"href" => "friends/" . $user->username,
@@ -490,11 +493,13 @@ function wet4_theme_pagesetup() {
 			);
 
 			elgg_register_menu_item("user_menu", $params);
+}
 
 
     $context = elgg_get_context();
 	$page_owner = elgg_get_page_owner_entity();
 
+if (!empty($page_owner)) {
 	// Remove link to friendsof
 	elgg_unregister_menu_item("page", "friends:of");
     
@@ -513,6 +518,7 @@ function wet4_theme_pagesetup() {
 
 
     elgg_register_menu_item("page", $params);
+}
 
 	if (!empty($user)) {
 		$options = array(

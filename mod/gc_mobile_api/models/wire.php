@@ -57,6 +57,8 @@ function get_wirepost( $user, $guid, $thread ){
 
 	$thread_id = $entity->wire_thread;
 
+	elgg_set_ignore_access(true);
+
 	if( $thread ){
 		$all_wire_posts = elgg_list_entities_from_metadata(array(
 			"metadata_name" => "wire_thread",
@@ -114,6 +116,7 @@ function get_wirepost( $user, $guid, $thread ){
 			$wire_post->thread_id = $thread_id;
 
 			$wire_post->userDetails = get_user_block($wire_post->owner_guid);
+			$wire_post->description = wire_filter($wire_post->description);
 		}
 	} else {
 		$wire_posts = elgg_list_entities(array(
@@ -168,6 +171,7 @@ function get_wirepost( $user, $guid, $thread ){
 		$wire_post->thread_id = $thread_id;
 		
 		$wire_post->userDetails = get_user_block($wire_post->owner_guid);
+		$wire_post->description = wire_filter($wire_post->description);
 
 		$wire_posts = $wire_post;
 	}
@@ -183,6 +187,8 @@ function get_wireposts( $profileemail, $user, $limit, $offset ){
 	$viewer = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
 	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
+
+	elgg_set_ignore_access(true);
 
 	$all_wire_posts = elgg_list_entities(array(
 		'type' => 'object',
@@ -237,6 +243,7 @@ function get_wireposts( $profileemail, $user, $limit, $offset ){
 		$wire_post->replied = count($replied) > 0;
 
 		$wire_post->userDetails = get_user_block($wire_post->owner_guid);
+		$wire_post->description = wire_filter($wire_post->description);
 	}
 
 	return $wire_posts;

@@ -63,6 +63,7 @@ function get_group( $user, $guid ){
 	$group->comments = get_entity_comments($group->guid);
 	
 	$group->userDetails = get_user_block($group->owner_guid);
+	$group->description = clean_text($group->description);
 
 	return $group;
 }
@@ -103,6 +104,7 @@ function get_groups( $user, $limit, $offset ){
 		$group->count = $groupObj->getMembers(array('count' => true));
 
 		$group->userDetails = get_user_block($group->owner_guid);
+		$group->description = clean_text($group->description);
 	}
 
 	return $groups;

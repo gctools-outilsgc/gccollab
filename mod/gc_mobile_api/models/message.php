@@ -45,6 +45,20 @@ elgg_ws_expose_function(
 );
 
 elgg_ws_expose_function(
+	"get.notifications",
+	"get_notifications",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+	),
+	'Retrieves a user\'s notification messages based on user id',
+	'POST',
+	true,
+	false
+);
+
+elgg_ws_expose_function(
 	"send.message",
 	"send_message",
 	array(
@@ -77,10 +91,6 @@ function get_message( $user, $guid ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	$entity = get_entity( $guid );
-	if( !$entity ) return "Message was not found. Please try a different GUID";
-	if( !$entity->subtype !== "messages" ) return "Invalid message. Please try a different GUID";
-
 	elgg_set_ignore_access(true);
 	
 	$messages = elgg_list_entities(array(
@@ -89,7 +99,9 @@ function get_message( $user, $guid ){
 		'guid' => $guid
 	));
 	$message = json_decode($messages)[0];
-
+	if( !$message ) return "Message was not found. Please try a different GUID";
+	if( $message->subtype !== "messages" ) return "Invalid message. Please try a different GUID";
+	
 	$likes = elgg_get_annotations(array(
 		'guid' => $message->guid,
 		'annotation_name' => 'likes'
@@ -103,9 +115,16 @@ function get_message( $user, $guid ){
 	));
 	$message->liked = count($liked) > 0;
 
-	$message->read = $message->readYet;
-	$message->fromUserDetails = get_user_block($message->fromId);
-	$message->toUserDetails = get_user_block($message->toId);
+	$messageObj = get_entity($message->guid);
+	$message->read = intval($messageObj->readYet);
+
+	$message->fromUserDetails = get_user_block($messageObj->fromId);
+	$message->toUserDetails = get_user_block($messageObj->toId);
+
+	$message->description = utf8_decode($message->description);
+	$message->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $message->description);
+
+	// $message->description2 = strip_tags(utf8_decode($message->description));
 
 	return $message;
 }
@@ -115,31 +134,29 @@ function get_messages( $user, $limit, $offset ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
+	elgg_set_ignore_access(true);
+
 	$messages = elgg_list_entities_from_metadata(array(
 		"type" => "object",
 		"subtype" => "messages",
-		"metadata_name" => "toId",
-		"metadata_value" => $user_entity->guid,
+		'metadata_name_value_pair' => array( 
+			array('name' => 'toId', 'value' => $user_entity->guid,  'operand' => '='),
+			array('name' => 'fromId', 'value' => 1,  'operand' => '!=')
+		),
 		"limit" => $limit,
 		"offset" => $offset
 	));
 	$messages = json_decode($messages);
 
 	foreach($messages as $object){
-		$likes = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->likes = count($likes);
+		$messageObj = get_entity($object->guid);
+		$object->read = intval($messageObj->readYet);
 
-		$liked = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_owner_guid' => $viewer->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->liked = count($liked) > 0;
+		$object->fromUserDetails = get_user_block($messageObj->fromId);
+		$object->toUserDetails = get_user_block($messageObj->toId);
 
-		$object->userDetails = get_user_block($object->owner_guid);
+		$object->description = utf8_decode($object->description);
+		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);
 	}
 
 	return $messages;
@@ -150,31 +167,61 @@ function get_sent_messages( $user, $limit, $offset ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
+	elgg_set_ignore_access(true);
+	
 	$messages = elgg_list_entities_from_metadata(array(
 		"type" => "object",
 		"subtype" => "messages",
 		"metadata_name" => "fromId",
 		"metadata_value" => $user_entity->guid,
+		"owner_guid" => $user_entity->guid,
 		"limit" => $limit,
 		"offset" => $offset
 	));
 	$messages = json_decode($messages);
 
 	foreach($messages as $object){
-		$likes = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->likes = count($likes);
+		$messageObj = get_entity($object->guid);
+		$object->read = intval($messageObj->readYet);
 
-		$liked = elgg_get_annotations(array(
-			'guid' => $object->guid,
-			'annotation_owner_guid' => $viewer->guid,
-			'annotation_name' => 'likes'
-		));
-		$object->liked = count($liked) > 0;
+		$object->fromUserDetails = get_user_block($messageObj->fromId);
+		$object->toUserDetails = get_user_block($messageObj->toId);
 
-		$object->userDetails = get_user_block($object->owner_guid);
+		$object->description = utf8_decode($object->description);
+		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);
+	}
+
+	return $messages;
+}
+
+function get_notifications( $user, $limit, $offset ){
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+ 	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
+	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
+
+	elgg_set_ignore_access(true);
+	
+	$messages = elgg_list_entities_from_metadata(array(
+		"type" => "object",
+		"subtype" => "messages",
+		'metadata_name_value_pair' => array( 
+			array('name' => 'toId', 'value' => $user_entity->guid,  'operand' => '='),
+			array('name' => 'fromId', 'value' => 1,  'operand' => '=')
+		),
+		"limit" => $limit,
+		"offset" => $offset
+	));
+	$messages = json_decode($messages);
+
+	foreach($messages as $object){
+		$messageObj = get_entity($object->guid);
+		$object->read = intval($messageObj->readYet);
+
+		$object->fromUserDetails = get_user_block($messageObj->fromId);
+		$object->toUserDetails = get_user_block($messageObj->toId);
+
+		$object->description = utf8_decode($object->description);
+		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);
 	}
 
 	return $messages;

@@ -4,13 +4,13 @@
  */
 
 function get_user_block( $userid ){
-	$user_entity = get_user( $userid );
+	$user_entity = is_numeric($userid) ? get_user($userid) : ( strpos($userid, '@') !== FALSE ? get_user_by_email($userid)[0] : get_user_by_username($userid) );
 
 	if( !$user_entity )
-		return "User was not found. Please try a different GUID, username, or email address";
+		return "";
 
 	if( !$user_entity instanceof ElggUser )
-		return "Invalid user. Please try a different GUID, username, or email address";
+		return "";
 
 	$user['user_id'] = $user_entity->guid;
 	$user['username'] = $user_entity->username;
@@ -41,4 +41,30 @@ function get_entity_comments( $guid ){
 
 	}
 	return $comments;
+}
+
+function wire_filter( $text ){
+	$site_url = elgg_get_site_url();
+
+	$text = ''.$text;
+
+	// email addresses
+	$text = preg_replace('/(^|[^\w])([\w\-\.]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})/i', '$1<a href="mailto:$2@$3">$2@$3</a>', $text);
+
+	// links
+	$text = parse_urls($text);
+
+	// usernames
+	$text = preg_replace('/(^|[^\w])@([\p{L}\p{Nd}._]+)/u', '$1<a href="' . $site_url . 'thewire/owner/$2">@$2</a>', $text);
+
+	// hashtags
+	$text = preg_replace('/(^|[^\w])#(\w*[^\s\d!-\/:-@]+\w*)/', '$1<a href="' . $site_url . 'thewire/tag/$2">#$2</a>', $text);
+
+	$text = trim($text);
+
+	return $text;
+}
+
+function clean_text( $text ){
+	return trim( preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 ]/', ' ', urldecode( html_entity_decode( strip_tags( $text ) ) ) ) ) );
 }
