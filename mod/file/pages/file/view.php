@@ -41,6 +41,7 @@ elgg_push_breadcrumb($crumbs_title);
 
 $content = elgg_view_entity($file, array('full_view' => true));
 $content .= elgg_view_comments($file);
+
 elgg_register_menu_item('title', array(
 	'name' => 'download',
 	'text' => elgg_echo('download'),

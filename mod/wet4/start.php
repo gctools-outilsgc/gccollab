@@ -24,7 +24,9 @@ function wet4_theme_init() {
 	elgg_extend_view('object/widget/elements/content','page/elements/gsa_view_start',1);
 	elgg_extend_view('object/widget/elements/content','page/elements/gsa_view_end',1000);
 
-
+    // cyu - are we overriding the settings page handler? (note: the one in this plugin does nothing)
+    elgg_unregister_page_handler('settings');
+    elgg_register_page_handler('settings', '_elgg_wet_user_settings_page_handler');
 
 
     //reload groups library to have our sidebar changes
@@ -295,6 +297,57 @@ function groups_autocomplete() {
     require_once elgg_get_plugins_path() . 'wet4/lib/groups_autocomplete.php';
     return true;
 }
+
+
+
+
+function _elgg_wet_user_settings_page_handler($page) {
+    global $CONFIG;
+
+    if (!isset($page[0])) {
+        $page[0] = 'user';
+    }
+
+    if (isset($page[1])) {
+        $user = get_user_by_username($page[1]);
+        elgg_set_page_owner_guid($user->guid);
+    } else {
+        $user = elgg_get_logged_in_user_entity();
+        elgg_set_page_owner_guid($user->guid);
+    }
+
+    elgg_push_breadcrumb(elgg_echo('settings'), "settings/user/$user->username");
+
+    switch ($page[0]) {
+        case 'notifications':
+            elgg_push_breadcrumb(elgg_echo('cp_notifications:name'));
+            $path = elgg_get_plugins_path() . "/cp_notifications/" . "pages/cp_notifications/notification_setting.php";
+            break;
+        case 'statistics':
+            elgg_push_breadcrumb(elgg_echo('usersettings:statistics:opt:linktext'));
+            $path = $CONFIG->path . "pages/settings/statistics.php";
+            break;
+        /*case 'plugins':
+            if (isset($page[2])) {
+                set_input("plugin_id", $page[2]);
+                elgg_push_breadcrumb(elgg_echo('usersettings:plugins:opt:linktext'));
+                $path = $CONFIG->path . "pages/settings/tools.php";
+            }
+            break;*/
+        case 'user':
+            $path = $CONFIG->path . "pages/settings/account.php";
+            break;
+    }
+
+    if (isset($path)) {
+        require $path;
+        return true;
+    }
+    return false;
+}
+
+
+
 
 /*
  * activity_page_handler
@@ -813,6 +866,9 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
     
     //Nick -Remove empty comment and reply links from river menu
         foreach ($return as $key => $item){
+            if($entity->getSubType() == 'file' && $entity->getMimeType() == "googledoc" && $item->getName() == "edit"){
+                unset($return[$key]);
+            }
 
             switch ($item->getName()) {
                 case 'access':
@@ -936,7 +992,7 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
         //checks so the edit icon is not placed on incorrect entities
         if($handler != 'group_operators'){
-            if($entity->getSubtype() != 'thewire'){
+            if($entity->getSubtype() != 'thewire' && ($entity->getSubType() == 'file' && $entity->getMimeType() != "googledoc")){
                 $options = array(
                     'name' => 'edit',
                     'text' => '<i class="fa fa-edit fa-lg icon-unsel"><span class="wb-inv">' . elgg_echo('edit:this') . '</span></i>',
