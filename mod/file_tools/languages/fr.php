@@ -81,7 +81,7 @@
 		'file_tools:upload:form:choose' => 'Sélectionner un fichier',
 		'file_tools:upload:form:info' => 'Cliquer sur Parcourir pour téléverser des fichiers (multiples)',
 		'file_tools:upload:form:zip:info' => "Vous pouvez téléverser un fichier zip. Il sera extrait et chaque fichier sera importé séparément. De plus, si vous avez des dossiers dans votre fichier zip, ils seront importés dans chaque dossier précis. Les types de fichiers non autorisés seront ignorés.",
-		'file_tools:upload:form:googledoc:info' => "Provide the link to a Google Doc to share with others. (FR)",
+		'file_tools:upload:form:googledoc:info' => "Fournissez le lien vers un Google Doc pour partager avec d'autres.",
 		
 		// actions		
 		// edit		
