@@ -8,7 +8,7 @@
 	// $object_types = array('object','group');
 	$object_types = array('object');
 	// $object_subtypes = array('blog','groupforumtopic','event_calendar','thewire');
-	$object_subtypes = array('blog','groupforumtopic','event_calendar');
+	$object_subtypes = array('blog','groupforumtopic','event_calendar','file');
 
 	$widget->title = ( get_current_language() == "fr" ) ? $widget->widget_title_fr : $widget->widget_title_en;
 	
