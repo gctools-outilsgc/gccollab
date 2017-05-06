@@ -3,6 +3,7 @@
 $container_guid = (int) get_input("container_guid", 0);
 $access_id = (int) get_input("access_id");
 $parent_guid = get_input("parent_guid");
+$tags = get_input("tags");
 
 set_time_limit(0);
 
@@ -38,6 +39,10 @@ if( !empty($container_guid) && !empty($googledoc_url) ){
 
 	$file->setMimeType("googledoc");
 	$file->simpletype = "googledoc";
+
+	if( $tags ){
+		$file->tags = string_to_tag_array($tags);
+	}
 
 	$guid = $file->save();
 
