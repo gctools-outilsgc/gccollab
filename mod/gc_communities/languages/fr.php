@@ -3,7 +3,7 @@
 $french = array(
   'gc_communities:title' => "Titre de la page de la communauté",
   'gc_communities:url' => "URL de la page de la communauté",
-  'gc_communities:animator' => "Animateur communautaire de la page de la communauté",
+  'gc_communities:animator' => "Animateur communautaire",
   'gc_communities:delete' => "Supprimer la page de la communauté",
 
   'gc_communities:communities' => "Communautés",

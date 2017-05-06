@@ -50,6 +50,10 @@
         </div>
         <div class="col-md-4 pull-right elgg-col-1of2 elgg-widgets" id="elgg-widget-col-2">
             <?php
+                if( $community_animator ){
+                    echo gc_communities_animator_block($community_animator);
+                }
+
                 if( count($area2widgets) > 0 ){
                     foreach( $area2widgets as $widget ){
                         if( array_key_exists($widget->handler, $widget_types) && $widget instanceof ElggWidget ){
