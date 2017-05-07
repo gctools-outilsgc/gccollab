@@ -162,7 +162,6 @@ function isJson($string) {
  * @return Success 		true/false
  */
 function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '') {
-
 	elgg_load_library('GCconnex_display_in_language');
 	elgg_load_library('elgg:gc_notification:functions'); // cyu - lol i dont have this in my instance of gcconnex :|
 	$digest = get_entity($send_to->cpn_newsletter);
@@ -191,10 +190,10 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 
 		$content_array = array(
 			'content_title' => $content_title,
-			'content_url' => $content_url."?utm_source=notification_digest&utm_medium=email",
+			'content_url' => $content_url,
 			'subtype' => $entity->getSubtype(),
 			'content_author_name' => $invoked_by->name,
-			'content_author_url' => $invoked_by->getURL()."?utm_source=notification_digest&utm_medium=email"
+			'content_author_url' => $invoked_by->getURL()
 		);
 
 	} else {
@@ -207,27 +206,25 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 	}
 
 
-
 	switch ($subtype) {
-
-		case 'thewire':
-			$content_array = array(
-				'content_description' => $entity->description,
-				'content_url' => $content_url."?utm_source=notification_digest&utm_medium=email",
-				'subtype' => $entity->getSubtype(),
-				'content_author_name' => $invoked_by->name,
-				'content_author_url' => $invoked_by->getURL()
-			);
-
-			$digest_collection['personal']['new_post'][$entity->guid] = json_encode($content_array);
-			break;
-
 		case 'mission':
 
+
+			if (isJson($entity->job_title))
+			{
+				// cyu - TODO: use the gc_explode_translation() (NEW)
+				$content_title = json_decode($entity->job_title, true);
+
+			} else {
+				// cyu - TODO: use the gc_explode_translation() (OLD)
+				$content_title = array('en' => $entity->job_title, 'fr' => $entity->job_title2);
+			}
+
+
 			$content_array = array(
-				'content_title' => $entity->title,
+				'content_title' => $content_title,
 				'content_author_name' => $entity->getOwnerEntity()->name,
-				'content_url' => $entity->getURL()."?utm_source=notification_digest&utm_medium=email",
+				'content_url' => $entity->getURL(),
 				'subtype' => $entity->job_type,
 				'deadline' => $entity->deadline
 			);
@@ -261,6 +258,8 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 
 		case 'cp_hjtopic':
 		case 'cp_hjpost':
+		
+
 			$group_title = get_entity(get_forum_in_group($entity->guid, $entity->guid))->name;
 			$group_url = get_entity(get_forum_in_group($entity->guid, $entity->guid))->getURL();
 
@@ -272,7 +271,7 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 
 				$content_array = array(
 					'content_title' => $entity->getContainerEntity()->title,
-					'content_url' => $content_url."?utm_source=notification_digest&utm_medium=email",
+					'content_url' => $content_url,
 					'subtype' => $entity->getSubtype(),
 					'content_author' => $entity->getOwnerEntity()->guid
 				);
@@ -282,44 +281,20 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 			break;
 
 
-		case 'like_comment':
-		case 'like_reply':
 		case 'post_likes':
 
-			if ($subtype === "like_comment" || $subtype === "like_reply") {
-				$content_title = array('en' => elgg_echo("cp_newsletter:body:view_comment_reply",'en'), 'fr' => elgg_echo("cp_newsletter:body:view_comment_reply",'fr'));
+
+			if ($content_title === null) {
 				$content_array = array(
-					'content_title' => $content_title,
-					'content_url' =>  $entity->getURL()."?utm_source=notification_digest&utm_medium=email",
+					'content_title' => $entity->getContainerEntity()->title,
+					'content_url' =>  $entity->getContainerEntity()->getURL(),
 					'subtype' => $entity->getSubtype(),
 					'content_author_name' => $invoked_by->name,
 					'content_author_url' => $invoked_by->getURL()
 				);
-			} elseif ($entity->getSubtype() === 'thewire') {
-
-				$content_array = array(
-					'content_title' => $entity->description,
-					'content_url' =>  $entity->getURL()."?utm_source=notification_digest&utm_medium=email",
-					'subtype' => $entity->getSubtype(),
-					'content_author_name' => $invoked_by->name,
-					'content_author_url' => $invoked_by->getURL()
-				);
-
 			} else {
-				$entity_title = $entity->title;
-				if ($entity->title == '')
-					$entity_title = $entity->name;
-
-				$content_array = array(
-					'content_title' => $entity_title,
-					'content_url' =>  $entity->getURL()."?utm_source=notification_digest&utm_medium=email",//$entity->getContainerEntity()->getURL()."?utm_source=notification_digest&utm_medium=email",
-					'subtype' => $entity->getSubtype(),
-					'content_author_name' => $invoked_by->name,
-					'content_author_url' => $invoked_by->getURL()
-				);
+				$digest_collection['personal']['likes']["{$entity->guid}{$author->guid}"] = json_encode($content_array);
 			}
-
-			$digest_collection['personal']['likes']["{$entity->guid}{$author->guid}"] = json_encode($content_array);
 			break;
 
 
@@ -334,12 +309,9 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 			if (!is_array($digest_collection['personal']['cp_wire_share']))
 				$digest_collection['personal']['cp_wire_share'] = array();
 
-			$content_title = $entity->title;
-			if (!$entity->title) $content_title = $entity->description;
-
 			$content_array = array(
-				'content_title' => $content_title,
-				'content_url' => $entity->getURL()."?utm_source=notification_digest&utm_medium=email",
+				'content_title' => $entity->title,
+				'content_url' => $entity->getURL(),
 				'subtype' => $entity->getSubtype(),
 				'content_author_name' => $invoked_by->name,
 				'content_author_url' => $invoked_by->getURL()
@@ -349,25 +321,11 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 			
 			break;
 
-		case 'cp_wire_mention':
-			if (!is_array($digest_collection['personal']['cp_mention']))
-				$digest_collection['personal']['cp_mention'] = array();
-
-
-			$content_array = array(
-				'content_url' => $entity->getURL()."?utm_source=notification_digest&utm_medium=email",
-				'subtype' => 'wire_mention',
-				'content_author' => $invoked_by->name,
-				'content_author_url' => $invoked_by->getURL(), 
-			);
-			$digest_collection['personal']['cp_mention'][] = json_encode($content_array);
-			break;
-
-		case 'cp_mention':
+		case 'mention':
 
 			$content_array = array(
 				'content_title' => $entity->getContainerEntity()->title,
-				'content_url' => $content_url."?utm_source=notification_digest&utm_medium=email",
+				'content_url' => $content_url,
 				'subtype' => $entity->getContainerEntity()->getSubtype(),
 				'content_author' => $invoked_by->name,
 				'content_author_url' => $invoked_by->getURL()
@@ -381,11 +339,10 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 			break;
 
 		default:
-
 			$entity = get_entity($entity->guid);
 			
 			if ($entity->getContainerEntity() instanceof ElggGroup)
-				$digest_collection['group']["<a href='{$entity->getContainerEntity()->getURL()}?utm_source=notification_digest&utm_medium=email'>{$entity->getContainerEntity()->name}</a>"]['new_post'][$entity->guid] = json_encode($content_array);
+				$digest_collection['group']["<a href='{$entity->getContainerEntity()->getURL()}'>{$entity->getContainerEntity()->name}</a>"]['new_post'][$entity->guid] = json_encode($content_array);
 			else 
 				$digest_collection['personal']['new_post'][$entity->guid] = json_encode($content_array);
 
@@ -516,44 +473,24 @@ function userOptedIn( $user_obj, $mission_type ) {
     $boolSubtype = ($language_preference === 'fr') ? false : true;
     $subtype = cp_translate_subtype($subtype, $boolSubtype);
 
-
     if ($content_array['deadline']) {
+      $closing_date = 'Closing Date : '.$content_array['deadline'];
+      $subtype = elgg_echo($subtype);
+     
+    }
 
-       $content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_array['content_title'];
-
-      $closing_date = elgg_echo('cp_newsletter:digest:opportunities:date', $language_preference).$content_array['deadline'];
-      $subtype = elgg_echo($content_array['subtype'], $language_preference);
-
+	if ($heading === 'cp_wire_share') {
+   	  $content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_array['content_title'];
       $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:oppourtunity", array($author, $subtype, $url), $language_preference)." - ".$closing_date;
-
-
-    } elseif ($heading === 'cp_wire_share') {
-
-			$content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_array['content_title'];
-			$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-			if ($subtype === 'The Wire') $subtype = elgg_echo('cp_notifications:mail_body:your_wire_post', $language_preference);
-			$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:content_share", array($author, $subtype, $url), $language_preference);
-    	
+      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:content_share", array($author, $subtype, $url), $language_preference);
 
 	} elseif ($heading === 'cp_mention') {
 
+   	  $content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_title = $content_array['content_title'];
+   	  $author = $content_array['content_author'];
 
-		if ($content_array['subtype'] === 'wire_mention') {
-
-	   	  $content_title = elgg_echo("cp_notifications:subtype:name:thewire", $language_preference);
-	   	  $author = $content_array['content_author'];
-
-	      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-	      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:wire_mention", array($author, $url), $language_preference);
-
-	    } else {
-	   	  $content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_title = $content_array['content_title'];
-	   	  $author = $content_array['content_author'];
-
-	      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-	      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:mention", array($author, cp_translate_subtype($content_array['subtype']),$url), $language_preference);
-	  	}
+      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
+      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:mention", array($author, $content_array['subtype'],$url), $language_preference);
 
 
 	} elseif ($heading === 'forum_reply') {
@@ -572,16 +509,14 @@ function userOptedIn( $user_obj, $mission_type ) {
       $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
       $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $subtype, $url), $language_preference);
 
-    } elseif ($content_array['subtype'] === 'thewire' && $heading !== 'likes') {
-
-      $url = elgg_echo('cp_notifications:subtype:name:thewire', $language_preference)." : <a href='{$content_array['content_url']}'>".$content_array['content_description']."</a>";
+    } elseif ($content_array['subtype'] === 'thewire') {
+      $url = "<a href='{$content_array['content_url']}'>".elgg_echo('cp_notifications:subtype:name:thewire', $language_preference)."</a>";
       $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$content_array['subtype']}", array($author, $url), $language_preference);
 
 
-    } elseif (strcmp($heading, "likes") === 0) {
+    } elseif ($heading === 'likes') {
 
       $content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_array['content_title'];
-      //if (!$content_title) $content_title = elgg_echo('cp_notifications:mail_body:your_wire_post',$language_preference);
 
       $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
       $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $url), $language_preference);
@@ -594,8 +529,6 @@ function userOptedIn( $user_obj, $mission_type ) {
       $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $url), $language_preference);
 
     } else {
-
-
       // limit 35 characters
       if (is_array($content_array['content_title']))
         $content_title = $content_array['content_title'][$language_preference];
@@ -625,10 +558,6 @@ function userOptedIn( $user_obj, $mission_type ) {
     $number_items = ($number > 1) ? "plural" : "singular";
 
     switch ($heading) {
-      case 'new_mission':	
-      case 'new_post_in_group':
-      	$proper_heading = elgg_echo("cp_newsletter:heading:notify:new_post:group:{$number_items}", array(), $language);
-      	break;
       case 'personal':
       case 'mission':
       case 'group':

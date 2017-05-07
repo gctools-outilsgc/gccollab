@@ -39,6 +39,8 @@ return array(
   'wet:gcpediaLink' => 'http://www.gcpedia.gc.ca/wiki/?setlang=en',
   'wet:gcdirectoryLink' => 'https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002',
   'wet:tutorialLink'=>'http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/See_All',
+  'wet:gccollabLink' => "https://gccollab.ca/",
+  'wet:gcconnexLink' => "https://gcconnex.gc.ca/",
   'wet:groupLoading'=>'Loading content',
   'subgroups:parent:need_join' => "Join Parent Group",
   'event_calendar:none' => "No events found.",
