@@ -65,9 +65,13 @@ if(elgg_instanceof(elgg_get_page_owner_entity(), 'group')){
 
 }*/
 
-
+$feedbackText= elgg_echo('wet:feedbackText');
 $body = <<<__BODY
+<div class="elgg-page-messages container">
+    $messages
+</div> 
     $tabskip
+
 <div class="elgg-page elgg-page-default">
 
 __BODY;
@@ -81,12 +85,12 @@ $userMenu = "";
 $body .= <<<__BODY
 	<header role="banner">
     $alert
-<!-- <div class="elgg-inner">-->
+   <!-- <div class="elgg-inner">-->
 
-	<!-- </div>-->
-<div id="wb-bnr" class="container">
-    
-    $wavyblue
+		<!-- </div>-->
+    	<div id="wb-bnr" class="container">
+            
+          
 </div>
 $site_brand
 
@@ -95,9 +99,7 @@ $navbar
 $breadcrumbs
 
 	</header>
-    <div class="elgg-page-messages container">
-		$messages
-	   </div>
+
        <div class="container">
        $userMenu
        </div>
@@ -110,21 +112,23 @@ $breadcrumbs
         <!--<section>-->
 			$content
 <!--</section>
-	</div>-->
-<div class="row pagedetails">
-
-<!-- <div class="col-sm-6 col-xs-6 datemod">
+		</div>-->
+        <div class="row pagedetails">
+<div class="col-sm-6 col-xs-6 datemod">
 <dl id="wb-dtmd">
 <dt>Version</dt>
 <dd>$version</dd>
 </dl>
-</div> -->
-
-
+</div>
+<div class="col-xs-6 text-right">
+<a href="/mod/contactform/" class="btn btn-primary"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>$feedbackText</a>
+</div>
 </div>
 
 
-</main>
+	</main>
+
+
 
 	<footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
 

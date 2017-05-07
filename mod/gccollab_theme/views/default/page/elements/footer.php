@@ -6,6 +6,7 @@
  */
 
 $site_url = elgg_get_site_url();
+$user = elgg_get_logged_in_user_entity();
 
 if ( strcmp(_elgg_services()->session->get('language'),'en') == 0 ) {
     // english links (under about)
@@ -78,13 +79,18 @@ $feedbackText= elgg_echo('wet:feedbackText');
                     <li><a href="https://github.com/gctools-outilsgc/GCcollab">GitHub</a></li>
                 </ul>
             </section>
-      <section class="col-sm-3">
-        <a href="/mod/contactform/" class="btn btn-primary">
-          <span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>
-          <?php echo elgg_echo('wet:feedbackText');?>
-        </a>
-      </section>
 
+            <section class="col-sm-3">
+                <?php if( $user->user_type === 'federal' ): ?>
+                    <h3><?php echo elgg_echo('wet:footGCtools');?></h3>
+                    <ul class="list-unstyled">
+                        <li><a href="<?php echo elgg_echo('wet:gcpediaLink');?>">GC<?php echo elgg_echo('wet:barGCpedia');?></a></li>
+                        <li><a href="<?php echo elgg_echo('wet:gcintranetLink-toolsFoot');?>">GCintranet</a></li>
+                        <li><a href="<?php echo elgg_echo('wet:gcdirectoryLink');?>">GC<?php echo elgg_echo('wet:barDirectory');?></a></li>
+                        <li><a href="<?php echo elgg_echo('wet:gcconnexLink');?>">GCconnex</a></li>
+                    </ul>
+                <?php endif; ?>
+            </section>
         </div>
     </nav>
 </div>

@@ -249,6 +249,10 @@ max-height: 500px;
       top: 110% !important;
     }
 
+    .elgg-menu-user-menu-default {
+      padding-right: 0;
+    }
+
     @media (max-width: 480px) {
       .user-menu{
         min-width: 355px;
