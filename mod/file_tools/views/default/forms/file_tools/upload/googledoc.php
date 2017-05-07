@@ -7,6 +7,11 @@ $form_body .= "<label>" . elgg_echo("file_tools:upload:form:googledoc:info") . "
 $form_body .= elgg_view("input/text", array("name" => "googledoc_url"));
 $form_body .= "</div>";
 
+$form_body .= "<div class='mbm'>";
+$form_body .= "<label>" . elgg_echo("tags") . "</label>";
+$form_body .= elgg_view("input/tags", array('name' => 'tags'));
+$form_body .= "</div>";
+
 if (file_tools_use_folder_structure()) {
 	$form_body .= "<div class='mbm'>";
 	$form_body .= "<label>" . elgg_echo("file_tools:forms:edit:parent") . "</label>";
