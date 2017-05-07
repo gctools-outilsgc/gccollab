@@ -12,8 +12,36 @@ if (strcmp($language_preference,'set_digest_en') == 0)
 else 
   $language_preference = 'fr';
 
+$current_year = date('Y');
+/*
+echo <<<___HTML
+<html>
+<body>
+	<!-- beginning of email template -->
+	<div width='100%' bgcolor='#fcfcfc'>
+		<div>
+			<div>
 
+				<!-- email header -->
+		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #79579D'>
+		        	{$email_notification_header}
+		        </div>
+				
+
+				<!-- GCcollab banner -->
+		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
+		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCcollab</span>
+		        </div>
+
+
+		        <!-- email divider -->
+		        <div style='height:1px; background:#bdbdbd; border-bottom:1px solid #ffffff'></div>
+
+		        <p>English section</p>
+				<div> {$email_content} </div>
+*/
 ?>
+
 
 
 <html>
@@ -34,29 +62,7 @@ else
 
       <div>
         <?php // display the main headings (group, personal, and micro missions) ?>
-        <?php 
-
-        // determines the singular or plural headings
-          $content_size = sizeof($highlevel_contents);
-          //echo "<br/>{$content_size}<br/>";
-          if ($content_size == 1) {
-            foreach ($highlevel_contents as $detailed_header => $detailed_contents) {
-              $content_size = sizeof($detailed_contents);
-              //echo "<br/>{$content_size}<br/>";
-              if ($content_size == 1) {
-                foreach ($detailed_contents as $content_header => $content) {
-                  $content_size = sizeof($content);
-                  //echo "<br/>{$content_size}<br/>";
-                  break;
-                }
-              }
-              break;
-            }
-          }
-          //echo ">>>> <br/>{$content_size}<br/> ";
-        ?>
-
-        <h3><?php echo render_headers($highlevel_header,'',$language_preference, $content_size); ?></h3>
+        <h3><?php echo render_headers($highlevel_header,'',$language_preference, sizeof($highlevel_contents)); ?></h3>
         <ul style='list-style-type:none;'>
 
         <?php 
@@ -64,33 +70,26 @@ else
         
         // display the main headings (group title or different types of posts such as likes, comments, ...)
         foreach ($highlevel_contents as $detailed_header => $detailed_contents) {
-
-
           if (strcmp($highlevel_header,'group') == 0){
-            echo "<p><li><strong>".render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</strong></li>";
+            echo "<p><li><strong>".render_headers($detailed_header,'',$language_preference)."</strong></li>";
 
           } elseif ($detailed_header === 'friend_request') {
-            echo "<p><li><strong><a href='{$site->getURL()}friend_request/{$to->username}?utm_source=notification_digest&utm_medium=email'>".sizeof($detailed_contents).' '.render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</a></strong></li>";
+            echo "<p><li><strong><a href='{$site->getURL()}friend_request/{$to->username}'>".sizeof($detailed_contents).' '.render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</a></strong></li>";
             break;
 
           } elseif ($detailed_header === 'friend_approved') {
-            echo "<p><li><strong><a href='{$site->getURL()}friends/{$to->username}?utm_source=notification_digest&utm_medium=email'>".sizeof($detailed_contents).' '.render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</a></strong></li>";
+            echo "<p><li><strong><a href='{$site->getURL()}friends/{$to->username}'>".sizeof($detailed_contents).' '.render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</a></strong></li>";
             break;
 
-          } elseif ($detailed_header === 'new_post' && $highlevel_header === 'mission') {
-            echo "<p><li><strong>".sizeof($detailed_contents).' '.render_headers('new_mission','',$language_preference, sizeof($detailed_contents))."</strong></li>";
-           
           } else {
             echo "<p><li><strong>".sizeof($detailed_contents).' '.render_headers($detailed_header,'',$language_preference, sizeof($detailed_contents))."</strong></li>";
           }
           $detailed_header = str_replace("\'", '\'', $detailed_header);
           
-
           foreach ($detailed_contents as $content_header => $content) { // display new_post, response, forum_topic etc
-
             // unwrap and display the group content
             if (strcmp($highlevel_header,'group') == 0) {
-              echo  "<ul style='list-style-type:none;'><li><strong>".sizeof($content).' '.render_headers("new_post_in_group",'',$language_preference, sizeof($content))."</strong></li>";
+              echo  "<ul style='list-style-type:none;'><li><strong>".sizeof($content).' '.render_headers($content_header,'',$language_preference, sizeof($detailed_contents))."</strong></li>";
 
               $group_activities = $content;
               foreach ($group_activities as $activity_heading) {
@@ -102,7 +101,6 @@ else
               echo "</ul>";
 
             } else {
-
               // unwrap and display the personal content
               $content_array = json_decode($content,true);
               echo  "<ul style='list-style-type:none;'><li>".render_contents($content_array,$detailed_header,$language_preference)."</li></ul>";
