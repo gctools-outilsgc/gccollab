@@ -37,7 +37,7 @@
         }
     ?>
     <div class="row elgg-layout-widgets">
-        <div class="col-md-8 elgg-col-1of2 elgg-widgets" id="elgg-widget-col-1">
+        <div class="col-md-8 col-xs-12 elgg-col-1of2 elgg-widgets" id="elgg-widget-col-1">
         	<?php
                 if( count($area1widgets) > 0 ){
                     foreach( $area1widgets as $widget ){
@@ -48,7 +48,7 @@
                 }
             ?>
         </div>
-        <div class="col-md-4 pull-right elgg-col-1of2 elgg-widgets" id="elgg-widget-col-2">
+        <div class="col-md-4 col-xs-12 pull-right elgg-col-1of2 elgg-widgets" id="elgg-widget-col-2">
             <?php
                 if( $community_animator ){
                     echo gc_communities_animator_block($community_animator);
