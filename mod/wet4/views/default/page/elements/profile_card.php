@@ -46,6 +46,7 @@
         ));
         $provs = get_entity($provObj[0]->guid);
 
+<<<<<<< HEAD
         $provinces = array();
         if (get_current_language() == 'en'){
             $provinces = json_decode($provs->provinces_en, true);
@@ -96,6 +97,14 @@
             </div>
         </div>
         
+=======
+    <div class="col-xs-8">
+        <div class="mrgn-tp-sm mrgn-bttm-0 h4"><?php echo $displayName?></div>
+        <div><?php echo  $email ?></div>
+        <div><?php echo $department; ?></div>
+        <a href="<?php echo  $site_url ?>profile/<?php echo  $user ?>" class="btn btn-primary mrgn-tp-sm" style='color:white;'><?php echo elgg_echo('userMenu:profile') ?></a>
+    </div>
+>>>>>>> connex/gcconnex
     </div>
 
     <div class="panel-footer clearfix">

@@ -1219,7 +1219,7 @@ ol {
   padding-left: 0;
   list-style: none; }
 
-.list-unstyled li{
+.list-unstyled li {
     list-style: none;
 }
 
@@ -4285,7 +4285,7 @@ a.thumbnail.active {
 
 .alert {
   padding: 15px;
-  margin-bottom: 23px;
+  margin-bottom: 2px;
   border: 1px solid transparent;
   border-radius: 4px; }
   .alert h4 {
@@ -4623,6 +4623,8 @@ a.list-group-item-danger {
 .elgg-river-summary{
     font-weight:bold;
     font-style: italic;
+    margin: 2px 0 2px 0;
+    font-size: 1em;
 }
 
 .elgg-river-summary a{
@@ -10148,11 +10150,14 @@ header {
  * Mobile Chevron
  */
 #wb-glb-mn {
-  margin-top: 20px; }
+  margin-top: 0px; }
   #wb-glb-mn ul {
     min-width: 150px; }
     #wb-glb-mn ul.chvrn {
+<<<<<<< HEAD
       background: #46246A;
+=======
+>>>>>>> connex/gcconnex
       display: inline-block;
       float: right;
       height: 2.75em; }
@@ -10168,15 +10173,7 @@ header {
         padding-left: 12px;
         top: 0; }
       #wb-glb-mn ul.chvrn:before {
-        border-bottom: 1.375em solid transparent;
-        border-left: 0.6875em solid #f8f8f8;
-        border-top: 1.375em solid transparent;
-        content: " ";
-        display: block;
-        float: left;
-        height: 0;
-        position: relative;
-        width: 0; }
+        }
 
 /* IE Tweaks */
 .lt-ie9 header .brand a {
@@ -10495,7 +10492,11 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
  */
 #wb-srch,
 .srchbox {
+<<<<<<< HEAD
    }
+=======
+  padding-top: 0.37em; }
+>>>>>>> connex/gcconnex
   #wb-srch input,
   #wb-srch button,
   .srchbox input,
@@ -10503,32 +10504,50 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
     border-radius: 0; }
   #wb-srch button,
   .srchbox button {
+<<<<<<< HEAD
     background-color: #46246A;
     border: 0;
     border-color: #46246A;
     font-size: 17px; }
+=======
+    background-color: #ededed;
+    border: 0;
+      padding: 5px 8px;
+    border-color: #ededed;
+      color: #055959;
+    font-size: 16px; }
+>>>>>>> connex/gcconnex
     #wb-srch button:hover,
     #wb-srch button:focus,
     #wb-srch button:active,
     .srchbox button:hover,
     .srchbox button:focus,
     .srchbox button:active {
+<<<<<<< HEAD
       background: #6B5088; }
+=======
+      background: #ededed; }
+>>>>>>> connex/gcconnex
   #wb-srch .glyphicon,
   .srchbox .glyphicon {
     top: auto;
     vertical-align: middle; }
   #wb-srch input,
   .srchbox input {
-    background-color: #e0e0e0;
-    border-color: #e0e0e0;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
     border-right: 0;
     border-style: solid;
     -webkit-box-shadow: none;
             box-shadow: none;
     color: #555;
     margin-right: -4px;
+<<<<<<< HEAD
     width: 100%;
+=======
+    min-width: 235px;
+      height:33px;
+>>>>>>> connex/gcconnex
     position: relative; }
   #wb-srch .form-group:not(.submit) {
     width: 92%; }
@@ -11505,7 +11524,7 @@ Carousel
   header .brand a {
     margin-top: 15px; }
   #wb-glb-mn {
-    margin-top: 20px; }
+    margin-top: 0px; }
     #wb-glb-mn ul.chvrn li a {
       font-size: 1.7em; } }
 

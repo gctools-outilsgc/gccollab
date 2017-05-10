@@ -2,6 +2,198 @@
     $site_url = elgg_get_site_url();
 
 return array(
+<<<<<<< HEAD
+=======
+
+
+  'entity:like:link:page_top' => 'Aimer la page "%s"',
+  'entity:unlike:link:page_top' => 'Enlever la mention j\'aime de la page "%s"',
+  'entity:edit:link:page_top' => 'Modifier la page "%s"',
+  'entity:delete:link:page_top' => 'Supprimer la page "%s"',
+  'entity:share:link:page_top' => 'Partager la page "%s" sur le fil',
+  'entity:subscribe:link:page_top' => 'Vous abonner à la page "%s"',
+  'entity:unsubscribe:link:page_top' => 'Vous désabonner de la page "%s"',
+  'entity:history:link:page_top' => 'Voir l\'historique de la page "%s"',
+
+  'entity:like:link:page' => 'Aimer la page page "%s"',
+  'entity:unlike:link:page' => 'Enlever la mention j\'aime de la page "%s"',
+  'entity:edit:link:page' => 'Modifier la page "%s"',
+  'entity:delete:link:page' => 'Supprimer la page "%s"',
+  'entity:share:link:page' => 'Partager la page "%s" sur le fil',
+  'entity:subscribe:link:page' => 'Vous abonner à la page "%s"',
+  'entity:unsubscribe:link:page' => 'Vous désabonner de la page "%s"',
+  'entity:history:link:page' => 'Voir l\'historique de la page "%s"',
+
+  'entity:like:link:thewire' => 'Aimer le message sur le fil publié par %s',
+  'entity:unlike:link:thewire' => 'Enlever la mention j\'aime du message sur le fil publié par %s',
+  'entity:delete:link:thewire' => 'Supprimer le message sur le fil publié par %s',
+  'entity:share:link:thewire' => 'Partager le message sur le fil publié par %s sur le fil',
+  'entity:subscribe:link:thewire' => 'Vous abonner au message sur le fil publié par %s',
+  'entity:unsubscribe:link:thewire' => 'Vous déasonner du message sur le file publié par %s',
+  'entity:reply:link:thewire' => 'Répondre au message sur le fil publié par %s',
+
+  'entity:like:link:blog' => 'Aimer le blogue "%s"',
+  'entity:unlike:link:blog' => 'Enlever la mention j\'aime du blogue "%s"',
+  'entity:edit:link:blog' => 'Modifier le blogue "%s"',
+  'entity:delete:link:blog' => 'Supprimer le blogue "%s"',
+  'entity:share:link:blog' => 'Partager le blogue "%s" sur le fil',
+  'entity:subscribe:link:blog' => 'Vous abonner au blogue "%s"',
+  'entity:unsubscribe:link:blog' => 'Vous désabonner du blogue "%s"',
+  'entity:comment:link:blog' => 'Ajouter un commentaire au blogue "%s"',
+
+  'entity:like:link:comment' => 'Aimer le commentaire publié par %s',
+  'entity:unlike:link:comment' => 'Enlever la mention j\'aime du commentaire publié par %s',
+  'entity:edit:link:comment' => 'Modifier le commentaire publié par %s',
+  'entity:delete:link:comment' => 'Supprimer le commentaire publié par %s',
+
+  'entity:like:link:groupforumtopic' => 'Aimer la discussion "%s"',
+  'entity:unlike:link:groupforumtopic' => 'Enlever la mention j\'aime de la discussion "%s"',
+  'entity:edit:link:groupforumtopic' => 'Modifier la discussion "%s"',
+  'entity:delete:link:groupforumtopic' => 'Supprimer la discussion "%s"',
+  'entity:share:link:groupforumtopic' => 'Partager la discussion "%s" sur le fil',
+  'entity:subscribe:link:groupforumtopic' => 'Vous abonner à la discussion "%s"',
+  'entity:unsubscribe:link:groupforumtopic' => 'Vous désabonner de la discussion "%s"',
+  'entity:lock:link:groupforumtopic' => 'Fermer la discussion "%s"',
+  'entity:unlock:link:groupforumtopic' => 'Ouvrir la discussion "%s"',
+
+  'entity:like:link:discussion_reply' => 'Aimer la réponse à la discussion publiée par %s',
+  'entity:unlike:link:discussion_reply' => 'Enlever la mention j\'aime de la réponse à la discussion publiée par %s',
+  'entity:edit:link:discussion_reply' => 'Modifier la réponse à la discussion publiée par %s',
+  'entity:delete:link:discussion_reply' => 'Supprimer la réponse à la discussion publiée par %s',
+
+  'entity:like:link:file' => 'Aimer le fichier "%s"',
+  'entity:unlike:link:file' => 'Enlever la mention j\'aime du fichier "%s"',
+  'entity:edit:link:file' => 'Modifier le fichier "%s"',
+  'entity:delete:link:file' => 'Supprimer le fichier "%s"',
+  'entity:share:link:file' => 'Partager le fichier "%s" sur le fil',
+  'entity:subscribe:link:file' => 'Vous abonner au fichier "%s"',
+  'entity:unsubscribe:link:file' => 'Vous désabonner du fichier "%s"',
+  'entity:download:link:file' => 'Télécharger le fichier "%s"',
+
+  'entity:like:link:folder' => 'Aimer le dossier "%s"',
+  'entity:unlike:link:folder' => 'Enlever la mention j\'aime du dossier "%s"',
+  'entity:edit:link:folder' => 'Modifier le dossier "%s"',
+  'entity:delete:link:folder' => 'Supprimer le dossier "%s"',
+  'entity:share:link:folder' => 'Partager le dossier "%s" sur le fil',
+  'entity:subscribe:link:folder' => 'Vous abonner au dossier "%s"',
+  'entity:unssubscribe:link:folder' => 'Vous désabonner du dossier "%s"',
+
+  'entity:like:link:event_calendar' => 'Aimer l\'événement "%s"',
+  'entity:unlike:link:event_calendar' => 'Enlever la mention j\'aime de l\'événement "%s"',
+  'entity:edit:link:event_calendar' => 'Modifier l\'événement "%s"',
+  'entity:delete:link:event_calendar' => 'Supprimer l\'événementt "%s"',
+  'entity:share:link:event_calendar' => 'Partager l\'événement "%s" sur le fil',
+  'entity:subscribe:link:event_calendar' => 'Vous abonner à l\'événemenet "%s"',
+  'entity:unsubscribe:link:event_calendar' => 'Vous désabonner de l\'événement "%s"',
+
+  'entity:like:link:bookmarks' => 'Aimer le signet "%s"',
+  'entity:unlike:link:bookmarks' => 'Enlever la mention j\'aime du signet "%s"',
+  'entity:edit:link:bookmarks' => 'Modifier le signet "%s"',
+  'entity:delete:link:bookmarks' => 'Supprimer le signet "%s"',
+  'entity:share:link:bookmarks' => 'Partager le signet "%s" sur le fil',
+  'entity:subscribe:link:bookmarks' => 'Vous abonner au signet "%s"',
+  'entity:unsubscribe:link:bookmarks' => 'Vous désabonner du signet "%s"',
+
+  'entity:like:link:poll' => 'Aimé le sondage "%s"',
+  'entity:unlike:link:poll' => 'Enlever la mention j\'aime du sondage "%s"',
+  'entity:edit:link:poll' => 'Modifier le sondage "%s"',
+  'entity:delete:link:poll' => 'Suprimer le sondage "%s"',
+  'entity:share:link:poll' => 'Partager le sondage "%s" sur le fil',
+  'entity:subscribe:link:poll' => 'Vous abonner au sondage "%s"',
+  'entity:unsubscribe:link:poll' => 'Vous désabonner du sondage "%s"',
+
+  'entity:like:link:album' => 'Aimer l\'album d\'images "%s"',
+  'entity:unlike:link:album' => 'Enlever la mention j\'aime de l\'album d\'images "%s"',
+  'entity:edit:link:album' => 'Modifier l\'album d\'images "%s"',
+  'entity:delete:link:album' => 'Supprimer l\'album d\'images "%s"',
+  'entity:share:link:album' => 'Partager l\'album d\'images "%s" sur le fil',
+  'entity:subscribe:link:album' => 'Vous abonner à l\'album d\'images "%s"',
+  'entity:unsubscribe:link:album' => 'Vous désabonner de l\'album d\'images "%s"',
+
+  'entity:like:link:image' => 'Aimer l\'image "%s"',
+  'entity:unlike:link:image' => 'Enlever la mention j\'aime de l\'image "%s"',
+  'entity:edit:link:image' => 'Modifier l\'image "%s"',
+  'entity:delete:link:image' => 'Supprimer l\'image "%s"',
+  'entity:share:link:image' => 'Partager l\'image "%s" sur le fil',
+  'entity:subscribe:link:image' => 'Vous abonner à l\'image "%s"',
+  'entity:unsubscribe:link:image' => 'Vous désabonner de l\'image "%s"',
+
+  'entity:like:link:idea' => 'Aimer l\'idée "%s"',
+  'entity:unlike:link:idea' => 'Enlever la mention j\'aime de l\'idée "%s"',
+  'entity:edit:link:idea' => 'Modifier l\'idée "%s"',
+  'entity:delete:link:idea' => 'Supprimer l\'idée "%s"',
+  'entity:share:link:idea' => 'Partager l\'idée "%s" sur le fil',
+  'entity:subscribe:link:idea' => 'Vous abonner à l\'idée "%s"',
+  'entity:unsubscribe:link:idea' => 'Vous désabonner de l\'idée "%s"',
+  'entity:upvote:link:idea' => 'Voter positivement pour l\'idée "%s"',
+  'entity:downvote:link:idea' => 'Voter négativement pour l\'idée "%s"',
+
+  'entity:like:link:group' => 'Aimer le groupe "%s"',
+  'entity:unlike:link:group' => 'Enlever la mention j\'aime pour le groupe "%s"',
+  'entity:edit:link:group' => 'Modifier le groupe "%s"',
+  'entity:delete:link:group' => 'Supprimer le groupe "%s"',
+  'entity:share:link:group' => 'Partager le groupe "%s" sur le fil',
+  'entity:subscribe:link:group' => 'Vous abonner au groupe "%s"',
+  'entity:unsubscribe:link:group' => 'Vous désabonner du groupe "%s"',
+
+  'group:share:link' => 'Partager ce groupe sur le fil',
+
+  'friend_request:approve' => 'Accepter <span class="wb-inv"> la demande de collègue de %s</span>', // Check if code is ok with the % for user name, French wording is reverse
+  'friend_request:decline' => 'Rejeter <span class="wb-inv"> la demande de collègues de %s</span>', // Check if code is ok with the % for user name, French wording is reverse
+  'friend_request:revoke' => 'Annuler <span class="wb-inv"> la demande de collègue envoyée à %s </span>',
+
+  'group:accept:invitation' => 'Accepter <span class="wb-inv">la demande d\'adhésion au groupe "%s"</span>',
+  'group:decline:invitation' => 'Rejeter <span class="wb-inv"> la demande d\'adhésion au groupe "%s"</span>',
+
+      'wet:more' => "Autres",
+    'breadcrum:home' => 'Accueil',
+
+        'wet:feedbackText' => "Rétroaction<span class='wb-inv'> sur ce site Web</span>",
+        'wet:footTerms' => 'Modalités',
+        'wet:footPrivacy'	 => 'Politique de confidentialité',
+        'wet:footTitleAbout' => 'Infos',
+        'wet:footTitleNews' =>  'Nouvelles',
+        'wet:footTitleSocial' => 'Restez branchés',
+/**
+ * Profile Strength
+ */
+     'ps:basicprofile' => "Profil de base",
+     'ps:access' => "Afficher : ",
+    'ps:details' => "Voir en détail",
+    'ps:education' => "Éducation",
+    'ps:work' => "Expérience de travail",
+    'ps:profilestrength' => "Profil",
+     'ps:all-star' => "Félicitations! Vous êtes une étoile.",
+     'ps:beginner' => "Débutant",
+     'ps:advanced' => "Avancé",
+     'ps:expert' => "Expert",
+     'ps:optingin' => "Avez-vous penser à adhérer aux micro-missions?",
+     'ps:optin' => "Adhérer",
+     'ps:psErr' => "Une erreur est survenue durant l'obtentions de vos informations de profil . Nous travaillons pour résoudre le problème .",
+
+         /**
+     * Department Verify
+     */
+
+    'dept:confirm' => 'Confirmez votre ministère',
+    'dept:intro' => 'Dans l’optique d’avoir de l’information à jour sur GCconnex et afin d’obtenir les meilleurs statistiques possibles, nous vous prions de confirmer votre ministère.',
+    'dept:not' => "N'est pas votre ministère présentement?",
+    'dept:select' => 'Veuillez choisir votre ministère présent',
+    'confirm' => 'Confirmer',
+    'dept:saved' => '%s saved as current department',
+
+    'dept:confirm' => 'Salut, bonjour!',
+    'dept:intro' => "Avez-vous changé de poste récemment? Avez-vous commencé une affectation? L’ASC vous a recruté pour devenir astronaute? Aidez-nous à garder GCconnex à jour en confirmant où vous travaillez.",
+    'dept:not' => "N'est pas votre ministère présentement?",
+    'dept:select' => 'Veuillez choisir votre ministère présent',
+    'confirm' => 'Confirmer',
+    'dept:saved' => '%s saved as current department',
+    'dept:notfound' => "Nous ne sommes pas capable de trouver votre ministère dans notre liste! Votre ministère a possiblement changé de nom récemment. Veuillez sélectionner le bon ministère dans la liste suivante",
+
+       /**
+    * Message Inbox
+    */
+>>>>>>> connex/gcconnex
 
   /**
    * Department Verify
@@ -91,9 +283,45 @@ return array(
   'thewire:groupwarning' => 'Ce contenu peut être consulté par les membres de : ',
   'thewire:userwarning' => 'Seuls les utilisateurs suivants peuvent consulter ce contenu : ',
 
+<<<<<<< HEAD
 
   /**
    * Files
+=======
+    'gprofile:about' => "Infos",
+    'gprofile:discussion' => "Discussion",
+    'gprofile:files' => "Fichiers",
+    'gprofile:blogs' => "Blogue",
+    'gprofile:events' => "Événement",
+    'gprofile:calendar' => "calendrier",
+    'gprofile:pages' => "Pages",
+    'gprofile:bookmarks' => "Signets",
+    'gprofile:polls' => "Sondages",
+    'gprofile:tasks' => "Tâches",
+    'gprofile:photos' => "Photos",
+    'gprofile:photoCatch' => "Images",
+    'gprofile:albums' => "Albums",
+    'gprofile:albumsCatch' => "Albums d'image",
+    'gprofile:ideas' => "Idées",
+    'gprofile:more' => "Plus",
+    'gprofile:settings' => 'Paramètres',
+    'gprofile:create' => 	"Créer un groupe",
+    'gprofile:edit:content' => "Options pour le contenu",
+    'gprofile:edit:admin' => "Option pour l'administrateur",
+    'groups:suggestedGroups' => 'Le groupe en cours de création existe déjà, consultez ces suggestions pour trouver ce que vous chercher.',
+    'groups:creatediscussion' => 	'Créer une discussion',
+    'profile:actions' => 	'Actions',
+    'profile:viewall:coll' => 	'Voir tous mes collègues',
+    'profile:viewall:groups' => 'Voir tous mes groupes',
+    'photos:none' => 'Aucun album d\'image',
+    'gcforums:enable_group_forums' => 'Activé les forums de groupe',
+    'gprofile:contentMenu' => "Menu de contenu du groupe",
+
+    'groups:stats'  => "Statistiques de groupe",
+
+        /**
+   * Group invite
+>>>>>>> connex/gcconnex
    */
   'file:folderstruct' => 'Folder structure (translate me)', /* NEW */
 
@@ -1839,11 +2067,11 @@ return array(
 
 'comment_notif_title' => "Vous n’êtes pas membre du groupe %s!",
 /*'comment_notif_description' => "<p>Vous n'êtes pas membre de ce groupe. Joignez-vous au groupe pour être informé lorsque du nouveau contenu est ajouté et pour suivre ce fil. Remarque: Vous pouvez ajuster vos préférences de notification dans vos paramètres de compte de GCconnex.</p>
- 
+
 <p>Vous n’êtes pas encore prêt à joindre le groupe? Allez-y et affichez votre commentaire, mais n'oubliez pas de revenir vérifier ce fil pour voir les nouveaux commentaires affichés.</p> ",
 */'not_now' => 'Pas maintenant',
 
-  
+
 /**
  * Languages according to ISO 639-1 (with a couple of exceptions)
  */

@@ -152,13 +152,21 @@ if ($alt_image) {
 
 echo <<<HTML
 
-<article class="$class clearfix mrgn-bttm-sm" $id>
+<article class="$class mrgn-bttm-sm" $id>
 
+<<<<<<< HEAD
     $image$alt_image$body$echo
     <div class=" elgg-body clearfix edit-comment">
 
+=======
+	$image$alt_image$body$echo
+    <div class="clearfix"></div>
+    <div class=" elgg-body edit-comment">
+   
+>>>>>>> connex/gcconnex
     </div>
 </article>
+<div class="clearfix"></div>
 HTML;
 
 }

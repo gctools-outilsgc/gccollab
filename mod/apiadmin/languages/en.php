@@ -13,7 +13,10 @@
 
 $english = array(
 	'admin:administer_utilities:apiadmin' => 'API Key Admin',
+<<<<<<< HEAD
     'admin:statistics:apilog' => 'API Access Log',
+=======
+>>>>>>> connex/gcconnex
 
 	'apiadmin:refrenamed' => 'API Reference changed',
 	'apiadmin:refnotrenamed' => 'API Reference could not be changed',
@@ -30,12 +33,16 @@ $english = array(
 	'apiadmin:rename_prompt' => 'Enter your new reference for the key:',
 	'apiadmin:revoke_prompt' => 'Are you sure you want to revoke these keys?',
 	'apiadmin:regenerate_prompt' => 'Are you sure you want to regenerate these keys?',
+<<<<<<< HEAD
     'apiadmin:log:all' => 'View access log for all keys',
     'apiadmin:nokeys' => 'There are no registered api keys at the moment.',
+=======
+>>>>>>> connex/gcconnex
 	
 	'apiadmin:revoke' => 'Revoke keys',
 	'apiadmin:rename' => 'Change reference',
 	'apiadmin:regenerate' => 'Regenerate keys',
+<<<<<<< HEAD
     'apiadmin:log' => 'Access log',
 
 	'apiadmin:public' => 'Public',
@@ -57,4 +64,13 @@ $english = array(
     'apiadmin:no_result' => 'There are no API access log entries at the moment',
     'apiadmin:no_version_check' => 'API Admin needs the Version Check plugin to check for updates and new releases',
 );
+=======
+	
+	'apiadmin:public' => 'Public',
+	'apiadmin:private' => 'Private',
+
+	'item:object:api_key' => 'API Keys'
+);
+
+>>>>>>> connex/gcconnex
 add_translation('en', $english);
