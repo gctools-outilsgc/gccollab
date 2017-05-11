@@ -1219,7 +1219,7 @@ ol {
   padding-left: 0;
   list-style: none; }
 
-.list-unstyled li{
+.list-unstyled li {
     list-style: none;
 }
 
@@ -4285,7 +4285,7 @@ a.thumbnail.active {
 
 .alert {
   padding: 15px;
-  margin-bottom: 23px;
+  margin-bottom: 2px;
   border: 1px solid transparent;
   border-radius: 4px; }
   .alert h4 {
@@ -4623,6 +4623,8 @@ a.list-group-item-danger {
 .elgg-river-summary{
     font-weight:bold;
     font-style: italic;
+    margin: 2px 0 2px 0;
+    font-size: 1em;
 }
 
 .elgg-river-summary a{
@@ -5613,6 +5615,8 @@ button.close {
   display: none !important; }
 
 @media (max-width: 767px) {
+  .centered-xs {
+    text-align: center !important; }
   .visible-xs {
     display: block !important; }
   table.visible-xs {
@@ -10148,7 +10152,7 @@ header {
  * Mobile Chevron
  */
 #wb-glb-mn {
-  margin-top: 20px; }
+  margin-top: 0px; }
   #wb-glb-mn ul {
     min-width: 150px; }
     #wb-glb-mn ul.chvrn {
@@ -10168,15 +10172,7 @@ header {
         padding-left: 12px;
         top: 0; }
       #wb-glb-mn ul.chvrn:before {
-        border-bottom: 1.375em solid transparent;
-        border-left: 0.6875em solid #f8f8f8;
-        border-top: 1.375em solid transparent;
-        content: " ";
-        display: block;
-        float: left;
-        height: 0;
-        position: relative;
-        width: 0; }
+        }
 
 /* IE Tweaks */
 .lt-ie9 header .brand a {
@@ -10520,8 +10516,8 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
     vertical-align: middle; }
   #wb-srch input,
   .srchbox input {
-    background-color: #e0e0e0;
-    border-color: #e0e0e0;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
     border-right: 0;
     border-style: solid;
     -webkit-box-shadow: none;
@@ -11505,7 +11501,7 @@ Carousel
   header .brand a {
     margin-top: 15px; }
   #wb-glb-mn {
-    margin-top: 20px; }
+    margin-top: 0px; }
     #wb-glb-mn ul.chvrn li a {
       font-size: 1.7em; } }
 

@@ -304,7 +304,7 @@ $button_set = mm_create_button_set_full($mission);
 	</div>
 	<br>
 	<div>
-		<h4><?php echo elgg_echo('mission:manager_information') . ':'; ?></h4>
+		<h2 class='h4'><?php echo elgg_echo('mission:manager_information') . ':'; ?></h2>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 required" for="edit-mission-name-text-input" style="text-align:right;" aria-required="true">
@@ -349,7 +349,7 @@ $button_set = mm_create_button_set_full($mission);
 	<br>
 	<div>
 		<div>
-			<h4><?php echo elgg_echo('mission:opportunity_details') . ':'; ?></h4>
+			<h2 class='h4'><?php echo elgg_echo('mission:opportunity_details') . ':'; ?></h2>
 		</div>
 		<?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="form-group">
@@ -484,14 +484,14 @@ $button_set = mm_create_button_set_full($mission);
 	</div>
 	<br>
 	<div>
-		<h5><?php echo elgg_echo('missions:language_requirements') . ':';?></h5>
+		<h3 class='h5'><?php echo elgg_echo('missions:language_requirements') . ':';?></h3>
 		<div class="form group">
 			<?php echo $languages;?>
 		</div>
 	</div>
 	<br>
 	<div>
-		<h5><?php echo elgg_echo('missions:scheduling_requirements') . ':';?></h5>
+		<h3 class='h5'><?php echo elgg_echo('missions:scheduling_requirements') . ':';?></h3>
 		<div class="form-group">
 			<label class="col-sm-3 required" for="edit-mission-time-commitment-text-input" style="text-align:right;" aria-required="true">
 				<?php echo elgg_echo('missions:time_in_hours');?>
