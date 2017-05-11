@@ -14,11 +14,7 @@ $site_url = elgg_get_site_url();
 ?>
 
 
-<<<<<<< HEAD
     <section id="wb-lng" class="visible-md visible-lg text-right">
-=======
-    <section id="wb-lng" class="visible-md visible-lg text-right col-sm-1">
->>>>>>> connex/gcconnex
         <h2 class="wb-inv"><?php echo elgg_echo('wet:LangSel')?></h2>
             <div class="col-md-12">
                 <ul class="list-inline margin-bottom-none">

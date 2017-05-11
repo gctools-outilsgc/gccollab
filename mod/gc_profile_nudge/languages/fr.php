@@ -7,7 +7,3 @@ return array(
   'gc_profile_nudge:timelength' => "Rappelez l'utilisateur tous les :",
   'gc_profile_nudge:days' => "jour(s)"
 );
-<<<<<<< HEAD
-
-=======
->>>>>>> connex/gcconnex

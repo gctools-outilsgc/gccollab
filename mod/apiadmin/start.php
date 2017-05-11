@@ -1,6 +1,5 @@
 <?php
 /**
-<<<<<<< HEAD
  * Enhanced API Admin
  * A plugin to manage web services API keys directly from within the Elgg admin console
  *
@@ -15,8 +14,6 @@
 /*
  * Based upon:
  *
-=======
->>>>>>> connex/gcconnex
  * Elgg API Admin
  * Upgraded to Elgg 1.8 (tested on 1.8.8) and added rename and regenerate actions
  * 
@@ -38,15 +35,10 @@ elgg_register_event_handler('init','system','apiadmin_init');
  * @param unknown_type $object
 */
 function apiadmin_init($event, $object_type, $object = null) {
-<<<<<<< HEAD
 	// Add pages and menu items to the admin area
 	elgg_register_admin_menu_item('administer', 'apiadmin', 'administer_utilities', 501);
     elgg_register_admin_menu_item('administer', 'apilog', 'statistics', 501);
     //elgg_register_admin_menu_item('administer', 'apistats', 'statistics', 501);
-=======
-	// Add a page to the admin area
-	elgg_register_admin_menu_item('administer', 'apiadmin', 'administer_utilities');
->>>>>>> connex/gcconnex
 
 	// Hook into delete to revoke secret keys
 	elgg_register_event_handler('delete', 'object', 'apiadmin_delete_key');
@@ -57,7 +49,6 @@ function apiadmin_init($event, $object_type, $object = null) {
 	elgg_register_action('apiadmin/generate', $plugindir . '/actions/apiadmin/generate.php', 'admin');
 	elgg_register_action('apiadmin/renamekey', $plugindir . '/actions/apiadmin/renamekey.php', 'admin');
 	elgg_register_action('apiadmin/regenerate', $plugindir . '/actions/apiadmin/regenerate.php', 'admin');
-<<<<<<< HEAD
 
     if ( elgg_get_plugin_setting('enable_stats', 'apiadmin') == 'on' ) {
         // Register hook for 'api_key', 'use' for stats purposes
@@ -67,8 +58,6 @@ function apiadmin_init($event, $object_type, $object = null) {
     if ( elgg_is_active_plugin('version_check') ) {
         version_check_register_plugin('apiadmin');
     }
-=======
->>>>>>> connex/gcconnex
 }
 
 /**
@@ -88,7 +77,6 @@ function apiadmin_delete_key($event, $object_type, $object = null) {
 
 	return true;
 }
-<<<<<<< HEAD
 
 function apiadmin_apikey_use($hook, $type, $returnvalue, $params) {
     global $CONFIG;
@@ -218,5 +206,3 @@ function apiadmin_get_usage_log($by_key = '', $handler = '', $request = '', $met
 
     return false;
 }
-=======
->>>>>>> connex/gcconnex

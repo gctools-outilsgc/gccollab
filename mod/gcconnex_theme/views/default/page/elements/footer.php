@@ -18,11 +18,7 @@ $priv = $site_url .'privacy-confidentialite';
         <nav role="navigation">
             <h2>About this site</h2>
             
-<<<<<<< HEAD
-            <div class="row">
-=======
 			<div class="row">
->>>>>>> connex/gcconnex
 
                 <section class="col-sm-3">
                 <h3>
@@ -66,11 +62,7 @@ $priv = $site_url .'privacy-confidentialite';
                         <a href="<?php echo elgg_echo('wet:gcdirectoryLink');?>">GC<?php echo elgg_echo('wet:barDirectory');?></a></li>
                     <li>
                         <a href="<?php echo elgg_echo('wet:gccollabLink');?>">GCcollab</a></li>
-<<<<<<< HEAD
-                       </ul>
-=======
 	                   </ul>
->>>>>>> connex/gcconnex
                 </section>
                 <section class="col-sm-3">
                 <h3>

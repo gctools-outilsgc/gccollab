@@ -1492,11 +1492,7 @@ details.elgg-state-success:before {
 
 #app-brand li a{
    text-decoration: none;
-<<<<<<< HEAD
     color: #46246A;
-=======
-    color:white;
->>>>>>> connex/gcconnex
 }
 .app-name{
 
@@ -1538,8 +1534,6 @@ details.elgg-state-success:before {
     width:500%;
     clear: both;
 }
-<<<<<<< HEAD
-=======
     
 @media (min-width: 992px) and (max-width: 1200px) {
       .app-name:before {
@@ -1547,7 +1541,6 @@ details.elgg-state-success:before {
 }     
    
 
->>>>>>> connex/gcconnex
 .tool-link{
     padding:11px 0 0 30px;
 }

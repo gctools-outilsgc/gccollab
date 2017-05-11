@@ -366,23 +366,8 @@ echo '</div>'; // close div class="panel-heading"
 echo '<div class="row mrgn-lft-md mrgn-rght-sm">';
 echo elgg_view('profile/owner_block');
 echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
-<<<<<<< HEAD
-
-// if user is student or professor, display the correlated information
-if (strcmp($user->user_type, 'student') == 0 || strcmp($user->user_type, 'academic') == 0 ) {
-    echo '<h3 class="mrgn-tp-0">'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</h3>';
-    echo '<div class="gcconnex-profile-dept">'./*elgg_echo("{$user->institution}", array($user->intstitution))*/$user->institution.'</div>';
-
-// otherwise if user is public servant
-} else {
-    echo '<h3 class="mrgn-tp-0">' . $user->job . '</h3>';
-    echo '<div class="gcconnex-profile-dept">' . $user->department . '</div>';
-}
-
-=======
 echo '<div class="mrgn-tp-0 h3">' . $user->job . '</div>';
 echo '<div class="gcconnex-profile-dept">' . $user->department . '</div>';
->>>>>>> connex/gcconnex
 echo '<div class="gcconnex-profile-location">' . $user->location . '</div>';
 
 

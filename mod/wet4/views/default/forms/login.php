@@ -95,12 +95,8 @@ $query = "SELECT COUNT(guid) FROM {$dbprefix}groups_entity";
 $groups = get_data($query);
 $discussions = elgg_get_entities(array('type' => 'object', 'subtype' => 'groupforumtopic', 'count' => true));
 
-<<<<<<< HEAD
-    //Nick - adding some stats to the bottom of the landing / login page (Should only appear on that page)
-/*
-=======
 //Nick - adding some stats to the bottom of the landing / login page (Should only appear on that page)
->>>>>>> connex/gcconnex
+/*
 if(elgg_in_context('login')){
     $inside_stats =['<span class="login-big-num">'.$groups[0]->{'COUNT(guid)'}.'</span> '.elgg_echo('groups'),elgg_echo('wet:login:departments'),elgg_echo('wet:login:discussions', array($discussions))];
     foreach($inside_stats as $stat){

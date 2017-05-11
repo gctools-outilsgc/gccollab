@@ -10154,10 +10154,7 @@ header {
   #wb-glb-mn ul {
     min-width: 150px; }
     #wb-glb-mn ul.chvrn {
-<<<<<<< HEAD
       background: #46246A;
-=======
->>>>>>> connex/gcconnex
       display: inline-block;
       float: right;
       height: 2.75em; }
@@ -10492,11 +10489,7 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
  */
 #wb-srch,
 .srchbox {
-<<<<<<< HEAD
    }
-=======
-  padding-top: 0.37em; }
->>>>>>> connex/gcconnex
   #wb-srch input,
   #wb-srch button,
   .srchbox input,
@@ -10504,30 +10497,17 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
     border-radius: 0; }
   #wb-srch button,
   .srchbox button {
-<<<<<<< HEAD
     background-color: #46246A;
     border: 0;
     border-color: #46246A;
     font-size: 17px; }
-=======
-    background-color: #ededed;
-    border: 0;
-      padding: 5px 8px;
-    border-color: #ededed;
-      color: #055959;
-    font-size: 16px; }
->>>>>>> connex/gcconnex
     #wb-srch button:hover,
     #wb-srch button:focus,
     #wb-srch button:active,
     .srchbox button:hover,
     .srchbox button:focus,
     .srchbox button:active {
-<<<<<<< HEAD
       background: #6B5088; }
-=======
-      background: #ededed; }
->>>>>>> connex/gcconnex
   #wb-srch .glyphicon,
   .srchbox .glyphicon {
     top: auto;
@@ -10542,12 +10522,7 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
             box-shadow: none;
     color: #555;
     margin-right: -4px;
-<<<<<<< HEAD
     width: 100%;
-=======
-    min-width: 235px;
-      height:33px;
->>>>>>> connex/gcconnex
     position: relative; }
   #wb-srch .form-group:not(.submit) {
     width: 92%; }

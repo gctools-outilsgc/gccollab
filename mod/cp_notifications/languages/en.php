@@ -5,20 +5,11 @@ $site_name = $site->name;
 $contact_us = "{$site->getURL()}mod/contactform/?utm_source=notification_digest&utm_medium=email";
 
 $english = array(
-<<<<<<< HEAD
-	'cp_notify:setting:no_grp_subscription' => 'Nothing to load',
-	'cp_notify:setting:loading' => 'Loading...',
-
-	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notification digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/'>Account Settings</a>.",
-	'cp_newsletter:notice:disable_digest' => "The notification digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section.",
-=======
 	'cp_notifications:name' => "Notification Email",
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choose how you want to be notified of GCconnex activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>. See: “<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F?utm_source=notification_digest&utm_medium=email'>How Do I Change My Notifications Settings</a>?” for more information.",
-	'cp_newsletter:notice:disable_digest' => "The notifications digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section. If you choose to enable the notifications digest, you will no longer receive real-time (instant) notifications by email and/or on the site, about activities happening on GCconnex (with the exception of administrative-type notifications).",
->>>>>>> connex/gcconnex
+	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>.",
+	'cp_newsletter:notice:disable_digest' => "The notifications digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section. If you choose to enable the notifications digest, you will no longer receive real-time (instant) notifications by email and/or on the site, about activities happening on GCcollab (with the exception of administrative-type notifications).",
 
 	'cp_newsletter:subject:daily' => 'Your Daily Digest', 
 	'cp_newsletter:subject:weekly' => 'Your Weekly Digest', 
@@ -130,11 +121,7 @@ $english = array(
 	
 	/// (NEWSLETTER) THROUGH EMAIL SERVER, EMAIL CONTENT: Newsletter email notifications
 	'cp_newsletter:title:nothing' => "Your {$site_name} Digest: Nothing to report today",
-<<<<<<< HEAD
-	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular'>colleagues</a> to stay informed and grow your network!",
-=======
-	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCconnex. Join <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>colleagues</a> to stay informed and grow your network!",
->>>>>>> connex/gcconnex
+	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>colleagues</a> to stay informed and grow your network!",
 	'cp_newsletter:title' => "Your {$site_name} Digest: New activities to report!", 
 	'cp_newsletter:greeting' => "Good morning %s. Here are your notifications for <strong>%s</strong>",
 
@@ -237,14 +224,7 @@ $english = array(
  
 	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
-<<<<<<< HEAD
-	'cp_notify:footer:no_user' => 'Learn more about <a href="http://www.gcpedia.gc.ca/wiki/GCTools/GCconnex">GCconnex</a>, the professional networking and collaborative workspace for the public service.<br/>
-	Need help? <a href="'.elgg_get_site_url().'mod/contactform/">Contact us</a>.',
-=======
-	'cp_notify:footer:no_user' => 'Learn more about <a href="http://www.gcpedia.gc.ca/wiki/GCTools/GCconnex?utm_source=notification&utm_medium=email">GCconnex</a>, the professional networking and collaborative workspace for the public service.<br/>
-	Need help? <a href="https://gcconnex.gc.ca/mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
->>>>>>> connex/gcconnex
-	//'cp_personalized_message' => 'Personalized message from %s.',
+	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
 	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
@@ -463,16 +443,8 @@ $english = array(
 
 
 	// email notification footer text (1 and 2)
-<<<<<<< HEAD
 	'cp_notify:footer' => "",
-	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCcollab and edit your <a href='%s'>notifications' settings</a>.",
-=======
-	'cp_notify:footer' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F?utm_source=notification&utm_medium=email'>GCconnex notifications</a>. ",
-	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."contactform/?utm_source=notification&utm_medium=email'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCconnex and edit your <a href='%s'>notifications' settings</a>.",
->>>>>>> connex/gcconnex
-
-//'cp_notify:footer' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F'>GCconnex notifications</a>. %s sent you a site message entitled '%s'",
-
+	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."contactform/?utm_source=notification&utm_medium=email'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCcollab and edit your <a href='%s'>notifications' settings</a>.",
 
 	'cp_notify:quicklinks' => 'Subscription Quick Links',
 	'cp_notify:content_name' => 'Content Name',
@@ -489,11 +461,10 @@ $english = array(
 	"cp_notify:sidebar:subs_title" => "Personal Subscriptions",
     
 
-    'cp_notify:visitTutorials'=>'To learn more about GCconnex and its features visit the <a href="http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/See_All">GCconnex User Help</a>.<br/>
-	                             Thank you',
+    'cp_notify:visitTutorials'=>'',
 
 	// cyu - new message in place for email content revamp
-	'cp_notify:footer_msg' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F'>GCconnex notifications</a>. Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe to notifications, login to GCcollab and edit your notifications' settings.",
+	'cp_notify:footer_msg' => "Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe to notifications, login to GCcollab and edit your notifications' settings.",
 	'cp_notify:french_follows' => "<i>(Le fran&ccedil;ais suit)</i>",
 	'cp_notify:readmore' => "<a href='%s'>Read more</a>",
 
