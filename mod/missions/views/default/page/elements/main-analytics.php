@@ -211,7 +211,7 @@ $graph_hide_table_button = elgg_view('output/url', array(
 	        padding: '6px',
 	        'font-size': '14px',
 	        'border-radius': '12px',
-	        'background-color': '#047177',
+	        'background-color': '#46246a',
 	        opacity: 0.9
 		}).appendTo('body').fadeIn(200);
 	}

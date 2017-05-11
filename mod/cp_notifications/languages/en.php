@@ -57,7 +57,7 @@ $english = array(
 	'cp_notifications:mail_body:subtype:bookmarks' => "%s posted a bookmark: %s", 
 	'cp_notifications:mail_body:subtype:file' => "%s posted a file: %s", 
 	'cp_notifications:mail_body:subtype:album' => "%s posted an album: %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "%s posted on the %s",
+	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> posted on the <a href='%s'>%s</a>",
 	'cp_notifications:mail_body:subtype:poll' => "%s created a poll: %s", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s posted an event: %s", 
 	'cp_notifications:mail_body:subtype:photo' => "%s posted an image: %s", 
@@ -225,7 +225,7 @@ $english = array(
 	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
 	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
+	'cp_personalized_message' => "<div style='border: 1px solid #46246a; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
 	// group mail section

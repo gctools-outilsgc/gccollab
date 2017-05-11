@@ -134,7 +134,7 @@ max-height: 500px;
 
 .no-style-link:hover {
   text-decoration: none;
-  color: #047177;
+  color: #46246a;
 }
 
 .login-as-out {
@@ -1798,7 +1798,7 @@ figcaption{
 }
 
 .event-calendar-repeating-selected {
-    background-color:#047177;
+    background-color:#46246a;
     color: #fff !important;
     width: auto;
 
@@ -1811,7 +1811,7 @@ figcaption{
 
 .event-calendar-repeating-unselected:hover {
     text-decoration: none;
-    background-color:#047177;
+    background-color:#46246a;
     color: #fff;
 }
 

@@ -37,6 +37,6 @@ The Wire
 }
 
 .ui-menu-item a:hover {
-	color: #047177;
+	color: #46246a;
 }
 

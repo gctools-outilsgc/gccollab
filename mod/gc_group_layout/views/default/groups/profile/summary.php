@@ -124,7 +124,7 @@ if($group->cover_photo =='nope' || $group->cover_photo ==''){
     </div>
       </div>
 
-			<div class="btn-group text-right col-xs-3 group-action-holder">
+			<div class="btn-group text-right col-xs-3 col-sm-5 group-action-holder">
 
 
 						 <div class="groups-stats mrgn-tp-sm mrgn-bttm-sm text-right"></div>

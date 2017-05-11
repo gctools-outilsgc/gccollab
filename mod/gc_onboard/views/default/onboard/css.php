@@ -227,7 +227,7 @@
  }
 
  .onboard-icon{
-     color: #047177;
+     color: #46246a;
 
  }
  .onboard-icon i{

@@ -64,7 +64,7 @@ $french = array(
 	'cp_notifications:mail_body:subtype:bookmarks' => "%s a publié un signet : %s", 	
 	'cp_notifications:mail_body:subtype:file' => "%s a publié un fichier : %s", 
 	'cp_notifications:mail_body:subtype:album' => "%s a publié un album : %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "%s a publié sur le %s", 
+	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> a publié sur le <a href='%s'>%s</a>", 
 
 	'cp_notifications:mail_body:subtype:poll' => "%s a créé un sondage :", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s a publié un événement : %s", 
@@ -221,7 +221,7 @@ $french = array(
 	Vous-êtes déjà sur GCcollab? Votre adresse est peut-être désuète. <a href='".elgg_get_site_url()."login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
 
 	'cp_notify:footer:no_user' => 'Besoin d\'aide? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contactez-nous</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
+	'cp_personalized_message' => "<div style='border: 1px solid #46246a; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
 
 
 	// group mail section
