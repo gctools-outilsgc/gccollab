@@ -6,8 +6,8 @@
     sudo aptitude install git apache2 mysql-server php5 libapache2-mod-php5 php5-mysql php5-gd
 When prompted, enter a root password for MySQL.
 
-#### Fork and Clone GCConnex Github Repo
-    git clone -b gcconnex https://github.com/gctools-outilsgc/gcconnex.git
+#### Fork and Clone GCCollab Github Repo
+    git clone -b gccollab https://github.com/gctools-outilsgc/gccollab.git
 
 #### Create data directory
 
