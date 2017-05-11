@@ -43,7 +43,7 @@ foreach ($responses3 as $value) {
 
 	$responses4 = gc_explode_translation($value, $lang);
 
-$form_body .='  <input type="radio"  class = "mrgn-rght-sm" id="responses-'.$responses4.'" name="response3" value="'.$value.'"> <label for="responses-'.$responses4.'">'.$responses4.'</label><br>';
+$form_body .= '<label for="responses-'.$responses4.'"><input type="radio"  class = "mrgn-rght-sm" id="responses-'.$responses4.'" name="response3" value="'.$value.'"> '.$responses4.'</label><br>';
 }
 
 

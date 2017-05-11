@@ -11,7 +11,7 @@ elgg_load_library('elgg:polls');
 $options = array(
 	'type' => 'object',
 	'subtype'=>'poll',
-	'owner_guid' => elgg_get_page_owner_guid(),
+	'container_guid' => elgg_get_page_owner_guid(),
 	'limit' => 1,
 );
 
