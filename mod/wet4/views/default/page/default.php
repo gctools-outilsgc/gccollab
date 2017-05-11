@@ -130,7 +130,7 @@ $breadcrumbs
 
 
 
-	<footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
+	<footer role="contentinfo" id="wb-info" class="centered-xs visible-xs visible-sm visible-md visible-lg wb-navcurr">
 
 			$footer
 
