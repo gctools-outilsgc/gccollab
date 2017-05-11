@@ -5615,6 +5615,8 @@ button.close {
   display: none !important; }
 
 @media (max-width: 767px) {
+  .centered-xs {
+    text-align: center !important; }
   .visible-xs {
     display: block !important; }
   table.visible-xs {
