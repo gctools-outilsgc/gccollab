@@ -2,19 +2,18 @@
 
 $site = elgg_get_site_entity();
 $site_name = $site->name;
-$contact_us = "{$site->getURL()}mod/contactform/";
+$contact_us = "{$site->getURL()}mod/contactform/?utm_source=notification_digest&utm_medium=email";
 
 $english = array(
-	'cp_notify:setting:no_grp_subscription' => 'Nothing to load',
-	'cp_notify:setting:loading' => 'Loading...',
+	'cp_notifications:name' => "Notification Email",
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notification digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/'>Account Settings</a>.",
-	'cp_newsletter:notice:disable_digest' => "The notification digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section.",
+	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>.",
+	'cp_newsletter:notice:disable_digest' => "The notifications digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section. If you choose to enable the notifications digest, you will no longer receive real-time (instant) notifications by email and/or on the site, about activities happening on GCcollab (with the exception of administrative-type notifications).",
 
 	'cp_newsletter:subject:daily' => 'Your Daily Digest', 
 	'cp_newsletter:subject:weekly' => 'Your Weekly Digest', 
-	'cp_newsletter:enable_digest_option' => "Enable your notification digest",
+	'cp_newsletter:enable_digest_option' => "Enable your notifications digest",
 	'cp_newsletter:label:english' => "English",
 	'cp_newsletter:label:french' => "French",
 	'cp_newsletter:label:daily' => "Daily",
@@ -65,19 +64,25 @@ $english = array(
 	'cp_notifications:mail_body:subtype:task' => "%s created a task: %s", 
 	'cp_notifications:mail_body:subtype:likes' => "%s liked your post: %s",
 
-	'cp_notifications:mail_body:subtype:response' => "%s replied or commented on your post: %s", 
+	'cp_notifications:mail_body:subtype:response' => "%s replied or commented on the post: %s",
+	//'cp_notifications:mail_body:subtype:response:others' => "%s replied or commented on the post: %s",
+
 	'cp_notifications:mail_body:subtype:any' => "%s posted a%s %s: %s", // john doe posted an idea vs john doe posted a blog
 
+	'cp_notifications:mail_body:subtype:oppourtunity' => "%s posted an opportunity (%s): %s",
 
 	'cp_notifications:mail_body:subtype:content_revision' => "%s revised the %s: %s", 
 	'cp_notifications:mail_body:subtype:mention' => "%s mentioned you in the %s: %s", 
 
+	'cp_notifications:mail_body:subtype:wire_mention' => "%s mentioned you on the %s",
 
 	'cp_notifications:mail_body:subtype:content_share' => "%s shared your %s: %s", 
+	'cp_notifications:mail_body:subtype:content_share:wire' => "%s shared your %s",
+	'cp_notifications:mail_body:your_wire_post' => "Wire post",
 
 	'cp_newsletter:other_content:notice' => "These subscriptions are only for content items that are not part of a group", 
 
-	'cp_notifications:subtype:name:thewire' => "fil",
+	'cp_notifications:subtype:name:thewire' => "wire",
 
 	'cp_notifications:no_colleagues' => "You do not have any colleagues",
     'cp_notifications:chkbox:email' => "Email",
@@ -86,11 +91,14 @@ $english = array(
 	'cp_notifications:not_subscribed' => 'Not Subscribed',
 	'cp_notifications:pick_colleagues' => 'Subscribe to your colleagues',
 	'cp_notifications:group_content'=>'Group Content',
+
     'cp_notifications:no_group_subscription' => "Nothing to load",
+ 	'cp_notifications:no_personal_subscription' => "No content subscription",
+
  	'cp_notifications:loading' => 'Loading...',
 	'cp_notifications:subscribe_all_label' => "<a href='%s'>Subscribe</a> or <a href='%s'> Unsubscribe</a> to all groups and their content",
 	'cp_notifications:chkbox:select_all_group_for_notification' => "Select all groups (this will not select the group content)",
-    'cp_notify:personal_bulk_notifications' => 'Enable Notification Digest',
+    'cp_notify:personal_bulk_notifications' => 'Enable Notifications Digest',
 
     'cp_notifications:personal_likes' => 'Notify me when someone likes my content',
     'cp_notifications:personal_mentions' => 'Notify me when someone @mentions me',
@@ -98,22 +106,22 @@ $english = array(
     'cp_notifications:personal_colleagues' => 'Notify me when my colleagues create content',
 	'cp_notifications:personal_opportunities' => "Notify me when a new opportunity I have opted in for is created in the Career ConneXions Opportunities Platform",
 
-	'cp_notifications:no_group_content' => "(No subscribed group content)",
+	'cp_notifications:no_group_content' => "(No group content subscription)",
 
 	/// SETTINGS PAGE: Notification headings
 	'cp_notifications:heading:page_title' => 'Your Subscriptions',
 	'cp_notifications:your_email' => "your email",
-	'cp_notifications:heading:newsletter_section' => "Notification Digest",
+	'cp_notifications:heading:newsletter_section' => "Notifications Digest",
  	'cp_notifications:heading:personal_section'=>'Personal Notifications',
     'cp_notifications:heading:colleague_section'=>'Colleague Notifications',
     'cp_notifications:heading:group_section' => 'Group Notifications',
- 	'cp_notifications:heading:nonGroup_section' => 'Other Content Subscriptions', //CHANGE 3
+ 	'cp_notifications:heading:nonGroup_section' => 'Other Content Subscriptions',
 
 	'cp_notifications:subtype:name:thewire' => "Wire",
 	
 	/// (NEWSLETTER) THROUGH EMAIL SERVER, EMAIL CONTENT: Newsletter email notifications
 	'cp_newsletter:title:nothing' => "Your {$site_name} Digest: Nothing to report today",
-	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular'>colleagues</a> to stay informed and grow your network!",
+	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>colleagues</a> to stay informed and grow your network!",
 	'cp_newsletter:title' => "Your {$site_name} Digest: New activities to report!", 
 	'cp_newsletter:greeting' => "Good morning %s. Here are your notifications for <strong>%s</strong>",
 
@@ -134,17 +142,20 @@ $english = array(
 	'cp_newsletter:heading:notify:friend_request:singular' => "New colleague request", 
 	'cp_newsletter:heading:notify:friend_request:plural' => "New colleague requests", 
 
-	'cp_newsletter:heading:notify:friend_approved:singular' => "%s approved your colleague request", 	
-	'cp_newsletter:heading:notify:friend_approved:plural' => "%s approved your colleague request", 
+	'cp_newsletter:heading:notify:friend_approved:singular' => "%s user approved your colleague request", 	
+	'cp_newsletter:heading:notify:friend_approved:plural' => "%s users approved your colleague request", 
 
 	'cp_newsletter:heading:notify:likes:singular' => "Like received on your content", 
 	'cp_newsletter:heading:notify:likes:plural' => "Likes received on your content", 
 
-	'cp_newsletter:heading:notify:new_post:singular' => "New item has been posted by your colleague",
-	'cp_newsletter:heading:notify:new_post:plural' => "New items have been posted by your colleagues", //CHANGE 3 
+	'cp_newsletter:heading:notify:new_post:singular' => "New item has been posted by your colleague", 
+	'cp_newsletter:heading:notify:new_post:plural' => "New items have been posted by your colleagues", //CHANGE
 	
+	'cp_newsletter:heading:notify:new_post:group:singular' => "New item has been posted",
+	'cp_newsletter:heading:notify:new_post:group:plural' => "New items have been posted", //CHANGE
+
 	'cp_newsletter:heading:notify:content_revision:singular' => "Item has been revised", 
-	'cp_newsletter:heading:notify:content_revision:plural' => "Items have been revised", 
+	'cp_newsletter:heading:notify:content_revision:plural' => "Items have been revised", //CHANGE
 
 	'cp_newsletter:heading:notify:cp_mention:singular' => "Person mentioned you.", 	
 	'cp_newsletter:heading:notify:cp_mention:plural' => "People mentioned you.", 
@@ -159,11 +170,13 @@ $english = array(
 	'cp_newsletter:heading:notify:response:plural' => "Responses to other content subscriptions", 
 	
 
+	'cp_newsletter:digest:opportunities:date' => "Closing date: ",
+
 	/// (INSTANT EMAIL) EMAIL CONTENT: Normal email notifications
-	'cp_newsletter:footer:notification_settings' => "To unsubscribe or manage these messages, please login and visit your <a href='{$site->getURL()}settings/plugin/%s/cp_notifications'> Notification Settings</a>.",
+	'cp_newsletter:footer:notification_settings' => "To unsubscribe or manage these messages, please login and visit your <a href='{$site->getURL()}settings/notifications/%s?utm_source=notification_digest&utm_medium=email'> Notification Settings</a>.",
 	'cp_newsletter:ending' => "<p>Regards,</p> <p>The GCTools Team</p>",
 
-    'cp_notifications:contact_help_desk'=> "Should you have any concerns, please use the <a href='{$site->getURL()}mod/contactform/'>Contact us form</a>.",
+    'cp_notifications:contact_help_desk'=> "Should you have any concerns, please use the <a href='{$site->getURL()}mod/contactform/?utm_source=notification_digest&utm_medium=email'>Contact us form</a>.",
 
 
 	/// notification header
@@ -174,6 +187,11 @@ $english = array(
 	'cp_notify:subject:group_add_user' => "You have been added the group '%s'",
 	'cp_notify:body_group_add:title' => "You have been added to the group '%s'",
 	'cp_notify:body_group_add:description' => "You have been added to the group %s: <br/>%s",
+
+
+	'cp_newsletter:body:view_comment_reply' => 'View comment or discussion reply',
+	'cp_new_mission:subject' => "New micromission notification",
+
 
 
 	// content edit section
@@ -206,9 +224,7 @@ $english = array(
  
 	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
-	'cp_notify:footer:no_user' => 'Learn more about <a href="http://www.gcpedia.gc.ca/wiki/GCTools/GCconnex">GCconnex</a>, the professional networking and collaborative workspace for the public service.<br/>
-	Need help? <a href="'.elgg_get_site_url().'mod/contactform/">Contact us</a>.',
-	//'cp_personalized_message' => 'Personalized message from %s.',
+	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
 	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
@@ -321,9 +337,9 @@ $english = array(
 
 
 	// friend approval section
-	'cp_notify:subject:approve_friend' => "%s approved your colleague's request",
-	'cp_notify:body_friend_approve:title' => "%s approved your colleague's request",
-	'cp_notify:body_friend_approve:description' => "%s approved your colleague's request",
+	'cp_notify:subject:approve_friend' => "%s approved your colleague request",
+	'cp_notify:body_friend_approve:title' => "%s approved your colleague request",
+	'cp_notify:body_friend_approve:description' => "%s approved your colleague request",
 
 
 	// mention user on the wire section
@@ -395,7 +411,7 @@ $english = array(
 	'cp_notify:body_wireshare:title' => "%s shared your %s with title '%s'",
 	'cp_notify:body_wireshare:title2' => "%s shared your %s",
 	//'cp_notify:body_wireshare:description' => "%s has shared your %s on the wire, to view or reply to this please click on the following link: %s",
-	'cp_notify:body_wireshare:description' => "%s has shared your %s on the wire, to view or reply to this please click on the following link: %s",
+	'cp_notify:body_wireshare:description' => "%s shared your %s on the wire, to view or reply to this please click on the following link: %s", //CHANGE
 	'cp_notify:wireshare_thewire:subject' => "%s shared your message on the wire",
 
 	// event calendar section
@@ -428,10 +444,7 @@ $english = array(
 
 	// email notification footer text (1 and 2)
 	'cp_notify:footer' => "",
-	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCcollab and edit your <a href='%s'>notifications' settings</a>.",
-
-//'cp_notify:footer' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F'>GCconnex notifications</a>. %s sent you a site message entitled '%s'",
-
+	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."contactform/?utm_source=notification&utm_medium=email'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCcollab and edit your <a href='%s'>notifications' settings</a>.",
 
 	'cp_notify:quicklinks' => 'Subscription Quick Links',
 	'cp_notify:content_name' => 'Content Name',
@@ -448,11 +461,10 @@ $english = array(
 	"cp_notify:sidebar:subs_title" => "Personal Subscriptions",
     
 
-    'cp_notify:visitTutorials'=>'To learn more about GCconnex and its features visit the <a href="http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/See_All">GCconnex User Help</a>.<br/>
-	                             Thank you',
+    'cp_notify:visitTutorials'=>'',
 
 	// cyu - new message in place for email content revamp
-	'cp_notify:footer_msg' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F'>GCconnex notifications</a>. Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe to notifications, login to GCcollab and edit your notifications' settings.",
+	'cp_notify:footer_msg' => "Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe to notifications, login to GCcollab and edit your notifications' settings.",
 	'cp_notify:french_follows' => "<i>(Le fran&ccedil;ais suit)</i>",
 	'cp_notify:readmore' => "<a href='%s'>Read more</a>",
 

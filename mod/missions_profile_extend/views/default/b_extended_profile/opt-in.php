@@ -33,7 +33,7 @@
 	else {
 		echo '<div class="gcconnex-profile-opt-in-display-table" style="margin: 10px;">';
 		/* MW - Changed for GCcollab version of Opp Platform
-        echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h4>';
+        echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h3>';
 			echo '<ul class="list-unstyled">';
                 echo '<li class="left-col">' . elgg_echo('gcconnex_profile:opt:micro_missionseek');
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_missions) . '</span></li>';
@@ -58,7 +58,7 @@
                 
         echo '</ul></div>';
         */
-        echo '<div class="col-sm-6 "><h4 class="mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:development').'</h4>';
+        echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:development').'</h3>';
         echo '<ul class="list-unstyled">';
                 
 				

@@ -14,7 +14,7 @@
 $english = array(
 	'admin:administer_utilities:apiadmin' => 'API Key Admin',
     'admin:statistics:apilog' => 'API Access Log',
-
+    
 	'apiadmin:refrenamed' => 'API Reference changed',
 	'apiadmin:refnotrenamed' => 'API Reference could not be changed',
 	'apiadmin:keyrevoked' => 'API Key revoked',
@@ -32,7 +32,7 @@ $english = array(
 	'apiadmin:regenerate_prompt' => 'Are you sure you want to regenerate these keys?',
     'apiadmin:log:all' => 'View access log for all keys',
     'apiadmin:nokeys' => 'There are no registered api keys at the moment.',
-	
+
 	'apiadmin:revoke' => 'Revoke keys',
 	'apiadmin:rename' => 'Change reference',
 	'apiadmin:regenerate' => 'Regenerate keys',
@@ -57,4 +57,5 @@ $english = array(
     'apiadmin:no_result' => 'There are no API access log entries at the moment',
     'apiadmin:no_version_check' => 'API Admin needs the Version Check plugin to check for updates and new releases',
 );
+
 add_translation('en', $english);
