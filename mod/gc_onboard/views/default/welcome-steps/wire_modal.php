@@ -24,7 +24,7 @@
         height: 65% !important;
     }
     #showWire header{
-        background-color: #047177;
+        background-color: #46246a;
     }
     #showWire .panel-body{
         width:90%;
@@ -101,7 +101,7 @@
 
                 <div class="mrgn-bttm-md mrgn-tp-md pull-right">
 
-                    <a type="button" class="overlay-close btn btn-primary close-wire-popup" data-dismiss="modal" style="background-color: #047177;">
+                    <a type="button" class="overlay-close btn btn-primary close-wire-popup" data-dismiss="modal" style="background-color: #46246a;">
                         <?php echo elgg_echo('groupTour:gotit');?>
                     </a>
 

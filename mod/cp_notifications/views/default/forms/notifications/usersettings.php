@@ -297,7 +297,7 @@ echo elgg_format_element('div', ['class' => 'elgg-foot'], $submit);
 	right: 0;
 	bottom: 0;
 	background-color: #ccc;
-	border: 1px solid #047177;
+	border: 1px solid #46246a;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
@@ -322,11 +322,11 @@ echo elgg_format_element('div', ['class' => 'elgg-foot'], $submit);
 
 
 input:checked + .slider {
-	background-color: #047177;
+	background-color: #46246a;
 }
 
 input:focus + .slider {
-	box-shadow: 0 0 1px #047177;
+	box-shadow: 0 0 1px #46246a;
 }
 
 input:checked + .slider:before {

@@ -158,7 +158,7 @@
 </div>
 <style>
     .alert-gc {
-        border: 2px solid #047177;
+        border: 2px solid #46246a;
         background: white;
         margin: 3px;
         padding:5px;

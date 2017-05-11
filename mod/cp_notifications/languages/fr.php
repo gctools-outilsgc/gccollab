@@ -221,7 +221,7 @@ $french = array(
 	Vous-êtes déjà sur GCcollab? Votre adresse est peut-être désuète. <a href='".elgg_get_site_url()."login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
 
 	'cp_notify:footer:no_user' => 'Besoin d\'aide? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contactez-nous</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
+	'cp_personalized_message' => "<div style='border: 1px solid #46246a; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
 
 
 	// group mail section

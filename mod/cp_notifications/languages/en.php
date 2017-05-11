@@ -225,7 +225,7 @@ $english = array(
 	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
 	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
+	'cp_personalized_message' => "<div style='border: 1px solid #46246a; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
 	// group mail section
