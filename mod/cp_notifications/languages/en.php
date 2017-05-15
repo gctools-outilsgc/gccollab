@@ -359,7 +359,19 @@ $english = array(
 	// invited to join GCcollab section
 	'cp_notify:subject:invite_new_user' => "You have been invited to join GCcollab",
 	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCcollab by %s",
-	'cp_notify:body_invite_new_user:description' => "Join the professionnal networking and collaborative workspace for all public service. You can proceed to your GCcollab registration through this link %s", 
+	'cp_notify:body_invite_new_user:description' => "<p>Join GCcollab, a collaborative and networking space, hosted by the Government of Canada, open to Canadian public servants (federal, provincial and territorial), academics, students and their partners across Canada and beyond.</p>
+
+<p>Once you're a member, you can also invite anyone else you need to work with using the Colleagues functionality. (This option is available by selecting the icon of 3 silhouettes that appears above the main navigation bar).</p>
+
+<p style='border: 1px solid black; padding: 5px;'><strong>Personal message from %s:</strong><br><span style='white-space: pre-line;'>%s</span></p>
+
+<p>You can join by clicking on the following link and start the registration process: %s</p>
+
+<p><em>If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.</em></p>
+
+<p>Keep in mind that GCcollab is still in a pilot phase and changes and updates occur frequently.</p>
+
+<p>All of the code and issues related to the platform are available on GitHub, so if you have any suggestions or want to help us make them better, please join in!</p>",
 
 
 	// transfer admin

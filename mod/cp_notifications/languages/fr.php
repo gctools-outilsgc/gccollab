@@ -403,7 +403,19 @@ $french = array(
 	// invite new user to GCcollab
 	'cp_notify:subject:invite_new_user' => "Vous avez été invité à joindre GCcollab",
 	'cp_notify:body_invite_new_user:title' => "Vous avez été invité à joindre GCcollab par %s",
-	'cp_notify:body_invite_new_user:description' => "Joignez-vous à l'espace de travail collaboratif pour le réseautage professionnel pour l'ensemble de la fonction publique. Vous pouvez vous inscrire à GCcollab en cliquant sur le lien suivant %s",
+	'cp_notify:body_invite_new_user:description' => "<p>Joignez-vous à GCcollab, un espace de collaboration et de réseautage hébergé par le gouvernement du Canada, ouvert aux fonctionnaires canadiens (fédéraux, provinciaux et territoriaux), aux universitaires, aux étudiants et à leurs partenaires partout au Canada.</p>
+
+<p>Une fois que vous êtes membre, vous pouvez également inviter toute autre personne avec qui vous souhaitez travailler, à partir de la fonctionnalité « Collègues ». (Cette option est disponible en sélectionnant l'icône des trois silhouettes qui figure au-dessus du menu de navigation.</p>
+
+<p style='border: 1px solid black; padding: 5px;'><strong>Message personnel de %s :</strong><br><span style='white-space: pre-line;'>%s</span></p>
+
+<p>Vous pouvez vous joindre en cliquant sur le lien suivant et entreprendre le processus d'inscription : %s</p>
+
+<p><em>Si vous cliquez sur le lien ci-dessus et que ça ne fonctionne pas, tentez plutôt de copier et de coller l'adresse URL dans une nouvelle fenêtre de navigateur.</em></p>
+
+<p>Gardez à l'esprit que GCcollab est toujours en phase pilote et que des modifications et des mises à jour y sont apportées fréquemment.</p>
+
+<p>Il est possible d’obtenir des réponses à toute question ayant trait au codage et à tout problème lié(e) à la plateforme à partir de GitHub. Ainsi, si vous avez des suggestions ou souhaitez nous aider à les améliorer, joignez-vous à nous!</p>",
 
 
 	// transfer group admin
