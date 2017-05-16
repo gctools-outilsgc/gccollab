@@ -4,6 +4,7 @@ $english = array(
   'gc_communities:title' => "Community Page Title",
   'gc_communities:url' => "Community Page URL",
   'gc_communities:animator' => "Community Animator",
+  'gc_communities:tags' => "Community Tags",
   'gc_communities:delete' => "Delete Community Page",
 
   'gc_communities:communities' => "Communities",
