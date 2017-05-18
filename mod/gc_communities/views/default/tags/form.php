@@ -43,6 +43,7 @@
 
 				$(".community_tags #tags").removeClass('error');
 				$("#cboxClose").click();
+				window.location.href = community_url;
 			} else {
 				$(".community_tags #tags").addClass('error').focus();
 			}

@@ -1,5 +1,4 @@
 <style type="text/css">
-	.elgg-foot .elgg-button-submit 	{ display: none; }
 	.elgg-form-settings				{ max-width: none; }
 	table.communities     			{ width: 100%; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-top: 10px; }
 	table.communities th 			{ background: #eee; padding: 5px; border-left: 1px solid #ccc; border-top: 1px solid #ccc; }
@@ -137,3 +136,11 @@ if (count($communities) > 0) {
 }
 
 echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'communities', 'name' => 'params[communities]', 'value' => $vars['entity']->communities));
+
+$options = array(
+	'id' => 'widget_based',
+	'name' => 'params[widget_based]',
+	'value' => 'true'
+);
+if($vars['entity']->widget_based){ $options['checked'] = 'checked'; }
+echo '<p class="mtl"><label>Enable widgets on community pages? ' . elgg_view('input/checkbox', $options) . '</label></p>';

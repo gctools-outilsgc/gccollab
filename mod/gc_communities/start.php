@@ -120,6 +120,7 @@ function gc_community_page_handler($page, $url){
             $community_en = $community['community_en'];
             $community_fr = $community['community_fr'];
             $community_animator = $community['community_animator'];
+            $community_tags = $community['community_tags'];
         }
     }
 
@@ -127,6 +128,7 @@ function gc_community_page_handler($page, $url){
     set_input('community_en', $community_en);
     set_input('community_fr', $community_fr);
     set_input('community_animator', $community_animator);
+    set_input('community_tags', $community_tags);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;

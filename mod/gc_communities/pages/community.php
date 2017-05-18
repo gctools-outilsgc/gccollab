@@ -7,7 +7,6 @@
 $community_url = get_input('community_url');
 $community_en = get_input('community_en');
 $community_fr = get_input('community_fr');
-$community_animator = get_input('community_animator');
 elgg_set_context('gc_communities-' . $community_url);
 elgg_set_page_owner_guid(elgg_get_config('site_guid'));
 
