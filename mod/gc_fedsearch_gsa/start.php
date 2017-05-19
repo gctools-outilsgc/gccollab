@@ -114,7 +114,7 @@ function entity_url($hook, $type, $return, $params) {
 		return;
 	}
 
-	if (!empty(trim($comment_block)) || $comment_block === null)
+	if (!empty($comment_block) || $comment_block === null)
 		$comment_text = $comment_block->item(0)->getAttribute('data-role');
 	else
 		$comment_text = "";
