@@ -307,8 +307,8 @@ switch ($msg_type) {
 		$cp_notify_msg_title_en = elgg_echo('cp_notify:body_group_request:title', array($vars['cp_group_req_user']->name,$vars['cp_group_req_group']->name),'en');
 		$cp_notify_msg_title_fr = elgg_echo('cp_notify:body_group_request:title', array($vars['cp_group_req_user']->name,$vars['cp_group_req_group']->name),'fr');
 
-		$cp_notify_msg_description_en = elgg_echo('cp_notify:body_group_request:description',array($vars['cp_group_req_group']->name,$vars['cp_group_req_group']->getURL().'?utm_source=notification&utm_medium=email'),'en');
-		$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_group_request:description',array($vars['cp_group_req_group']->name,$vars['cp_group_req_group']->getURL().'?utm_source=notification&utm_medium=email'),'fr');
+		$cp_notify_msg_description_en = elgg_echo('cp_notify:body_group_request:description',array($vars['cp_group_req_group']->name,elgg_get_site_url()."groups/requests/".$vars['cp_group_req_group']->guid.'?utm_source=notification&utm_medium=email'),'en');
+		$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_group_request:description',array($vars['cp_group_req_group']->name,elgg_get_site_url()."groups/requests/".$vars['cp_group_req_group']->guid.'?utm_source=notification&utm_medium=email'),'fr');
 
 		break;
 
