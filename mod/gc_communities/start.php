@@ -7,6 +7,12 @@
 elgg_register_event_handler('init', 'system', 'gc_communities_init');
 
 function gc_communities_init(){
+    // Register ajax save action
+    elgg_register_action("gc_communities/save", __DIR__ . "/actions/gc_communities/save.php");
+
+    // Register ajax tag view
+    elgg_register_ajax_view("tags/form");
+
     $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'), true);
     $context = array();
 
@@ -16,7 +22,12 @@ function gc_communities_init(){
 
         foreach( $communities as $community ){
             $url = $community['community_url'];
+            $community_animator = $community['community_animator'];
+
             $text = (get_current_language() == 'fr') ? $community['community_fr'] : $community['community_en'];
+            if( elgg_is_admin_logged_in() || $community_animator == elgg_get_logged_in_user_entity()->username ){
+                $text .= " <span class='elgg-lightbox' data-colorbox-opts='".json_encode(['href'=>'ajax/view/tags/form?community_url='.$url,'width'=>'800px','height'=>'255px'])."'><i class='fa fa-cog fa-lg'><span class='wb-inv'>Customize this Community</span></i></span>";
+            }
 
             //Register Community page handler
             elgg_register_page_handler($url, 'gc_community_page_handler');
@@ -52,7 +63,8 @@ function gc_communities_init(){
         elgg_register_widget_type('filtered_events_index', elgg_echo('gc_communities:filtered_events_index'), elgg_echo('gc_communities:filtered_events_index'), $context, true);
     }
     
-    elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
+    // Removing widget since Filtered Feed is now shown by default
+    // elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
     
     if( elgg_is_active_plugin('groups') ){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_communities:filtered_groups_index'), elgg_echo('gc_communities:filtered_groups_index'), $context, true);
@@ -60,11 +72,12 @@ function gc_communities_init(){
 
     elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
 
-    elgg_register_widget_type('filtered_spotlight_index', elgg_echo('gc_communities:filtered_spotlight_index'), elgg_echo('gc_communities:filtered_spotlight_index'), $context, true);
+    // Removing widget since Filtered Wire is now shown by default
+    // if( elgg_is_active_plugin('thewire') ){
+    //     elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
+    // }
 
-    if( elgg_is_active_plugin('thewire') ){
-        elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
-    }
+    elgg_register_widget_type('free_html', elgg_echo("widgets:free_html:title"), elgg_echo("widgets:free_html:description"), $context, true);
 }
 
 function gc_communities_permissions_hook($hook, $entity_type, $returnvalue, $params) {
@@ -109,6 +122,7 @@ function gc_community_page_handler($page, $url){
             $community_en = $community['community_en'];
             $community_fr = $community['community_fr'];
             $community_animator = $community['community_animator'];
+            $community_tags = $community['community_tags'];
         }
     }
 
@@ -116,12 +130,13 @@ function gc_community_page_handler($page, $url){
     set_input('community_en', $community_en);
     set_input('community_fr', $community_fr);
     set_input('community_animator', $community_animator);
+    set_input('community_tags', $community_tags);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;
 }
 
-function gc_communities_build_columns($area_widget_list, $widgettypes, $build_server_side = true){
+function gc_communities_build_widgets($area_widget_list, $widgettypes, $build_server_side = true){
 
     $column_widgets_view = array();
     $column_widgets_string = "";

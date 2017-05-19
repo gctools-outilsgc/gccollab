@@ -206,11 +206,6 @@ if (elgg_get_config('allow_registration')) {
 				'invitecode' => $invitecode,
 			);
 
-			if (elgg_is_active_plugin('gcRegistration_invitation')) {
-				$data = array('invitee' => $guid, 'email' => $new_user->email);
-				elgg_trigger_plugin_hook('gcRegistration_invitation_register', 'all', $data);
-			}
-
 			// @todo should registration be allowed no matter what the plugins return?
 			if (!elgg_trigger_plugin_hook('register', 'user', $params, TRUE)) {
 				$ia = elgg_set_ignore_access(true);
@@ -218,6 +213,11 @@ if (elgg_get_config('allow_registration')) {
 				elgg_set_ignore_access($ia);
 				// @todo this is a generic messages. We could have plugins throw a RegistrationException, but that is very odd for the plugin hooks system.
 				throw new RegistrationException(elgg_echo('registerbad'));
+			}
+
+			if ($invitecode && elgg_is_active_plugin('gcRegistration_invitation')) {
+				$data = array('invitee' => $guid, 'email' => $new_user->email);
+				elgg_trigger_plugin_hook('gcRegistration_invitation_register', 'all', $data);
 			}
 
 			elgg_clear_sticky_form('register');

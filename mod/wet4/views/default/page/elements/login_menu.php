@@ -245,13 +245,11 @@ $site_url = elgg_get_site_url();
 <div id="topnav">
 <div class="active-links">
     <div id="session">
-
-
-    <a id="signin-link" href="#" style='text-decoration:none;'>
-    <strong><span id="login_focus"><?php if (get_context() != 'login'){ echo elgg_echo('login'); ?></span>  |</strong>
-    </a>
-    <strong><a  href=" <?php echo $site_url; ?>register">  <?php echo elgg_echo('register'); ?></a></li></strong>
-    <?php } ?>
+    <?php if (get_context() != 'login'): ?>
+        <a id="signin-link" href="#" style='text-decoration:none;'>
+        <strong><span id="login_focus"><?php echo elgg_echo('login'); ?></span></strong></a> | 
+        <strong><a href="<?php echo $site_url; ?>register"><?php echo elgg_echo('register'); ?></a></strong>
+    <?php endif; ?>
     </div>
         <div id="signin-dropdown" class='login-menu'>
     
