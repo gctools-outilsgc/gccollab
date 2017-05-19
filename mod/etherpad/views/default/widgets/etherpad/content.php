@@ -20,7 +20,7 @@ $content = elgg_list_entities($options);
 echo $content;
 
 if ($content) {
-	$url = "etherpad/owner/" . elgg_get_page_owner_entity()->username;
+	$url = "pads/owner/" . elgg_get_page_owner_entity()->username;
 	$more_link = elgg_view('output/url', array(
 		'href' => $url,
 		'text' => elgg_echo('etherpad:more'),

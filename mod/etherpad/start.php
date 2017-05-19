@@ -13,12 +13,12 @@ function etherpad_init() {
 	// override pages library
 	elgg_register_library('elgg:pages', elgg_get_plugins_path() . 'etherpad/lib/pages.php');
 	
-	$actions_base = elgg_get_plugins_path() . 'etherpad/actions/etherpad';
-	elgg_register_action("etherpad/save", "$actions_base/save.php");
-	elgg_register_action("etherpad/delete", "$actions_base/delete.php");
+	$actions_base = elgg_get_plugins_path() . 'etherpad/actions/pads';
+	elgg_register_action("pads/save", "$actions_base/save.php");
+	elgg_register_action("pads/delete", "$actions_base/delete.php");
 	
 	elgg_register_page_handler('pages', 'etherpad_page_handler');
-	elgg_register_page_handler('etherpad', 'etherpad_page_handler');
+	elgg_register_page_handler('pads', 'etherpad_page_handler');
 	
 	// Language short codes must be of the form "etherpad:key"
 	// where key is the array key below
@@ -45,7 +45,7 @@ function etherpad_init() {
 	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'etherpad_icon_url_override');
 	
 	if(elgg_get_plugin_setting('integrate_in_pages', 'etherpad') != 'yes') {
-		$item = new ElggMenuItem('etherpad', elgg_echo('etherpad'), 'etherpad/all');
+		$item = new ElggMenuItem('etherpad', elgg_echo('etherpad'), 'pads/all');
 		elgg_register_menu_item('site', $item);
 		
 		elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'etherpad_owner_block_menu');
@@ -139,7 +139,7 @@ function etherpad_entity_menu($hook, $type, $return, $params) {
 	}
 	
 	// timeslider button, show only if pages integration is enabled.
-	$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'etherpad';
+	$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'pads';
 	if($handler == 'pages') {
 		$options = array(
 			'name' => 'etherpad-timeslider',
@@ -193,7 +193,7 @@ function etherpad_notify_message($hook, $entity_type, $returnvalue, $params) {
  */
 function etherpad_url($entity) {
 	$title = elgg_get_friendly_title($entity->title);
-	return "etherpad/view/$entity->guid/$title";
+	return "pads/view/$entity->guid/$title";
 }
 
 /**
@@ -221,12 +221,12 @@ function etherpad_icon_url_override($hook, $type, $returnvalue, $params) {
  */
 function etherpad_owner_block_menu($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
-		$url = "etherpad/owner/{$params['entity']->username}";
+		$url = "pads/owner/{$params['entity']->username}";
 		$item = new ElggMenuItem('etherpad', elgg_echo('etherpad'), $url);
 		$return[] = $item;
 	} else {
 		if ($params['entity']->pages_enable != "no") {
-			$url = "etherpad/group/{$params['entity']->guid}/all";
+			$url = "pads/group/{$params['entity']->guid}/all";
 			$item = new ElggMenuItem('etherpad', elgg_echo('etherpad:group'), $url);
 			$return[] = $item;
 		}

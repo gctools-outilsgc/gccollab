@@ -11,10 +11,12 @@ $english = array(
 	 * Menu items and titles
 	 */
 	 
+	'pads' => "Pads",
 	'etherpad' => "Pads",
 	'etherpad:owner' => "%s's pads",
 	'etherpad:friends' => "Friends' pads",
 	'etherpad:all' => "All site pads",
+	'pads:add' => "Add pad",
 	'etherpad:add' => "Add pad",
 	'etherpad:timeslider' => 'History',
 	'etherpad:fullscreen' => 'Fullscreen',

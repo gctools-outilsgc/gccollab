@@ -44,7 +44,7 @@ $new_link = elgg_view('output/url', array(
 
 if($integrate_in_pages) {
 	$new_link .= ' ' . elgg_view('output/url', array(
-		'href' => "etherpad/add/$group->guid",
+		'href' => "pads/add/$group->guid",
 		'text' => elgg_echo('etherpad:add'),
 		'is_trusted' => true,
 	));

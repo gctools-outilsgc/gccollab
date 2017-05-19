@@ -28,7 +28,7 @@ if ($etherpad->write_access_id == ACCESS_PUBLIC) {
 $etherpad_icon = elgg_view('etherpad/icon', array('entity' => $etherpad, 'size' => 'small'));
 
 //link to owners pages only if pages integration is enabled. Else link to owners pads. 
-$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'etherpad';
+$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'pads';
 $editor = get_entity($etherpad->owner_guid);
 $editor_link = elgg_view('output/url', array(
 	'href' => "$handler/owner/$editor->username",
@@ -56,7 +56,7 @@ if ($comments_count != 0) {
 
 $metadata = elgg_view_menu('entity', array(
 	'entity' => $vars['entity'],
-	'handler' => 'etherpad',
+	'handler' => 'pads',
 	'sort_by' => 'priority',
 	'class' => 'elgg-menu-hz list-inline mrgn-tp-sm',
 ));

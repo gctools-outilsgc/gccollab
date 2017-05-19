@@ -22,9 +22,9 @@ if (!$container) {
 $title = $pad->title;
 
 if (elgg_instanceof($container, 'group')) {
-	elgg_push_breadcrumb($container->name, "etherpad/group/$container->guid/all");
+	elgg_push_breadcrumb($container->name, "pads/group/$container->guid/all");
 } else {
-	elgg_push_breadcrumb($container->name, "etherpad/owner/$container->username");
+	elgg_push_breadcrumb($container->name, "pads/owner/$container->username");
 }
 elgg_push_breadcrumb($title);
 

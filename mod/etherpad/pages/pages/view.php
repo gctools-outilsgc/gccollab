@@ -44,7 +44,7 @@ if ($page->canEdit() && $container->canWriteToContainer()) {
 			'link_class' => 'elgg-button elgg-button-action',
 	));
 	if(elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes'){
-		$url = "etherpad/add/$page->guid";
+		$url = "pads/add/$page->guid";
 		elgg_register_menu_item('title', array(
 				'name' => 'subpad',
 				'href' => $url,

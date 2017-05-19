@@ -25,7 +25,7 @@ if (!$content) {
 }
 
 if ($integrate_in_pages && elgg_is_logged_in()) {
-	$url = "etherpad/add/" . elgg_get_logged_in_user_guid();
+	$url = "pads/add/" . elgg_get_logged_in_user_guid();
 	elgg_register_menu_item('title', array(
 			'name' => 'elggpad',
 			'href' => $url,

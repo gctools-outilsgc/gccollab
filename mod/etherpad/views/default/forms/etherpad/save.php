@@ -8,13 +8,8 @@
 $variables = elgg_get_config('etherpad');
 foreach ($variables as $name => $type) {
 ?>
-<div>
+<div class="mbm">
 	<label><?php echo elgg_echo("etherpad:$name") ?></label>
-	<?php
-		if ($type != 'longtext') {
-			echo '<br />';
-		}
-	?>
 	<?php echo elgg_view("input/$type", array(
 			'name' => $name,
 			'value' => $vars[$name],

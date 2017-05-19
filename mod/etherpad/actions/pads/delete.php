@@ -33,7 +33,7 @@ if ($page) {
 				}
 			}
 			//Forward to pages only if pages integration enabled. Otherwise forward to pads. 
-			$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'etherpad';
+			$handler = elgg_get_plugin_setting('integrate_in_pages', 'etherpad') == 'yes' ? 'pages' : 'pads';
 			
 			if (elgg_instanceof($container, 'group')) {
 				forward("$handler/group/$container->guid/all");

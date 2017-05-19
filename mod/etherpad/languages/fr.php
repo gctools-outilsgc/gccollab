@@ -1,20 +1,22 @@
 <?php
 /**
- * Etherpads Spanish language file
+ * Etherpads French language file
  * 
  * package ElggPad
  */
 
-$spanish = array(
+$french = array(
 
 	/**
 	 * Menu items and titles
 	 */
 	 
+	'pads' => "Pads",
 	'etherpad' => "Pads",
 	'etherpad:owner' => "Pads de %s",
 	'etherpad:friends' => "Pads de los amigos",
 	'etherpad:all' => "Todos los pads",
+	'pads:add' => "Nuevo pad",
 	'etherpad:add' => "Nuevo pad",
 	'etherpad:timeslider' => 'Historial',
 	'etherpad:fullscreen' => 'Pantalla completa',
@@ -80,4 +82,4 @@ $spanish = array(
 	'etherpad:newchild' => "Crea un sub-pad",
 );
 
-add_translation('es', $spanish);
+add_translation('fr', $french);
