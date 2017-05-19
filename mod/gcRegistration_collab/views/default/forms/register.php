@@ -399,16 +399,18 @@ $(window).on('beforeunload', function(){
 		$ministries = json_decode($mins->ministries_fr, true);
 	}
 
-	foreach($provincial_departments as $province => $province_name){
-		$prov_id = str_replace(" ", "-", strtolower($province));
-		echo '<div class="form-group occupation-choices provincial-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
-		echo elgg_view('input/select', array(
-			'name' => 'ministry',
-			'id' => $prov_id,
-	        'class' => 'form-control',
-			'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
-		));
-		echo '</div>';
+	if( !empty($provincial_departments) ){
+		foreach($provincial_departments as $province => $province_name){
+			$prov_id = str_replace(" ", "-", strtolower($province));
+			echo '<div class="form-group occupation-choices provincial-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
+			echo elgg_view('input/select', array(
+				'name' => 'ministry',
+				'id' => $prov_id,
+		        'class' => 'form-control',
+				'options_values' => array_merge(array('default_invalid_value' => elgg_echo('gcRegister:make_selection')), $ministries[$province]),
+			));
+			echo '</div>';
+		}
 	}
 ?>
 
@@ -443,8 +445,10 @@ $(window).on('beforeunload', function(){
 					<?php echo $municipal_choices; ?>
 					<datalist id="municipal-list">
 						<?php
-							foreach($municipal as $municipal_name => $value){
-								echo '<option value="' . $municipal_name . '">' . $value . '</option>';
+							if( !empty($municipal) ){
+								foreach($municipal as $municipal_name => $value){
+									echo '<option value="' . $municipal_name . '">' . $value . '</option>';
+								}
 							}
 						?>
 					</datalist>
@@ -553,8 +557,10 @@ $(window).on('beforeunload', function(){
 					<?php echo $retired_choices; ?>
 					<datalist id="retired-list">
 						<?php
-							foreach($federal_departments as $federal_name => $value){
-								echo '<option value="' . $value . '"></option>';
+							if( !empty($federal_departments) ){
+								foreach($federal_departments as $federal_name => $value){
+									echo '<option value="' . $value . '"></option>';
+								}
 							}
 						?>
 					</datalist>
@@ -591,8 +597,10 @@ $(window).on('beforeunload', function(){
 					<?php echo $other_choices; ?>
 					<datalist id="other-list">
 						<?php
-							foreach($other as $other_name => $value){
-								echo '<option value="' . $other_name . '">' . $value . '</option>';
+							if( !empty($other) ){
+								foreach($other as $other_name => $value){
+									echo '<option value="' . $other_name . '">' . $value . '</option>';
+								}
 							}
 						?>
 					</datalist>
