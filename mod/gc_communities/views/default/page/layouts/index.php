@@ -8,10 +8,10 @@
     $title = ( get_current_language() == "fr" ) ? $community_fr : $community_en;
 
     $widget_based = elgg_get_plugin_setting('widget_based', 'gc_communities', false);
+    $newsfeed_limit = elgg_get_plugin_setting('newsfeed_limit', 'gc_communities', 10);
+    $wire_limit = elgg_get_plugin_setting('wire_limit', 'gc_communities', 10);
 
     if( $widget_based ){
-        $newsfeed_limit = elgg_get_plugin_setting('newsfeed_limit', 'gc_communities', 10);
-        $wire_limit = elgg_get_plugin_setting('wire_limit', 'gc_communities', 10);
 
         $exact_match = elgg_extract('exact_match', $vars, true);
         $show_access = elgg_extract('show_access', $vars, true);
