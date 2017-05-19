@@ -29,7 +29,7 @@ $title = elgg_echo("pages:edit");
 
 if ($page->canEdit()) {
 	$vars = pages_prepare_form_vars($page);
-	$content = elgg_view_form('etherpad/save', array(), $vars);
+	$content = elgg_view_form('pads/save', array(), $vars);
 } else {
 	$content = elgg_echo("pages:noaccess");
 }
