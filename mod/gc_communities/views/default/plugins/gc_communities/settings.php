@@ -95,6 +95,7 @@
 
 <?php
 
+// Show fields for adding new communities
 echo '<table class="communities">';
 echo '<tr> <th>'.elgg_echo('add').'</th> </tr>';
 echo '<tr><td>';
@@ -108,6 +109,7 @@ echo '</table>';
 
 echo '<br />';
 
+// Display all existing communities
 $communities = json_decode($vars['entity']->communities, true);
 
 if (count($communities) > 0) {
@@ -135,12 +137,18 @@ if (count($communities) > 0) {
 	echo "</tbody></table>";
 }
 
+// Hidden field to store communities
 echo elgg_view('input/text', array('type' => 'hidden', 'id' => 'communities', 'name' => 'params[communities]', 'value' => $vars['entity']->communities));
 
+// Page parameters for cmmunities
 $options = array(
 	'id' => 'widget_based',
 	'name' => 'params[widget_based]',
 	'value' => 'true'
 );
 if($vars['entity']->widget_based){ $options['checked'] = 'checked'; }
-echo '<p class="mtl"><label>Enable widgets on community pages? ' . elgg_view('input/checkbox', $options) . '</label></p>';
+echo '<p class="mtl"><label for="widget_based">' . elgg_echo('gc_communities:enable_widgets') . ' ' . elgg_view('input/checkbox', $options) . '</label></p>';
+
+echo '<p class="mtl"><label for="newsfeed_limit">' . elgg_echo('gc_communities:newsfeed_shown') . ' ' . elgg_view('input/select', array('id' => 'newsfeed_limit', 'name' => 'params[newsfeed_limit]', 'value' => (isset($vars['entity']->newsfeed_limit) ? $vars['entity']->newsfeed_limit : 10), 'options' => range(2, 20, 2))) . '</label></p>';
+
+echo '<p class="mtl"><label for="wire_limit">' . elgg_echo('gc_communities:wires_shown') . ' ' . elgg_view('input/select', array('id' => 'wire_limit', 'name' => 'params[wire_limit]', 'value' => (isset($vars['entity']->wire_limit) ? $vars['entity']->wire_limit : 10), 'options' => range(2, 20, 2))) . '</label></p>';

@@ -8,6 +8,8 @@ $english = array(
   'gc_communities:delete' => "Delete Community Page",
 
   'gc_communities:communities' => "Communities",
+  'gc_communities:community_newsfeed' => "Community Newsfeed",
+  'gc_communities:community_wire' => "Community Wire",
   
   'gc_communities:filtered_activity_index' => "Filtered Activity",
   'gc_communities:filtered_blogs_index' => "Filtered Blog Posts",
@@ -18,6 +20,10 @@ $english = array(
   'gc_communities:filtered_members_index' => "Filtered Members",
   'gc_communities:filtered_spotlight_index' => "Filtered Image Gallery",
   'gc_communities:filtered_wire_index' => "Filtered Wire Posts",
+
+  'gc_communities:enable_widgets' => "Enable widgets on community pages?",
+  'gc_communities:newsfeed_shown' => "Newsfeed items shown:",
+  'gc_communities:wires_shown' => "Wire posts shown:",
 );
 
 $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'));

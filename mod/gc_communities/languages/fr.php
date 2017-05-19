@@ -8,6 +8,8 @@ $french = array(
   'gc_communities:delete' => "Supprimer la page de la communauté",
 
   'gc_communities:communities' => "Communautés",
+  'gc_communities:community_newsfeed' => "Fil de nouvelles communautaire",
+  'gc_communities:community_wire' => "Les fils communautaire",
 
   'gc_communities:filtered_activity_index' => "En bref",
   'gc_communities:filtered_blogs_index' => "Derniers billets dans les blogues",
@@ -18,6 +20,10 @@ $french = array(
   'gc_communities:filtered_members_index' => "Membres filtrés",
   'gc_communities:filtered_spotlight_index' => "Galerie d'images",
   'gc_communities:filtered_wire_index' => "Derniers messages sur le fil",
+
+  'gc_communities:enable_widgets' => "Activer les widgets sur les pages de la communauté?",
+  'gc_communities:newsfeed_shown' => "Fil de nouvelles affichés :",
+  'gc_communities:wires_shown' => "Les fils sont affichés :",
 );
 
 $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'));

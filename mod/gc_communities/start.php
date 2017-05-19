@@ -63,7 +63,8 @@ function gc_communities_init(){
         elgg_register_widget_type('filtered_events_index', elgg_echo('gc_communities:filtered_events_index'), elgg_echo('gc_communities:filtered_events_index'), $context, true);
     }
     
-    elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
+    // Removing widget since Filtered Feed is now shown by default
+    // elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
     
     if( elgg_is_active_plugin('groups') ){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_communities:filtered_groups_index'), elgg_echo('gc_communities:filtered_groups_index'), $context, true);
@@ -71,11 +72,12 @@ function gc_communities_init(){
 
     elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
 
-    elgg_register_widget_type('filtered_spotlight_index', elgg_echo('gc_communities:filtered_spotlight_index'), elgg_echo('gc_communities:filtered_spotlight_index'), $context, true);
+    // Removing widget since Filtered Wire is now shown by default
+    // if( elgg_is_active_plugin('thewire') ){
+    //     elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
+    // }
 
-    if( elgg_is_active_plugin('thewire') ){
-        elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
-    }
+    elgg_register_widget_type('free_html', elgg_echo("widgets:free_html:title"), elgg_echo("widgets:free_html:description"), $context, true);
 }
 
 function gc_communities_permissions_hook($hook, $entity_type, $returnvalue, $params) {
@@ -134,7 +136,7 @@ function gc_community_page_handler($page, $url){
     return true;
 }
 
-function gc_communities_build_columns($area_widget_list, $widgettypes, $build_server_side = true){
+function gc_communities_build_widgets($area_widget_list, $widgettypes, $build_server_side = true){
 
     $column_widgets_view = array();
     $column_widgets_string = "";
