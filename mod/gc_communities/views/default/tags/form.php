@@ -21,7 +21,7 @@
 		$(".save-tags").click(function(e){
 			e.preventDefault();
 
-			var communitiesArray = JSON.parse('<?php echo $communities_json; ?>');
+			var communitiesArray = JSON.parse('<?php echo json_decode($communities_json); ?>');
 			var community_url = $(this).data('community_url');
 			var community_tags = $(".community_tags #tags").val();
 
