@@ -26,7 +26,7 @@
 			e.preventDefault();
 		    var url = $(this).data('url');
 		    toggleButtons(url);
-		    if($(this).hasClass("edit-community")){ $('input.community_en[data-url=' + url + ']').focus(); }
+		    if($(this).hasClass("edit-community")){ $('input.community_tags[data-url=' + url + ']').focus(); }
 		});
 
 		$("a.add-community").click(function(e){
