@@ -7,11 +7,21 @@
 elgg_register_event_handler('init', 'system', 'gc_communities_init');
 
 function gc_communities_init(){
+
+    $subtypes = elgg_get_plugin_setting('subtypes', 'gc_communities');
+    if( !$subtypes ){
+        elgg_set_plugin_setting('subtypes', json_encode(array('blog', 'groupforumtopic', 'event_calendar', 'file')), 'gc_communities');
+    }
+
     // Register ajax save action
     elgg_register_action("gc_communities/save", __DIR__ . "/actions/gc_communities/save.php");
 
     // Register ajax tag view
     elgg_register_ajax_view("tags/form");
+
+    // Register streaming ajax calls
+    elgg_register_ajax_view('ajax/community_feed');
+    elgg_register_ajax_view('ajax/community_wire');
 
     $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'), true);
     $context = array();
@@ -121,16 +131,16 @@ function gc_community_page_handler($page, $url){
         if( $community['community_url'] == $url ){
             $community_en = $community['community_en'];
             $community_fr = $community['community_fr'];
-            $community_animator = $community['community_animator'];
             $community_tags = $community['community_tags'];
+            $community_animator = $community['community_animator'];
         }
     }
 
     set_input('community_url', $url);
     set_input('community_en', $community_en);
     set_input('community_fr', $community_fr);
-    set_input('community_animator', $community_animator);
     set_input('community_tags', $community_tags);
+    set_input('community_animator', $community_animator);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;
