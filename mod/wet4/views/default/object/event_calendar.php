@@ -39,7 +39,7 @@ if ($full) {
 
 
 	$owner = $event->getOwnerEntity();
-	$owner_icon = elgg_view_entity_icon($owner, 'tiny');
+	$owner_icon = elgg_view_entity_icon($owner, 'medium');
 	$owner_link = elgg_view('output/url', array(
 		'href' => "event_calendar/owner/$owner->username",
 		'text' => $owner->name,
