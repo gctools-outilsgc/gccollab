@@ -72,7 +72,7 @@ $english = array(
 	// notice
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
 
-	'gcRegister:terms_and_conditions' => 'I have read, understood, and agree to the <a href="/terms" target="_blank">Terms and Conditions of Use</a>.',
+	'gcRegister:terms_and_conditions' => 'I have read, understood, and agree to the <a href="/terms" target="_blank">terms and conditions of use</a>.',
 	'gcRegister:validation_notice' => '<b>NOTE:</b> You will be unable to login to GCconnex until you have received a validation email.',
 	'gcRegister:tutorials_notice' => '<a href="http://www.gcpedia.gc.ca/wiki/Tutorials_on_GC2.0_Tools_/_Tutoriels_sur_les_outils_GC2.0/GCconnex">GCconnex tutorials</a>',
 	

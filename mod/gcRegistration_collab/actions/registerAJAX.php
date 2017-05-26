@@ -27,16 +27,22 @@ global $CONFIG;
 require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/engine/settings.php');
 
 // Establish MySQL connection link
-$connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname);
-if (mysqli_connect_errno($connection)) {
+$db_config = new \Elgg\Database\Config($CONFIG);
+if ($db_config->isDatabaseSplit()) {
+	$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ);
+} else {	
+	$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ_WRITE);
+}
+$connection = mysqli_connect($read_settings["host"], $read_settings["user"], $read_settings["password"], $read_settings["database"]);
+if (mysqli_connect_errno($connection)) 
+{
 	echo elgg_echo('gcRegister:failedMySQLconnection');
 	exit;
 }
 
-if ( $_POST['email'] ) {
+$email = strtolower(trim(get_input('email')));
 
-	$email = strtolower(trim(get_input('email')));
-
+if ( $email ) {
 	if (strlen( $email ) > 0) {
 		
 		$domainPos = strpos($email, '@') + 1;
@@ -108,10 +114,9 @@ if ( $_POST['email'] ) {
 	}
 }
 
-if ( $_POST['name'] ) {
+$name = trim(get_input('name'));
 
-	$name = trim(get_input('name'));
-	
+if ( $name ) {
 	if (strlen( $name ) > 0) {
 
 		$name = str_replace( " ", ".", $name );
