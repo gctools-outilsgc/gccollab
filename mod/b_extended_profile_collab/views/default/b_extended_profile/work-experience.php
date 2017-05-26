@@ -26,8 +26,7 @@ else {
         if ($experience = get_entity($guid)) {
             echo '<div class="gcconnex-profile-label work-experience-title">' . htmlspecialchars_decode($experience->title) . '</div>';
             echo '<div class="gcconnex-profile-label work-experience-organization">' . htmlspecialchars_decode($experience->organization) . '</div>';
-            
-            
+
             $cal_month = array(
                 1 => elgg_echo('gcconnex_profile:month:january'),
                 2 => elgg_echo('gcconnex_profile:month:february'),
@@ -45,8 +44,8 @@ else {
             echo '<div class="gcconnex-profile-work-experience-display gcconnex-work-experience-' . $experience->guid . '">';
             echo '<div class="gcconnex-profile-label timeStamp mrgn-tp-sm">';
 
-            if ($experience->not_applicable !== 'true') {
-                echo $cal_month[$experience->startdate] . ' ' . $experience->startyear . ' - ';
+            if ($experience->not_applicable != 'true') {
+                echo $cal_month[$experience->startdate] . ' ' . $experience->startyear . '<span aria-hidden="true"> - </span><span class="wb-invisible"> '.elgg_echo('profile:content:to').' </span>';
             }
 
             if ($experience->ongoing == 'true') {
@@ -56,10 +55,9 @@ else {
             }
 
             echo '</div>';
-            
             echo '<div class="gcconnex-profile-label work-experience-responsibilities mrgn-tp-md">' . $experience->responsibilities . '</div>';
-
             echo '<div class="gcconnex-profile-label work-experience-colleagues">';
+
             $colleagues = $experience->colleagues;
             if (!(is_array($colleagues))) {
                 $colleagues = array($colleagues);
@@ -71,11 +69,9 @@ else {
             ));
 
             echo '</div>'; // close div class="gcconnex-profile-label work-experience-colleagues"
-
             echo '</div>';
         }
     }
 }
 
 echo '</div>'; // close div class="gcconnex-profile-work-experience-display
-//echo '</div>'; // close div class=gcconnex-profile-section-wrapper

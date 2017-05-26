@@ -25,6 +25,34 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                         // cyu - check if the email is in the list of exceptions
                         $user_email = explode('@',$v);
                         $list_of_domains = getExtension();
+
+                        if( elgg_is_active_plugin('c_email_extensions') ){
+                            // Checks against the domain manager list...
+                            $wildcard_query = "SELECT ext FROM email_extensions WHERE ext LIKE '%*%'";
+                            $wildcard_emails = get_data($wildcard_query);
+                            
+                            if( $wildcard_emails ){
+                                foreach($wildcard_emails as $wildcard){
+                                    $regex = str_replace(".", "\.", $wildcard->ext);
+                                    $regex = str_replace("*", "[\w-.]+", $regex);
+                                    $regex = "/^@" . $regex . "$/";
+                                    if(preg_match($regex, "@".$user_email[1]) || strtolower(str_replace("*.", "", $wildcard->ext)) == strtolower($user_email[1])){
+                                        $isValid = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if( elgg_is_active_plugin('gcRegistration_invitation') ){
+                            // Checks against the email invitation list...
+                            $invitation_query = "SELECT email FROM email_invitations WHERE email = '{$email}'";
+                            $result = get_data($invitation_query);
+
+                            if( count($result) > 0 ) 
+                                $isValid = true;
+                        }
+
                         if (count($list_of_domains) > 0) {
                             while ($row = mysqli_fetch_array($list_of_domains)) {
                                 if (strtolower($row['ext']) === strtolower($user_email[1])) {
@@ -34,10 +62,12 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                             }
                             $error_message = elgg_echo('gcc_profile:error').elgg_echo('gcc_profile:notaccepted');
                         }
+
                         // cyu - check if domain is gc.ca
                         if (!$isValid) {
                             $govt_domain = explode('.',$user_email[1]);
                             $govt_domain_len = count($govt_domain) - 1;
+
                             if ($govt_domain[$govt_domain_len - 1].'.'.$govt_domain[$govt_domain_len] === 'gc.ca') {
                                 $isValid = true;
                             } else {
@@ -46,63 +76,17 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                             }
                         }
                     }
+
                     if (!$isValid) {
                         register_error($error_message);
                         return true;
                     }
+
                     $user->set($f, $v);
-                }
-                else {
-                	if($f=='department'){
-                		$obj = elgg_get_entities(array(
-           							'type' => 'object',
-           							'subtype' => 'dept_list',
-           							'owner_guid' => 0
-        						));
-        						$departmentsEn = json_decode($obj[0]->deptsEn, true);
-        						$provinces['pov-alb'] = 'Government of Alberta';
-        						$provinces['pov-bc'] = 'Government of British Columbia';
-        						$provinces['pov-man'] = 'Government of Manitoba';
-        						$provinces['pov-nb'] = 'Government of New Brunswick';
-        						$provinces['pov-nfl'] = 'Government of Newfoundland and Labrador';
-        						$provinces['pov-ns'] = 'Government of Nova Scotia';
-        						$provinces['pov-nwt'] = 'Government of Northwest Territories';
-        						$provinces['pov-nun'] = 'Government of Nunavut';
-        						$provinces['pov-ont'] = 'Government of Ontario';
-        						$provinces['pov-pei'] = 'Government of Prince Edward Island';
-        						$provinces['pov-que'] = 'Government of Quebec';
-        						$provinces['pov-sask'] = 'Government of Saskatchewan';
-        						$provinces['pov-yuk'] = 'Government of Yukon';
-        						$departmentsEn = array_merge($departmentsEn,$provinces);
+                } else if($f == 'location' && $v) {
 
-        						$departmentsFr = json_decode($obj[0]->deptsFr, true);
-        						$provincesFr['pov-alb'] = "Gouvernement de l'Alberta";
-        						$provincesFr['pov-bc'] = 'Gouvernement de la Colombie-Britannique';
-        						$provincesFr['pov-man'] = 'Gouvernement du Manitoba';
-        						$provincesFr['pov-nb'] = 'Gouvernement du Nouveau-Brunswick';
-        						$provincesFr['pov-nfl'] = 'Gouvernement de Terre-Neuve-et-Labrador';
-        						$provincesFr['pov-ns'] = 'Gouvernement de la Nouvelle-�cosse';
-        						$provincesFr['pov-nwt'] = 'Gouvernement du Territoires du Nord-Ouest';
-        						$provincesFr['pov-nun'] = 'Gouvernement du Nunavut';
-        						$provincesFr['pov-ont'] = "Gouvernement de l'Ontario";
-        						$provincesFr['pov-pei'] = "Gouvernement de l'�le-du-Prince-�douard";
-        						$provincesFr['pov-que'] = 'Gouvernement du Qu�bec';
-        						$provincesFr['pov-sask'] = 'Gouvernement de Saskatchewan';
-        						$provincesFr['pov-yuk'] = 'Gouvernement du Yukon';
-        						$departmentsFr = array_merge($departmentsFr,$provincesFr);
-
-        						if (get_current_language()=='en'){
-        							$deptString = $departmentsEn[$v]." / ".$departmentsFr[$v];
-        						}else{
-        							$deptString = $departmentsFr[$v]." / ".$departmentsEn[$v];
-        						}
-
-        						$user->set('department',$deptString);
-
-                	}else if($f == 'location' && $v) {
-
-                      //check to see if addressString exists
-                      if($user->addressString && $user->addressStringFr){
+                    //check to see if addressString exists
+                    if($user->addressString && $user->addressStringFr){
 
                         //split up location field value
                         $address = explode(',', $v);
@@ -113,18 +97,16 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                         $user->addressString = '{"street":"'.$address[0].'","city":"'.$address[1].'","province":"'.$address[2].'","country":"Canada","pc":""}';
                         $user->addressStringFr = '{"street":"'.$address[0].'","city":"'.$address[1].'","province":"'.$address[2].'","country":"Canada","pc":""}';
 
-                      }
+                    }
 
-                      //set value like normal
-                      $user->set($f, $v);
+                    //set value like normal
+                    $user->set($f, $v);
 
-                    } else {
-                		$user->set($f, $v);
-                	}
-                	//register_error($f);
-
-                }
+                } else {
+            		$user->set($f, $v);
+            	}
             }
+            
             foreach ( $social_media as $f => $v ) {
                 $link = $v;
                 if (filter_var($link, FILTER_VALIDATE_URL) == false) {
@@ -300,6 +282,7 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                         $experience->organization = htmlentities($work['organization']);
                         $experience->startdate = $work['startdate'];
                         $experience->startyear = $work['startyear'];
+                        $experience->not_applicable = $work['not_applicable'];
                         $experience->enddate = $work['enddate'];
                         $experience->endyear = $work['endyear'];
                         $experience->ongoing = $work['ongoing'];
