@@ -37,7 +37,7 @@
 						communities: JSON.stringify(communitiesArray)
 					},
 					success: function(result) {
-						console.log(result);
+						// console.log(result);
 					}
 				});
 

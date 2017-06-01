@@ -42,7 +42,6 @@ function check_for_community_feed_items(){
         data: { 'url': window.location.pathname.replace('/', ''), 'limit': 1 },
         dataType: 'json',
         success: function(response){
-            console.log(response);
             //Get the latest post and compare that post to the post that is on the page.
             //var test_array = response;
             if( response == postID[0] ){
