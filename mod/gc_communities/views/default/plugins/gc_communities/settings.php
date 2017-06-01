@@ -26,7 +26,7 @@
 			e.preventDefault();
 		    var url = $(this).data('url');
 		    toggleButtons(url);
-		    if($(this).hasClass("edit-community")){ $('input.community_en[data-url=' + url + ']').focus(); }
+		    if($(this).hasClass("edit-community")){ $('input.community_tags[data-url=' + url + ']').focus(); }
 		});
 
 		$("a.add-community").click(function(e){
@@ -123,18 +123,18 @@ if (count($communities) > 0) {
 			'data-url' => $community['community_url']
 		));
 
-		echo "<tr>"; 
-		echo "<td> <a class='delete-community' data-url='" . $community['community_url'] . "'>".elgg_echo('delete')."</a> </td>";
-		echo "<td> <input class='community community_en' data-url='" . $community['community_url'] . "' type='text' value='" . $community['community_en'] . "' disabled /> </td>";
-		echo "<td> <input class='community community_fr' data-url='" . $community['community_url'] . "' type='text' value='" . $community['community_fr'] . "' disabled /> </td>";
-		echo "<td> <input class='community community_url' data-url='" . $community['community_url'] . "' type='text' value='" . $community['community_url'] . "' disabled /> </td>";
-		echo "<td> <input class='community community_tags' data-url='" . $community['community_url'] . "' type='text' value='" . $community['community_tags'] . "' disabled /> </td>";
-		echo "<td> <input class='community community_animator' data-url='" . $community['community_url'] . "' type='text' value='" . $community['community_animator'] . "' disabled /> </td>";
-		echo "<td> <a class='edit-community' data-url='" . $community['community_url'] . "'>".elgg_echo('edit')."</a> <a class='cancel-community hidden elgg-button only-one-click elgg-button-cancel btn btn-default' data-url='" . $community['community_url'] . "'>".elgg_echo('cancel')."</a> <a class='save-community hidden elgg-button only-one-click elgg-button-submit btn btn-primary' data-url='" . $community['community_url'] . "'>".elgg_echo('save')."</a> <br> <span class='edit-message' data-url='" . $community['community_url'] . "'></span> </td>";
-		echo "<td> <a href='" . elgg_get_site_url() . $community['community_url'] . "' target='_blank'>".elgg_echo('open')."</a> </td>";
-		echo "</tr>";
+		echo '<tr>'; 
+		echo '<td> <a class="delete-community" data-url="' . $community['community_url'] . '">'.elgg_echo('delete').'</a> </td>';
+		echo '<td> <input class="community community_en" data-url="' . $community['community_url'] . '" type="text" value="' . $community['community_en'] . '" disabled /> </td>';
+		echo '<td> <input class="community community_fr" data-url="' . $community['community_url'] . '" type="text" value="' . $community['community_fr'] . '" disabled /> </td>';
+		echo '<td> <input class="community community_url" data-url="' . $community['community_url'] . '" type="text" value="' . $community['community_url'] . '" disabled /> </td>';
+		echo '<td> <input class="community community_tags" data-url="' . $community['community_url'] . '" type="text" value="' . $community['community_tags'] . '" disabled /> </td>';
+		echo '<td> <input class="community community_animator" data-url="' . $community['community_url'] . '" type="text" value="' . $community['community_animator'] . '" disabled /> </td>';
+		echo '<td> <a class="edit-community" data-url="' . $community['community_url'] . '">'.elgg_echo('edit').'</a> <a class="cancel-community hidden elgg-button only-one-click elgg-button-cancel btn btn-default" data-url="' . $community['community_url'] . '">'.elgg_echo('cancel').'</a> <a class="save-community hidden elgg-button only-one-click elgg-button-submit btn btn-primary" data-url="' . $community['community_url'] . '">'.elgg_echo('save').'</a> <br> <span class="edit-message" data-url="' . $community['community_url'] . '"></span> </td>';
+		echo '<td> <a href="' . elgg_get_site_url() . $community['community_url'] . '" target="_blank">'.elgg_echo('open').'</a> </td>';
+		echo '</tr>';
 	}
-	echo "</tbody></table>";
+	echo '</tbody></table>';
 }
 
 // Hidden field to store communities

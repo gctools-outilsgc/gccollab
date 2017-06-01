@@ -20,54 +20,47 @@
  ***********************************************************************/
 
 elgg_make_sticky_form('register');
-
 global $CONFIG;
-
 // default code (core)
 $username = get_input('username');
-$email = strtolower(str_replace(' ','',trim(get_input('email'))));
-$email2 = strtolower(str_replace(' ','',trim(get_input('email2'))));
-$password = trim(get_input('password', null, false));
-$password2 = trim(get_input('password2', null, false));
+$email = strtolower(trim(get_input('email')));
+$email2 = strtolower(trim(get_input('email2')));
+$password = get_input('password', null, false);
+$password2 = get_input('password2', null, false);
 $name = get_input('name');
 $toc = get_input('toc2');
 
 $friend_guid = (int) get_input('friend_guid', 0);
 $invitecode = get_input('invitecode');
 
-$meta_fields = array('user_type',
-				'institution',
-				'university',
-				'college',
-				'highschool',
-				'federal',
-				'provincial',
-				'ministry',
-				'municipal',
-				'international',
-				'ngo',
-				'community',
-				'business',
-				'media',
-				'retired',
-				'other');
+$meta_fields = array('user_type', 'institution', 'university', 'college', 'highschool', 'federal', 'provincial', 'ministry', 'municipal', 'international', 'ngo', 'community', 'business', 'media', 'retired', 'other');
 foreach($meta_fields as $field){
 	$$field = get_input($field);
 }
-
-error_log("DEPARTMENT - {$federal}");
-error_log("INSTITUTION - {$institution}");
 
 // check form (incompleteness & validity)
 if (elgg_get_config('allow_registration')) {
 	try {
 		// check if domain exists in database
+		$db_config = new \Elgg\Database\Config($CONFIG);
+		if ($db_config->isDatabaseSplit()) {
+			$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ);
+		} else {	
+			$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ_WRITE);
+		}
+
+		$connection = mysqli_connect($read_settings["host"], $read_settings["user"], $read_settings["password"], $read_settings["database"])or die(mysqli_error($connection));
 		$emaildomain = explode('@',$email);
 		$query = "SELECT count(*) AS num FROM email_extensions WHERE ext ='".$emaildomain[1]."'";
 		
-		$dept_exist = get_data($query);
+		$result = mysqli_query($connection, $query)or die(mysqli_error($connection));
+		$result = mysqli_fetch_array($result);
+		
 		$emailgc = explode('.',$emaildomain[1]);
 		$gcca = $emailgc[count($emailgc) - 2] .".".$emailgc[count($emailgc) - 1];
+		
+		mysqli_close($connection);
+		
 		$resulting_error = "";
 
 		$validemail = false;
@@ -198,7 +191,9 @@ if (elgg_get_config('allow_registration')) {
 			$new_user->user_type = $user_type; 
 
 			// allow plugins to respond to self registration
-			// note: To catch all new users, even those created by an admin, register for the create, user event instead. only passing vars that aren't in ElggUser.
+			// note: To catch all new users, even those created by an admin,
+			// register for the create, user event instead.
+			// only passing vars that aren't in ElggUser.
 			$params = array(
 				'user' => $new_user,
 				'password' => $password,
@@ -211,7 +206,9 @@ if (elgg_get_config('allow_registration')) {
 				$ia = elgg_set_ignore_access(true);
 				$new_user->delete();
 				elgg_set_ignore_access($ia);
-				// @todo this is a generic messages. We could have plugins throw a RegistrationException, but that is very odd for the plugin hooks system.
+				// @todo this is a generic messages. We could have plugins
+				// throw a RegistrationException, but that is very odd
+				// for the plugin hooks system.
 				throw new RegistrationException(elgg_echo('registerbad'));
 			}
 
@@ -223,7 +220,8 @@ if (elgg_get_config('allow_registration')) {
 			elgg_clear_sticky_form('register');
 			// system_message(elgg_echo("registerok", array(elgg_get_site_entity()->name)));
 
-			// if exception thrown, this probably means there is a validation plugin that has disabled the user
+			// if exception thrown, this probably means there is a validation
+			// plugin that has disabled the user
 			try {
 				login($new_user);
 			} catch (LoginException $e) {

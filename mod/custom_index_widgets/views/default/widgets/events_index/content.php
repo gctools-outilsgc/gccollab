@@ -11,8 +11,8 @@ $event_list = elgg_get_entities(array(
 $today = date("F j, Y, g:i a");
 
 echo "<div style='overflow-y:auto; height:200px;'>";
-echo '<p><h4>'.elgg_echo('index_widget:event:today',array($today)).'</h4></p>';
-echo "<br/>";
+echo '<h4 class="mtm">'.elgg_echo('index_widget:event:today',array($today)).'</h4>';
+
 foreach ($event_list as $event) {
 
 	$start_date = date('Y-m-d', $event->start_date);
@@ -21,7 +21,7 @@ foreach ($event_list as $event) {
 	$start_date = event_calendar_format_time($start_date, $event->start_time);
 	$end_date = event_calendar_format_time($end_date, $event->end_time);
 echo "
-		<div style='padding-bottom:5px;'>
+		<div class='pbm'>
 			<div id='event_title'><strong><a href='{$event->getURL()}'>{$event->title}</a></strong></div>
 			<div id='event_date'>{$start_date} - {$end_date} EST</div>
 			<div id='event_location'>{$event->venue}</div>

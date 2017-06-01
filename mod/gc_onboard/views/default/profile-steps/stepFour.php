@@ -138,7 +138,7 @@
         ?>
 
     </div>
-    <script src="<?php echo elgg_get_site_url() . 'mod/b_extended_profile_collab/vendors/typeahead/dist/typeahead.bundle.min.js'; ?>"></script>
+    <script src="<?php echo elgg_get_site_url() . 'mod/b_extended_profile/vendors/typeahead/dist/typeahead.bundle.min.js'; ?>"></script>
     <script>
         //get the initial skill count to display to the user
         $('.skill-count').html($('.gcconnex-skill-entry:visible').length);
@@ -149,7 +149,7 @@
             queryTokenizer: Bloodhound.tokenizers.whitespace,
 
             remote: {
-                url: elgg.get_site_url() + 'mod/b_extended_profile_collab/actions/b_extended_profile_collab/autoskill.php?query=%QUERY'
+                url: elgg.get_site_url() + 'mod/b_extended_profile/actions/b_extended_profile/autoskill.php?query=%QUERY'
             }
         });
 

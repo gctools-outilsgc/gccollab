@@ -7,11 +7,21 @@
 elgg_register_event_handler('init', 'system', 'gc_communities_init');
 
 function gc_communities_init(){
+
+    $subtypes = elgg_get_plugin_setting('subtypes', 'gc_communities');
+    if( !$subtypes ){
+        elgg_set_plugin_setting('subtypes', json_encode(array('blog', 'groupforumtopic', 'event_calendar', 'file')), 'gc_communities');
+    }
+
     // Register ajax save action
     elgg_register_action("gc_communities/save", __DIR__ . "/actions/gc_communities/save.php");
 
     // Register ajax tag view
     elgg_register_ajax_view("tags/form");
+
+    // Register streaming ajax calls
+    elgg_register_ajax_view('ajax/community_feed');
+    elgg_register_ajax_view('ajax/community_wire');
 
     $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'), true);
     $context = array();
@@ -26,7 +36,7 @@ function gc_communities_init(){
 
             $text = (get_current_language() == 'fr') ? $community['community_fr'] : $community['community_en'];
             if( elgg_is_admin_logged_in() || $community_animator == elgg_get_logged_in_user_entity()->username ){
-                $text .= " <span class='elgg-lightbox' data-colorbox-opts='".json_encode(['href'=>'ajax/view/tags/form?community_url='.$url,'width'=>'800px','height'=>'255px'])."'><i class='fa fa-cog fa-lg'><span class='wb-inv'>Customize this Community</span></i></span>";
+                $text .= " <span class='elgg-lightbox' data-colorbox-opts='".json_encode(['href'=>elgg_normalize_url('ajax/view/tags/form?community_url='.$url),'width'=>'800px','height'=>'255px'])."'><i class='fa fa-cog fa-lg'><span class='wb-inv'>Customize this Community</span></i></span>";
             }
 
             //Register Community page handler
@@ -70,7 +80,11 @@ function gc_communities_init(){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_communities:filtered_groups_index'), elgg_echo('gc_communities:filtered_groups_index'), $context, true);
     }
 
-    elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
+    // Only for GCcollab
+    $site = elgg_get_site_entity();
+    if( strpos(strtolower($site->name), 'gccollab') !== false ){
+        elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
+    }
 
     // Removing widget since Filtered Wire is now shown by default
     // if( elgg_is_active_plugin('thewire') ){
@@ -121,16 +135,16 @@ function gc_community_page_handler($page, $url){
         if( $community['community_url'] == $url ){
             $community_en = $community['community_en'];
             $community_fr = $community['community_fr'];
-            $community_animator = $community['community_animator'];
             $community_tags = $community['community_tags'];
+            $community_animator = $community['community_animator'];
         }
     }
 
     set_input('community_url', $url);
     set_input('community_en', $community_en);
     set_input('community_fr', $community_fr);
-    set_input('community_animator', $community_animator);
     set_input('community_tags', $community_tags);
+    set_input('community_animator', $community_animator);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;

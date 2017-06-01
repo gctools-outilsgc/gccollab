@@ -20,7 +20,7 @@
 	<requires>
         <type>priority</type>
         <priority>after</priority>
-        <plugin>b_extended_profile_collab</plugin>
+        <plugin>b_extended_profile</plugin>
     </requires>
 	<activate_on_install>true</activate_on_install>
 </plugin_manifest>

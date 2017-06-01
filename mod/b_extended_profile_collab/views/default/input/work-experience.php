@@ -10,7 +10,7 @@ $work_experience = get_entity($vars['guid']); // get the guid of the work experi
 
 $guid = ($work_experience != NULL)? $vars['guid'] : "new"; // if the work experience guid isn't given, this must be a new entry
 
-echo '<div class="gcconnex-work-experience-entry ' . $guid . '" data-guid="' . $guid . '">'; // work experience entry wrapper for css styling
+echo '<div tabindex="-1" class="gcconnex-work-experience-entry ' . $guid . '" data-guid="' . $guid . '">'; // work experience entry wrapper for css styling
 
 // enter organization name
 echo '<label for="title-' . $guid . '" class="gcconnex-profile-field-title">' . elgg_echo('gcconnex_profile:experience:title') . '</label>';
@@ -21,13 +21,10 @@ echo elgg_view("input/text", array(
     'class' => 'gcconnex-work-experience-title',
     'value' => $work_experience->title));
 
-
 // enter title
 echo '<br>';
 echo '<label for="work-experience-' . $guid . '" class="gcconnex-profile-field-title">';
-
 echo elgg_echo('gcconnex_profile:experience:organization') . '</label>';
-
 echo '<span class="gcconnex-profile-field-input">';
 
 echo elgg_view("input/text", array(
@@ -38,7 +35,7 @@ echo elgg_view("input/text", array(
 echo '</span>';
 
 // enter start date
-echo '<div class="col-xs-6"><h4>' . elgg_echo('gcconnex_profile:education:start') . '</h4>';
+echo '<div class="col-xs-6 mrgn-tp-md">';
 echo '<label for="startdate-' . $guid . '" class="gcconnex-profile-field-title">' . elgg_echo('gcconnex_profile:experience:start_month') .  '</label>';
 
 echo elgg_view("input/pulldown", array(
@@ -72,20 +69,17 @@ echo elgg_view("input/text", array(
         'value' => $work_experience->startyear));
 
 // Add a "Not Applicable" start date for Retired Public Servants
-// $user = get_user($work_experience->owner_guid);
-// if($user->user_type == "retired"){
-    $params = array(
-        'name' => 'not_applicable',
-        'class' => 'gcconnex-work-experience-not_applicable',
-        'onclick' => 'toggleStartDate("work-experience", this)',
-    );
-    if ($work_experience->not_applicable == 'true') {
-        $params['checked'] = $work_experience->not_applicable;
-    }
+$params = array(
+    'name' => 'not_applicable',
+    'class' => 'gcconnex-work-experience-not_applicable',
+    'onclick' => 'toggleStartDate("work-experience", this)',
+);
+if ($work_experience->not_applicable == 'true') {
+    $params['checked'] = 'checked';
+}
 
-    echo  '<label>' . elgg_view('input/checkbox', $params);
-    echo elgg_echo('gcconnex_profile:experience:not_applicable') . '</label>';
-// }
+echo  '<label>' . elgg_view('input/checkbox', $params);
+echo elgg_echo('gcconnex_profile:experience:not_applicable') . '</label>';
 
 // disable the end dates if the user is still currently working here
 
@@ -116,13 +110,11 @@ if ($work_experience->ongoing == 'true') {
 echo '</div>';
 
 //end date
-echo '<div class="col-xs-6"><h4>' . elgg_echo('gcconnex_profile:education:end') . '</h4>';
+echo '<div class="col-xs-6 mrgn-tp-md">';
 echo '<label for="enddate-' . $guid . '" class="gcconnex-profile-field-title">' . elgg_echo('gcconnex_profile:experience:end_month') . '</label>';
-
 echo elgg_view("input/pulldown", $params);
 
 unset($params);
-
 
 $params = array('name' => 'end-year','id' => 'end-year-' . $guid,
         'class' => 'gcconnex-work-experience-end-year gcconnex-work-experience-end-year-' . $work_experience->guid,
@@ -132,7 +124,6 @@ $params = array('name' => 'end-year','id' => 'end-year-' . $guid,
 if ($work_experience->ongoing == 'true') {
         $params['disabled'] = 'true';
 }
-
 
 echo '<label for="end-year-' . $guid . '">' . elgg_echo('gcconnex_profile:education:end_year') . '</label>' . elgg_view("input/text", $params);
 
@@ -152,8 +143,6 @@ if ($work_experience->ongoing == 'true') {
 echo  '<label>' . elgg_view('input/checkbox', $params);
 echo elgg_echo('gcconnex_profile:experience:ongoing') . '</label>';
 echo '</div>';
-
-
 
 // enter responsibilities
 echo '<br><label for="textarea-' . $guid . '">' . elgg_echo('gcconnex_profile:experience:responsibilities') . '</label>' . elgg_view("input/textarea", array(
@@ -178,7 +167,6 @@ else {
     ));
 }
 echo '</div>'; // close div class="colleauges-list"
-
 
 $tid = 'tid-' . rand();
 

@@ -72,7 +72,7 @@ $french = array(
 	// notice			// avis			
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
 				
-	'gcRegister:terms_and_conditions' => 'J\'ai lu, j\'ai compris et j\'accepte les <a href="/termes" target="_blank">Conditions d\'utilisation</a>.',
+	'gcRegister:terms_and_conditions' => 'J\'ai lu, j\'ai compris et j\'accepte les <a href="/termes" target="_blank">conditions d\'utilisation</a>.',
 	'gcRegister:validation_notice' => '<b>Remarque :</b> Vous ne pourrez pas ouvrir une session sur Gcconnex avant d\'avoir reçu un courriel de validation.',
 	'gcRegister:tutorials_notice' => '<a href="http://www.gcpedia.gc.ca/wiki/Tutorials_on_GC2.0_Tools_/_Tutoriels_sur_les_outils_GC2.0/GCconnex">Tutoriels de GCconnex</a>',
 				

@@ -21,7 +21,7 @@
 		$(".save-tags").click(function(e){
 			e.preventDefault();
 
-			var communitiesArray = JSON.parse('<?php echo $communities_json; ?>');
+			var communitiesArray = JSON.parse('<?php echo str_replace("'", "\\'", $communities_json); ?>');
 			var community_url = $(this).data('community_url');
 			var community_tags = $(".community_tags #tags").val();
 
@@ -37,7 +37,7 @@
 						communities: JSON.stringify(communitiesArray)
 					},
 					success: function(result) {
-						console.log(result);
+						// console.log(result);
 					}
 				});
 
