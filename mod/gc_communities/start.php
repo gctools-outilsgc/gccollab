@@ -80,7 +80,11 @@ function gc_communities_init(){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_communities:filtered_groups_index'), elgg_echo('gc_communities:filtered_groups_index'), $context, true);
     }
 
-    elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
+    // Only for GCcollab
+    $site = elgg_get_site_entity();
+    if( strpos(strtolower($site->name), 'gccollab') !== false ){
+        elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
+    }
 
     // Removing widget since Filtered Wire is now shown by default
     // if( elgg_is_active_plugin('thewire') ){
