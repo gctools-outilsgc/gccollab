@@ -8,6 +8,7 @@
 $site_url = elgg_get_site_url();
 $user = elgg_get_logged_in_user_entity();
 
+$stats = "{$site_url}stats";
 if ( strcmp(_elgg_services()->session->get('language'),'en') == 0 ) {
     // english links (under about)
     $about = "{$site_url}about";
@@ -49,7 +50,7 @@ $feedbackText= elgg_echo('wet:feedbackText');
                     <li><a href="<?php echo $about;?>"><?php echo elgg_echo('wet:footAbout');?></a></li>
                     <li><a href="<?php echo $priv;?>"><?php echo elgg_echo('wet:footPrivacy');?></a></li>
                     <li><a href="<?php echo $terms;?>"><?php echo elgg_echo('wet:footTerms');?></a></li>
-
+                    <li><a href="<?php echo $stats;?>"><?php echo elgg_echo('wet:stats');?></a></li>
                 </ul>
             </section>
 
