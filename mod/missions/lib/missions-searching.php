@@ -186,6 +186,14 @@ function mm_analyze_advanced_search_element($place, $array)
                     case elgg_echo('gcconnex_profile:opt:skill_sharing_create');
                         $name_option = 'opt_in_ssCreate';
                         break;
+
+                    /* MW - Added for GCcollab only */
+                    case elgg_echo('gcconnex_profile:opt:casual'):
+                        $name_option = 'opt_in_casual';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:student');
+                        $name_option = 'opt_in_student';
+                        break;
                 }
                 $returner['name'] = $name_option;
                 $returner['operand'] = '=';

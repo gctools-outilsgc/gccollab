@@ -29,7 +29,7 @@ $title = $widget->getTitle();
 // missing following code snippet where widget title gets the URL
 $widget_title_link = $widget->getURL();
 
-// MW - Fixes broken URL in Event Calendar widget
+/* MW - Fixes broken URL in Event Calendar widget */
 if ($widget->handler == "event_calendar" && strpos( $widget_title_link, "/owner/group:" ) !== false) {
 	$widget_title_link = str_replace("/owner/group:", "/group/", $widget_title_link);
 }

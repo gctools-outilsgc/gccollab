@@ -42,8 +42,11 @@ return array(
 		"gcconnex_profile:opt:skill_sharing_create" => "Partage des habiletés hôte",
             "gcconnex_profile:opt:participants"=>"Participant",
         "gcconnex_profile:opt:host"=>"Hôte",
+        "gcconnex_profile:opt:casual"=>"Emploi occasionnel",
+        "gcconnex_profile:opt:student"=>"Intégration des étudiants",
     
-    "gcconnex_profile:opt:development"=>"Possibilités de perfectionnement professionnel",
+	    "gcconnex_profile:opt:development"=>"Possibilités de perfectionnement professionnel",
+	    "gcconnex_profile:opt:career"=>"Possibilités de carrière",
 		
 		// SEPARATION
 		

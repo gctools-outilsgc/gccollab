@@ -32,8 +32,11 @@ return array(
 		"gcconnex_profile:opt:skill_sharing_create" => "Skill Sharing Opportunity Creator",
         "gcconnex_profile:opt:participants"=>"Participant",
         "gcconnex_profile:opt:host"=>"Host",
+        "gcconnex_profile:opt:casual"=>"Casual Work",
+        "gcconnex_profile:opt:student"=>"Student Integration",
         
         "gcconnex_profile:opt:development"=>"Developmental Opportunities",
+        "gcconnex_profile:opt:career"=>"Career Opportunities",
 		
 		// SEPARATION
 		

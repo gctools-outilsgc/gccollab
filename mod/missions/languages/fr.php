@@ -344,7 +344,8 @@ return array(
     "missions:job_rotation"=>"Rotation d'emploi",
     "missions:skill_share"=>"Partage des habiletés",
     "missions:job_share"=>"Partage d'emploi",
-
+"missions:casual" => "Emploi occasionnel",
+"missions:student" => "Intégration des étudiants",
 
     "missions:optin:continue"=>"Continuer à la plateforme de possibilités",
 "missions:settings:mission_front_page_limit" =>	"Combien de cartes de possibilité sont affichées sur la page d'accueil?",

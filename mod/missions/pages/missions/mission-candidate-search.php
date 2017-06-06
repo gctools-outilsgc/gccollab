@@ -60,6 +60,10 @@ if(!empty($entity->key_skills)){
 		'missions:skill_share'	=>	'opt_in_ssSeek',
 		'missions:peer_coaching'	=>	'opt_in_pcSeek',
 		'missions:job_share'	=>	'opt_in_jobshare',
+
+		/* MW - Added for GCcollab only */
+		'missions:casual'	=>	'opt_in_casual',
+		'missions:student'	=>	'opt_in_student',
 		);
 
 	$dbprefix = elgg_get_config('dbprefix');
