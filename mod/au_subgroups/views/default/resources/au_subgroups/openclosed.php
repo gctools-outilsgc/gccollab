@@ -23,6 +23,9 @@ if ($display_subgroups != 'yes') {
 $group_options['joins'] = array("JOIN {$db_prefix}groups_entity ge ON e.guid = ge.guid");
 $group_options['order_by'] = 'ge.name ASC';
 
+set_input('datatable', true);
+$group_options["limit"] = 0;
+
 switch ($selected_tab) {
 	case "open":
 		$group_options["metadata_name_value_pairs"] = array(

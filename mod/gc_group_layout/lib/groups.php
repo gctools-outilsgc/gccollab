@@ -56,12 +56,14 @@ function groups_handle_all_page() {
 
 		switch ($selected_tab) {
 			case 'popular':
+    			set_input('datatable', true);
 				$options = array(
 					'type' => 'group',
 					'relationship' => 'member',
 					'inverse_relationship' => false,
 					'full_view' => false,
 					'no_results' => elgg_echo('groups:none'),
+					'limit' => 0
 				);
 
 				if ($display_subgroups != 'yes') {
@@ -88,10 +90,12 @@ function groups_handle_all_page() {
 				break;
 			case 'newest':
 			default:
+    			set_input('datatable', true);
 				$options = array(
 					'type' => 'group',
 					'full_view' => false,
 					'no_results' => elgg_echo('groups:none'),
+					'limit' => 0
 				);
 
 				if ($display_subgroups != 'yes') {
