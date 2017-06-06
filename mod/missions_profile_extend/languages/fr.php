@@ -44,6 +44,9 @@ return array(
         "gcconnex_profile:opt:host"=>"Hôte",
         "gcconnex_profile:opt:casual"=>"Emploi occasionnel",
         "gcconnex_profile:opt:student"=>"Intégration des étudiants",
+
+        "gcconnex_profile:opt:casual_tooltip"=>"Les employés occasionnels sont des travailleurs embauchés pour une période déterminée ne dépassant pas 90 jours ouvrables par année civile dans un ministère ou organisme pour lequel la Commission de la fonction publique (CFP) a le pouvoir exclusif de faire des nominations. La période d'emploi temporaire peut être pour une ou plusieurs périodes déterminées, mais elle ne doit pas dépasser 90 jours ouvrables dans un ministère ou organisme par année civile.",
+        "gcconnex_profile:opt:student_tooltip"=>"Tout diplômé d'un programme postsecondaire qui a travaillé comme étudiant salarié à la fonction publique fédérale, via PFETE, COOP ou PAR, peut être considéré pour intégration.",
     
 	    "gcconnex_profile:opt:development"=>"Possibilités de perfectionnement professionnel",
 	    "gcconnex_profile:opt:career"=>"Possibilités de carrière",

@@ -34,11 +34,13 @@
 		echo '<div class="gcconnex-profile-opt-in-display-table" style="margin: 10px;">';
         echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:career').'</h3>';
 		echo '<ul class="list-unstyled">';
-				echo '<li class="left-col">' . elgg_echo('missions:casual');
+				echo '<li class="left-col">' . elgg_echo('missions:casual') . ' <i class="fa fa-info-circle" data-toggle="tooltip" title="' . elgg_echo('gcconnex_profile:opt:casual_tooltip') . '" id="casual-tooltip"></i>';
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_casual) . '</span></li>';
 
-				echo '<li class="left-col">' . elgg_echo('missions:student');
+				echo '<li class="left-col">' . elgg_echo('missions:student') . ' <i class="fa fa-info-circle" data-toggle="tooltip" title="' . elgg_echo('gcconnex_profile:opt:student_tooltip') . '" id="student-tooltip"></i>';
 				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_student) . '</span></li>';
+
+				echo '<script>$(document).ready(function() { $("#casual-tooltip").tooltip(); $("#student-tooltip").tooltip(); });</script>';
 
 		/* MW - Changed for GCcollab version of Opp Platform
         echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h3>';
