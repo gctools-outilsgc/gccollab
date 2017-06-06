@@ -25,7 +25,7 @@ $user = elgg_get_logged_in_user_entity();
 
             $access = get_input('access');
             
-            $opt_in_inputs = array($opt_in_mission, $opt_in_swap, $opt_in_mentored, $opt_in_shadowed, $opt_in_mentoring, $opt_in_shadowing, $opt_in_jobshare, $opt_in_pcSeek, $opt_in_pcCreate, $opt_in_ssSeek, $opt_in_ssCreate, $opt_in_rotation, $opt_in_assignSeek, $opt_in_assignCreate, $opt_in_deploySeek, $opt_in_deployCreate, $opt_in_missionCreate);
+            $opt_in_inputs = array($opt_in_mission, $opt_in_swap, $opt_in_mentored, $opt_in_shadowed, $opt_in_mentoring, $opt_in_shadowing, $opt_in_jobshare, $opt_in_pcSeek, $opt_in_pcCreate, $opt_in_ssSeek, $opt_in_ssCreate, $opt_in_rotation, $opt_in_assignSeek, $opt_in_assignCreate, $opt_in_deploySeek, $opt_in_deployCreate, $opt_in_missionCreate, $opt_in_casual, $opt_in_student);
     //Nick - Loop through array of selected things and change their value to match the meta data        
 foreach($opt_in_inputs as $k => $v){
     if($v == 'on'){
