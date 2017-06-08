@@ -406,6 +406,8 @@ $(window).on('beforeunload', function(){
 
 	if( !empty($provincial_departments) ){
 		foreach($provincial_departments as $province => $province_name){
+			asort($ministries[$province]);
+
 			$prov_id = str_replace(" ", "-", strtolower($province));
 			echo '<div class="form-group occupation-choices provincial-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
 			echo elgg_view('input/select', array(
