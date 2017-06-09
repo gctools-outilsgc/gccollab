@@ -31,7 +31,6 @@ $count = elgg_extract('count', $vars);
 $pagination = elgg_extract('pagination', $vars, true);
 $position = elgg_extract('position', $vars, 'after');
 $no_results = elgg_extract('no_results', $vars, '');
-$datatable = get_input('datatable');
 
 if (!$items && $no_results) {
 	if ($no_results instanceof Closure) {
@@ -64,7 +63,7 @@ $list_items = '';
 ///DATATABLES///
 ////////////////
 
-if(elgg_in_context('friends') || elgg_in_context('my_groups') || $datatable){ //datatable for colleagues, my groups
+if(elgg_in_context('friends') || elgg_in_context('my_groups')){ //datatable for colleagues, my groups
 
     foreach ($items as $item) {
 	    $item_view = elgg_view_list_item($item, $vars);
@@ -107,7 +106,7 @@ if(elgg_in_context('friends') || elgg_in_context('my_groups') || $datatable){ //
         $heading = elgg_echo('friends');
     } else if($heading == 'user' && elgg_in_context('groups_members')){ //group members
         $heading = elgg_echo('groups:members');
-    } else if($heading == 'group' && (elgg_in_context('my_groups') || $datatable)){ //my groups
+    } else if($heading == 'group' && elgg_in_context('my_groups')){ //my groups
         $heading = elgg_echo('groups');
     }
 
@@ -117,7 +116,7 @@ if(elgg_in_context('friends') || elgg_in_context('my_groups') || $datatable){ //
     //create table head
     $tHead = elgg_format_element('thead', ['class' => ''], '<tr> <th class=""> ' . $heading . '</th> </tr>');
 
-        if(elgg_get_context() == 'messages' || $datatable){
+        if(elgg_get_context() == 'messages'){
             //make it so that messages won't be in alphabetical order. Need to pass a JSON array, but elgg is being mean :(
             echo elgg_format_element('table', ['class' => ' wb-tables table ', 'id' => '', "data-wb-tables"=>"{ \"ordering\" : false }"], $tHead . $tBody);
         }else{
@@ -182,7 +181,7 @@ if(elgg_in_context('friends') || elgg_in_context('my_groups') || $datatable){ //
             $heading = elgg_echo('friends');
         } else if($heading == 'user' && elgg_in_context('groups_members')){ //group members
             $heading = elgg_echo('groups:members');
-        } else if($heading == 'group' && (elgg_in_context('my_groups') || $datatable)){ //my groups
+        } else if($heading == 'group' && elgg_in_context('my_groups')){ //my groups
             $heading = elgg_echo('groups');
         }
 
