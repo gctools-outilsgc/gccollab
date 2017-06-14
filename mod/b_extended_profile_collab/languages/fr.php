@@ -90,6 +90,8 @@ $french = array(
     'gcconnex_profile:portfolio:link' => 'Hyperlien : ',
     'gcconnex_profile:portfolio:publication_date' => 'Date de publication : ',
     'gcconnex_profile:portfolio:description' => 'Description : ',
+
+    "gcconnex_profile:opt:career" => "Possibilités de carrière",
 );
 
-add_translation("fr",$french);
+add_translation("fr", $french);

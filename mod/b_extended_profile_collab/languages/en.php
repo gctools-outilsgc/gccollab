@@ -86,6 +86,8 @@ $english = array(
     'gcconnex_profile:portfolio:link' => 'Link: ',
     'gcconnex_profile:portfolio:publication_date' => 'Published on: ',
     'gcconnex_profile:portfolio:description' => 'Description: ',
+
+    'gcconnex_profile:opt:career' => 'Career Opportunities'
 );
 
 add_translation("en", $english);
