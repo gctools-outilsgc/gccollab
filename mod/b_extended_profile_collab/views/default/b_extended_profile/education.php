@@ -2,20 +2,20 @@
 
 if (elgg_is_xhr()) {
     $user_guid = $_GET["guid"];
-}
-else {
+}else {
     $user_guid = elgg_get_page_owner_guid();
 }
 
 $user = get_user($user_guid);
 $education_guid = $user->education;
 
-echo '<div class="gcconnex-education-display ">';
+echo '<div class="gcconnex-profile-education-display ">';
 
 if ($user->canEdit() && ($education_guid == NULL || empty($education_guid))) {
     echo elgg_echo('gcconnex_profile:education:empty');
-}
-else {
+
+}else {
+
     if (!(is_array($education_guid))) {
         $education_guid = array($education_guid);
     }
@@ -26,9 +26,8 @@ else {
         if ($education = get_entity($guid)) {
 
             echo '<div class="gcconnex-profile-education-display gcconnex-education-' . $education->guid . '">';
-            
             echo '<div class="gcconnex-profile-label education-school">' . htmlspecialchars_decode($education->school) . '</div>';
-            echo '<div class="gcconnex-profile-label education-degree">' . htmlspecialchars_decode($education->degree) . ' - ' . htmlspecialchars_decode($education->field) . '</div>';
+            echo '<div class="gcconnex-profile-label education-degree">' . htmlspecialchars_decode($education->degree) . '<span aria-hidden="true"> - </span><span class="wb-invisible"> '.elgg_echo('profile:content:for').' </span>' . htmlspecialchars_decode($education->field) . '</div>';
             
             $cal_month = array(
                     1 => elgg_echo('gcconnex_profile:month:january'),
@@ -44,7 +43,7 @@ else {
                     11 => elgg_echo('gcconnex_profile:month:november'),
                     12 => elgg_echo('gcconnex_profile:month:december')
                 );
-            echo '<div class="gcconnex-profile-label timeStamp">' . $cal_month[$education->startdate] . ', ' . $education->startyear . ' - ';
+            echo '<div class="gcconnex-profile-label timeStamp">' . $cal_month[$education->startdate] . ', ' . $education->startyear . '<span aria-hidden="true"> - </span><span class="wb-invisible"> '.elgg_echo('profile:content:to').' </span>';
 
             if ($education->ongoing == 'true') {
                 echo elgg_echo('gcconnex_profile:education:present');
@@ -52,14 +51,9 @@ else {
                 echo $cal_month[$education->enddate] . ', ' . $education->endyear;
             }
             echo '</div>';
-
-            
-            //echo '<div class="gcconnex-profile-label education-program"><ul><li>' . $education->program . '</li></ul></div>';
-            //echo '<div class="gcconnex-profile-label education-field">' . $education->field . '</div>';
             echo '</div>';
         }
     }
 }
 
 echo '</div>'; // close div class="gcconnex-profile-education-display"
-//echo '</div>'; // close div class="gcconnex-profile-section-wrapper"
