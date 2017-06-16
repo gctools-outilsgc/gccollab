@@ -15,4 +15,8 @@ function b_extended_profile_collab_init() {
 	// The new views used for the Opt-In section.
     elgg_register_ajax_view('b_extended_profile/opt-in');
     elgg_register_ajax_view('b_extended_profile/edit_opt-in');
+
+    // Register the gcconnex profile css libraries
+    $css_url = 'mod/b_extended_profile_collab/css/gcconnex-profile.css';
+    elgg_register_css('gcconnex-css', $css_url);
 }

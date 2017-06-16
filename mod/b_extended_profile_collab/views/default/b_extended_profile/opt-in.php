@@ -34,13 +34,17 @@
 		echo '<div class="gcconnex-profile-opt-in-display-table" style="margin: 10px;">';
         echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:career').'</h3>';
 		echo '<ul class="list-unstyled">';
-				echo '<li class="left-col">' . elgg_echo('missions:casual') . ' <i class="fa fa-info-circle" data-toggle="tooltip" title="' . elgg_echo('gcconnex_profile:opt:casual_tooltip') . '" id="casual-tooltip"></i>';
-				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_casual) . '</span></li>';
+				echo '<li class="left-col casual-tooltip" title="' . elgg_echo('gcconnex_profile:opt:casual_tooltip') . '">' . elgg_echo('gcconnex_profile:opt:casual_seek');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_casual_seek) . '</span></li>';
+				echo '<li class="left-col casual-tooltip" title="' . elgg_echo('gcconnex_profile:opt:casual_tooltip') . '">' . elgg_echo('gcconnex_profile:opt:casual_create');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_casual_create) . '</span></li>';
 
-				echo '<li class="left-col">' . elgg_echo('missions:student') . ' <i class="fa fa-info-circle" data-toggle="tooltip" title="' . elgg_echo('gcconnex_profile:opt:student_tooltip') . '" id="student-tooltip"></i>';
-				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_student) . '</span></li>';
+				echo '<li class="left-col student-tooltip" title="' . elgg_echo('gcconnex_profile:opt:student_tooltip') . '">' . elgg_echo('gcconnex_profile:opt:student_seek');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_student_seek) . '</span></li>';
+				echo '<li class="left-col student-tooltip" title="' . elgg_echo('gcconnex_profile:opt:student_tooltip') . '">' . elgg_echo('gcconnex_profile:opt:student_create');
+				echo '<span class="mrgn-lft-md">' . elgg_echo($user->opt_in_student_create) . '</span></li>';
 
-				echo '<script>$(document).ready(function() { $("#casual-tooltip").tooltip(); $("#student-tooltip").tooltip(); });</script>';
+				echo '<script>$(document).ready(function() { $(".casual-tooltip").tooltip(); $(".student-tooltip").tooltip(); });</script>';
 
 		/* MW - Changed for GCcollab version of Opp Platform
         echo '<div class="col-sm-6 "><h3 class="h4 mrgn-tp-0">'. elgg_echo('gcconnex_profile:opt:atlevel').'</h3>';

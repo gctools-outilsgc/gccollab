@@ -1192,8 +1192,10 @@ function saveProfile(event) {
             opt_in_set[16] = $options.find('#gcconnex-opt-in-missioncreator-check').is(':checked');
 
             /* MW - Added for GCcollab only */
-            opt_in_set[17] = $options.find('#gcconnex-opt-in-casual-check').is(':checked');
-            opt_in_set[18] = $options.find('#gcconnex-opt-in-student-check').is(':checked');
+            opt_in_set[17] = $options.find('#gcconnex-opt-in-casualseek-check').is(':checked');
+            opt_in_set[18] = $options.find('#gcconnex-opt-in-casualcreate-check').is(':checked');
+            opt_in_set[19] = $options.find('#gcconnex-opt-in-studentseek-check').is(':checked');
+            opt_in_set[20] = $options.find('#gcconnex-opt-in-studentcreate-check').is(':checked');
 
             /*opt_in_set[6] = $options.find('#gcconnex-opt-in-peer-coached-check').is(':checked');
             opt_in_set[7] = $options.find('#gcconnex-opt-in-peer-coaching-check').is(':checked');
