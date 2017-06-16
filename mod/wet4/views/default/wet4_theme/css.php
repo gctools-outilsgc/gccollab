@@ -10635,344 +10635,6 @@ a.shr-opn, a.shr-opn:hover {
 .wb-disable #wb-sm .nvbar {
   display: block !important; }
 
-/*****Custom index classes***/
-
-.index-main .panel-default:not(.newsfeed-filter){
-    background:transparent !important;
-    border:none !important;
-    box-shadow:none !important;
-}
-.index-main .panel-default:not(.newsfeed-filter) .panel-heading{
-    background:transparent !important;
-    border:none !important;
-    box-shadow:none !important;
-}
-
-.index-main .panel-default:first-child .panel-heading{
-    display:none;
-    visibility:none;
-}
-
-
-/* SPLASH PAGE */
-
-.splash object {
-  height: auto;
-  max-width: 100%; }
-
-.splash #bg {
-  background: url(<?php echo $site_url ?>/mod/wet4/graphics/Peyto_Lake-Banff_NP-Canada.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-
-  position: fixed;
-  left: 0;
-  top: 0;
-  min-width: 100%;
-  min-height: 100%;}
-  .splash #bg img {
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    min-height: 50%;
-    min-width: 50%;
-    position: absolute;
-    right: 0;
-    top: 0; }
-
-.splash_identifier{
-    font-size: 4.0em;
-    display: block;
-    clear: both;
-    float: right;
-    margin: 12% 12% 2% 0;
-    color: #46246A;
-}
-
-.splash .sp-bx {
-    border: solid 1px #dddddd;
-    border-bottom: none;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-  background-color: #f8f8f8;
-  padding: 30px 30px 19px; }
-  .splash .sp-bx .btn {
-    -webkit-box-shadow: 0 4px #ddd;
-            box-shadow: 0 4px #ddd;
-    margin: 35px 0 14px;
-    min-width: 110px; }
-    @media (min-width: 768px) {
-      .splash .sp-bx .btn {
-        -webkit-box-shadow: 0 4px #ddd;
-                box-shadow: 0 4px #ddd;
-        margin: 35px 0 14px;
-        min-width: 110px; } }
-    @media (min-width: 992px) {
-      .splash .sp-bx .btn {
-        -webkit-box-shadow: 0 4px #ddd;
-                box-shadow: 0 4px #ddd;
-        margin: 35px 0 14px;
-        min-width: 138px;
-        padding: .5em 1.5em; } }
-    @media (min-width: 1200px) {
-      .splash .sp-bx .btn {
-        -webkit-box-shadow: 0 4px #ddd;
-                box-shadow: 0 4px #ddd;
-        margin: 35px 0 14px;
-        min-width: 138px;
-        padding: .5em 1.5em; } }
-
-.splash .glyphicon {
-  color: #9e9e9e;
-  font-size: 5px;
-  top: -3px; }
-
-.splash .sp-lk:link, .splash .sp-lk:visited {
-  color: #335075;
-  text-decoration: none; }
-
-.splash .sp-lk:hover, .splash .sp-lk:active {
-  color: #335075;
-  text-decoration: underline; }
-
-.splash .sp-hb {
-    padding: 50px 0;
-  margin: 0 auto;
-  width: 300px; }
-  @media (min-width: 768px) {
-    .splash .sp-hb {
-        padding: 50px 0;
-      margin: 0 auto;
-      width: 300px; } }
-  @media (min-width: 992px) {
-    .splash .sp-hb {
-        padding: 175px 0;
-      margin: 0 auto;
-      width: 500px; } }
-  @media (min-width: 1200px) {
-    .splash .sp-hb {
-        padding: 175px 0;
-      margin: 0 auto;
-      width: 500px; } }
-
-.splash .sp-bx-bt {
-    border: solid 1px #dddddd;
-    border-top: none;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.09);
-  background-color: #e1e4e7;
-  padding: 30px; }
-  @media (min-width: 768px) {
-    .splash .sp-bx-bt {
-      background-color: #e1e4e7;
-      padding: 30px; } }
-  @media (min-width: 992px) {
-    .splash .sp-bx-bt {
-      background-color: #e1e4e7;
-      padding: 30px 30px 13px; } }
-  @media (min-width: 1200px) {
-    .splash .sp-bx-bt {
-      background-color: #e1e4e7;
-      padding: 30px 30px 13px; } }
-
-
-/***TEMP ICON STYLE ****/
-
-.icon-unsel{
-    color: #a0a0a0;
-}
-
-.icon-unsel:hover{
-    color:#6B5088;
-}
-
-/***End of temp icon ****/
-
-/* IE Icon Tweaks */
-@media all and (-ms-high-contrast:none) {
-  .fa-cog:before{
-    content:none !important;
-  }
-
-  .fa-cog {
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_cog.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
-  }
-
-  .fa-caret-down:before{
-    content:none !important;
-  }
-
-  .fa-caret-down {
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
-  }
-
-  .fa-ellipsis-v:before{
-    content:none !important;
-  }
-
-  .fa-ellipsis-v {
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
-  }
-
-  .fa-thumbs-up:before{
-      content:none !important;
-  }
-  .fa-thumbs-up{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_like.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .icon-sel{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-trash-o:before{
-      content:none !important;
-  }
-  .fa-trash-o{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_delete.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-share-alt:before{
-      content:none !important;
-  }
-  .fa-share-alt{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_share.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-edit:before{
-      content:none !important;
-  }
-  .fa-edit{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_edit.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-reply:before{
-      content:none !important;
-  }
-  .fa-reply{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_reply.png);
-     background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-bell:before{
-      content:none !important;
-  }
-  .fa-bell{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-  .fa-bell-slash:before{
-      content:none !important;
-  }
-  .fa-bell-slash{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell_slash.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-users:before{
-      content:none !important;
-  }
-  .fa-users{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_colleagues.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-envelope:before{
-      content:none !important;
-  }
-  .fa-envelope{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mail.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .fa-wrench:before{
-      content:none !important;
-  }
-  .fa-wrench{
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .gcconnex-profile-contact-info .fa-phone:before {
-      content:none !important;
-  }
-  .gcconnex-profile-contact-info .fa-phone {
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_phone.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .gcconnex-profile-contact-info .fa-mobile:before {
-      content:none !important;
-  }
-  .gcconnex-profile-contact-info .fa-mobile {
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mobile.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .gcconnex-profile-contact-info .fa-envelope:before {
-      content:none !important;
-  }
-  .gcconnex-profile-contact-info .fa-envelope {
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_envelope.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-
-  .gcconnex-profile-contact-info .fa-globe:before {
-      content:none !important;
-  }
-  .gcconnex-profile-contact-info .fa-globe {
-      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_globe.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
-  }
-}
-
 /*
  * Mobile panel
  */
@@ -11816,4 +11478,215 @@ Carousel
 
 .fc-event:hover,.fc-event:focus, .fc-event-inner a:hover,.fc-event-inner a:focus{
   color:white !important;
+}
+
+/***TEMP ICON STYLE ****/
+
+.icon-unsel{
+    color: #a0a0a0;
+}
+
+.icon-unsel:hover{
+    color:#6B5088;
+}
+
+/***End of temp icon ****/
+
+/* IE Icon Tweaks */
+@media all and (-ms-high-contrast:none) {
+  .fa-cog:before{
+    content:none !important;
+  }
+
+  .fa-cog {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_cog.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
+  .fa-caret-down:before{
+    content:none !important;
+  }
+
+  .fa-caret-down {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
+  .fa-ellipsis-v:before{
+    content:none !important;
+  }
+
+  .fa-ellipsis-v {
+    background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_more.png);
+    background-size:cover;
+    height: 30px;
+    width:25px;
+  }
+
+  .fa-thumbs-up:before{
+      content:none !important;
+  }
+  .fa-thumbs-up{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_like.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .icon-sel{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_unlike.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-trash-o:before{
+      content:none !important;
+  }
+  .fa-trash-o{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_delete.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-share-alt:before{
+      content:none !important;
+  }
+  .fa-share-alt{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_share.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-edit:before{
+      content:none !important;
+  }
+  .fa-edit{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_edit.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-reply:before{
+      content:none !important;
+  }
+  .fa-reply{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_reply.png);
+     background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-bell:before{
+      content:none !important;
+  }
+  .fa-bell{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+  .fa-bell-slash:before{
+      content:none !important;
+  }
+  .fa-bell-slash{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_bell_slash.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-users:before{
+      content:none !important;
+  }
+  .fa-users{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_colleagues.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-envelope:before{
+      content:none !important;
+  }
+  .fa-envelope{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mail.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .fa-wrench:before{
+      content:none !important;
+  }
+  .fa-wrench{
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_wrench.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-phone:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-phone {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_phone.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-mobile:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-mobile {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_mobile.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-envelope:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-envelope {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_envelope.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+
+  .gcconnex-profile-contact-info .fa-globe:before {
+      content:none !important;
+  }
+  .gcconnex-profile-contact-info .fa-globe {
+      background: url(<?php echo $site_url ?>/mod/wet4/graphics/temp_icon_globe.png);
+      background-size:cover;
+      height: 25px;
+      width:25px;
+  }
+}
+
+/*****Custom index classes***/
+.index-main .panel-default:not(.newsfeed-filter){
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+}
+.index-main .panel-default:not(.newsfeed-filter) .panel-heading{
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+}
+
+.index-main .panel-default:first-child .panel-heading{
+    display:none;
+    visibility:none;
 }

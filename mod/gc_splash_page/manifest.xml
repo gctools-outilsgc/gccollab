@@ -13,8 +13,4 @@
      <type>elgg_release</type>
      <version>1.9</version>
    </requires>
-   <conflicts>
-      <type>plugin</type>
-      <name>gc_splash_page_collab</name>
-   </conflicts>
  </plugin_manifest>

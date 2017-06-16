@@ -11,7 +11,7 @@
 $site_url = elgg_get_site_url(); 
 ?>
 
-<style>
+/* <style> /**/
 /* SPLASH PAGE */
 
 .splash object {
@@ -135,5 +135,3 @@ min-height: 100%;}
     .splash .sp-bx-bt {
       background-color: #e1e4e7;
       padding: 30px 30px 13px; } }
-
-      </style>

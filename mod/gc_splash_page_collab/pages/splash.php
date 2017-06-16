@@ -1,13 +1,7 @@
 <?php
 /**
-  * gc_splash_page pages/splash.php
-  *
   * Creates a splash page for GCcollab for users to check language.
-  * It then forwards them to login
-  *
-  * @version 1.0
-  * @author Nick Pietrantonio    github.com/piet0024
- */
+  */
 
 $site_url = elgg_get_site_url();
 $jsLocation = $site_url . "mod/wet4/views/default/js/wet-boew.js";

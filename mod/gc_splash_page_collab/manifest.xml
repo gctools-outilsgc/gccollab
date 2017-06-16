@@ -13,8 +13,8 @@
      <type>elgg_release</type>
      <version>1.9</version>
    </requires>
-   <conflicts>
+   <requires>
       <type>plugin</type>
       <name>gc_splash_page</name>
-   </conflicts>
+   </requires>
  </plugin_manifest>
