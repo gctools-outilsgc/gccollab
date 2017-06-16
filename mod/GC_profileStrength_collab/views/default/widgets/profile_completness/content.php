@@ -6,7 +6,7 @@
  * @author Mathieu Blondin Ethan Wallace github.com/ethanWallace
  */
 
-$user_guid = elgg_get_logged_in_user_guid();
+$user_guid = elgg_get_page_owner_guid();
 $userEnt = get_user ( $user_guid );
 
 //avatar
@@ -30,7 +30,7 @@ if($userEnt->description){
 //basic profile
 $basicCount = 0;
 
-if($userEnt->department){
+if($userEnt->university || $userEnt->college || $userEnt->highschool || $userEnt->federal || $userEnt->ministry || $userEnt->municipal || $userEnt->international || $userEnt->ngo || $userEnt->community || $userEnt->business || $userEnt->media || $userEnt->retired || $userEnt->other){
     $basicCount += 20;
 }
 if($userEnt->job){
@@ -85,12 +85,12 @@ echo '<link rel="stylesheet" href="'.elgg_get_site_url().'mod/GC_profileStrength
         foregroundBorderWidth: 15,
         backgroundBorderWidth: 15,
         percent: <?php echo $complete;?>,
-        fontColor: '#055959',
+        fontColor: '#46246A',
         textSize: 28,
         percentageTextSize: 40,
-        foregroundColor: "#055959",
-        iconColor: '#055959',
-        targetColor: '#055959',
+        foregroundColor: "#46246A",
+        iconColor: '#46246A',
+        targetColor: '#46246A',
     });
 });
 </script>
@@ -134,29 +134,29 @@ if($userEnt->profilestrength != 100){
     echo '</div>';
 
     if($userEnt->opt_in_missions == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
         $OptedIn = true;
-    }
-    if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
+	}
+	if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
         $OptedIn = true;
-    }
-    if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
+	}
+	if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
 
     //focus onto the micromission section
     if(elgg_plugin_exists('missions') && elgg_is_active_plugin('missions') && $OptedIn==false){
