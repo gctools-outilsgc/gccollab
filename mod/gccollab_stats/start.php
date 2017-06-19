@@ -315,7 +315,9 @@ function get_site_data($type, $lang) {
 
 		foreach($wireposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, $obj->description, $user->name);
+			}
 		}
 	} else if ($type === 'blogposts') {
 		$blogposts = elgg_get_entities(array(
@@ -326,7 +328,9 @@ function get_site_data($type, $lang) {
 
 		foreach($blogposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
+			}
 		}
 	} else if ($type === 'comments') {
 		$comments = elgg_get_entities(array(
@@ -337,7 +341,9 @@ function get_site_data($type, $lang) {
 
 		foreach($comments as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, $obj->description, $user->name);
+			}
 		}
 	} else if ($type === 'groupscreated') {
 		$groupscreated = elgg_get_entities(array(
@@ -347,7 +353,9 @@ function get_site_data($type, $lang) {
 
 		foreach($groupscreated as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
+			}
 		}
 	} else if ($type === 'groupsjoined') {
 		$dbprefix = elgg_get_config('dbprefix');
@@ -371,7 +379,9 @@ function get_site_data($type, $lang) {
 			$entity = get_entity($obj->entity_guid);
 			$user = get_user($obj->owner_guid);
 			$user_liked = ($entity->title != "" ? $entity->title : ($entity->name != "" ? $entity->name : $entity->description));
-			$data[] = array($obj->time_created, $user->name, $user_liked);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, $user->name, $user_liked);
+			}
 		}
 	} else if ($type === 'messages') {
 		$messages = elgg_get_entities(array(
@@ -383,7 +393,9 @@ function get_site_data($type, $lang) {
 		foreach($messages as $key => $obj){
 			if($obj->fromId && $obj->fromId !== 1){
 				$user = get_user($obj->owner_guid);
-				$data[] = array($obj->time_created, $user->name, $obj->title);
+				if($obj->time_created && $user instanceof ElggUser){
+					$data[] = array($obj->time_created, $user->name, $obj->title);
+				}
 			}
 		}
 	} 
