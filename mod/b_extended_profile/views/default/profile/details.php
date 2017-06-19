@@ -10,14 +10,13 @@
 $user = elgg_get_page_owner_entity();
 $profile_fields = elgg_get_config('profile_fields');
 
-// display the username, title, phone, mobile, email, website, and user type
+// display the username, title, phone, mobile, email, website
 // fa classes are the font-awesome icons
 
 echo '<div class="panel-heading clearfix">';
 echo '<h1 class="pull-left group-title">' . $user->name . '</h1>';
 echo '<div class="pull-right clearfix">';
 echo '<div class="gcconnex-profile-name">';
-
 //edit button
 if ($user->canEdit()) {
     echo '<a role="button" class="btn btn-primary gcconnex-edit-profile overlay-lnk" href="#editProfile">' . elgg_echo('gcconnex_profile:edit_profile') . ' <span class="wb-inv">' . elgg_echo('profile:contactinfo') . '</span></a><script>$(".gcconnex-edit-profile").on("click", function(){ $("#editProfile").focus(); });</script>';
@@ -33,117 +32,32 @@ if ($user->canEdit()) {
     echo '<div><a href='.$editAvatar.' class="btn btn-primary">'. elgg_echo('gcconnex_profile:profile:edit_avatar') .'</a></div>';
     echo '<div class="basic-profile-standard-field-wrapper col-md-6 col-xs-12">'; // container for css styling, used to group profile content and display them seperately from other fields
 
-    // container for css styling, used to group profile content and display them seperately from other fields
-    echo '              <div class="basic-profile-standard-field-wrapper col-sm-6 col-xs-12">'; 
+    $fields = array('Name', 'Job', 'Department', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
 
-    // form that displays the user fields
-    $fields = array('Name', 'user_type', 'institution', 'Job', 'Department', 'Location', 'Phone', 'Mobile', 'Email', 'Website');
+    foreach ($fields as $field) { // create a label and input box for each field on the basic profile (see $fields above)
+        echo '<div class="basic-profile-field-wrapper col-xs-12">'; // field wrapper for css styling
 
-    foreach ($fields as $field) {
-
-        echo '<div class="basic-profile-field-wrapper col-xs-12">';
-
-        // create a label and input box for each field on the basic profile (see $fields above)
         $field = strtolower($field);
+        echo '<label for="' . $field . '" class="basic-profile-label ' . $field . '-label">' . elgg_echo('gcconnex_profile:basic:' . $field) . '</label>'; // field label
+
         $value = $user->get($field);
-
-        // occupation input
-        if (strcmp($field, 'user_type') == 0) {
-            
-            echo "<label for='{$field}' class='basic-profile-label {$field}-label'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
-            echo '<div class="basic-profile-field user_type-test">';
-            echo elgg_view('input/select', array(
-                'name' => $field,
-                'id' => $field,
-                'class' => "gcconnex-basic-{$field}",
-                'value' => $value,
-                'options_values' => array('student' => 'Student', 'academic' => 'Academic', 'public_servant' => 'Public Servant'),
-            ));
-
-
-            // jquery for the occupation dropdown - institution
-            ?>
-
-            <script>
-
-            $(document).ready(function () {
-
-                var user_occupation_top = $("#user_type").find(":selected").text();
-                if (user_occupation_top == 'Student' || user_occupation_top == 'Academic') {
-                    $(".job-label").hide();
-                    $("#job").hide();
-                    $(".department-label").hide();
-                    $("#department").hide();
-                } else {
-                    $(".institution-label").hide();
-                    $("#institution").hide();
-                }
-
-                $("#user_type").change(function() {
-                    var user_occupation = $("#user_type").find(":selected").text();
-                    if (user_occupation == "Student" || user_occupation == "Academic") {
-                        $(".job-label").hide();
-                        $("#job").hide();
-                        $(".department-label").hide();
-                        $("#department").hide();
-
-                        $(".institution-label").show();
-                        $("#institution").show();
-                    } else {
-                        $(".institution-label").hide();
-                        $("#institution").hide();
-
-                        $(".job-label").show();
-                        $("#job").show();
-                        $(".department-label").show();
-                        $("#department").show();
-                    }
-                });
-            });
-
-
-            </script>
-
-            <?php
-
-
-        // institution input field
-        } else if (strcmp($field, 'institution') == 0) {
-
-            echo "<label for='{$field}' class='basic-profile-label {$field}-label'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
-            echo '<div class="basic-profile-field user_type-test">';
-
-
-            // re-use the data that we've already put into the domain module
-            $query = "SELECT ext, dept FROM email_extensions WHERE dept LIKE '%University%' OR dept LIKE '%College%' OR dept LIKE '%Institute%' OR dept LIKE '%Université%' OR dept LIKE '%Cégep%' OR dept LIKE '%Institut%'";
-            $universities = get_data($query);
-            $university_list = array();
-            // this is bad programming but... reconstructing the array
-            foreach ($universities as $university) {
-                $university_list[$university->ext] = $university->dept;
-            }
-
-            echo elgg_view('input/select', array(
-                'name' => $field,
-                'id' => $field,
-                'class' => "gcconnex-basic-{$field}",
-                'value' => $value,
-                'options_values' => $university_list, 
-            ));              
-
-        // Troy - department input
-        } else if ($field == 'department') {
-
-            echo "<label for='{$field}' class='basic-profile-label {$field}-label'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
+        // setup the input for this field
+        $params = array(
+            'name' => $field,
+            'id' => $field,
+            'class' => 'gcconnex-basic-' . $field,
+            'value' => $value,
+        );
+		/////////////Troy
+        if ($field == 'department') {
+            /////////////Troy
             echo '<div class="basic-profile-field department-test">';
 			$obj = elgg_get_entities(array(
    				'type' => 'object',
    				'subtype' => 'dept_list',
    				'owner_guid' => 0
 			));
-
-            // english / french departments
-			if (get_current_language() == 'en') {
+			if (get_current_language()=='en'){
 				$departments = $obj[0]->deptsEn;
 				$departments = json_decode($departments, true);
 				$provinces['pov-alb'] = 'Government of Alberta';
@@ -160,7 +74,7 @@ if ($user->canEdit()) {
 				$provinces['pov-sask'] = 'Government of Saskatchewan';
 				$provinces['pov-yuk'] = 'Government of Yukon';
 				$departments = array_merge($departments,$provinces);
-			} else {
+			}else{
 				$departments = $obj[0]->deptsFr;
 				$departments = json_decode($departments, true);
 				$provinces['pov-alb'] = "Gouvernement de l'Alberta";
@@ -180,12 +94,12 @@ if ($user->canEdit()) {
 			}
 
 			$value = explode(" / ", $value);
-
 			$key = array_search($value[0], $departments);
-			if ($key === false)
-				$key = array_search($value[1], $departments);
 
-			echo elgg_view('input/select', array(
+			if ($key === false){
+				$key = array_search($value[1], $departments);
+			}
+            echo elgg_view('input/select', array(
 				'name' => $field,
 				'id' => $field,
         		'class' => ' gcconnex-basic-' . $field,
@@ -193,45 +107,32 @@ if ($user->canEdit()) {
 				'options_values' => $departments,
 
 			));
-        
-        } else {
-
-            
-            $params = array(
-                'name' => $field,
-                'id' => $field,
-                'class' => 'gcconnex-basic-'.$field,
-                'value' => $value,
-            );
-
-            // set up label and input field for the basic profile stuff
-            echo "<label for='{$field}' class='basic-profile-label {$field}-label'>" . elgg_echo("gcconnex_profile:basic:{$field}")."</label>";
+        }
+        else {
             echo '<div class="basic-profile-field">'; // field wrapper for css styling
+
 			echo elgg_view("input/text", $params);
-
-		} // input field
-
+		}// input field
         echo '</div>'; //close div class = basic-profile-field
-        echo '</div>'; //close div class = basic-profile-field-wrapper
 
-    } // end for-loop
+        echo '</div>'; //close div class = basic-profile-field-wrapper
+    }
 
     echo '</div>'; // close div class="basic-profile-standard-field-wrapper"
     echo '<div class="basic-profile-social-media-wrapper col-md-6 col-xs-12">'; // container for css styling, used to group profile content and display them seperately from other fields
 
 	// pre-populate the social media fields and their prepended link for user profiles
-    $fields = array(
-        'Facebook' => "http://www.facebook.com/",
-        'Google Plus' => "http://www.google.com/",
-        'GitHub' => "https://github.com/",
-        'Twitter' => "https://twitter.com/",
-        'Linkedin' => "http://ca.linkedin.com/in/",
-        'Pinterest' => "http://www.pinterest.com/",
-        'Tumblr' => "https://www.tumblr.com/blog/",
-        'Instagram' => "http://instagram.com/",
-        'Flickr' => "http://flickr.com/",
-        'Youtube' => "http://www.youtube.com/"
-    );
+
+    $fields = array('Facebook' => "http://www.facebook.com/",
+    'Google Plus' => "http://www.google.com/",
+    'GitHub' => "https://github.com/",
+    'Twitter' => "https://twitter.com/",
+    'Linkedin' => "http://ca.linkedin.com/in/",
+    'Pinterest' => "http://www.pinterest.com/",
+    'Tumblr' => "https://www.tumblr.com/blog/",
+    'Instagram' => "http://instagram.com/",
+    'Flickr' => "http://flickr.com/",
+    'Youtube' => "http://www.youtube.com/");
 
     foreach ($fields as $field => $field_link) { // create a label and input box for each social media field on the basic profile
 
@@ -275,6 +176,7 @@ if ($user->canEdit()) {
 
     echo '</div>'; // close div class="basic-profile-social-media-wrapper"
     echo '
+
     </div>
             <div class="panel-footer text-right profile-edit-footer">
                 <button type="button" class="btn btn-primary save-profile">' . elgg_echo('gcconnex_profile:basic:save') . '</button>
@@ -288,10 +190,6 @@ if ($user->canEdit()) {
 <!-- /.modal -->';
 
 }
-
-
-
-
 echo '</div>'; // close div class="gcconnex-profile-name"
 //actions dropdown
 if (elgg_get_page_owner_guid() != elgg_get_logged_in_user_guid()) {
@@ -328,8 +226,7 @@ if (elgg_get_page_owner_guid() != elgg_get_logged_in_user_guid()) {
 			}
         }
     }
-
-    if(elgg_is_logged_in()) {
+    if(elgg_is_logged_in()){
 		echo "<button type='button' class='btn btn-primary' onclick='location.href=\"{$btn_friend_request_link}\"'>{$btn_friend_request}</button>"; // cyu - added button and removed from actions toggle
 
         echo $add . '<div class="btn-group"><button type="button" class="btn btn-custom mrgn-rght-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -351,17 +248,14 @@ if (elgg_is_admin_logged_in() && elgg_get_logged_in_user_guid() != elgg_get_page
     }
 
     echo '<div class="pull-right btn-group"><button type="button" class="btn btn-custom pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' .
-	$text . '<span class="caret"></span>
+	$text .  '<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right clearfix">' . $admin_links . '</ul></div>';
 }
 
 echo '</div>'; //closes btn-group
 
-
-echo '<h1 class="pull-left group-title">' . $user->name . '</h1>';
 echo '</div>'; // close div class="panel-heading"
-
 
 echo '<div class="row mrgn-lft-md mrgn-rght-sm">';
 echo elgg_view('profile/owner_block');
@@ -369,18 +263,19 @@ echo '<div class="col-xs-9 col-md-8 clearfix"><div class="mrgn-lft-md">';
 echo '<div class="mrgn-tp-0 h3">' . $user->job . '</div>';
 echo '<div class="gcconnex-profile-dept">' . $user->department . '</div>';
 echo '<div class="gcconnex-profile-location">' . $user->location . '</div>';
-
-
 echo '<div class="gcconnex-profile-contact-info">';
 
-if ($user->phone != null)
+if ($user->phone != null) {
     echo '<p class="mrgn-bttm-sm"><i class="fa fa-phone fa-lg"></i> ' . $user->phone . '</p>';
+}
 
-if ($user->mobile != null)
+if ($user->mobile != null) {
     echo '<p class="mrgn-bttm-sm"><i class="fa fa-mobile fa-lg"></i> ' . $user->mobile . '</p>';
+}
 
-if ($user->email != null)
+if ($user->email != null) {
     echo '<p class="mrgn-bttm-sm"><i class="fa fa-envelope fa-lg"></i> <a href="mailto:' . $user->email . '">' . $user->email . '</a></p>';
+}
 
 if ($user->website != null) {
     echo '<p class="mrgn-bttm-sm"><i class="fa fa-globe fa-lg"></i> ';
@@ -398,19 +293,22 @@ $social = array('facebook', 'google', 'github', 'twitter', 'linkedin', 'pinteres
 
 echo '<div class="gcconnex-profile-social-media-links mrgn-bttm-sm mrgn-lft-md">';
 foreach ($social as $media) {
+
     if ($link = $user->get($media)) {
-        if ($media == 'facebook')   { $link = "http://www.facebook.com/" . $link; $class = "fa-facebook";}
-        if ($media == 'google')     { $link = "http://plus.google.com/" . $link; $class = "fa-google-plus";}
-        if ($media == 'github')     { $link = "https://github.com/" . $link; $class = "fa-github";}
-        if ($media == 'twitter')    { $link = "https://twitter.com/" . $link; $class = "fa-twitter";}
-        if ($media == 'linkedin')   { $link = "http://ca.linkedin.com/in/" . $link; $class = "fa-linkedin";}
-        if ($media == 'pinterest')  { $link = "http://www.pinterest.com/" . $link; $class = "fa-pinterest";}
-        if ($media == 'tumblr')     { $link = "https://www.tumblr.com/blog/" . $link; $class = "fa-tumblr";}
-        if ($media == 'instagram')  { $link = "http://instagram.com/" . $link; $class = "fa-instagram";}
-        if ($media == 'flickr')     { $link = "http://flickr.com/" . $link; $class = "fa-flickr"; }
-        if ($media == 'youtube')    { $link = "http://www.youtube.com/" . $link; $class = "fa-youtube";}
+
+        if ($media == 'facebook') { $link = "http://www.facebook.com/" . $link; $class = "fa-facebook";}
+        if ($media == 'google') { $link = "http://plus.google.com/" . $link; $class = "fa-google-plus";}
+        if ($media == 'github') { $link = "https://github.com/" . $link; $class = "fa-github";}
+        if ($media == 'twitter') { $link = "https://twitter.com/" . $link; $class = "fa-twitter";}
+        if ($media == 'linkedin') { $link = "http://ca.linkedin.com/in/" . $link; $class = "fa-linkedin";}
+        if ($media == 'pinterest') { $link = "http://www.pinterest.com/" . $link; $class = "fa-pinterest";}
+        if ($media == 'tumblr') { $link = "https://www.tumblr.com/blog/" . $link; $class = "fa-tumblr";}
+        if ($media == 'instagram') { $link = "http://instagram.com/" . $link; $class = "fa-instagram";}
+        if ($media == 'flickr') { $link = "http://flickr.com/" . $link; $class = "fa-flickr"; }
+        if ($media == 'youtube') { $link = "http://www.youtube.com/" . $link; $class = "fa-youtube";}
 
         echo '<a href="' . $link . '" target="_blank"><i class="socialMediaIcons fa ' . $class . ' fa-2x"></i></a>';
+
     }
 }
 echo '</div>'; // close div class="gcconnex-profile-social-media-links"

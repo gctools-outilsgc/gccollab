@@ -258,6 +258,8 @@ function reply_wire( $user, $message, $guid ){
 
 	elgg_set_ignore_access(true);
 
+	$message = utf8_encode($message);
+
 	$new_wire = thewire_save_post($message, $user_entity->guid, ACCESS_PUBLIC, $guid);
 	if( !$new_wire ) return elgg_echo("thewire:notsaved");
 

@@ -92,7 +92,9 @@ $french = array(
 	</ul>
 	<p>Vous ne faites pas partie de ces groupes? Les Canadiens peuvent se joindre à GCcollab par invitation! Les membres existants de GCcollab peuvent inviter leurs intervenants et partenaires à se joindre à GCcollab, ce qui en fait un environnement véritablement collaboratif.</p>
 	<p class='ptm pbm'><strong>Inscrivez-vous et validez votre compte!</strong></p>
-	<p>Une fois que vous aurez rempli le formulaire d'inscription, vous recevrez un courriel de validation. Cliquez sur le lien (ou copiez-le dans la barre d'adresse) pour activer votre compte. Si vous ne recevez pas de courriel, veuillez communiquer avec le <a href='" . elgg_get_site_url() . "mod/contactform/'>bureau d’aide de GCcollab</a>.</p>"
+	<p>Une fois que vous aurez rempli le formulaire d'inscription, vous recevrez un courriel de validation. Cliquez sur le lien (ou copiez-le dans la barre d'adresse) pour activer votre compte. Si vous ne recevez pas de courriel, veuillez communiquer avec le <a href='" . elgg_get_site_url() . "mod/contactform/'>bureau d’aide de GCcollab</a>.</p>",
+	
+	'gcRegister:required' => 'requis',
 );
  
 add_translation("fr", $french);

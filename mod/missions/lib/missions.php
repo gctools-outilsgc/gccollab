@@ -775,5 +775,13 @@ function check_if_opted_in($current_user) {
 		return true;
 	}
 
+	/* MW - Added for GCcollab only */
+	if($current_user->opt_in_casual == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+    if($current_user->opt_in_student == 'gcconnex_profile:opt:yes') {
+		return true;
+	}
+
 	return false;
 }

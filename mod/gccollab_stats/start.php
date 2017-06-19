@@ -357,7 +357,9 @@ function get_site_data($type, $lang) {
 		foreach($groupsjoined as $key => $obj){
 			$user = get_user($obj->guid_one);
 			$group = get_entity($obj->guid_two);
-			$data[] = array($obj->time_created, $user->name, $group->name);
+			if($obj->time_created && $user instanceof ElggUser && $group instanceof ElggGroup){
+				$data[] = array($obj->time_created, $user->name, $group->name);
+			}
 		}
 	} else if ($type === 'likes') {
 		$likes = elgg_get_annotations(array(

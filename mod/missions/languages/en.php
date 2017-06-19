@@ -336,8 +336,6 @@ return array(
 "missions:withdrew_from_mission_body" => "Please note that %s has withdrawn from your opportunity. Select another participant or repost your opportunity to get other applicants.",
 "missions:micro_mission" => "Micro-Mission",
 "missions:job_swap" =>  "Job Swap",
-"missions:mentoring" => "Mentoring",
-"missions:shadowing" => "Shadowing",
 "missions:job_shadowing" => "Shadowing",
 "missions:peer_coaching" => "Peer Coaching",
 "missions:skill_sharing" => "Skill Sharing",

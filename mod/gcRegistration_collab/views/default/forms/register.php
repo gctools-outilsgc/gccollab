@@ -220,7 +220,7 @@ $(window).on('beforeunload', function(){
 
 				<!-- Options for the users enabled in $enabled_fields above -->
 				<div class="form-group">
-					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="user_type" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:occupation'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 	    			<select id="user_type" name="user_type" class="form-control" aria-required="true">
 						<?php if(show_field("academic")): ?><option value="academic"><?php echo elgg_echo('gcRegister:occupation:academic'); ?></option><?php endif; ?>
 	    				<?php if(show_field("student")): ?><option value="student"><?php echo elgg_echo('gcRegister:occupation:student'); ?></option><?php endif; ?>
@@ -406,6 +406,8 @@ $(window).on('beforeunload', function(){
 
 	if( !empty($provincial_departments) ){
 		foreach($provincial_departments as $province => $province_name){
+			asort($ministries[$province]);
+
 			$prov_id = str_replace(" ", "-", strtolower($province));
 			echo '<div class="form-group occupation-choices provincial-choices" id="' . $prov_id . '-wrapper" hidden><label for="' . $prov_id . '" class="required"><span class="field-name">' . elgg_echo('gcRegister:ministry') . '</span></label>';
 			echo elgg_view('input/select', array(
@@ -436,7 +438,6 @@ $(window).on('beforeunload', function(){
 	} else {
 		$municipal = json_decode($municipals->municipal_fr, true);
 	}
-	asort($municipal);
 
 	$municipal_choices = elgg_view('input/text', array(
 		'name' => 'municipal',
@@ -452,6 +453,8 @@ $(window).on('beforeunload', function(){
 					<datalist id="municipal-list">
 						<?php
 							if( !empty($municipal) ){
+								asort($municipal);
+								
 								foreach($municipal as $municipal_name => $value){
 									echo '<option value="' . $municipal_name . '">' . $value . '</option>';
 								}
@@ -617,7 +620,7 @@ $(window).on('beforeunload', function(){
 				
 				<!-- Display Name -->
 				<div class="form-group">
-					<label for="name" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:display_name'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="name" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:display_name'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 					<font id="name_error" color="red"></font>
 <?php
 			echo elgg_view('input/text', array(
@@ -634,7 +637,7 @@ $(window).on('beforeunload', function(){
 
 				<!-- Email -->
 				<div class="form-group">
-					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="email" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 	    			<font id="email_error" color="red"></font>
 					<input id="email" class="form-control" type="text" name="email" aria-required="true">
 
@@ -672,7 +675,7 @@ $(window).on('beforeunload', function(){
 		    	<div class="return_message"></div>
 
 				<div class="form-group">
-					<label for="email2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="email2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:email_secondary'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 					<font id="email_secondary_error" color="red"></font>
 					<input id="email2" class="form-control" type="text" name="email2" aria-required="true">
 				</div>
@@ -694,7 +697,7 @@ $(window).on('beforeunload', function(){
 
 				<!-- Password -->
 				<div class="form-group">
-					<label for="password" class="required"><span class="field-name"><span class="field-name"><?php echo elgg_echo('gcRegister:password_initial'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="password" class="required"><span class="field-name"><span class="field-name"><?php echo elgg_echo('gcRegister:password_initial'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 					<font id="password_initial_error" color="red"></font>
 <?php
 			echo elgg_view('input/password', array(
@@ -709,7 +712,7 @@ $(window).on('beforeunload', function(){
 
 				<!-- Secondary Password -->
 				<div class="form-group">
-					<label for="password2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:password_secondary'); ?></span> <strong class="required">(required)</strong></label>
+					<label for="password2" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:password_secondary'); ?></span> <strong class="required">(<?php echo elgg_echo('gcRegister:required'); ?>)</strong></label>
 				    <font id="password_secondary_error" color="red"></font>
 <?php
 			echo elgg_view('input/password', array(

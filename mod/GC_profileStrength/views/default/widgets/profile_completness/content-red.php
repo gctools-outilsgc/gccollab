@@ -17,8 +17,15 @@ if (elgg_is_logged_in()) {
          
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+        $db_config = new \Elgg\Database\Config($CONFIG);
+        if ($db_config->isDatabaseSplit()) {
+            $read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ);
+        } else {    
+            $read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ_WRITE);
+        }
+
           //connect to database  , "3306"
-        $connection = mysqli_connect($CONFIG->dbhost, $CONFIG->dbuser, $CONFIG->dbpass, $CONFIG->dbname);
+        $connection = mysqli_connect($read_settings["host"], $read_settings["user"], $read_settings["password"], $read_settings["database"]);
 
           //run the store proc
           //call GET_Completness(152, @total, @SkillsPerc, @BasicProfPerc, @AboutPerc, @EduPerc, @WorkPerc, @AvatarPerc);
@@ -90,29 +97,29 @@ if (elgg_is_logged_in()) {
         /*Strength is at 100%*/
             echo '<p>'.elgg_echo('ps:all-star').'</p>';
             if($userEnt->opt_in_missions == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
                 $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
+            }
+            if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
                 $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
-        	if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
-        	    $OptedIn = true;
-        	}
+            }
+            if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
+            if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
+            if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
+            if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
+            if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
+            if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
+                $OptedIn = true;
+            }
 
             if(elgg_plugin_exists('missions') && elgg_is_active_plugin('missions') && $OptedIn==false) {
 

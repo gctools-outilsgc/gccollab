@@ -24,6 +24,7 @@ return array(
 
   'wet:footFAQ' => 'Foire aux questions',
 
+  'wet:stats' => 'Statistiques',
   'wet:footTerms' => 'Conditions d\'utilisation',
   'wet:footPrivacy'  => 'Politique de confidentialité',
   'wet:footTutorials' => 'Tutoriels de GCcollab',

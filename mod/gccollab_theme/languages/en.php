@@ -24,6 +24,7 @@ return array(
 
   'wet:footFAQ' => 'Frequently Asked Questions',
 
+  'wet:stats' => 'Statistics',
   'wet:footTerms' => 'Terms and Conditions of Use',
   'wet:footPrivacy' => 'Privacy Policy',
   'wet:footTutorials' => 'GCcollab Tutorials',

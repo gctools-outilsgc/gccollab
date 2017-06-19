@@ -333,8 +333,6 @@ return array(
 "missions:withdrew_from_mission" => "Veuillez noter que %s s'est retiré de votre opportunité. Sélectionnez un autre participant ou afficher votre opportunité à nouveau pour obtenir d’autres candidats.",
 "missions:micro_mission" =>	"Micro-mission",
 "missions:job_swap" =>"Échange d'emploi",
-"missions:mentoring" =>	"Mentorat",
-"missions:shadowing" =>	"Observation au poste de travail",
 "missions:job_shadowing" =>	"Observation au poste de travail",
 "missions:peer_coaching" =>"Encadrement de carrière (coaching)",
 "missions:skill_sharing" =>	"Partage des habiletés",
@@ -344,7 +342,6 @@ return array(
     "missions:job_rotation"=>"Rotation d'emploi",
     "missions:skill_share"=>"Partage des habiletés",
     "missions:job_share"=>"Partage d'emploi",
-
 
     "missions:optin:continue"=>"Continuer à la plateforme de possibilités",
 "missions:settings:mission_front_page_limit" =>	"Combien de cartes de possibilité sont affichées sur la page d'accueil?",

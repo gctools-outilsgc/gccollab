@@ -112,7 +112,7 @@ return array(
     'onboard:profile:edu:why' 		=>"We will use this information to add &ldquo;Education&rdquo; to your profile.",
 
     /*Step 3 - work experience */
-    'onboard:profile:three:title' 	=> "What are you currenty working on?",
+    'onboard:profile:three:title' 	=> "What are you currently working on?",
     'onboard:profile:work:why' 		=>"We will use this information to add &ldquo;Work Experience&rdquo; to your profile.",
 
     /*Step 4 - skills */
