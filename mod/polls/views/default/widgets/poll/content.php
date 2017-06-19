@@ -20,7 +20,7 @@ echo '<h3 class="poll-widget-title">'. sprintf(elgg_echo('polls:widget:think'),$
 $options = array(
 		'type' => 'object',
 		'subtype' => 'poll',
-		'owner_guid' => $owner_guid,
+		'container_guid' => $owner_guid,
 		'limit' => $limit
 );
 $polls = elgg_get_entities($options);
