@@ -9,7 +9,7 @@ elgg_get_plugin_setting("tour_group", "gc_onboard");
 echo '<div style="margin-top:15px">';
 
 echo '<label for="tour-group">Tour group guid:(welcome group)</label>';
-echo '<p>GCcollab En Route: 967</p>';
+echo '<p>Production: 19980634     Pre-Production: 17265559</p>';
     $params = array(
             'name' => 'params[tour_group]',
             'id' => 'tour-group',

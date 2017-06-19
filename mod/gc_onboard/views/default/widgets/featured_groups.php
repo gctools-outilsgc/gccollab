@@ -1,13 +1,8 @@
 <?php
 /**
  * content of the featured groups widget
- *
- *GC_MODIFICATION
- *Nick - piet0024
- * Added limit counter with a default of 9 so we can display the featured groups on the welcome module
  */
 
-$limit = elgg_extract('limit',$vars, 9);
 $widget = elgg_extract("entity", $vars);
 
 $num_display = (int) $widget->num_display;
@@ -19,7 +14,7 @@ $show_random = $widget->show_random;
 
 $featured_options = array(
 	"type" => "group",
-	"limit" => $limit,
+	"limit" => 9,
 	"full_view" => false,
 	"pagination" => false,
 	"metadata_name_value_pairs" => array("featured_group" => "yes"),
@@ -57,11 +52,11 @@ foreach($featured as $group){
 
         if ($group->isPublicMembership() || $group->canEdit()) {
             $join_text = elgg_echo("groups:join");
-
+            
         } else {
             // request membership
             $join_text = elgg_echo("groups:joinrequest");
-
+            
         }
         echo '<div class="list-break">';
         echo elgg_view('group/default', array('entity' => $group));
