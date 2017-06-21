@@ -7,7 +7,7 @@ gatekeeper();
 elgg_push_context('profile-onboard');
 
 elgg_load_css('bsTable'); //bootstrap table css
-
+//elgg_load_css('onboard-css'); //custom css.
 elgg_load_js('bsTablejs'); //bootstraptable
 $content = '<div id="wb-cont"><div id="onboard">' . elgg_view('profile-steps/intro') . '</div><style>
         #onboard .btn-primary {

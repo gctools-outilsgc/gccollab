@@ -20,7 +20,7 @@ echo elgg_view("input/text", array(
     'name' => 'title',
     'id' => 'title-' . $guid,
     'class' => 'gcconnex-work-experience-title',
-    'value' => $work_experience->title));
+    'value' => $user->job));
 
 
 // enter title
@@ -35,7 +35,7 @@ echo elgg_view("input/text", array(
     'name' => 'work-experience',
     'id' => 'work-experience-' . $guid,
     'class' => 'gcconnex-work-experience-organization',
-    'value' => $work_experience->organization));
+    'value' => $user->department));
 echo '</span>';
 
 // enter start date

@@ -159,7 +159,7 @@ function get_user_data( $profileemail, $user ){
 		case "student":
 		case "academic":
 			$institution = $user_entity->institution;
-		    $user['department'] = ($institution == 'university') ? $user_entity->university : $user_entity->college;
+		    $user['department'] = ($institution == 'university') ? $user_entity->university : ($institution == 'college' ? $user_entity->college : $user_entity->highschool);
 			break;
 		case "provincial":
 			$user['department'] = $user_entity->provincial . ' / ' . $user_entity->ministry;

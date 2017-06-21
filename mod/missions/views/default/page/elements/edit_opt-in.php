@@ -33,33 +33,8 @@ if (elgg_is_xhr) {
 	echo 'An error has occurred.';
 }
 ?>
-<div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder mtm">
+<div class="clearfix brdr-bttm mrgn-bttm-sm mm-optin-holder">
     <div class="col-sm-4 col-sm-offset-2">
-        <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:career'); ?></h4>
-        <ul class="list-unstyled">
-            <li class="clearfix">
-                <?php
-                    echo elgg_view ( "input/checkbox", array (
-                        'name' => 'casual_check',
-                        'checked' => true,
-                        'id' => 'gcconnex-opt-in-casual-check',
-                        'label' => elgg_echo ( 'missions:casual' ),
-                    ));
-                ?>
-            </li>
-
-            <li class="clearfix">
-                <?php
-                    echo elgg_view ( "input/checkbox", array (
-                        'name' => 'student_check',
-                        'checked' => true,
-                        'id' => 'gcconnex-opt-in-student-check',
-                        'label' => elgg_echo ( 'missions:student' ),
-                    ));
-                ?>
-            </li>
-
-        <?php /* MW - Changed for GCcollab version of Opp Platform
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:atlevel'); ?></h4>
         <ul class="list-unstyled">
             <li class="clearfix">
@@ -179,7 +154,7 @@ if (elgg_is_xhr) {
                     
                 ?>
             </li>
-        */ ?>
+            
             
         </ul>
     </div>
@@ -188,35 +163,39 @@ if (elgg_is_xhr) {
         <h4 class="mrgn-tp-0"><?php echo elgg_echo('gcconnex_profile:opt:development'); ?></h4>
         <ul class="list-unstyled">
             
+            
             <li class="clearfix">
                 <?php echo elgg_echo('missions:mentoring');?>
                 
                 <ul class="clearfix brdr-lft mrgn-lft-md list-unstyled">
-                    <li class="clearfix pull-left mrgn-lft-md">
-                        <?php
-                        	echo elgg_view ( "input/checkbox", array (
-                                'name' => 'mentored_check',
-                                'checked' => true,
-                                'id' => 'gcconnex-opt-in-mentored-check',
-                                'label' => elgg_echo ( 'gcconnex_profile:opt:mentored' ),
-                            ));
-                        ?>
-                    </li>
+                <li class="clearfix pull-left mrgn-lft-md">
+                <?php
+                	echo elgg_view ( "input/checkbox", array (
+			         'name' => 'mentored_check',
+			         'checked' => true,
+			         'id' => 'gcconnex-opt-in-mentoring-check',
+                        'class'=>'pull-left',
+                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentored' ),
+	               ));
                     
-                    <li class="clearfix pull-left mrgn-lft-md">
-                        <?php
-                        	echo elgg_view ( "input/checkbox", array (
-                                'name' => 'mentoring_check',
-                                'checked' => true,
-                                'id' => 'gcconnex-opt-in-mentoring-check',
-                                'label' => elgg_echo ( 'gcconnex_profile:opt:mentoring' ),
-                            ));
-                        ?>
-                    </li>
+                ?>
+            </li>
+            
+            <li class="clearfix pull-left mrgn-lft-md">
+                <?php
+                	echo elgg_view ( "input/checkbox", array (
+                        'name' => 'mentoring_check',
+			         'checked' => true,
+			         'id' => 'gcconnex-opt-in-mentored-check',
+                        'class'=>'pull-left',
+                        'label'=>elgg_echo ( 'gcconnex_profile:opt:mentoring' ),
+	               ));
+                    
+                ?>
+            </li>
                 </ul>
             </li>
-
-            <?php /* MW - Changed for GCcollab version of Opp Platform
+            
             <li class="clearfix">
                 <?php echo elgg_echo ( 'missions:job_shadowing' ); ?>
                 
@@ -326,8 +305,6 @@ if (elgg_is_xhr) {
                     
                 ?>
             </li>
-
-            */ ?>
             
         </ul>
     </div>

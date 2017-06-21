@@ -87,11 +87,6 @@ $english = array(
     'gcconnex_profile:portfolio:publication_date' => 'Published on: ',
     'gcconnex_profile:portfolio:description' => 'Description: ',
 
-    'missions:mentoring' => 'Mentoring',
-    'missions:shadowing' => 'Shadowing',
-    'missions:casual' => 'Casual Work',
-    'missions:student' => 'Student Integration',
-
     'gcconnex_profile:opt:career' => 'Career Opportunities',
     'gcconnex_profile:opt:mentored' => 'Mentee',
     'gcconnex_profile:opt:mentoring' => 'Mentor',

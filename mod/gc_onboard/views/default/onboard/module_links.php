@@ -15,57 +15,17 @@ $group_module_link = $site_url .'groupsonboard';
 $welcomeGroup_guid = elgg_get_plugin_setting("tour_group", "gc_onboard");
 
 if(!$welcomeGroup_guid){
-    $welcomeGroup_guid = 967;
+    $welcomeGroup_guid = 19980634;
 }
 
 $group_tour_link = $site_url.'groups/profile/'.$welcomeGroup_guid .'?first_tour=true&help_launch=true';
 
 ?>
 
-<h1 class="mrgn-bttm-md"><?php echo elgg_echo('onboard:helpHeader');?></h1>
-
-<div class=" col-sm-6 col-xs-12">
- <div class="panel panel-default">
-
-   <div class="panel-heading"><h2><?php echo elgg_echo('onboard:helpWelcome'); ?></h2></div>
-
-   <div class="panel-body">
-     <p><?php echo elgg_echo('onboard:helpWelcome:info') ?></p>
-     <a class="pull-right" href="<?php echo $welcome_module_link;?>"> <?php echo elgg_echo('onboard:helpWelcome'); ?></a>
-    </div>
- </div>
-</div>
-
-<div class=" col-sm-6 col-xs-12">
- <div class="panel panel-default">
-
-     <div class="panel-heading"><h2><?php echo elgg_echo('onboard:helpProfile'); ?></h2></div>
-
-   <div class="panel-body">
-     <p><?php echo elgg_echo('onboard:helpProfile:info') ?></p>
-     <a class="pull-right" href="<?php echo $profile_module_link;?>"> <?php echo elgg_echo('onboard:helpProfile'); ?></a>
-    </div>
- </div>
- </div>
-
-<div class="col-sm-6 col-xs-12">
- <div class="panel panel-default">
-
-   <div class="panel-heading"><h2><?php echo elgg_echo('onboard:helpGroup'); ?></h2></div>
-
-   <div class="panel-body">
-     <p><?php echo elgg_echo('onboard:helpGroup:info') ?></p>
-     <a class="pull-right" href="<?php echo $group_module_link;?>"> <?php echo elgg_echo('onboard:helpGroup'); ?></a>
-    </div>
- </div>
- </div>
-
-<div class=" col-sm-6 col-xs-12">
- <div class="panel panel-default">
-   <div class="panel-heading"><h2><?php echo elgg_echo('onboard:helpGroupTour'); ?></h2></div>
-   <div class="panel-body">
-     <p><?php echo elgg_echo('onboard:helpGroupTour:info') ?></p>
-     <a class="pull-right" href="<?php echo $group_tour_link;?>"> <?php echo elgg_echo('onboard:helpGroupTour'); ?></a>
-    </div>
- </div>
-</div>
+ <h3> <?php echo elgg_echo('onboard:helpHeader');?> </h3>
+<ul class="list-unstyled">
+    <li><a href="<?php echo $welcome_module_link;?>"> <?php echo elgg_echo('onboard:helpWelcome'); ?></a></li>
+    <li><a href="<?php echo $profile_module_link;?>"> <?php echo elgg_echo('onboard:helpProfile'); ?></a></li>
+    <li><a href="<?php echo $group_module_link;?>"> <?php echo elgg_echo('onboard:helpGroup'); ?></a></li>
+    <li><a href="<?php echo $group_tour_link;?>"> <?php echo elgg_echo('onboard:helpGroupTour'); ?></a></li>
+</ul>

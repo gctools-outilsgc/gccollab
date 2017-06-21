@@ -191,7 +191,6 @@ if($skill_match_override) {
 		<?php echo $input_location; ?>
 	</div>
 </div>
-<?php /* MW - Changed for GCcollab version of Opp Platform
 <div class="form-group">
 	<label for='post-mission-security-dropdown-input' class="col-sm-3" style="text-align:right;">
 		<?php echo elgg_echo('missions:security_level') . ':';?>
@@ -200,7 +199,6 @@ if($skill_match_override) {
 		<?php echo $input_security; ?>
 	</div>
 </div>
-*/ ?>
 <div class="form-group">
 	<?php echo $language_field; ?>
 </div>
