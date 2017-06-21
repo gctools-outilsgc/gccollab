@@ -46,14 +46,6 @@ switch($option) {
 	case elgg_echo('gcconnex_profile:opt:job_sharing'):
 		$name_option = 'opt_in_job_sharing';
 		break;
-
-	/* MW - Added for GCcollab only */
-	case elgg_echo('gcconnex_profile:opt:casual'):
-		$name_option = 'opt_in_casual';
-		break;
-	case elgg_echo('gcconnex_profile:opt:student'):
-		$name_option = 'opt_in_student';
-		break;
 }
 	
 $options_attribute['type'] = 'user';

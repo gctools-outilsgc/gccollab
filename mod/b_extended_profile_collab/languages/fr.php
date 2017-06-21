@@ -91,11 +91,6 @@ $french = array(
     'gcconnex_profile:portfolio:publication_date' => 'Date de publication : ',
     'gcconnex_profile:portfolio:description' => 'Description : ',
 
-    'missions:mentoring' => 'Mentorat',
-    'missions:shadowing' => 'Observation au poste de travail',
-    'missions:casual' => 'Emploi occasionnel',
-    'missions:student' => 'Intégration des étudiants',
-
     'gcconnex_profile:opt:career' => 'Possibilités de carrière',
     'gcconnex_profile:opt:mentored' => 'Mentoré',
     'gcconnex_profile:opt:mentoring' => 'Mentor',

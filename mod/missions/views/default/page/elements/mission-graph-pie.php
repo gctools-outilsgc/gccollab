@@ -74,7 +74,7 @@ function drawChart() {
 			width: 600,
 			height: 400,
 			sliceVisibilityThreshold: 0,
-			colors: ['#46246a', '#05A3AC', '#07D4DF']
+			colors: ['#047177', '#05A3AC', '#07D4DF']
 	};
 
 	// Creates the chart in the div 'my_chart'.

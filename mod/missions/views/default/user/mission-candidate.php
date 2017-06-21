@@ -150,7 +150,7 @@ else {
         <p><span class="center-block"><a href="#mid-screen-<?php echo $user->guid;?>" aria-controls="mid-screen-<?php echo $user->guid;?>" class="overlay-lnk" role="button">View All Skills</a></span></p>
 
         <section id="mid-screen-<?php echo $user->guid?>" class="wb-overlay modal-content overlay-def mission-skills-popup onboard-popup ">
-	       <header class="modal-header" style="background:#46246a;">
+	       <header class="modal-header" style="background:#047177;">
 		      <h2 class="modal-title">Skills for <?php echo $user->name; ?></h2>
 	       </header>
 	       <div class="modal-body">

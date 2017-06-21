@@ -18,14 +18,9 @@ $user = elgg_get_logged_in_user_entity();
             $opt_in_deploySeek = get_input('deploymentseek_check');
             $opt_in_deployCreate = get_input('deploymentcreate_check');
             $opt_in_missionCreate = get_input('missioncreate_check');
-
-            /* MW - Added for GCcollab only */
-            $opt_in_casual = get_input('casual_check');
-            $opt_in_student = get_input('student_check');
-
             $access = get_input('access');
             
-            $opt_in_inputs = array($opt_in_mission, $opt_in_swap, $opt_in_mentored, $opt_in_shadowed, $opt_in_mentoring, $opt_in_shadowing, $opt_in_jobshare, $opt_in_pcSeek, $opt_in_pcCreate, $opt_in_ssSeek, $opt_in_ssCreate, $opt_in_rotation, $opt_in_assignSeek, $opt_in_assignCreate, $opt_in_deploySeek, $opt_in_deployCreate, $opt_in_missionCreate, $opt_in_casual, $opt_in_student);
+            $opt_in_inputs = array($opt_in_mission, $opt_in_swap, $opt_in_mentored, $opt_in_shadowed, $opt_in_mentoring, $opt_in_shadowing, $opt_in_jobshare, $opt_in_pcSeek, $opt_in_pcCreate, $opt_in_ssSeek, $opt_in_ssCreate, $opt_in_rotation, $opt_in_assignSeek, $opt_in_assignCreate, $opt_in_deploySeek, $opt_in_deployCreate, $opt_in_missionCreate);
     //Nick - Loop through array of selected things and change their value to match the meta data        
 foreach($opt_in_inputs as $k => $v){
     if($v == 'on'){
@@ -52,11 +47,6 @@ foreach($opt_in_inputs as $k => $v){
             $user->opt_in_deploySeek = $opt_in_inputs[14];
             $user->opt_in_deployCreate = $opt_in_inputs[15];
             $user->opt_in_missionCreate = $opt_in_inputs[16];
-
-            /* MW - Added for GCcollab only */
-            $user->opt_in_casual = $opt_in_inputs[17];
-            $user->opt_in_student = $opt_in_inputs[18];
-
             /*$user->opt_in_peer_coached = $opt_in_set[6];
             $user->opt_in_peer_coaching = $opt_in_set[7];
             $user->opt_in_skill_sharing = $opt_in_set[8];

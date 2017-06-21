@@ -84,7 +84,7 @@ else {
 	
 	$content .= $main_content;
 	
-	$content .= '<div class="col-sm-12 mrgn-tp-md">' . elgg_echo('missions:placeholder_b') . '</div>';
+	$content .= '<div>' . elgg_echo('missions:placeholder_b') . '</div>';
 	
 	if(elgg_get_plugin_setting('mission_developer_tools_on', 'missions') == 'YES') {
 		// Opt out button.

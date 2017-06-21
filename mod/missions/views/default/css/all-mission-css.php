@@ -25,9 +25,9 @@
 }
 
 .missions-tab-bar {
-	background-color: #46246a;
+	background-color: #047177;
 	border-style: solid;
-	border-color: #46246a;
+	border-color: #047177;
 	border-radius: 6px;
 	width: auto;
 	padding: 15px 10px 0px;
@@ -36,11 +36,11 @@
 }
 
 .missions-tab{
-	background-color: #46246a;
+	background-color: #055959;
 	font-size: 18px;
 	font-weight: bold;
 	border-style: solid;
-	border-color: #46246a;
+	border-color: #055959;
 	border-radius: 6px;
 	padding: 5px;
 	color: white
@@ -51,7 +51,7 @@
 }
 
 .elgg-menu-mission-main a:visited, .mission-link-color:visited {
-	color: #46246a;
+	color: #055959;
 }
 
 .mission-post-table {
@@ -335,9 +335,9 @@ li.link-disabled a {
 }
 
 .mission-skills{
-    color: #46246a !important;
+    color: #055959 !important;
     padding: 3px;
-    border: 1px solid #46246a;
+    border: 1px solid #055959;
     border-radius: 8px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -366,7 +366,7 @@ li.link-disabled a {
     width: 45%;
 }
 .mission-skills-popup .modal-header{
-    background: #46246a;
+    background: #047177;
 }
 .more-skills-button{
     position:absolute;
@@ -398,10 +398,10 @@ li.link-disabled a {
 
 .mission-title-header{
     text-decoration: none;
-color: #46246a;
+color: #055959;
 }
 .mission-title-header:visited{
-color: #46246a;
+color: #055959;
 }
 
 .mission-applicant-badge{

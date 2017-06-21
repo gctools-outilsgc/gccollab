@@ -202,11 +202,9 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
 			<h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:program_area')  . ':';?></h4>
 			<span  name="mission-program-area"><?php echo elgg_echo($mission->program_area);?></span>
 		</div>
-    <?php /* MW - Changed for GCcollab version of Opp Platform
     <div class="clearfix">
         <?php echo $print_groupandlevel; ?>
     </div>
-    */ ?>
 		<div class="clearfix">
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:opportunity_number')  . ':';?></h4>
 			<span name="mission-number"><?php echo $mission->number;?></span>
@@ -227,22 +225,18 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:work_remotely') . ':';?></h4>
 			<span name="mission-remotely"><?php echo $clean_remotely;?></span>
 		</div>
-        <?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="clearfix">
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:openess_sentence', array(strtoupper($department_abbr)));?></h4>
 			<span name="mission-openess"><?php echo $clean_openess;?></span>
 		</div>
-        */ ?>
 		<div class="clearfix">
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:opportunity_location') . ':';?></h4>
 			<span name="mission-location"><?php echo elgg_echo($mission->location);?></span>
 		</div>
-        <?php /* MW - Changed for GCcollab version of Opp Platform
 		<div class="clearfix">
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:security_level') . ':';?></h4>
 			<span name="mission-security"><?php echo $clean_security;?></span>
 		</div>
-        */ ?>
 		<div class="clearfix">
                 <h4 class='h5' style="margin:8px 0 0 0; display:inline-block;"><?php echo elgg_echo('missions:key_skills_opportunity') . ':';?></h4>
 			<span name="mission-skills"><?php echo elgg_get_excerpt($clean_skills, 500);?></span>
@@ -314,37 +308,14 @@ if(strpos($button_set['button_three'], 'accept-button') !== false) {
                 ?>
 
             </div>
-        <?php if($department_path): ?>
             <div class="">
                 <h5>
                     <?php echo elgg_echo('missions:department')  . ':';?>
                 </h5>
                 <span name="mission-department-path">
-                    <?php
-                        $obj = elgg_get_entities(array(
-                            'type' => 'object',
-                            'subtype' => 'federal_departments',
-                        ));
-                        $departments = get_entity($obj[0]->guid);
-                        
-                        $federal_departments = array();
-                        if (get_current_language() == 'en'){
-                            $federal_departments = json_decode($departments->federal_departments_en, true);
-                        } else {
-                            $federal_departments = json_decode($departments->federal_departments_fr, true);
-                        }
-
-                        $department = isset($federal_departments[$department_path]) ? $federal_departments[$department_path] : $department_path;
-
-                        echo elgg_get_excerpt($department, 500);
-
-                        /* MW - Changed for GCcollab version of Opp Platform
-                        echo elgg_get_excerpt($department_path, 500);
-                        */
-                    ?>
+                    <?php echo elgg_get_excerpt($department_path, 500);?>
                 </span>
             </div>
-        <?php endif; ?>
             <div class="">
                 <h5>
                     <?php echo elgg_echo('missions:email') . ':';?>
