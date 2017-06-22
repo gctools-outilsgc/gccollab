@@ -7,6 +7,7 @@
 	.ext, .dept 		{ font-size: 14px; width: 100%; }
 	input:disabled 		{ background: #ddd; }
 	.edit-message 		{ font-weight: bold; }
+	.elgg-form-settings	{ max-width: none; }
 </style>
 
 <script type="text/javascript">
