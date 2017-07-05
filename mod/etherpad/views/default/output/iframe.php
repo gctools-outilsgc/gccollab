@@ -15,7 +15,7 @@
   if($type){
     switch($type) {
 	case "etherpad" :
-        	$fullsrc .= " width=728 height=405"; 
+        	$fullsrc .= " width=100% height=600"; 
         	break;
 	default :
 		break;
