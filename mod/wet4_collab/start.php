@@ -15,4 +15,57 @@ function wet4_collab_theme_init() {
 
 	//message preview
     elgg_register_ajax_view("messages/message_preview");
+	
+	elgg_register_plugin_hook_handler('register', 'menu:user_menu', 'remove_custom_colleagues_menu_item', 1);
+	elgg_register_event_handler('pagesetup', 'system', 'add_custom_colleagues_menu_item', 1000);
+}
+
+function remove_custom_colleagues_menu_item($hook, $type, $return, $params) {
+    // Remove Colleagues menu item
+    foreach($return as $key => $item) {
+        if ($item->getName() == 'Colleagues') {
+            unset($return[$key]);
+        }
+    }
+    return $return;
+}
+
+function add_custom_colleagues_menu_item() {
+	$user = elgg_get_logged_in_user_entity();
+
+    if( !empty($user) ){
+		$options = array(
+			"type" => "user",
+			"count" => true,
+			"relationship" => "friendrequest",
+			"relationship_guid" => $user->getGUID(),
+			"inverse_relationship" => true
+		);
+
+		$count = elgg_get_entities_from_relationship($options);
+
+		$countTitle = "";
+		if( !empty($count) ){
+			$countTitle = " - ";
+
+            //display 9+ instead of huge numbers in notif badge
+            if( $count >= 10 ){
+                $countTitle .= '9+';
+            } else {
+				$countTitle .= $count;
+            }
+        }
+
+	    $params = array(
+			"name" => "gccollab:colleagues",
+			"href" => "friends/" . $user->username,
+			"text" => '<i class="fa fa-users mrgn-rght-sm mrgn-tp-sm fa-lg"></i>',
+			"title" => elgg_echo('userMenu:colleagues') . $countTitle,
+	        "class" => '',
+	        "item_class" => '',
+			"priority" => '1'
+		);
+
+		elgg_register_menu_item("user_menu", $params);
+	}
 }
