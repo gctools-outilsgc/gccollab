@@ -372,12 +372,12 @@ switch ($msg_type) {
 			$cp_notify_msg_description_fr = elgg_echo('cp_notify:body_new_content:description',array("<i>{$cp_topic_description_fr}</i><br/>", $vars['cp_topic']->getURL().'?utm_source=notification&utm_medium=email'),'fr');
 		}
 
-		// if( $vars['cp_topic']->getSubtype() === 'thewire' ){
-		// 	$cp_notify_msg_title_en = elgg_echo('cp_notifications:mail_body:subtype:thewire',array($topic_author->getURL().'?utm_source=notification&utm_medium=email', $topic_author->username, $vars['cp_topic']->getURL().'?utm_source=notification&utm_medium=email', cp_translate_subtype($vars['cp_topic']->getSubtype())),'en');
-		// 	$cp_notify_msg_title_fr = elgg_echo('cp_notifications:mail_body:subtype:thewire',array($topic_author->getURL().'?utm_source=notification&utm_medium=email', $topic_author->username, $vars['cp_topic']->getURL().'?utm_source=notification&utm_medium=email', $entity_m[cp_translate_subtype($vars['cp_topic']->getSubtype())]),'fr');
-		// 	$cp_notify_msg_description_en = $vars['cp_topic']->description;
-		// 	$cp_notify_msg_description_fr = $vars['cp_topic']->description;
-		// }
+		if( $vars['cp_topic']->getSubtype() === 'thewire' ){
+			$cp_notify_msg_title_en = elgg_echo('cp_notifications:mail_body:subtype:thewire',array($topic_author->getURL().'?utm_source=notification&utm_medium=email', $topic_author->username, $vars['cp_topic']->getURL().'?utm_source=notification&utm_medium=email', cp_translate_subtype($vars['cp_topic']->getSubtype())),'en');
+			$cp_notify_msg_title_fr = elgg_echo('cp_notifications:mail_body:subtype:thewire',array($topic_author->getURL().'?utm_source=notification&utm_medium=email', $topic_author->username, $vars['cp_topic']->getURL().'?utm_source=notification&utm_medium=email', $entity_m[cp_translate_subtype($vars['cp_topic']->getSubtype())]),'fr');
+			$cp_notify_msg_description_en = $vars['cp_topic']->description;
+			$cp_notify_msg_description_fr = $vars['cp_topic']->description;
+		}
 
 		break;
 

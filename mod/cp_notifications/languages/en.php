@@ -65,7 +65,7 @@ $english = array(
 	'cp_notifications:mail_body:subtype:file' => "%s posted a file: %s", 
 
 	'cp_notifications:mail_body:subtype:album' => "%s posted an album: %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "%s posted on the %s",
+	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> posted on the <a href='%s'>%s</a>",
 	'cp_notifications:mail_body:subtype:poll' => "%s created a poll: %s", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s posted an event: %s", 
 	'cp_notifications:mail_body:subtype:photo' => "%s posted an image: %s", 

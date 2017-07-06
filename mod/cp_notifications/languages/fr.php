@@ -75,7 +75,7 @@ $french = array(
 	'cp_notifications:mail_body:subtype:bookmarks' => "%s a publié un signet : %s", 	
 	'cp_notifications:mail_body:subtype:file' => "%s a publié un fichier : %s", 
 	'cp_notifications:mail_body:subtype:album' => "%s a publié un album : %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "%s a publié sur le %s", 
+	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> a publié sur le <a href='%s'>%s</a>", 
 
 	'cp_notifications:mail_body:subtype:poll' => "%s a créé un sondage :", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s a publié un événement : %s", 
