@@ -1,7 +1,7 @@
 <?php
 
 elgg_gatekeeper();
-
+$lang = get_current_language();
 $page_owner = elgg_get_page_owner_entity();
 if (empty($page_owner)) {
 	forward();
@@ -10,9 +10,9 @@ if (empty($page_owner)) {
 // build breadcrumb
 elgg_push_breadcrumb(elgg_echo("file"), "file/all");
 if (elgg_instanceof($page_owner, "group", null, "ElggGroup")) {
-	elgg_push_breadcrumb($page_owner->name, "file/group/" . $page_owner->getGUID() . "/all");
+	elgg_push_breadcrumb(gc_explode_translation($page_owner->name,$lang), "file/group/" . $page_owner->getGUID() . "/all");
 } else {
-	elgg_push_breadcrumb($page_owner->name, "file/owner/" . $page_owner->username);
+	elgg_push_breadcrumb(gc_explode_translation($page_owner->name,$lang), "file/owner/" . $page_owner->username);
 }
 elgg_push_breadcrumb(elgg_echo("file:upload"));
 
@@ -36,8 +36,6 @@ $zip_vars = $form_vars;
 $zip_vars["id"] = "file-tools-zip-form";
 $single_vars = $form_vars;
 $single_vars["id"] = "file-tools-single-form";
-$googledoc_vars = $form_vars;
-$googledoc_vars["id"] = "file-tools-googledoc-form";
 
 switch ($upload_type) {
 	case "multi":
@@ -46,10 +44,6 @@ switch ($upload_type) {
 		break;
 	case "zip":
 		unset($zip_vars["class"]);
-		
-		break;
-	case "googledoc":
-		unset($googledoc_vars["class"]);
 		
 		break;
 	default:
@@ -62,35 +56,17 @@ switch ($upload_type) {
 }
 
 // build different forms
-// cyu - display file extensions that are acceptable (gccollab zube #8))
-$accepted_extension = file_tools_allowed_extensions();
-foreach ($accepted_extension as $key => $extension)
-	$accepted_extension_txt .= "{$extension} ";
-
-$upload_max = ini_get('upload_max_filesize');
-$upload_max_txt = number_format($upload_max/(1024*1024),2);
-
-$body .= "<div align='center'><label>".elgg_echo('file:upload_msg',array($upload_max_txt))."</label>";
-$body .= "<div><code>{$accepted_extension_txt}</code></div></div>";
 
 if(elgg_is_active_plugin('wet4')){
-    $body .= "<div id='file-tools-upload-wrapper' class='tab-content'>";
+    $body = "<div id='file-tools-upload-wrapper' class='tab-content'>";
     $body .= '<div id="single" role="tabpanel" class="tab-pane fade-in active">' . elgg_view_form("file/upload", $single_vars, $body_vars) . '</div>';
     $body .= '<div id="multi" role="tabpanel" class="tab-pane fade-in">' . elgg_view_form("file_tools/upload/multi", $multi_vars) . '</div>';
     $body .= '<div id="zip" role="tabpanel" class="tab-pane fade-in">' . elgg_view_form("file_tools/upload/zip", $zip_vars) . '</div>';
-
-	if( elgg_get_plugin_setting('googledoc', 'file_tools') ){
-	    $body .= '<div id="googledoc" role="tabpanel" class="tab-pane fade-in">' . elgg_view_form("file_tools/upload/googledoc", $googledoc_vars) . '</div>';
-	}
 } else {
     $body = "<div id='file-tools-upload-wrapper'>";
     $body .= elgg_view_form("file/upload", $single_vars, $body_vars);
     $body .= elgg_view_form("file_tools/upload/multi", $multi_vars);
     $body .= elgg_view_form("file_tools/upload/zip", $zip_vars);
-	
-	if( elgg_get_plugin_setting('googledoc', 'file_tools') ){
-    	$body .= elgg_view_form("file_tools/upload/googledoc", $googledoc_vars);
-	}
 }
 $body .= "</div>";
 
