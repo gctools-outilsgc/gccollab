@@ -16,7 +16,6 @@ $mapping = array(
 	'application/vnd.oasis.opendocument.text' => 'openoffice',
 	'application/zip' => 'archive',
 	'text/v-card' => 'vcard',
-	'googledoc' => 'googledoc',
 );
 
 $sizes = array('large', 'medium', 'small', 'tiny');

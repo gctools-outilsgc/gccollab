@@ -9,9 +9,9 @@
 $right = elgg_view('groups/right_column', $vars);
 $left = elgg_view('groups/left_column', $vars);
 if ($right || $left) {
-    elgg_deprecated_notice('The views groups/right_column and groups/left_column have been replaced by groups/tool_latest', 1.8);
-    echo $left;
-    echo $right;
+	elgg_deprecated_notice('The views groups/right_column and groups/left_column have been replaced by groups/tool_latest', 1.8);
+	echo $left;
+	echo $right;
 }
 
 $object = elgg_get_page_owner_entity();
@@ -125,6 +125,13 @@ $site_url = elgg_get_site_url();
     </div>
     <div id="activity" class="tab-pane fade-in ">
 			<h2 class="wb-inv"><?php echo  elgg_echo('groups:widget:group_activity:title', array($groupName));?></h2>
+        <div class="wet-ajax-loader" aria-hidden="true">
+            <img src="<?php echo $site_url.'mod/wet4/graphics/loading.gif';?>" alt="loading content" />
+
+        </div>
+    </div>
+		<div id="questions" class="tab-pane fade-in ">
+			<h2 class="wb-inv"><?php echo  elgg_echo('questions:owner', array($groupName));?></h2>
         <div class="wet-ajax-loader" aria-hidden="true">
             <img src="<?php echo $site_url.'mod/wet4/graphics/loading.gif';?>" alt="loading content" />
 

@@ -8,9 +8,6 @@ Group Profile Sidebar
 $group = elgg_get_page_owner_entity();
 
 //members widget
-
-//Nick - Put group disc here in a side bar card
-//echo elgg_view('groups/profile/fields', $vars);
 //Nick - we will keep the members in the sidebar
 $display_members = $group->getPrivateSetting('group_tools:cleanup:members');
 
@@ -31,4 +28,4 @@ elgg_push_context('sidebar');
 //echo elgg_view_module('related_sidebar', elgg_echo('groups_tools:related_groups:widget:title'), elgg_view('groups/profile/related', $vars));
 
 echo elgg_view('groups/profile/related', $vars);
-elgg_pop_context(); 
+elgg_pop_context();

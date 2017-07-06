@@ -19,12 +19,9 @@ function friend_request_event_create_friendrequest($event, $object_type, $object
 		$view_friends_url = elgg_get_site_url() . "friend_request/" . $user_two->username;
 			
 		// Notify target user
-		$subject = elgg_echo("friend_request:newfriend:subject", array($user_one->name), 'en');
-		$subject .= ' | '.elgg_echo("friend_request:newfriend:subject", array($user_one->name), 'fr');
-
-		$message = elgg_echo("friend_request:newfriend:body", array($user_one->name, $view_friends_url),'en');
-		$message .= '<br/><br/>'.elgg_echo("friend_request:newfriend:body", array($user_one->name, $view_friends_url),'fr');
-
+		$subject = elgg_echo("friend_request:newfriend:subject", array($user_one->name));
+		$message = elgg_echo("friend_request:newfriend:body", array($user_one->name, $view_friends_url));
+		
 		$params = array(
 			"action" => "friend_request",
 			"object" => $user_one

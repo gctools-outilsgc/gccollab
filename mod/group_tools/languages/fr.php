@@ -72,7 +72,7 @@ return array(
 
 // group tool presets
 'group_tools:admin:group_tool_presets:description' => "Here you can configure group tool presets.
-When a user creates a group he/she gets to choose one of the presets in order to quickly get the correct tools. A blank option is also offered to the user to allow their own choices.",
+When a user creates a group he/she gets to choose one of the presets in order to quickly get the correct tools. A blank option is also offered to the user to allow his/her own choices.",
 'group_tools:admin:group_tool_presets:header' => "Existing presets",
 'group_tools:create_group:tool_presets:description' => "You can select a group tool preset here. If you do so, you will get a set of tools which are configured for the selected preset. You can always chose to add additional tools to a preset, or remove the ones you do not like.",
 'group_tools:create_group:tool_presets:active_header' => "Tools for this preset",

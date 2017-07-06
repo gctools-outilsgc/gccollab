@@ -2,7 +2,7 @@
 return array (
 
 'item:object:event_calendar' => "Calendrier d'événement",
-'tag_names:event_tags' => "Mots clés", 
+'tag_names:event_tags' => "Tags",
 'event_calendar:optional' => "Optionnel.",
 'event_calendar:required' => "Obligatoire.",
 'event_calendar:new_event' => 'Nouvel événement',
@@ -18,8 +18,6 @@ return array (
 'event_calendar:start_date_description' => 'A quelle date cet événement débutera?',
 'event_calendar:fees_label' => "Frais",
 'event_calendar:fees_description' => 'Frais d\'inscription, si applicable',
-'event_calendar:email_label' => "Courriel",
-'event_calendar:contact_phone' => "Téléphone",
 'event_calendar:contact_label' => "Personne resssource",
 'event_calendar:contact_description' =>  "La personne à contacter pour tous renseignements. De préférence, ajouter un numéro de téléphone ou adresse courriel",
 'event_calendar:organiser_label' =>  'Organisateur',
