@@ -12,46 +12,18 @@ if (strcmp($language_preference,'set_digest_en') == 0)
 else 
   $language_preference = 'fr';
 
-$current_year = date('Y');
-/*
-echo <<<___HTML
-<html>
-<body>
-	<!-- beginning of email template -->
-	<div width='100%' bgcolor='#fcfcfc'>
-		<div>
-			<div>
 
-				<!-- email header -->
-		        <div align='center' width='100%' style='background-color:#f5f5f5; padding:20px 30px 15px 30px; font-family: sans-serif; font-size: 12px; color: #79579D'>
-		        	{$email_notification_header}
-		        </div>
-				
-
-				<!-- GCcollab banner -->
-		     	<div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
-		        	<span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'>GCcollab</span>
-		        </div>
-
-
-		        <!-- email divider -->
-		        <div style='height:1px; background:#bdbdbd; border-bottom:1px solid #ffffff'></div>
-
-		        <p>English section</p>
-				<div> {$email_content} </div>
-*/
 ?>
 
 
-
 <html>
-  <body style='font-family: sans-serif; color: #79579d'>
+  <body style='font-family: sans-serif; color: #79579D'>
     <h2><?php echo elgg_echo('cp_newsletter:title',$language_preference); ?></h2>
     <sub><center><?php echo elgg_echo('cp_notification:email_header',array(),$language_preference); ?></center></sub>
     <div width='100%' bgcolor='#fcfcfc'>
 
       <?php // notification GCconnex banner ?>
-      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246a;'>
+      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
         <span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'><?php echo $site->name; ?></span>
       </div>
 
@@ -153,7 +125,7 @@ echo <<<___HTML
       <?php echo elgg_echo('cp_newsletter:ending', array('some username'), $language_preference); ?>
 
       <?php // notification footer ?>
-      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #79579d'>
+      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #79579D'>
         <center><p><?php echo elgg_echo('cp_newsletter:footer:notification_settings', array($to->username), $language_preference); ?></p>
         <p><?php echo elgg_echo('cp_notifications:contact_help_desk', array(), $language_preference); ?></p> </center>	
       </div>
