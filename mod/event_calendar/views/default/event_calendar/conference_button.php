@@ -1,6 +1,6 @@
 <?php
 
-// A non-admin / non-event-creator only sees the button if they have the event on their personal calendar 
+// A non-admin / non-event-creator only sees the button if they have the event on his/her personal calendar 
 // and it is at most 15 minutes before the conference starts.
 // The button is removed for everyone (even admins) one day after the event end time.
 

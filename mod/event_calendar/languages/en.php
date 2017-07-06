@@ -2,7 +2,7 @@
 
 return array(
 	
-'item:object:event_calendar' => "Event Calendar",
+'item:object:event_calendar' => "Event calendar",
 'tag_names:event_tags' => "Tags",
 'event_calendar:optional' => "Optional.",
 'event_calendar:required' => "Required.",
@@ -19,8 +19,6 @@ return array(
 'event_calendar:start_date_description' => "When will this event start?",
 'event_calendar:fees_label' => "Fees",
 'event_calendar:fees_description' => "The cost of this event, if any.",
-'event_calendar:email_label' => "Email",
-'event_calendar:contact_phone' => "Phone",
 'event_calendar:contact_label' => "Contact",
 'event_calendar:contact_description' => "The person to contact for more information, preferably with a telephone number or email address.",
 'event_calendar:organiser_label' => "Organiser",
@@ -76,7 +74,7 @@ return array(
 'event_calendar:users_for_event_breadcrumb' => "Personal calendars",
 'event_calendar:upgrade' => "Upgrade",
 'event_calendar:settings:times:title' => "Add time as well as date to events?",
-'event_calendar:settings:autopersonal:title' => "Automatically add events a user creates to their personal calendar?",
+'event_calendar:settings:autopersonal:title' => "Automatically add events a user creates to his/her personal calendar?",
 'event_calendar:settings:autogroup:title' => "Automatically add group events for all members to their personal calendars?",
 'event_calendar:settings:venue_view:title' => "Display venue in summary view (event listings)?",
 'event_calendar:settings:yes' => "yes",
@@ -137,7 +135,7 @@ return array(
 'event_calendar:request_event_response' => "Your request to be added to this event has been sent.",
 'event_calendar:request_event_error' => "Error: Could not send your request to be added to this event.",
 'event_calendar:request_subject' => "You have received an event request",
-'event_calendar:request_message' => "%s has asked to have the event \"%s\", here: %s added to their personal calendar. You can manage calendar requests for this event here: %s",
+'event_calendar:request_message' => "%s has asked to have the event \"%s\", here: %s added to his/her personal calendar. You can manage calendar requests for this event here: %s",
 'event_calendar:review_requests_error' => 	"Error: This event either does not exist or you do not have the authority to approve requests for it.",
 'event_calendar:review_requests_request_none' => "There are no requests to review for this event.",
 'event_calendar:request:remove:check' => 'Are you sure you want to reject this request?',
