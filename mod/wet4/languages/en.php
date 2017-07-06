@@ -148,6 +148,33 @@ return array(
     'group:decline:invitation' => 'Decline<span class="wb-inv">group invite to "%s"</span>',
 
 
+    'entity:like:link:question' => 'Like the question %s',
+    'entity:unlike:link:question' => 'Remove like from the question %s',
+    'entity:comment:link:question' => 'Comment on the question %s',
+    'entity:edit:link:question' => 'Edit the question %s',
+    'entity:delete:link:question' => 'Delete the question %s',
+    'entity:share:link:question' => 'Share the question %s on The Wire',
+    'entity:subscribe:link:question' => 'Subscribe to the question %s',
+    'entity:unsubscribe:link:question' => 'Unsubscribe to the question %s',
+
+    'entity:like:link:answer' => 'Like this answer by %s',
+    'entity:unlike:link:answer' => 'Remove like from the answer by %s',
+    'entity:comment:link:answer' => 'Comment on this answer by %s',
+    'entity:edit:link:answer' => 'Edit this answer by %s',
+    'entity:delete:link:answer' => 'Delete this answer by %s',
+    'entity:share:link:answer' => 'Share this answer by %s to The Wire',
+
+    //questions
+    'questions:answer:checkmark:brief' => "%s marked an answer by %s correct on %s",
+    'questions:friends' => "Friends' Questions",
+    'question:answered' => "<span class='wb-inv'>Answered</span>",
+    'question:suggestion' => '<b>Similar questions already asked.</b>',
+    'question:suggestion:answered' => 'Answered question.',
+
+    //form validation
+
+    'form:invalid:extensions' => "Invalid file format. Allowed file extensions: %s",
+
 
     ////
 
@@ -206,7 +233,7 @@ return array(
       'sf:title' => "See anyone you know? Connect with them.",
       'sf:connect' => "Connect",
       'sf:alttext' => "Avatar image of",
-      'sf:suggcolleagues'=> "Colleague suggestions",
+      'sf:suggcolleagues'=> "Colleague suggestion",
 
       /*Friendly Time*/
 
@@ -319,8 +346,7 @@ return array(
  * Sites
  */
     'landingPage' => 'Set Landing Page',
-    'career' => 'Careers',
-    'newsfeed' => 'Home',
+    'career' => 'Career',
 	'item:site' => 'Sites',
     'notifications:subscriptions:changesettings' => 'Notifications',
 /**
@@ -328,7 +354,8 @@ return array(
  */
 
 	'login' => "Log in",
-	'loginok' => "Welcome to GCcollab %s.", /*NEW but doesn't work :3*/
+
+
 	'loginerror' => "We couldn't log you in. Please check your credentials and try again.",
 	'login:empty' => "Username/email and password are required.",
 	'login:baduser' => "Unable to load your user account.",
@@ -458,17 +485,16 @@ return array(
 	'password' => "Password",
 	'passwordagain' => "Password (again for verification)",
 	'admin_option' => "Make this user an admin?",
-  'sendemail' => "Send the new user an email about their account?",
 
 /**
  * Access
  */
 
 	'PRIVATE' => "Only me",
-	'LOGGED_IN' => "Users logged in to GCcollab only",
-	'PUBLIC' => "All users",
+	'LOGGED_IN' => "Users logged in to GCconnex only",
+	'PUBLIC' => "All public servants",
 	'LOGGED_OUT' => "Logged out users",
-	'access:friends:label' => "My Colleagues on GCcollab only",
+	'access:friends:label' => "My Colleagues on GCconnex only",
 	'access' => "Access",
 	'access:overridenotice' => "Note: Due to group policy, this content will be accessible only by group members.",
 	'access:limited:label' => "Limited",
@@ -533,34 +559,34 @@ return array(
 
 	'friends' => "My Colleagues", //Friends
     'friend:river' => "Colleague", //Friends
-	'friends:yours' => "Your colleagues",
-	'friends:owned' => "%s's colleagues",
-	'friend:add' => "Add Colleague",
-	'friend:remove' => "Remove Colleague",
+	'friends:yours' => "Your friends",
+	'friends:owned' => "%s's friends",
+	'friend:add' => "Add friend",
+	'friend:remove' => "Remove friend",
 
-	'friends:add:successful' => "You have successfully added %s as a colleague.",
-	'friends:add:failure' => "We couldn't add %s as a colleague.",
+	'friends:add:successful' => "You have successfully added %s as a friend.",
+	'friends:add:failure' => "We couldn't add %s as a friend.",
 
-	'friends:remove:successful' => "You have successfully removed %s from your colleagues.",
-	'friends:remove:failure' => "We couldn't remove %s from your colleagues.",
+	'friends:remove:successful' => "You have successfully removed %s from your friends.",
+	'friends:remove:failure' => "We couldn't remove %s from your friends.",
 
-	'friends:none' => "No Colleagues yet.",
-	'friends:none:you' => "You don't have any colleagues yet.",
+	'friends:none' => "No friends yet.",
+	'friends:none:you' => "You don't have any friends yet.",
 
-	'friends:none:found' => "No colleagues were found.",
+	'friends:none:found' => "No friends were found.",
 
-	'friends:of:none' => "Nobody has added this user as a colleague yet.",
-	'friends:of:none:you' => "Nobody has added you as a colleague yet. Start adding content and fill in your profile to let people find you!",
+	'friends:of:none' => "Nobody has added this user as a friend yet.",
+	'friends:of:none:you' => "Nobody has added you as a friend yet. Start adding content and fill in your profile to let people find you!",
 
-	'friends:of:owned' => "People who have made %s a colleague",
+	'friends:of:owned' => "People who have made %s a friend",
 
-	'friends:of' => "Colleagues of",
-	'friends:collections' => "Colleague collections",
+	'friends:of' => "Friends of",
+	'friends:collections' => "Friend collections",
 	'collections:add' => "New collection",
-	'friends:collections:add' => "New colleague collection",
-	'friends:addfriends' => "Select colleagues",
+	'friends:collections:add' => "New friends collection",
+	'friends:addfriends' => "Select friends",
 	'friends:collectionname' => "Collection name",
-	'friends:collectionfriends' => "Colleague in collection",
+	'friends:collectionfriends' => "Friends in collection",
 	'friends:collectionedit' => "Edit this collection",
 	'friends:nocollections' => "You do not have any circles yet.",
 	'friends:collectiondeleted' => "Your collection has been deleted.",
@@ -647,7 +673,7 @@ return array(
  * River
  */
 	'river' => "River",
-	'river:friend:user:default' => "%s is now a colleague with %s",
+	'river:friend:user:default' => "%s is now a friend with %s",
 	'river:update:user:avatar' => '%s has a new avatar',
 	'river:update:user:profile' => '%s has updated their profile',
 	'river:noaccess' => 'You do not have permission to view this item.',
@@ -666,7 +692,7 @@ return array(
 	'river:widget:title' => "Activity",
 	'river:widget:description' => "Display latest activity",
 	'river:widget:type' => "Type of activity",
-	'river:widgets:friends' => 'Colleague activity',
+	'river:widgets:friends' => 'Friends activity',
 	'river:widgets:all' => 'All site activity',
 	'river:create:object:default' => '%s uploaded the file %s',
 
@@ -707,7 +733,7 @@ return array(
 	'group:search:startblurb' => "Groups matching '%s':",
 	'group:search:finishblurb' => "To view more, click here.",
 	'search:go' => 'Go',
-	'userpicker:only_friends' => 'Only Colleagues',
+	'userpicker:only_friends' => 'Only friends',
 
 /**
  * Account
@@ -1090,14 +1116,14 @@ These changes will only affect new users on the site.',
 	'river:all' => 'All Site Activity',
 	'river:mine' => 'My Activity',
 	'river:owner' => 'Activity of %s',
-	'river:friends' => 'Colleague Activity',
+	'river:friends' => 'Friends Activity',
 	'river:select' => 'Show %s',
 	'river:comments:more' => '+%u more',
 	'river:comments:all' => 'View all %u comments',
 	'river:generic_comment' => 'commented on %s %s',
 
-	'friends:widget:description' => "Displays some of your colleagues.",
-	'friends:num_display' => "Number of colleagues to display",
+	'friends:widget:description' => "Displays some of your friends.",
+	'friends:num_display' => "Number of friends to display",
 	'friends:icon_size' => "Icon size",
 	'friends:tiny' => "tiny",
 	'friends:small' => "small",
@@ -1499,8 +1525,8 @@ Once you have logged in, we highly recommend that you change your password.
 	'email:save:success' => "New email address saved. Verification is requested.",
 	'email:save:fail' => "New email address could not be saved.",
 
-	'friend:newfriend:subject' => "%s has made you a colleague!",
-	'friend:newfriend:body' => "%s has made you a Colleague!
+	'friend:newfriend:subject' => "%s has made you a friend!",
+	'friend:newfriend:body' => "%s has made you a friend!
 
 To view their profile, click here:
 
@@ -1589,13 +1615,12 @@ Please do not reply to this email.",
     /**
     *Activity module
     */
-    'activity:module:weekly_likes' => 'Top Wire Posts',
+    'activity:module:weekly_likes' => 'Most liked of last week',
 	'activity:module:weekly_likes:none' => 'No likes',
 
 /**
 *Contact page / FAQ
 */
-
     'contactform:help' => 'Help',
     'contactform:upload' => 'Upload your file',
     'contactform:faq' => "FAQ",

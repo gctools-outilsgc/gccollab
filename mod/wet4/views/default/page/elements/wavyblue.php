@@ -30,9 +30,7 @@ $site_name = elgg_view('output/url', array(
                 <!-- LOGO -->
                 <h1><?php echo $site_name; ?></h1>
             </div>
-            <div class="col-md-6 col-sm-3">
-            <?php echo elgg_view('page/elements/chng-lang', $vars); ?>
-            </div>
+
             <section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn">
                 <ul class="list-inline text-right chvrn">
                 <li><a href="#mb-pnl" title="<?php echo elgg_echo('wet:search');?>" aria-controls="mb-pnl" class="overlay-lnk" role="button">
@@ -49,7 +47,7 @@ $site_name = elgg_view('output/url', array(
                 <div id="mb-pnl"></div>
             </section>
 
-           
+            <?php echo elgg_view('search/search_box', $vars); ?>
         </div>
 
         <!-- End of Beautiful Wavy Blue Bar at the top -->

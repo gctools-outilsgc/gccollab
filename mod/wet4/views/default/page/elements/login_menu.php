@@ -170,10 +170,10 @@ form.signin .remb .remember {
     top: -12px;
     width: 0;
     height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
 
-    border-bottom: 12px solid #666666;
+	border-bottom: 12px solid #666666;
     clear: both;
 }
 .login-menu:after{
@@ -184,10 +184,10 @@ form.signin .remb .remember {
     top: -12px;
     width: 0;
     height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
 
-    border-bottom: 12px solid #fff ;
+	border-bottom: 12px solid #fff ;
     clear: both;
 }
 </style>
@@ -247,31 +247,31 @@ $site_url = elgg_get_site_url();
 
           <form method="post" role="form" action="<?php echo elgg_add_action_tokens_to_url($site_url.'action/login'); ?>">
             <div class="form-group">
-               <label for='username'><?php echo elgg_echo('loginusername'); ?></label>
-            <?php echo elgg_view('input/text', array(
-                        'name' => 'username',
+          	   <label for='username'><?php echo elgg_echo('loginusername'); ?></label>
+          	<?php echo elgg_view('input/text', array(
+          		        'name' => 'username',
                       'placeholder' => elgg_echo('loginusername'),
                       'id' => 'username',
                       'class' => 'form-control',
-                      ));
-            ?>
+          		      ));
+          	?>
           </div>
           <div class="form-group">
-            <label for='password'><?php echo elgg_echo('password'); ?></label>
-            <?php echo elgg_view('input/password', array('name' => 'password', 'id' => 'password', 'placeholder' => elgg_echo('password'), 'class' => 'form-control')); ?>
+          	<label for='password'><?php echo elgg_echo('password'); ?></label>
+          	<?php echo elgg_view('input/password', array('name' => 'password', 'id' => 'password', 'placeholder' => elgg_echo('password'), 'class' => 'form-control')); ?>
           </div>
 
           <?php echo elgg_view('login/extend', $vars); ?>
 
           <div class="checkbox">
-            <label class="mtm">
-                <input type="checkbox" name="persistent" value="false" />
-                <?php echo elgg_echo('user:persistent'); ?>
-            </label>
+          	<label class="mtm">
+          		<input type="checkbox" name="persistent" value="false" />
+          		<?php echo elgg_echo('user:persistent'); ?>
+          	</label>
           </div>
-            <?php
+          	<?php
             echo elgg_view('input/submit', array('value' => elgg_echo('login'), 'class' => 'btn-primary'));
-            echo elgg_view('input/hidden', array('name' => 'returntoreferer', 'value' => 'true'));
+          	echo elgg_view('input/hidden', array('name' => 'returntoreferer', 'value' => 'true'));
             echo '<a href="' . $site_url . 'forgotpassword" class="col-xs-12 mrgn-tp-md">'.elgg_echo('user:forgot').'</a>';
             ?>
           </form>

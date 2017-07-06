@@ -41,7 +41,7 @@ if(elgg_is_admin_logged_in()) {
     elgg_register_menu_item('user_menu', array(
         'name' => 'Admin',
         'href' => $site_url . 'admin',
-        'text' => '<i class="fa fa-wrench fa-lg mrgn-rght-sm"></i>',
+        'text' => '<i class="fa fa-wrench fa-lg mrgn-rght-sm"></i>' . '<span class="hidden-xs">Admin</span>',
         'title' => 'Admin',
         'item_class' => 'brdr-rght',
         'class' => '',
@@ -67,7 +67,7 @@ if ($user_avatar) { //show avatar if they have one
 //create user menu
 elgg_register_menu_item('user_menu', array(
     'name' => 'Profile',
-    'text' => $dropdown_avatar . $dropdown,
+    'text' => $dropdown_avatar. '<span class="hidden-xs">' . $displayName . '</span><i class="fa fa-caret-down fa-lg mrgn-lft-sm"></i>' . $dropdown,
     'title' => elgg_echo('userMenu:usermenuTitle'),
     'item_class' => 'brdr-lft dropdown',
     'data-toggle' => 'dropdown',
@@ -85,6 +85,7 @@ elgg_register_menu_item('user_menu', array(
     'text' => elgg_echo('userMenu:profile'),
     'href' => 'profile/'.elgg_get_logged_in_user_entity()->username,
     'item_class' => 'wb-invisible sr_menu_item',
+    'tabindex' => '-1',
 ));
 
 elgg_register_menu_item('user_menu', array(
@@ -92,6 +93,7 @@ elgg_register_menu_item('user_menu', array(
     'text' => elgg_echo('userMenu:account'),
     'href' => 'settings/user/'.elgg_get_logged_in_user_entity()->username,
     'item_class' => 'wb-invisible sr_menu_item',
+    'tabindex' => '-1',
 ));
 
 elgg_register_menu_item('user_menu', array(
@@ -99,6 +101,7 @@ elgg_register_menu_item('user_menu', array(
     'text' => elgg_echo('logout'),
     'href' => 'action/logout',
     'item_class' => 'wb-invisible sr_menu_item',
+    'tabindex' => '-1',
 ));
 
 
@@ -125,7 +128,7 @@ if (elgg_is_active_plugin('messages')) {
 //Nick - Removed the href and created my own in the text to hold hidden messages dropdown
 elgg_register_menu_item('user_menu', array(
     'name' => 'messages',
-    'text' => '<i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden" aria-hidden="true">' . elgg_echo('messages') . '</span>' . $msgbadge .'<span class="wb-inv">'.elgg_echo('userMenu:messages') . $title.' </span>'.$focus_dd .$ajax_dd_messages,
+    'text' => '<i class="fa fa-envelope mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-xs" aria-hidden="true">' . elgg_echo('messages') . '</span>' . $msgbadge .'<span class="wb-inv">'.elgg_echo('userMenu:messages') . $title.' </span></a>'.$focus_dd .$ajax_dd_messages,
     'title' => elgg_echo('userMenu:messages') . $title,
     'item_class' => 'brdr-lft messagesLabel close-msg-dd',
     'data-toggle' => '',
@@ -160,7 +163,7 @@ if (elgg_is_active_plugin('messages')) {
 // notifications inbox menu item
 elgg_register_menu_item('user_menu', array(
     'name' => 'notifications',
-    'text' =>'<i class="fa fa-bell mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden" aria-hidden="true">' . elgg_echo('notifications:subscriptions:changesettings') . '</span>' . $msgbadge .'<span class="wb-inv">'.elgg_echo('userMenu:notifications') . $title.' </span>'.$focus_dd.'<div>'.$ajax_dd_notification.'</div>',
+    'text' =>'<i class="fa fa-bell mrgn-rght-sm mrgn-tp-sm fa-lg"></i><span class="hidden-xs" aria-hidden="true">' . elgg_echo('notifications:subscriptions:changesettings') . '</span>' . $msgbadge .'<span class="wb-inv">'.elgg_echo('userMenu:notifications') . $title.' </span></a>'.$focus_dd.'<div>'.$ajax_dd_notification.'</div>',
     'title' => elgg_echo('userMenu:notifications') . $title,
     'item_class' => 'brdr-lft messagesLabel close-notif-dd',
     'class' => '',

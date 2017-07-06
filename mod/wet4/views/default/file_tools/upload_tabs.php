@@ -70,17 +70,4 @@ elgg_register_menu_item('file_options', array(
     'priority' => 2,
 ));
 
-if( elgg_get_plugin_setting('googledoc', 'file_tools') ){
-  elgg_register_menu_item('file_options', array(
-    'name' => 'googledoc',
-    "text" => elgg_echo("file_tools:upload:tabs:googledoc"),
-    //"href" => "file/add/" . $page_owner_guid . "?upload_type=googledoc",
-    "href" => "#googledoc",
-    "link_id" => "file-tools-googledoc-form-link",
-    "selected" => ($selected_tab == "googledoc") ? true : false,
-      'data-toggle' => 'tab',
-      'priority' => 3,
-  ));
-}
-
 echo elgg_view_menu('file_options', array('class' => 'nav nav-tabs', 'sort_by' => 'priority'));
