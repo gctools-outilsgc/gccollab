@@ -23,7 +23,7 @@
 
 ?>
 
-<div class="<?php //echo $class; ?> clear row">
+<div class="<?php //echo $class; ?> row">
 	<?php
         /*
         echo elgg_extract('nav', $vars, elgg_view('navigation/breadcrumbs'));

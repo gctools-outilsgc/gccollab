@@ -3,9 +3,11 @@
 require_once($CONFIG->pluginspath.'event_calendar/models/model.php');
 
 
-$event_list = elgg_get_entities(array(
+$event_list = elgg_get_entities_from_metadata(array(
 	'subtype' => 'event_calendar',
 	'type' => 'object',
+	'metadata_name_value_pair' => array('name' => 'start_date', 'value' => time(),  'operand' => '>='),
+	'order_by_metadata' => array('name' => 'start_date', 'direction' => 'asc')
 ));
 
 $today = date("F j, Y, g:i a");

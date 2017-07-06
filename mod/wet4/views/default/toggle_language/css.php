@@ -45,7 +45,7 @@ padding-top:1px;
 .lang_toggle .not_active:hover, {
 
 
-	color: #46246a;
+	color: #047177;
 	
 }
 

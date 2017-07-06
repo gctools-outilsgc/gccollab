@@ -19,7 +19,7 @@ $site_url = elgg_get_site_url();
   max-width: 100%; }
 
 .splash #bg {
-    background: url(<?php echo $site_url ?>/mod/wet4/graphics/splash_bg_3.gif) no-repeat center center fixed;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/splash_bg_3.gif) no-repeat center center fixed;
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

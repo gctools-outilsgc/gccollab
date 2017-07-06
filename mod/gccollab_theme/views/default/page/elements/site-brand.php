@@ -9,10 +9,10 @@
 $site_url = elgg_get_site_url();
 $user = elgg_get_logged_in_user_entity();
 //check lang of current user and change Canada graphic based on language
-if( _elgg_services()->session->get('language') == 'en'){
-    $graphic_lang = 'en';
-}else{
+if( _elgg_services()->session->get('language') == 'fr'){
     $graphic_lang = 'fr';
+} else {
+    $graphic_lang = 'en';
 }
 
 // cyu - strip off the "GCconnex" branding bar for the gsa
@@ -25,7 +25,7 @@ if (elgg_is_active_plugin('gc_fedsearch_gsa') && ((!$gsa_usertest) && strcmp($gs
         <div class="container">
             <div class="row">
                 <div class="brand col-xs-8 col-sm-9 col-md-6 col-lg-4">
-                   <object type="image/svg+xml" tabindex="-1" data="<?php echo $site_url ?>/mod/gccollab_theme/graphics/sig-blk-<?php echo $graphic_lang ?>.svg"></object>
+                   <object type="image/svg+xml" tabindex="-1" data="<?php echo $site_url ?>/mod/wet4_collab/graphics/sig-blk-<?php echo $graphic_lang; ?>.svg"></object>
                     <span class="wb-inv"><?php echo elgg_echo('wet:gc');?></span>
                 </div>
                 <section class="col-lg-6 col-md-5 hidden-sm hidden-xs">

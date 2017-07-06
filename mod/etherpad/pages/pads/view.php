@@ -34,7 +34,7 @@ elgg_get_plugin_setting('show_comments', 'etherpad') == 'yes'){
 	$content .= elgg_view_comments($pad);
 }
 
-$body = elgg_view_layout('content', array(
+$body = elgg_view_layout('one_column', array(
 	'filter' => '',
 	'content' => $content,
 	'title' => $title,

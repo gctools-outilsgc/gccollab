@@ -17,8 +17,8 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol.elgg-list, ul.elgg-list, li.elgg-item,
-fieldset, form, label, legend {
-/*table, caption, tbody, tfoot, thead, tr, th, td {*/
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
 	border: 0;
