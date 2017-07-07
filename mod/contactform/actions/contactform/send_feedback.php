@@ -28,10 +28,12 @@
 		$success = false;
 	}
 
+	/*
 	if (!$user_department) {
 		register_error(elgg_echo('contactform:Errdepart'));
 		$success = false;
 	}
+	*/
 
 	if (!$user_reason || strcmp('Select...', $user_reason) == 0 || strcmp('Choisir...', $user_reason) == 0) {
 		register_error(elgg_echo('contactform:Errreason'));
