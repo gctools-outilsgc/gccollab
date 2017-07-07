@@ -24,7 +24,8 @@
 		
 		$info = "<a href=\"{$vars['entity']->getURL()}\">{$vars['entity']->question}</a>";
 		if ($container instanceOf ElggGroup) {
-			$group_bit = '<a href="'.$container->getUrl().'">'.$container->name.'</a>';
+			$lang = get_current_language();
+			$group_bit = '<a href="'.$container->getUrl().'">'.gc_explode_translation($container->name,$lang).'</a>';
 			$info .= " ".sprintf(elgg_echo('polls:group_identifier'),$group_bit);
 		}
 		$info .= "<br />{$responses} ".elgg_echo('polls:votes');
