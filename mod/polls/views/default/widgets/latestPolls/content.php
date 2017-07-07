@@ -24,8 +24,8 @@
 	$options = array(
 		'type' => 'object',
 		'subtype'=>'poll',
-		'container_guid' => $owner_guid,
-		'limit' => $limit
+		'limit' => $limit,
+		'wheres' => array("e.owner_guid != $owner_guid"),
 	);
 	
 	$polls = elgg_get_entities($options);
