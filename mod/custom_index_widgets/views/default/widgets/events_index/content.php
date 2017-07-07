@@ -22,9 +22,12 @@ foreach ($event_list as $event) {
 
 	$start_date = event_calendar_format_time($start_date, $event->start_time);
 	$end_date = event_calendar_format_time($end_date, $event->end_time);
-echo "
-		<div class='pbm'>
-			<div id='event_title'><strong><a href='{$event->getURL()}'>{$event->title}</a></strong></div>
+
+	$lang = get_current_language();
+	$title = gc_explode_translation($event->title,$lang);
+
+echo "<div class='pbm'>
+			<div id='event_title'><strong><a href='{$event->getURL()}'>{$title}</a></strong></div>
 			<div id='event_date'>{$start_date} - {$end_date} EST</div>
 			<div id='event_location'>{$event->venue}</div>
 		</div>";
