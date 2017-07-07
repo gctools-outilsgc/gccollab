@@ -1,6 +1,6 @@
 <?php
 /**
- * Pad save form body
+ * Doc save form body
  *
  * @package ElggPad
  */

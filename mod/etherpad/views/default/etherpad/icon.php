@@ -1,6 +1,6 @@
 <?php
 /**
- * Pad icon
+ * Doc icon
  *
  * Uses a separate icon view due
  *

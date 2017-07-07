@@ -13,7 +13,7 @@ if ($group->etherpad_enable == "no") {
 }
 
 $all_link = elgg_view('output/url', array(
-	'href' => "pads/group/$group->guid/all",
+	'href' => "docs/group/$group->guid/all",
 	'text' => elgg_echo('link:view:all'),
 	'is_trusted' => true,
 ));
@@ -36,7 +36,7 @@ if (!$content) {
 }
 
 $new_link = elgg_view('output/url', array(
-	'href' => "pads/add/$group->guid",
+	'href' => "docs/add/$group->guid",
 	'text' => elgg_echo('etherpad:add'),
 	'is_trusted' => true,
 ));

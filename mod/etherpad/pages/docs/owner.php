@@ -1,13 +1,13 @@
 <?php
 /**
- * List a user's or group's pads
+ * List a user's or group's docs
  *
  * @package ElggPad
  */
 
 $owner = elgg_get_page_owner_entity();
 if (!$owner) {
-	forward('pads/all');
+	forward('docs/all');
 }
 
 // access check for closed groups

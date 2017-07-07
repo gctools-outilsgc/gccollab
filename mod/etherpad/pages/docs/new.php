@@ -1,6 +1,6 @@
 <?php
 /**
- * Create a new pad
+ * Create a new doc
  *
  * @package ElggPad
  */
@@ -26,7 +26,7 @@ $title = elgg_echo('etherpad:add');
 elgg_push_breadcrumb($title);
 
 $vars = pages_prepare_form_vars(null, $parent_guid);
-$content = elgg_view_form('pads/save', array(), $vars);
+$content = elgg_view_form('docs/save', array(), $vars);
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',

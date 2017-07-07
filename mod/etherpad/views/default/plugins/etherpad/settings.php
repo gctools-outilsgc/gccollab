@@ -14,6 +14,9 @@ if (!isset($vars['entity']->etherpad_key)) {
 if (!isset($vars['entity']->integrate_in_pages)) {
 	$vars['entity']->integrate_in_pages = 'no';
 }
+if (!isset($vars['entity']->show_fullscreen)) {
+	$vars['entity']->show_fullscreen = 'no';
+}
 if (!isset($vars['entity']->show_chat)) {
 	$vars['entity']->show_chat = 'no';
 }
@@ -57,11 +60,23 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <br /><label><?php echo elgg_echo('etherpad:integrateinpages'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[integrate_in_pages]',
-	'options_values' => array(
+		'name' => 'params[integrate_in_pages]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->integrate_in_pages,
+		'value' => $vars['entity']->integrate_in_pages,
+	));
+    ?>
+</div>
+
+<div>
+    <label><?php echo elgg_echo('etherpad:showfullscreen'); ?></label><br />
+    <?php echo elgg_view('input/dropdown', array(
+		'name' => 'params[show_fullscreen]',
+		'options_values' => array(
+		'no' => elgg_echo('option:no'),
+		'yes' => elgg_echo('option:yes')),
+		'value' => $vars['entity']->show_fullscreen,
 	));
     ?>
 </div>
@@ -69,11 +84,11 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <label><?php echo elgg_echo('etherpad:showcontrols'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[show_controls]',
-	'options_values' => array(
+		'name' => 'params[show_controls]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->show_controls,
+		'value' => $vars['entity']->show_controls,
 	));
     ?>
 </div>
@@ -81,11 +96,11 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <label><?php echo elgg_echo('etherpad:showchat'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[show_chat]',
-	'options_values' => array(
+		'name' => 'params[show_chat]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->show_chat,
+		'value' => $vars['entity']->show_chat,
 	));
     ?>
 </div>
@@ -93,11 +108,11 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <label><?php echo elgg_echo('etherpad:linenumbers'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[line_numbers]',
-	'options_values' => array(
+		'name' => 'params[line_numbers]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->line_numbers,
+		'value' => $vars['entity']->line_numbers,
 	));
     ?>
 </div>
@@ -105,11 +120,11 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <label><?php echo elgg_echo('etherpad:monospace'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[monospace_font]',
-	'options_values' => array(
+		'name' => 'params[monospace_font]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->monospace_font,
+		'value' => $vars['entity']->monospace_font,
 	));
     ?>
 </div>
@@ -117,11 +132,11 @@ if (!isset($vars['entity']->new_pad_text)) {
 <div>
     <label><?php echo elgg_echo('etherpad:showcomments'); ?></label><br />
     <?php echo elgg_view('input/dropdown', array(
-	'name' => 'params[show_comments]',
-	'options_values' => array(
+		'name' => 'params[show_comments]',
+		'options_values' => array(
 		'no' => elgg_echo('option:no'),
 		'yes' => elgg_echo('option:yes')),
-	'value' => $vars['entity']->show_comments,
+		'value' => $vars['entity']->show_comments,
 	));
     ?>
 </div>

@@ -1,16 +1,16 @@
 <?php
 /**
- * List a user's friends' pads
+ * List a user's friends' docs
  *
  * @package ElggPad
  */
 
 $owner = elgg_get_page_owner_entity();
 if (!$owner) {
-	forward('pads/all');
+	forward('docs/all');
 }
 
-elgg_push_breadcrumb($owner->name, "pads/owner/$owner->username");
+elgg_push_breadcrumb($owner->name, "docs/owner/$owner->username");
 elgg_push_breadcrumb(elgg_echo('friends'));
 
 elgg_register_title_button();

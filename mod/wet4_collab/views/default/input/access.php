@@ -121,7 +121,7 @@ $params['value'] = $vars['value'];
 // don't call get_write_access_array() unless we need it
 if (!isset($vars['options_values'])) {
 	$vars['options_values'] = get_write_access_array(0, 0, false, $params);
-	 unset($vars['options_values'][1]); //remove ACCESS_LOGGED_IN
+	 // unset($vars['options_values'][1]); //remove ACCESS_LOGGED_IN
 
 }
 

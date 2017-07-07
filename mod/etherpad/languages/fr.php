@@ -11,40 +11,40 @@ $french = array(
 	 * Menu items and titles
 	 */
 	 
-	'pads' => "Pads",
-	'etherpad' => "Pads",
-	'etherpad:owner' => "Pads de %s",
-	'etherpad:friends' => "Pads de los amigos",
-	'etherpad:all' => "Todos los pads",
-	'pads:add' => "Nuevo pad",
-	'etherpad:add' => "Nuevo pad",
+	'etherpad' => "Docs",
+	'etherpad:docs' => "Docs",
+	'etherpad:owner' => "Docs de %s",
+	'etherpad:friends' => "Docs de los amigos",
+	'etherpad:all' => "Todos los docs",
+	'docs:add' => "Nuevo doc",
+	'etherpad:add' => "Nuevo doc",
 	'etherpad:timeslider' => 'Historial',
 	'etherpad:fullscreen' => 'Pantalla completa',
-	'etherpad:none' => 'No se ha creado ningún pad por el momento',
+	'etherpad:none' => 'No se ha creado ningún doc por el momento',
 	
-	'etherpad:group' => 'Pads del grupo',
-	'groups:enablepads' => 'Activar pads del grupo',
+	'etherpad:group' => 'Doc del grupo',
+	'groups:enablepads' => 'Activar docs del grupo',
 	
 	/**
 	 * River
 	 */
-	'river:create:object:etherpad' => '%s creó un nuevo pad colaborativo %s',
-	'river:create:object:subpad' => '%s creó un nuevo pad colaborativo %s',
-	'river:update:object:etherpad' => '%s actualizó el pad colaborativo %s',
-	'river:update:object:subpad' => '%s actualizó el pad colaborativo %s',
-	'river:comment:object:etherpad' => '%s comentó en el pad colaborativo %s',
-	'river:comment:object:subpad' => '%s comentó en el pad colaborativo %s',
+	'river:create:object:etherpad' => '%s creó un nuevo doc colaborativo %s',
+	'river:create:object:subpad' => '%s creó un nuevo doc colaborativo %s',
+	'river:update:object:etherpad' => '%s actualizó el doc colaborativo %s',
+	'river:update:object:subpad' => '%s actualizó el doc colaborativo %s',
+	'river:comment:object:etherpad' => '%s comentó en el doc colaborativo %s',
+	'river:comment:object:subpad' => '%s comentó en el doc colaborativo %s',
 	
-	'item:object:etherpad' => 'Pads',
-	'item:object:subpad' => 'Subpads',
+	'item:object:etherpad' => 'Docs',
+	'item:object:subpad' => 'Subdocs',
 
 	/**
 	 * Status messages
 	 */
 
-	'etherpad:saved' => "Tu pad ha sido creado satisfactoriamente.",
-	'etherpad:delete:success' => "Tu pad ha sido eliminado satisfactoriamente.",
-	'etherpad:delete:failure' => "Tu pad no pudo ser eliminado. Pruébalo de nuevo más tarde.",
+	'etherpad:saved' => "Tu doc ha sido creado satisfactoriamente.",
+	'etherpad:delete:success' => "Tu doc ha sido eliminado satisfactoriamente.",
+	'etherpad:delete:failure' => "Tu doc no pudo ser eliminado. Pruébalo de nuevo más tarde.",
 	
 	/**
 	 * Edit page
@@ -61,25 +61,26 @@ $french = array(
 
 	'etherpad:etherpadhost' => "Dirección del host de Etherpad lite:",
 	'etherpad:etherpadkey' => "Api Key de Etherpad lite:",
+	'etherpad:showfullscreen' => "Mostrar full screen button?",
 	'etherpad:showchat' => "Mostrar chat?",
 	'etherpad:linenumbers' => "Mostar números de línea?",
 	'etherpad:showcontrols' => "Mostrar controles?",
 	'etherpad:monospace' => "Usar fuente monoespacio?",
 	'etherpad:showcomments' => "Mostrar comentarios?",
-	'etherpad:newpadtext' => "Texto de los nuevos pads:",
-	'etherpad:pad:message' => 'Nuevo pad creado satisfactoriamente.',
-	'etherpad:integrateinpages' => "Integrar pads y páginas? (Requirere que el plugin Pages esté activado)",
+	'etherpad:newpadtext' => "Texto de los nuevos docs:",
+	'etherpad:pad:message' => 'Nuevo doc creado satisfactoriamente.',
+	'etherpad:integrateinpages' => "Integrar docs y páginas? (Requirere que el plugin Pages esté activado)",
 	
 	/**
 	 * Widget
 	 */
-	'etherpad:profile:numbertodisplay' => "Número de pads a mostar",
-    'etherpad:profile:widgetdesc' => "Muestra tus últimos pads",
+	'etherpad:profile:numbertodisplay' => "Número de docs a mostar",
+    'etherpad:profile:widgetdesc' => "Muestra tus últimos docs",
     
     /**
 	 * Sidebar items
 	 */
-	'etherpad:newchild' => "Crea un sub-pad",
+	'etherpad:newchild' => "Crea un subdoc",
 );
 
 add_translation('fr', $french);
