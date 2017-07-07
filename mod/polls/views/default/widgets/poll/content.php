@@ -13,7 +13,6 @@ $limit = $vars['entity']->limit;
 if(!$limit) $limit = 3;
 
 //the page owner
-$owner_guid = $vars['entity']->owner_guid;
 $owner = elgg_get_page_owner_entity();
 $lang = get_current_language();
 echo '<h3 class="poll-widget-title">'. sprintf(elgg_echo('polls:widget:think'),gc_explode_translation($owner->name, $lang)) . "</h3>";
@@ -21,10 +20,21 @@ echo '<h3 class="poll-widget-title">'. sprintf(elgg_echo('polls:widget:think'),g
 $options = array(
 		'type' => 'object',
 		'subtype' => 'poll',
-		'owner_guid' => $owner_guid,
+		'owner_guid' => $vars['entity']->owner_guid,
 		'limit' => $limit
 );
 $polls = elgg_get_entities($options);
+
+if( empty($polls) ){
+	$options = array(
+		'type' => 'object',
+		'subtype' => 'poll',
+		'container_guid' => $vars['entity']->container_guid,
+		'limit' => $limit
+	);
+	$polls = elgg_get_entities($options);
+}
+
 if ($polls){
 	foreach($polls as $pollpost) {
 		echo elgg_view("polls/widget", array('entity' => $pollpost));
