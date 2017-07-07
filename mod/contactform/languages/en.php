@@ -15,7 +15,7 @@ $english = array(
     'contactform:Erremailvalid' => "<a href='#email'><span class='prefix'>Error [#]:</span> You entered an invalid email. - Enter a valid email.</a>",
     'contactform:Errdepart' => "<a href='#depart'><span class='prefix'>Error [#]:</span>  You must enter your department - This field is required.</a>",
     'contactform:Errdepartbig' => "<a href='#depart'><span class='prefix'>Error [#]:</span>  Department entered exceeds the limit. - Enter less than 255 characters.</a>",
-    'contactform:Errmess' => "<a href='#message'><span class='prefix'>Error [#]:</span>  You must enter your department - This field is required.</a>",
+    'contactform:Errmess' => "<a href='#message'><span class='prefix'>Error [#]:</span>  You must enter a message - This field is required.</a>",
     'contactform:Errmessbig' => "<a href='#message'><span class='prefix'>Error [#]:</span> Message entered exceeds the limit. - Enter less than 2048 characters.</a>",
     'contactform:Errfiletypes' => "<a href='#photo'><span class='prefix'>Error [#]:</span> Invalid file type. - Valid file types are: [##]</a>",
     'contactform:Errfilesize' => "<a href='#photo'><span class='prefix'>Error [#]:</span> File size exceeds the limit. - File size should be less than [##] KB</a>",
