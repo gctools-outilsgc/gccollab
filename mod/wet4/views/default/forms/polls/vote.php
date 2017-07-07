@@ -38,10 +38,10 @@ $response_inputs2 = elgg_view('input/radio', array('name' => 'response2', 'class
 $responses = polls_get_choice_array($poll);
 $responses_old = polls_get_choice_array3($poll);
 
-if ($responses_old)
-	$responses3 = $responses_old;
-else
+if ($responses)
 	$responses3 = $responses;
+else
+	$responses3 = $responses_old;
 
 $response_inputs3 = elgg_view('input/radio', array('name' => 'response3', 'class' => 'mrgn-rght-sm', 'options' => $responses3));
 
