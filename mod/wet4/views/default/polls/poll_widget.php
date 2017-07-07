@@ -8,8 +8,9 @@
  * @uses $vars['entity'] Optionally, the poll post to view
 */
 elgg_load_js('elgg.polls');
+$lang = get_current_language();
 ?>
-<h3><?php echo $vars['entity']->question; ?></h3>
+<h3><?php echo gc_explode_translation($vars['entity']->question,$lang); ?></h3>
 <div id="poll-container-<?php echo $vars['entity']->guid; ?>" class="poll_post">
 	<?php echo elgg_view('polls/poll_widget_content',$vars); ?>
 </div>

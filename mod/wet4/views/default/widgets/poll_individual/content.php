@@ -21,7 +21,8 @@ if(!empty($polls)){
   $body = elgg_view('polls/poll_widget',array('entity'=>$polls[0]));
 }
 else{
-  $body = sprintf(elgg_echo('polls:widget:no_polls'),elgg_get_page_owner_entity()->name);
+  $lang = get_current_language();
+  $body = sprintf(elgg_echo('polls:widget:no_polls'),gc_explode_translation(elgg_get_page_owner_entity()->name,$lang));
 }
 
 echo $body;
