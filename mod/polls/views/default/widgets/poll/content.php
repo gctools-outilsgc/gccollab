@@ -15,7 +15,8 @@ if(!$limit) $limit = 3;
 //the page owner
 $owner_guid = $vars['entity']->owner_guid;
 $owner = elgg_get_page_owner_entity();
-echo '<h3 class="poll-widget-title">'. sprintf(elgg_echo('polls:widget:think'),$owner->name) . "</h3>";
+$lang = get_current_language();
+echo '<h3 class="poll-widget-title">'. sprintf(elgg_echo('polls:widget:think'),gc_explode_translation($owner->name, $lang)) . "</h3>";
 
 $options = array(
 		'type' => 'object',
@@ -31,5 +32,6 @@ if ($polls){
 }
 else
 {
-	echo "<p>" . sprintf(elgg_echo('polls:widget:no_polls'),$owner->name) . "</p>";
+	$lang = get_current_language();
+	echo "<p>" . sprintf(elgg_echo('polls:widget:no_polls'),gc_explode_translation($owner->name,$lang)) . "</p>";
 }
