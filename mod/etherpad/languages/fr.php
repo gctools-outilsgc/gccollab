@@ -11,8 +11,8 @@ $french = array(
 	 * Menu items and titles
 	 */
 	 
-	'etherpad' => "Docs",
-	'etherpad:docs' => "Docs",
+	'etherpad' => "Docs (Beta)",
+	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "Docs de %s",
 	'etherpad:friends' => "Docs des collègues",
 	'etherpad:all' => "Tous les Docs",

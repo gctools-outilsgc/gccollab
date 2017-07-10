@@ -11,8 +11,8 @@ $english = array(
 	 * Menu items and titles
 	 */
 	 
-	'etherpad' => "Docs",
-	'etherpad:docs' => "Docs",
+	'etherpad' => "Docs (Beta)",
+	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "%s's Docs",
 	'etherpad:friends' => "Colleagues' Docs",
 	'etherpad:all' => "All site Docs",
