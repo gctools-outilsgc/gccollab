@@ -21,6 +21,16 @@ $displayName = elgg_get_logged_in_user_entity()->name;
 $user_avatar = elgg_get_logged_in_user_entity()->geticonURL('small');
 $email = elgg_get_logged_in_user_entity()->email;
 
+elgg_register_menu_item('user_menu', array(
+    'name' => 'Invite',
+    'text' => elgg_echo('invite'),
+    'title' => elgg_echo('invite'),
+    'item_class' => 'btn btn-primary mrs hidden-xs',
+    'class' => '',
+    'style' => "color: #fff;",
+    'priority' => '-1',
+    'href' => elgg_get_site_url() . "invite/" . $user,
+));
 
 elgg_register_menu_item('user_menu_subMenu', array(
     'name' => 'profile_card',
@@ -55,14 +65,11 @@ if(elgg_is_admin_logged_in()) {
 $breakup = explode('.', $email);
 $initials = substr($breakup[0], 0, 1) . substr($breakup[1], 0, 1);
 if ($user_avatar) { //show avatar if they have one
-    $dropdown_avatar = '<span><img class="img-circle mrgn-rght-sm" src="'.$user_avatar.'"></span>';
-
     //EW - render to display badge instead
     $dropdown_avatar = elgg_view_entity_icon(elgg_get_logged_in_user_entity(), 'small', array('use_hover' => false, 'use_link' => false, 'class' => 'userMenuAvatar'));
 } else { // show initials if the don't
     $dropdown_avatar = '<span class="init-badge">' . strtoupper($initials) . '</span>';
 }
-
 
 //create user menu
 elgg_register_menu_item('user_menu', array(

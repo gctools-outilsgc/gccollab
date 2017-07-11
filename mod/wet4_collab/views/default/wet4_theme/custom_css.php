@@ -273,9 +273,9 @@ max-height: 500px;
         margin-right: 7px;
     }
 
-    .userMenuAvatar {
-
-        margin-bottom: -6px;
+    .userMenuAvatar img {
+      display: inline-block;
+      margin-top: -6px;
     }
 
     .user-menu{

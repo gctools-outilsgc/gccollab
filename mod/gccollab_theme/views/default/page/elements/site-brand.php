@@ -82,10 +82,10 @@ if (elgg_is_active_plugin('gc_fedsearch_gsa') && ((!$gsa_usertest) && strcmp($gs
                     </a>
                     </div>
                 </section>
-                <div class="col-md-6 col-sm-4 hidden-xs">
+                <div class="col-md-5 col-sm-4 hidden-xs">
                     <?php echo elgg_view('search/search_box', $vars); ?>
                 </div>
-                <div class="col-md-3 col-sm-5 col-xs-7">
+                <div class="col-md-4 col-sm-5 col-xs-7">
                     <?php echo elgg_view('page/elements/topbar_wrapper', $vars);?>
                 </div>
             </div>
