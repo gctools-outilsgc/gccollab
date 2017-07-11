@@ -34,14 +34,16 @@
 }
 
 .multiple_emails-email {
-	margin: 3px 5px 3px 5px;
+	display: inline-block;
+	margin: 4px 0px 0px 4px;
 	padding: 3px 5px 3px 5px;
-	border:1px #BBD8FB solid;
+	border: 1px #BBD8FB solid;
 	border-radius: 3px;
 	background: #F3F7FD;
 }
 
 .multiple_emails-close {
 	float: left;
-	margin: 0 3px;
+	margin: 0 2px;
+	padding: 2px 2px 0 0;
 }
