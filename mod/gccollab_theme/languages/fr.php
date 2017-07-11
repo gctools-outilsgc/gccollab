@@ -140,7 +140,9 @@ return array(
   'msg:change_access' => "Ce n’est pas tous les utilisateurs qui ont accès à votre contenu. Puisque GCcollab désire être le plus ouvert possible, êtes-vous certain de vouloir restreindre l’accès à ce contenu?", //NEW
 
   'friends:invite' => "Inviter à GCcollab",
-  'invitefriends:introduction' => "Pour inviter d'autres gens à se joindre à GCcollab et se joindre à votre réseau, ajouter leurs adresses courriel ci-dessous (une par ligne) :",
+  'invitefriends:emails' => "Adresses courriel :",
+  'invitefriends:message' => 'Écrivez le message qui accompagnera votre invitation :',
+  'invitefriends:introduction' => "Pour inviter d'autres gens à se joindre à GCcollab et se joindre à votre réseau, coller ou entrer votre adresse courriel ci-dessous :",
   'invitefriends:message:default' => "Bonjour,
 
 Je vous invite à vous joindre à mon réseau dans %s. Joignez-nous pour contribuer aux discussions au sujet de l'avenir du gouvernement, des programmes à venir, des politiques et plus encore!

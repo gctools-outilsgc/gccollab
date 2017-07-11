@@ -153,7 +153,9 @@ return array(
   'msg:change_access' => "Not all users have access to your content. Since GCconnex wants to be as open as possible, are you sure you need to restrict the access to this content?", //NEW
 
   'friends:invite' => "Invite to GCcollab",
-  'invitefriends:introduction' => "To invite new people to join GCcollab, enter their email addresses below (one per line):",
+  'invitefriends:emails' => "Email addresses:",
+  'invitefriends:message' => 'Message:',
+  'invitefriends:introduction' => "To invite new people to join GCcollab, paste or enter your email addresses below:",
   'invitefriends:message:default' => "Hello, 
   
 I'm inviting you to join my network on %s. Join us to contribute to discussions on the future of government, upcoming programs, policies and more! 

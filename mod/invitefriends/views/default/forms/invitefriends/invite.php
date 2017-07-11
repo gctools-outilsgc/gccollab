@@ -37,11 +37,11 @@ elgg_load_js('multiple-emails');
 
 echo <<< HTML
 <p class="mbm elgg-text-help">$introduction</p>
-<div>
+<div class="form-group">
 	<label for="invitefriends-emails">$emails_label</label>
 	$emails_textarea
 </div>
-<div>
+<div class="form-group">
 	<label for="invitefriends-emailmessage">$message_label</label>
 	$message_textarea
 </div>
