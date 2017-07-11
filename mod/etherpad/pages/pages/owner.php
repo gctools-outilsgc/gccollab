@@ -40,7 +40,7 @@ $sidebar = elgg_view('pages/sidebar/navigation');
 $sidebar .= elgg_view('pages/sidebar');
 
 if ($integrate_in_pages && $owner->canWriteToContainer()) {
-	$url = "pads/add/$owner->guid";
+	$url = "docs/add/$owner->guid";
 	elgg_register_menu_item('title', array(
 			'name' => 'etherpad-add',
 			'href' => $url,

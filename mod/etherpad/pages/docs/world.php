@@ -1,6 +1,6 @@
 <?php
 /**
- * List all pads
+ * List all docs
  *
  * @package ElggPad
  */

@@ -11,40 +11,40 @@ $english = array(
 	 * Menu items and titles
 	 */
 	 
-	'pads' => "Pads",
-	'etherpad' => "Pads",
-	'etherpad:owner' => "%s's pads",
-	'etherpad:friends' => "Friends' pads",
-	'etherpad:all' => "All site pads",
-	'pads:add' => "Add pad",
-	'etherpad:add' => "Add pad",
+	'etherpad' => "Docs (Beta)",
+	'etherpad:docs' => "Docs (Beta)",
+	'etherpad:owner' => "%s's Docs",
+	'etherpad:friends' => "Colleagues' Docs",
+	'etherpad:all' => "All site Docs",
+	'docs:add' => "Create a new Doc",
+	'etherpad:add' => "Create a new Doc",
 	'etherpad:timeslider' => 'History',
 	'etherpad:fullscreen' => 'Fullscreen',
-	'etherpad:none' => 'No pads created yet',
+	'etherpad:none' => 'No Docs created yet',
 	
-	'etherpad:group' => 'Group pads',
-	'groups:enablepads' => 'Enable group pads',
+	'etherpad:group' => 'Group Docs',
+	'groups:enablepads' => 'Enable group Docs',
 	
 	/**
 	 * River
 	 */
-	'river:create:object:etherpad' => '%s created a new collaborative pad %s',
-	'river:create:object:subpad' => '%s created a new collaborative pad %s',
-	'river:update:object:etherpad' => '%s updated the collaborative pad %s',
-	'river:update:object:subpad' => '%s updated the collaborative pad %s',
-	'river:comment:object:etherpad' => '%s commented on the collaborative pad %s',
-	'river:comment:object:subpad' => '%s commented on the collaborative pad %s',
+	'river:create:object:etherpad' => '%s created a new Doc %s',
+	'river:create:object:subpad' => '%s created a new Doc %s',
+	'river:update:object:etherpad' => '%s updated the Doc %s',
+	'river:update:object:subpad' => '%s updated the Doc %s',
+	'river:comment:object:etherpad' => '%s commented on the Doc %s',
+	'river:comment:object:subpad' => '%s commented on the Doc %s',
 	
-	'item:object:etherpad' => 'Pads',
-	'item:object:subpad' => 'Subpads',
+	'item:object:etherpad' => 'Docs',
+	'item:object:subpad' => 'Subdocs',
 
 	/**
 	 * Status messages
 	 */
 
-	'etherpad:saved' => "Your pad was successfully saved.",
-	'etherpad:delete:success' => "Your pad was successfully deleted.",
-	'etherpad:delete:failure' => "Your pad could not be deleted. Please try again.",
+	'etherpad:saved' => "Your Doc was successfully saved.",
+	'etherpad:delete:success' => "Your Doc was successfully deleted.",
+	'etherpad:delete:failure' => "Your Doc could not be deleted. Please try again.",
 	
 	/**
 	 * Edit page
@@ -61,25 +61,26 @@ $english = array(
 
 	'etherpad:etherpadhost' => "Etherpad lite host address:",
 	'etherpad:etherpadkey' => "Etherpad lite api key:",
+	'etherpad:showfullscreen' => "Show full screen button?",
 	'etherpad:showchat' => "Show chat?",
 	'etherpad:linenumbers' => "Show line numbers?",
 	'etherpad:showcontrols' => "Show controls?",
 	'etherpad:monospace' => "Use monospace font?",
 	'etherpad:showcomments' => "Show comments?",
-	'etherpad:newpadtext' => "New pad text:",
-	'etherpad:pad:message' => 'New pad created successfully.',
-	'etherpad:integrateinpages' => "Integrate pads and pages? (Requires Pages plugin to be enabled)",
+	'etherpad:newdoctext' => "New Doc text:",
+	'etherpad:doc:message' => 'New Doc created successfully.',
+	'etherpad:integrateinpages' => "Integrate Docs and pages? (Requires Pages plugin to be enabled)",
 	
 	/**
 	 * Widget
 	 */
-	'etherpad:profile:numbertodisplay' => "Number of pads to display",
-    'etherpad:profile:widgetdesc' => "Display your latest pads",
+	'etherpad:profile:numbertodisplay' => "Number of Docs to display",
+    'etherpad:profile:widgetdesc' => "Display your latest Docs",
     
     /**
 	 * Sidebar items
 	 */
-	'etherpad:newchild' => "Create a sub-pad",
+	'etherpad:newchild' => "Create a Subdoc",
 );
 
 add_translation('en', $english);

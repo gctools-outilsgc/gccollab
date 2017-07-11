@@ -7,7 +7,8 @@ require.config({
     }
 });
 
-var validExtentions = get_file_tools_settings('single');
+var validExtensions = get_file_tools_settings('single');
+var newExt = (validExtensions.join()).replace(/,/g, '|'); //format the extensions for validation
 
 requirejs( ["form-validate"], function() {
    $(".elgg-form").each(function(){
@@ -53,12 +54,12 @@ requirejs( ["form-validate"], function() {
          required: true
        },
        upload: {
-         extension: validExtentions
+         extension: newExt
        },
     },
     messages: {  //add custom message for file validation
         upload:{
-            extension:elgg.echo('form:invalid:extensions',[validExtentions])
+            extension:elgg.echo('form:invalid:extensions',[validExtensions])
         }
     }
    });
