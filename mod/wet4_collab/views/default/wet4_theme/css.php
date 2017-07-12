@@ -10151,28 +10151,22 @@ header {
 /*
  * Mobile Chevron
  */
+.purple-bg { background: #46246A; }
 #wb-glb-mn {
   margin-top: 0px; }
   #wb-glb-mn ul {
     min-width: 150px; }
-    #wb-glb-mn ul.chvrn {
-      background: #46246A;
+    #wb-glb-mn .icons {
       display: inline-block;
-      float: right;
-      height: 2.75em; }
-      #wb-glb-mn ul.chvrn li {
-        display: block;
-        padding-right: 0; }
-        #wb-glb-mn ul.chvrn li a {
+      float: right; }
+        #wb-glb-mn .icons a {
           color: #fff;
           display: block;
-          font-size: 1.9em;
+          font-size: 1.5em;
           padding: 5px 20px 0 0; }
       #wb-glb-mn ul.chvrn span .glyphicon-th-list {
         padding-left: 12px;
         top: 0; }
-      #wb-glb-mn ul.chvrn:before {
-        }
 
 /* IE Tweaks */
 .lt-ie9 header .brand a {
@@ -10527,7 +10521,7 @@ html[lang='fr'].mediumview .fdbckpromo .accnt-prmry {
     width: 100%;
     position: relative; }
   #wb-srch .form-group:not(.submit) {
-    width: 90%; }
+    width: 85%; }
 
 [dir=rtl] #wb-srch {
   text-align: left; }
@@ -11163,9 +11157,7 @@ Carousel
   header .brand a {
     margin-top: 15px; }
   #wb-glb-mn {
-    margin-top: 0px; }
-    #wb-glb-mn ul.chvrn li a {
-      font-size: 1.7em; } }
+    margin-top: 0px; } }
 
 /* Small view and under */
 @media screen and (max-width: 991px) {
