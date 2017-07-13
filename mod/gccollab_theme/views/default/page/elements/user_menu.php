@@ -25,7 +25,7 @@ elgg_register_menu_item('user_menu', array(
     'name' => 'Invite',
     'text' => elgg_echo('invite'),
     'title' => elgg_echo('invite'),
-    'item_class' => 'btn btn-primary mrs hidden-xs',
+    'item_class' => 'btn btn-primary mrs',
     'class' => '',
     'style' => "color: #fff;",
     'priority' => '-1',

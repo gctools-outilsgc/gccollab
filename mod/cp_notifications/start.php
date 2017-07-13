@@ -1011,11 +1011,11 @@ function cp_create_notification($event, $type, $object) {
 			// comment or reply in a group
 			if ($topic_container instanceof ElggGroup) {
 				if (strcmp($object->getSubtype(), 'discussion_reply') == 0) {
-					$subject = elgg_echo('cp_notify:subject:comments_discussion',array($topic_container->name),'en');
-					$subject .= ' | '.elgg_echo('cp_notify:subject:comments_discussion',array($topic_container->name),'fr');
+					$subject = elgg_echo('cp_notify:subject:comments_discussion',array(gc_explode_translation($topic_container->name,'en')),'en');
+					$subject .= ' | '.elgg_echo('cp_notify:subject:comments_discussion',array(gc_explode_translation($topic_container->name,'fr')),'fr');
 				} else {
-					$subject = elgg_echo('cp_notify:subject:comments',array($topic_container->name),'en');
-					$subject .= ' | '.elgg_echo('cp_notify:subject:comments',array($topic_container->name),'fr');
+					$subject = elgg_echo('cp_notify:subject:comments',array(gc_explode_translation($topic_container->name,'en')),'en');
+					$subject .= ' | '.elgg_echo('cp_notify:subject:comments',array(gc_explode_translation($topic_container->name,'fr')),'fr');
 				}
 
 			// comment or reply in a user

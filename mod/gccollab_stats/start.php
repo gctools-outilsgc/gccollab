@@ -354,7 +354,7 @@ function get_site_data($type, $lang) {
 		foreach($groupscreated as $key => $obj){
 			$user = get_user($obj->owner_guid);
 			if($obj->time_created && $user instanceof ElggUser){
-				$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
+				$data[] = array($obj->time_created, gc_explode_translation($obj->name, $lang), $obj->description, $user->name);
 			}
 		}
 	} else if ($type === 'groupsjoined') {

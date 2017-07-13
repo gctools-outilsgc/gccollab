@@ -1533,16 +1533,11 @@ details.elgg-state-success:before {
     background-color: #46246A;
     width:500%;
     clear: both;
-}
-    
-@media (min-width: 992px) and (max-width: 1200px) {
-      .app-name:before {
-      left:155px; }   
-}     
+} 
    
 
 .tool-link{
-    padding:11px 0 0 30px;
+    padding:11px 0 0 25px;
 }
 
 .tool-link:hover{
