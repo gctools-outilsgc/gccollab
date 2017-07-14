@@ -11486,191 +11486,206 @@ Carousel
 
 /* IE Icon Tweaks */
 @media all and (-ms-high-contrast:none) {
-  .fa-cog:before{
-    content:none !important;
+  .fa-cog:before {
+    content: none !important;
   }
 
   .fa-cog {
     background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_cog.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
-  .fa-caret-down:before{
-    content:none !important;
+  .fa-caret-down:before {
+    content: none !important;
   }
 
   .fa-caret-down {
     background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_more.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-ellipsis-v:before{
-    content:none !important;
+    content: none !important;
   }
 
   .fa-ellipsis-v {
     background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_more.png);
-    background-size:cover;
-    height: 30px;
-    width:25px;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-thumbs-up:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-thumbs-up{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_like.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_like.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .icon-sel:before{
-      content:none !important;
+    content: none !important;
   }
   .icon-sel{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_unlike.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_unlike.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-trash-o:before{
-      content:none !important;
+      content: none !important;
   }
   .fa-trash-o{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_delete.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_delete.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-share-alt:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-share-alt{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_share.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_share.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-edit:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-edit{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_edit.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_edit.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-reply:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-reply{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_reply.png);
-     background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_reply.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-bell:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-bell{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_bell.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_bell.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
   .fa-bell-slash:before, .fa-bell-slash-o:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-bell-slash, .fa-bell-slash-o{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_bell_slash.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_bell_slash.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-users:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-users{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_colleagues.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_colleagues.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-envelope:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-envelope{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_mail.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_mail.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .fa-wrench:before{
-      content:none !important;
+    content: none !important;
   }
   .fa-wrench{
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_wrench.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_wrench.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .gcconnex-profile-contact-info .fa-phone:before {
-      content:none !important;
+    content: none !important;
   }
   .gcconnex-profile-contact-info .fa-phone {
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_phone.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_phone.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .gcconnex-profile-contact-info .fa-mobile:before {
-      content:none !important;
+    content: none !important;
   }
   .gcconnex-profile-contact-info .fa-mobile {
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_mobile.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_mobile.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .gcconnex-profile-contact-info .fa-envelope:before {
-      content:none !important;
+    content: none !important;
   }
   .gcconnex-profile-contact-info .fa-envelope {
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_envelope.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_envelope.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   .gcconnex-profile-contact-info .fa-globe:before {
-      content:none !important;
+    content: none !important;
   }
   .gcconnex-profile-contact-info .fa-globe {
-      background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_globe.png);
-      background-size:cover;
-      height: 25px;
-      width:25px;
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_globe.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+  }
+
+  .glyphicon-search:before {
+    content: none !important;
+  }
+  .glyphicon-search {
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_search.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
   }
 
   #wb-bc li:before {
-      content:"→" !important;
-      font-size: 18px;
+    content: "→" !important;
+    font-size: 18px;
+  }
+
+  .fa-lg {
+    height: 25px;
+    width: 25px;
   }
 }
 

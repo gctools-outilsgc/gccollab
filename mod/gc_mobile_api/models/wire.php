@@ -9,7 +9,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"guid" => array('type' => 'int', 'required' => true),
-		"thread" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"thread" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a wire post & all replies based on user id and wire post id',
 	'POST',
@@ -24,7 +25,8 @@ elgg_ws_expose_function(
 		"profileemail" => array('type' => 'string', 'required' => true),
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s wire posts based on user id',
 	'POST',
@@ -38,7 +40,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"message" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"guid" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Submits a reply to a wire post based on user id and wire post id',
 	'POST',
@@ -46,7 +49,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_wirepost( $user, $guid, $thread ){
+function get_wirepost( $user, $guid, $thread, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -89,7 +92,7 @@ function get_wirepost( $user, $guid, $thread ){
 			}
 
 			$wire_post->shareURL = $url;
-			$wire_post->shareText = $text;
+			$wire_post->shareText = gc_explode_translation($text, $lang);
 
 			$likes = elgg_get_annotations(array(
 				'guid' => $wire_post->guid,
@@ -144,7 +147,7 @@ function get_wirepost( $user, $guid, $thread ){
 		}
 
 		$wire_post->shareURL = $url;
-		$wire_post->shareText = $text;
+		$wire_post->shareText = gc_explode_translation($text, $lang);
 
 		$likes = elgg_get_annotations(array(
 			'guid' => $wire_post->guid,
@@ -179,7 +182,7 @@ function get_wirepost( $user, $guid, $thread ){
 	return $wire_posts;
 }
 
-function get_wireposts( $profileemail, $user, $limit, $offset ){
+function get_wireposts( $profileemail, $user, $limit, $offset, $lang ){
 	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -218,7 +221,7 @@ function get_wireposts( $profileemail, $user, $limit, $offset ){
 		}
 
 		$wire_post->shareURL = $url;
-		$wire_post->shareText = $text;
+		$wire_post->shareText = gc_explode_translation($text, $lang);
 
 		$likes = elgg_get_annotations(array(
 			'guid' => $wire_post->guid,
@@ -249,7 +252,7 @@ function get_wireposts( $profileemail, $user, $limit, $offset ){
 	return $wire_posts;
 }
 
-function reply_wire( $user, $message, $guid ){
+function reply_wire( $user, $message, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";

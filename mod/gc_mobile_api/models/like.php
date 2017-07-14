@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"like_item",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Submits a like/unlike on an entity based on user id and entity id',
 	'POST',
@@ -21,7 +22,8 @@ elgg_ws_expose_function(
 	"like_count",
 	array(
 		"guid" => array('type' => 'int', 'required' => true),
-		"user" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a like count on an entity based on user id and entity id',
 	'POST',
@@ -34,7 +36,8 @@ elgg_ws_expose_function(
 	"like_users",
 	array(
 		"guid" => array('type' => 'int', 'required' => true),
-		"user" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves all users who liked an entity based on user id and entity id',
 	'POST',
@@ -42,7 +45,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function like_item( $user, $guid ){
+function like_item( $user, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -130,7 +133,7 @@ function like_item( $user, $guid ){
 	return $data;
 }
 
-function like_count( $guid, $user ){
+function like_count( $guid, $user, $lang ){
 	$entity = get_entity( $guid );
 	if( !$entity ) return "Object was not found. Please try a different GUID";
 	if( !$entity instanceof ElggObject ) return "Invalid object. Please try a different GUID";
@@ -159,7 +162,7 @@ function like_count( $guid, $user ){
 	return $data;
 }
 
-function like_users( $guid, $user ){
+function like_users( $guid, $user, $lang ){
 	$entity = get_entity( $guid );
 	if( !$entity ) return "Object was not found. Please try a different GUID";
 	if( !$entity instanceof ElggObject ) return "Invalid object. Please try a different GUID";

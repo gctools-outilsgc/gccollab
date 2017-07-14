@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"get_message",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a message based on user id and message id',
 	'POST',
@@ -22,7 +23,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s messages based on user id',
 	'POST',
@@ -36,7 +38,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s sent messages based on user id',
 	'POST',
@@ -50,7 +53,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s notification messages based on user id',
 	'POST',
@@ -64,7 +68,8 @@ elgg_ws_expose_function(
 	array(
 		"fromuser" => array('type' => 'string', 'required' => true),
 		"touser" => array('type' => 'string', 'required' => true),
-		"message" => array('type' => 'string', 'required' => true)
+		"message" => array('type' => 'string', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Submits a message based on "from" user id and "to" user id',
 	'POST',
@@ -78,7 +83,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"message" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"guid" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Submits a reply to a message based on user id and message id',
 	'POST',
@@ -86,7 +92,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_message( $user, $guid ){
+function get_message( $user, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -129,7 +135,7 @@ function get_message( $user, $guid ){
 	return $message;
 }
 
-function get_messages( $user, $limit, $offset ){
+function get_messages( $user, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -162,7 +168,7 @@ function get_messages( $user, $limit, $offset ){
 	return $messages;
 }
 
-function get_sent_messages( $user, $limit, $offset ){
+function get_sent_messages( $user, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -194,7 +200,7 @@ function get_sent_messages( $user, $limit, $offset ){
 	return $messages;
 }
 
-function get_notifications( $user, $limit, $offset ){
+function get_notifications( $user, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -227,7 +233,7 @@ function get_notifications( $user, $limit, $offset ){
 	return $messages;
 }
 
-function send_message( $fromuser, $touser, $subject, $message ){
+function send_message( $fromuser, $touser, $subject, $message, $lang ){
 	$from_user_entity = is_numeric($fromuser) ? get_user($fromuser) : ( strpos($fromuser, '@') !== FALSE ? get_user_by_email($fromuser)[0] : get_user_by_username($fromuser) );
  	if( !$from_user_entity ) return "\"From\" User was not found. Please try a different GUID, username, or email address";
 	if( !$from_user_entity instanceof ElggUser ) return "Invalid \"from\" user. Please try a different GUID, username, or email address";
@@ -259,7 +265,7 @@ function send_message( $fromuser, $touser, $subject, $message ){
 	return elgg_echo("messages:posted");
 }
 
-function reply_message( $user, $message, $guid ){
+function reply_message( $user, $message, $guid, $lang ){
 	$from_user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$from_user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$from_user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
