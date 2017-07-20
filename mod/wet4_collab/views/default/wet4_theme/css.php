@@ -11705,3 +11705,7 @@ Carousel
     display:none;
     visibility:none;
 }
+
+.mentions-user-link:hover {
+  background-color: #46246A;
+}
