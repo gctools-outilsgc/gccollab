@@ -11709,3 +11709,13 @@ Carousel
 .mentions-user-link:hover {
   background-color: #46246A;
 }
+
+ul.elgg-list-bulleted, ol.elgg-list-bulleted {
+  list-style: disc;
+  padding-left: 15px;
+  margin-bottom: 0;
+}
+
+ul.elgg-list-bulleted li, ol.elgg-list-bulleted li {
+  padding-bottom: 10px;
+}
