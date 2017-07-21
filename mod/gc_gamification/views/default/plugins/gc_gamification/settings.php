@@ -24,26 +24,27 @@ $throttles = array(
 );
 
 foreach ($throttles as $throttle) {
-
-	echo elgg_view_field([
-		'#type' => 'text',
-		'#label' => elgg_echo("mechanics:settings:$throttle"),
-		'value' => $entity->$throttle,
-		'name' => "params[$throttle]"
-	]);
+	echo "<div class='form-group'><label for='$throttle'>" . elgg_echo("mechanics:settings:$throttle") . "</label>";
+	echo elgg_view('input/text', array(
+        'id' => "$throttle",
+        'name' => "params[$throttle]",
+        'value' => $entity->$throttle
+    ));
+    echo "</div>";
 }
 
-echo elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo("mechanics:settings:allow_negative_total"),
-	'#help' => elgg_echo('mechanics:settings:allow_negative_total:help'),
-	'value' => $entity->allow_negative_total,
-	'name' => "params[allow_negative_total]",
-	'options_values' => array(
+echo "<div class='form-group'><label for='allow_negative_total'>" . elgg_echo("mechanics:settings:allow_negative_total") . "</label>";
+echo "<div class='elgg-text-help'>" . elgg_echo('mechanics:settings:allow_negative_total:help') . "</div>";
+echo elgg_view('input/select', array(
+    'id' => "allow_negative_total",
+    'name' => "params[allow_negative_total]",
+    'value' => $entity->allow_negative_total,
+    'options_values' => array(
 		true => elgg_echo('option:yes'),
 		false => elgg_echo('option:no')
-	),
-]);
+	)
+));
+echo "</div>";
 
 echo '<h3>' . elgg_echo('mechanics:settings:scoring_rules') . '</h3>';
 echo '<div class="elgg-text-help">' . elgg_echo('mechanics:settings:scoring_rules:help') . '</div>';
@@ -51,11 +52,12 @@ echo '<div class="elgg-text-help">' . elgg_echo('mechanics:settings:scoring_rule
 $rules = \hypeJunction\GameMechanics\Policy::getRules('events');
 
 foreach ($rules as $rule => $options) {
-	echo elgg_view_field([
-		'#type' => 'text',
-		'#label' => $options['title'],
-		'value' => $entity->$rule,
-		'name' => "params[$rule]",
+	echo "<div class='form-group'><label for='$rule'>" . $options['title'] . "</label>";
+	echo elgg_view('input/text', array(
+        'id' => "$rule",
+        'name' => "params[$rule]",
+        'value' => $entity->$rule,
 		'maxlength' => '3'
-	]);
+    ));
+	echo "</div>";
 }
