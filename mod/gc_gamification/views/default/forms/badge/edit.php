@@ -41,7 +41,7 @@ echo "</div>";
 
 $rules = ($entity) ? Policy::getBadgeRules($entity->guid) : null;
 echo "<div class='form-group'><label for='rules'>" . elgg_echo('label:hjbadge:rules') . "</label>";
-echo elgg_view('mechanics/rules', array(
+echo elgg_view('input/mechanics/rules', array(
     'id' => "rules",
     'name' => "rules",
 	'value' => elgg_extract('rules', $vars, $rules)
@@ -66,7 +66,7 @@ echo "</div>";
 
 $dependecies = ($entity) ? Policy::getBadgeDependencies($entity->guid) : null;
 echo "<div class='form-group'><label for='dependencies'>" . elgg_echo('label:hjbadge:badges_required') . "</label>";
-echo elgg_view('mechanics/dependencies', array(
+echo elgg_view('input/mechanics/dependencies', array(
     'id' => "dependencies",
     'name' => "dependencies",
 	'entity' => $entity,

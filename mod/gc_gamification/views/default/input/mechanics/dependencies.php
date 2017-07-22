@@ -32,12 +32,13 @@ foreach ($badges as $badge) {
 		'src' => $badge->getIconURL('small')
 	));
 
-	echo elgg_view_field([
-		'#type' => 'checkbox',
-		'#class' => 'gm-badge-dep-picker',
-		'label' => $icon . $badge->title,
-		'name' => 'dependencies[]',
+	echo "<div class='form-group'><label for='dependencies'>" . $icon . $badge->title . "</label>";
+	echo elgg_view('input/checkbox', array(
+	    'id' => "dependencies",
+		'class' => 'gm-badge-dep-picker',
+	    'name' => "dependencies[]",
 		'value' => $badge->guid,
 		'checked' => (in_array($badge->guid, $value))
-	]);
+	));
+	echo "</div>";
 }

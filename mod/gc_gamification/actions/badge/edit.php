@@ -18,23 +18,16 @@ $points_required = get_input('points_required', 0);
 $points_cost = get_input('points_cost', 0);
 
 if (!$title) {
-	return elgg_error_response(elgg_echo('mechanics:badge:edit:error_empty_title'));
+	return register_error(elgg_echo('mechanics:badge:edit:error_empty_title'));
 }
 
-$uploads = elgg_get_uploaded_files('icon');
-$icon = array_shift($uploads);
-$icon_uploaded = $icon instanceof UploadedFile && $icon->isValid();
+$icon_uploaded = (!empty($_FILES['icon']['type']) && substr_count($_FILES['icon']['type'], 'image/'));
 
 $entity = get_entity($guid);
 $site = elgg_get_site_entity();
 
 if (!elgg_instanceof($entity)) {
 	$new = true;
-
-	// Badge icon must be provided for new badges
-	if (!$icon_uploaded) {
-		return elgg_error_response(elgg_echo('mechanics:badge:edit:error_upload'));
-	}
 
 	$entity = new Badge();
 	$entity->owner_guid = $site->guid;
@@ -52,7 +45,52 @@ $entity->points_required = $points_required;
 $entity->points_cost = $points_cost;
 
 if (!$entity->save()) {
-	return elgg_error_response(elgg_echo('mechanics:badge:edit:error'));
+	return register_error(elgg_echo('mechanics:badge:edit:error'));
+}
+
+// Badge icon must be provided for new badges
+if ($icon_uploaded) {
+
+	$icon_sizes = elgg_get_config('icon_sizes');
+
+	$prefix = "badge/" . $entity->guid;
+
+	$filehandler = new ElggFile();
+	$filehandler->owner_guid = $entity->guid;
+	$filehandler->setFilename($prefix . ".jpg");
+	$filehandler->open("write");
+	$filehandler->write(get_uploaded_file('icon'));
+	$filehandler->close();
+	$filename = $filehandler->getFilenameOnFilestore();
+
+	$sizes = array('tiny', 'small', 'medium', 'large', 'master');
+
+	$thumbs = array();
+	foreach ($sizes as $size) {
+		$thumbs[$size] = get_resized_image_from_existing_file(
+			$filename,
+			$icon_sizes[$size]['w'],
+			$icon_sizes[$size]['h'],
+			$icon_sizes[$size]['square']
+		);
+	}
+
+	if ($thumbs['tiny']) { // just checking if resize successful
+		$thumb = new ElggFile();
+		$thumb->owner_guid = $entity->guid;
+		$thumb->setMimeType('image/jpeg');
+
+		foreach ($sizes as $size) {
+			$thumb->setFilename("{$prefix}{$size}.jpg");
+			$thumb->open("write");
+			$thumb->write($thumbs[$size]);
+			$thumb->close();
+		}
+
+		$entity->icontime = time();
+	}
+} else {
+	return register_error(elgg_echo('mechanics:badge:edit:error_upload'));
 }
 
 for ($i = 0; $i < 10; $i++) {
@@ -101,8 +139,6 @@ foreach ($to_add as $dep_guid) {
 	add_entity_relationship($dep_guid, 'badge_required', $entity->guid);
 }
 
-$entity->saveIconFromUploadedFile('icon');
-
 elgg_clear_sticky_form('badge/edit');
 
 if ($new) {
@@ -110,6 +146,7 @@ if ($new) {
 } else {
 	$msg = elgg_echo('mechanics:badge:edit:success');
 }
-return elgg_ok_response('', $msg, 'points/badges');
 
+system_message($msg);
 
+forward($entity->getUrl());

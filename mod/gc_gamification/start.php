@@ -33,7 +33,7 @@ elgg_register_event_handler('init', 'system', function() {
 	elgg_register_action('points/reset', __DIR__ . '/actions/points/reset.php', 'admin');
 
 	/* Icons */
-	elgg_register_plugin_hook_handler('entity:icon:file', 'object', [Media::class, 'setIconFile']);
+	elgg_register_plugin_hook_handler('entity:icon:url', 'object', [Media::class, 'setIconFile']);
 
 	/* Rules and points */
 	elgg_register_plugin_hook_handler('get_rules', 'gm_score', [Policy::class, 'setupRules']);

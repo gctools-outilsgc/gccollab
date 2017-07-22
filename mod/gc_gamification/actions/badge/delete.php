@@ -6,7 +6,7 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if ($entity instanceof Badge && $entity->delete()) {
-	return elgg_ok_response('', elgg_echo('mechanics:badge:delete:success'));
+	return system_message(elgg_echo('mechanics:badge:delete:success'));
 }
 
-return elgg_error_response(elgg_echo('mechanics:badge:delete:error'));
+return register_error(elgg_echo('mechanics:badge:delete:error'));

@@ -8,18 +8,18 @@ $guid = get_input('guid');
 $entity = get_entity($guid);
 
 if (!elgg_instanceof($entity, 'user') || !$entity->canAnnotate(0, 'gm_score_award')) {
-	return elgg_error_response(elgg_echo('mechanics:admin:award:error_permissions'));
+	return register_error(elgg_echo('mechanics:admin:award:error_permissions'));
 }
 
 $amount = (int) get_input('amount', 0);
 $note = get_input('note', '');
 
 if (!$amount) {
-	return elgg_error_response(elgg_echo('mechanics:admin:award:error_amount'));
+	return register_error(elgg_echo('mechanics:admin:award:error_amount'));
 }
 
 if (!Reward::awardPoints($amount, $note, $entity->guid)) {
-	return elgg_error_response(elgg_echo('mechanics:admin:award:error'));
+	return register_error(elgg_echo('mechanics:admin:award:error'));
 }
 
 $admin = elgg_get_logged_in_user_entity();
@@ -53,4 +53,4 @@ notify_user($entity->guid, $admin->guid, $subject, $message);
 
 elgg_clear_sticky_form('points/award');
 
-return elgg_ok_response('', $system_message);
+return system_message($system_message);

@@ -38,30 +38,25 @@ for ($i = 0; $i <= 9; $i++) {
 		}
 	}
 
-	echo elgg_view_field([
-		'#type' => 'fieldset',
-		'align' => 'horizontal',
-		'fields' => [
-			[
-				'#type' => 'select',
-				'#label' => elgg_echo('mechanics:badges:rule'),
-				'name' => 'rules[name][]',
-				'options_values' => $options_values,
-				'value' => ($rule_entity) ? $rule_entity->annotation_value : elgg_extract('name', $rule, ''),
-			],
-			[
-				'#type' => 'text',
-				'#label' => elgg_echo('mechanics:badges:recurse'),
-				'name' => 'rules[recurse][]',
-				'value' => ($rule_entity) ? $rule_entity->recurse : elgg_extract('recurse', $rule, ''),
-			],
-		]
-	]);
+	echo "<div class='form-group'><label for='name'>" . elgg_echo('mechanics:badges:rule') . "</label>";
+	echo elgg_view('input/select', array(
+	    'id' => "name",
+	    'name' => "rules[name][]",
+		'options_values' => $options_values,
+		'value' => ($rule_entity) ? $rule_entity->annotation_value : elgg_extract('name', $rule, '')
+	));
+	echo "</div>";
 
+	echo "<div class='form-group'><label for='recurse'>" . elgg_echo('mechanics:badges:recurse') . "</label>";
+	echo elgg_view('input/text', array(
+	    'id' => "recurse",
+	    'name' => "rules[recurse][]",
+		'value' => ($rule_entity) ? $rule_entity->recurse : elgg_extract('recurse', $rule, '')
+	));
+	echo "</div>";
 
-	echo elgg_view_field([
-		'#type' => 'hidden',
-		'name' => 'rules[guid][]',
-		'value' => ($rule_entity) ? $rule_entity->guid : elgg_extract('guid', $rule, ''),
-	]);
+	echo elgg_view('input/hidden', array(
+	    'name' => "rules[guid][]",
+		'value' => ($rule_entity) ? $rule_entity->guid : elgg_extract('guid', $rule, '')
+	));
 }

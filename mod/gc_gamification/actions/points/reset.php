@@ -5,7 +5,7 @@ use hypeJunction\GameMechanics\Score;
 $user_guid = get_input('user_guid');
 
 if (!$user = get_entity($user_guid)) {
-	return elgg_error_response(elgg_echo('mechanics:action:reset:error'));
+	return register_error(elgg_echo('mechanics:action:reset:error'));
 }
 
 $options = array(
@@ -34,4 +34,4 @@ foreach ($gm_score_history as $gmsh) {
 	}
 }
 
-return elgg_ok_response('', elgg_echo('mechanics:action:reset:success', array($success, $error)));
+return system_message(elgg_echo('mechanics:action:reset:success', array($success, $error)));
