@@ -16,7 +16,7 @@ $badges = elgg_get_entities_from_relationship(array(
 echo elgg_view_entity_list($badges, array(
 	'full_view' => false,
 	'list_type' => 'gallery',
-	'icon_size' => 'small',
+	'icon_size' => 'medium',
 	'icon_user_status' => false,
 	'gallery_class' => 'gm-badge-gallery',
 	'item_class' => 'gm-badge-item',
