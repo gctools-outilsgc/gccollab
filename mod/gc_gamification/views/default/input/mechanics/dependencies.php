@@ -29,10 +29,11 @@ foreach ($badges as $badge) {
 	}
 
 	$icon = elgg_view('output/img', array(
-		'src' => $badge->getIconURL('small')
+		'src' => $badge->getIconURL('small'),
+		'class' => 'mrm'
 	));
 
-	echo "<div class='form-group'><label for='dependencies'>" . $icon . $badge->title . "</label>";
+	echo "<div class='form-group'><label for='dependencies' class='mrm'>" . $icon . $badge->title . "</label>";
 	echo elgg_view('input/checkbox', array(
 	    'id' => "dependencies",
 		'class' => 'gm-badge-dep-picker',

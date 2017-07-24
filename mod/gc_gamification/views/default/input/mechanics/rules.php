@@ -18,7 +18,7 @@ foreach ($system_rules as $rule_name => $rule_options) {
 
 asort($options_values);
 
-for ($i = 0; $i <= 9; $i++) {
+// for ($i = 0; $i <= 9; $i++) {
 
 	$rule_entity = false;
 	if ($badge_rules) {
@@ -59,4 +59,5 @@ for ($i = 0; $i <= 9; $i++) {
 	    'name' => "rules[guid][]",
 		'value' => ($rule_entity) ? $rule_entity->guid : elgg_extract('guid', $rule, '')
 	));
-}
+
+// }
