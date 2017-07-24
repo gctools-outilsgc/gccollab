@@ -362,8 +362,8 @@ function cp_overwrite_notification_hook($hook, $type, $value, $params) {
 
 
 		case 'cp_group_invite': // group_tools/lib/functions.php
-			$subject = elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],$params['cp_invite_to_group']['name']),'en');
-			$subject .= ' | '.elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],$params['cp_invite_to_group']['name']),'fr');
+			$subject = elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_invite_to_group']['name'],'en')),'en');
+			$subject .= ' | '.elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_invite_to_group']['name'],'fr')),'fr');
 
 			$message = array(
 				'cp_group_invite_from' => $params['cp_invitee'], // user we're inviting

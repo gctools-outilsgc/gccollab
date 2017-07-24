@@ -23,7 +23,7 @@ padding-top:1px;
 .lang_toggle .not_active {
 
 	font-size:16px;
-	color: #055959;
+	color: #46246A;
 	
 
 	padding: 3px;

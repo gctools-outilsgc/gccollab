@@ -11722,5 +11722,5 @@ ul.elgg-list-bulleted li, ol.elgg-list-bulleted li {
 
 /*** Group Cover Photo ***/
 .groups-profile {
-  z-index: 99;
+  z-index: 99 !important;
 }
