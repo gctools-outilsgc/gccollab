@@ -11719,3 +11719,8 @@ ul.elgg-list-bulleted, ol.elgg-list-bulleted {
 ul.elgg-list-bulleted li, ol.elgg-list-bulleted li {
   padding-bottom: 10px;
 }
+
+/*** Group Cover Photo ***/
+.groups-profile {
+  z-index: 99;
+}
