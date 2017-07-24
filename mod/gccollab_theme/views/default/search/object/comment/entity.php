@@ -19,10 +19,35 @@ if (!$icon) {
 	}
 }
 
-$title = gc_explode_translation($entity->getVolatileData('search_matched_title'), $lang);
+$container = $entity->getContainerEntity();
+if (!$container) {
+	elgg_log("Search found comment {$entity->guid}, but the user cannot see its container.", 'WARNING');
+	return;
+}
+
+if ($container->getType() == 'object') {
+	$title = gc_explode_translation($container->title, $lang);
+} else {
+	$title = gc_explode_translation($container->name, $lang);
+}
+
+if (!$title) {
+	$title = elgg_echo('item:' . $container->getType() . ':' . $container->getSubtype());
+}
+
+if (!$title) {
+	$title = elgg_echo('item:' . $container->getType());
+}
+
+$title = elgg_echo('search:comment_on', array($title));
 $description = gc_explode_translation($entity->getVolatileData('search_matched_description'), $lang);
 $extra_info = $entity->getVolatileData('search_matched_extra');
 $url = $entity->getVolatileData('search_url');
+
+$title = str_replace(array('{"en":"', ',"fr":""}', '\u00a0'), '', $title);
+$title = str_replace(array('\n', '\t', '\r'), ' ', $title);
+$description = str_replace(array('{"en":"', ',"fr":""}', '\u00a0'), '', $description);
+$description = str_replace(array('\n', '\t', '\r'), ' ', $description);
 
 if (!$url) {
 	$url = $entity->getURL();

@@ -24,6 +24,11 @@ $description = gc_explode_translation($entity->getVolatileData('search_matched_d
 $extra_info = $entity->getVolatileData('search_matched_extra');
 $url = $entity->getVolatileData('search_url');
 
+$title = str_replace(array('{"en":"', ',"fr":""}', '\u00a0'), '', $title);
+$title = str_replace(array('\n', '\t', '\r'), ' ', $title);
+$description = str_replace(array('{"en":"', ',"fr":""}', '\u00a0'), '', $description);
+$description = str_replace(array('\n', '\t', '\r'), ' ', $description);
+
 if (!$url) {
 	$url = $entity->getURL();
 }
