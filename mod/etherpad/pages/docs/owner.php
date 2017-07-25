@@ -5,6 +5,8 @@
  * @package ElggPad
  */
 
+$lang = get_current_language();
+
 $owner = elgg_get_page_owner_entity();
 if (!$owner) {
 	forward('docs/all');
@@ -13,9 +15,13 @@ if (!$owner) {
 // access check for closed groups
 group_gatekeeper();
 
-$title = elgg_echo('etherpad:owner', array($owner->name));
+$name = $owner->name;
+if (elgg_instanceof($owner, 'group')) {
+	$name = gc_explode_translation($owner->name, $lang);
+}
 
-elgg_push_breadcrumb($owner->name);
+$title = elgg_echo('etherpad:owner', array($name));
+elgg_push_breadcrumb($name);
 
 elgg_register_title_button();
 

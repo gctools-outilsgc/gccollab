@@ -6,6 +6,8 @@
  */
 
 $page_guid = get_input('guid');
+$lang = get_current_language();
+
 $page = get_entity($page_guid);
 if (!$page) {
 	forward();
@@ -22,7 +24,7 @@ if (!$container) {
 $title = $page->title;
 
 if (elgg_instanceof($container, 'group')) {
-	elgg_push_breadcrumb($container->name, "pages/group/$container->guid/all");
+	elgg_push_breadcrumb(gc_explode_translation($container->name, $lang), "pages/group/$container->guid/all");
 } else {
 	elgg_push_breadcrumb($container->name, "pages/owner/$container->username");
 }

@@ -847,12 +847,9 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
                 unset($return[$key]);
             }
 
-            switch ($item->getName()) {
-                case 'access':
-                    //$item->setItemClass('removeMe');
-                    unset($return[$key]);
-                    break;
-
+            if($item && $item->getName() == 'access'){
+                //$item->setItemClass('removeMe');
+                unset($return[$key]);
             }
 
     }
