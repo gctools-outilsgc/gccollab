@@ -51,7 +51,6 @@ function group_owners_block_handler($hook, $type, $menu, $params){
 
             switch ($item->getName()) {
 
-
 				case 'discussion':
 					// cyu - take discussions off for the crawler
 					if (elgg_is_active_plugin('gc_fedsearch_gsa') && ((!$gsa_usertest) && strcmp($gsa_agentstring,strtolower($_SERVER['HTTP_USER_AGENT'])) == 0) || strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'gsa-crawler') !== false ) {
@@ -61,16 +60,9 @@ function group_owners_block_handler($hook, $type, $menu, $params){
 						$item->setPriority('1');
 					}
                     break;
-
-
                 case 'gcforums':
-                    $item->setPriority('1');
                     $item->setLinkClass('forums');
-                    break;
-                case 'related_groups':
-                    $item->setHref('#related');
-
-                    $item->setPriority('20');
+                    $item->setPriority('1');
                     break;
                 case 'file':
                     $item->setText(elgg_echo('gprofile:files'));
@@ -85,6 +77,10 @@ function group_owners_block_handler($hook, $type, $menu, $params){
                 case 'event_calendar':
                     $item->setText(elgg_echo('gprofile:events'));
                     $item->setHref('#calendar');
+                    $item->setPriority('4');
+                    break;
+                case 'etherpad':
+                    $item->setHref('#etherpad');
                     $item->setPriority('5');
                     break;
                 case 'pages':
@@ -97,36 +93,6 @@ function group_owners_block_handler($hook, $type, $menu, $params){
                     $item->setHref('#bookmarks');
                     $item->setPriority('7');
                     break;
-                case 'polls':
-                    $item->setText(elgg_echo('gprofile:polls'));
-                    $item->setHref('#polls');
-                    $item->setPriority('14');
-                    break;
-                case 'tasks':
-                    $item->setText(elgg_echo('gprofile:tasks'));
-                    $item->setHref('#taks');
-                    $item->setPriority('9');
-                    break;
-                case 'photos':
-                    $item->setText(elgg_echo('gprofile:photos'));
-                    $item->setHref('#albums');
-                    $item->addItemClass('removeMe');
-                    $item->setPriority('10');
-                    break;
-                case 'photo_albums':
-                    $item->setText(elgg_echo('gprofile:albumsCatch'));
-                    if(get_language() == 'en'){
-                        $item->setHref('#albums');
-                    } else {
-                        $item->setHref('#albums');
-                    }
-                    $item->setPriority('11');
-                    break;
-                case 'ideas':
-                    $item->setText(elgg_echo('gprofile:ideas'));
-                    $item->setHref('#ideas');
-                    $item->setPriority('12');
-                    break;
                 case 'activity':
                     elgg_unregister_menu_item('owner_block', 'activity');
                     $item->setText(elgg_echo('activity'));
@@ -136,7 +102,41 @@ function group_owners_block_handler($hook, $type, $menu, $params){
                 case 'questions':
                     $item->setText(elgg_echo('widget:questions:title'));
                     $item->setHref('#questions');
-                    $item->setPriority('8');
+                    $item->setPriority('9');
+                    break;
+                case 'polls':
+                    $item->setText(elgg_echo('gprofile:polls'));
+                    $item->setHref('#polls');
+                    $item->setPriority('10');
+                    break;
+                case 'tasks':
+                    $item->setText(elgg_echo('gprofile:tasks'));
+                    $item->setHref('#taks');
+                    $item->setPriority('11');
+                    break;
+                case 'photos':
+                    $item->setText(elgg_echo('gprofile:photos'));
+                    $item->setHref('#albums');
+                    $item->addItemClass('removeMe');
+                    $item->setPriority('12');
+                    break;
+                case 'photo_albums':
+                    $item->setText(elgg_echo('gprofile:albumsCatch'));
+                    if(get_language() == 'en'){
+                        $item->setHref('#albums');
+                    } else {
+                        $item->setHref('#albums');
+                    }
+                    $item->setPriority('13');
+                    break;
+                case 'ideas':
+                    $item->setText(elgg_echo('gprofile:ideas'));
+                    $item->setHref('#ideas');
+                    $item->setPriority('14');
+                    break;
+                case 'related_groups':
+                    $item->setHref('#related');
+                    $item->setPriority('15');
                     break;
             }
 
@@ -157,77 +157,67 @@ function group_owners_block_handler($hook, $type, $menu, $params){
             switch ($item->getName()) {
                 case 'discussion':
                     $item->setText(elgg_echo('gprofile:discussion'));
-
                     $item->setPriority('1');
                     break;
                 case 'gcforums':
                     $item->setPriority('1');
                     $item->setLinkClass('forums');
                     break;
-                case 'related_groups':
-
-
-                    $item->setPriority('20');
-                    break;
                 case 'file':
                     $item->setText(elgg_echo('gprofile:files'));
-
                     $item->setPriority('2');
                     break;
                 case 'blog':
                     $item->setText(elgg_echo('gprofile:blogs'));
-
                     $item->setPriority('3');
                     break;
                 case 'event_calendar':
                     $item->setText(elgg_echo('gprofile:events'));
-
+                    $item->setPriority('4');
+                    break;
+                case 'etherpad':
                     $item->setPriority('5');
                     break;
                 case 'pages':
                     $item->setText(elgg_echo('gprofile:pages'));
-
                     $item->setPriority('6');
                     break;
                 case 'bookmarks':
                     $item->setText(elgg_echo('gprofile:bookmarks'));
-
                     $item->setPriority('7');
-                    break;
-                case 'polls':
-                    $item->setText(elgg_echo('gprofile:polls'));
-
-                    $item->setPriority('8');
-                    break;
-                case 'tasks':
-                    $item->setText(elgg_echo('gprofile:tasks'));
-
-                    $item->setPriority('9');
-                    break;
-                case 'photos':
-                    $item->setText(elgg_echo('gprofile:photos'));
-                    $item->addItemClass('removeMe');
-                    $item->setPriority('10');
-                    break;
-                case 'photo_albums':
-                    $item->setText(elgg_echo('gprofile:albumsCatch'));
-
-                    $item->setPriority('11');
-                    break;
-                case 'ideas':
-                    $item->setText(elgg_echo('gprofile:ideas'));
-
-                    $item->setPriority('12');
                     break;
                 case 'activity':
                     $item->setText('Activity');
-
-                    $item->setPriority('13');
+                    $item->setPriority('8');
                     $item->addItemClass('removeMe');
                     break;
                 case 'questions':
                     $item->setText(elgg_echo('widget:questions:title'));
-                    $item->setPriority('8');
+                    $item->setPriority('9');
+                    break;
+                case 'polls':
+                    $item->setText(elgg_echo('gprofile:polls'));
+                    $item->setPriority('10');
+                    break;
+                case 'tasks':
+                    $item->setText(elgg_echo('gprofile:tasks'));
+                    $item->setPriority('11');
+                    break;
+                case 'photos':
+                    $item->setText(elgg_echo('gprofile:photos'));
+                    $item->addItemClass('removeMe');
+                    $item->setPriority('12');
+                    break;
+                case 'photo_albums':
+                    $item->setText(elgg_echo('gprofile:albumsCatch'));
+                    $item->setPriority('13');
+                    break;
+                case 'ideas':
+                    $item->setText(elgg_echo('gprofile:ideas'));
+                    $item->setPriority('14');
+                    break;
+                case 'related_groups':
+                    $item->setPriority('15');
                     break;
             }
 

@@ -21,6 +21,7 @@ $french = array(
 	'etherpad:timeslider' => 'Historique',
 	'etherpad:fullscreen' => 'Plein écran',
 	'etherpad:none' => 'Aucun Doc créé',
+	'docs:none' => 'Aucun Doc créé',
 	
 	'etherpad:group' => 'Docs de groupe',
 	'groups:enablepads' => 'Activer la fonction « Docs de groupe »',
