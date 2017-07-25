@@ -11628,6 +11628,16 @@ Carousel
     width: 20px;
   }
 
+  .fa-tags:before{
+    content: none !important;
+  }
+  .fa-tags{
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_tags.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+  }
+
   .gcconnex-profile-contact-info .fa-phone:before {
     content: none !important;
   }
@@ -11673,6 +11683,16 @@ Carousel
   }
   .glyphicon-search {
     background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_search.png);
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+  }
+
+  .glyphicon-remove:before {
+    content: none !important;
+  }
+  .glyphicon-remove {
+    background: url(<?php echo $site_url ?>/mod/wet4_collab/graphics/temp_icon_remove.png);
     background-size: cover;
     height: 20px;
     width: 20px;
