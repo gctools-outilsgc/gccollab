@@ -62,15 +62,12 @@ function etherpad_init() {
 		elgg_register_entity_url_handler('object', 'etherpad', 'pages_url');
 		elgg_register_entity_url_handler('object', 'subpad', 'pages_url');
 	}
-
-	elgg_register_css('etherpad', 'mod/etherpad/css/etherpad.css');
 }
 
 
 function etherpad_page_handler($page, $handler) {
 	
 	elgg_load_library('elgg:pages');
-    elgg_load_css('etherpad');
 	
 	if($handler == 'pages'){	
 		// add the jquery treeview files for navigation
