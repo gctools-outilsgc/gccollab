@@ -166,28 +166,31 @@ if(get_current_language() == 'fr'){
 ?>
 <script>
 jQuery(function(){
-
 	var selector = '.nav-tabs-language li';
 
 	$(selector).on('click', function(){
-    $(selector).removeClass('active');
-    $(this).addClass('active');
-});
+	    $(selector).removeClass('active');
+	    $(this).addClass('active');
+	});
 
-		jQuery('#btnClickfr').click(function(){
-               jQuery('.fr').show();
-               jQuery('.en').hide();
-        });
+    $('html').on('click', '#btnClickfr', function(e){
+		e.preventDefault();
+		var form = $(this).closest('form');
+       $('.fr', form).show();
+       $('.en', form).hide();
+    });
 
-          jQuery('#btnClicken').click(function(){
-               jQuery('.en').show();
-               jQuery('.fr').hide();
-        });
+	$('html').on('click', '#btnClicken', function(e){
+		e.preventDefault();
+		var form = $(this).closest('form');
+       $('.en', form).show();
+       $('.fr', form).hide();
+    });
 });
 
 <?php if(elgg_in_context('embed')){ ?>
   var validExtentions = get_file_tools_settings('single');
-  var newExt = validExtentions.replace(/, /g, '|'); //format the extensions for validation
+  var newExt = validExtentions.toString().replace(/, /g, '|'); //format the extensions for validation
 
   //do form validation here for ajax view
   $(".elgg-form").each(function(){
