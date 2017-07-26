@@ -12,6 +12,7 @@ $english = array(
 	 */
 	 
 	'etherpad' => "Docs (Beta)",
+	'etherpad:single' => "Doc",
 	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "%s's Docs",
 	'etherpad:friends' => "Colleagues' Docs",

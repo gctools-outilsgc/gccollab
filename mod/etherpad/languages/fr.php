@@ -12,6 +12,7 @@ $french = array(
 	 */
 	 
 	'etherpad' => "Docs (Beta)",
+	'etherpad:single' => "Doc",
 	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "Docs de %s",
 	'etherpad:friends' => "Docs des collègues",
