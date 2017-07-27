@@ -12,6 +12,7 @@ $english = array(
 	 */
 	 
 	'etherpad' => "Docs (Beta)",
+	'etherpad:single' => "Doc",
 	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "%s's Docs",
 	'etherpad:friends' => "Colleagues' Docs",
@@ -21,6 +22,7 @@ $english = array(
 	'etherpad:timeslider' => 'History',
 	'etherpad:fullscreen' => 'Fullscreen',
 	'etherpad:none' => 'No Docs created yet',
+	'docs:none' => 'No Docs created yet',
 	
 	'etherpad:group' => 'Group Docs',
 	'groups:enablepads' => 'Enable group Docs',

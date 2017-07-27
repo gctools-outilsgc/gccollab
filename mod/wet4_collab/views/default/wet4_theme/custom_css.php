@@ -1357,7 +1357,7 @@ border:none;
 }
 
 .messages-owner{
-    width:15%;
+    width: auto;
     margin-right:3%;
 }
 

@@ -847,12 +847,9 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
                 unset($return[$key]);
             }
 
-            switch ($item->getName()) {
-                case 'access':
-                    //$item->setItemClass('removeMe');
-                    unset($return[$key]);
-                    break;
-
+            if($item && $item->getName() == 'access'){
+                //$item->setItemClass('removeMe');
+                unset($return[$key]);
             }
 
     }
@@ -1380,9 +1377,9 @@ function my_owner_block_handler($hook, $type, $menu, $params){
         foreach ($menu as $key => $item){
 
             switch ($item->getName()) {
+
                 case 'discussion':
                     $item->setText(elgg_echo('gprofile:discussion'));
-
                     $item->setPriority('1');
                     break;
                 case 'file':
@@ -1398,6 +1395,15 @@ function my_owner_block_handler($hook, $type, $menu, $params){
                 case 'event_calendar':
                     $item->setText(elgg_echo('gprofile:events'));
                     $item->setHref('#events');
+                    $item->setPriority('4');
+                    break;
+                case 'thewire':
+                    //$item->setText(elgg_echo('The Wire'));
+                    $item->setHref('#thewire');
+                    $item->setPriority('5');
+                    break;
+                case 'etherpad':
+                    $item->setHref('#etherpad');
                     $item->setPriority('6');
                     break;
                 case 'pages':
@@ -1405,64 +1411,55 @@ function my_owner_block_handler($hook, $type, $menu, $params){
                     $item->setHref('#page_top');
                     $item->setPriority('7');
                     break;
+                case 'questions':
+                    $item->setText(elgg_echo('widget:questions:title'));
+                    $item->setHref('#question');
+                    $item->setPriority('8');
+                    break;
                 case 'bookmarks':
                     $item->setText(elgg_echo('gprofile:bookmarks'));
                     $item->setHref('#bookmarks');
-                    $item->setPriority('8');
+                    $item->setPriority('9');
                     break;
                 case 'polls':
                     $item->setText(elgg_echo('gprofile:polls'));
                     $item->setHref('#poll');
-                    $item->setPriority('9');
+                    $item->setPriority('10');
                     break;
                 case 'tasks':
                     $item->setText(elgg_echo('gprofile:tasks'));
                     $item->setHref('#task_top');
-                    $item->setPriority('10');
+                    $item->setPriority('11');
                     break;
                 case 'photos':
                     $item->setText(elgg_echo('gprofile:photos'));
                     $item->addItemClass('removeMe');
-                    $item->setPriority('11');
+                    $item->setPriority('12');
                     break;
                 case 'photo_albums':
                     $item->setText(elgg_echo('gprofile:albumsCatch'));
                     $item->setHref('#album');
-                    $item->setPriority('12');
+                    $item->setPriority('13');
                     break;
                 case 'ideas':
                     $item->setText(elgg_echo('gprofile:ideas'));
                     $item->addItemClass('removeMe');
-                    $item->setPriority('12');
+                    $item->setPriority('14');
                     break;
-
                 case 'orgs':
-                    $item->setPriority('13');
-                    break;
-                case 'thewire':
-                    //$item->setText(elgg_echo('The Wire'));
-                    $item->setHref('#thewire');
-                    $item->setPriority('5');
+                    $item->setPriority('15');
                     break;
                 case 'activity':
                     $item->setText('Activity');
-
-                    $item->setPriority('13');
+                    $item->setPriority('16');
                     $item->addItemClass('removeMe');
                     break;
                 case 'user_invite_from_profile':
-                    $item->setPriority('13');
+                    $item->setPriority('17');
                     break;
-								case 'questions':
-			              $item->setText(elgg_echo('widget:questions:title'));
-			              $item->setHref('#question');
-			              $item->setPriority('8');
-		                break;
             }
 
         }
-
-
 
     }
 

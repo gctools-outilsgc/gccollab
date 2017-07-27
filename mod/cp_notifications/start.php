@@ -362,8 +362,8 @@ function cp_overwrite_notification_hook($hook, $type, $value, $params) {
 
 
 		case 'cp_group_invite': // group_tools/lib/functions.php
-			$subject = elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],$params['cp_invite_to_group']['name']),'en');
-			$subject .= ' | '.elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],$params['cp_invite_to_group']['name']),'fr');
+			$subject = elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_invite_to_group']['name'],'en')),'en');
+			$subject .= ' | '.elgg_echo('cp_notify:subject:group_invite_user',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_invite_to_group']['name'],'fr')),'fr');
 
 			$message = array(
 				'cp_group_invite_from' => $params['cp_invitee'], // user we're inviting
@@ -1141,6 +1141,7 @@ function cp_create_notification($event, $type, $object) {
 				'task_top' => elgg_echo('cp_notify:subject:new_content_fem',array("task",$group_name2),'fr'),
 				'task' => elgg_echo('cp_notify:subject:new_content_fem',array("task",$group_name2),'fr'),
         		'question' => elgg_echo('cp_notify:subject:new_content_fem',array("question",$group_name2),'fr'),
+        		'etherpad' => elgg_echo('cp_notify:subject:new_content_fem',array(elgg_echo('etherpad:single'),$group_name2),'fr'),
 
 			);
 
@@ -1174,6 +1175,10 @@ function cp_create_notification($event, $type, $object) {
 					
 							$subject = elgg_echo('cp_notify_usr:subject:new_content',array($object->getOwnerEntity()->username, cp_translate_subtype($object->getSubtype()), gc_explode_translation($answer_entity->title,'en')),'en');
 							$subject .= ' | '.elgg_echo('cp_notify_usr:subject:new_content_f',array($object->getOwnerEntity()->username, cp_translate_subtype($object->getSubtype(), false), gc_explode_translation($answer_entity->title,'fr')),'fr');
+						
+						} else if ($object->getSubtype() == 'etherpad'){
+							$subject = elgg_echo('cp_notify_usr:subject:new_content',array($object->getOwnerEntity()->username, elgg_echo('etherpad:single'), gc_explode_translation($object->title,'en')),'en');
+							$subject .= ' | '.elgg_echo('cp_notify_usr:subject:new_content_f',array($object->getOwnerEntity()->username, elgg_echo('etherpad:single'), gc_explode_translation($object->title,'fr')),'fr');
 						
 						}else{
 						$subject = elgg_echo('cp_notify_usr:subject:new_content',array($object->getOwnerEntity()->username, cp_translate_subtype($object->getSubtype()), gc_explode_translation($object->title,'en')),'en');

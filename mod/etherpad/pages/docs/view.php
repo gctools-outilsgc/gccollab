@@ -6,6 +6,8 @@
  */
 
 $doc_guid = get_input('guid');
+$lang = get_current_language();
+
 $doc = get_entity($doc_guid);
 if (!$doc) {
 	forward();
@@ -22,7 +24,7 @@ if (!$container) {
 $title = $doc->title;
 
 if (elgg_instanceof($container, 'group')) {
-	elgg_push_breadcrumb($container->name, "docs/group/$container->guid/all");
+	elgg_push_breadcrumb(gc_explode_translation($container->name, $lang), "docs/group/$container->guid/all");
 } else {
 	elgg_push_breadcrumb($container->name, "docs/owner/$container->username");
 }

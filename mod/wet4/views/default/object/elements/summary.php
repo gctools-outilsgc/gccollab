@@ -29,7 +29,7 @@ $checkPage = elgg_get_context();
 $entity = $vars['entity'];
 $json_title = json_decode($entity->title);
 $lang = get_current_language();
-$title_link = elgg_extract('title', $vars, '');
+$title_link = gc_explode_translation(elgg_extract('title', $vars, ''), $lang);
 if ($title_link === '') {//add translation
 	if ( isset($entity->title) || isset($entity->name) ) {
 		if( $entity->title ){

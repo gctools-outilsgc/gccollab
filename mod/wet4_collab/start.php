@@ -44,23 +44,24 @@ function add_custom_colleagues_menu_item() {
 
 		$count = elgg_get_entities_from_relationship($options);
 
-		$countTitle = "";
-		if( !empty($count) ){
-			$countTitle = " - ";
-
+		$countTitle = " - ";
+		$countBadge = "";
+		if( $count > 0 ){
             //display 9+ instead of huge numbers in notif badge
             if( $count >= 10 ){
                 $countTitle .= '9+';
             } else {
 				$countTitle .= $count;
             }
+
+           $countBadge = "<span class='notif-badge'>" . $count . "</span>";
         }
 
 	    $params = array(
-			"name" => "gccollab:colleagues",
+			"name" => "Colleaguess",
 			"href" => "friends/" . $user->username,
-			"text" => '<i class="fa fa-users mrgn-rght-sm mrgn-tp-sm fa-lg"></i>',
-			"title" => elgg_echo('userMenu:colleagues') . $countTitle,
+			"text" => '<i class="fa fa-users mrgn-rght-sm mrgn-tp-sm fa-lg"></i>' . $countBadge,
+			"title" => elgg_echo('userMenu:colleagues') . $countTitle . elgg_echo('friend_request') .'(s)',
 	        "class" => '',
 	        "item_class" => '',
 			"priority" => '1'

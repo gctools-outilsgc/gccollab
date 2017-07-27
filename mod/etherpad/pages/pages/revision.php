@@ -6,6 +6,8 @@
  */
 
 $id = get_input('id');
+$lang = get_current_language();
+
 $annotation = elgg_get_annotation_from_id($id);
 if (!$annotation) {
 	forward();
@@ -27,7 +29,7 @@ if (!$container) {
 $title = $page->title . ": " . elgg_echo('pages:revision');
 
 if (elgg_instanceof($container, 'group')) {
-	elgg_push_breadcrumb($container->name, "pages/group/$container->guid/all");
+	elgg_push_breadcrumb(gc_explode_translation($container->name, $lang), "pages/group/$container->guid/all");
 } else {
 	elgg_push_breadcrumb($container->name, "pages/owner/$container->username");
 }

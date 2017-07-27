@@ -37,6 +37,13 @@ global $my_page_entity;
 // in case the title is not populated
 $page_title = $vars['title'];
 
+if( strpos($page_title, '{"en":') !== false ){
+  $page_title = str_replace(" : GCcollab", "", $page_title);
+  $page_title = gc_explode_translation($page_title, get_current_language());
+  $page_title = $page_title . " : GCcollab";
+  $vars['title'] = $page_title;
+}
+
 // github-685 gcconnex titles in gsa search result
 if (elgg_is_active_plugin('gc_fedsearch_gsa') && ((!$gsa_usertest) && strcmp($gsa_agentstring,strtolower($_SERVER['HTTP_USER_AGENT'])) == 0) || strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'gsa-crawler') !== false ) {
 
@@ -101,14 +108,15 @@ $ie_url = elgg_get_simplecache_url('css', 'ie');
 
 <?php
 
-foreach ($css as $url)
+foreach ($css as $url) {
   echo elgg_format_element('link', array('rel' => 'stylesheet', 'href' => $url));
+}
 
 ?>
-
   <!--[if gt IE 8]>
     <link rel="stylesheet" href="<?php echo $ie_url; ?>" />
   <![endif]-->
+
 	<script><?php echo $elgg_init; ?></script>
 <?php
 foreach ($js as $url) {
@@ -125,22 +133,24 @@ foreach ($js as $url) {
 }
 
 echo elgg_view_deprecated('page/elements/shortcut_icon', array(), "Use the 'head', 'page' plugin hook.", 1.9);
+
 echo elgg_view_deprecated('metatags', array(), "Use the 'head', 'page' plugin hook.", 1.8);
+
+
+
+
+/*---------------------Web Experience Toolkit 4---------------------*/
 
 ?>
 
-<!-- Web Experience Toolkit 4 -->
-
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
-<link rel="stylesheet" href="<?php echo $site_url ?>mod/wet4/views/default/css/awesome/font-awesome.min.css" type="text/css" />
-<meta charset="utf-8" />
-<!-- 
-Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
-wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html 
--->
-<meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="<?php echo $site_url ?>mod/wet4/views/default/css/awesome/font-awesome.min.css" type="text/css" />
+    <meta charset="utf-8" />
+    <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 
 
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 <!-- Meta data -->
 <?php
 
@@ -153,14 +163,14 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
           */
 
           if(elgg_instanceof($my_page_entity, 'group')){
-              $desc = elgg_strip_tags(elgg_get_excerpt($my_page_entity->description));
-              $briefdesc = $my_page_entity->briefdescription;
+              $desc = elgg_strip_tags(elgg_get_excerpt(gc_explode_translation($my_page_entity->description,get_current_language())));
+              $briefdesc = gc_explode_translation($my_page_entity->briefdescription,get_current_language());
           } else if(elgg_instanceof($my_page_entity, 'user')) {
-              $desc = elgg_echo('profile:title', array($my_page_entity->name));
-              $briefdesc = elgg_echo('profile:title', array($my_page_entity->name));
+              $desc = elgg_echo('profile:title', array(gc_explode_translation($my_page_entity->name,get_current_language())));
+              $briefdesc = elgg_echo('profile:title', array(gc_explode_translation($my_page_entity->name,get_current_language())));
           } else {
-              $desc = $my_page_entity->title;
-              $briefdesc = $my_page_entity->title;
+              $desc = gc_explode_translation($my_page_entity->title,get_current_language());
+              $briefdesc = gc_explode_translation($my_page_entity->title,get_current_language());
           }
 
           $pubDate = date ("Y-m-d", elgg_get_excerpt($my_page_entity->time_created));
@@ -173,46 +183,12 @@ wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licenc
           $briefdesc = $vars['title'];
       }
 
-      $creator =  elgg_get_page_owner_entity()->name;
+      $creator = gc_explode_translation(elgg_get_page_owner_entity()->name,get_current_language());
+
       if(!$creator){
-          $creator = 'GCconnex';
+          $creator = 'GCcollab';
       }
 
-// Load in global variable with entity to create metadata tags
-global $my_page_entity;
-
-if($my_page_entity) {
-
-  if(elgg_instanceof($my_page_entity, 'group')){
-    $desc = elgg_strip_tags(elgg_get_excerpt($my_page_entity->description));
-    $briefdesc = $my_page_entity->briefdescription;
-  } else if(elgg_instanceof($my_page_entity, 'user')) {
-    $desc = elgg_echo('profile:title', array($my_page_entity->name));
-    $briefdesc = elgg_echo('profile:title', array($my_page_entity->name));
-  } else {
-    $desc = $my_page_entity->title;
-    $briefdesc = $my_page_entity->title;
-  }
-
-  $pubDate = date ("Y-m-d", elgg_get_excerpt($my_page_entity->time_created));
-  $lastModDate = date ("Y-m-d", elgg_get_excerpt($my_page_entity->time_updated));
-
-  $datemeta = '<meta name="dcterms.issued" title="W3CDTF" content="' . $pubDate . '"/>';
-  $datemeta .= '<meta name="dcterms.modified" title="W3CDTF" content="' . $lastModDate . '" />';
-
-} else {
-
-    $desc = $vars['title'];
-    $briefdesc = $vars['title'];
-
-}
-
-$creator =  elgg_get_page_owner_entity()->name;
-
-if(!$creator) {
-  $site_entity = elgg_get_site_entity();
-  $creator = $site_entity->name;
-}
 
 		// cyu - prevent crawler to index unsaved draft
 		if ($my_page_entity instanceof ElggObject) {
@@ -263,10 +239,12 @@ if(!$creator) {
 <!-- Meta data-->
 
 <!--[if lt IE 9]>
+
         <script src="<?php echo $site_url ?>mod/wet4/views/default/js/ie8-wet-boew.min.js"></script>
         <![endif]-->
 <!--[if lte IE 9]>
 
+
 <![endif]-->
 
-<noscript><link rel="stylesheet" href="./css/noscript.css" /></noscript>
+        <noscript><link rel="stylesheet" href="./css/noscript.css" /></noscript>

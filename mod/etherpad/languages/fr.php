@@ -12,6 +12,7 @@ $french = array(
 	 */
 	 
 	'etherpad' => "Docs (Beta)",
+	'etherpad:single' => "Doc",
 	'etherpad:docs' => "Docs (Beta)",
 	'etherpad:owner' => "Docs de %s",
 	'etherpad:friends' => "Docs des collègues",
@@ -21,6 +22,7 @@ $french = array(
 	'etherpad:timeslider' => 'Historique',
 	'etherpad:fullscreen' => 'Plein écran',
 	'etherpad:none' => 'Aucun Doc créé',
+	'docs:none' => 'Aucun Doc créé',
 	
 	'etherpad:group' => 'Docs de groupe',
 	'groups:enablepads' => 'Activer la fonction « Docs de groupe »',

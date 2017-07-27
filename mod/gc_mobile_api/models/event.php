@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"get_event",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves an event based on user id and event id',
 	'POST',
@@ -22,7 +23,8 @@ elgg_ws_expose_function(
 	array(
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves an event based on user id and event id',
 	'POST',
@@ -30,7 +32,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_event( $user, $guid ){
+function get_event( $user, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -72,7 +74,7 @@ function get_event( $user, $guid ){
 	return $event;
 }
 
-function get_events( $user, $limit, $offset ){
+function get_events( $user, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
