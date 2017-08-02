@@ -28,6 +28,7 @@ function onboard_ME_collab() {
     elgg_register_ajax_view('welcome-steps/stepTwo');
     elgg_register_ajax_view('welcome-steps/stepThree');
     elgg_register_ajax_view('welcome-steps/stepFour');
+    elgg_register_ajax_view('welcome-steps/stepFive');
 
     elgg_extend_view('contactform/form', 'onboard/module_links');
 

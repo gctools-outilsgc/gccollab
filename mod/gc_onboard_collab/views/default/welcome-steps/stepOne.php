@@ -12,7 +12,7 @@
         <?php echo elgg_echo('onboard:welcome:one:title'); ?>
     </h2>
     <div class="pull-right">
-        <?php echo elgg_view('page/elements/step_counter', array('current_step'=>2, 'total_steps'=>5));?>
+        <?php echo elgg_view('page/elements/step_counter', array('current_step'=>2, 'total_steps'=>6));?>
 
     </div>
 </div>
