@@ -78,7 +78,8 @@ if (elgg_is_xhr()) {  //This is an Ajax call!
                     }
 
                     if (!$isValid) {
-                        register_error($error_message);
+                        prepare_email_change($user_guid, $v);
+                        // register_error($error_message);
                         return true;
                     }
 
