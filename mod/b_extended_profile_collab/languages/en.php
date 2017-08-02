@@ -101,25 +101,17 @@ $english = array(
     'gcconnex_profile:opt:student_tooltip' => 'Any graduate of a post-secondary program who worked as a student employee for the Federal Public Service, via FSEWP, COOP, or RAP, may be considered for integration.',
 
     'email_change_confirmation:request' => "In order to complete your email address change, please check the inbox of your %s account",
+
     'email_change_confirmation:error:user' => "You're not the user for whom this request was made",
     'email_change_confirmation:error:request' => "There is no pending email address change",
     'email_change_confirmation:error:code' => "The supplied validation code is incorrect, please check your email message",
 
     'email_change_confirmation:request:subject' => "Email address change request for %s",
-    'email_change_confirmation:request:message' => "Hi %s,
-
-You requested to change your email address on %s to this email address.
-
-In order to complete the request click on this link:
-%s",
+    'email_change_confirmation:request:message' => "Hi %s,<br/><br/>You requested to change your email address on %s to this email address. In order to complete the request click on this link:<br/><br/>%s",
 
     'email_change_confirmation:success:subject' => "Email address changed for %s",
-    'email_change_confirmation:success:message' => "Hi %s,
-
-Your email address on %s has been changed.
-
-If you didn't do this or request this, please contact a site administrator.",
-    'email_change_confirmation:success:save' => "New email address saved.",
+    'email_change_confirmation:success:message' => "Hi %s,<br/><br/>Your email address on %s has been changed. If you didn't do this or request this, please contact a site administrator.",
+    'email_change_confirmation:success:save' => "New email address saved."
 );
 
 add_translation("en", $english);

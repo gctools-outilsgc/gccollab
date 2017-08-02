@@ -53,6 +53,10 @@ $message = elgg_echo('email_change_confirmation:success:message', array(
 	$site->name,
 ));
 
+if( elgg_is_active_plugin('cp_notifications') ){
+    $message = elgg_view('cp_notifications/site_template', array("cp_msg_title_en" => $subject, "cp_msg_title_fr" => elgg_echo('email_change_confirmation:request:subject', array($site->name), 'fr'), "cp_msg_description_en" => $message, "cp_msg_description_fr" => elgg_echo('email_change_confirmation:request:message', array($user->name, $site->name, $validation_url), 'fr')));
+}
+
 if( elgg_is_active_plugin('phpmailer') ){
     phpmailer_send($user->email, $user->name, $subject, $message);
 } else {
