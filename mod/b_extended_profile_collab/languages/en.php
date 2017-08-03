@@ -110,8 +110,7 @@ $english = array(
     'email_change_confirmation:request:message' => "Hi %s,<br/><br/>You requested to change your email address on %s to this email address. In order to complete the request click on this link:<br/><br/>%s",
 
     'email_change_confirmation:success:subject' => "Email address changed for %s",
-    'email_change_confirmation:success:message' => "Hi %s,<br/><br/>Your email address on %s has been changed. If you didn't do this or request this, please contact a site administrator.",
-    'email_change_confirmation:success:save' => "New email address saved."
+    'email_change_confirmation:success:message' => "Hi %s,<br/><br/>Your email address on %s has been changed. If you didn't do this or request this, please contact a site administrator."
 );
 
 add_translation("en", $english);

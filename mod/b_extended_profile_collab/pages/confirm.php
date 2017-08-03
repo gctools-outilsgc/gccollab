@@ -67,7 +67,7 @@ $user->email = $new_email;
 if ($user->save()) {
 	$user->deleteAnnotations('email_change_confirmation');
 	
-	system_message(elgg_echo('email_change_confirmation:success:save'));
+	system_message(elgg_echo('email:save:success'));
 	forward($user->getURL());
 }
 

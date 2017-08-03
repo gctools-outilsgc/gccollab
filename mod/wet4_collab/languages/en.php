@@ -45,5 +45,7 @@ return array(
 	'friends:widget:description' => "Displays some of your colleagues.",
 	'friends:num_display' => "Number of colleagues to display",
 	'friend:newfriend:subject' => "%s has made you a colleague!",
-	'friend:newfriend:body' => "%s has made you a colleague!"
+	'friend:newfriend:body' => "%s has made you a colleague!",
+
+	'email:save:success' => "New email address saved."
 );

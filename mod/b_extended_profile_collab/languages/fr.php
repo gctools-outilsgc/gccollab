@@ -114,8 +114,7 @@ $french = array(
     'email_change_confirmation:request:message' => "Bonjour %s,<br/><br/>Vous avez demandé le changement de votre adresse de courriel sur %s vers cette adresse de courriel. Pour confirmer et terminer le changement, veuillez cliquer sur le lien suivant :<br/><br/>%s",
 
     'email_change_confirmation:success:subject' => "Adresse de courriel changée pour %s",
-    'email_change_confirmation:success:message' => "Bonjour %s,<br/><br/>Votre adresse de courriel sur %s a été changée. Si vous n'êtes pas à l'origine de ce changement ou ne l'avez pas demandé, veuillez contacter l'un des administrateurs du site.",
-    'email_change_confirmation:success:save' => "Nouvelle adresse de courriel sauvegardée."
+    'email_change_confirmation:success:message' => "Bonjour %s,<br/><br/>Votre adresse de courriel sur %s a été changée. Si vous n'êtes pas à l'origine de ce changement ou ne l'avez pas demandé, veuillez contacter l'un des administrateurs du site."
 );
 
 add_translation("fr", $french);
