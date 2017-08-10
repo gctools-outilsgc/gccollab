@@ -47,5 +47,7 @@ return array(
 	'friend:newfriend:subject' => "%s vous a ajouté comme collègue !",
 	'friend:newfriend:body' => "%s vous a ajouté comme collègue !",
 
-	'email:save:success' => "Nouvelle adresse de courriel sauvegardée."
+	'email:save:success' => "Nouvelle adresse de courriel sauvegardée.",
+
+	'event_calendar:print' => "Imprimer ce calendrier"
 );

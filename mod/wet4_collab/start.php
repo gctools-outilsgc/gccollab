@@ -21,6 +21,19 @@ function wet4_collab_theme_init() {
 
     elgg_unregister_plugin_hook_handler('usersettings:save', 'user', '_elgg_set_user_email');
     elgg_register_plugin_hook_handler('usersettings:save', 'user', 'change_user_email');
+
+    elgg_define_js('moment', [
+        'src' => '/mod/wet4_collab/views/default/js/moment/moment.js',
+        'deps' => array('jquery')
+    ]);
+
+    elgg_unregister_js('elgg.full_calendar');
+    $calendar_js = elgg_get_simplecache_url('js', 'event_calendar/fullcalendar.min.js');
+    elgg_register_simplecache_view('js/event_calendar/fullcalendar.min.js');
+    elgg_register_js('elgg.full_calendar', $calendar_js);
+
+    $calendar_css = elgg_get_simplecache_url('css', 'event_calendar/fullcalendar.min.css');
+    elgg_register_css('elgg.full_calendar', $calendar_css);
 }
 
 function remove_custom_colleagues_menu_item($hook, $type, $return, $params) {

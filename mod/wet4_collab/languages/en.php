@@ -47,5 +47,7 @@ return array(
 	'friend:newfriend:subject' => "%s has made you a colleague!",
 	'friend:newfriend:body' => "%s has made you a colleague!",
 
-	'email:save:success' => "New email address saved."
+	'email:save:success' => "New email address saved.",
+
+	'event_calendar:print' => "Print this calendar"
 );
