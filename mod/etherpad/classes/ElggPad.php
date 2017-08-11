@@ -149,7 +149,6 @@ class ElggPad extends ElggObject {
 			'showChat' => $settings[2],
 			'showLineNumbers' => $settings[3],
 		));
-		$options = '';
 		
 		$this->startSession();
 		

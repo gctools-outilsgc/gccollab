@@ -19,6 +19,8 @@ return array(
 
     /**The Wire Popup**/
     'onboard:wire1' => "The Wire is GCcollab's own microblog! Just like Twitter, share information by posting messages under 140 characters. Tag colleagues with @mentions, use <span style='color:#46246A; text-decoration:underline;'>#hashtags</span> for keywords, and don't forget to share, like and reply.",
+    'onboard:wire4' => "Feel free to test out The Wire below! Say hi and something that you are interested in or a question you have.",
+    'onboard:wire_success' => "Great! Thanks for sharing.",
 
     /*Group*/
     'onboard:groupCtaTitle'	=> "Groups are the backbone of GCcollab. Let us help you find groups you'll like!",

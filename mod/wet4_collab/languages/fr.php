@@ -46,4 +46,10 @@ return array(
 	'friends:num_display' => "Nombre de collègues à afficher",
 	'friend:newfriend:subject' => "%s vous a ajouté comme collègue !",
 	'friend:newfriend:body' => "%s vous a ajouté comme collègue !",
+
+	'email:save:success' => "Nouvelle adresse de courriel sauvegardée.",
+
+	'event_calendar:print' => "Imprimer ce calendrier",
+
+	'c_bin:sort_guid' => "Date d'inscription"
 );

@@ -54,7 +54,7 @@
 
 		if( elgg_is_active_plugin('phpmailer') ){
 			// send email to jeffrey outram
-			phpmailer_send($helpdesk_email, $helpdesk_email, $subject, $body, NULL, true);
+			phpmailer_send($helpdesk_email, $helpdesk_email, $subject, $body, NULL, true, NULL, array('replyTo' => $user_email, 'replyToName' => $user_fullname));
 			
 			// send email to recipient to complate transaction
 			phpmailer_send($user_email, $user_email, $subject, $body, NULL, true);

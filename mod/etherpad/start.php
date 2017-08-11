@@ -10,14 +10,10 @@ elgg_register_event_handler('init', 'system', 'etherpad_init');
 
 function etherpad_init() {
 	
-	// override pages library
-	elgg_register_library('elgg:pages', elgg_get_plugins_path() . 'etherpad/lib/pages.php');
-	
 	$actions_base = elgg_get_plugins_path() . 'etherpad/actions/docs';
 	elgg_register_action("docs/save", "$actions_base/save.php");
 	elgg_register_action("docs/delete", "$actions_base/delete.php");
 	
-	elgg_register_page_handler('pages', 'etherpad_page_handler');
 	elgg_register_page_handler('docs', 'etherpad_page_handler');
 	
 	// Language short codes must be of the form "etherpad:key"
@@ -58,6 +54,11 @@ function etherpad_init() {
 		elgg_register_entity_url_handler('object', 'etherpad', 'etherpad_url');
 		elgg_register_entity_url_handler('object', 'subpad', 'etherpad_url');
 	} else {
+		// override pages library
+		elgg_register_library('elgg:pages', elgg_get_plugins_path() . 'etherpad/lib/pages.php');
+		
+		elgg_register_page_handler('pages', 'etherpad_page_handler');
+
 		// Register a URL handler for bookmarks
 		elgg_register_entity_url_handler('object', 'etherpad', 'pages_url');
 		elgg_register_entity_url_handler('object', 'subpad', 'pages_url');

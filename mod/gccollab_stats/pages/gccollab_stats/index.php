@@ -1412,11 +1412,10 @@
                         var dateString = date.getTime();
                         if(!dates[dateString]){ dates[dateString] = {}; }
                         dates[dateString].count = (dates[dateString].count ? dates[dateString].count + 1 : 1);
-                        dates[dateString].names = (dates[dateString].names ? dates[dateString].names + "<br />" + value[1] : value[1]);
                     });
                     $.each(dates, function(key, value){
                         key = parseInt(key);
-                        groupscreated.push([key, value.count, new Date(key).niceDate(), value.names]);
+                        groupscreated.push([key, value.count, new Date(key).niceDate()]);
                     });
                     groupscreated.sort();
 
@@ -1470,7 +1469,7 @@
                         },
                         tooltip: {
                             formatter: function() {
-                                return '<b><?php echo elgg_echo("gccollab_stats:groups:label"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][3] + '<br /><b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][2] + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
+                                return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][2] + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
                             }
                         },
                         series: [{

@@ -11744,3 +11744,11 @@ ul.elgg-list-bulleted li, ol.elgg-list-bulleted li {
 .groups-profile {
   z-index: 99 !important;
 }
+
+table.bordered, table.bordered td {
+  border: 1px solid #000;
+}
+
+table.bordered td {
+  padding: 2px 4px 0;
+}

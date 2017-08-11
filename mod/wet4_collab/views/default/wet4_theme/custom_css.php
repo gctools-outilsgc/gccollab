@@ -1821,3 +1821,8 @@ figcaption{
 .comment-container ol li {
     list-style: decimal;
 }
+
+.fc-event {
+  border: 1px solid #46246A;
+  background-color: #46246A;
+}

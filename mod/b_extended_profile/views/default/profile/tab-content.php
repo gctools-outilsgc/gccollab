@@ -78,7 +78,7 @@ foreach($fields as $field){
                 $title = elgg_echo('etherpad:owner', array($user_display_name));
                 $add = elgg_echo('etherpad:add');
                 $message = elgg_echo('etherpad:none');
-                $field = 'etherpad';
+                $field = 'docs';
                 break;
         }
 
