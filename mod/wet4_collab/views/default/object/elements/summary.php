@@ -126,7 +126,7 @@ echo elgg_in_context($context);
 }
 
 if(elgg_in_context('profile') || elgg_in_context('group_profile') || elgg_instanceof(elgg_get_page_owner_entity(), "group")){
-	if($entity->getSubtype != 'answer'){//if answer in group question
+	if ($entity instanceof ElggUser) {
 		$user = $entity;
 		
 		echo '<div class="mvs clearfix"><strong>'.elgg_echo("gcconnex-profile-card:{$user->user_type}", array($user->user_type)).'</strong></div>';
