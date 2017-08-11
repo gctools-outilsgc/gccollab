@@ -70,7 +70,7 @@ if (elgg_in_context('widgets')) {
 
 if ($full) {
 	try {
-		$body .= elgg_view('output/iframe', array('value' => $etherpad->getPadPath($timeslider), 'type' => "etherpad"));
+		$body .= elgg_view('output/etherpad_iframe', array('value' => $etherpad->getPadPath($timeslider), 'type' => "etherpad"));
 	} catch(Exception $e) {
 		$body .= $e->getMessage();
 	}
