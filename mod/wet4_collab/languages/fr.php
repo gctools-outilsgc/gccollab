@@ -49,5 +49,7 @@ return array(
 
 	'email:save:success' => "Nouvelle adresse de courriel sauvegardée.",
 
-	'event_calendar:print' => "Imprimer ce calendrier"
+	'event_calendar:print' => "Imprimer ce calendrier",
+
+	'c_bin:sort_guid' => "Date d'inscription"
 );

@@ -49,5 +49,7 @@ return array(
 
 	'email:save:success' => "New email address saved.",
 
-	'event_calendar:print' => "Print this calendar"
+	'event_calendar:print' => "Print this calendar",
+
+	'c_bin:sort_guid' => 'Date joined'
 );

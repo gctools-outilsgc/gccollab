@@ -44,7 +44,7 @@ if( $userType == 'federal' ){
 // otherwise if user is student or academic
 } else if( $userType == 'student' || $userType == 'academic' ){
     $institution = $user->institution;
-    $department = ($institution == 'university') ? $user->university : $user->college;
+    $department = ($institution == 'university') ? $user->university : ($institution == 'college' ? $user->college : $user->highschool);
 
 // otherwise if user is provincial employee
 } else if( $userType == 'provincial' ){

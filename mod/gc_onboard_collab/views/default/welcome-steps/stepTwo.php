@@ -33,9 +33,9 @@
         /////STUDENTS
         if($userType == 'student'){
 
-          if($user->institution == "university" || $user->institution == "college"){
+          if($user->institution == "university" || $user->institution == "college" || $user->institution == "highschool"){
             $institution = $user->institution;
-            $institution_value = ($institution == "university") ? $user->university : $user->college;
+            $institution_value = ($institution == 'university') ? $user->university : ($institution == 'college' ? $user->college : $user->highschool);
 
             ///OPTION 1///
 
@@ -195,7 +195,7 @@
 
           if($user->institution == "university" || $user->institution == "college"){
             $institution = $user->institution;
-            $institution_value = ($institution == "university") ? $user->university : $user->college;
+            $institution_value = ($institution == 'university') ? $user->university : ($institution == 'college' ? $user->college : $user->highschool);
 
             ///OPTION 1///
 
