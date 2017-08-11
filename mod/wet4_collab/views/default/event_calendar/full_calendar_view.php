@@ -16,17 +16,11 @@ $timeformat = elgg_get_plugin_setting('timeformat', 'event_calendar') == 24 ? 'H
 	    color: #fff;
 	}
     @media print {
-    	body { visibility: hidden; }
-    	#calendar {
-    		position: fixed;
-		    top: 0px;
-		    left: 0px;
-		    width: 100%;
-		    z-index: 9999;
-		    background-color: #ffffff;
-		    visibility: visible;
-		}
+    	html, html * { visibility: hidden; }
+    	header, footer, main > h2, main > div.row > section:first-child, div.row.pagedetails { display: none; }
+    	#calendar, #calendar * { visibility: visible; }
 		#calendar a[href]:after { visibility: hidden; }
+		#calendar .fc-scroller { height: auto !important; }
     }
 </style>
 <script>
