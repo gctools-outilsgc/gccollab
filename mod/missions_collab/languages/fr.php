@@ -41,4 +41,6 @@ return array(
 
     Vous pouvez inviter n'importe quel employé à votre possibilité, qu'il figure à la liste ou non. Les employés qui n'apparaissent pas dans cette liste sont aussi les bienvenus à faire part de leur intérêt dans votre possibilité.",
     "missions:application_notice_sentence" =>     "%s postule à votre possibilité'%s'.",
+
+    "missions:max_applicants_unlimited" => "Illimité"
 );

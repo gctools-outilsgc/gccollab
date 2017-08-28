@@ -41,4 +41,6 @@ return array(
 
     You can share your opportunity with any employee whether on this list or not. Employees who do not appear on this list are also welcome to express interest in your opportunity.",
     "missions:application_notice_sentence" =>     "%s has applied to your opportunity '%s'. Below you will find an extract of their GCcollab profile. Go to your opportunity to offer it to the candidate of your choice.",
+
+    "missions:max_applicants_unlimited" => "Unlimited"
 );
