@@ -188,45 +188,47 @@ fullcalendarInit = function() {
 			locale = $.datepicker.regional[''];
 		}
 
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay,listYear'
-			},
-			month: <?php echo date('n', strtotime($vars['start_date'])) - 1; ?>,
-			ignoreTimezone: true,
-			editable: false,
-			slotMinutes: 15,
-			eventRender: handleEventRender,
-			// eventDrop: handleEventDrop,
-			eventClick: handleEventClick,
-			dayClick: handleDayClick,
-			viewRender: handleViewDisplay,
-			events: getEvents,
-			eventColor: '#46246A',
-			isRTL:  locale.isRTL,
-			firstDay: locale.firstDay,
-			monthNames: locale.monthNames,
-			monthNamesShort: locale.monthNamesShort,
-			dayNames: locale.dayNames,
-			dayNamesShort: locale.dayNamesShort,
-			buttonText: {
-				today: locale.currentText,
-			<?php if ( get_current_language() == "en" ){ ?> // Only way to translate without bug
-				month: elgg.echo('Month'),
-				week: elgg.echo('Week'),
-				day: elgg.echo('Day'),
-				list: elgg.echo('List')
-			<?php } else { ?>
-				month: elgg.echo('Mois'),
-				week: elgg.echo('Semaine'),
-				day: elgg.echo('Jour'),
-				list: elgg.echo('Liste')
-			<?php } ?>
-			},
-			timeFormat: "<?php echo $timeformat; ?>",
-		});
+		setTimeout(function(){
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay,listYear'
+				},
+				month: <?php echo date('n', strtotime($vars['start_date'])) - 1; ?>,
+				ignoreTimezone: true,
+				editable: false,
+				slotMinutes: 15,
+				eventRender: handleEventRender,
+				// eventDrop: handleEventDrop,
+				eventClick: handleEventClick,
+				dayClick: handleDayClick,
+				viewRender: handleViewDisplay,
+				events: getEvents,
+				eventColor: '#46246A',
+				isRTL:  locale.isRTL,
+				firstDay: locale.firstDay,
+				monthNames: locale.monthNames,
+				monthNamesShort: locale.monthNamesShort,
+				dayNames: locale.dayNames,
+				dayNamesShort: locale.dayNamesShort,
+				buttonText: {
+					today: locale.currentText,
+				<?php if ( get_current_language() == "en" ){ ?> // Only way to translate without bug
+					month: elgg.echo('Month'),
+					week: elgg.echo('Week'),
+					day: elgg.echo('Day'),
+					list: elgg.echo('List')
+				<?php } else { ?>
+					month: elgg.echo('Mois'),
+					week: elgg.echo('Semaine'),
+					day: elgg.echo('Jour'),
+					list: elgg.echo('Liste')
+				<?php } ?>
+				},
+				timeFormat: "<?php echo $timeformat; ?>",
+			});
+		}, 500);
 	}
 
 	elgg.get({

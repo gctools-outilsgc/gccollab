@@ -50,6 +50,8 @@ function like_item( $user, $guid, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
+	elgg_set_ignore_access(true);
+	
 	$entity = get_entity( $guid );
 	if( !$entity ) return "Object was not found. Please try a different GUID";
 	if( !$entity instanceof ElggObject ) return "Invalid object. Please try a different GUID";
