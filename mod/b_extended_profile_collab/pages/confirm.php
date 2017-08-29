@@ -47,7 +47,7 @@ if ($validation_code !== $valid_code) {
 $site = elgg_get_site_entity();
 
 // send confirmation to old email that change occured
-$subject = elgg_echo('email_change_confirmation:success:subject', array($site->name));
+$subject = elgg_echo('email_change_confirmation:success:subject', array($site->name), 'en') . " | " . elgg_echo('email_change_confirmation:success:subject', array($site->name), 'fr');
 $message = elgg_echo('email_change_confirmation:success:message', array(
 	$user->name,
 	$site->name,

@@ -90,7 +90,7 @@ function prepare_email_change($user_guid, $email) {
         'c' => $validation_code,
     )));
     
-    $subject = elgg_echo('email_change_confirmation:request:subject', array($site->name));
+    $subject = elgg_echo('email_change_confirmation:request:subject', array($site->name), 'en') . " | " . elgg_echo('email_change_confirmation:request:subject', array($site->name), 'fr');
     $message = elgg_echo('email_change_confirmation:request:message', array(
         $user->name,
         $site->name,
