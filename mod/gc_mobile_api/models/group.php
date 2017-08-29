@@ -48,6 +48,8 @@ function get_group( $user, $guid, $lang ){
 		'guid' => $guid
 	));
 	$group = json_decode($groups)[0];
+	
+	$group->name = gc_explode_translation($group->name, $lang);
 
 	$likes = elgg_get_annotations(array(
 		'guid' => $group->guid,
@@ -65,7 +67,7 @@ function get_group( $user, $guid, $lang ){
 	$group->comments = get_entity_comments($group->guid);
 	
 	$group->userDetails = get_user_block($group->owner_guid);
-	$group->description = clean_text($group->description);
+	$group->description = clean_text(gc_explode_translation($group->description, $lang));
 
 	return $group;
 }
@@ -86,6 +88,8 @@ function get_groups( $user, $limit, $offset, $lang ){
 	$groups = json_decode($all_groups);
 
 	foreach($groups as $group){
+		$group->name = gc_explode_translation($group->name, $lang);
+
 		$likes = elgg_get_annotations(array(
 			'guid' => $group->guid,
 			'annotation_name' => 'likes'
@@ -106,7 +110,7 @@ function get_groups( $user, $limit, $offset, $lang ){
 		$group->count = $groupObj->getMembers(array('count' => true));
 
 		$group->userDetails = get_user_block($group->owner_guid);
-		$group->description = clean_text($group->description);
+		$group->description = clean_text(gc_explode_translation($group->description, $lang));
 	}
 
 	return $groups;

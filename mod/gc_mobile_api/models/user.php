@@ -560,8 +560,17 @@ function get_user_activity( $user, $limit, $offset, $lang ){
 			}
 		} else {
 			//@TODO handle any unknown events
-			$event->object['name'] = $object->title;
-			$event->object['description'] = $object->description;
+			if (strpos($object->title, '"en":') !== false) {
+				$event->object['name'] = gc_explode_translation($object->title, $lang);
+			} else {
+				$event->object['name'] = $object->title;
+			}
+
+			if (strpos($object->description, '"en":') !== false) {
+				$event->object['description'] = gc_explode_translation($object->description, $lang);
+			} else {
+				$event->object['description'] = $object->description;
+			}
 		}
 	}
 
@@ -587,6 +596,7 @@ function get_user_groups( $user, $lang ){
 		$group->name = gc_explode_translation($group->name, $lang);
 		$group->iconURL = $groupObj->geticon();
 		$group->count = $groupObj->getMembers(array('count' => true));
+		$group->description = clean_text(gc_explode_translation($group->description, $lang));
 	}
 
 	return $groups;
@@ -842,17 +852,18 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = gc_explode_translation($object->name, $lang);
+					$event->object['description'] = gc_explode_translation($object->name, $lang);
 					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggDiscussionReply ){
 					$event->object['type'] = 'discussion-reply';
 					$original_discussion = get_entity($object->container_guid);
-					$event->object['name'] = $original_discussion->title;
-					$event->object['description'] = $object->description;
+					$event->object['name'] = gc_explode_translation($original_discussion->title, $lang);
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 					$event->object['url'] = $original_discussion->getURL();
 				} else if( $object instanceof ElggFile ){
 					$event->object['type'] = 'file';
 					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
@@ -865,7 +876,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					$event->object['name'] = $name;
 					$event->object['url'] = $object->getURL();
 
-					$event->object['description'] = $object->description;
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 
 					$other = get_entity($object->container_guid);
 					if( $other instanceof ElggGroup ){
@@ -877,8 +888,17 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					}
 				} else {
 					//@TODO handle any unknown events
-					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					if (strpos($object->title, '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($object->title, $lang);
+					} else {
+						$event->object['name'] = $object->title;
+					}
+
+					if (strpos($object->description, '"en":') !== false) {
+						$event->object['description'] = gc_explode_translation($object->description, $lang);
+					} else {
+						$event->object['description'] = $object->description;
+					}
 					$event->object['url'] = $object->getURL();
 				}
 			}
@@ -1159,8 +1179,17 @@ function get_user_colleague_posts( $user, $type, $limit, $offset, $lang ){
 					}
 				} else {
 					//@TODO handle any unknown events
-					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					if (strpos($object->title, '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($object->title, $lang);
+					} else {
+						$event->object['name'] = $object->title;
+					}
+
+					if (strpos($object->description, '"en":') !== false) {
+						$event->object['description'] = gc_explode_translation($object->description, $lang);
+					} else {
+						$event->object['description'] = $object->description;
+					}
 				}
 			}
 
