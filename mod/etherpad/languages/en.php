@@ -23,6 +23,7 @@ $english = array(
 	'etherpad:fullscreen' => 'Fullscreen',
 	'etherpad:none' => 'No Docs created yet',
 	'docs:none' => 'No Docs created yet',
+	'docs:more' => 'All Docs',
 	
 	'etherpad:group' => 'Group Docs',
 	'groups:enablepads' => 'Enable group Docs',
