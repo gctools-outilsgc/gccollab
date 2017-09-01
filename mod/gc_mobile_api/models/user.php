@@ -736,6 +736,10 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				));
 				$discussion->liked = count($liked) > 0;
 				
+				if (strpos($discussion->object->name, '"en":') !== false) {
+					$discussion->object->name = gc_explode_translation($discussion->object->name, $lang);
+				}
+
 				$discussion->userDetails = get_user_block($discussion->owner_guid);
 			}
 	        break;
@@ -885,6 +889,10 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					} else {
 						if( !isset($event->object['type']) )
 							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
+					}
+
+					if (strpos($event->object['name'], '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($event->object['name'], $lang);
 					}
 				} else {
 					//@TODO handle any unknown events
