@@ -93,7 +93,7 @@ class ElggPad extends ElggObject {
 		$this->authorID = $author->authorID;
 
 		//Etherpad: Create session
-		$validUntil = mktime(date("H"), date("i")+5, 0, date("m"), date("d"), date("y")); // 5 minutes in the future
+		$validUntil = mktime(date("H"), date("i"), 0, date("m"), date("d") + 1, date("y")); // 5 minutes in the future
 		$session = $this->get_pad_client()->createSession($this->groupID, $this->authorID, $validUntil);
 		$sessionID = $session->sessionID;
 		

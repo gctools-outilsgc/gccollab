@@ -81,9 +81,7 @@ return array(
    * Notice section
    */
   'notice:title' => 'GCcollab... ré-imaginé pour vous! ',
-  'notice:paragraphe' => '<p>Au cours des prochaines semaines, vous remarquerez peut-être des changements sur GCcollab au fur et à mesure que nous essayons les nouvelles fonctionnalités et effectuons des ajustements pour rendre vos activités de réseautage et de collaboration en ligne, plus facile, plus rapide et plus amusantes!</p>
-  <p>Nous aimerions vous remercier à l\'avance pour votre compréhension alors que nous travaillons à remédier les bogues ou les problèmes qui pourraient survenir. Nous sommes très excités  pour la nouvelle GCcollab et j\'espère que vous l’êtes aussi. </p>
-  <p>Joignez-vous à nous pour des discussions concernant les mises à jour dans le <a href="https://gcconnex.gc.ca/groups/profile/226392/gc20-tools-outils-gc20">groupe des Outils GC2.0</a> et nous espérons que vous pourrez assister au lancement officiel des OutilsGC au <a href="http://www.gcpedia.gc.ca/wiki/Objectif2020/Salon_innovation_2016">Salon interministériel de l’innovation pour Objectif 2020</a> le 20 avril 2016.</p>',
+  'notice:paragraphe' => '<p>Au cours des prochaines semaines, vous remarquerez peut-être des changements sur GCcollab au fur et à mesure que nous essayons les nouvelles fonctionnalités et effectuons des ajustements pour rendre vos activités de réseautage et de collaboration en ligne, plus facile, plus rapide et plus amusantes!</p>',
 
   /**
    * Metadata
@@ -125,9 +123,9 @@ return array(
   'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/_Comment_utiliser_la_Connexion_simplifi%C3%A9e'>Connexion simplifiée</a>",
   'contactform:useful' => 'Groupes GCcollab qui pourraient vous être utiles :',
   'contactform:helpful' => 'Communautés utiles',
-  'contactform:ambassadors' => 'Groupe GCcollab du Réseau des ambassadeurs des Outils GC 2.0',
-  'contactform:clicks' => 'Groupe GCcollab des Clics et conseils',
-  'contactform:groupgcconnex' => 'Groupe GCcollab des Outils GC 2.0',
+  'contactform:ambassadors' => 'Groupe GCconnex du Réseau des ambassadeurs des Outils GC 2.0',
+  'contactform:clicks' => 'Groupe GCconnex des Clics et conseils',
+  'contactform:groupgcconnex' => 'Groupe GCconnex des Outils GC 2.0',
   'contactform:teamgcpedia' => 'Équipe des Outils GC 2.0 dans GCpédia',
   'contactform:learn' => 'Pour en savoir plus sur les médias sociaux ',
   'contactform:collaborating' => 'Collaboration au moyen de GCpédia de l’EFPC (B171)',
