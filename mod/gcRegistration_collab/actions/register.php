@@ -41,31 +41,15 @@ foreach($meta_fields as $field){
 // check form (incompleteness & validity)
 if (elgg_get_config('allow_registration')) {
 	try {
-		// check if domain exists in database
-		$db_config = new \Elgg\Database\Config($CONFIG);
-		if ($db_config->isDatabaseSplit()) {
-			$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ);
-		} else {	
-			$read_settings = $db_config->getConnectionConfig(\Elgg\Database\Config::READ_WRITE);
-		}
-
-		$connection = mysqli_connect($read_settings["host"], $read_settings["user"], $read_settings["password"], $read_settings["database"])or die(mysqli_error($connection));
 		$emaildomain = explode('@',$email);
-		$query = "SELECT count(*) AS num FROM email_extensions WHERE ext ='".$emaildomain[1]."'";
-		
-		$result = mysqli_query($connection, $query)or die(mysqli_error($connection));
-		$result = mysqli_fetch_array($result);
-		
 		$emailgc = explode('.',$emaildomain[1]);
 		$gcca = $emailgc[count($emailgc) - 2] .".".$emailgc[count($emailgc) - 1];
 		
-		mysqli_close($connection);
-		
 		$resulting_error = "";
-
 		$validemail = false;
+
 		// if domain doesn't exist in database, check if it's a gc.ca domain
-		if ($dept_exist[0]->num > 0 && strcmp($gcca, 'gc.ca') == 0){
+		if (strcmp($gcca, 'gc.ca') == 0){
 			$validemail = true;
 		}
 
@@ -198,7 +182,7 @@ if (elgg_get_config('allow_registration')) {
 				'user' => $new_user,
 				'password' => $password,
 				'friend_guid' => $friend_guid,
-				'invitecode' => $invitecode,
+				'invitecode' => $invitecode
 			);
 
 			// @todo should registration be allowed no matter what the plugins return?
@@ -209,6 +193,7 @@ if (elgg_get_config('allow_registration')) {
 				// @todo this is a generic messages. We could have plugins
 				// throw a RegistrationException, but that is very odd
 				// for the plugin hooks system.
+				error_log('registerbad with params: ' . json_encode($params) . "\n");
 				throw new RegistrationException(elgg_echo('registerbad'));
 			}
 
@@ -218,7 +203,6 @@ if (elgg_get_config('allow_registration')) {
 			}
 
 			elgg_clear_sticky_form('register');
-			// system_message(elgg_echo("registerok", array(elgg_get_site_entity()->name)));
 
 			// if exception thrown, this probably means there is a validation
 			// plugin that has disabled the user
@@ -237,6 +221,7 @@ if (elgg_get_config('allow_registration')) {
 			// Forward on success, assume everything else is an error...
 			forward();
 		} else {
+			error_log('registerbad with username: ' . $username . "\n");
 			register_error(elgg_echo("registerbad"));
 		}
 	} catch (RegistrationException $r) {
