@@ -44,7 +44,7 @@ function register_new_user( $user_type, $name, $email, $password, $toc, $institu
 	/*** Username Generation ***/
 	$username = "";
 	$temp_name = str_replace(" ", ".", $name);
-	$usrname = str_replace("'", "", usernameize($temp_name));
+	$usrname = str_replace("'", "", create_username($temp_name));
 
 	// Troy - fix for usernames generated with "-" in them; better solution may present itself.
 	while( strpos($usrname,'-')!==false ){

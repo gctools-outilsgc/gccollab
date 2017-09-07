@@ -42,9 +42,7 @@ $(document).ready(function() {
 		var type = $(this).val();
 		$('.occupation-choices').hide();
 
-		if (type == 'federal') {
-			$('#federal-wrapper').fadeIn();
-		} else if (type == 'academic' || type == 'student') {
+		if (type == 'academic' || type == 'student') {
 			if( type == 'academic' ){
 				if( $("#institution").val() == 'highschool' ){ $("#institution").prop('selectedIndex', 0); }
 				$("#institution option[value='highschool']").hide();
@@ -634,41 +632,9 @@ $(window).on('beforeunload', function(){
 							'required' => true
 						));
 					?>
-
-					<script>
-		        		$('#name').blur(function () {
-		        			elgg.action( 'register/ajax', {
-								data: {
-									name: $('#name').val()
-								},
-								success: function (x) {
-									var username = x.output;
-				    				$('#auto-username').val(username);
-								}
-							});
-		        		});
-		    		</script>
 				</div>
 		    	<div id="display_name_notice" class="alert alert-info"><?php echo elgg_echo('gcRegister:display_name_notice'); ?></div>
 				<!-- End Display Name -->
-
-				<!-- Username (auto-generate) -->
-				<div class="form-group" style="display:none">
-					<label for="auto-username" class="required"><span class="field-name"><?php echo elgg_echo('gcRegister:username'); ?></span></label> 
-				    <div class="already-registered-message mrgn-bttm-sm"><span class="label label-danger tags mrgn-bttm-sm"></span></div>
-					<?php
-						echo elgg_view('input/text', array(
-							'name' => 'username',
-							'id' => 'auto-username',
-					        'class' => 'form-control',
-							'readonly' => 'readonly',
-							'value' => $username,
-							'aria-required' => 'true',
-							'required' => true
-						));
-					?>
-				</div>
-				<!-- End Username (auto-generate) -->
 
 				<!-- Email -->
 				<div class="form-group">
@@ -882,20 +848,6 @@ $(window).on('beforeunload', function(){
     });
 
     $("form.elgg-form-register").on("submit", function(){
-		if( $('#auto-username').val() == '' ){
-			elgg.action( 'register/ajax', {
-				data: {
-					name: $('#name').val()
-				},
-				success: function (x) {
-					var username = x.output;
-    				$('#auto-username').val(username);
-    				$("form.elgg-form-register").submit();
-				}
-			});
-			return false;
-		}
-
 	    $(".occupation-choices select:not(:visible), .occupation-choices input:not(:visible)").attr('disabled', 'disabled');
 	    $(".occupation-choices select:visible, .occupation-choices input:visible").removeAttr('disabled');
 	});
