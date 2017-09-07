@@ -7,35 +7,116 @@ elgg_ws_expose_function(
 	"register.user",
 	"register_new_user",
 	array(
-		"user_type" => array('type' => 'string', 'required' => true),
-		"name" => array('type' => 'string', 'required' => true),
-		"email" => array('type' => 'string', 'required' => true),
-		"password" => array('type' => 'string', 'required' => true),
-		"toc" => array('type' => 'boolean', 'required' => true),
-		"institution" => array('type' => 'string', 'required' => false),
-		"university" => array('type' => 'string', 'required' => false),
-		"college" => array('type' => 'string', 'required' => false),
-		"highschool" => array('type' => 'string', 'required' => false),
-		"federal" => array('type' => 'string', 'required' => false),
-		"provincial" => array('type' => 'string', 'required' => false),
-		"ministry" => array('type' => 'string', 'required' => false),
-		"municipal" => array('type' => 'string', 'required' => false),
-		"international" => array('type' => 'string', 'required' => false),
-		"ngo" => array('type' => 'string', 'required' => false),
-		"community" => array('type' => 'string', 'required' => false),
-		"business" => array('type' => 'string', 'required' => false),
-		"media" => array('type' => 'string', 'required' => false),
-		"retired" => array('type' => 'string', 'required' => false),
-		"other" => array('type' => 'string', 'required' => false),
+		"userdata" => array('type' => 'string', 'required' => true),
 		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
-	'Registers a user based on user id',
+	'Registers a new user',
 	'POST',
 	false,
 	false
 );
 
-function register_new_user( $user_type, $name, $email, $password, $toc, $institution, $university, $college, $highschool, $federal, $provincial, $ministry, $municipal, $international, $ngo, $community, $business, $media, $retired, $other, $lang ){
+function register_new_user( $userdata, $lang ){
+
+	$data = json_decode($userdata);
+
+	$user_type = isset($data->user_type) ? $data->user_type : "";
+	$name = isset($data->name) ? $data->name : "";
+	$email = isset($data->email) ? $data->email : "";
+	$password = isset($data->password) ? $data->password : "";
+	$toc = isset($data->toc) ? $data->toc : "";
+	$institution = isset($data->institution) ? $data->institution : "";
+	$university = isset($data->university) ? $data->university : "";
+	$college = isset($data->college) ? $data->college : "";
+	$highschool = isset($data->highschool) ? $data->highschool : "";
+	$federal = isset($data->federal) ? $data->federal : "";
+	$provincial = isset($data->provincial) ? $data->provincial : "";
+	$ministry = isset($data->ministry) ? $data->ministry : "";
+	$municipal = isset($data->municipal) ? $data->municipal : "";
+	$international = isset($data->international) ? $data->international : "";
+	$ngo = isset($data->ngo) ? $data->ngo : "";
+	$community = isset($data->community) ? $data->community : "";
+	$business = isset($data->business) ? $data->business : "";
+	$media = isset($data->media) ? $data->media : "";
+	$retired = isset($data->retired) ? $data->retired : "";
+	$other = isset($data->other) ? $data->other : "";
+
+	$resulting_error = array();
+
+	// check if the college/university is filled
+	if ($user_type === 'student' || $user_type === 'academic') {
+		if($institution === 'default_invalid_value')
+			$resulting_error[] = elgg_echo('gcRegister:InstitutionNotSelected');
+
+		if($institution === 'university' && $university === 'default_invalid_value')
+			$resulting_error[] = elgg_echo('gcRegister:UniversityNotSelected');
+
+		if($institution === 'college' && $college === 'default_invalid_value')
+			$resulting_error[] = elgg_echo('gcRegister:CollegeNotSelected');
+
+		if($institution === 'highschool' && $highschool === '')
+			$resulting_error[] = elgg_echo('gcRegister:HighschoolNotSelected');
+	}
+
+	// check if the federal department is filled
+	if ($user_type === 'federal' && $federal === 'default_invalid_value')
+		$resulting_error[] = elgg_echo('gcRegister:FederalNotSelected');
+
+	// check if the provincial department is filled
+	if ($user_type === 'provincial') {
+		if($provincial === 'default_invalid_value')
+			$resulting_error[] = elgg_echo('gcRegister:ProvincialNotSelected');
+
+		if($ministry === 'default_invalid_value')
+			$resulting_error[] = elgg_echo('gcRegister:MinistryNotSelected');
+	}
+
+	// check if the municipal department is filled
+	if ($user_type === 'municipal' && $municipal === '')
+		$resulting_error[] = elgg_echo('gcRegister:MunicipalNotSelected');
+
+	// check if the international department is filled
+	if ($user_type === 'international' && $international === '')
+		$resulting_error[] = elgg_echo('gcRegister:InternationalNotSelected');
+
+	// check if the NGO department is filled
+	if ($user_type === 'ngo' && $ngo === '')
+		$resulting_error[] = elgg_echo('gcRegister:NGONotSelected');
+
+	// check if the community department is filled
+	if ($user_type === 'community' && $community === '')
+		$resulting_error[] = elgg_echo('gcRegister:CommunityNotSelected');
+
+	// check if the business department is filled
+	if ($user_type === 'business' && $business === '')
+		$resulting_error[] = elgg_echo('gcRegister:BusinessNotSelected');
+
+	// check if the media department is filled
+	if ($user_type === 'media' && $media === '')
+		$resulting_error[] = elgg_echo('gcRegister:MediaNotSelected');
+
+	// check if the retired department is filled
+	if ($user_type === 'retired' && $retired === '')
+		$resulting_error[] = elgg_echo('gcRegister:RetiredNotSelected');
+
+	// check if the other department is filled
+	if ($user_type === 'other' && $other === '')
+		$resulting_error[] = elgg_echo('gcRegister:OtherNotSelected');
+
+	if( empty(trim($name)) )
+		$resulting_error[] = elgg_echo('gcRegister:display_name_is_empty');
+
+	// check if password is not empty
+	if (empty(trim($password)))
+		$resulting_error[] = elgg_echo('gcRegister:EmptyPassword');
+
+	// check if toc is checked, user agrees to TOC
+	if (!$toc)
+		$resulting_error[] = elgg_echo('gcRegister:toc_error');
+
+	// if there are any registration error, throw an exception
+	if (!empty($resulting_error))
+		return $resulting_error;
 
 	$emaildomain = explode('@',$email);
 	$emailgc = explode('.',$emaildomain[1]);
@@ -119,79 +200,8 @@ function register_new_user( $user_type, $name, $email, $password, $toc, $institu
 			$validemail = true;
 	}
 
-	// check if the college/university is filled
-	if ($user_type === 'student' || $user_type === 'academic') {
-		if($institution === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:InstitutionNotSelected');
-
-		if($institution === 'university' && $university === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:UniversityNotSelected');
-
-		if($institution === 'college' && $college === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:CollegeNotSelected');
-
-		if($institution === 'highschool' && $highschool === '')
-			$resulting_error .= elgg_echo('gcRegister:HighschoolNotSelected');
-	}
-
-	// check if the federal department is filled
-	if ($user_type === 'federal' && $federal === 'default_invalid_value')
-		$resulting_error .= elgg_echo('gcRegister:FederalNotSelected');
-
-	// check if the provincial department is filled
-	if ($user_type === 'provincial') {
-		if($provincial === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:ProvincialNotSelected');
-
-		if($ministry === 'default_invalid_value')
-			$resulting_error .= elgg_echo('gcRegister:MinistryNotSelected');
-	}
-
-	// check if the municipal department is filled
-	if ($user_type === 'municipal' && $municipal === '')
-		$resulting_error .= elgg_echo('gcRegister:MunicipalNotSelected');
-
-	// check if the international department is filled
-	if ($user_type === 'international' && $international === '')
-		$resulting_error .= elgg_echo('gcRegister:InternationalNotSelected');
-
-	// check if the NGO department is filled
-	if ($user_type === 'ngo' && $ngo === '')
-		$resulting_error .= elgg_echo('gcRegister:NGONotSelected');
-
-	// check if the community department is filled
-	if ($user_type === 'community' && $community === '')
-		$resulting_error .= elgg_echo('gcRegister:CommunityNotSelected');
-
-	// check if the business department is filled
-	if ($user_type === 'business' && $business === '')
-		$resulting_error .= elgg_echo('gcRegister:BusinessNotSelected');
-
-	// check if the media department is filled
-	if ($user_type === 'media' && $media === '')
-		$resulting_error .= elgg_echo('gcRegister:MediaNotSelected');
-
-	// check if the retired department is filled
-	if ($user_type === 'retired' && $retired === '')
-		$resulting_error .= elgg_echo('gcRegister:RetiredNotSelected');
-
-	// check if the other department is filled
-	if ($user_type === 'other' && $other === '')
-		$resulting_error .= elgg_echo('gcRegister:OtherNotSelected');
-
-	if( empty(trim($name)) )
-		$resulting_error .= elgg_echo('gcRegister:display_name_is_empty');
-
 	if( !$validemail )
-		$resulting_error .= elgg_echo('gcRegister:invalid_email_link');
-
-	// check if password is not empty
-	if (empty(trim($password)))
-		$resulting_error .= elgg_echo('gcRegister:EmptyPassword');
-
-	// check if toc is checked, user agrees to TOC
-	if (!$toc)
-		$resulting_error .= elgg_echo('gcRegister:toc_error');
+		$resulting_error[] = elgg_echo('gcRegister:invalid_email_link');
 
 	// if there are any registration error, throw an exception
 	if (!empty($resulting_error))
