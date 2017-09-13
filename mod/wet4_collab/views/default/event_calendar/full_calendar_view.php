@@ -25,6 +25,11 @@ $timeformat = elgg_get_plugin_setting('timeformat', 'event_calendar') == 24 ? 'H
 </style>
 <script>
 
+Date.prototype.addHours = function(h){
+    this.setHours(this.getHours() + h);
+    return this;
+}
+
 var goToDateFlag = 0;
 
 handleEventClick = function(event) {
@@ -227,6 +232,12 @@ fullcalendarInit = function() {
 				<?php } ?>
 				},
 				timeFormat: "<?php echo $timeformat; ?>",
+				eventDataTransform: function (event){
+					if(event.allDay) {
+						event.end = new Date(event.end).addHours(24);
+					}
+					return event;
+				}
 			});
 		}, 500);
 	}
