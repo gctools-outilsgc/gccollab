@@ -24,6 +24,7 @@ elgg_ws_expose_function(
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
 		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"filters" => array('type' => 'string', 'required' => false, 'default' => ""),
 		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a group based on user id and group id',
@@ -41,7 +42,8 @@ function get_group( $user, $guid, $lang ){
 	if( !$entity ) return "Group was not found. Please try a different GUID";
 	if( !$entity instanceof ElggGroup ) return "Invalid group. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$groups = elgg_list_entities(array(
 		'type' => 'group',
@@ -72,19 +74,47 @@ function get_group( $user, $guid, $lang ){
 	return $group;
 }
 
-function get_groups( $user, $limit, $offset, $lang ){
+function get_groups( $user, $limit, $offset, $filters, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
+
+	$filter_data = json_decode($filters);
+	if( !empty($filter_data) ){
+		$params = array(
+	        'type' => 'group',
+			'limit' => $limit,
+	        'offset' => $offset
+		);
+
+		if( $filter_data->mine ){
+			$params['relationship'] = 'member';
+			$params['relationship_guid'] = $user_entity->guid;
+			$params['inverse_relationship'] = FALSE;
+		}
+
+		if( $filter_data->name ){
+			$db_prefix = elgg_get_config('dbprefix');
+        	$params['joins'] = array("JOIN {$db_prefix}groups_entity ge ON e.guid = ge.guid");
+			$params['wheres'] = array("(ge.name LIKE '%" . $filter_data->name . "%' OR ge.description LIKE '%" . $filter_data->name . "%')");
+        }
+
+        if( $filter_data->mine ){
+	    	$all_groups = elgg_list_entities_from_relationship($params);
+        } else {
+	    	$all_groups = elgg_list_entities_from_metadata($params);
+        }
+	} else {
+		$all_groups = elgg_list_entities(array(
+	        'type' => 'group',
+	        'limit' => $limit,
+	        'offset' => $offset
+	    ));
+	}
 	
-	$all_groups = elgg_list_entities(array(
-		// 'type' => 'object',
-		'type' => 'group',
-		'limit' => $limit,
-		'offset' => $offset
-	));
 	$groups = json_decode($all_groups);
 
 	foreach($groups as $group){

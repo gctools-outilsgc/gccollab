@@ -316,11 +316,13 @@ function get_user_data( $profileemail, $user, $lang ){
 		if( is_array($skill->endorsements) ){
 			foreach( $skill->endorsements as $friend ){
 				$friendEntity = get_user($friend);
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+				if( $friendEntity instanceof ElggUser ){
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+				}
 				$j++;
 			}
 		} else if( !is_null($skill->endorsements) ){
@@ -619,7 +621,8 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 	
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	switch( $type ){
     	case "blog":
@@ -716,6 +719,15 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					'owner_guid' => $user_entity->guid
 				));
 				$wire->replied = count($replied) > 0;
+
+				$has_thread = elgg_get_entities_from_metadata(array(
+					"metadata_name" => "wire_thread",
+					"metadata_value" => $thread_id,
+					"type" => "object",
+					"subtype" => "thewire",
+					"limit" => 2
+				));
+				$wire->thread = count($has_thread) > 1;
 
 				$wire->userDetails = get_user_block($wire->owner_guid);
 				$wire->description = wire_filter($wire->description);
@@ -839,6 +851,10 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				));
 				$event->liked = count($liked) > 0;
 
+				if($object->description){
+					$object->description = str_replace("<p>&nbsp;</p>", '', $object->description);
+				}
+
 				if( $object instanceof ElggUser ){
 					$event->object = get_user_block($event->object_guid);
 					$event->object['type'] = 'user';
@@ -878,7 +894,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					$event->object['url'] = $original_discussion->getURL();
 				} else if( $object instanceof ElggFile ){
 					$event->object['type'] = 'file';
-					$event->object['name'] = $object->title;
+					$event->object['name'] = gc_explode_translation($object->title, $lang);
 					$event->object['description'] = gc_explode_translation($object->description, $lang);
 					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggObject ){
@@ -942,7 +958,8 @@ function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset,
  	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
 	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
 	
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	switch( $type ){
     	case "blog":

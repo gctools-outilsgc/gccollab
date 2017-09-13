@@ -97,7 +97,8 @@ function get_message( $user, $guid, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$messages = elgg_list_entities(array(
 	    'type' => 'object',
@@ -140,7 +141,8 @@ function get_messages( $user, $limit, $offset, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	$messages = elgg_list_entities_from_metadata(array(
 		"type" => "object",
@@ -173,7 +175,8 @@ function get_sent_messages( $user, $limit, $offset, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$messages = elgg_list_entities_from_metadata(array(
 		"type" => "object",
@@ -205,7 +208,8 @@ function get_notifications( $user, $limit, $offset, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$messages = elgg_list_entities_from_metadata(array(
 		"type" => "object",

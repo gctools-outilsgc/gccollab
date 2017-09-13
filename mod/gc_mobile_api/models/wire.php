@@ -60,7 +60,8 @@ function get_wirepost( $user, $guid, $thread, $lang ){
 
 	$thread_id = $entity->wire_thread;
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	if( $thread ){
 		$all_wire_posts = elgg_list_entities_from_metadata(array(
@@ -191,7 +192,8 @@ function get_wireposts( $profileemail, $user, $limit, $offset, $lang ){
  	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
 	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	$all_wire_posts = elgg_list_entities(array(
 		'type' => 'object',
@@ -259,7 +261,8 @@ function reply_wire( $user, $message, $guid, $lang ){
 
 	if( trim($message) == "" ) return elgg_echo("thewire:blank");
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	$message = utf8_encode($message);
 

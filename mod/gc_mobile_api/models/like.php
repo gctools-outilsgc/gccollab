@@ -50,7 +50,8 @@ function like_item( $user, $guid, $lang ){
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$entity = get_entity( $guid );
 	if( !$entity ) return "Object was not found. Please try a different GUID";
@@ -67,8 +68,6 @@ function like_item( $user, $guid, $lang ){
 	// check to see if the user has already liked the item
 	if( !empty($likes) ){
 		$like = $likes[0];
-		
-		elgg_set_ignore_access(true);
 
 		if( $like && $like->canEdit() ){
 			$like->delete();

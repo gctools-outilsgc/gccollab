@@ -26,7 +26,8 @@ function get_file( $user, $guid, $lang ){
 	if( !$entity ) return "File was not found. Please try a different GUID";
 	if( !$entity instanceof ElggFile ) return "Invalid file. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$files = elgg_list_entities(array(
 	    'type' => 'object',
