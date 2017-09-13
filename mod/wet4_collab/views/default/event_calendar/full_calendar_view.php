@@ -16,20 +16,19 @@ $timeformat = elgg_get_plugin_setting('timeformat', 'event_calendar') == 24 ? 'H
 	    color: #fff;
 	}
     @media print {
-    	body { visibility: hidden; }
-    	#calendar {
-    		position: fixed;
-		    top: 0px;
-		    left: 0px;
-		    width: 100%;
-		    z-index: 9999;
-		    background-color: #ffffff;
-		    visibility: visible;
-		}
+    	html, html * { visibility: hidden; }
+    	header, footer, main > h2, main > div.row > section:first-child, div.row.pagedetails { display: none; }
+    	#calendar, #calendar * { visibility: visible; }
 		#calendar a[href]:after { visibility: hidden; }
+		#calendar .fc-scroller { height: auto !important; }
     }
 </style>
 <script>
+
+Date.prototype.addHours = function(h){
+    this.setHours(this.getHours() + h);
+    return this;
+}
 
 var goToDateFlag = 0;
 
@@ -194,45 +193,53 @@ fullcalendarInit = function() {
 			locale = $.datepicker.regional[''];
 		}
 
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay,listYear'
-			},
-			month: <?php echo date('n', strtotime($vars['start_date'])) - 1; ?>,
-			ignoreTimezone: true,
-			editable: false,
-			slotMinutes: 15,
-			eventRender: handleEventRender,
-			// eventDrop: handleEventDrop,
-			eventClick: handleEventClick,
-			dayClick: handleDayClick,
-			viewRender: handleViewDisplay,
-			events: getEvents,
-			eventColor: '#46246A',
-			isRTL:  locale.isRTL,
-			firstDay: locale.firstDay,
-			monthNames: locale.monthNames,
-			monthNamesShort: locale.monthNamesShort,
-			dayNames: locale.dayNames,
-			dayNamesShort: locale.dayNamesShort,
-			buttonText: {
-				today: locale.currentText,
-			<?php if ( get_current_language() == "en" ){ ?> // Only way to translate without bug
-				month: elgg.echo('Month'),
-				week: elgg.echo('Week'),
-				day: elgg.echo('Day'),
-				list: elgg.echo('List')
-			<?php } else { ?>
-				month: elgg.echo('Mois'),
-				week: elgg.echo('Semaine'),
-				day: elgg.echo('Jour'),
-				list: elgg.echo('Liste')
-			<?php } ?>
-			},
-			timeFormat: "<?php echo $timeformat; ?>",
-		});
+		setTimeout(function(){
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay,listYear'
+				},
+				month: <?php echo date('n', strtotime($vars['start_date'])) - 1; ?>,
+				ignoreTimezone: true,
+				editable: false,
+				slotMinutes: 15,
+				eventRender: handleEventRender,
+				// eventDrop: handleEventDrop,
+				eventClick: handleEventClick,
+				dayClick: handleDayClick,
+				viewRender: handleViewDisplay,
+				events: getEvents,
+				eventColor: '#46246A',
+				isRTL:  locale.isRTL,
+				firstDay: locale.firstDay,
+				monthNames: locale.monthNames,
+				monthNamesShort: locale.monthNamesShort,
+				dayNames: locale.dayNames,
+				dayNamesShort: locale.dayNamesShort,
+				buttonText: {
+					today: locale.currentText,
+				<?php if ( get_current_language() == "en" ){ ?> // Only way to translate without bug
+					month: elgg.echo('Month'),
+					week: elgg.echo('Week'),
+					day: elgg.echo('Day'),
+					list: elgg.echo('List')
+				<?php } else { ?>
+					month: elgg.echo('Mois'),
+					week: elgg.echo('Semaine'),
+					day: elgg.echo('Jour'),
+					list: elgg.echo('Liste')
+				<?php } ?>
+				},
+				timeFormat: "<?php echo $timeformat; ?>",
+				eventDataTransform: function (event){
+					if(event.allDay) {
+						event.end = new Date(event.end).addHours(24);
+					}
+					return event;
+				}
+			});
+		}, 500);
 	}
 
 	elgg.get({

@@ -1,6 +1,6 @@
 <?php
 /*
- * Exposes API endpoints for User entities
+ * Exposes API endpoints for logging in a user
  */
 
 elgg_ws_expose_function(
@@ -21,7 +21,6 @@ function login_user( $user, $key, $lang ){
 	$response = file_get_contents('https://api.gctools.ca/login.ashx?action=login&email=' . $user . '&key=' . $key);
 	$json = json_decode($response);
 
-	// if( $json->GCconnexAccess ){
 	if( $json->GCcollabAccess ){
 		$email = get_user_by_email($user)[0];
 

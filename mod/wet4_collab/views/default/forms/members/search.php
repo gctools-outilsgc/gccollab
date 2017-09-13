@@ -4,10 +4,14 @@
 * Description: Added accessible labels + GSA tie in
 * Author: GCTools Team
 */
-$params = array(
-	'name' => 'q'
-);
-echo '<label for="member_query" class="wb-inv">'.elgg_echo('members:search').'</label>'.elgg_view('input/text', $params);
+
+echo '<label for="member_query" class="wb-inv">'.elgg_echo('members:search').'</label>';
+echo elgg_view('input/text', array(
+    'id' => 'member_query',
+	'name' => 'q',
+	'placeholder' => elgg_echo('wet:searchgctools'),
+	'required' => true
+));
 
 $user_types = array(
 	'' => elgg_echo('gcRegister:make_selection'),
@@ -28,7 +32,6 @@ echo "<label class='mtm' for='user_type'>" . elgg_echo('gcRegister:membertype') 
 
 echo elgg_view('input/hidden', array('name' => 'entity_type', 'value' => 'user'));
 echo elgg_view('input/hidden', array('name' => 'search_type', 'value' => 'entities'));
-
-echo elgg_view('input/submit', array('value' => elgg_echo('search')));
+echo elgg_view('input/submit', array('value' => '<span class="glyphicon-search glyphicon"></span> ' . elgg_echo('search')));
 
 echo "<p class='mtl elgg-text-help timeStamp'>" . elgg_echo('members:total', array(get_number_users())) . "</p>";

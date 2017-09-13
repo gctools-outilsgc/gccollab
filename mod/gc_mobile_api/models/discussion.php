@@ -26,7 +26,8 @@ function get_discussion( $user, $guid, $lang ){
 	if( !$entity ) return "Discussion was not found. Please try a different GUID";
 	if( !$entity instanceof ElggDiscussionReply ) return "Invalid discussion. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$discussions = elgg_list_entities(array(
 	    'type' => 'object',

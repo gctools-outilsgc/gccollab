@@ -26,7 +26,8 @@ function get_blogpost( $user, $guid, $lang ){
 	if( !isset($entity) ) return "Blog was not found. Please try a different GUID";
 	// if( !$entity instanceof ElggBlog ) return "Invalid blog. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$blog_posts = elgg_list_entities(array(
 	    'type' => 'object',
@@ -54,6 +55,10 @@ function get_blogpost( $user, $guid, $lang ){
 	$blog_post->comments = get_entity_comments($blog_post->guid);
 
 	$blog_post->userDetails = get_user_block($blog_post->owner_guid);
+
+	$group = get_entity($blog_post->container_guid);
+	$blog_post->group = gc_explode_translation($group->name, $lang);
+	$blog_post->groupURL = $group->getURL();
 
 	return $blog_post;
 }

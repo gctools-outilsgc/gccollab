@@ -398,6 +398,55 @@ function get_site_data($type, $lang) {
 				}
 			}
 		}
+	} else if ($type === 'optins') {
+		$optin_types = array(
+			"opt_in_missions" => "missions:micro_mission",
+			"opt_in_missionCreate" => "missions:micro_mission",
+			"opt_in_swap" => "missions:job_swap",
+			"opt_in_mentored" => "missions:mentoring",
+			"opt_in_mentoring" => "missions:mentoring",
+			"opt_in_shadowed" => "missions:job_shadowing",
+			"opt_in_shadowing" => "missions:job_shadowing",
+			"opt_in_jobshare" => "missions:job_sharing",
+			"opt_in_pcSeek" => "missions:peer_coaching",
+			"opt_in_pcCreate" => "missions:peer_coaching",
+			"opt_in_ssSeek" => "missions:skill_sharing",
+			"opt_in_ssCreate" => "missions:skill_sharing",
+			"opt_in_rotation" => "missions:job_rotation",
+			"opt_in_assignSeek" => "missions:assignment",
+			"opt_in_assignCreate" => "missions:assignment",
+			"opt_in_deploySeek" => "missions:deployment",
+			"opt_in_deployCreate" => "missions:deployment",
+			"opt_in_casual_seek" => "missions:casual",
+			"opt_in_casual_create" => "missions:casual",
+			"opt_in_student_seek" => "missions:student",
+			"opt_in_student_create" => "missions:student"
+		);
+
+		$yes = elgg_get_metastring_id('gcconnex_profile:opt:yes');
+
+		$map = array();
+		foreach ($optin_types as $optin_type => $index) {
+			$map[$optin_type] = elgg_get_metastring_id($optin_type);
+		}
+
+		$query = "SELECT count(DISTINCT m.entity_guid) as num FROM elggmetadata m WHERE";
+		foreach ($optin_types as $optin_type => $index) {
+			$temp = $query . " m.name_id={$map[$optin_type]} AND m.value_id={$yes};";
+			$result = get_data($temp)[0];
+			$count = intval($result->num);
+
+			if($count > 0){
+				$string = elgg_echo($index, $lang);
+				if(stripos($optin_type, 'create') !== false){
+					$string .= " (" . elgg_echo("missions:offering", $lang) . ")";
+				}
+				if(stripos($optin_type, 'seek') !== false){
+					$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
+				}
+				$data[$string] = $count;
+			}
+		}
 	} 
     return $data;
 }

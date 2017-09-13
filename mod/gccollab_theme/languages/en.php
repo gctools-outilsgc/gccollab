@@ -75,10 +75,9 @@ return array(
   /**
    * Notice section
    */
-  'notice:title' => 'GCconnex... reimagined for you!',
-  'notice:paragraphe' => '<p>Over the next few weeks, you may notice changes on GCconnex as we try-out the new features and tweak current functionalities to make your online collaboration and networking easier, faster and more fun.</p>
-  <p>We would like to thank you in advance for your understanding as we work through any bugs or issues that may arise.  We are extremely excited about the new GCconnex and hope you are too.</p>
-  <p>Please join us for discussions regarding the upgrades in the <a href="https://gcconnex.gc.ca/groups/profile/226392/gc20-tools-outils-gc20">GC2.0 Tools Group </a> and we hope you can attend the official launch of the GCTools at the <a href="http://www.gcpedia.gc.ca/wiki/Blueprint_2020/Innovation_Fair_2016">Blueprint 2020 Innovation Fair</a> on April 20, 2016. </p>',
+  'notice:title' => 'GCcollab... reimagined for you!',
+  'notice:paragraphe' => '<p>Over the next few weeks, you may notice changes on GCcollab as we try-out the new features and tweak current functionalities to make your online collaboration and networking easier, faster and more fun.</p>
+  <p>We would like to thank you in advance for your understanding as we work through any bugs or issues that may arise.  We are extremely excited about the new GCcollab and hope you are too.</p>',
 
   /*
    * Metadata
@@ -116,7 +115,7 @@ return array(
   'contactform:required' => 'required',
   'contactform:form:subject' => "Subject",
 
-  'contactform:title' => "GCconnex Help Pages",
+  'contactform:title' => "GCcollab Help Pages",
   'contactform:list' => "<ul class='list-unstyled'> <li> <a href='http://www.gcpedia.gc.ca/wiki/GC2.0_Tools_Help_Centre/GCconnex'>Help centre</a> </li> </ul>",
   'contactform:faq' => "FAQ",
   'contactform:title:lostpwd' => "<a href=' http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_my_password'>Lost password</a>",
@@ -126,7 +125,7 @@ return array(
   'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help_/_How_to_use_Simplified_Sign-on'>Simplified Sign-on</a>",
   'contactform:title:form' => "Contact",
   'contactform:content:form' => "<p>Please see the FAQ and the Help Centre to get instant answers for the most common questions and learn how to use GCcollab like a pro!</p></p>",
-  'contactform:useful' => 'GCconnex Groups that may be useful to you:',
+  'contactform:useful' => 'GCcollab Groups that may be useful to you:',
   'contactform:helpful' => 'Helpful communities',
   'contactform:learn' => 'Learn more about social media',
   'contactform:ambassadors' => 'Ambassadors Network for the GC 2.0 Tools GCconnex Group',
@@ -150,7 +149,7 @@ return array(
   'conatactform:fr:link' => 'French link',
   'conatactform:eng:link' => 'English link',
 
-  'msg:change_access' => "Not all users have access to your content. Since GCconnex wants to be as open as possible, are you sure you need to restrict the access to this content?", //NEW
+  'msg:change_access' => "Not all users have access to your content. Since GCcollab wants to be as open as possible, are you sure you need to restrict the access to this content?", //NEW
 
   'friends:invite' => "Invite to GCcollab",
   'invitefriends:emails' => "Email addresses:",

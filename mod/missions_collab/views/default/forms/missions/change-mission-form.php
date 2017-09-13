@@ -40,6 +40,7 @@ $max_array = array();
 for($i=1;$i<=$max_applicants;$i++) {
 	$max_array[$i-1] = $i;
 }
+$max_array[999] = elgg_echo('missions:max_applicants_unlimited');
 
 $input_name = elgg_view('input/text', array(
 	    'name' => 'name',
@@ -139,7 +140,7 @@ $input_other_area = elgg_view('page/elements/other-text-input', array(
 $input_number_of = elgg_view('input/dropdown', array(
 		'name' => 'number',
 		'value' => $mission->number,
-		'options' => $max_array,
+		'options_values' => $max_array,
 		'id' => 'edit-mission-number-dropdown-input'
 ));
 

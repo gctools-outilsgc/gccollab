@@ -10,7 +10,7 @@ function gc_mobile_api_init() {
 	
 	include elgg_get_plugins_path() . "gc_mobile_api/inc/functions.php";
 
-	$models = array('blog', 'discussion', 'event', 'file', 'group', 'like', 'message', 'user', 'wire', 'login');
+	$models = array('blog', 'discussion', 'event', 'file', 'group', 'like', 'login', 'members', 'message', 'register', 'user', 'wire');
 	foreach( $models as $model ){
 		include elgg_get_plugins_path() . "gc_mobile_api/models/$model.php";
 	}
