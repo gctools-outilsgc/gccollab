@@ -423,38 +423,28 @@ function get_site_data($type, $lang) {
 			"opt_in_student_create" => "missions:student"
 		);
 
+		$yes = elgg_get_metastring_id('gcconnex_profile:opt:yes');
+
 		$map = array();
 		foreach ($optin_types as $optin_type => $index) {
 			$map[$optin_type] = elgg_get_metastring_id($optin_type);
 		}
 
-		$wheres = "";
+		$query = "SELECT count(DISTINCT m.entity_guid) as num FROM elggmetadata m WHERE";
 		foreach ($optin_types as $optin_type => $index) {
-			$wheres .= "(m.name_id='{$map[$optin_type]}' AND m.value_id<>'')";
-			if( $optin_type != end(array_keys($optin_types)) ){
-        		$wheres .= " OR ";
-			}
-		}
+			$temp = $query . " m.name_id={$map[$optin_type]} AND m.value_id={$yes};";
+			$result = get_data($temp)[0];
+			$count = intval($result->num);
 
-		$db_prefix = elgg_get_config('dbprefix');
-		$optins = elgg_get_entities_from_metadata(array(
-			'type' => 'user',
-			'limit' => 0,
-			'joins' => array("JOIN {$db_prefix}metadata m on e.guid = m.owner_guid"),
-			'wheres' => array($wheres)
-		));
-		foreach($optins as $key => $obj){
-			foreach ($optin_types as $optin_type => $index) {
-				if( $obj->$optin_type == 'gcconnex_profile:opt:yes' ){
-					$string = elgg_echo($index, $lang);
-					if(stripos($optin_type, 'create') !== false){
-						$string .= " (" . elgg_echo("missions:offering", $lang) . ")";
-					}
-					if(stripos($optin_type, 'seek') !== false){
-						$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
-					}
-					$data[$string]++;
+			if($count > 0){
+				$string = elgg_echo($index, $lang);
+				if(stripos($optin_type, 'create') !== false){
+					$string .= " (" . elgg_echo("missions:offering", $lang) . ")";
 				}
+				if(stripos($optin_type, 'seek') !== false){
+					$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
+				}
+				$data[$string] = $count;
 			}
 		}
 	} 
