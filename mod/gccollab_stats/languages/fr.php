@@ -46,6 +46,8 @@ $french = array(
     'gccollab_stats:likes:amount' => "Nombre de j\'aimes",
     'gccollab_stats:messages:title' => "Messages",
     'gccollab_stats:messages:amount' => "Nombre de messages",
+    'gccollab_stats:optins:title' => "Inscriptions",
+    'gccollab_stats:optins:amount' => "Nombre d'inscriptions",
 
     'gccollab_stats:ministrymessage' => "Cliquez sur les colonnes pour afficher les ministères de la province ou du territoire",
     'gccollab_stats:schoolmessage' => "Cliquez sur les colonnes pour afficher les différentes écoles",

@@ -398,6 +398,65 @@ function get_site_data($type, $lang) {
 				}
 			}
 		}
+	} else if ($type === 'optins') {
+		$optin_types = array(
+			"opt_in_missions" => "missions:micro_mission",
+			"opt_in_missionCreate" => "missions:micro_mission",
+			"opt_in_swap" => "missions:job_swap",
+			"opt_in_mentored" => "missions:mentoring",
+			"opt_in_mentoring" => "missions:mentoring",
+			"opt_in_shadowed" => "missions:job_shadowing",
+			"opt_in_shadowing" => "missions:job_shadowing",
+			"opt_in_jobshare" => "missions:job_sharing",
+			"opt_in_pcSeek" => "missions:peer_coaching",
+			"opt_in_pcCreate" => "missions:peer_coaching",
+			"opt_in_ssSeek" => "missions:skill_sharing",
+			"opt_in_ssCreate" => "missions:skill_sharing",
+			"opt_in_rotation" => "missions:job_rotation",
+			"opt_in_assignSeek" => "missions:assignment",
+			"opt_in_assignCreate" => "missions:assignment",
+			"opt_in_deploySeek" => "missions:deployment",
+			"opt_in_deployCreate" => "missions:deployment",
+			"opt_in_casual_seek" => "missions:casual",
+			"opt_in_casual_create" => "missions:casual",
+			"opt_in_student_seek" => "missions:student",
+			"opt_in_student_create" => "missions:student"
+		);
+
+		$map = array();
+		foreach ($optin_types as $optin_type => $index) {
+			$map[$optin_type] = elgg_get_metastring_id($optin_type);
+		}
+
+		$wheres = "";
+		foreach ($optin_types as $optin_type => $index) {
+			$wheres .= "(m.name_id='{$map[$optin_type]}' AND m.value_id<>'')";
+			if( $optin_type != end(array_keys($optin_types)) ){
+        		$wheres .= " OR ";
+			}
+		}
+
+		$db_prefix = elgg_get_config('dbprefix');
+		$optins = elgg_get_entities_from_metadata(array(
+			'type' => 'user',
+			'limit' => 0,
+			'joins' => array("JOIN {$db_prefix}metadata m on e.guid = m.owner_guid"),
+			'wheres' => array($wheres)
+		));
+		foreach($optins as $key => $obj){
+			foreach ($optin_types as $optin_type => $index) {
+				if( $obj->$optin_type == 'gcconnex_profile:opt:yes' ){
+					$string = elgg_echo($index, $lang);
+					if(stripos($optin_type, 'create') !== false){
+						$string .= " (" . elgg_echo("missions:offering", $lang) . ")";
+					}
+					if(stripos($optin_type, 'seek') !== false){
+						$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
+					}
+					$data[$string]++;
+				}
+			}
+		}
 	} 
     return $data;
 }
