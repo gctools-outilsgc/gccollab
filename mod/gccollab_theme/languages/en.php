@@ -141,7 +141,6 @@ return array(
 
   'contactform:select' => 'Please select a category',
   'contactform:reason' => 'Select...',
-  'contactform:help_menu_item' => 'Contact / Feedback',
   'contactform:newsletter' => 'Subscribe to the Newsletter',
   'contactform:box:message' => 'Show the information box',
   'conatactform:fr:name' => 'Name of the link in french',

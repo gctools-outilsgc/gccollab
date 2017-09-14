@@ -121,7 +121,7 @@ $breadcrumbs
 </dl>
 </div>
 <div class="col-xs-6 text-right">
-<a href="/mod/contactform/" class="btn btn-primary"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>$feedbackText</a>
+<a href="/help/knowledgebase/" class="btn btn-primary"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>$feedbackText</a>
 </div>
 </div>
 
