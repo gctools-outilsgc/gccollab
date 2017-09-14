@@ -444,6 +444,12 @@ function get_site_data($type, $lang) {
 				if(stripos($optin_type, 'seek') !== false){
 					$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
 				}
+				if($optin_type == "opt_in_mentored"){
+					$string .= " (" . elgg_echo("gcconnex_profile:opt:mentored", $lang) . ")";
+				}
+				if($optin_type == "opt_in_mentoring"){
+					$string .= " (" . elgg_echo("gcconnex_profile:opt:mentoring", $lang) . ")";
+				}
 				$data[$string] = $count;
 			}
 		}
