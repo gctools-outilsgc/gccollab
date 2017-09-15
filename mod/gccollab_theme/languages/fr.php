@@ -123,17 +123,14 @@ return array(
   'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/_Comment_utiliser_la_Connexion_simplifi%C3%A9e'>Connexion simplifiée</a>",
   'contactform:useful' => 'Groupes GCcollab qui pourraient vous être utiles :',
   'contactform:helpful' => 'Communautés utiles',
-  'contactform:ambassadors' => 'Groupe GCconnex du Réseau des ambassadeurs des Outils GC 2.0',
-  'contactform:clicks' => 'Groupe GCconnex des Clics et conseils',
-  'contactform:groupgcconnex' => 'Groupe GCconnex des Outils GC 2.0',
-  'contactform:teamgcpedia' => 'Équipe des Outils GC 2.0 dans GCpédia',
-  'contactform:learn' => 'Pour en savoir plus sur les médias sociaux ',
-  'contactform:collaborating' => 'Collaboration au moyen de GCpédia de l’EFPC (B171)',
-  'contactform:collaborating:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-fra.aspx?courseno=b171%7C"',
-  'contactform:socialmedia' => 'La collaboration au moyen de GCconnex et de GCpédia (B336)',
-  'contactform:socialmedia:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-fra.aspx?courseno=B336"',
-  'contactform:guidance' => '<a href="http://www.gcpedia.gc.ca/gcwiki/images/e/ee/Les_medias_sociaux_au_sein_du_GC.jpg">Lignes directrices à l’intention des employés : Les médias sociaux au sein du GC</a>',
   'contactform:department' => 'Ministère',
+
+  'contactform:group_1' => "GCcollab Café",
+  'contactform:group_1_link' => "https://gccollab.ca/groups/profile/967/engccollab-cafu00e9frgccollab-cafu00e9",
+  'contactform:group_2' => "Coin des propriétaires et des administrateurs de groupes sur GCcollab",
+  'contactform:group_2_link' => "https://gccollab.ca/groups/profile/11776/engccollab-group-owners-and-operators-cornerfrcoin-des-propriu00e9taires-et-des-administrateurs-de-groupes-sur-gccollab",
+  'contactform:group_3' => "Réseau des ambassadeurs étudiant(e)s pour GCcollab",
+  'contactform:group_3_link' => "https://gccollab.ca/groups/profile/5939/engccollab-student-ambassador-networkfrru00e9seau-des-ambassadeurs-u00e9tudiantes-pour-gccollab",
 
   'msg:change_access' => "Ce n’est pas tous les utilisateurs qui ont accès à votre contenu. Puisque GCcollab désire être le plus ouvert possible, êtes-vous certain de vouloir restreindre l’accès à ce contenu?", //NEW
 

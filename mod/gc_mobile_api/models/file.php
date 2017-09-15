@@ -51,7 +51,7 @@ function get_file( $user, $guid, $lang ){
 
 	$file->comments = get_entity_comments($file->guid);
 	
-	$file->userDetails = get_user_block($file->owner_guid);
+	$file->userDetails = get_user_block($file->owner_guid, $lang);
 
 	return $file;
 }

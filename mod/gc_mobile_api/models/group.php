@@ -27,7 +27,7 @@ elgg_ws_expose_function(
 		"filters" => array('type' => 'string', 'required' => false, 'default' => ""),
 		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
-	'Retrieves a group based on user id and group id',
+	'Retrieves groups based on user id',
 	'POST',
 	true,
 	false
@@ -68,7 +68,7 @@ function get_group( $user, $guid, $lang ){
 
 	$group->comments = get_entity_comments($group->guid);
 	
-	$group->userDetails = get_user_block($group->owner_guid);
+	$group->userDetails = get_user_block($group->owner_guid, $lang);
 	$group->description = clean_text(gc_explode_translation($group->description, $lang));
 
 	return $group;
@@ -139,7 +139,7 @@ function get_groups( $user, $limit, $offset, $filters, $lang ){
 		$group->iconURL = $groupObj->geticon();
 		$group->count = $groupObj->getMembers(array('count' => true));
 
-		$group->userDetails = get_user_block($group->owner_guid);
+		$group->userDetails = get_user_block($group->owner_guid, $lang);
 		$group->description = clean_text(gc_explode_translation($group->description, $lang));
 	}
 

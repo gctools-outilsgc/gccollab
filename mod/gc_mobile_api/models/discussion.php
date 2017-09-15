@@ -51,7 +51,7 @@ function get_discussion( $user, $guid, $lang ){
 
 	$discussion->comments = get_entity_comments($discussion->guid);
 
-	$discussion->userDetails = get_user_block($discussion->owner_guid);
+	$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 
 	return $discussion;
 }

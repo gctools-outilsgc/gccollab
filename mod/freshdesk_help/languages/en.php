@@ -6,7 +6,7 @@ return array(
       //search knowledge base
       'freshdesk:knowledge:title' => "Help Content",
       'freshdesk:knowledge:search:title' => "How can we help you today?",
-      'freshdesk:knowledge:search:info' => 'Need help? Search our help content to find information and tutorials that will guide you!<br><br><b>Note:</b> The help content is hosted on Freshdesk, a third-party support tool that allows you to easily search help content articles, as well as submit and track help desk tickets. As you navigate through the help content below, you may be redirected to the Freshdesk website. ',
+      'freshdesk:knowledge:search:info' => 'Need help? Search our help content to find information and tutorials that will guide you!<br><br><b>Note:</b> The help content is hosted on Freshdesk, a third-party support tool that allows you to easily search articles, as well as submit and track help desk tickets. As you navigate through the help content below, you may be redirected to the Freshdesk website. ',
 
       'freshdesk:knowledge:explore:title' => 'Explore our help content',
 

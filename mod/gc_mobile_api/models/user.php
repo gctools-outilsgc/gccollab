@@ -453,10 +453,10 @@ function get_user_data( $profileemail, $user, $lang ){
 	foreach( $activity as $event ){
 		$subject = get_user($event->subject_guid);
 		$object = get_entity($event->object_guid);
-		$event->userDetails = get_user_block($event->subject_guid);
+		$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 		if( $object instanceof ElggUser ){
-			$event->object = get_user_block($event->object_guid);
+			$event->object = get_user_block($event->object_guid, $lang);
 			$event->object['type'] = 'user';
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
@@ -492,7 +492,16 @@ function get_user_data( $profileemail, $user, $lang ){
 
 function get_user_exists( $user, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
-	return ( $user_entity instanceof ElggUser );
+
+	$valid = false;
+	if( $user_entity instanceof ElggUser ){
+		$is_validated = elgg_get_user_validation_status($user->guid);
+		if( $is_validated ){
+			$valid = true;
+		}
+	}
+
+	return $valid;
 }
 
 function get_user_activity( $profileemail, $user, $limit, $offset, $lang ){
@@ -515,10 +524,10 @@ function get_user_activity( $profileemail, $user, $limit, $offset, $lang ){
 	foreach( $activity as $event ){
 		$subject = get_user($event->subject_guid);
 		$object = get_entity($event->object_guid);
-		$event->userDetails = get_user_block($event->subject_guid);
+		$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 		if( $object instanceof ElggUser ){
-			$event->object = get_user_block($event->object_guid);
+			$event->object = get_user_block($event->object_guid, $lang);
 			$event->object['type'] = 'user';
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
@@ -655,7 +664,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				));
 				$blog->liked = count($liked) > 0;
 
-				$blog->userDetails = get_user_block($blog->owner_guid);
+				$blog->userDetails = get_user_block($blog->owner_guid, $lang);
 
 				$group = get_entity($blog->container_guid);
 				$blog->group = gc_explode_translation($group->name, $lang);
@@ -729,7 +738,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				));
 				$wire->thread = count($has_thread) > 1;
 
-				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->userDetails = get_user_block($wire->owner_guid, $lang);
 				$wire->description = wire_filter($wire->description);
 			}
 	        break;
@@ -764,7 +773,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 					$discussion->object->name = gc_explode_translation($discussion->object->name, $lang);
 				}
 
-				$discussion->userDetails = get_user_block($discussion->owner_guid);
+				$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 			}
 	        break;
 	    case "newsfeed":
@@ -836,7 +845,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 		    foreach( $activity as $event ){
 				$subject = get_user($event->subject_guid);
 				$object = get_entity($event->object_guid);
-				$event->userDetails = get_user_block($event->subject_guid);
+				$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $event->object_guid,
@@ -856,7 +865,7 @@ function get_user_posts( $user, $type, $limit, $offset, $lang ){
 				}
 
 				if( $object instanceof ElggUser ){
-					$event->object = get_user_block($event->object_guid);
+					$event->object = get_user_block($event->object_guid, $lang);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
@@ -995,7 +1004,7 @@ function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset,
 				));
 				$blog->liked = count($liked) > 0;
 
-				$blog->userDetails = get_user_block($blog->owner_guid);
+				$blog->userDetails = get_user_block($blog->owner_guid, $lang);
 			}
 	        break;
 	    case "wire":
@@ -1059,7 +1068,7 @@ function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset,
 				));
 				$wire->replied = count($replied) > 0;
 
-				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->userDetails = get_user_block($wire->owner_guid, $lang);
 				$wire->description = wire_filter($wire->description);
 			}
 	        break;
@@ -1093,7 +1102,7 @@ function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset,
 				));
 				$discussion->liked = count($liked) > 0;
 				
-				$discussion->userDetails = get_user_block($discussion->owner_guid);
+				$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 			}
 	        break;
 	    case "newsfeed":
@@ -1165,10 +1174,10 @@ function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset,
 		    foreach( $activity as $event ){
 				$subject = get_user($event->subject_guid);
 				$object = get_entity($event->object_guid);
-				$event->userDetails = get_user_block($event->subject_guid);
+				$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 				if( $object instanceof ElggUser ){
-					$event->object = get_user_block($event->object_guid);
+					$event->object = get_user_block($event->object_guid, $lang);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';

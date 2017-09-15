@@ -125,8 +125,8 @@ function get_message( $user, $guid, $lang ){
 	$messageObj = get_entity($message->guid);
 	$message->read = intval($messageObj->readYet);
 
-	$message->fromUserDetails = get_user_block($messageObj->fromId);
-	$message->toUserDetails = get_user_block($messageObj->toId);
+	$message->fromUserDetails = get_user_block($messageObj->fromId, $lang);
+	$message->toUserDetails = get_user_block($messageObj->toId, $lang);
 
 	$message->description = utf8_decode($message->description);
 	$message->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $message->description);
@@ -160,8 +160,8 @@ function get_messages( $user, $limit, $offset, $lang ){
 		$messageObj = get_entity($object->guid);
 		$object->read = intval($messageObj->readYet);
 
-		$object->fromUserDetails = get_user_block($messageObj->fromId);
-		$object->toUserDetails = get_user_block($messageObj->toId);
+		$object->fromUserDetails = get_user_block($messageObj->fromId, $lang);
+		$object->toUserDetails = get_user_block($messageObj->toId, $lang);
 
 		$object->description = utf8_decode($object->description);
 		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);
@@ -193,8 +193,8 @@ function get_sent_messages( $user, $limit, $offset, $lang ){
 		$messageObj = get_entity($object->guid);
 		$object->read = intval($messageObj->readYet);
 
-		$object->fromUserDetails = get_user_block($messageObj->fromId);
-		$object->toUserDetails = get_user_block($messageObj->toId);
+		$object->fromUserDetails = get_user_block($messageObj->fromId, $lang);
+		$object->toUserDetails = get_user_block($messageObj->toId, $lang);
 
 		$object->description = utf8_decode($object->description);
 		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);
@@ -227,8 +227,8 @@ function get_notifications( $user, $limit, $offset, $lang ){
 		$messageObj = get_entity($object->guid);
 		$object->read = intval($messageObj->readYet);
 
-		$object->fromUserDetails = get_user_block($messageObj->fromId);
-		$object->toUserDetails = get_user_block($messageObj->toId);
+		$object->fromUserDetails = get_user_block($messageObj->fromId, $lang);
+		$object->toUserDetails = get_user_block($messageObj->toId, $lang);
 
 		$object->description = utf8_decode($object->description);
 		$object->description = str_replace(array("<html>", "</html>", "<body>", "</body>"), "", $object->description);

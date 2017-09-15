@@ -3,7 +3,7 @@
  * GC Mobile API functions.php
  */
 
-function get_user_block( $userid ){
+function get_user_block( $userid, $lang = "en" ){
 	$user_entity = is_numeric($userid) ? get_user($userid) : ( strpos($userid, '@') !== FALSE ? get_user_by_email($userid)[0] : get_user_by_username($userid) );
 
 	if( !$user_entity )
@@ -19,6 +19,69 @@ function get_user_block( $userid ){
 	$user['profileURL'] = $user_entity->getURL();
 	$user['iconURL'] = $user_entity->geticon();
 	$user['dateJoined'] = date("Y-m-d H:i:s", $user_entity->time_created);
+
+	$userType = $user_entity->user_type;
+	$user['user_type'] = elgg_echo("gcRegister:occupation:{$userType}", $lang);
+	$department = "";
+
+	if( $userType == 'federal' ){
+	    $deptObj = elgg_get_entities(array(
+	        'type' => 'object',
+	        'subtype' => 'federal_departments',
+	    ));
+	    $depts = get_entity($deptObj[0]->guid);
+
+	    $federal_departments = array();
+	    if ($lang == 'en'){
+	        $federal_departments = json_decode($depts->federal_departments_en, true);
+	    } else {
+	        $federal_departments = json_decode($depts->federal_departments_fr, true);
+	    }
+
+	    $department = $federal_departments[$user_entity->federal];
+
+	// otherwise if user is student or academic
+	} else if( $userType == 'student' || $userType == 'academic' ){
+	    $institution = $user_entity->institution;
+	    $department = ($institution == 'university') ? $user_entity->university : ($institution == 'college' ? $user_entity->college : $user_entity->highschool);
+
+	// otherwise if user is provincial employee
+	} else if( $userType == 'provincial' ){
+	    $provObj = elgg_get_entities(array(
+	        'type' => 'object',
+	        'subtype' => 'provinces',
+	    ));
+	    $provs = get_entity($provObj[0]->guid);
+
+	    $provinces = array();
+	    if ($lang == 'en'){
+	        $provinces = json_decode($provs->provinces_en, true);
+	    } else {
+	        $provinces = json_decode($provs->provinces_fr, true);
+	    }
+
+	    $minObj = elgg_get_entities(array(
+	        'type' => 'object',
+	        'subtype' => 'ministries',
+	    ));
+	    $mins = get_entity($minObj[0]->guid);
+
+	    $ministries = array();
+	    if ($lang == 'en'){
+	        $ministries = json_decode($mins->ministries_en, true);
+	    } else {
+	        $ministries = json_decode($mins->ministries_fr, true);
+	    }
+
+	    $department = $provinces[$user_entity->provincial];
+	    if($user_entity->ministry && $user_entity->ministry !== "default_invalid_value"){ $department .= ' / ' . $ministries[$user_entity->provincial][$user_entity->ministry]; }
+
+	// otherwise show basic info
+	} else {
+	    $department = $user_entity->$userType;
+	}
+	$user['organization'] = $department;
+	$user['job'] = $user_entity->job;
 
 	return $user;
 }
