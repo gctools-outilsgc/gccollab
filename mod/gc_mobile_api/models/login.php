@@ -62,8 +62,8 @@ elgg_ws_expose_function(
 );
 
 function login_user( $user, $password, $lang ){
-	$user_entity = get_user_by_email($user);
-	$username = $user_entity[0]->username;
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+	$username = $user_entity->username;
 	$access = elgg_authenticate($username, $password);
 
 	if( true === $access ){
@@ -74,49 +74,43 @@ function login_user( $user, $password, $lang ){
 }
 
 function login_user_for_chat( $user, $key, $lang ){
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+
 	$response = file_get_contents('https://api.gctools.ca/login.ashx?action=login&email=' . $user . '&key=' . $key);
 	$json = json_decode($response);
 
 	if( $json->GCcollabAccess ){
-		$email = get_user_by_email($user)[0];
-
-		if( $email ){
-			login($email);
-			forward('cometchat/cometchat_embedded.php');
-		}
+		login($user_entity);
+		forward('cometchat/cometchat_embedded.php');
 	} else {
 		return "Invalid user key.";
 	}
 }
 
 function login_user_for_docs( $user, $key, $guid, $lang ){
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+
 	$response = file_get_contents('https://api.gctools.ca/login.ashx?action=login&email=' . $user . '&key=' . $key);
 	$json = json_decode($response);
 
 	if( $json->GCcollabAccess ){
-		$email = get_user_by_email($user)[0];
-
-		if( $email ){
-			login($email);
-			$docObj = new ElggPad($guid);
-			forward($docObj->getPadPath());
-		}
+		login($user_entity);
+		$docObj = new ElggPad($guid);
+		forward($docObj->getPadPath());
 	} else {
 		return "Invalid user key.";
 	}
 }
 
 function login_user_for_url( $user, $key, $url, $lang ){
+	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+	
 	$response = file_get_contents('https://api.gctools.ca/login.ashx?action=login&email=' . $user . '&key=' . $key);
 	$json = json_decode($response);
 
 	if( $json->GCcollabAccess ){
-		$email = get_user_by_email($user)[0];
-
-		if( $email ){
-			login($email);
-			forward($url);
-		}
+		login($email);
+		forward($url);
 	} else {
 		return "Invalid user key.";
 	}

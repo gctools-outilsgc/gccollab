@@ -185,7 +185,7 @@ function cp_overwrite_notification_hook($hook, $type, $value, $params) {
 			return true;
 
 		case 'cp_group_invite_email':	// group_tools/lib/functions.php (returns user's email, so return after mail is sent out)
-			$subject = elgg_echo('cp_notify:subject:group_invite_email',array($params['cp_inviter']['name'],$params['cp_group_invite']['name']),'en') . ' | ' . elgg_echo('cp_notify:subject:group_invite_email',array($params['cp_inviter']['name'],$params['cp_group_invite']['name']),'fr');
+			$subject = elgg_echo('cp_notify:subject:group_invite_email',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_group_invite']['name'],'en')),'en') . ' | ' . elgg_echo('cp_notify:subject:group_invite_email',array($params['cp_inviter']['name'],gc_explode_translation($params['cp_group_invite']['name'],'fr')),'fr');
 			$subject = htmlspecialchars_decode($subject,ENT_QUOTES);
 			$message = array(
 				'cp_email_invited' => $params['cp_invitee'],

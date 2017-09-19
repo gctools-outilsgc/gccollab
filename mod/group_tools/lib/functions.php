@@ -91,12 +91,12 @@ function group_tools_invite_user(ElggGroup $group, ElggUser $user, $text = "", $
 			
 			$subject = elgg_echo("groups:invite:subject", array(
 				$user->name,
-				$group->name
+				gc_explode_translation($group->name, $lang)
 			));
 			$msg = elgg_echo("group_tools:groups:invite:body", array(
 				$user->name,
 				$loggedin_user->name,
-				$group->name,
+				gc_explode_translation($group->name, $lang),
 				$text,
 				$url
 			));
