@@ -1560,8 +1560,8 @@ function cp_membership_request($event, $type, $object) { 	// MUST always be send
 		'cp_msg_type' => 'cp_closed_grp_req_type',
 	);
 	$template = elgg_view('cp_notifications/email_template', $message);
-	$subject = elgg_echo('cp_notify:subject:group_request',array($request_user->name, $group_request->name),'en');
-	$subject .= ' | '.elgg_echo('cp_notify:subject:group_request',array($request_user->name, $group_request->name),'fr');
+	$subject = elgg_echo('cp_notify:subject:group_request',array($request_user->name, gc_explode_translation($group_request->name, get_current_language())),'en');
+	$subject .= ' | '.elgg_echo('cp_notify:subject:group_request',array($request_user->name, gc_explode_translation($group_request->name, get_current_language())),'fr');
 
 	$to_user = get_user($group_request->owner_guid);
 	if (elgg_is_active_plugin('phpmailer')) {
