@@ -36,22 +36,127 @@ function gccollab_theme_init() {
 		'text' => elgg_echo('career') . '<span class="expicon glyphicon glyphicon-chevron-down"></span>'
     ));
 
-    elgg_register_page_handler('about', 'expages_page_handler');        
-    elgg_register_page_handler('a_propos', 'expages_page_handler');
+    elgg_register_page_handler('about', 'expages_collab_page_handler');        
+    elgg_register_page_handler('a_propos', 'expages_collab_page_handler');
 
-    elgg_register_page_handler('terms', 'expages_page_handler');
-    elgg_register_page_handler('termes', 'expages_page_handler');   
+    elgg_register_page_handler('terms', 'expages_collab_page_handler');
+    elgg_register_page_handler('termes', 'expages_collab_page_handler');   
 
-    elgg_register_page_handler('privacy', 'expages_page_handler');
-    elgg_register_page_handler('confidentialite', 'expages_page_handler');
+    elgg_register_page_handler('privacy', 'expages_collab_page_handler');
+    elgg_register_page_handler('confidentialite', 'expages_collab_page_handler');
 
-    elgg_register_page_handler('faq', 'expages_page_handler');
-    elgg_register_page_handler('qfp', 'expages_page_handler');
+    elgg_register_page_handler('faq', 'expages_collab_page_handler');
+    elgg_register_page_handler('qfp', 'expages_collab_page_handler');
 
-    elgg_register_page_handler('participating_organizations', 'expages_page_handler');
-    elgg_register_page_handler('organismes_participants', 'expages_page_handler');
+    elgg_register_page_handler('participating_organizations', 'expages_collab_page_handler');
+    elgg_register_page_handler('organismes_participants', 'expages_collab_page_handler');
+
+    // Register public external pages
+    elgg_register_plugin_hook_handler('public_pages', 'walled_garden', 'expages_collab_public');
+
+    elgg_register_plugin_hook_handler('register', 'menu:expages', 'expages_collab_menu_register_hook');
+
+    // add footer links
+    expages_collab_setup_footer_menu();
 }
 
+/**
+ * Extend the public pages range
+ *
+ */
+function expages_collab_public($hook, $handler, $return, $params){
+    $pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants', 'help/knowledgebase');     // GCChange change - Ilia: Bilingual page url
+    return array_merge($pages, $return);
+}
+
+/**
+ * Setup the links to site pages
+ */
+function expages_collab_setup_footer_menu() {
+    $pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants', 'help/knowledgebase');     // GCChange change - Ilia: Bilingual page url
+    
+    foreach ($pages as $page) {
+        $url = "$page";
+        $wg_item = new ElggMenuItem($page, elgg_echo("expages:$page"), $url);
+        elgg_register_menu_item('walled_garden', $wg_item);
+
+        $footer_item = clone $wg_item;
+        elgg_register_menu_item('footer', $footer_item);
+    }
+}
+
+/**
+ * External pages page handler
+ *
+ * @param array  $page    URL segements
+ * @param string $handler Handler identifier
+ * @return bool
+ */
+function expages_collab_page_handler($page, $handler) {
+    if ($handler == 'expages') {
+        expages_url_forwarder($page[1]);
+    }
+    $type = strtolower($handler);
+
+    $title = elgg_echo("expages:$type");
+    $header = elgg_view_title($title);
+
+    $object = elgg_get_entities(array(
+        'type' => 'object',
+        'subtype' => $type,
+        'limit' => 1,
+    ));
+    if ($object) {
+        $content .= elgg_view('output/longtext', array('value' => $object[0]->description));
+    } else {
+        $content .= elgg_echo("expages:notset");
+    }
+    $content = elgg_view('expages/wrapper', array('content' => $content));
+    
+    if (elgg_is_admin_logged_in()) {
+        elgg_register_menu_item('title', array(
+            'name' => 'edit',
+            'text' => elgg_echo('edit'),
+            'href' => "admin/appearance/expages?type=$type",
+            'link_class' => 'elgg-button elgg-button-action',
+        ));
+    }
+
+    if (elgg_is_logged_in() || !elgg_get_config('walled_garden')) {
+        $body = elgg_view_layout('one_column', array('title' => $title, 'content' => $content));
+        echo elgg_view_page($title, $body);
+    } else {
+        elgg_load_css('elgg.walled_garden');
+        $body = elgg_view_layout('walled_garden', array('content' => $header . $content));
+        echo elgg_view_page($title, $body, 'walled_garden');
+    }
+    return true;
+}
+
+/**
+ * Adds menu items to the expages edit form
+ *
+ * @param string $hook   'register'
+ * @param string $type   'menu:expages'
+ * @param array  $return current menu items
+ * @param array  $params parameters
+ * 
+ * @return array
+ */
+function expages_collab_menu_register_hook($hook, $type, $return, $params) {
+    $type = elgg_extract('type', $params);
+        
+    $pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');
+    foreach ($pages as $page) {
+        $return[] = ElggMenuItem::factory(array(
+            'name' => $page,
+            'text' => elgg_echo("expages:$page"),
+            'href' => "admin/appearance/expages?type=$page",
+            'selected' => $page === $type,
+        ));
+    }
+    return $return;
+}
 
 // function that handles moving jobs marketplace and micro missions into drop down menu
 function career_menu_hander($hook, $type, $menu, $params){

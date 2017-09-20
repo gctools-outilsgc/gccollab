@@ -61,28 +61,15 @@ return array(
     "wet:messagedd:no_results"=>"You're all caught up!",
 
     'newsfeed:filter' => "Filter your News Feed",
-  'newsfeed:label' => "Show colleague connections on your News Feed",
-  'wet:login_engage_0'=>'Join your colleagues across Canada to something something something dark side!',
-  'wet:login_engage_1'=>'Share your knowledge and ideas.',
-  'wet:login_engage_2'=>'Find people you need. The opportunities you want.',
-  'wet:login_engage_3'=>'Promote government-wide GC activities.',
-  'wet:login_welcome'=>'Welcome to GCconnex',
-    'wet:jobs:link' => 'jobs.gc.ca <i class="fa fa-external-link mrgn-lft-sm"></i>',
-    'wet:jobs:href' => "http://jobs-emplois.gc.ca/index-eng.htm",
-
-  'wet:login:departments'=>"<span class=\"login-big-num\">174</span> Organizations across Canada",
-  'wet:login:discussions'=>"<span class=\"login-big-num\">%s</span> Discussions happening right now",
-
-  "wet:messagedd:no_results"=>"You're all caught up!",
-
-  'newsfeed:do' => "Colleague connections will no longer display on your News Feed.",
-  'newsfeed:undo' => "Colleague connections will now display on your News Feed.",
-  'newsfeed:filter:title' => "News Feed settings",
-/**
-*notice section
-*/
-'notice:title' => 'GCconnex... reimagined for you!',
-'notice:paragraphe' => '<p>Over the next few weeks, you may notice changes on GCconnex as we try-out the new features and tweak current functionalities to make your online collaboration and networking easier, faster and more fun.</p>
+    'newsfeed:label' => "Remove colleague connections from your News Feed",
+    'newsfeed:do' => "Colleague connections will no longer display on your News Feed.",
+    'newsfeed:undo' => "Colleague connections will now display on your News Feed.",
+    'newsfeed:filter:title' => "News Feed settings",
+  /**
+  *notice section
+  */
+  'notice:title' => 'GCconnex... reimagined for you!',
+  'notice:paragraphe' => '<p>Over the next few weeks, you may notice changes on GCconnex as we try-out the new features and tweak current functionalities to make your online collaboration and networking easier, faster and more fun.</p>
 
   <p>We would like to thank you in advance for your understanding as we work through any bugs or issues that may arise.  We are extremely excited about the new GCconnex and hope you are too.</p>
 
@@ -92,25 +79,25 @@ return array(
    *  Metadata
    */
 
-    'meta:desc' => 'GCcollab Lorem ipsum dolor sit amet porta fusce lacus mattis. Sem integer bibendum. Erat sed posuere turpis mauris arcu. Id vehicula euismod. Malesuada vitae maecenas nulla hac urna. Non vestibulum tincidunt nec amet vel. Vel fringilla mi. Vivamus odio neque at non vulputate eget ut quam in vestibulum accumsan facilisis mi sodales.',
+   'meta:desc' => 'GCconnex is a professional networking and collaborative workspace for all public service, allowing people to connect and share information, leveraging the power of networking towards a more effective and efficient public service.',
 
 
    /**
-     * Custom Activity Widget
-     */
-     'wetActivity:nocollorgroup'=>"To get started you can browse or search for groups related to your work and interests. Join some groups to start seeing activity.",
-     'wetActivity:welcome'=>"Welcome to GCcollab",
-     'wetActivity:browsegroups'=>"Start Browsing Groups",
+    * Custom Activity Widget
+    */
+    'wetActivity:nocollorgroup'=>"To get started you can browse or search for groups related to your work and interests. Join some groups to start seeing activity.",
+    'wetActivity:welcome'=>"Welcome to GCconnex",
+    'wetActivity:browsegroups'=>"Start Browsing Groups",
 
     'wet4:colandgroupactivity'=>'Your News feed',
-    'wet4:colandgroupactivitynolog'=>'Welcome to GCcollab',
+    'wet4:colandgroupactivitynolog'=>'Welcome to GCconnex',
 
 
 /*Login lang*/
-    'wet:loginok' => "Welcome  to GCcollab %s.", /*NEW*/
+    'wet:loginok' => "Welcome  to GCconnex %s.", /*NEW*/
 
     'wet4:noticetitle' => 'Notice',
-    'wet4:homenotice' => 'Welcome to GCcollab, the Government of Canada&#39;s professional social networking platform. ',
+    'wet4:homenotice' => 'Welcome to GCconnex, the Government of Canada&#39;s professional social networking platform. The purpose of GCconnex is to enable public servants to connect and collaborate based on shared interests, knowledge, and experience. GCconnex is to be used for activities related to the workplace and should not be used as a replacement for personal social networks (such as Facebook).',
 
 
     'wet_mygroups:my_groups' => "My Groups",
@@ -120,49 +107,35 @@ return array(
     /* Register text */
 
     'gcconnex:registerText' => '
-<h3>Welcome to GCcollab! </h3>
-Open to Academics, Students and Public Servants across the country, GCcollab is your collaborative and networking space. Join the conversation!
-<a href="'.$site_url.'terms">Terms and Conditions of Use</a>',
+    <h3>Welcome to GCconnex! </h3>
+    GCconnex is a professional networking and collaborative workspace for all public service, allowing people to connect and share information, leveraging the power of networking towards a more effective and efficient public service.<br>
+    <a href="'.$site_url.'terms-termes">Terms and Conditions of Use</a>',
 
-/**
-*Contact page / FAQ
-*/
-  'contactform:help' => 'Help',
-  'contactform:upload' => 'Upload your file',
-  'contactform:required' => 'required',
-  'contactform:form:subject' => "Subject",
-  'contactform:title' => "GCconnex Help Pages",
-  'contactform:list' => "<ul class='list-unstyled'> <li> <a href='http://www.gcpedia.gc.ca/wiki/GC2.0_Tools_Help_Centre/GCconnex'>Help centre</a> </li> </ul>",
-  'contactform:faq' => "FAQ",
-  'contactform:title:lostpwd' => "<a href=' http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_my_password'>Lost password</a>",
-  'contactform:title:lostuser' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_your_username'>Lost username</a>",
-  'contactform:title:create' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_create_an_account_on_GCconnex'>Create account</a>",
-  'contactform:title:picture' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_edit_your_personal_profile#Editing_your_personal_profile'>Upload profile picture</a>",
-  'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help_/_How_to_use_Simplified_Sign-on'>Simplified Sign-on</a>",
-  'contactform:title:form' => "Contact",
-  'contactform:content:form' => "<p>Please see the FAQ and the Help Centre to get instant answers for the most common questions and learn how to use GCcollab like a pro!</p></p>",
-  'contactform:useful' => 'GCconnex Groups that may be useful to you:',
-  'contactform:helpful' => 'Helpful communities',
-  'contactform:learn' => 'Learn more about social media',
-  'contactform:ambassadors' => 'Ambassadors Network for the GC 2.0 Tools GCconnex Group',
-  'contactform:clicks' => 'Clicks and Tips GCconnex Group',
-  'contactform:groupgcconnex' => 'GC 2.0 Tools GCconnex Group',
-  'contactform:teamgcpedia' => 'GC 2.0 Tools Team on GCpedia',
-  'contactform:collaborating' => ' CSPS’s Collaborating Using GCpedia (B171) ',
-  'contactform:collaborating:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=b171%7C"',
-  'contactform:socialmedia' => 'Collaborating Using GCconnex and GCpedia (B336)',
-  'contactform:socialmedia:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=B336"',
-  'contactform:guidance' => '<a href="http://www.gcpedia.gc.ca/gcwiki/images/b/b5/Social_Media_in_the_GC.jpg">Guidance for employees : Social Media in the GC context</a>',
-  'contactform:department' => 'Department',
-  'contactform:select' => 'Please select a category',
-  'contactform:reason' => 'Select...',
-  'contactform:help_menu_item' => 'Contact / Feedback',
-  'contactform:newsletter' => 'Subscribe to the Newsletter',
-  'contactform:box:message' => 'Show the information box',
-  'conatactform:fr:name' => 'Name of the link in french',
-  'conatactform:eng:name' => 'Name of the link in english',
-  'conatactform:fr:link' => 'French link',
-  'conatactform:eng:link' => 'English link',
+//contactform
+
+    'contactform:title' => "GCconnex Help Pages",
+    'contactform:list' => "<ul class='list-unstyled'><li> <a href='http://www.gcpedia.gc.ca/wiki/GC2.0_Tools_Help_Centre/GCconnex'>Help centre</a> </li></ul>",
+    'contactform:title:lostpwd' => "<a href=' http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_my_password'>Lost password</a>",
+    'contactform:title:lostuser' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_retrieve_your_username'>Lost username</a>",
+    'contactform:title:create' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_create_an_account_on_GCconnex'>Create account</a>",
+    'contactform:title:picture' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/How_to_edit_your_personal_profile#Editing_your_personal_profile'>Upload profile picture</a>",
+    'contactform:title:sign-on' => "<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help_/_How_to_use_Simplified_Sign-on'>Simplified Sign-on</a>",
+    'contactform:content:form' => "<p>Please see the FAQ and the Help Centre to get instant answers for the most common questions and learn how to use GCconnex like a pro!</p><p>Can't find the answer you are looking for? Contact the GCconnex Help Desk by filling out the form below. Please be clear as possible in describing your question or issue, and provide a screenshot where possible. A GCTools Unit Support Officer will respond to your inquiry within two (2) business days.</p>",
+    'contactform:useful' => 'GCconnex Groups that may be useful to you:',
+    'contactform:helpful' => 'Helpful communities',
+    'contactform:ambassadors' => 'Ambassadors Network for the GC 2.0 Tools GCconnex Group',
+    'contactform:clicks' => 'Clicks and Tips GCconnex Group',
+    'contactform:groupgcconnex' => 'GC 2.0 Tools GCconnex Group',
+    'contactform:teamgcpedia' => 'GC 2.0 Tools Team on GCpedia',
+
+    'contactform:learn' => 'Learn more about social media',
+    'contactform:collaborating' => ' CSPS’s Collaborating Using GCpedia (B171) ',
+    'contactform:collaborating:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=b171%7C"',
+    'contactform:socialmedia' => 'Collaborating Using GCconnex and GCpedia (B336)',
+    'contactform:socialmedia:link' => '"http://www.csps-efpc.gc.ca/forlearners/coursesandprograms/CourseDetail-eng.aspx?courseno=B336"',
+    'contactform:guidance' => '<a href="http://www.gcpedia.gc.ca/gcwiki/images/b/b5/Social_Media_in_the_GC.jpg">Guidance for employees : Social Media in the GC context</a>',
+    'contactform:department' => 'Department',
+    'contactform:newsletter' => 'Subscribe to the Newsletter',
 
     'msg:change_access' => "Not all users have access to your content. Since GCconnex wants to be as open as possible, are you sure you need to restrict the access to this content?", //NEW
 );

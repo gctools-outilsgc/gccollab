@@ -1,141 +1,203 @@
-<?php
-
+<?PHP
 /*
- * Contact forum that's been overwritten from .../mod/contactform/...
- * Modified by Christine - The current module does not use Elgg's function to send email out
- */
+    Contact Form from HTML Form Guide
+    This program is free software published under the
+    terms of the GNU Lesser General Public License.
+    See this page for more info:
+    http://www.html-form-guide.com/contact-form/creating-a-contact-form.html
+*/
 
-$current_user = elgg_get_logged_in_user_entity();
+if (elgg_is_logged_in()) {
+	$user = elgg_get_logged_in_user_entity();
+	$sender_name = $user->name;
+	$sender_email = $user->email;
+    $sender_depart = $user->department;
 
-$user_fullname = $current_user->name;
-$user_email = $current_user->email;
-$user_department = $current_user->department;
+}
 
-$email = elgg_get_plugin_setting('email','contactform');
+$path = require_once("./include/fgcontactform.php");
+//require_once("./include/simple-captcha.php");
+$email=elgg_get_plugin_setting('email','contactform');
+//$list1=elgg_get_plugin_setting('list1','contactform');
+$formproc = new FGContactForm();
+//$sim_captcha = new FGSimpleCaptcha('scaptcha');
+//$formproc->EnableCaptcha($sim_captcha);
+
+//1. Add your email address here.
+//You can add more than one receipients.
+ $formproc->AddRecipient($email); //<<---Put your email address here
+
+//2. For better security. Get a random tring from this link: http://tinyurl.com/randstr
+// and put it here
+$formproc->SetFormRandomKey('CnRrspl1FyEylUj');
+
+$formproc->AddFileUploadField('photo','jpg,jpeg,gif,png,pdf,doc,docx,rar,zip',5120);
+// Get post_max_size and upload_max_filesize
+$post_max_size = elgg_get_ini_setting_in_bytes('post_max_size');
+$upload_max_filesize = elgg_get_ini_setting_in_bytes('upload_max_filesize');
+
+// Determine the correct value
+$max_upload = $upload_max_filesize > $post_max_size ? $post_max_size : $upload_max_filesize;
+$upload_limit = elgg_echo('file:upload_limit', array(elgg_format_bytes($max_upload)));
+
+if(isset($_POST['submitted']))
+{
+   if($formproc->ProcessForm())
+   {
+	system_messages(elgg_echo('contactform:thankyoumsg'));
+	forward("mod/contactform");
+   // forward(elgg_get_site_url());
+   }
+}
+//get value
+if (elgg_is_logged_in() && $formproc->SafeDisplay('name') == ''){
+    $name = $sender_name;
+}else{
+    $name = $formproc->SafeDisplay('name');
+}
+
+if (elgg_is_logged_in() && $formproc->SafeDisplay('email') == ''){
+    $email = $sender_email;
+}else{
+    $email = $formproc->SafeDisplay('email');
+}
+
+if (elgg_is_logged_in() && $formproc->SafeDisplay('depart') == ''){
+    $depart = $sender_depart;
+}else{
+    $depart = $formproc->SafeDisplay('depart');
+}
 
 ?>
+<script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
 
+<script>
+
+    $(document).ready(function (){
+            $("#reason").change(function() {
+                // foo is the id of the other select box 
+                if ($(this).val() == "Autres$Other") {
+                    $("#subject").show();
+                }else{
+                    $("#subject").hide();
+                } 
+            });
+        });
+
+</script>
+
+<div><?php echo $formproc->GetErrorMessage(); ?></div>
 
 <section class="panel panel-default">
-    <!-- title/header of the form -->
     <header class="panel-heading">
-        <h3 class="panel-title"><?php echo elgg_echo('contactform:title:form'); ?></h3>
-    </header>
+		<h3 class="panel-title"><?php echo elgg_echo('contactform:title:form'); ?></h3>
+	</header>
     
-
-<?php 
-    $disable_feedback = elgg_get_plugin_setting('disable_feedback','contactform');
-    $english_notice = elgg_get_plugin_setting('disable_feedback_message_en','contactform');
-    $french_notice = elgg_get_plugin_setting('disable_feedback_message_fr','contactform');
-    if (strcmp($disable_feedback,'yes') == 0) {
-
-        if (strcmp($_COOKIE['connex_lang'], 'fr') == 0 )
-            echo "<div align='center' style='padding:5px 5px 5px 5px;'> {$french_notice} </div>";
-        else
-            echo "<div align='center' style='padding:5px 5px 5px 5px;'> {$english_notice} </div>";
-    
-    } else {
-?>
     <div class="panel-body mrgn-lft-md">
         <?php echo elgg_echo('contactform:content:form'); ?>
-        
-        <?php 
-            $site = elgg_get_site_entity();
-            // security, all forms need tokens when action is called
-            $__elgg_ts = time();
-            $__elgg_token = generate_action_token($__elgg_ts);
-        ?>
-        <form action="<?php echo "{$site->url}action/contactform/send_feedback"; ?>">        
-            <input type="hidden" name="__elgg_ts" value="<?php echo $__elgg_ts; ?>" />
-            <input type="hidden" name="__elgg_token" value="<?php echo $__elgg_token; ?>" />
-            
-            <!-- the following are the inputs for information -->
-            <!-- full name -->
-            <div class='form-group'>
-                <label for='name' class="required"><span class="field-name"><?php echo elgg_echo('contactform:fullname'); ?></span></label>
-            <?php
-                echo elgg_view('input/text', array(
-                    'name' => 'name',
-                    'id' => 'name',
-                    'value' => $user_fullname,
-                    'required' => true 
-                ));
-            ?>
-             </div>
+        <form id='contactus' action='<?php echo $formproc->GetSelfScript(); ?>' enctype="multipart/form-data" method='post' accept-charset='UTF-8'>
+                <input type='hidden' name='submitted' id='submitted' value='1' />
+                <input type='hidden' name='<?php echo $formproc->GetFormIDInputName(); ?>' value='<?php echo $formproc->GetFormIDInputValue(); ?>' />
+                <div class='form-group'>
+                    <label for='name' class="required"><span class="field-name"><?php echo elgg_echo('contactform:fullname'); ?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label>
+                        <input type='text' name='name' id='name' class="form-control" value='<?php echo $name; ?>' /><br />
+                        <!--<span id='contactus_name_errorloc' class='error'></span>-->
+                 </div>
 
-            <!-- email address -->
-            <div class='form-group'>
-                <label for='email' class="required"><span class="field-name"><?php echo elgg_echo('contactform:email'); ?></span></label>
-            
-            <?php
-                echo elgg_view('input/text', array(
-                    'name' => 'email',
-                    'id' => 'email',
-                    'value' => $user_email,
-                    'required' => true
-                ));
-            ?>
-            </div>
+                <div class='form-group'>
+                    <label for='email' class="required"><span class="field-name"><?php echo elgg_echo('contactform:email'); ?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label>
 
-            <!-- department -->
-            <div class='form-group'>
-                <label for='depart' class="required"><span class="field-name"><?php echo elgg_echo('contactform:department'); ?></span></label>
-            <?php
-                echo elgg_view('input/text', array(
-                    'name' => 'depart',
-                    'id' => 'depart',
-                    'value' => $user_department,
-                    'required' => true
-                ));
-            ?>
-            </div>
+                    <input type='text' name='email' class="form-control" id='email' value='<?php echo $email; ?>' /><br />
+                    <span id='contactus_email_errorloc' class='error'></span>
+                </div>
 
-            <!-- category -->
-            <div class='form-group'>
-                <label for='reason' class="required"><span class="field-name"><?php echo elgg_echo('contactform:select'); ?></span></label><br />
-            <?php
+                <div class='form-group'>
+                    <label for='depart' class="required"><span class="field-name"><?php echo elgg_echo('contactform:department'); ?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label>
 
-                // get the selected language
-                if (strcmp($SESSION['language'], 'fr') == 0 )
-                    $language_selected = 'francais';
-                else
-                    $language_selected = 'english';
+                    <input type='text' name='depart' class="form-control" id='depart' value='<?php echo $depart; ?>' /><br />
+                    <span id='contactus_depart_errorloc' class='error'></span>
+                </div>
 
-                // run a query to get all the categories for the feedback type
-                $query = "SELECT id, {$language_selected} FROM contact_list";
-                $feedback_types = get_data($query);
+                <div class='form-group'>
+                    <label for='reason' class="required"><span class="field-name"><?php echo elgg_echo('contactform:select'); ?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label><br />
+<?php
+global $SESSION;
+$dbname = $CONFIG->dbname;
+$host = $CONFIG->dbhost;
+$query="SELECT contact_list FROM {$CONFIG->dbprefix}upgrade ";
+$result=mysql_query($query);
+$db = new PDO("mysql:host=$host;dbname=$dbname", $CONFIG->dbuser, $CONFIG->dbpass);
+$r = $db->query('SELECT * FROM contact_list');
+?>
+<select class="form-control" id="reason" name="reason" value='<?php echo $formproc->SafeDisplay('reason'); ?>'>
+    <option><?php echo elgg_echo('contactform:reason'); ?></option>
+<?php
+foreach ($r as $row) {
+    if ($SESSION['language'] == 'fr'){
+        $value = $row['francais']."$".$row['english'];
+//remember value after error validation
+        if ($value === $_POST['reason'] ){
+            echo "<option value=\"".$row['francais']."$".$row['english']."\" selected=selected>".$row['francais']."</option>\n  ";
+        }else{
+            echo "<option value=\"".$row['francais']."$".$row['english']."\">".$row['francais']."</option>\n  ";
+        }
+    }else{
+        $value = $row['francais']."$".$row['english'];
 
-                // create the options
-                $options['na'] = elgg_echo('contactform:reason');
-                foreach ($feedback_types as $feedback_type)
-                    $options[$feedback_type->$language_selected] = $feedback_type->$language_selected;
-   
-                echo elgg_view('input/select', array(
-                    'name' => 'reason',
-                    'id' => 'reason',
-                    'options' => $options,
-                    'required' => true
-                ));
-            ?>
-            </div>
+        if ($value === $_POST['reason'] ){
+           echo "<option value=\"".$row['francais']."$".$row['english']."\" selected=selected>".$row['english']."</option>\n  ";
 
-            <!-- message -->
-            <div class='form-group'>
-                <label for='message' class="required"><span class="field-name"><?php echo elgg_echo('contactform:message');?></span></label>
-           <?php
-                echo elgg_view('input/longtext', array(
-                    'name' => 'message',
-                    'id' => 'message',
-                    'required' => true
-                ));
-            ?>
-            </div>
+        }else{
+           echo "<option value=\"".$row['francais']."$".$row['english']."\">".$row['english']."</option>\n  ";
+        }
+    }
+}
+echo '</select>';
+?>
+<span id='contactus_text_errorloc' class='error'></span>
+</div>
+<div class='form-group' id='subject' style="display:none;">
+    <label for='subject' class="required"><span class="field-name"><?php echo elgg_echo('contactform:form:subject'); ?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label><br />
+    <input type='text' name='subject' class="form-control" id='subject' value='<?php echo $formproc->SafeDisplay('subject');  ?>' /><br />
+    <span id='contactus_subject_errorloc' class='error'></span>
+</div>
 
+<div class="mbm elgg-text-help alert alert-info">
+    <?php echo $upload_limit; ?>
+</div>
 
-            <div class='container pull-right'>
-                <input type='submit' class="btn btn-primary pull-right" name='Submit' value='<?php echo elgg_echo('send');?>' />
-            </div>
-        </form>
-    </div>
-    <?php } ?>
+<div class='form-group'>
+    <label for='photo'><?php echo elgg_echo('contactform:upload'); ?></label><br />
+    <input type="file" name='photo' id='photo' /><br />
+    <span id='contactus_photo_errorloc' class='error'></span>
+</div>
+<div class='form-group'>
+    <label for='message' class="required"><span class="field-name"><?php echo elgg_echo('contactform:message');?></span><strong class="required"> (<?php echo elgg_echo('contactform:required'); ?>)</strong></label>
+    <textarea rows="10" cols="50" name='message' id='message'><?php echo $formproc->SafeDisplay('message') ?></textarea>
+</div>
+
+<div class='container pull-right'>
+    <input type='submit' class="btn btn-primary pull-right" name='Submit' value='<?php echo elgg_echo('send');?>' />
+</div>
+</form>
+</div>
 </section>
+    
+    <!-- client-side Form Validations:
+Uses the excellent form validation script from JavaScript-coder.com-->
+
+
+<script type='text/javascript'>
+// <![CDATA[
+
+
+    var frmvalidator  = new Validator("contactus");
+    frmvalidator.EnableOnPageErrorDisplay();
+    frmvalidator.EnableMsgsTogether();
+    frmvalidator.addValidation("name","req",<?php echo elgg_echo('contactform:validator:name'); ?>);
+    frmvalidator.addValidation("email","req",<?php echo elgg_echo('contactform:validator:email'); ?>);
+    frmvalidator.addValidation("email","email",<?php echo elgg_echo('contactform:validator:emailvalid'); ?>);
+    frmvalidator.addValidation("message","maxlen=2048",<?php echo elgg_echo('contactform:validator:msgtoolong'); ?>);
+      frmvalidator.addValidation("photo","file_extn=jpg;jpeg;gif;png;bmp","Upload images only. Supported file types are: jpg,gif,png,bmp");
+// ]]>
+</script>

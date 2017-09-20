@@ -20,9 +20,5 @@
 		<priority>after</priority>
 		<plugin>c_email_extensions</plugin>
 	</requires>
-    <conflicts>
-        <type>plugin</type>
-        <name>gcRegistration_collab</name>
-    </conflicts>
   <activate_on_install>true</activate_on_install>
 </plugin_manifest>
