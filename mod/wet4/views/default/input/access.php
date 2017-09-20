@@ -1,3 +1,33 @@
+<script>
+$(document).ready(function () {
+
+    $('#dialog-modal').dialog({
+        modal: true,
+        autoOpen: false
+    });
+
+    $('select[name=access_id]').change(function () {
+        if ($(this).val() != "2") {
+            $('#myModal').modal('show');
+        }
+    });
+
+});
+
+</script>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none">
+  <div class="modal-dialog" role="document">
+    <div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo elgg_echo('msg:change_access_title'); ?><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h3>
+
+  </div>
+  <div class="panel-body">
+    <?php echo elgg_echo("msg:change_access"); ?>  
+    </div>
+</div>
+  </div>
+</div>
 <?php
 
 
@@ -91,10 +121,14 @@ $params['value'] = $vars['value'];
 // don't call get_write_access_array() unless we need it
 if (!isset($vars['options_values'])) {
 	$vars['options_values'] = get_write_access_array(0, 0, false, $params);
+	 unset($vars['options_values'][1]); //remove ACCESS_LOGGED_IN
+
 }
 
 if (!isset($vars['disabled'])) {
 	$vars['disabled'] = false;
+
+
 }
 
 // if access is set to a value not present in the available options, add the option
@@ -134,10 +168,6 @@ if(!$entity && ($container instanceof ElggGroup)){
     }
 }
 
-//MW - Fall back on default_access if value is set to ACCESS_DEFAULT or ACCESS_PUBLIC
-if($vars['value'] == ACCESS_DEFAULT || $vars['value'] == ACCESS_PUBLIC){
-	$vars['value'] = elgg_get_config('default_access');
-}
 
 echo elgg_view('input/select', $vars);
 if ($show_override_notice) {

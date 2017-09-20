@@ -78,7 +78,7 @@
 .progressBarContainer {
 	height:12px;
 	width:100%;
-	border: 1px #46246a solid;
+	border: 1px #047177 solid;
 	padding: 0;
 	margin: 0;
 }
@@ -89,7 +89,7 @@
 }
 
 .polls-filled-bar {
-	background-color: #46246a;
+	background-color: #047177;
 	height: 12px;
 }
 

@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"get_event",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves an event based on user id and event id',
 	'POST',
@@ -21,8 +22,11 @@ elgg_ws_expose_function(
 	"get_events",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
+		"from" => array('type' => 'string', 'required' => false, 'default' => ""),
+		"to" => array('type' => 'string', 'required' => false, 'default' => ""),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves an event based on user id and event id',
 	'POST',
@@ -30,7 +34,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_event( $user, $guid ){
+function get_event( $user, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -39,7 +43,8 @@ function get_event( $user, $guid ){
 	if( !$entity ) return "Event was not found. Please try a different GUID";
 	if( !$entity->type !== "event_calendar" ) return "Invalid event. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$events = elgg_list_entities(array(
 		'type' => 'object',
@@ -61,9 +66,12 @@ function get_event( $user, $guid ){
 	));
 	$event->liked = count($liked) > 0;
 
-	$event->comments = get_entity_comments($event->guid);
+	// $event->comments = get_entity_comments($event->guid);
 	
-	$event->userDetails = get_user_block($event->owner_guid);
+	$event->title = gc_explode_translation($event->title, $lang);
+	$event->description = gc_explode_translation($event->description, $lang);
+
+	$event->userDetails = get_user_block($event->owner_guid, $lang);
 
 	$eventObj = get_entity($event->guid);
 	$event->startDate = date("Y-m-d H:i:s", $eventObj->start_date);
@@ -72,20 +80,38 @@ function get_event( $user, $guid ){
 	return $event;
 }
 
-function get_events( $user, $limit, $offset ){
+function get_events( $user, $from, $to, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
-	$all_events = elgg_list_entities_from_metadata(array(
+	$params = array(
 		'type' => 'object',
 		'subtype' => 'event_calendar',
 		'limit' => $limit,
 		'offset' => $offset,
 		'order_by_metadata' => array(array('name' => 'start_date', 'direction' => 'ASC', 'as' => 'integer'))
-	));
+	);
+
+	if( $from ){
+		$params['metadata_name_value_pairs'][] = array(
+			'name' => 'start_date',
+			'value' => strtotime($from),
+			'operand' => '>='
+		);
+	}
+	if( $to ){
+		$params['metadata_name_value_pairs'][] = array(
+			'name' => 'end_date',
+			'value' => strtotime($to),
+			'operand' => '<='
+		);
+	}
+
+	$all_events = elgg_list_entities_from_metadata($params);
 	$events = json_decode($all_events);
 
 	foreach($events as $event){
@@ -102,9 +128,12 @@ function get_events( $user, $limit, $offset ){
 		));
 		$event->liked = count($liked) > 0;
 
-		$event->comments = get_entity_comments($event->guid);
+		// $event->comments = get_entity_comments($event->guid);
 		
-		$event->userDetails = get_user_block($event->owner_guid);
+		$event->title = gc_explode_translation($event->title, $lang);
+		$event->description = gc_explode_translation($event->description, $lang);
+
+		$event->userDetails = get_user_block($event->owner_guid, $lang);
 
 		$eventObj = get_entity($event->guid);
 		$event->startDate = date("Y-m-d H:i:s", $eventObj->start_date);

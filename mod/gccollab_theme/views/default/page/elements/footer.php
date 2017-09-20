@@ -8,6 +8,7 @@
 $site_url = elgg_get_site_url();
 $user = elgg_get_logged_in_user_entity();
 
+$stats = "{$site_url}stats";
 if ( strcmp(_elgg_services()->session->get('language'),'en') == 0 ) {
     // english links (under about)
     $about = "{$site_url}about";
@@ -49,7 +50,7 @@ $feedbackText= elgg_echo('wet:feedbackText');
                     <li><a href="<?php echo $about;?>"><?php echo elgg_echo('wet:footAbout');?></a></li>
                     <li><a href="<?php echo $priv;?>"><?php echo elgg_echo('wet:footPrivacy');?></a></li>
                     <li><a href="<?php echo $terms;?>"><?php echo elgg_echo('wet:footTerms');?></a></li>
-
+                    <li><a href="<?php echo $stats;?>"><?php echo elgg_echo('wet:stats');?></a></li>
                 </ul>
             </section>
 
@@ -61,7 +62,7 @@ $feedbackText= elgg_echo('wet:feedbackText');
                     <a href="<?php echo $faq;?>"><?php echo elgg_echo('wet:footFAQ');?></a>
                   </li>
                   <?php if(elgg_is_active_plugin('gc_onboard')){ echo '<li><a href="'.elgg_get_site_url().'tutorials">'.elgg_echo('onboard:footTutorials').'</a></li>'; }?>
-                  <li><a href="<?php echo elgg_get_site_url() . 'mod/contactform/'; ?>"> <?php echo elgg_echo('contactform:help_menu_item'); ?> </a></li>
+                  <li><a href="<?php echo elgg_get_site_url() . 'help/knowledgebase/'; ?>"> <?php echo elgg_echo('contactform:help_menu_item'); ?> </a></li>
                    
                 </ul>
             </section>

@@ -25,9 +25,9 @@
 }
 
 .missions-tab-bar {
-	background-color: #46246a;
+	background-color: #047177;
 	border-style: solid;
-	border-color: #46246a;
+	border-color: #047177;
 	border-radius: 6px;
 	width: auto;
 	padding: 15px 10px 0px;
@@ -366,7 +366,7 @@ li.link-disabled a {
     width: 45%;
 }
 .mission-skills-popup .modal-header{
-    background: #46246a;
+    background: #047177;
 }
 .more-skills-button{
     position:absolute;

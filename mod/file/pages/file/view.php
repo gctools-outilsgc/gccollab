@@ -19,29 +19,29 @@ elgg_push_breadcrumb(elgg_echo('file'), 'file/all');
 
 $lang = get_current_language();
 
+if (!$owner->title){
+	$crumbs_title = $owner->name;
 
-if ($owner->title3){
-	$crumbs_title = gc_explode_translation($owner->title3,$lang);	
 }else{
-	$crumbs_title = $owner->name;	
+	$crumbs_title = gc_explode_translation($owner->title, $lang);
 }
+
+
+
 if (elgg_instanceof($owner, 'group')) {
 	elgg_push_breadcrumb($crumbs_title, "file/group/$owner->guid/all");
 } else {
 	elgg_push_breadcrumb($crumbs_title, "file/owner/$owner->username");
 }
 
-if($file->title3){
-	$title = gc_explode_translation($file->title3, $lang);
-	$file->title = gc_explode_translation($file->title3, $lang);
-}else{
-	$title = $file->title;
-}
+
+	$title = gc_explode_translation($file->title, $lang);
+	$file->title = gc_explode_translation($file->title, $lang);
+
 elgg_push_breadcrumb($crumbs_title);
 
 $content = elgg_view_entity($file, array('full_view' => true));
 $content .= elgg_view_comments($file);
-
 elgg_register_menu_item('title', array(
 	'name' => 'download',
 	'text' => elgg_echo('download'),

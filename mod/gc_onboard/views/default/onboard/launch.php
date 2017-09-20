@@ -12,9 +12,10 @@
 if(elgg_is_logged_in()){
 
     $helpLaunch = get_input('welcome');
+    $returnLaunch = get_input('last_step');
 
     $user = elgg_get_logged_in_user_entity();
-    // unset($user->onboardcta);
+
     //$user->onboardcta = time();
 
     //grab times from settings
@@ -29,7 +30,7 @@ if(elgg_is_logged_in()){
         $onboard = elgg_view('welcome-steps/modal');
         $onboard .= '<script> window.onload = function () { document.getElementById("onboardPopup").click(); $("#welcome-step .feed-filter").remove(); } </script>';
 
-    } else if($helpLaunch){
+    } else if($helpLaunch || $returnLaunch){
 
       $onboard = elgg_view('welcome-steps/modal');
       $onboard .= '<script> window.onload = function () { document.getElementById("onboardPopup").click(); $("#welcome-step .feed-filter").remove(); } </script>';

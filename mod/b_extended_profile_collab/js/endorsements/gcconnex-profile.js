@@ -7,6 +7,13 @@
  * Author: Bryden Arndt
  * email: bryden@arndt.ca
  */
+ /*
+ * GC_MODIFICATION
+ * Description: Modified guid input of most actions to be elgg.get_page_owner_guid() to allow us as developers to easily work on bugs on profiles
+ * Author: Ethan Wallace
+ * Date: 2016-12-01
+ * Issue Number: 549
+ */
 
 /*
  * Purpose: initialize the script
@@ -109,13 +116,13 @@ $(document).ready(function() {
         //prefetch: '../data/films/post_1960.json',
         //remote: '../data/films/queries/%QUERY.json'
         remote: {
-            url: elgg.get_site_url() + 'mod/b_extended_profile_collab/actions/b_extended_profile_collab/autodept.php?query=%QUERY'
+            url: elgg.get_site_url() + 'mod/b_extended_profile/actions/b_extended_profile/autodept.php?query=%QUERY'
         }
     });
 
     departments.initialize();
 
-   /* $('.gcconnex-basic-department').typeahead(null, {
+    /* $('.gcconnex-basic-department').typeahead(null, {
         name: 'department',
         displayKey: 'value',
         limit: 10,
@@ -185,6 +192,18 @@ $(document).ready(function() {
     $('.save-portfolio .save-portfolio').on("click", {section: "portfolio"}, saveProfile);
     $('.cancel-portfolio').on("click", {section: "portfolio"}, cancelChanges);
 
+    /*
+     * MODIFIED CODE
+     * Adding a section for opt-ins with 3 distinct buttons.
+     * Activates the buttons and links them to their respective functions.
+     */
+    $('.edit-opt-in').on("click", {section: "opt-in"}, editProfile);
+    $('.save-opt-in .save-opt-in').on("click", {section: "opt-in"}, saveProfile);
+    $('.cancel-opt-in').on("click", {section: "opt-in"}, cancelChanges);
+    /*
+     * END MODIFIED CODE
+     */
+
     $('.save-profile').on('click', { section: "profile" }, saveProfile);
 
     $('.gcconnex-education-add-another').on("click", {section: "education"}, addMore);
@@ -203,9 +222,10 @@ $(document).ready(function() {
     $('.save-work-experience').on("click", function(){$('.edit-work-experience').focus()});
     $('.cancel-work-experience').on("click", function(){$('.edit-work-experience').focus()});
 
-    $('.edit-skills').on("click", function () { $('.cancel-skills').focus(); $('.gcconnex-skill-limit').removeClass('hidden');});
-    $('.save-skills').on("click", function () { $('.edit-skills').focus(); $('.gcconnex-skill-limit').addClass('hidden'); });
-    $('.cancel-skills').on("click", function () { $('.edit-skills').focus(); $('.gcconnex-skill-limit').addClass('hidden'); });
+    $('.edit-skills').on("click", function () { $('.gcconnex-skill-limit').removeClass('hidden');});
+    $('.save-skills').on("click", function () { $('.edit-skills').focus(); $('.gcconnex-skill-limit').addClass('hidden'); $('#skillsAccessContainer').remove(); });
+
+    $('.cancel-skills').on("click", function () { $('.edit-skills').focus(); $('.gcconnex-skill-limit').addClass('hidden'); $('#skillsAccessContainer').remove(); });
 
     $('.edit-languages').on("click", function(){$('.cancel-languages').focus()});
     $('.save-languages').on("click", function(){$('.edit-languages').focus()});
@@ -215,11 +235,21 @@ $(document).ready(function() {
     $('.save-portfolio').on("click", function(){$('.edit-portfolio').focus()});
     $('.cancel-portfolio').on("click", function () { $('.edit-portfolio').focus() });
 
+    /*
+     * MODIFIED CODE
+     * Adds focus for easy tabbing through buttons.
+     */
+    $('.edit-opt-in').on("click", function(){$('.cancel-portfolio').focus()});
+    $('.save-opt-in').on("click", function(){$('.edit-portfolio').focus()});
+    $('.cancel-opt-in').on("click", function(){$('.edit-portfolio').focus()});
+    /*
+     * END MODIFIED CODE
+     */
 
     //allow use of keyboard to endorse skills
     $('.skill-container').bind('keypress', function (e) {
 
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 && elgg.get_page_owner_guid() != elgg.get_logged_in_user_guid()) {
 
             if ($(this).hasClass('gcconnex-endorsement-add')) {
 
@@ -274,7 +304,7 @@ function editProfile(event) {
 
 
             // Edit the About Me blurb
-            $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/edit_about-me'),
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_about-me'),
                 {
                     guid: elgg.get_page_owner_guid()
                 },
@@ -291,11 +321,11 @@ function editProfile(event) {
                     $('load-spinner').addClass('hidden');
                     $('.load-spinner').addClass('wb-invisible');
                 });
-            $('.gcconnex-profile-about-me-display').hide();
+            $('.gcconnex-profile-about-me-display').hide().attr('aria-hidden', true);
             break;
         case 'education':
             // Edit the edumacation
-            $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/edit_education'),
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_education'),
                 {
                     guid: elgg.get_page_owner_guid()
                 },
@@ -313,11 +343,11 @@ function editProfile(event) {
                     $('load-spinner').addClass('hidden');
                     $('.load-spinner').addClass('wb-invisible');
                 });
-            $('.gcconnex-profile-education-display').hide();
+            $('.gcconnex-profile-education-display').hide().attr('aria-hidden', true);
             break;
         case 'work-experience':
             // Edit the experience for this user
-            $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/edit_work-experience'),
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_work-experience'),
                 {
                     guid: elgg.get_page_owner_guid()
                 },
@@ -332,7 +362,7 @@ function editProfile(event) {
                     $('.userfind').each(function() {
                         user_search_init(this);
                     });
-                    $('.gcconnex-profile-work-experience-display').hide();
+                    $('.gcconnex-profile-work-experience-display').hide().attr('aria-hidden', true);
                     $('.save-' + $section).show();
                     $('.save-' + $section).removeClass('hidden');
                     $('.save-' + $section).removeClass('wb-invisible');
@@ -348,11 +378,24 @@ function editProfile(event) {
 
         case 'skills':
             // inject the html to add ability to add skills
+            elgg.get('ajax/view/b_extended_profile/skills-access', {
+                    data: {
+                        guid: elgg.get_logged_in_user_guid(), // querystring
+                    },
+                    success: function (output) {
+                        //console.log(output);
+                        $('.gcconnex-skills').prepend(output);
+                        //$('.myplugin-link').html(output);
+                    }
+                });
             if ( $('.gcconnex-skill-entry:visible').length < 15 ) {
+                 /////
+                //console.log('skills in if');
+                ////
                 var christineFix = elgg.echo("gcconnex_profile:gc_skill:add", null, 'en');
                 $('.gcconnex-skills').append('<div class="gcconnex-endorsements-input-wrapper">' +
                 '<input type="text" class="gcconnex-endorsements-input-skill" onkeyup="checkForEnter(event)"/>' +
-                '<button class="btn btn-primary gcconnex-endorsements-add-skill">' + ' + add skill / ajouter des compétences ' + '</button>' +
+                '<button class="btn btn-primary gcconnex-endorsements-add-skill">' + elgg.echo('gcconnex_profile:gc_skill:add') + '</button>' +
                 '</div>');
             }
 
@@ -362,7 +405,7 @@ function editProfile(event) {
                 //prefetch: '../data/films/post_1960.json',
                 //remote: '../data/films/queries/%QUERY.json'
                 remote: {
-                    url: elgg.get_site_url() + 'mod/b_extended_profile_collab/actions/b_extended_profile_collab/autoskill.php?query=%QUERY'
+                    url: elgg.get_site_url() + 'mod/b_extended_profile/actions/b_extended_profile/autoskill.php?query=%QUERY'
                 }
             });
 
@@ -388,8 +431,8 @@ function editProfile(event) {
             });
 
             // create a "delete this skill" link for each skill
-            $('.gcconnex-endorsements-skill').each(function(){
-                $(this).after('<button class="delete-skill" onclick="deleteEntry(this)" data-type="skill">' + '<i class="fa fa-trash-o delete-skill-img"></i>Delete / Supprimer' + '</button>'); //goes in here i think..
+            $('.gcconnex-endorsements-count').each(function(){
+                $(this).after('<button class="delete-skill" onclick="deleteEntry(this)" data-type="skill">' + '<i class="fa fa-2x icon-unsel fa-trash-o delete-skill-img"><span class="wb-inv">' + elgg.echo('delete') + '</span></i></button>'); //goes in here i think..
             });
             $('.save-' + $section).show();
             $('.save-' + $section).removeClass('hidden');
@@ -409,7 +452,7 @@ function editProfile(event) {
         case 'languages':
             // Edit the languages for this user
 
-            $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/edit_languages'),
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_languages'),
                 {
                     guid: elgg.get_page_owner_guid()
                 },
@@ -442,14 +485,14 @@ function editProfile(event) {
                 });
             break;
         case 'portfolio':
-            $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/edit_portfolio'),
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_portfolio'),
                 {
                     guid: elgg.get_page_owner_guid()
                 },
             function(data) {
                 // Output the 'edit portfolio' page somewhere
                 $('.gcconnex-portfolio').append('<div class="gcconnex-portfolio-edit-wrapper">' + data + '</div>');
-                $('.gcconnex-profile-portfolio-display').hide();
+                $('.gcconnex-profile-portfolio-display').hide().attr('aria-hidden', true);
                 $('.save-' + $section).show();
                 $('.save-' + $section).removeClass('hidden');
                 $('.save-' + $section).removeClass('wb-invisible');
@@ -461,9 +504,46 @@ function editProfile(event) {
                 $('load-spinner').addClass('hidden');
                 $('.load-spinner').addClass('wb-invisible');
             });
+
+        /*
+         * MODIFIED CODE
+         * Hides the opt-in view and shows the edit_opt-in view.
+         */
+        case 'opt-in':
+            $.get(elgg.normalize_url('ajax/view/b_extended_profile/edit_opt-in'),
+             	{
+                	guid: elgg.get_logged_in_user_guid()
+                },
+            function(data) {
+                // Adds in the opt-in edit view.
+                $('.gcconnex-opt-in').append('<div class="gcconnex-opt-in-edit-wrapper">' + data + '</div>');
+
+                // Hides the opt-in display view to make way for the edit view.
+                $('.gcconnex-profile-opt-in-display').hide().attr('aria-hidden', true);
+
+                // Displays the save button.
+                $('.save-' + $section).show();
+                $('.save-' + $section).removeClass('hidden');
+                $('.save-' + $section).removeClass('wb-invisible');
+
+                $('.cancel-' + $section).show();
+                $('.cancel-' + $section).removeClass('hidden');
+                $('.cancel-' + $section).removeClass('wb-invisible');
+
+                $('load-spinner').addClass('hidden');
+                $('.load-spinner').addClass('wb-invisible');
+            });
+            break;
+        /*
+         * END MODIFIED CODE
+         */
+
         default:
             break;
     }
+
+    //focus on loaded content
+    $('#edit-'+$section).attr('aria-live', 'assertive').focus();
 }
 
 function hideLanguage() {
@@ -595,7 +675,7 @@ function saveProfile(event) {
             profile.media = $(".gcconnex-basic-media").is(":visible") ? $(".gcconnex-basic-media:visible").val() : "";
             profile.retired = $(".gcconnex-basic-retired").is(":visible") ? $(".gcconnex-basic-retired:visible").val() : "";
             profile.other = $(".gcconnex-basic-other").is(":visible") ? $(".gcconnex-basic-other:visible").val() : "";
-
+            
             profile.location = $(".gcconnex-basic-location").val();
             profile.phone = $(".gcconnex-basic-phone").val();
             profile.mobile = $(".gcconnex-basic-mobile").val();
@@ -616,7 +696,7 @@ function saveProfile(event) {
             social_media.youtube = $(".gcconnex-basic-youtube").val();
 
 
-            elgg.action('b_extended_profile_collab/edit_profile', {
+            elgg.action('b_extended_profile/edit_profile', {
                 data: {
                     'guid': elgg.get_page_owner_guid(),
                     'section': "profile",
@@ -639,7 +719,7 @@ function saveProfile(event) {
             var $about_me = $.trim(area);
             var access = $('.gcconnex-about-me-access').val();
             // save the information the user just edited
-            elgg.action('b_extended_profile_collab/edit_profile', {
+            elgg.action('b_extended_profile/edit_profile', {
                 data: {
                     'guid': elgg.get_page_owner_guid(),
                     'section': 'about-me',
@@ -647,7 +727,7 @@ function saveProfile(event) {
                     'access': access
                 },
                 success: function() {            // fetch and display the information we just saved
-                    $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/about-me'),
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/about-me'),
                         {
                             'guid': elgg.get_page_owner_guid()
                         },
@@ -663,288 +743,288 @@ function saveProfile(event) {
 
             break;
 
-            case "education":
+        case "education":
 
-                var $education_guid = [];
-                var $delete_guid = [];
+            var $education_guid = [];
+            var $delete_guid = [];
 
-                $('.gcconnex-education-entry').each(function() {
-                    if ( $(this).is(":hidden") ) {
-                        if ($(this).data('guid') != "new") {
-                            $delete_guid.push($(this).data('guid'));
-                        }
+            $('.gcconnex-education-entry').each(function() {
+                if ( $(this).is(":hidden") ) {
+                    if ($(this).data('guid') != "new") {
+                        $delete_guid.push($(this).data('guid'));
                     }
-                    else {
-                        $education_guid.push($(this).data('guid'));
-                    }
-                });
+                }
+                else {
+                    $education_guid.push($(this).data('guid'));
+                }
+            });
 
-                //School field
-                var $school = [];
-                $('.gcconnex-education-school').not(":hidden").each(function() {
-                  //check if field is empty
-                  if($.trim($(this).val()) == ''){
-                      //report error
-                      $valid_form = false;
-                      //add error style to field
-                      $(this).addClass('input-error').attr('aria-invalid', "true");
-                  } else {
-                    //remove error classes if field has them
-                    $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                    //push the field info into array
-                    $school.push($(this).val());
-                  }
-                });
+            //School field
+            var $school = [];
+            $('.gcconnex-education-school').not(":hidden").each(function() {
+              //check if field is empty
+              if($.trim($(this).val()) == ''){
+                  //report error
+                  $valid_form = false;
+                  //add error style to field
+                  $(this).addClass('input-error').attr('aria-invalid', "true");
+              } else {
+                //remove error classes if field has them
+                $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                //push the field info into array
+                $school.push($(this).val());
+              }
+            });
 
-                //ongoing check box
-                var $ongoing = [];
-                $('.gcconnex-education-ongoing').not(":hidden").each(function() {
-                    $ongoing.push($(this).prop('checked'));
-                });
+            //ongoing check box
+            var $ongoing = [];
+            $('.gcconnex-education-ongoing').not(":hidden").each(function() {
+                $ongoing.push($(this).prop('checked'));
+            });
 
-                //start month dropdown
-                var $startdate = [];
-                $('.gcconnex-education-startdate').not(":hidden").each(function() {
-                    $startdate.push($(this).val());
-                });
+            //start month dropdown
+            var $startdate = [];
+            $('.gcconnex-education-startdate').not(":hidden").each(function() {
+                $startdate.push($(this).val());
+            });
 
-                //start year field
-                var $startyear = [];
-                $('.gcconnex-education-start-year').not(":hidden").each(function() {
-                  //check if field is empty
-                  if($.trim($(this).val()) == ''){
-                      //report error
-                      $valid_form = false;
-                      //add error style to field
-                      $(this).addClass('input-error').attr('aria-invalid', "true");
-                  } else {
-                    //remove error style if active
-                    $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                    //push value into array
-                    $startyear.push($(this).val());
-                  }
-                });
+            //start year field
+            var $startyear = [];
+            $('.gcconnex-education-start-year').not(":hidden").each(function() {
+              //check if field is empty
+              if($.trim($(this).val()) == ''){
+                  //report error
+                  $valid_form = false;
+                  //add error style to field
+                  $(this).addClass('input-error').attr('aria-invalid', "true");
+              } else {
+                //remove error style if active
+                $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                //push value into array
+                $startyear.push($(this).val());
+              }
+            });
 
-                //end month dropdown
-                var $enddate = [];
-                $('.gcconnex-education-enddate').not(":hidden").each(function() {
-                    $enddate.push($(this).val());
-                });
+            //end month dropdown
+            var $enddate = [];
+            $('.gcconnex-education-enddate').not(":hidden").each(function() {
+                $enddate.push($(this).val());
+            });
 
-                //end year field
-                var $endyear = [];
-                //count which entity we are on to compare start/end date
-                var $entry_count = 0;
-                $('.gcconnex-education-end-year').not(":hidden").each(function() {
-                  //if ongoing is checked, dont validate
-                  if($ongoing[$entry_count] == true){
-                    //remove error classes if field has them
-                    $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                    //push the field info into array
-                    $endyear.push($(this).val());
-                  } else if($ongoing[$entry_count] == false) {
+            //end year field
+            var $endyear = [];
+            //count which entity we are on to compare start/end date
+            var $entry_count = 0;
+            $('.gcconnex-education-end-year').not(":hidden").each(function() {
+              //if ongoing is checked, dont validate
+              if($ongoing[$entry_count] == true){
+                //remove error classes if field has them
+                $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                //push the field info into array
+                $endyear.push($(this).val());
+              } else if($ongoing[$entry_count] == false) {
 
-                    //check if empty or that end date is not a date before start date
-                    if($.trim($(this).val()) == '' || $(this).val() < $startyear[$entry_count]){
-                        //report error
-                        $valid_form = false;
-                        //add error style
-                        $(this).addClass('input-error').attr('aria-invalid', "true");
-                    } else {
-                      //remove error classes if field has them
-                      $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                      //push the field info into array
-                      $endyear.push($(this).val());
-                    }
-
-                  }
-
-                    //increase count
-                    $entry_count++;
-                });
-
-                //degree field
-                var $degree = [];
-                $('.gcconnex-education-degree').not(":hidden").each(function() {
-                  //check if field is empty
-                  if($.trim($(this).val()) == ''){
-                      //report error
-                      $valid_form = false;
-                      //add error style to field
-                      $(this).addClass('input-error').attr('aria-invalid', "true");
-                  } else {
-                    //remove error style if active
-                    $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                    //push value to array
-                    $degree.push($(this).val());
-                  }
-                });
-
-                //field of study field
-                var $field = [];
-                $('.gcconnex-education-field').not(":hidden").each(function() {
-                  //check if field is empty
-                  if($.trim($(this).val()) == ''){
+                //check if empty or that end date is not a date before start date
+                if($.trim($(this).val()) == '' || $(this).val() < $startyear[$entry_count]){
                     //report error
-                      $valid_form = false;
-                      //add error style
-                      $(this).addClass('input-error').attr('aria-invalid', "true");
-                  } else {
-                    //remove error style if active
-                    $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
-                    //push value to array
-                    $field.push($(this).val());
-                  }
-                });
-                var $access = $('.gcconnex-education-access').val();
+                    $valid_form = false;
+                    //add error style
+                    $(this).addClass('input-error').attr('aria-invalid', "true");
+                } else {
+                  //remove error classes if field has them
+                  $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                  //push the field info into array
+                  $endyear.push($(this).val());
+                }
 
-                // save the information the user just edited
-                if($valid_form){
-                elgg.action('b_extended_profile_collab/edit_profile', {
-                    data: {
-                        'guid': elgg.get_page_owner_guid(),
-                        'delete': $delete_guid,
-                        'eguid': $education_guid,
-                        'section': 'education',
-                        'school': $school,
-                        'startdate': $startdate,
-                        'startyear': $startyear,
-                        'enddate': $enddate,
-                        'endyear': $endyear,
-                        'ongoing': $ongoing,
-                        //'program': $program,
-                        'degree': $degree,
-                        'field': $field,
-                        'access': $access
-                    },
-                    success: function() {            // fetch and display the information we just saved
-                        $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/education'),
-                            {
-                                'guid': elgg.get_page_owner_guid()
-                            },
-                            function(data) {
-                                // Output in a DIV with id=somewhere
-                                $('.gcconnex-education-display').remove();
-                                $('.gcconnex-education').append('<div class="gcconnex-education-display">' + data + '</div>');
-                            });
-                    }
-                    });
-
-                    $('.gcconnex-education-edit-wrapper').remove();
-                    $('#edu-error').remove();
-
-                  } else if($('#edu-error').size() < 1) {
-                    $('div.save-education').prepend('<section id="edu-error" class="alert alert-danger">'+errorMsg+'</section>');
-                  }
-
-                break;
-            case "work-experience":
-
-                var work_experience = {};
-                var experience = [];
-
-                work_experience.edit = experience;
-                work_experience.delete_guids = [];
-                var access = $('.gcconnex-work-experience-access').val();
-
-                $('.gcconnex-work-experience-entry').each(function() {
-                    if ( $(this).is(":hidden") ) {
-                        //if ($(this).data('guid') != "new") {
-                            work_experience.delete_guids.push($(this).data('guid'));
-                            //$delete_guid.push($(this).data('guid'));
-                       // }
-                    }
-                    else {
-                        experience = {
-                            'eguid': $(this).data('guid'),
-                            'organization': $(this).find('.gcconnex-work-experience-organization').val(),
-                            'title': $(this).find('.gcconnex-work-experience-title').val(),
-                            'startdate': $(this).find('.gcconnex-work-experience-startdate').val(),
-                            'startyear': $(this).find('.gcconnex-work-experience-start-year').val(),
-                            'not_applicable': $(this).find('.gcconnex-work-experience-not_applicable').prop('checked'),
-                            'enddate': $(this).find('.gcconnex-work-experience-enddate').val(),
-                            'endyear': $(this).find('.gcconnex-work-experience-end-year').val(),
-                            'ongoing': $(this).find('.gcconnex-work-experience-ongoing').prop('checked'),
-                            'responsibilities': $(this).find('.gcconnex-work-experience-responsibilities').val()
-                        };
-                        experience.colleagues = [];
-                        $(this).find('.gcconnex-avatar-in-list').each(function() {
-                            if ($(this).is(':visible')) {
-                                experience.colleagues.push($(this).data('guid'));
-                            }
-                        });
-
-                        //title field
-                        if($.trim(experience['title']) == ''){
-                          $(this).find('.gcconnex-work-experience-title').addClass('input-error').attr('aria-invalid', "true");
-                          $valid_form = false;
-                        } else {
-                          $(this).find('.gcconnex-work-experience-title').removeClass('input-error').removeAttr('aria-invalid', "true");
-                        }
-
-                        //organization field
-                        if($.trim(experience['organization']) == ''){
-                          $(this).find('.gcconnex-work-experience-organization').addClass('input-error').attr('aria-invalid', "true");
-                          $valid_form = false;
-                        } else {
-                          $(this).find('.gcconnex-work-experience-organization').removeClass('input-error').removeAttr('aria-invalid', "true");
-                        }
-
-                        //start year field
-                        if(experience['not_applicable'] == true){
-                          $(this).find('.gcconnex-work-experience-start-year').removeClass('input-error').removeAttr('aria-invalid', "true");
-                          //dont do any validation on startyear since it doesnt matter while not_applicable is active
-                        } else if($.trim(experience['startyear']) == ''){
-                          $(this).find('.gcconnex-work-experience-start-year').addClass('input-error').attr('aria-invalid', "true");
-                          $valid_form = false;
-                        } else {
-                          $(this).find('.gcconnex-work-experience-start-year').removeClass('input-error').removeAttr('aria-invalid', "true");
-                        }
-
-                        //end year field
-                        if(experience['ongoing'] == true){
-                          $(this).find('.gcconnex-work-experience-end-year').removeClass('input-error').removeAttr('aria-invalid', "true");
-                          //dont do any validation on endyear since it doesnt matter while ongoing is active
-                        } else if($.trim(experience['endyear']) == '' || experience['endyear'] < experience['startyear']){
-                          $(this).find('.gcconnex-work-experience-end-year').addClass('input-error').attr('aria-invalid', "true");
-                          $valid_form = false;
-                        } else {
-                          $(this).find('.gcconnex-work-experience-end-year').removeClass('input-error').removeAttr('aria-invalid', "true");
-                        }
-
-                        work_experience.edit.push(experience);
-                    }
-                });
-
-                //only call action if is verything passes validation
-                if($valid_form){
-                // save the information the user just edited
-                elgg.action('b_extended_profile_collab/edit_profile', {
-                    data: {
-                        'guid': elgg.get_page_owner_guid(),
-                        'work': work_experience,
-                        'section': 'work-experience',
-                        'access': access
-                    },
-                    success: function() {
-                        $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/work-experience'),
-                            {
-                                'guid': elgg.get_page_owner_guid()
-                            },
-                            function(data) {
-                                // Output in a DIV with id=somewhere
-                                $('.gcconnex-profile-work-experience-display').remove();
-                                $('.gcconnex-work-experience').append('<div class="gcconnex-profile-work-experience-display"><div class="gcconnex-work-experience-display">' + data + '</div></div>');
-                            });
-                    }
-                });
-                $('.gcconnex-work-experience-edit-wrapper').remove();
-                $('#work-error').remove();
-              } else if($('#work-error').size() < 1) {
-                $('div.save-work-experience').prepend('<section id="work-error" class="alert alert-danger">'+errorMsg+'</section>');
               }
 
-                break;
+                //increase count
+                $entry_count++;
+            });
+
+            //degree field
+            var $degree = [];
+            $('.gcconnex-education-degree').not(":hidden").each(function() {
+              //check if field is empty
+              if($.trim($(this).val()) == ''){
+                  //report error
+                  $valid_form = false;
+                  //add error style to field
+                  $(this).addClass('input-error').attr('aria-invalid', "true");
+              } else {
+                //remove error style if active
+                $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                //push value to array
+                $degree.push($(this).val());
+              }
+            });
+
+            //field of study field
+            var $field = [];
+            $('.gcconnex-education-field').not(":hidden").each(function() {
+              //check if field is empty
+              if($.trim($(this).val()) == ''){
+                //report error
+                  $valid_form = false;
+                  //add error style
+                  $(this).addClass('input-error').attr('aria-invalid', "true");
+              } else {
+                //remove error style if active
+                $(this).removeClass('input-error').removeAttr('aria-invalid', "true");
+                //push value to array
+                $field.push($(this).val());
+              }
+            });
+            var $access = $('.gcconnex-education-access').val();
+
+            // save the information the user just edited
+            if($valid_form){
+            elgg.action('b_extended_profile/edit_profile', {
+                data: {
+                    'guid': elgg.get_page_owner_guid(),
+                    'delete': $delete_guid,
+                    'eguid': $education_guid,
+                    'section': 'education',
+                    'school': $school,
+                    'startdate': $startdate,
+                    'startyear': $startyear,
+                    'enddate': $enddate,
+                    'endyear': $endyear,
+                    'ongoing': $ongoing,
+                    //'program': $program,
+                    'degree': $degree,
+                    'field': $field,
+                    'access': $access
+                },
+                success: function() {            // fetch and display the information we just saved
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/education'),
+                        {
+                            'guid': elgg.get_page_owner_guid()
+                        },
+                        function(data) {
+                            // Output in a DIV with id=somewhere
+                            $('.gcconnex-education-display').remove();
+                            $('.gcconnex-education').append('<div class="gcconnex-education-display">' + data + '</div>');
+                        });
+                }
+                });
+
+                $('.gcconnex-education-edit-wrapper').remove();
+                $('#edu-error').remove();
+
+              } else if($('#edu-error').size() < 1) {
+                $('div.save-education').prepend('<section id="edu-error" class="alert alert-danger">'+errorMsg+'</section>');
+              }
+
+            break;
+        case "work-experience":
+
+            var work_experience = {};
+            var experience = [];
+
+            work_experience.edit = experience;
+            work_experience.delete_guids = [];
+            var access = $('.gcconnex-work-experience-access').val();
+
+            $('.gcconnex-work-experience-entry').each(function() {
+                if ( $(this).is(":hidden") ) {
+                    //if ($(this).data('guid') != "new") {
+                        work_experience.delete_guids.push($(this).data('guid'));
+                        //$delete_guid.push($(this).data('guid'));
+                   // }
+                }
+                else {
+                    experience = {
+                        'eguid': $(this).data('guid'),
+                        'organization': $(this).find('.gcconnex-work-experience-organization').val(),
+                        'title': $(this).find('.gcconnex-work-experience-title').val(),
+                        'startdate': $(this).find('.gcconnex-work-experience-startdate').val(),
+                        'startyear': $(this).find('.gcconnex-work-experience-start-year').val(),
+                        'not_applicable': $(this).find('.gcconnex-work-experience-not_applicable').prop('checked'),
+                        'enddate': $(this).find('.gcconnex-work-experience-enddate').val(),
+                        'endyear': $(this).find('.gcconnex-work-experience-end-year').val(),
+                        'ongoing': $(this).find('.gcconnex-work-experience-ongoing').prop('checked'),
+                        'responsibilities': $(this).find('.gcconnex-work-experience-responsibilities').val()
+                    };
+                    experience.colleagues = [];
+                    $(this).find('.gcconnex-avatar-in-list').each(function() {
+                        if ($(this).is(':visible')) {
+                            experience.colleagues.push($(this).data('guid'));
+                        }
+                    });
+
+                    //title field
+                    if($.trim(experience['title']) == ''){
+                      $(this).find('.gcconnex-work-experience-title').addClass('input-error').attr('aria-invalid', "true");
+                      $valid_form = false;
+                    } else {
+                      $(this).find('.gcconnex-work-experience-title').removeClass('input-error').removeAttr('aria-invalid', "true");
+                    }
+
+                    //organization field
+                    if($.trim(experience['organization']) == ''){
+                      $(this).find('.gcconnex-work-experience-organization').addClass('input-error').attr('aria-invalid', "true");
+                      $valid_form = false;
+                    } else {
+                      $(this).find('.gcconnex-work-experience-organization').removeClass('input-error').removeAttr('aria-invalid', "true");
+                    }
+
+                    //start year field
+                    if(experience['not_applicable'] == true){
+                      $(this).find('.gcconnex-work-experience-start-year').removeClass('input-error').removeAttr('aria-invalid', "true");
+                      //dont do any validation on startyear since it doesnt matter while not_applicable is active
+                    } else if($.trim(experience['startyear']) == ''){
+                      $(this).find('.gcconnex-work-experience-start-year').addClass('input-error').attr('aria-invalid', "true");
+                      $valid_form = false;
+                    } else {
+                      $(this).find('.gcconnex-work-experience-start-year').removeClass('input-error').removeAttr('aria-invalid', "true");
+                    }
+
+                    //end year field
+                    if(experience['ongoing'] == true){
+                      $(this).find('.gcconnex-work-experience-end-year').removeClass('input-error').removeAttr('aria-invalid', "true");
+                      //dont do any validation on endyear since it doesnt matter while ongoing is active
+                    } else if($.trim(experience['endyear']) == '' || experience['endyear'] < experience['startyear']){
+                      $(this).find('.gcconnex-work-experience-end-year').addClass('input-error').attr('aria-invalid', "true");
+                      $valid_form = false;
+                    } else {
+                      $(this).find('.gcconnex-work-experience-end-year').removeClass('input-error').removeAttr('aria-invalid', "true");
+                    }
+
+                    work_experience.edit.push(experience);
+                }
+            });
+
+            //only call action if is verything passes validation
+            if($valid_form){
+            // save the information the user just edited
+            elgg.action('b_extended_profile/edit_profile', {
+                data: {
+                    'guid': elgg.get_page_owner_guid(),
+                    'work': work_experience,
+                    'section': 'work-experience',
+                    'access': access
+                },
+                success: function() {
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/work-experience'),
+                        {
+                            'guid': elgg.get_page_owner_guid()
+                        },
+                        function(data) {
+                            // Output in a DIV with id=somewhere
+                            $('.gcconnex-profile-work-experience-display').remove();
+                            $('.gcconnex-work-experience').append('<div class="gcconnex-profile-work-experience-display"><div class="gcconnex-work-experience-display">' + data + '</div></div>');
+                        });
+                }
+            });
+            $('.gcconnex-work-experience-edit-wrapper').remove();
+            $('#work-error').remove();
+          } else if($('#work-error').size() < 1) {
+            $('div.save-work-experience').prepend('<section id="work-error" class="alert alert-danger">'+errorMsg+'</section>');
+          }
+
+            break;
 
         case "skills":
             var $skills_added = [];
@@ -965,9 +1045,10 @@ function saveProfile(event) {
 
             // save the information the user just edited
 
-            elgg.action('b_extended_profile_collab/edit_profile', {
+            elgg.action('b_extended_profile/edit_profile', {
                 'guid': elgg.get_page_owner_guid(),
                 'section': 'skills',
+                'access': $('#skillsAccess').val(),
                 'skillsadded': $skills_added,
                 'skillsremoved': $delete_guid
             });
@@ -990,7 +1071,7 @@ function saveProfile(event) {
 
 			var access = $('.gcconnex-languages-access').val();
 
-            english = {
+			english = {
                 'writtencomp': $official_langs.find('.gcconnex-languages-english-writtencomp').val(),
                 'writtenexp': $official_langs.find('.gcconnex-languages-english-writtenexp').val(),
                 'oral': $official_langs.find('.gcconnex-languages-english-oral').val(),
@@ -1009,7 +1090,7 @@ function saveProfile(event) {
             };
 
             // save the information the user just edited
-            elgg.action('b_extended_profile_collab/edit_profile', {
+            elgg.action('b_extended_profile/edit_profile', {
                 data: {
                     'guid': elgg.get_page_owner_guid(),
                     'section': 'languages',
@@ -1019,7 +1100,7 @@ function saveProfile(event) {
                     'firstlang': firstlang
                 },
                 success: function() {
-                    $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/languages'),
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/languages'),
                         {
                             guid: elgg.get_page_owner_guid()
                         },
@@ -1058,7 +1139,7 @@ function saveProfile(event) {
                 }
             });
 
-            elgg.action('b_extended_profile_collab/edit_profile', {
+            elgg.action('b_extended_profile/edit_profile', {
                 data: {
                     'guid': elgg.get_page_owner_guid(),
                     'section': 'portfolio',
@@ -1066,7 +1147,7 @@ function saveProfile(event) {
                     'access': access
                 },
                 success: function() {
-                    $.get(elgg.normalize_url('ajax/view/b_extended_profile_collab/portfolio'),
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/portfolio'),
                         {
                             'guid': elgg.get_page_owner_guid()
                         },
@@ -1079,6 +1160,85 @@ function saveProfile(event) {
             });
             $('.gcconnex-portfolio-edit-wrapper').remove();
             break;
+
+        /*
+         * MODIFIED CODE
+         * Takes all the values from the input fields and puts them into an array.
+         * Then uses an AJAX call to run the ELGG action.
+         * On success, it removes the edit_opt-in view and shows the opt-in view.
+         */
+        case 'opt-in':
+            var opt_in_set = [];
+            var access = $('.gcconnex-opt-in-access').val();
+
+            // Gets all the input values from the opt-in edit view.
+            $options = $('.gcconnex-profile-opt-in-options-table');
+            opt_in_set[0] = $options.find('#gcconnex-opt-in-mission-check').is(':checked');
+            opt_in_set[1] = $options.find('#gcconnex-opt-in-swap-check').is(':checked');
+            opt_in_set[2] = $options.find('#gcconnex-opt-in-mentored-check').is(':checked');
+            opt_in_set[3] = $options.find('#gcconnex-opt-in-mentoring-check').is(':checked');
+            opt_in_set[4] = $options.find('#gcconnex-opt-in-shadowed-check').is(':checked');
+            opt_in_set[5] = $options.find('#gcconnex-opt-in-shadowing-check').is(':checked');
+            opt_in_set[6] = $options.find('#gcconnex-opt-in-jobshare-check').is(':checked');
+            opt_in_set[7] = $options.find('#gcconnex-opt-in-coachseek-check').is(':checked');
+            opt_in_set[8] = $options.find('#gcconnex-opt-in-coachcreate-check').is(':checked');
+            opt_in_set[9] = $options.find('#gcconnex-opt-in-skillseeker-check').is(':checked');
+            opt_in_set[10] = $options.find('#gcconnex-opt-in-skillcreator-check').is(':checked');
+            opt_in_set[11] = $options.find('#gcconnex-opt-in-rotation-check').is(':checked');
+            opt_in_set[12] = $options.find('#gcconnex-opt-in-assignseek-check').is(':checked');
+            opt_in_set[13] = $options.find('#gcconnex-opt-in-assigncreate-check').is(':checked');
+            opt_in_set[14] = $options.find('#gcconnex-opt-in-deploymentseek-check').is(':checked');
+            opt_in_set[15] = $options.find('#gcconnex-opt-in-deploymentcreate-check').is(':checked');
+            opt_in_set[16] = $options.find('#gcconnex-opt-in-missioncreator-check').is(':checked');
+
+            /* MW - Added for GCcollab only */
+            opt_in_set[17] = $options.find('#gcconnex-opt-in-casualseek-check').is(':checked');
+            opt_in_set[18] = $options.find('#gcconnex-opt-in-casualcreate-check').is(':checked');
+            opt_in_set[19] = $options.find('#gcconnex-opt-in-studentseek-check').is(':checked');
+            opt_in_set[20] = $options.find('#gcconnex-opt-in-studentcreate-check').is(':checked');
+
+            /*opt_in_set[6] = $options.find('#gcconnex-opt-in-peer-coached-check').is(':checked');
+            opt_in_set[7] = $options.find('#gcconnex-opt-in-peer-coaching-check').is(':checked');
+            opt_in_set[8] = $options.find('#gcconnex-opt-in-skill-sharing-check').is(':checked');
+            opt_in_set[9] = $options.find('#gcconnex-opt-in-job-sharing-check').is(':checked');*/
+
+            for(i=0;i<opt_in_set.length;i++) {
+                if(opt_in_set[i]) {
+                    opt_in_set[i] = 'gcconnex_profile:opt:yes';
+                }
+                else {
+                    opt_in_set[i] = 'gcconnex_profile:opt:no';
+                }
+            }
+
+            // Saving the data using the edit_profile action.
+            elgg.action('b_extended_profile/edit_profile', {
+                data: {
+                    'guid': elgg.get_logged_in_user_guid(),
+                    'section': 'opt-in',
+                    'opt_in_set': opt_in_set,
+                    'access': access
+                },
+                success: function() {
+                    $.get(elgg.normalize_url('ajax/view/b_extended_profile/opt-in'),
+                        {
+                            guid: elgg.get_logged_in_user_guid()
+                        },
+                        function(data) {
+                            // Refreshes the opt-in display and shows it.
+                            $('.gcconnex-profile-opt-in-display').remove();
+                            $('.gcconnex-opt-in').append('<div class="gcconnex-profile-opt-in-display">' + data + '</div>');
+                        });
+                }
+            });
+
+            // Removes the edit view so the display view can be seen.
+            $('.gcconnex-opt-in-edit-wrapper').remove();
+            break;
+        /*
+         * END MODIFIED CODE
+         */
+
         default:
             break;
     }
@@ -1096,7 +1256,6 @@ function saveProfile(event) {
         $('.cancel-' + $section).addClass('hidden');
         $('.cancel-' + $section).addClass('wb-invisible');
     }
-
 }
 
 /*
@@ -1121,18 +1280,18 @@ function cancelChanges(event) {
         case "about-me":
             // show the about me
             $('.gcconnex-about-me-edit-wrapper').remove();
-            $('.gcconnex-profile-about-me-display').show();
+            $('.gcconnex-profile-about-me-display').show().attr('aria-hidden', false);
             break;
         case "education":
             //$('.gcconnex-profile-education-display').show();
             $('.gcconnex-education-edit-wrapper').remove();
             $('#edu-error').remove();
-            $('.gcconnex-profile-education-display').show();
+            $('.gcconnex-profile-education-display').show().attr('aria-hidden', false);
             break;
         case "work-experience":
             $('.gcconnex-work-experience-edit-wrapper').remove();
             $('#work-error').remove();
-            $('.gcconnex-profile-work-experience-display').show();
+            $('.gcconnex-profile-work-experience-display').show().attr('aria-hidden', false);
             break;
         case "skills":
             $('.gcconnex-endorsements-input-wrapper').remove();
@@ -1140,7 +1299,7 @@ function cancelChanges(event) {
             $('.delete-skill').remove();
             $('.delete-skill-img').remove();
             $('.gcconnex-skills-skill-wrapper').removeClass('endorsements-markedForDelete');
-
+            $('.gcconnex-skill-entry').show();
             $('.gcconnex-skills-skill-wrapper').show();
             $('.temporarily-added').remove();
             break;
@@ -1150,8 +1309,21 @@ function cancelChanges(event) {
             break;
         case 'portfolio':
             $('.gcconnex-portfolio-edit-wrapper').remove();
-            $('.gcconnex-profile-portfolio-display').show();
+            $('.gcconnex-profile-portfolio-display').show().attr('aria-hidden', false);
             break;
+
+        /*
+         * MODIFIED CODE
+         * Removes edit_opt-in view and then shows opt-in view.
+         */
+        case 'opt-in':
+            $('.gcconnex-opt-in-edit-wrapper').remove();
+            $('.gcconnex-profile-opt-in-display').show().attr('aria-hidden', false);
+            break;
+        /*
+         * END MODIFIED CODE
+         */
+
         default:
             break;
     }
@@ -1261,18 +1433,18 @@ function addNewSkill(newSkill) {
 
     newSkill = escapeHtml(newSkill);
     // inject HTML for newly added skill
-    $('.gcconnex-skills-skills-list-wrapper').append('<div class="gcconnex-skill-entry temporarily-added" data-skill="' + newSkill + '">' +
-    '<div title="Number of endorsements" class="gcconnex-endorsements-count" data-skill="' + newSkill + '">0</div>' +
+    $('.gcconnex-skills-skills-list-wrapper').append('<div tabindex="-1" class="gcconnex-skill-entry temporarily-added" data-skill="' + newSkill + '">' +
     '<div data-skill="' + newSkill + '" class="gcconnex-endorsements-skill">' + newSkill + '</div>' +
-    '<button class="delete-skill" data-type="skill" onclick="deleteEntry(this)">' + '<i class="fa fa-trash-o delete-skill-img"></i>Delete / Supprimer' + '</button></div>');
+    '<div class="gcconnex-endorsements-count" data-skill="' + newSkill + '">0</div>' +
+    '<button class="delete-skill" data-type="skill" onclick="deleteEntry(this)">' + '<i class="fa fa-2x icon-unsel fa-trash-o delete-skill-img"><span class="wb-inv">' + elgg.echo('delete') + '</span></i></button></div>');
     $('.gcconnex-endorsements-input-skill').val('');                                 // clear the text box
     $('.gcconnex-endorsements-input-skill').typeahead('val', '');                                           // clear the typeahead box
     $('.gcconnex-endorsements-input-skill').hide();                                  // hide the text box
     if ( $('.gcconnex-skill-entry:visible').length < 15 ) {
         $('.gcconnex-endorsements-add-skill').show();                                    // show the 'add a new skill' link
     }
-    $('.add-endorsements-' + newSkill).on('click', addEndorsement);            // bind the addEndoresement function to the '+'
-    $('.retract-endorsements-' + newSkill).on('click', retractEndorsement);    // bind the retractEndorsement function to the '-'
+    //$('.add-endorsements-' + newSkill).on('click', addEndorsement);            // bind the addEndoresement function to the '+'
+    //$('.retract-endorsements-' + newSkill).on('click', retractEndorsement);    // bind the retractEndorsement function to the '-'
     $('.delete-' + newSkill).on('click', deleteSkill);                        // bind the deleteSkill function to the 'Delete this skill' link
 }
 
@@ -1283,8 +1455,8 @@ function addEndorsement(identifier) {
     // A user is endorsing a skill! Do some things about it..
     var skill_guid = $(identifier).data('guid');
 
-    elgg.action('b_extended_profile_collab/add_endorsement', {
-        guid: elgg.get_page_owner_guid(),
+    elgg.action('b_extended_profile/add_endorsement', {
+        guid: elgg.get_logged_in_user_guid(),
         skill: skill_guid
     });
 
@@ -1292,9 +1464,11 @@ function addEndorsement(identifier) {
     var targetSkillDashed = targetSkill.replace(/\s+/g, '-').toLowerCase(); // replace spaces with '-' for css classes
 
 
-    var endorse_count = $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text();
+    var endorse = $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text();
+    endorse = endorse.split(" ");
+    var endorse_count = endorse[0];
     endorse_count++;
-    $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text(endorse_count);
+    $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').html(endorse_count+'<span class="wb-invisible">'+elgg.echo('gcconnex_profile:gc_skill:endorsement')+'</span>');
 
     $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.skill-container').removeClass('gcconnex-endorsement-add').addClass('gcconnex-endorsement-retract');
     $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.skill-container').attr('onclick', 'retractEndorsement(this)');
@@ -1312,8 +1486,8 @@ function retractEndorsement(identifier) {
     // A user is retracting their endorsement for a skill! Do stuff about it..
     var skill_guid = $(identifier).data('guid');
 
-    elgg.action('b_extended_profile_collab/retract_endorsement', {
-        'guid': elgg.get_page_owner_guid(),
+    elgg.action('b_extended_profile/retract_endorsement', {
+        'guid': elgg.get_logged_in_user_guid(),
         'skill': skill_guid
     });
 
@@ -1322,9 +1496,11 @@ function retractEndorsement(identifier) {
     var targetSkillDashed = targetSkill.replace(/\s+/g, '-').toLowerCase(); // replace spaces with '-' for css classes
 
 
-    var endorse_count = $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text();
+    var endorse = $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text();
+    endorse = endorse.split(" ");
+    var endorse_count = endorse[0];
     endorse_count--;
-    $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').text(endorse_count);
+    $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.gcconnex-endorsements-count').html(endorse_count+'<span class="wb-invisible">'+elgg.echo('gcconnex_profile:gc_skill:endorsement')+'</span>');
 
     $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.skill-container').removeClass('gcconnex-endorsement-retract').addClass('gcconnex-endorsement-add');
     $('.gcconnex-skill-entry[data-guid="' + skill_guid + '"]').find('.skill-container').attr('onclick', 'addEndorsement(this)');
@@ -1361,6 +1537,9 @@ function addMore(identifier) {
                 user_search_init(this);
             });
         }
+
+        //focus on new form
+        $('.gcconnex-'+another+'-entry').last().focus();
     });
 }
 
@@ -1378,14 +1557,27 @@ function deleteEntry(identifier) {
         // mark the entry for deletion and hide it from view
         $(identifier).closest('.gcconnex-' + entryType + '-entry').hide();
     }
-    console.log(entryType);
 
-    //for tabbing users
-    //add additional 's' to skill to grab right class
     if(entryType == 'skill'){
-        $('.cancel-' + entryType + 's').focus();
+
+      if($(identifier).parent().parent().not(':last-child') && $(identifier).parent().parent().next().is(':visible')){
+          $(identifier).parent().parent().next().focus();
+      } else if($(identifier).parent().parent().not(':last-child') && $(identifier).parent().parent().next().not(':visible')){
+          $('.gcconnex-endorsements-add-skill').focus();
+      } else if($(identifier).parent().parent().is(':last-child')){
+          $('.gcconnex-endorsements-add-skill').focus();
+      }
+
     } else {
-        $('.cancel-' + entryType).focus();
+
+      if($(identifier).parent().not(':last-child') && $(identifier).parent().next().is(':visible')){
+          $(identifier).parent().next().focus();
+      } else if($(identifier).parent().not(':last-child') && $(identifier).parent().next().not(':visible')){
+          $('.gcconnex-'+entryType+'-add-another').focus();
+      } else if($(identifier).parent().is(':last-child')){
+          $('.gcconnex-'+entryType+'-add-another').focus();
+      }
+
     }
 
 }
@@ -1394,7 +1586,7 @@ function deleteEntry(identifier) {
  * Purpose: Remove the message box that informs users they need to re-enter their skills into the new system
  */
 function removeOldSkills() {
-    elgg.action('b_extended_profile_collab/edit_profile', {
+    elgg.action('b_extended_profile/edit_profile', {
         data: {
             'guid': elgg.get_page_owner_guid(),
             'section': 'old-skills'

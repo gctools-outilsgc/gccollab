@@ -33,8 +33,6 @@ $author_text = elgg_echo('byline', array($owner_link));
 $date = elgg_view_friendly_time($album->time_created);
 $categories = elgg_view('output/categories', $vars);
 
-$owner_icon_final = '<div class="col-sm-12 object-header-avatar">'.$owner_icon. '<div class="object-header-name">'.$owner_link . $date .'</div></div>';
-
 $subtitle = "$author_text $date $categories";
 
 $params = array(
@@ -47,14 +45,10 @@ $params = array(
 $params = $params + $vars;
 $summary = elgg_view('object/elements/summary', $params);
 
-if($album->description3){
-	$description = gc_explode_translation($album->description3, $lang);
-}else{
-	$description = $album->description;
-}
+$description = gc_explode_translation( $album->description, $lang );
 
 $body = '';
-if ($album->description || $album->description2) {
+if ( $album->description ) {
 	$body = elgg_view('output/longtext', array(
 		'value' => $description,
 		'class' => 'mbm mrgn-bttm-lg',
@@ -67,19 +61,19 @@ if (elgg_get_plugin_setting('album_comments', 'tidypics')) {
 	//$body .= elgg_view_comments($album);
 }
 
-if(($album->description2) && ($album->description)){
+$description_json = json_decode($album->description);
+if( $description_json->en && $description_json->fr ){
 	echo'<div id="change_language" class="change_language">';
 	if (get_current_language() == 'fr'){
 
 		?>			
-		<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $album->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $album->description2;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
+		<span id="indicator_language_en" onclick="change_en('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $description_json->en;?></span><span id="fr_content" class="testClass hidden" ><?php echo $description_json->fr;?></span><?php echo elgg_echo('box:indicator:en') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:en') ?></span></span>
 			
 		<?php
-
 	}else{
-				
-		?>			
-		<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $album->description;?></span><span id="fr_content" class="testClass hidden" ><?php echo $album->description2;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
+		?>		
+			
+		<span id="indicator_language_fr" onclick="change_fr('.elgg-output');"><span id="en_content" class="testClass hidden" ><?php echo $description_json->en;?></span><span id="fr_content" class="testClass hidden" ><?php echo $description_json->fr;?></span><?php echo elgg_echo('box:indicator:fr') ?><span class="fake-link" id="fake-link-1"><?php echo elgg_echo('indicator:click:fr') ?></span></span>
 		<?php	
 	}
 	echo'</div>';
@@ -88,7 +82,7 @@ if(($album->description2) && ($album->description)){
 
 echo elgg_view('object/elements/full', array(
 	'entity' => $album,
-	'icon' => $owner_icon_final,
+	'icon' => $owner_icon,
 	'summary' => $summary,
 	'body' => $body,
 ));

@@ -15,13 +15,8 @@ if (!elgg_get_config('allow_registration')) {
 
 $site = elgg_get_site_entity();
 
-$emails = get_input('emails');
+$emails = json_decode(get_input('emails'));
 $emailmessage = get_input('emailmessage');
-
-$emails = trim($emails);
-if (strlen($emails) > 0) {
-	$emails = preg_split('/\\s+/', $emails, -1, PREG_SPLIT_NO_EMPTY);
-}
 
 if (!is_array($emails) || count($emails) == 0) {
 	register_error(elgg_echo('invitefriends:noemails'));
@@ -63,13 +58,14 @@ foreach ($emails as $email) {
 		'friend_guid' => $current_user->guid,
 		'invitecode' => generate_invite_code($current_user->username),
 	));
+	$message = elgg_echo('invitefriends:email', array(
+		$site->name,
+		$current_user->name,
+		$emailmessage,
+		$link,
+	));
 
-	$subject = elgg_echo('invitefriends:subject', array($site->name), 'en');
-	$subject .= ' | '.elgg_echo('invitefriends:subject', array($site->name), 'fr');
-
-	$message = elgg_echo('invitefriends:email_body', array($site->name, $link),'en');
-	$message .= '<br/><br/>'.elgg_echo('invitefriends:email_body', array($site->name, $link),'fr');
-	$message .= "<br/><br/>Message <p>{$emailmessage}</p>";
+	$subject = elgg_echo('invitefriends:subject', array($site->name));
 
 	// create the from address
 	$site = get_entity($site->guid);

@@ -67,7 +67,7 @@ if(elgg_instanceof(elgg_get_page_owner_entity(), 'group')){
 
 $feedbackText= elgg_echo('wet:feedbackText');
 $body = <<<__BODY
-<div class="elgg-page-messages container">
+<div class="elgg-page-messages">
     $messages
 </div> 
     $tabskip
@@ -78,9 +78,7 @@ __BODY;
 
 //$body .= elgg_view('page/elements/topbar_wrapper', $vars);
 
-// GCcollab displays user menu elsewhere
-// $userMenu = elgg_view('page/elements/topbar_wrapper', $vars);
-$userMenu = "";
+$userMenu = elgg_view('page/elements/topbar_wrapper', $vars);
 
 $body .= <<<__BODY
 	<header role="banner">
@@ -130,7 +128,7 @@ $breadcrumbs
 
 
 
-	<footer role="contentinfo" id="wb-info" class="centered-xs visible-xs visible-sm visible-md visible-lg wb-navcurr">
+	<footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
 
 			$footer
 

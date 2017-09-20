@@ -1139,6 +1139,7 @@
         <li role="presentation"><a href="#groupsjoined" aria-controls="groupsjoined" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:groupsjoined:title"); ?></a></li>
         <li role="presentation"><a href="#likes" aria-controls="likes" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:likes:title"); ?></a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:messages:title"); ?></a></li>
+        <li role="presentation"><a href="#optins" aria-controls="optins" role="tab" data-toggle="tab"><?php echo elgg_echo("gccollab_stats:optins:title"); ?></a></li>
     </ul>
 
     <div class="tab-content" style="width: 100%; max-width:100%;">
@@ -1412,11 +1413,10 @@
                         var dateString = date.getTime();
                         if(!dates[dateString]){ dates[dateString] = {}; }
                         dates[dateString].count = (dates[dateString].count ? dates[dateString].count + 1 : 1);
-                        dates[dateString].names = (dates[dateString].names ? dates[dateString].names + "<br />" + value[1] : value[1]);
                     });
                     $.each(dates, function(key, value){
                         key = parseInt(key);
-                        groupscreated.push([key, value.count, new Date(key).niceDate(), value.names]);
+                        groupscreated.push([key, value.count, new Date(key).niceDate()]);
                     });
                     groupscreated.sort();
 
@@ -1470,7 +1470,7 @@
                         },
                         tooltip: {
                             formatter: function() {
-                                return '<b><?php echo elgg_echo("gccollab_stats:groups:label"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][3] + '<br /><b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][2] + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
+                                return '<b><?php echo elgg_echo("gccollab_stats:date"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][2] + '<br /><b><?php echo elgg_echo("gccollab_stats:total"); ?></b> ' + groupscreated[this.series.data.indexOf(this.point)][1];
                             }
                         },
                         series: [{
@@ -1739,6 +1739,61 @@
         </script>
         </div>
 
+        <div role="tabpanel" class="tab-pane" id="optins">
+
+        <div class="chart" id="optinsChart" style="min-height: 350px;"><span class="loading"><?php echo elgg_echo("gccollab_stats:loading"); ?></span></div>
+
+        <script>
+            $(function () {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=site.stats&type=optins&lang=' + lang, function (data) {
+                    var optins = [];
+                    $.each(data.result, function(key, value){
+                        optins.push([key, value]);
+                    });
+                    optins.sort();
+
+                    Highcharts.chart('optinsChart', {
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: '<?php echo elgg_echo("gccollab_stats:optins:title"); ?>'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: '<?php echo elgg_echo("gccollab_stats:optins:amount"); ?>'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
+                            pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> <?php echo elgg_echo("gccollab_stats:users"); ?><br/>'
+                        },
+                        series: [{
+                            name: '<?php echo elgg_echo("gccollab_stats:optins:title"); ?>',
+                            colorByPoint: true,
+                            data: optins
+                        }]
+                    });
+                });
+            });
+        </script>
+        </div>
+
     </div>
 
     <script>
@@ -1752,6 +1807,7 @@
                     $("#groupsjoinedChart").highcharts().reflow();
                     $("#likesChart").highcharts().reflow();
                     $("#messagesChart").highcharts().reflow();
+                    $("#optinsChart").highcharts().reflow();
                 }, 5);
             });
         });

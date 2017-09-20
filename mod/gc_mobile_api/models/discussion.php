@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"get_discussion",
 	array(
 		"user" => array('type' => 'string', 'required' => true),
-		"guid" => array('type' => 'int', 'required' => true)
+		"guid" => array('type' => 'int', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a discussion & all replies based on user id and discussion id',
 	'POST',
@@ -16,7 +17,7 @@ elgg_ws_expose_function(
 	false
 );
 
-function get_discussion( $user, $guid ){
+function get_discussion( $user, $guid, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -25,7 +26,8 @@ function get_discussion( $user, $guid ){
 	if( !$entity ) return "Discussion was not found. Please try a different GUID";
 	if( !$entity instanceof ElggDiscussionReply ) return "Invalid discussion. Please try a different GUID";
 
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 	
 	$discussions = elgg_list_entities(array(
 	    'type' => 'object',
@@ -49,7 +51,7 @@ function get_discussion( $user, $guid ){
 
 	$discussion->comments = get_entity_comments($discussion->guid);
 
-	$discussion->userDetails = get_user_block($discussion->owner_guid);
+	$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 
 	return $discussion;
 }

@@ -7,6 +7,22 @@
 elgg_register_event_handler('init', 'system', 'gc_communities_init');
 
 function gc_communities_init(){
+
+    $subtypes = elgg_get_plugin_setting('subtypes', 'gc_communities');
+    if( !$subtypes ){
+        elgg_set_plugin_setting('subtypes', json_encode(array('blog', 'groupforumtopic', 'event_calendar', 'file')), 'gc_communities');
+    }
+
+    // Register ajax save action
+    elgg_register_action("gc_communities/save", __DIR__ . "/actions/gc_communities/save.php");
+
+    // Register ajax tag view
+    elgg_register_ajax_view("tags/form");
+
+    // Register streaming ajax calls
+    elgg_register_ajax_view('ajax/community_feed');
+    elgg_register_ajax_view('ajax/community_wire');
+
     $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'), true);
     $context = array();
 
@@ -16,7 +32,12 @@ function gc_communities_init(){
 
         foreach( $communities as $community ){
             $url = $community['community_url'];
+            $community_animator = $community['community_animator'];
+
             $text = (get_current_language() == 'fr') ? $community['community_fr'] : $community['community_en'];
+            if( elgg_is_logged_in() && (elgg_is_admin_logged_in() || $community_animator == elgg_get_logged_in_user_entity()->username) ){
+                $text .= " <span class='elgg-lightbox' data-colorbox-opts='".json_encode(['href'=>elgg_normalize_url('ajax/view/tags/form?community_url='.$url),'width'=>'800px','height'=>'255px'])."'><i class='fa fa-cog fa-lg'><span class='wb-inv'>Customize this Community</span></i></span>";
+            }
 
             //Register Community page handler
             elgg_register_page_handler($url, 'gc_community_page_handler');
@@ -52,19 +73,25 @@ function gc_communities_init(){
         elgg_register_widget_type('filtered_events_index', elgg_echo('gc_communities:filtered_events_index'), elgg_echo('gc_communities:filtered_events_index'), $context, true);
     }
     
-    elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
+    // Removing widget since Filtered Feed is now shown by default
+    // elgg_register_widget_type('filtered_feed_index', elgg_echo('gc_communities:filtered_feed_index'), elgg_echo('gc_communities:filtered_feed_index'), $context, true);
     
     if( elgg_is_active_plugin('groups') ){
         elgg_register_widget_type('filtered_groups_index', elgg_echo('gc_communities:filtered_groups_index'), elgg_echo('gc_communities:filtered_groups_index'), $context, true);
     }
 
-    elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
-
-    elgg_register_widget_type('filtered_spotlight_index', elgg_echo('gc_communities:filtered_spotlight_index'), elgg_echo('gc_communities:filtered_spotlight_index'), $context, true);
-
-    if( elgg_is_active_plugin('thewire') ){
-        elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
+    // Only for GCcollab
+    $site = elgg_get_site_entity();
+    if( strpos(strtolower($site->name), 'gccollab') !== false ){
+        elgg_register_widget_type('filtered_members_index', elgg_echo('gc_communities:filtered_members_index'), elgg_echo('gc_communities:filtered_members_index'), $context, true);
     }
+
+    // Removing widget since Filtered Wire is now shown by default
+    // if( elgg_is_active_plugin('thewire') ){
+    //     elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
+    // }
+
+    // elgg_register_widget_type('free_html', elgg_echo("widgets:free_html:title"), elgg_echo("widgets:free_html:description"), $context, true);
 }
 
 function gc_communities_permissions_hook($hook, $entity_type, $returnvalue, $params) {
@@ -74,6 +101,7 @@ function gc_communities_permissions_hook($hook, $entity_type, $returnvalue, $par
     foreach( $communities as $community ){
         if( $community['community_url'] == $url ){
             $community_animator = $community['community_animator'];
+            break;
         }
     }
 
@@ -91,6 +119,7 @@ function gc_communities_widget_permissions_hook($hook, $entity_type, $returnvalu
     foreach( $communities as $community ){
         if( $community['community_url'] == $url ){
             $community_animator = $community['community_animator'];
+            break;
         }
     }
 
@@ -108,20 +137,23 @@ function gc_community_page_handler($page, $url){
         if( $community['community_url'] == $url ){
             $community_en = $community['community_en'];
             $community_fr = $community['community_fr'];
+            $community_tags = $community['community_tags'];
             $community_animator = $community['community_animator'];
+            break;
         }
     }
 
     set_input('community_url', $url);
     set_input('community_en', $community_en);
     set_input('community_fr', $community_fr);
+    set_input('community_tags', $community_tags);
     set_input('community_animator', $community_animator);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;
 }
 
-function gc_communities_build_columns($area_widget_list, $widgettypes, $build_server_side = true){
+function gc_communities_build_widgets($area_widget_list, $widgettypes, $build_server_side = true){
 
     $column_widgets_view = array();
     $column_widgets_string = "";
@@ -175,69 +207,68 @@ function gc_communities_animator_block($user){
     $html = "";
     if( $user ){
 
-        $deptObj = elgg_get_entities(array(
-            'type' => 'object',
-            'subtype' => 'federal_departments',
-        ));
-        $depts = get_entity($deptObj[0]->guid);
-
-        $federal_departments = array();
-        if (get_current_language() == 'en'){
-            $federal_departments = json_decode($depts->federal_departments_en, true);
-        } else {
-            $federal_departments = json_decode($depts->federal_departments_fr, true);
-        }
-
-        $provObj = elgg_get_entities(array(
-            'type' => 'object',
-            'subtype' => 'provinces',
-        ));
-        $provs = get_entity($provObj[0]->guid);
-
-        $provinces = array();
-        if (get_current_language() == 'en'){
-            $provinces = json_decode($provs->provinces_en, true);
-        } else {
-            $provinces = json_decode($provs->provinces_fr, true);
-        }
-
-        $minObj = elgg_get_entities(array(
-            'type' => 'object',
-            'subtype' => 'ministries',
-        ));
-        $mins = get_entity($minObj[0]->guid);
-
-        $ministries = array();
-        if (get_current_language() == 'en'){
-            $ministries = json_decode($mins->ministries_en, true);
-        } else {
-            $ministries = json_decode($mins->ministries_fr, true);
-        }
-
         $userObj = get_user_by_username($user);
 
         if( $userObj ){
 
             $userType = $userObj->user_type;
-            // if user is public servant
-            if( $userType == 'federal' ){
 
-                $department = $federal_departments[$userObj->federal];
+            switch( $userType ){
+                case "federal":
+                    $deptObj = elgg_get_entities(array(
+                        'type' => 'object',
+                        'subtype' => 'federal_departments',
+                    ));
+                    $depts = get_entity($deptObj[0]->guid);
 
-            // otherwise if user is student or academic
-            } else if( $userType == 'student' || $userType == 'academic' ){
-                $institution = $userObj->institution;
-                $department = ($institution == 'university') ? $userObj->university : $userObj->college;
+                    $federal_departments = array();
+                    if (get_current_language() == 'en'){
+                        $federal_departments = json_decode($depts->federal_departments_en, true);
+                    } else {
+                        $federal_departments = json_decode($depts->federal_departments_fr, true);
+                    }
 
-            // otherwise if user is provincial employee
-            } else if( $userType == 'provincial' ){
+                    $department = $federal_departments[$userObj->federal];
+                    break;
+                case "student":
+                case "academic":
+                    $institution = $userObj->institution;
+                    $department = ($institution == 'university') ? $userObj->university : $userObj->college;
+                    break;
+                case "provincial":
+                    $provObj = elgg_get_entities(array(
+                        'type' => 'object',
+                        'subtype' => 'provinces',
+                    ));
+                    $provs = get_entity($provObj[0]->guid);
 
-                $department = $provinces[$userObj->provincial];
-                if($userObj->ministry && $userObj->ministry !== "default_invalid_value"){ $department .= ' / ' . $ministries[$userObj->provincial][$userObj->ministry]; }
+                    $provinces = array();
+                    if (get_current_language() == 'en'){
+                        $provinces = json_decode($provs->provinces_en, true);
+                    } else {
+                        $provinces = json_decode($provs->provinces_fr, true);
+                    }
 
-            // otherwise show basic info
-            } else {
-                $department = $userObj->$userType;
+                    $minObj = elgg_get_entities(array(
+                        'type' => 'object',
+                        'subtype' => 'ministries',
+                    ));
+                    $mins = get_entity($minObj[0]->guid);
+
+                    $ministries = array();
+                    if (get_current_language() == 'en'){
+                        $ministries = json_decode($mins->ministries_en, true);
+                    } else {
+                        $ministries = json_decode($mins->ministries_fr, true);
+                    }
+
+                    $department = $provinces[$userObj->provincial];
+                    if( $userObj->ministry && $userObj->ministry !== "default_invalid_value" ){
+                        $department .= ' / ' . $ministries[$userObj->provincial][$userObj->ministry];
+                    }
+                    break;
+                default:
+                    $department = $userObj->$userType;
             }
 
             $html = '<div class="panel panel-default elgg-module-widget">

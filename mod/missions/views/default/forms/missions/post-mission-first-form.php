@@ -52,36 +52,9 @@ $input_name = elgg_view('input/text', array(
     'id' => 'post-mission-name-text-input'
 ));
 
-/* MW - Changed for GCcollab version of Opp Platform
 $input_department = elgg_view('page/elements/organization-input', array(
 		'organization_string' => $extracted_org
 ));
-*/
-
-$deptObj = elgg_get_entities(array(
-   	'type' => 'object',
-   	'subtype' => 'federal_departments',
-));
-$depts = get_entity($deptObj[0]->guid);
-
-$federal_departments = array();
-if (get_current_language() == 'en'){
-	$federal_departments = json_decode($depts->federal_departments_en, true);
-} else {
-	$federal_departments = json_decode($depts->federal_departments_fr, true);
-}
-
-$input_department = elgg_view('input/text', array(
-	'name' => 'department',
-	'id' => 'org-no-tree-exists-text-input',
-	'value' => elgg_get_logged_in_user_entity()->federal,
-    'list' => 'departmentlist'
-));
-$input_department .= '<datalist id="departmentlist">';
-foreach($federal_departments as $key => $value){
-	$input_department .= '<option value="' . $key . '">' . $value . '</option>';
-}
-$input_department .= '</datalist>';
 
 $input_email = elgg_view('input/text', array(
     'name' => 'email',

@@ -258,6 +258,14 @@ function phpmailer_send($to, $to_name, $subject, $body, array $bcc = NULL, $html
 		$phpmailer->IsMail();
 	}
 
+	if ($params['replyTo']) {
+		if ($params['replyToName']) {
+			$phpmailer->AddReplyTo($params['replyTo'], $params['replyToName']);
+		} else {
+			$phpmailer->AddReplyTo($params['replyTo'], '');
+		}
+	}
+
 	$return = $phpmailer->Send();
 	if (!$return ) {
 		elgg_log('PHPMailer error: ' . $phpmailer->ErrorInfo, 'WARNING');

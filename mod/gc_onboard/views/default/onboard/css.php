@@ -39,12 +39,12 @@
 
 
 .onboard-popover{
-    border: solid 2px #46246A !important;
+    border: solid 2px #567784 !important;
     border-radius: 4px !important;
 }
 .onboard-popover .btn-primary{
-    background-color: #46246A !important;
-    border-color: #46246A;
+    background-color: #567784 !important;
+    border-color: #567784;
 
 }
 
@@ -61,7 +61,7 @@
  .step-list-item{
      color: #ddd;
      padding:4px 10px;
-     border: solid 2px #46246A;
+     border: solid 2px #567784;
      border-radius: 50%;
      position:relative;
 
@@ -70,7 +70,7 @@
  .step-list-item:after{
          content: "\f00c";
      font-family: FontAwesome;
-     color: #46246A;
+     color: #567784;
      position:absolute;
      font-size: 24px;
      top: -2px;
@@ -83,7 +83,7 @@
    top: 50%;
    width: 13px;
    height: 0;
- border:1px solid #46246A;
+ border:1px solid #567784;
 
  }
  .step-list-item:last-child:before{
@@ -98,8 +98,8 @@
 
  .current-step{
      padding: 3px 9px;
-     color: #46246A !important;
-     border: solid 3px #46246A;
+     color: #567784!important;
+     border: solid 3px #567784;
         font-weight:bold;
  }
 
@@ -144,12 +144,7 @@
 
  .final-tour-step{
      min-width: 500px;
- }
 
- @media screen and (max-width: 500px){
-    .final-tour-step{
-        min-width: 95%;
-    }
  }
 
  .profile-step-holder{
@@ -161,13 +156,13 @@
  /*Additional Features Box*/
 
  .panel-onboard{
-     border: solid 2px #46246A !important;
-     border-radius: 3px;
+     border: solid 2px #567784 !important;
+     border-radius: 1px;
  }
 
  .panel-onboard .btn-primary{
-     background-color: #46246A !important;
-     border-color: #46246A;
+     background-color: #567784 !important;
+     border-color: #567784;
 
  }
 
@@ -224,10 +219,12 @@
      margin:6px 0px;
      box-shadow: 1px 1px 4px #CCC;;
      border-radius: 5px;
+     position: relative;
+     z-index: 3;
  }
 
  .onboard-icon{
-     color: #46246a;
+     color: #047177;
 
  }
  .onboard-icon i{
@@ -256,133 +253,25 @@
  }
 
  .onboard-cta-buttons .btn-primary{
-     background-color: #46246A !important;
-     border-color: #46246A;
+     background-color: #567784 !important;
+     border-color: #567784;
 
  }
 
- /** Welcome / Screen 1 / skills**/
- .tt-dropdown-menu {
-     width: 310px;
-     padding: 8px 0;
-     background-color: #fff;
-     border: 1px solid #ccc;
-     border: 1px solid rgba(0, 0, 0, 0.2);
-     border-radius: 8px;
-     box-shadow: 0 5px 10px rgba(0,0,0,.2);
- }
-     .tt-suggest-username-wrapper {
-     padding-top: 3px;
- }
-
- .tt-suggestion {
-     padding: 3px 20px;
-     font-size: 18px;
-     line-height: 24px;
- }
-
- .tt-suggestion.tt-is-under-cursor,
- .tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
-     color: #fff;
-     background-color: #055959;
- }
-
- .picked-skill {
-        display:inline-block;
-
-
-     height: 30px;
-     overflow-x: hidden;
-     -ms-overflow-x: hidden;
-     overflow-y: hidden;
-     -ms-overflow-y: hidden;
-     text-overflow: ellipsis;
-     white-space: nowrap;
-     font-family: arial, sans-serif;
-     background-color: #f0f0f0;
-     border-bottom: 1px solid lightgrey;
-     border-right: 1px solid lightgrey;
-     color: #335075;
-    /* color: white;
-     background: #055959;*/
-     padding: 3px 10px 3px 10px;
-     border-radius: 5px;
-     /* box-shadow: 5px 3px 5px #888888; */
-     margin-left: 0px;
-     margin-right: 5px;
- }
-
- .pop-skill {
-        display:inline-block;
-     height: 30px;
-     overflow-x: hidden;
-     -ms-overflow-x: hidden;
-     overflow-y: hidden;
-     -ms-overflow-y: hidden;
-     text-overflow: ellipsis;
-     white-space: nowrap;
-
-
-     border: 1px solid #46246A;
-     color: #46246A;
-    /* color: white;
-     background: #055959;*/
-     padding: 3px 10px 3px 10px;
-     border-radius: 10px;
-     /* box-shadow: 5px 3px 5px #888888; */
-     margin-left: 0px;
-     margin-right: 5px;
- }
-
- .pop-skill:hover {
-
-     cursor: pointer;
-     background: ##46246A;
-     color: white;
- }
-
- label {
-     display: block;
- }
-
- .picked-skill:hover{
-
-     box-shadow: rgba(0,0,0,0.25) 0 0 6px;
-     cursor: pointer;
- }
-
- .yourSkills {
-
-     border: 1px solid #ccc;
-     padding: 10px;
-     margin: 5px;
- }
-
- .close-x {
-     color:rgba(180,0,0,0.5);
- }
-
- .close-x:hover {
-     color:rgba(180,0,0,0.9);
- }
-
- .alert-gc {
-     border: 2px solid #46246A;
-     background: white;
-     margin: 3px;
-     padding:5px;
- }
-
- .alert-gc-icon {
-     color: #46246A;
-     margin:10px;
- }
-
- .alert-gc-msg {
-     margin-left:5px;
- }
-
- .alert-gc-msg h3 {
-     margin-top:10px;
+ .onboard-cta-buttons .btn-primary:hover{
+     background-color: #3e5862 !important;
+     border-color: #567784;
 
  }
+
+.wb-overlay {
+  -webkit-background-clip: border-box;
+background-clip: border-box;
+background-color: #fff;
+border: 0;
+border-radius: 0;
+display: none;
+-webkit-transform: translateZ(0);
+transform: inherit;
+z-index: 1050;
+}

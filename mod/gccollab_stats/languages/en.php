@@ -46,6 +46,8 @@ $english = array(
     'gccollab_stats:likes:amount' => "Amount of Likes",
     'gccollab_stats:messages:title' => "Messages",
     'gccollab_stats:messages:amount' => "Amount of Messages",
+    'gccollab_stats:optins:title' => "Opt Ins",
+    'gccollab_stats:optins:amount' => "Amount of Opt Ins",
 
     'gccollab_stats:ministrymessage' => "Click the columns to view the ministries within the province/territory",
     'gccollab_stats:schoolmessage' => "Click the columns to view the various schools",

@@ -17,56 +17,73 @@ if(!$welcomeGroup_guid){
 $group_entity = get_entity($welcomeGroup_guid);
 ?>
 <div class="panel-heading clearfix">
-    <h2 class="pull-left">
+    <h3 class="pull-left mrgn-tp-md">
         <?php echo elgg_echo('onboard:welcome:three:title'); ?>
-    </h2>
+    </h3>
     <div class="pull-right">
-        <?php echo elgg_view('page/elements/step_counter', array('current_step'=>4, 'total_steps'=>5));?>
+        <?php echo elgg_view('page/elements/step_counter', array('current_step'=>4, 'total_steps'=>6));?>
 
     </div>
 </div>
 <div class="panel-body">
-  <div class="col-sm-12 clearfix">
-    <?php
-      echo elgg_echo('onboard:groupfeature2');
-    ?>
-  </div>
-      <div class="col-sm-12 row wb-eqht">
 
+    <div class="col-sm-12 additional-feature-holder">
+
+        <div class="col-sm-6 feature-col">
+            <div class="col-sm-12 ">
+                <div class="feature-image">
+                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/groups/g_1.jpg' ?>" alt="<?php echo elgg_echo('onboard:groupImgAlt1');?>" />
+                </div>
+            </div>
+            <div class="col-sm-12 mrgn-tp-md feature-desc">
+
+                <?php
+                echo elgg_echo('onboard:groupfeature2');
+                ?>
+            </div>
+        </div>
+        <div class="col-sm-6 feature-col">
+            <div class="col-sm-12">
+                <div class="feature-image">
+                    <img src="<?php echo elgg_get_site_url() .'mod/gc_onboard/graphics/groups/g_2.jpg' ?>" alt="<?php echo elgg_echo('onboard:groupImgAlt2');?>" />
+                </div>
+            </div>
+            <div class="col-sm-12 mrgn-tp-md feature-desc">
+
+                <?php
+                echo elgg_echo('onboard:groupfeature3');
+                ?>
+            </div>
+        </div>
         <?php
-        elgg_push_context('groups-onboard');
-        echo elgg_view('page/elements/featured_groups', array(
-          'limit'=>4,
-        ));
-        elgg_pop_context();
+        //Nick - Display the image block of the group
+        //echo elgg_view('group/default', array('entity'=>$group_entity,));
+
         ?>
-      </div>
+    </div>
+
     <div class="mrgn-bttm-md mrgn-tp-md pull-right">
-        <a id="skip" class="mrgn-lft-sm btn btn-primary" href="#">
-            <?php echo elgg_echo('onboard:welcome:one:submit'); ?>
+        <a id="skip" class="mrgn-lft-sm btn btn-default" href="#">
+            <?php echo elgg_echo('onboard:welcome:one:skip'); ?>
         </a>
         <?php
-/*
+
         echo elgg_view('output/url',array(
             'text'=>elgg_echo('onboard:welcome:three:tour'),
             'href'=>elgg_get_site_url().'groups/profile/'.$welcomeGroup_guid .'?first_tour=true',
             'class'=>'btn btn-primary',
-        ));*/
+        ));
 
         ?>
 
     </div>
 
     <script>
-    $(document).ready(function(){
-      //When this page loads we will add 'target=_blank' to the group links
-      $('.summary-title a').attr('target','_blank');
-    });
+
 
 
     //skip to next step
     $('#skip').on('click', function () {
-      $(this).html('<i class="fa fa-spinner fa-pulse fa-lg fa-fw"></i><span class="sr-only">Loading...</span>');
         elgg.get('ajax/view/welcome-steps/stepFour', {
             success: function (output) {
 
@@ -76,36 +93,8 @@ $group_entity = get_entity($welcomeGroup_guid);
         });
     });
 
-
-        //join group and perform animation
-        function joinGroup(type, guid) {
-
-            //grab content of button
-            var oldHTML = $('#' + type + '-' + guid).html();
-
-            //add spinner - chane button colour
-            $('#' + type + '-' + guid).html('<i class="fa fa-spinner fa-spin fa-lg fa-fw"></i><span class="sr-only">Loading...</span>').removeClass('btn-primary').addClass('btn-default');
-
-            //perform join action
-            elgg.action('onboard/join', {
-                data: {
-                    group_guid: guid
-                },
-                success: function (wrapper) {
-                    if (wrapper.output.result == 'joined') { //joined group
-                        $('#' + type + '-' + guid).html("<?php echo elgg_echo('groups:joined'); ?>").attr('disabled', true);
-                        updateTracker();
-                    } else if(wrapper.output.result == 'requestsent') { //join request sent
-                        $('#' + type + '-' + guid).html("<?php echo elgg_echo('groups:joinrequestmade'); ?>").attr('disabled', true);
-                        updateTracker();
-                    } else if (wrapper.output.result == 'failed') { //failed
-                        $('#' + type + '-' + guid).html(oldHTML).removeClass('btn-default').addClass('btn-primary');
-                    }
-                }
-            });
-        }
-
     </script>
+
 
 
 </div>

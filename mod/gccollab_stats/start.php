@@ -315,7 +315,9 @@ function get_site_data($type, $lang) {
 
 		foreach($wireposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, "", "");
+			}
 		}
 	} else if ($type === 'blogposts') {
 		$blogposts = elgg_get_entities(array(
@@ -326,7 +328,9 @@ function get_site_data($type, $lang) {
 
 		foreach($blogposts as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->title, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, "", "", "");
+			}
 		}
 	} else if ($type === 'comments') {
 		$comments = elgg_get_entities(array(
@@ -337,7 +341,9 @@ function get_site_data($type, $lang) {
 
 		foreach($comments as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, "", "");
+			}
 		}
 	} else if ($type === 'groupscreated') {
 		$groupscreated = elgg_get_entities(array(
@@ -347,7 +353,9 @@ function get_site_data($type, $lang) {
 
 		foreach($groupscreated as $key => $obj){
 			$user = get_user($obj->owner_guid);
-			$data[] = array($obj->time_created, $obj->name, $obj->description, $user->name);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, "", "", "");
+			}
 		}
 	} else if ($type === 'groupsjoined') {
 		$dbprefix = elgg_get_config('dbprefix');
@@ -357,7 +365,9 @@ function get_site_data($type, $lang) {
 		foreach($groupsjoined as $key => $obj){
 			$user = get_user($obj->guid_one);
 			$group = get_entity($obj->guid_two);
-			$data[] = array($obj->time_created, $user->name, $group->name);
+			if($obj->time_created && $user instanceof ElggUser && $group instanceof ElggGroup){
+				$data[] = array($obj->time_created, "", "");
+			}
 		}
 	} else if ($type === 'likes') {
 		$likes = elgg_get_annotations(array(
@@ -369,7 +379,9 @@ function get_site_data($type, $lang) {
 			$entity = get_entity($obj->entity_guid);
 			$user = get_user($obj->owner_guid);
 			$user_liked = ($entity->title != "" ? $entity->title : ($entity->name != "" ? $entity->name : $entity->description));
-			$data[] = array($obj->time_created, $user->name, $user_liked);
+			if($obj->time_created && $user instanceof ElggUser){
+				$data[] = array($obj->time_created, "", "");
+			}
 		}
 	} else if ($type === 'messages') {
 		$messages = elgg_get_entities(array(
@@ -381,7 +393,64 @@ function get_site_data($type, $lang) {
 		foreach($messages as $key => $obj){
 			if($obj->fromId && $obj->fromId !== 1){
 				$user = get_user($obj->owner_guid);
-				$data[] = array($obj->time_created, $user->name, $obj->title);
+				if($obj->time_created && $user instanceof ElggUser){
+					$data[] = array($obj->time_created, "", "");
+				}
+			}
+		}
+	} else if ($type === 'optins') {
+		$optin_types = array(
+			"opt_in_missions" => "missions:micro_mission",
+			"opt_in_missionCreate" => "missions:micro_mission",
+			"opt_in_swap" => "missions:job_swap",
+			"opt_in_mentored" => "missions:mentoring",
+			"opt_in_mentoring" => "missions:mentoring",
+			"opt_in_shadowed" => "missions:job_shadowing",
+			"opt_in_shadowing" => "missions:job_shadowing",
+			"opt_in_jobshare" => "missions:job_sharing",
+			"opt_in_pcSeek" => "missions:peer_coaching",
+			"opt_in_pcCreate" => "missions:peer_coaching",
+			"opt_in_ssSeek" => "missions:skill_sharing",
+			"opt_in_ssCreate" => "missions:skill_sharing",
+			"opt_in_rotation" => "missions:job_rotation",
+			"opt_in_assignSeek" => "missions:assignment",
+			"opt_in_assignCreate" => "missions:assignment",
+			"opt_in_deploySeek" => "missions:deployment",
+			"opt_in_deployCreate" => "missions:deployment",
+			"opt_in_casual_seek" => "missions:casual",
+			"opt_in_casual_create" => "missions:casual",
+			"opt_in_student_seek" => "missions:student",
+			"opt_in_student_create" => "missions:student"
+		);
+
+		$yes = elgg_get_metastring_id('gcconnex_profile:opt:yes');
+
+		$map = array();
+		foreach ($optin_types as $optin_type => $index) {
+			$map[$optin_type] = elgg_get_metastring_id($optin_type);
+		}
+
+		$query = "SELECT count(DISTINCT m.entity_guid) as num FROM elggmetadata m WHERE";
+		foreach ($optin_types as $optin_type => $index) {
+			$temp = $query . " m.name_id={$map[$optin_type]} AND m.value_id={$yes};";
+			$result = get_data($temp)[0];
+			$count = intval($result->num);
+
+			if($count > 0){
+				$string = elgg_echo($index, $lang);
+				if(stripos($optin_type, 'create') !== false){
+					$string .= " (" . elgg_echo("missions:offering", $lang) . ")";
+				}
+				if(stripos($optin_type, 'seek') !== false){
+					$string .= " (" . elgg_echo("missions:seeking", $lang) . ")";
+				}
+				if($optin_type == "opt_in_mentored"){
+					$string .= " (" . elgg_echo("gcconnex_profile:opt:mentored", $lang) . ")";
+				}
+				if($optin_type == "opt_in_mentoring"){
+					$string .= " (" . elgg_echo("gcconnex_profile:opt:mentoring", $lang) . ")";
+				}
+				$data[$string] = $count;
 			}
 		}
 	} 

@@ -15,7 +15,7 @@ $labelIdUrl = 'url-label-'.$widget->getGUID();
 $advanced .= "<h3>" . elgg_echo("widget_manager:widgets:edit:advanced") . "</h3>";
 $advanced .= "<fieldset>";
 
-$advanced .= "<div><label for=\"$labelId\">" . elgg_echo('widget_manager:widgets:edit:custom_title') . "</label>: " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_title]', 'id' => $labelId, 'value' => $widget->widget_manager_custom_title)) . "</div>";
+$advanced .= "<div><label for=\"$labelId\">" . elgg_echo('widget_manager:widgets:edit:custom_title') . ":</label>" . elgg_view('input/text', array('name' => 'params[widget_manager_custom_title]', 'id' => $labelId, 'value' => $widget->widget_manager_custom_title)) . "</div>";
 $advanced .= "<div><label for=\"$labelIdUrl\">" . elgg_echo('widget_manager:widgets:edit:custom_url') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_url]', 'id'=>$labelIdUrl, 'value' => $widget->widget_manager_custom_url)) . "</div>";
 
 $advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("entity" => $widget), array("index"));

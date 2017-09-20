@@ -1,13 +1,7 @@
 <?php
 /**
-  * gc_splash_page pages/splash.php
-  *
   * Creates a splash page for GCcollab for users to check language.
-  * It then forwards them to login
-  *
-  * @version 1.0
-  * @author Nick Pietrantonio    github.com/piet0024
- */
+  */
 
 $site_url = elgg_get_site_url();
 $jsLocation = $site_url . "mod/wet4/views/default/js/wet-boew.js";
@@ -16,6 +10,13 @@ $frenchLink = $site_url .'login';
 $toggle_lang = $site_url .'mod/toggle_language/action/toggle_language/toggle';
 $CONFIG->splashLanguage ="false";
 $gccollab_text = elgg_echo('wet:login_welcome');
+
+if( _elgg_services()->session->get('language') == 'fr'){
+    $graphic_lang = 'fr';
+} else {
+    $graphic_lang = 'en';
+}
+
 //Create The body of the splash
 //Add the toggle language JS to the page to set lang
 //Page forwards to login with users selected language
@@ -96,7 +97,7 @@ if (language_selected == "English")
 <h1 property="name" class="wb-inv">$gccollab_text</h1>
 <div class="row">
 <div class="col-xs-11 col-md-8">
-<object type="image/svg+xml" tabindex="-1" role="img" data="$site_url/mod/wet4/graphics/sig-blk-en.svg" width="283" aria-label="Government of Canada / Gouvernement du Canada"></object>
+<object type="image/svg+xml" tabindex="-1" role="img" data="$site_url/mod/wet4_collab/graphics/sig-blk-$graphic_lang.svg" width="283" aria-label="Government of Canada / Gouvernement du Canada"></object>
 </div>
 </div>
 <div class="row">

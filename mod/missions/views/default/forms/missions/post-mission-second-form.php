@@ -209,7 +209,7 @@ $input_gl_group = elgg_view('input/dropdown', array(
 		<?php echo $input_other_area; ?>
 	</div>
 </div>
-<?php /* MW - Changed for GCcollab version of Opp Platform
+
 <div class="form-group">
 	<label for='post-mission-gl-group' class="col-sm-3 text-right">
 		<?php echo elgg_echo('missions:groupandlevel') . ':';?>
@@ -247,7 +247,7 @@ $input_gl_group = elgg_view('input/dropdown', array(
 			})
 	</script>
 </div>
-*/ ?>
+
 <div class="form-group">
 	<label for='post-mission-number-dropdown-input' class="col-sm-3 text-right">
 		<?php echo elgg_echo('missions:opportunity_number') . ': ';?>
@@ -299,7 +299,6 @@ $input_gl_group = elgg_view('input/dropdown', array(
 		<?php echo $input_description; ?>
 	</div>
 </div>
-<?php /* MW - Changed for GCcollab version of Opp Platform
 <div class="form-group">
 	<label for='post-mission-openess-checkbox-input' class="col-sm-3 text-right">
 		<?php echo $openess_string;?>
@@ -308,7 +307,6 @@ $input_gl_group = elgg_view('input/dropdown', array(
 		<?php echo $input_openess; ?>
 	</div>
 </div>
-*/ ?>
 
 <div>
 	<?php

@@ -11,7 +11,7 @@
  */
 
 $full_view = elgg_extract('full_view', $vars, true);
-
+$lang = get_current_language();
 $comment = $vars['entity'];
 
 $entity = get_entity($comment->container_guid);
@@ -24,9 +24,7 @@ $friendlytime = elgg_view_friendly_time($comment->time_created);
 
 //check if the icon is in a widget and make it small!
 if(elgg_get_context() !== 'widgets'){
-    
 $commenter_icon = elgg_view_entity_icon($commenter, 'medium');
-    
 }else{
   $commenter_icon = elgg_view_entity_icon($commenter, 'small');  
 }
@@ -34,11 +32,11 @@ $commenter_icon = elgg_view_entity_icon($commenter, 'medium');
 
 $commenter_link = "<a href=\"{$commenter->getURL()}\">$commenter->name</a>";
 
-$entity_title = $entity->title ? $entity->title : elgg_echo('untitled');
+$entity_title = $entity->title ? gc_explode_translation($entity->title,$lang) : elgg_echo('untitled');
 $entity_link = "<a href=\"{$entity->getURL()}\">$entity_title</a>";
 
 if ($full_view) {
-    elgg_push_context('comments');
+    
     
 	$anchor = "<a name=\"comment-{$comment->getGUID()}\"></a>";
 
@@ -58,13 +56,11 @@ if ($full_view) {
 		));
 		$comment_text .= '</div>';
 	} else {
-        
 		$comment_text = elgg_view('output/longtext', array(
 			'value' => $comment->description,
 			'class' => 'elgg-inner mrgn-tp-md comment-container',
 			'data-role' => 'comment-text',
 		));
-        
 	}
 	$body = <<<HTML
 $anchor
@@ -77,9 +73,9 @@ $anchor
 	$comment_text
 </div>
 HTML;
-    
-	echo elgg_view_image_block($commenter_icon, $body, array('class'=>'BIGTEST',));
-    elgg_pop_context();
+
+	echo elgg_view_image_block($commenter_icon, $body);
+
 } else {
 	// brief view
 

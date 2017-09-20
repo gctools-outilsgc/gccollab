@@ -80,16 +80,16 @@ if(elgg_get_context() == 'groupSubPage'){
     'priority' => '0',
     ));
 
-    if ($owner->orgStruct){
-        elgg_register_menu_item('owner_block', array(
-            'name' => 'orgs',
-            'href' => '#org',
-            'text' => elgg_echo('geds:org:orgTab'),
-            'data-toggle' => 'tab',
-            'class' => '',
-            'priority' => '0',
-        ));
-    }
+	if ($owner->orgStruct){
+    	elgg_register_menu_item('owner_block', array(
+    		'name' => 'orgs',
+    		'href' => '#org',
+    		'text' => elgg_echo('geds:org:orgTab'),
+    		'data-toggle' => 'tab',
+    		'class' => '',
+    		'priority' => '0',
+    	));
+  	}
 
      if ($pg == 'splashboard'){
     elgg_register_menu_item('owner_block', array(
@@ -170,7 +170,7 @@ if(elgg_get_context() == 'profile'){
         //add dropdown data to li
         $('.tabMenuGroup .dropdown a').attr('data-toggle', 'dropdown');
         //add the dropdown list
-        $('.elgg-menu-owner-block .dropdown').append('<ul class="dropdown-menu pull-left"></ul>');
+        $('.elgg-menu-owner-block .dropdown').append('<ul class="dropdown-menu pull-right"></ul>');
 
         //grab all list items
         var listItems = $('.tabMenuGroup li').toArray();

@@ -119,8 +119,6 @@ function group_tools_join_site_handler($event, $type, $relationship) {
 						if ($group->site_guid == $site_guid) {
 							// join the group
 							$group->join($user);
-							add_entity_relationship($user->guid, 'cp_subscribed_to_email', $group->guid);
-							add_entity_relationship($user->guid, 'cp_subscribed_to_site_mail', $group->guid);
 						}
 					}
 				}

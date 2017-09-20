@@ -195,11 +195,9 @@ function mm_validate_time($day, $input_array)
  	}*/
 
  	// Checks if the department is empty.
- 	/* MW - Changed for GCcollab version of Opp Platform
  	if (!mo_get_last_input_node($input_array) && !$input_array['department']) {
  		$err .= elgg_echo('missions:error:department_needs_input') . "\n";
  	}
- 	*/
 
  	// Checks if the email a valid email address according to a function defined above.
  	if($input_array['email'] == '') {
@@ -291,7 +289,7 @@ function mm_validate_time($day, $input_array)
 	 	}
  	}
  	//Nick - Increasing limit from 2k to 5k as per JIRA 239
- 	$description_limit = 8000;
+ 	$description_limit = 12000;
  	if(strlen($input_array['description']) > $description_limit) {
  		$err .= elgg_echo('missions:error:exceeds_string_length', array(elgg_echo('missions:opportunity_description'), $description_limit)) . "\n";
  	}

@@ -243,7 +243,6 @@ function groups_page_handler($page) {
 
 	switch ($page[0]) {
 		case 'all':
-			if(!$_GET['filter']){ set_input('filter', 'all'); }
 			groups_handle_all_page();
 			break;
 		case 'search':
@@ -387,11 +386,11 @@ function groups_entity_menu_setup($hook, $type, $return, $params) {
 	/* @var ElggMenuItem $item */
 	foreach ($return as $index => $item) {
 		if ( get_group_members($entity->guid, 10, 0, 0, true) > 1 )
-			if (in_array($item->getName(), array('access', 'likes', 'unlike', 'edit'/*, 'delete'*/))) {
+			if (in_array($item->getName(), array('access', 'edit'))) {
 				unset($return[$index]);
 		}
 		if ( get_group_members($entity->guid, 10, 0, 0, true) == 1 )
-			if (in_array($item->getName(), array('access', 'likes', 'unlike', 'edit'))) {
+			if (in_array($item->getName(), array('access', 'edit'))) {
 				unset($return[$index]);
 		}
 	}
@@ -531,9 +530,9 @@ function groups_write_acl_plugin_hook($hook, $entity_type, $returnvalue, $params
 			unset($returnvalue[$access_id]);
 		}
 	}
-
+$lang = get_current_language();
 	// add write access to the group
-	$returnvalue[$page_owner->group_acl] = elgg_echo('groups:acl', array($page_owner->name));
+	$returnvalue[$page_owner->group_acl] = elgg_echo('groups:acl', array(gc_explode_translation($page_owner->name,$lang)));
 
 	return $returnvalue;
 }

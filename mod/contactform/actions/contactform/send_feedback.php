@@ -28,10 +28,12 @@
 		$success = false;
 	}
 
+	/*
 	if (!$user_department) {
 		register_error(elgg_echo('contactform:Errdepart'));
 		$success = false;
 	}
+	*/
 
 	if (!$user_reason || strcmp('Select...', $user_reason) == 0 || strcmp('Choisir...', $user_reason) == 0) {
 		register_error(elgg_echo('contactform:Errreason'));
@@ -52,7 +54,7 @@
 
 		if( elgg_is_active_plugin('phpmailer') ){
 			// send email to jeffrey outram
-			phpmailer_send($helpdesk_email, $helpdesk_email, $subject, $body, NULL, true);
+			phpmailer_send($helpdesk_email, $helpdesk_email, $subject, $body, NULL, true, NULL, array('replyTo' => $user_email, 'replyToName' => $user_fullname));
 			
 			// send email to recipient to complate transaction
 			phpmailer_send($user_email, $user_email, $subject, $body, NULL, true);

@@ -470,10 +470,10 @@ if ($position == 'after' || $position == 'both') {
 		$subtype = $item->getSubtype();
 
 		$li_attrs['id'] = "elgg-$type-$guid";
-        
-		
 
-        $li_attrs['class'][] = "elgg-item-$type list-break mrgn-tp-md clearfix noWrap";
+
+
+		$li_attrs['class'][] = "elgg-item-$type list-break mrgn-tp-md clearfix noWrap";
 
 
 		if ($subtype) {

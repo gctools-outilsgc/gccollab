@@ -5,7 +5,14 @@ $site_name = $site->name;
 $contact_us = "{$site->getURL()}mod/contactform/?utm_source=notification_digest&utm_medium=email";
 
 $english = array(
+
+	'minor_save:title' => "Don’t want to send a notification?",
+	'minor_save:description' => "Posting new content will send out notifications to those who are subscribed. As the group owner or operator, you can decide not to send out notifications about the new content you post in the group. To do so, select the option “Do not send a notification” below.",
+	'minor_save:checkbox_label' => " Do not send a notification",
+
 	'cp_notifications:name' => "Notification Email",
+	'cp_notification:save:success' => "Settings have been saved successfully",
+	'cp_notification:save:failed' => "Settings did not save successfully",
 
 	/// SETTINGS PAGE: Newsletter translation texts
 	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>.",
@@ -56,6 +63,7 @@ $english = array(
 	'cp_notifications:mail_body:subtype:blog' => "%s posted a blog: %s", 
 	'cp_notifications:mail_body:subtype:bookmarks' => "%s posted a bookmark: %s", 
 	'cp_notifications:mail_body:subtype:file' => "%s posted a file: %s", 
+
 	'cp_notifications:mail_body:subtype:album' => "%s posted an album: %s", 
 	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> posted on the <a href='%s'>%s</a>",
 	'cp_notifications:mail_body:subtype:poll' => "%s created a poll: %s", 
@@ -64,8 +72,19 @@ $english = array(
 	'cp_notifications:mail_body:subtype:task' => "%s created a task: %s", 
 	'cp_notifications:mail_body:subtype:likes' => "%s liked your post: %s",
 
+	/// new translation require attention
+	'cp_notifications:mail_body:subtype:file_upload' => "%s posted %s file(s): %s", 	
+
+
+	/// new text
+	'cp_notifications:mail_body:subtype:file_upload:singular' => "%s has uploaded %s file:",
+	'cp_notifications:mail_body:subtype:file_upload:plural' => "%s has uploaded %s files:",
+	'cp_notifications:mail_body:subtype:file_upload:group:singular' => "%s has uploaded %s file in %s:",
+	'cp_notifications:mail_body:subtype:file_upload:group:plural' => "%s has uploaded %s files in %s:",
+
+
+
 	'cp_notifications:mail_body:subtype:response' => "%s replied or commented on the post: %s",
-	//'cp_notifications:mail_body:subtype:response:others' => "%s replied or commented on the post: %s",
 
 	'cp_notifications:mail_body:subtype:any' => "%s posted a%s %s: %s", // john doe posted an idea vs john doe posted a blog
 
@@ -149,13 +168,13 @@ $english = array(
 	'cp_newsletter:heading:notify:likes:plural' => "Likes received on your content", 
 
 	'cp_newsletter:heading:notify:new_post:singular' => "New item has been posted by your colleague", 
-	'cp_newsletter:heading:notify:new_post:plural' => "New items have been posted by your colleagues", //CHANGE
+	'cp_newsletter:heading:notify:new_post:plural' => "New items have been posted by your colleagues",
 	
 	'cp_newsletter:heading:notify:new_post:group:singular' => "New item has been posted",
-	'cp_newsletter:heading:notify:new_post:group:plural' => "New items have been posted", //CHANGE
+	'cp_newsletter:heading:notify:new_post:group:plural' => "New items have been posted",
 
 	'cp_newsletter:heading:notify:content_revision:singular' => "Item has been revised", 
-	'cp_newsletter:heading:notify:content_revision:plural' => "Items have been revised", //CHANGE
+	'cp_newsletter:heading:notify:content_revision:plural' => "Items have been revised", 
 
 	'cp_newsletter:heading:notify:cp_mention:singular' => "Person mentioned you.", 	
 	'cp_newsletter:heading:notify:cp_mention:plural' => "People mentioned you.", 
@@ -193,13 +212,9 @@ $english = array(
 	'cp_new_mission:subject' => "New micromission notification",
 
 
-
 	// content edit section
-	//'cp_notify:subject:edit_content' => "%s has been updated by %s",
-	//'cp_notify:body_edit:title' => "This content has been edited.",
 	'cp_notify:subject:edit_content' => "%s '%s' has been updated by %s",
 	'cp_notify:body_edit:title' => "This %s has been edited.",
-	//'cp_notify:body_edit:description' => "Click here to view <a href='%s'>%s</a>.",
 	'cp_notify:body_edit:description' => "<a href='%s'>View or comment</a> <br/>
 		You can like, share or subscribe to this content directly in GCcollab",
 
@@ -215,17 +230,16 @@ $english = array(
 	// group invite by email section
 	'cp_notify:subject:group_invite_email' => "%s invited you to join the group '%s'",
 	'cp_notify:subject:group_invite_user_by_email' => "%s invited you to join the group %s",
-	
-	'cp_notify:body_group_invite_email:description' => "You are invited to join the '%s' GCcollab group, please register or log in to GCcollab, then click on this link: %s or use this code on the group invitation page: '%s' <br/> %s",
-	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCcollab. <br>",
+	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCcollab.<br>",
 	'cp_notify:body_group_invite_email:description' => "<a href='%s'>Register now</a> and be automatically added to the group.<br/><br/>
 
 	If you would like to register at a later time using the <a href='".elgg_get_site_url()."register'>Registration form</a> on GCcollab, you can join the group by using the following code on your <a href='%s'>group invitations</a> page: %s .<br/><br/>
  
-	Already on GCcollab? Your email address may out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
+	Already on GCcollab? Your email address may be out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
 	
 	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #46246a; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
+	
+	'cp_personalized_message' => "<div style='border: 1px solid #46246A; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
 	// group mail section
@@ -266,7 +280,7 @@ $english = array(
 
 
 	// posted comment section
-	// +------ cyu - updated email notification content
+
 	'cp_notify:subject:comments' => "A comment was posted in the group %s",
 	'cp_notify:subject:comments_discussion' => "A discussion reply was posted in the group %s",
 
@@ -299,6 +313,11 @@ $english = array(
 
 	// +------ cyu - modified : <username> posted a new <item type> entitled <item name>
 	'cp_notify:body_new_content:title' => "<a href='%s'>%s</a> posted a new %s entitled <a href='%s'>%s</a>",
+	'cp_notify:body_new_content:title2' => "<a href='%s'>%s</a> posted a new %s in <a href='%s'>%s</a>",
+	'cp_notify:body_new_content:title3' => "<a href='%s'>%s</a> posted a new %s",
+
+	
+
 	'cp_notify:body_new_content:description' => "The description of the new posting is: <br/>
 		%s <br/>
 		<a href='%s'>View or comment</a> <br/>
@@ -345,7 +364,7 @@ $english = array(
 	// mention user on the wire section
 	'cp_notify:subject:wire_mention' => "%s mentioned you on the wire",
 	'cp_notify:body_wire_mention:title' => "You've been mentioned on the wire",
-	'cp_notify:body_wire_mention:description' => "%s mentioned you in their wire post. <br/>
+	'cp_notify:body_wire_mention:description' => "%s mentioned you in his/her wire post. <br/>
 		To view your mentions on the wire, click here: %s",
 
 
@@ -359,7 +378,19 @@ $english = array(
 	// invited to join GCcollab section
 	'cp_notify:subject:invite_new_user' => "You have been invited to join GCcollab",
 	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCcollab by %s",
-	'cp_notify:body_invite_new_user:description' => "Join the professionnal networking and collaborative workspace for all public service. You can proceed to your GCcollab registration through this link %s", 
+	'cp_notify:body_invite_new_user:description' => "<p>Join GCcollab, a collaborative and networking space, hosted by the Government of Canada, open to Canadian public servants (federal, provincial and territorial), academics, students and their partners across Canada and beyond.</p>
+
+<p>Once you're a member, you can also invite anyone else you need to work with using the Colleagues functionality. (This option is available by selecting the icon of 3 silhouettes that appears above the main navigation bar).</p>
+
+<p style='border: 1px solid black; padding: 5px;'><strong>Personal message from %s:</strong><br><span style='white-space: pre-line;'>%s</span></p>
+
+<p>You can join by clicking on the following link and start the registration process: %s</p>
+
+<p><em>If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.</em></p>
+
+<p>Keep in mind that GCcollab is still in a pilot phase and changes and updates occur frequently.</p>
+
+<p>All of the code and issues related to the platform are available on GitHub, so if you have any suggestions or want to help us make them better, please join in!</p>",
 
 
 	// transfer admin
@@ -410,8 +441,8 @@ $english = array(
 	'cp_notify:wireshare:subject' => "%s shared your %s with title '%s'",
 	'cp_notify:body_wireshare:title' => "%s shared your %s with title '%s'",
 	'cp_notify:body_wireshare:title2' => "%s shared your %s",
-	//'cp_notify:body_wireshare:description' => "%s has shared your %s on the wire, to view or reply to this please click on the following link: %s",
-	'cp_notify:body_wireshare:description' => "%s shared your %s on the wire, to view or reply to this please click on the following link: %s", //CHANGE
+
+	'cp_notify:body_wireshare:description' => "%s shared your %s on the wire, to view or reply to this please click on the following link: %s", 
 	'cp_notify:wireshare_thewire:subject' => "%s shared your message on the wire",
 
 	// event calendar section

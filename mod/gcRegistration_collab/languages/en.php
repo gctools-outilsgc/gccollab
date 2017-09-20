@@ -72,7 +72,7 @@ $english = array(
 	// notice
 	'gcRegister:email_notice' => '<h2 class="h2"></h2>',
 
-	'gcRegister:terms_and_conditions' => 'I have read, understood, and agree to the <a href="/terms" target="_blank">Terms and Conditions of Use</a>.',
+	'gcRegister:terms_and_conditions' => 'I have read, understood, and agree to the <a href="/terms" target="_blank">terms and conditions of use</a>.',
 	'gcRegister:validation_notice' => '<b>NOTE:</b> You will be unable to login to GCconnex until you have received a validation email.',
 	'gcRegister:tutorials_notice' => '<a href="http://www.gcpedia.gc.ca/wiki/Tutorials_on_GC2.0_Tools_/_Tutoriels_sur_les_outils_GC2.0/GCconnex">GCconnex tutorials</a>',
 	
@@ -92,7 +92,9 @@ $english = array(
 	</ul>
 	<p>Not part of these groups? Canadians are able to join GCcollab by invitation! Existing GCcollab members can invite their stakeholders and partners on to GCcollab, making it a truly collaborative environment.</p>
 	<p class='ptm pbm'><strong>Register and validate your account!</strong></p>
-	<p>After completing the registration form, you will receive a validation email. Click on the link (or copy past it in the address bar) to activate your account. If you do not receive the email, please contact the <a href='" . elgg_get_site_url() . "mod/contactform/'>GCcollab help desk</a>.</p>"
+	<p>After completing the registration form, you will receive a validation email. Click on the link (or copy paste it in the address bar) to activate your account. If you do not receive the email, please contact the <a href='" . elgg_get_site_url() . "mod/contactform/'>GCcollab help desk</a>.</p>",
+
+	'gcRegister:required' => 'required',
 );
 
 add_translation("en", $english);

@@ -1,6 +1,6 @@
 <?php
 /**
- * GCcollab onboarding
+ * GCconnex onboarding
  *
  * Welcome Module
  * Profile Module
@@ -16,11 +16,8 @@ elgg_register_event_handler('init', 'system', 'onboard_ME');
 
 function onboard_ME() {
 
-    elgg_register_library('elgg:onboarding', elgg_get_plugins_path() . 'gc_onboard/lib/functions.php');
-
     elgg_register_page_handler('profileonboard', 'profileonboard_page_handler');
     elgg_register_page_handler('groupsonboard', 'groupsonboard_page_handler');
-    elgg_register_page_handler('tutorials', 'tutorials_page_handler');
 
     //actions
     elgg_register_action("onboard/join", elgg_get_plugins_path() . "gc_onboard/actions/groups/membership/join.php");
@@ -63,7 +60,7 @@ function onboard_ME() {
     //Extend layout for call to action (cta)
     elgg_extend_view('page/layouts/one_sidebar', 'page/elements/onboard_start', 450);
     elgg_extend_view('thewire/sidebar', 'welcome-steps/wire_modal', 449);
-    elgg_extend_view('contactform/form', 'onboard/module_links');
+    elgg_extend_view('contactform/contactform', 'onboard/module_links');
 
     //extend newsfeed to launch onboarding
     elgg_extend_view('widgets/stream_newsfeed_index/content', 'onboard/launch', 491);
@@ -86,10 +83,6 @@ function groupsonboard_page_handler(){
     return true;
 }
 
-function tutorials_page_handler(){
-    @include (dirname ( __FILE__ ) . "/pages/tutorials.php");
-    return true;
-}
 
 /*
  * get_my_profile_strength

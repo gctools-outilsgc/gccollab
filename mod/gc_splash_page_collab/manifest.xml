@@ -5,7 +5,7 @@
    <author>Government of Canada</author>
    <version>1.0</version>
  	<category>social</category>
-   <description>Change first page when you are not login</description>
+   <description>Customized splash page module for GCcollab.</description>
    <website>http://www.canada.ca</website>
  	<copyright>Her Majesty the Queen in Right of Canada, 2015</copyright>
  	<license>Creative Commons Attribution 3.0 Unported License</license>
@@ -13,8 +13,8 @@
      <type>elgg_release</type>
      <version>1.9</version>
    </requires>
-   <conflicts>
+   <requires>
       <type>plugin</type>
       <name>gc_splash_page</name>
-   </conflicts>
+   </requires>
  </plugin_manifest>

@@ -47,7 +47,7 @@ function expages_init() {
  *
  */
 function expages_public($hook, $handler, $return, $params){
-	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');		// GCChange change - Ilia: Bilingual page url
+	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants', 'help/knowledgebase');		// GCChange change - Ilia: Bilingual page url
 	return array_merge($pages, $return);
 }
 
@@ -55,7 +55,7 @@ function expages_public($hook, $handler, $return, $params){
  * Setup the links to site pages
  */
 function expages_setup_footer_menu() {
-	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');		// GCChange change - Ilia: Bilingual page url
+	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants', 'help/knowledgebase');		// GCChange change - Ilia: Bilingual page url
 	
 	foreach ($pages as $page) {
 		$url = "$page";

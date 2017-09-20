@@ -53,6 +53,16 @@ switch($sub_type){
 		$all_link_location = '/group/';
 		$photos_class = ' col-sm-3';
 		break;
+	case 'questions':
+		$sub_type = 'question';
+		$sub_type2 = 'questions';
+		$all_link_location = '/group/';
+		break;
+    case 'etherpad':
+        $sub_type = 'etherpad';
+        $sub_type2 = 'docs';
+        $all_link_location = '/group/';
+        break;
 	default:
 		$sub_type2 = $sub_type;
 		$all_link_location = '/group/';

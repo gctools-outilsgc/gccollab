@@ -8,7 +8,8 @@ elgg_ws_expose_function(
 	"get_user_data",
 	array(
 		"profileemail" => array('type' => 'string', 'required' => true),
-		"user" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s profile information based on user id',
 	'POST',
@@ -20,7 +21,8 @@ elgg_ws_expose_function(
 	"get.userexists",
 	"get_user_exists",
 	array(
-		"user" => array('type' => 'string', 'required' => false)
+		"user" => array('type' => 'string', 'required' => false),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves whether a user exists based on user id',
 	'POST',
@@ -32,9 +34,11 @@ elgg_ws_expose_function(
 	"get.useractivity",
 	"get_user_activity",
 	array(
+		"profileemail" => array('type' => 'string', 'required' => true),
 		"user" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s activity information based on user id',
 	'POST',
@@ -46,7 +50,9 @@ elgg_ws_expose_function(
 	"get.usergroups",
 	"get_user_groups",
 	array(
-		"user" => array('type' => 'string', 'required' => true)
+		"profileemail" => array('type' => 'string', 'required' => true),
+		"user" => array('type' => 'string', 'required' => true),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s group information based on user id',
 	'POST',
@@ -61,7 +67,8 @@ elgg_ws_expose_function(
 		"user" => array('type' => 'string', 'required' => true),
 		"type" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s post information based on post type and user id',
 	'POST',
@@ -73,10 +80,12 @@ elgg_ws_expose_function(
 	"get.usercolleagueposts",
 	"get_user_colleague_posts",
 	array(
+		"profileemail" => array('type' => 'string', 'required' => true),
 		"user" => array('type' => 'string', 'required' => true),
 		"type" => array('type' => 'string', 'required' => true),
 		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
-		"offset" => array('type' => 'int', 'required' => false, 'default' => 0)
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
 	'Retrieves a user\'s colleague\'s post information based on post type and user id',
 	'POST',
@@ -126,7 +135,7 @@ function build_date($month, $year){
 	return $string . $year;
 }
 
-function get_user_data( $profileemail, $user ){
+function get_user_data( $profileemail, $user, $lang ){
 	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
@@ -141,6 +150,8 @@ function get_user_data( $profileemail, $user ){
 		$friends = true;
 	}
 
+	$access = elgg_get_ignore_access();
+	elgg_set_ignore_access(true);
 	$user = array();
 
 	$user['id'] = $user_entity->guid;
@@ -159,7 +170,7 @@ function get_user_data( $profileemail, $user ){
 		case "student":
 		case "academic":
 			$institution = $user_entity->institution;
-		    $user['department'] = ($institution == 'university') ? $user_entity->university : $user_entity->college;
+		    $user['department'] = ($institution == 'university') ? $user_entity->university : ($institution == 'college' ? $user_entity->college : $user_entity->highschool);
 			break;
 		case "provincial":
 			$user['department'] = $user_entity->provincial . ' / ' . $user_entity->ministry;
@@ -195,11 +206,9 @@ function get_user_data( $profileemail, $user ){
 		$user['links']['youtube'] = "http://www.youtube.com/".$user_entity->youtube;
 
 	// About Me
-	$aboutMeMetadata = elgg_get_metadata(array('guids'=>array($user['id']),'limit'=>0,'metadata_names'=>array('description')));
-	
-	if( $aboutMeMetadata[0]->access_id == ACCESS_PUBLIC || $aboutMeMetadata[0]->access_id == ACCESS_LOGGED_IN || ($friends && $aboutMeMetadata[0]->access_id == ACCESS_FRIENDS) ){
-		$user['about_me'] = $aboutMeMetadata[0]->value;
-	}
+	$about_me = strip_tags($user_entity->description, '<p>');
+	$about_me = str_replace("<p>&nbsp;</p>", '', $about_me);
+	$user['about_me'] = $about_me;
 	
 	// Education
 	$educationEntity = elgg_get_entities(array(
@@ -307,11 +316,13 @@ function get_user_data( $profileemail, $user ){
 		if( is_array($skill->endorsements) ){
 			foreach( $skill->endorsements as $friend ){
 				$friendEntity = get_user($friend);
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
-				$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+				if( $friendEntity instanceof ElggUser ){
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["id"] = $friendEntity->guid; 
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["username"] = $friendEntity->username;
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["displayName"] = $friendEntity->name;
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["profileURL"] = $friendEntity->getURL();
+					$user['skills']['item_'.$i]['endorsements']["user_".$j]["iconURL"] = $friendEntity->geticon();
+				}
 				$j++;
 			}
 		} else if( !is_null($skill->endorsements) ){
@@ -442,10 +453,10 @@ function get_user_data( $profileemail, $user ){
 	foreach( $activity as $event ){
 		$subject = get_user($event->subject_guid);
 		$object = get_entity($event->object_guid);
-		$event->userDetails = get_user_block($event->subject_guid);
+		$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 		if( $object instanceof ElggUser ){
-			$event->object = get_user_block($event->object_guid);
+			$event->object = get_user_block($event->object_guid, $lang);
 			$event->object['type'] = 'user';
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
@@ -474,20 +485,34 @@ function get_user_data( $profileemail, $user ){
 	}
 	$user['activity'] = $activity;
 	*/
+	elgg_set_ignore_access($access);
 
 	return $user;
 }
 
-function get_user_exists( $user ){
+function get_user_exists( $user, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
-	return ( $user_entity instanceof ElggUser );
+
+	$valid = false;
+	if( $user_entity instanceof ElggUser ){
+		$is_validated = elgg_get_user_validation_status($user->guid);
+		if( $is_validated ){
+			$valid = true;
+		}
+	}
+
+	return $valid;
 }
 
-function get_user_activity( $user, $limit, $offset ){ 
-	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+function get_user_activity( $profileemail, $user, $limit, $offset, $lang ){
+	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 
+	$viewer = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+ 	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
+	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
+	
 	$all_activity = elgg_list_river(array(
 		'subject_guid' => $user_entity->guid,
 		'distinct' => false,
@@ -499,10 +524,10 @@ function get_user_activity( $user, $limit, $offset ){
 	foreach( $activity as $event ){
 		$subject = get_user($event->subject_guid);
 		$object = get_entity($event->object_guid);
-		$event->userDetails = get_user_block($event->subject_guid);
+		$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 		if( $object instanceof ElggUser ){
-			$event->object = get_user_block($event->object_guid);
+			$event->object = get_user_block($event->object_guid, $lang);
 			$event->object['type'] = 'user';
 		} else if( $object instanceof ElggWire ){
 			$event->object['type'] = 'wire';
@@ -526,10 +551,10 @@ function get_user_activity( $user, $limit, $offset ){
 			}
 
 			$event->shareURL = $url;
-			$event->shareText = $text;
+			$event->shareText = gc_explode_translation($text, $lang);
 		} else if( $object instanceof ElggGroup ){
 			$event->object['type'] = 'group';
-			$event->object['name'] = $object->name;
+			$event->object['name'] = gc_explode_translation($object->name, $lang);
 		} else if( $object instanceof ElggDiscussionReply ){
 			$event->object['type'] = 'discussion-reply';
 			$original_discussion = get_entity($object->container_guid);
@@ -554,18 +579,31 @@ function get_user_activity( $user, $limit, $offset ){
 			}
 		} else {
 			//@TODO handle any unknown events
-			$event->object['name'] = $object->title;
-			$event->object['description'] = $object->description;
+			if (strpos($object->title, '"en":') !== false) {
+				$event->object['name'] = gc_explode_translation($object->title, $lang);
+			} else {
+				$event->object['name'] = $object->title;
+			}
+
+			if (strpos($object->description, '"en":') !== false) {
+				$event->object['description'] = gc_explode_translation($object->description, $lang);
+			} else {
+				$event->object['description'] = $object->description;
+			}
 		}
 	}
 
 	return $activity;
 }
 
-function get_user_groups( $user ){ 
-	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+function get_user_groups( $profileemail, $user, $lang ){ 
+	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
+
+	$viewer = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+ 	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
+	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
 
 	$all_groups = elgg_list_entities_from_relationship(array(
 	    'relationship' => 'member', 
@@ -578,19 +616,22 @@ function get_user_groups( $user ){
 	$groups = json_decode($all_groups);
 	foreach($groups as $group){
 		$groupObj = get_entity($group->guid);
+		$group->name = gc_explode_translation($group->name, $lang);
 		$group->iconURL = $groupObj->geticon();
 		$group->count = $groupObj->getMembers(array('count' => true));
+		$group->description = clean_text(gc_explode_translation($group->description, $lang));
 	}
 
 	return $groups;
 }
 
-function get_user_posts( $user, $type, $limit, $offset ){
+function get_user_posts( $user, $type, $limit, $offset, $lang ){
 	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
 	
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	switch( $type ){
     	case "blog":
@@ -607,6 +648,9 @@ function get_user_posts( $user, $type, $limit, $offset ){
 			));
 			$data = json_decode($blogs);
 			foreach( $data as $blog ){
+				$blog->title = gc_explode_translation($blog->title, $lang);
+				$blog->description = gc_explode_translation($blog->description, $lang);
+
 				$likes = elgg_get_annotations(array(
 					'guid' => $blog->guid,
 					'annotation_name' => 'likes'
@@ -620,10 +664,10 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				));
 				$blog->liked = count($liked) > 0;
 
-				$blog->userDetails = get_user_block($blog->owner_guid);
+				$blog->userDetails = get_user_block($blog->owner_guid, $lang);
 
 				$group = get_entity($blog->container_guid);
-				$blog->group = $group->name;
+				$blog->group = gc_explode_translation($group->name, $lang);
 				$blog->groupURL = $group->getURL();
 			}
 	        break;
@@ -661,7 +705,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				}
 
 				$wire->shareURL = $url;
-				$wire->shareText = $text;
+				$wire->shareText = gc_explode_translation($text, $lang);
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $wire->guid,
@@ -685,7 +729,16 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				));
 				$wire->replied = count($replied) > 0;
 
-				$wire->userDetails = get_user_block($wire->owner_guid);
+				$has_thread = elgg_get_entities_from_metadata(array(
+					"metadata_name" => "wire_thread",
+					"metadata_value" => $thread_id,
+					"type" => "object",
+					"subtype" => "thewire",
+					"limit" => 2
+				));
+				$wire->thread = count($has_thread) > 1;
+
+				$wire->userDetails = get_user_block($wire->owner_guid, $lang);
 				$wire->description = wire_filter($wire->description);
 			}
 	        break;
@@ -716,7 +769,11 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				));
 				$discussion->liked = count($liked) > 0;
 				
-				$discussion->userDetails = get_user_block($discussion->owner_guid);
+				if (strpos($discussion->object->name, '"en":') !== false) {
+					$discussion->object->name = gc_explode_translation($discussion->object->name, $lang);
+				}
+
+				$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 			}
 	        break;
 	    case "newsfeed":
@@ -788,7 +845,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 		    foreach( $activity as $event ){
 				$subject = get_user($event->subject_guid);
 				$object = get_entity($event->object_guid);
-				$event->userDetails = get_user_block($event->subject_guid);
+				$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $event->object_guid,
@@ -803,8 +860,12 @@ function get_user_posts( $user, $type, $limit, $offset ){
 				));
 				$event->liked = count($liked) > 0;
 
+				if($object->description){
+					$object->description = str_replace("<p>&nbsp;</p>", '', $object->description);
+				}
+
 				if( $object instanceof ElggUser ){
-					$event->object = get_user_block($event->object_guid);
+					$event->object = get_user_block($event->object_guid, $lang);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
@@ -828,21 +889,22 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					}
 
 					$event->shareURL = $url;
-					$event->shareText = $text;
+					$event->shareText = gc_explode_translation($text, $lang);
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
-					$event->object['name'] = $object->name;
+					$event->object['name'] = gc_explode_translation($object->name, $lang);
+					$event->object['description'] = gc_explode_translation($object->name, $lang);
 					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggDiscussionReply ){
 					$event->object['type'] = 'discussion-reply';
 					$original_discussion = get_entity($object->container_guid);
-					$event->object['name'] = $original_discussion->title;
-					$event->object['description'] = $object->description;
+					$event->object['name'] = gc_explode_translation($original_discussion->title, $lang);
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 					$event->object['url'] = $original_discussion->getURL();
 				} else if( $object instanceof ElggFile ){
 					$event->object['type'] = 'file';
-					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					$event->object['name'] = gc_explode_translation($object->title, $lang);
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 					$event->object['url'] = $object->getURL();
 				} else if( $object instanceof ElggObject ){
 					$event->object['type'] = 'discussion-add';
@@ -855,7 +917,7 @@ function get_user_posts( $user, $type, $limit, $offset ){
 					$event->object['name'] = $name;
 					$event->object['url'] = $object->getURL();
 
-					$event->object['description'] = $object->description;
+					$event->object['description'] = gc_explode_translation($object->description, $lang);
 
 					$other = get_entity($object->container_guid);
 					if( $other instanceof ElggGroup ){
@@ -865,10 +927,23 @@ function get_user_posts( $user, $type, $limit, $offset ){
 						if( !isset($event->object['type']) )
 							$event->object['name'] = ( $other->title ) ? $other->title : $other->name;
 					}
+
+					if (strpos($event->object['name'], '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($event->object['name'], $lang);
+					}
 				} else {
 					//@TODO handle any unknown events
-					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					if (strpos($object->title, '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($object->title, $lang);
+					} else {
+						$event->object['name'] = $object->title;
+					}
+
+					if (strpos($object->description, '"en":') !== false) {
+						$event->object['description'] = gc_explode_translation($object->description, $lang);
+					} else {
+						$event->object['description'] = $object->description;
+					}
 					$event->object['url'] = $object->getURL();
 				}
 			}
@@ -883,12 +958,17 @@ function get_user_posts( $user, $type, $limit, $offset ){
 	return $data;
 }
 
-function get_user_colleague_posts( $user, $type, $limit, $offset ){
-	$user_entity = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+function get_user_colleague_posts( $profileemail, $user, $type, $limit, $offset, $lang ){
+	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : ( strpos($profileemail, '@') !== FALSE ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail) );
  	if( !$user_entity ) return "User was not found. Please try a different GUID, username, or email address";
 	if( !$user_entity instanceof ElggUser ) return "Invalid user. Please try a different GUID, username, or email address";
+
+	$viewer = is_numeric($user) ? get_user($user) : ( strpos($user, '@') !== FALSE ? get_user_by_email($user)[0] : get_user_by_username($user) );
+ 	if( !$viewer ) return "Viewer user was not found. Please try a different GUID, username, or email address";
+	if( !$viewer instanceof ElggUser ) return "Invalid viewer user. Please try a different GUID, username, or email address";
 	
-	elgg_set_ignore_access(true);
+	if( !elgg_is_logged_in() )
+		login($user_entity);
 
 	switch( $type ){
     	case "blog":
@@ -908,6 +988,9 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 			));
 			$data = json_decode($blogs);
 			foreach( $data as $blog ){
+				$blog->title = gc_explode_translation($blog->title, $lang);
+				$blog->description = gc_explode_translation($blog->description, $lang);
+				
 				$likes = elgg_get_annotations(array(
 					'guid' => $blog->guid,
 					'annotation_name' => 'likes'
@@ -921,7 +1004,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				));
 				$blog->liked = count($liked) > 0;
 
-				$blog->userDetails = get_user_block($blog->owner_guid);
+				$blog->userDetails = get_user_block($blog->owner_guid, $lang);
 			}
 	        break;
 	    case "wire":
@@ -961,7 +1044,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				}
 
 				$wire->shareURL = $url;
-				$wire->shareText = $text;
+				$wire->shareText = gc_explode_translation($text, $lang);
 
 				$likes = elgg_get_annotations(array(
 					'guid' => $wire->guid,
@@ -985,7 +1068,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				));
 				$wire->replied = count($replied) > 0;
 
-				$wire->userDetails = get_user_block($wire->owner_guid);
+				$wire->userDetails = get_user_block($wire->owner_guid, $lang);
 				$wire->description = wire_filter($wire->description);
 			}
 	        break;
@@ -1019,7 +1102,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 				));
 				$discussion->liked = count($liked) > 0;
 				
-				$discussion->userDetails = get_user_block($discussion->owner_guid);
+				$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 			}
 	        break;
 	    case "newsfeed":
@@ -1091,10 +1174,10 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 		    foreach( $activity as $event ){
 				$subject = get_user($event->subject_guid);
 				$object = get_entity($event->object_guid);
-				$event->userDetails = get_user_block($event->subject_guid);
+				$event->userDetails = get_user_block($event->subject_guid, $lang);
 
 				if( $object instanceof ElggUser ){
-					$event->object = get_user_block($event->object_guid);
+					$event->object = get_user_block($event->object_guid, $lang);
 					$event->object['type'] = 'user';
 				} else if( $object instanceof ElggWire ){
 					$event->object['type'] = 'wire';
@@ -1118,7 +1201,7 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 					}
 
 					$event->shareURL = $url;
-					$event->shareText = $text;
+					$event->shareText = gc_explode_translation($text, $lang);
 				} else if( $object instanceof ElggGroup ){
 					$event->object['type'] = 'group';
 					$event->object['name'] = $object->name;
@@ -1146,8 +1229,17 @@ function get_user_colleague_posts( $user, $type, $limit, $offset ){
 					}
 				} else {
 					//@TODO handle any unknown events
-					$event->object['name'] = $object->title;
-					$event->object['description'] = $object->description;
+					if (strpos($object->title, '"en":') !== false) {
+						$event->object['name'] = gc_explode_translation($object->title, $lang);
+					} else {
+						$event->object['name'] = $object->title;
+					}
+
+					if (strpos($object->description, '"en":') !== false) {
+						$event->object['description'] = gc_explode_translation($object->description, $lang);
+					} else {
+						$event->object['description'] = $object->description;
+					}
 				}
 			}
 

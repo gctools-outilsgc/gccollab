@@ -107,6 +107,7 @@ function pagesetup() {
 		elgg_register_menu_item('filter', $tab);
 	}
 
+	/*
 	$tab = array(
 		'name' => "mydept:$user->department",
 		'text' => elgg_echo('activity_tabs:mydepartment'),
@@ -124,6 +125,7 @@ function pagesetup() {
 		'priority' => $priority + (int) $tabs['otherdept']["$user->department"]['priority'],
 	);
 	elgg_register_menu_item('filter', $tab);
+	*/
 
 	// register menu item for configuring tabs
 	$link = array(
