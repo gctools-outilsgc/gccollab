@@ -68,6 +68,7 @@ if (elgg_is_logged_in() && $ciw_showdashboard=="yes"){
 }
 
 //EW - Department verification
+/*
 if(elgg_is_logged_in()){
 
     //load int value
@@ -88,6 +89,6 @@ if(elgg_is_logged_in()){
         $content .= '<script> window.onload = function () { document.getElementById("verify").click() } </script>';
     }
 }
-
+*/
 
 echo elgg_view_page( elgg_echo('newsfeed:menu'), $content . $onboard);

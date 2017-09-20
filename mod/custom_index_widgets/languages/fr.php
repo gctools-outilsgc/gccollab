@@ -2,8 +2,6 @@
 
 	$french = array(
 					
-			'custom_index_widgets:events_index:name' => "Évènements",
-			'index_widget:event:today' => "Aujourd'hui, c'est %s",
 					/*GCConnex edit: language variable for featured content widgets*/
 			'custom_index_widgets:stream_wire_index' => "Alimentation du fil en direct", // needs translation
 			'custom_index_widgets:featured_groups_index' => "Groupes en vedette",
