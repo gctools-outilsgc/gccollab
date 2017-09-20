@@ -68,6 +68,7 @@ return array(
   /**
    * Newsfeed
    */
+  'newsfeed:menu' => 'Accueil',
   'newsfeed:filter' => "Filtrer votre fil de nouvelles",
   'newsfeed:label' => "Afficher les connexions faites avec vos collègues dans votre fil de nouvelles",
   'newsfeed:do' => "Les connexions faites avec vos collègues n'apparaîtront plus dans votre fil de nouvelles.",

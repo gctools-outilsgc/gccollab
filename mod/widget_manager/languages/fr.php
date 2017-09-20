@@ -2,6 +2,11 @@
 
 	$french = array(
 		
+		'widgets:twitter_search:embed_code:help' => "<a href='https://twitter.com/settings/widgets'>Créez un widget sur Twitter.com</a>, ensuite copier et coller le code ci-dessous pour afficher le contenu",
+		'widgets:twitter_widget:name' => "Twitter",
+		'widgets:twitter_search:embed_code' => "Twitter Widget Intégrer Code",
+
+
 		// special access level			
 					
 		'LOGGED_OUT' => "Utilisateurs dont la session est fermée",
@@ -176,7 +181,6 @@
 		'widget_manager:widgets:image_slider:overlay_color' => "Couleur de la couche (hex)",
 		'widget_manager:widgets:image_slider:title' => "Diapositive",
 		'widget_manager:widgets:image_slider:label:url' => "Adresse URL de l'image",
-		'widget_manager:widgets:image_slider:label:alt' => "Texte alternatif",
 		'widget_manager:widgets:image_slider:label:text' => "Texte",
 		'widget_manager:widgets:image_slider:label:link' => 	"Lien",
 		'widget_manager:widgets:image_slider:label:direction' => "Orientation",
@@ -472,9 +476,10 @@
 	
 	$messages = array(
 		// messages widget
-		'widgets:messages:description' => "Ce widget sert à afficher vos derniers messages",
+		'widgets:messages:description' => "Ce widget sert à afficher vos dernières notifications",
 		'widgets:messages:not_logged_in' => "Vous devez ouvrir une session pour utiliser ce widget",
 		'widgets:messages:settings:only_unread' => "Ne montrer que les messages non lus",
+		'widget:messages:notification' => "Notifications",
 
 	);
 	add_translation("fr", $messages);

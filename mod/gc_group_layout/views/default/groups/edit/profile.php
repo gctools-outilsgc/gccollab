@@ -14,7 +14,6 @@ $description = elgg_extract("description", $vars);
 $group_profile_fields = elgg_get_config("group");
 $group = elgg_extract("entity", $vars);
 
-
 // decode json into English / French parts
 $json_title = json_decode($name);
 $json_desc = json_decode($description);
@@ -77,19 +76,21 @@ echo $btn_language;
 ?>
 <div class="tab-content tab-content-border">
 <!-- title en -->
-<div class="en form-group">
+<div class="en">
     <label for="name">
         <?php echo elgg_echo("groups:name"); ?>
     </label>
+    <br />
     <div id="suggestedText"></div>
     <?php
-   /*     //if creating a group
+        //if creating a group
     if(empty($group)){
         echo elgg_view("input/groups_autocomplete", array(
 				'name' => 'name',
 				'value' => elgg_extract('name', $vars),
+                'type' => 'en',
 		));
-    } else {*/
+    } else {
     ?>
 
 	<?php echo elgg_view("input/text", array(
@@ -99,23 +100,25 @@ echo $btn_language;
         'required '=> "required",
         'class' => 'ui-autocomplete-input',
 	));
-   // }?>
+    }?>
 </div>
 
 <!-- title fr -->
-<div class="fr form-group">
+<div class="fr">
     <label for="name2">
         <?php echo elgg_echo("groups:name2"); ?>
     </label>
+    <br />
     <div id="suggestedText2"></div>
     <?php
-   /*     //if creating a group
+      //if creating a group
     if(empty($group)){
         echo elgg_view("input/groups_autocomplete", array(
-                'name' => 'name2',
-                'value' => elgg_extract('name2', $vars),
+                'name' => 'name',
+                'value' => elgg_extract('name', $vars),
+                'type' => 'fr',
         ));
-    } else {*/
+    } else {
     ?>
 
     <?php echo elgg_view("input/text", array(
@@ -125,15 +128,15 @@ echo $btn_language;
         'required '=> "required",
         'class' => 'ui-autocomplete-input',
     ));
-  //  }?>
+    }?>
 </div>
 
-<div class="form-group">
-<label for="icon"><?php echo elgg_echo("groups:icon"); ?></label>
+<div>
+<label for="icon"><?php echo elgg_echo("groups:icon"); ?></label><br />
 	<?php echo elgg_view("input/file", array("name" => "icon", 'id' => 'icon')); ?>
 </div>
 
-<div class="form-group">
+<div>
     <label for="c_photo">
         <?php echo elgg_echo('wet:cover_photo_input'); ?>
     </label>
@@ -158,6 +161,7 @@ foreach ((array)$group_profile_fields as $shortname => $valtype) {
 		continue;
 	}
 
+	$line_break = ($valtype == "longtext") ? "" : "<br />";
 	$label = elgg_echo("groups:{$shortname}");
 
 	if ($shortname == 'briefdescription') {				// Brief description with character limit, count
@@ -205,15 +209,15 @@ foreach ((array)$group_profile_fields as $shortname => $valtype) {
 		));
 
 	if ( $shortname == 'briefdescription' )		// Brief description with character limit, count
-        echo "<div class='en form-group'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$input_brief_en}</div>";
+        echo "<div class='en'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$line_break}{$input_brief_en}</div>";
     elseif ( $shortname == 'briefdescription2' )     // Brief description with character limit, count
-        echo "<div class='fr form-group'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$input_brief_fr}</div>";
+        echo "<div class='fr'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$line_break}{$input_brief_fr}</div>";
 	elseif ( $shortname == 'description2' )
-         echo "<div class='fr form-group'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$input_desc_fr}</div>"; 
+         echo "<div class='fr'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$line_break}{$input_desc_fr}</div>"; 
     elseif ( $shortname == 'description' )
-         echo "<div class='en form-group'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$input_desc_en}</div>";
+         echo "<div class='en'><label id='briefdescr-lbl' for='{$shortname}'>{$label}</label>{$line_break}{$input_desc_en}</div>";
     else
-        echo "<div class='form-group'><label for='{$shortname}'>{$label}</label>{$input}</div>";
+        echo "<div><label for='{$shortname}'>{$label}</label>{$line_break}{$input}</div>";
 }
 echo'</div>';
 if(get_current_language() == 'fr'){
@@ -245,14 +249,12 @@ jQuery(function(){
     $(this).addClass('active');
 });
 
-        jQuery('#btnClickfr').click(function(e){
-                e.preventDefault();
+        jQuery('#btnClickfr').click(function(){
                jQuery('.fr').show();
                jQuery('.en').hide();
         });
 
-          jQuery('#btnClicken').click(function(e){
-               e.preventDefault();
+          jQuery('#btnClicken').click(function(){
                jQuery('.en').show();
                jQuery('.fr').hide();
         });

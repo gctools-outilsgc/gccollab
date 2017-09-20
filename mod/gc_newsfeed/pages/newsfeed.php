@@ -68,8 +68,7 @@ if (elgg_is_logged_in() && $ciw_showdashboard=="yes"){
 }
 
 //EW - Department verification
-//@TODO: Set up reminder for GCcollab users to fill out their profile
-/*if(elgg_is_logged_in()){
+if(elgg_is_logged_in()){
 
     //load int value
     $timestamp = is_array(elgg_get_logged_in_user_entity()->last_department_verify) ? elgg_get_logged_in_user_entity()->last_department_verify[0] : elgg_get_logged_in_user_entity()->last_department_verify;
@@ -88,9 +87,7 @@ if (elgg_is_logged_in() && $ciw_showdashboard=="yes"){
         //after page is loaded click link
         $content .= '<script> window.onload = function () { document.getElementById("verify").click() } </script>';
     }
-}*/
-
-
+}
 
 
 echo elgg_view_page( elgg_echo('newsfeed:menu'), $content . $onboard);

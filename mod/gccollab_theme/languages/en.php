@@ -70,6 +70,7 @@ return array(
   /**
    * Newsfeed
    */
+  'newsfeed:menu' => 'Home',
   'newsfeed:filter' => "Filter your News Feed",
   'newsfeed:label' => "Show colleague connections on your News Feed",
   'newsfeed:do' => "Colleague connections will no longer display on your News Feed.",

@@ -11,9 +11,9 @@ $colleague = get_input('colleague-off');
 
 if($colleague){ //turn off colleague connections
     $user->colleagueNotif = $colleague;
-    system_message(elgg_echo('newsfeed:undo'));
+    system_message(elgg_echo('newsfeed:do'));
 } else {  //turn on colleague connections
     $user->colleagueNotif = '';
-    system_message(elgg_echo('newsfeed:do'));
+    system_message(elgg_echo('newsfeed:undo'));
 }
     ?>
