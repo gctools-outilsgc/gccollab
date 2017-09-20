@@ -173,4 +173,21 @@ Hope to chat more soon!",
 
 <p>All of the code and issues related to the platform are available on GitHub, so if you have any suggestions or want to help us make them better, please join in!</p>",
 
+  'c_sensitive_info_msg:friendly_reminder' => '<section class="alert alert-info"><h3 class="h3">Friendly reminder:</h3>As per the <a href="/terms">Terms and Conditions of use of GCconnex</a>, sensitive or confidential content is not to be posted on GCconnex. This means that only "unprotected", "unclassified" or "Protected A" document should be posted. The <a href="http://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=1245">Policy on Access to Information</a> applies to all information posted on GCconnex.</section>',
+
+  'custom_index_widgets:events_index:name' => "Events",
+  'index_widget:event:today' => "Today is %s",
+  'custom_index_widgets:latest_events_index' => 'Upcoming events',
+  'custom_index_widgets:latest_wire_index' => 'Latest wire posts on GCcollab',
+
+  'expages:about' => "About",     // GCChange change - Ilia: Bilingual page url
+  'expages:terms' => "Terms",     // GCChange change - Ilia: Bilingual page url
+  'expages:privacy' => "Privacy",   // GCChange change - Ilia: Bilingual page url
+  'expages:a_propos' => "About",
+  'expages:termes' => "Terms",
+  'expages:confidentialite' => "Privacy",
+  'expages:faq' => "FAQ",
+  'expages:qfp' => "FAQ",
+  'expages:participating_organizations' => "List of Participating Organizations",
+  'expages:organismes_participants' => "List of Participating Organizations",
 );

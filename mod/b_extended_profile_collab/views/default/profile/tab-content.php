@@ -4,7 +4,7 @@
 */
 //generate content tabs
 elgg_push_context('profile');
-$fields = array('File', 'Blog', 'page_top', 'Bookmarks', 'Poll', 'Thewire', 'Album', 'task_top', 'question');
+$fields = array('File', 'Blog', 'page_top', 'Bookmarks', 'Poll', 'Thewire', 'Album', 'task_top', 'question', 'etherpad');
 $user_display_name = elgg_get_page_owner_entity()->name;
 foreach($fields as $field){
 
@@ -73,6 +73,12 @@ foreach($fields as $field){
                 $add = elgg_echo('questions:add');
                 $message = elgg_echo('questions:none');
                 $field = 'questions';
+                break;
+            case 'etherpad':
+                $title = elgg_echo('etherpad:owner', array($user_display_name));
+                $add = elgg_echo('etherpad:add');
+                $message = elgg_echo('etherpad:none');
+                $field = 'docs';
                 break;
         }
 
@@ -147,19 +153,19 @@ echo '<div role="tabpanel" tabindex="-1" class="tab-pane fade-in" id="events">';
     }
 
     foreach($events as $event) {
-		echo elgg_view("object/event_calendar", array('entity' => $event));
-	}
+        echo elgg_view("object/event_calendar", array('entity' => $event));
+    }
 
     $date = date('Y-m-d'/*, strtotime("-1 days")*/);
     $event_url = "event_calendar/owner/". elgg_get_page_owner_entity()->username;
-	$viewall_link = elgg_view('output/url', array(
-		'href' => $event_url,
-		'text' => elgg_echo('link:view:all'),
-		'is_trusted' => true,
+    $viewall_link = elgg_view('output/url', array(
+        'href' => $event_url,
+        'text' => elgg_echo('link:view:all'),
+        'is_trusted' => true,
         'class' => 'text-center btn btn-default center-block',
-	));
+    ));
     echo '</div>';
-	echo "<div class=\"elgg-widget-more  panel-footer text-right\">$viewall_link</div>";
+    echo "<div class=\"elgg-widget-more  panel-footer text-right\">$viewall_link</div>";
 echo '</div>';
 elgg_pop_context();
 ?>

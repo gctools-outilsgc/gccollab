@@ -5,19 +5,20 @@ $site_name = $site->name;
 $contact_us = "{$site->getURL()}mod/contactform/";
 
 $french = array( 
+
+	'notifications:did_not_send' => "Les notifications n'ont pas envoyé",
+
 	'minor_save:title' => "Vous ne voulez pas envoyer de notification?",
 	'minor_save:description' => "L'affichage de nouveaux contenus envoie des notifications à ceux qui sont abonné. En tant que propriétaire ou opérateur du groupe, vous pouvez décider de ne pas envoyer de notifications pour le nouveau contenu que vous affichez dans le groupe. Pour ce faire, sélectionnez l'option « Ne pas envoyer de notification » ci-dessous.",
 	'minor_save:checkbox_label' => " Ne pas envoyer de notification",
-
-
 
 	'cp_notifications:name' => "Paramètres de notifications",
 	'cp_notification:save:success' => "Les paramètres ont été enregistrés avec succès",
 	'cp_notification:save:failed' => "Les paramètres n'ont pas été enregistrés avec succès",
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choisissez le moyen par lequel vous souhaitez recevoir des avis sur les activités de GCcollab qui vous intéressent. Le <strong>résumé des notifications</strong> vous permet de recevoir un courriel quotidien ou hebdomadaire contenant un sommaire des activités auxquelles vous êtes abonné. Vous préférez recevoir un avis instantané? Oubliez le résumé et sélectionnez le contenu pour lequel vous souhaitez recevoir des avis en temps réel. Veuillez noter que les avis par courriel sont envoyés à l’adresse électronique utilisée dans vos <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>paramètres d’utilisateur</a>.",
-	'cp_newsletter:notice:disable_digest' => "Le résumé des avis est maintenant activé; veuillez choisir ci après vos préférences applicables au résumé (fréquence et langue). Le résumé comprendra tout le contenu sélectionné dans la colonne « Courriel », de même que les abonnements dans la section « Autres abonnements de contenu ». Si vous choisissez d’activer le résumé des notifications, vous ne recevrez plus de notifications par courriel ou de site en temps réel (instantanément) au moment où ont lieu les différentes activités de GCcollab (à l’exception des notifications de type administratif).",
+	'cp_newsletter:notice' => "Choisissez le moyen par lequel vous souhaitez recevoir des avis sur les activités de GCconnex qui vous intéressent. Le <strong>résumé des notifications</strong> vous permet de recevoir un courriel quotidien ou hebdomadaire contenant un sommaire des activités auxquelles vous êtes abonné. Vous préférez recevoir un avis instantané? Oubliez le résumé et sélectionnez le contenu pour lequel vous souhaitez recevoir des avis en temps réel. Veuillez noter que les avis par courriel sont envoyés à l’adresse électronique utilisée dans vos <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>paramètres d’utilisateur</a>. Voir: “<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/Modifier_mes_param%C3%A8tres_de_compte/Comment_puis-je_modifier_mes_param%C3%A8tres_de_notification%3F?utm_source=notification_digest&utm_medium=email'>Comment puis-je modifier mes paramètres de notification</a>?” pour plus d’informaiton.",
+	'cp_newsletter:notice:disable_digest' => "Le résumé des avis est maintenant activé; veuillez choisir ci après vos préférences applicables au résumé (fréquence et langue). Le résumé comprendra tout le contenu sélectionné dans la colonne « Courriel », de même que les abonnements dans la section « Autres abonnements de contenu ». Si vous choisissez d’activer le résumé des notifications, vous ne recevrez plus de notifications par courriel ou de site en temps réel (instantanément) au moment où ont lieu les différentes activités de GCconnex (à l’exception des notifications de type administratif).",
 	'cp_newsletter:subject:daily' => "Votre résumé quotidien", 
 	'cp_newsletter:subject:weekly' => "Votre résumé hebdomadaire", 
 	'cp_newsletter:enable_digest_option' => "Activer votre résumé de notifications", 
@@ -75,7 +76,7 @@ $french = array(
 	'cp_notifications:mail_body:subtype:bookmarks' => "%s a publié un signet : %s", 	
 	'cp_notifications:mail_body:subtype:file' => "%s a publié un fichier : %s", 
 	'cp_notifications:mail_body:subtype:album' => "%s a publié un album : %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> a publié sur le <a href='%s'>%s</a>", 
+	'cp_notifications:mail_body:subtype:thewire' => "%s a publié sur le %s", 
 
 	'cp_notifications:mail_body:subtype:poll' => "%s a créé un sondage :", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s a publié un événement : %s", 
@@ -132,7 +133,7 @@ $french = array(
 
 
 	'cp_newsletter:title:nothing' => "Votre résumé {$site_name} : Rien à signaler aujourd’hui.",
-	'cp_newsletter:body:nothing' => "Il semble que c'était calme dans votre réseau sur GCcollab. Joignez-vous à des <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groupes</a> d'intérêt, partagez des informations et ajoutez des nouveaux <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>collègues</a> pour rester informé et grandir votre réseau!", //CHANGE
+	'cp_newsletter:body:nothing' => "Il semble que c'était calme dans votre réseau sur GCconnex. Joignez-vous à des <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groupes</a> d'intérêt, partagez des informations et ajoutez des nouveaux <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>collègues</a> pour rester informé et grandir votre réseau!", //CHANGE
 	'cp_newsletter:title' => "Votre résumé {$site_name} : De nouvelles activités à signaler!", 
 	'cp_newsletter:greeting' => "Bonjour %s. Voici vos notifications pour le <strong>%s</strong>",
 
@@ -200,7 +201,7 @@ $french = array(
 
 
 	// e-mail header text
-	'cp_notification:email_header' => "Ceci est un message généré par le système de GCcollab. Veuillez ne pas répondre à ce message",
+	'cp_notification:email_header' => "Ceci est un message généré par le système de GCconnex. Veuillez ne pas répondre à ce message",
 	'cp_notification:email_header_msg' => "",
 
 	// add user to group section
@@ -216,7 +217,7 @@ $french = array(
 	'cp_notify:body_edit:title:f' => "%s a été modifiée.",
 
 	'cp_notify:body_edit:description' => "<a href='%s'>Visualiser ou afficher un commentaire</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
 
 	// group invite user
 	'cp_notify:subject:group_invite_user' => "%s vous a invité à joindre le groupe %s",
@@ -229,15 +230,16 @@ $french = array(
 	// group invite user by email
 	'cp_notify:subject:group_invite_email' => "%s vous a invité à joindre le groupe '%s'",
 	'cp_notify:subject:group_invite_user_by_email' => "%s vous a invité à joindre le groupe %s",
-	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> vous a invité à joindre le groupe <a href='%s'>%s</a> sur GCcollab. <br>",
+	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> vous a invité à joindre le groupe <a href='%s'>%s</a>  sur GCconnex. <br>",
 	'cp_notify:body_group_invite_email:description' => "<a href='%s'>Inscrivez-vous maintenant</a> et vous serez automatiquement ajouté au groupe.<br/><br/>
 
-	Si vous désirez vous inscrire à une date ultérieure en utilisant le <a href='".elgg_get_site_url()."register'>formulaire d’inscription</a> sur GCcollab, vous pouvez vous joindre au groupe en utilisant le code suivant sur votre page d'<a href='%s'>invitation de groupe</a> : %s .<br/><br/>
+	Si vous désirez vous inscrire à une date ultérieure en utilisant le <a href='https://gcconnex.gc.ca/register'>formulaire d’inscription</a> sur GCconnex, vous pouvez vous joindre au groupe en utilisant le code suivant sur votre page d'<a href='%s'>invitation de groupe</a> : %s .<br/><br/>
 
-	Vous-êtes déjà sur GCcollab? Votre adresse est peut-être désuète. <a href='".elgg_get_site_url()."login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
+	Vous-êtes déjà sur GCconnex? Votre adresse est peut-être désuète. <a href='https://gcconnex.gc.ca/login'>Connectez-vous</a> et mettez à jour vos paramètres de comptes.<br/> ",
 
-	'cp_notify:footer:no_user' => 'Besoin d\'aide? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contactez-nous</a>.',
-	'cp_personalized_message' => "<div style='border: 1px solid #46246A; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
+	'cp_notify:footer:no_user' => 'Apprenez davantage au sujet de <a href=http://www.gcpedia.gc.ca/wiki/OutilsGC/GCconnex?utm_source=notification&utm_medium=email">GCconnex</a>, l’espace de travail collaboratif pour le réseautage professionnel à l\'ensemble de la fonction publique.<br/>
+	Besoin d\'aide? <a href="https://gcconnex.gc.ca/mod/contactform/?utm_source=notification&utm_medium=email">Contactez-nous</a>.',
+	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>%s vous a envoyé un message personnalisé:<br/><i>%s</i></div>",
 
 
 	// group mail section
@@ -262,6 +264,11 @@ $french = array(
 
 
 	// likes section
+
+	'cp_notify:subject:likes_group' => "%s a aimé votre groupe '%s'",
+	'cp_notify:body_likes_group:title' => "%s a aimé votre groupe '%s'",
+	'cp_notify:body_likes_group:description' => "Voir votre groupe: %s",
+
 	'cp_notify:subject:likes' => "%s a aimé votre publication '%s'",
 	'cp_notify:body_likes:title' => "%s a aimé votre publication '%s'",
 
@@ -302,7 +309,7 @@ $french = array(
 	// validate user section
 	'cp_notify:subject:validate_user' => "Veuillez valider le compte de %s",
 	'cp_notify:body_validate_user:title' => "Veuillez valider votre compte pour %s",
-	'cp_notify:body_validate_user:description' => "Bienvenue sur GCcollab. Afin de compléter votre inscription, veuillez valider votre compte enregistré sous le nom %s en cliquant sur le lien suivant : %s",
+	'cp_notify:body_validate_user:description' => "Bienvenue sur GCconnex. Afin de compléter votre inscription, veuillez valider votre compte enregistré sous le nom %s en cliquant sur le lien suivant : %s",
 
 
 	// post comment
@@ -359,18 +366,18 @@ $french = array(
 	'cp_notify:body_new_content:description' => "La description de leur nouvelle publication se lit comme suit : <br/> 
 		%s <br/>
 		<a href='%s'>Visualiser ou afficher un commentaire</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
 
 	'cp_notify:body_new_content:description_discussion' => "La description de leur nouvelle publication se lit comme suit : <br/>
 		%s <br/>
 		<a href='%s'>Visualiser ou répondre</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
 
 			'cp_notify:body_new_content:no_description_discussion' => "<a href='%s'>Visualiser ou répondre</a> <br/>
-		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCcollab.",
+		Vous pouvez aimer, partager et vous abonner à ce contenu dans GCconnex.",
 
 	// mention section
-	'cp_notify:subject:mention' => "%s vous a cité sur GCcollab",
+	'cp_notify:subject:mention' => "%s vous a cité sur GCconnex",
 	'cp_notify:body_mention:title' => "%s vous a cité dans sa publication ou réponse intitulée '%s'",
 	'cp_notify:body_mention:description' => "Voici la publication où l'on vous cite : <br/>
 		 %s <br/>
@@ -407,28 +414,16 @@ $french = array(
 
 
 	// add new user
-	'cp_notify:subject:add_new_user' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCcollab",
-	'cp_notify:body_add_new_user:title' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCcollab",
+	'cp_notify:subject:add_new_user' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCconnex",
+	'cp_notify:body_add_new_user:title' => "Vous avez été ajouté en tant que nouvel utilisateur sur GCconnex",
 	'cp_notify:body_add_new_user:description' => "Vous pouvez maintenant vous connecter en utilisant les informations de comptes suivants<br/>
 		Nom d'utilisateur : %s  et mot de passe : %s",
 
 
-	// invite new user to GCcollab
-	'cp_notify:subject:invite_new_user' => "Vous avez été invité à joindre GCcollab",
-	'cp_notify:body_invite_new_user:title' => "Vous avez été invité à joindre GCcollab par %s",
-	'cp_notify:body_invite_new_user:description' => "<p>Joignez-vous à GCcollab, un espace de collaboration et de réseautage hébergé par le gouvernement du Canada, ouvert aux fonctionnaires canadiens (fédéraux, provinciaux et territoriaux), aux universitaires, aux étudiants et à leurs partenaires partout au Canada.</p>
-
-<p>Une fois que vous êtes membre, vous pouvez également inviter toute autre personne avec qui vous souhaitez travailler, à partir de la fonctionnalité « Collègues ». (Cette option est disponible en sélectionnant l'icône des trois silhouettes qui figure au-dessus du menu de navigation.</p>
-
-<p style='border: 1px solid black; padding: 5px;'><strong>Message personnel de %s :</strong><br><span style='white-space: pre-line;'>%s</span></p>
-
-<p>Vous pouvez vous joindre en cliquant sur le lien suivant et entreprendre le processus d'inscription : %s</p>
-
-<p><em>Si vous cliquez sur le lien ci-dessus et que ça ne fonctionne pas, tentez plutôt de copier et de coller l'adresse URL dans une nouvelle fenêtre de navigateur.</em></p>
-
-<p>Gardez à l'esprit que GCcollab est toujours en phase pilote et que des modifications et des mises à jour y sont apportées fréquemment.</p>
-
-<p>Il est possible d’obtenir des réponses à toute question ayant trait au codage et à tout problème lié(e) à la plateforme à partir de GitHub. Ainsi, si vous avez des suggestions ou souhaitez nous aider à les améliorer, joignez-vous à nous!</p>",
+	// invite new user to GCconnex
+	'cp_notify:subject:invite_new_user' => "Vous avez été invité à joindre GCconnex",
+	'cp_notify:body_invite_new_user:title' => "Vous avez été invité à joindre GCconnex par %s",
+	'cp_notify:body_invite_new_user:description' => "Joignez-vous à l'espace de travail collaboratif pour le réseautage professionnel pour l'ensemble de la fonction publique. Vous pouvez vous inscrire à GCconnex en cliquant sur le lien suivant %s",
 
 
 	// transfer group admin
@@ -456,12 +451,14 @@ $french = array(
 
 
 	// wire share section
-	'cp_notify:wireshare:subject' => "%s a partagé votre %s avec le titre '%s'",
-	'cp_notify:body_wireshare:title' => "%s a partagé votre %s avec le titre '%s'",
-	'cp_notify:body_wireshare:title2' => "%s a partagé votre %s",
-
-	'cp_notify:body_wireshare:description' => "%s a partagé votre %s sur le fil, pour consulter ou répondre, veuillez cliquer sur le lien suivant : %s",
-	'cp_notify:wireshare_thewire:subject' => "%s a partager votre publication sur le fil",
+	'cp_notify:wireshare:subject' => "%s a partagé votre contenu sur le fil",
+	'cp_notify:body_wireshare:title' => "%s a partagé votre contenu sur le fil",
+ 
+	// (shared your wire post)
+	'cp_notify:body:contentshare:description' => "	<p>%s a partagé votre contenu sur le fil.</p> 
+													<p><i>%s</i></p> <br/>
+													<p><strong>La source :</strong> %s</p> 
+													<p><a href='%s'>Visualiser ou répondre</a> sur GCconnex.</p>",
 
 	// event calendar section
 	'cp_notify:event:subject' => "Calendrier d'événement",
@@ -494,8 +491,8 @@ $french = array(
 	// email notification footer text (1 and 2)	
 
 
-	'cp_notify:footer' => "",
-	'cp_notify:footer2' =>  "Besoin d’aide? <a href='".elgg_get_site_url()."mod/contactform/?utm_source=notification&utm_medium=email'>Contactez-nous</a>.<br/>Pour vous désabonner de ces notifications, connectez-vous à GCcollab et modifiez vos <a href='%s'>paramètres de notifications</a>.",
+	'cp_notify:footer' => "Apprenez davantage au sujet des <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F?utm_source=notification&utm_medium=email'>notifications de GCconnex</a>.",
+	'cp_notify:footer2' =>  " Besoin d’aide? <a href='".elgg_get_site_url()."mod/contactform/?utm_source=notification&utm_medium=email'>Contactez-nous</a>.<br/>Pour vous désabonner de ces notifications, connectez-vous à GCconnex et modifiez vos <a href='%s'>paramètres de notifications</a>.",
 
 
 
@@ -520,7 +517,8 @@ $french = array(
 	"cp_notify:sidebar:subs_title" => "Abonnement personnel",
 
 
-	'cp_notify:visitTutorials'=>"",
+	'cp_notify:visitTutorials'=>"Pour de plus amples renseignements sur GCconnex et ses fonctionnalités, consultez l'<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_-_Aide_%C3%A0_l%27utilisateur/Modifier_mes_param%C3%A8tres_de_compte/Comment_puis-je_modifier_mes_param%C3%A8tres_de_notification%3F'>aide à l'utilisateur de GCconnex</a>.<br/>
+	                             Merci",
 
 	// cyu - new message in place for email content revamp
 	'cp_notify:french_follows' => "<i><sup>(Le fran&ccedil;ais suit)</sup></i>",

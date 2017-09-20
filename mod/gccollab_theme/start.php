@@ -35,6 +35,21 @@ function gccollab_theme_init() {
 		'href' => '#career_menu',
 		'text' => elgg_echo('career') . '<span class="expicon glyphicon glyphicon-chevron-down"></span>'
     ));
+
+    elgg_register_page_handler('about', 'expages_page_handler');        
+    elgg_register_page_handler('a_propos', 'expages_page_handler');
+
+    elgg_register_page_handler('terms', 'expages_page_handler');
+    elgg_register_page_handler('termes', 'expages_page_handler');   
+
+    elgg_register_page_handler('privacy', 'expages_page_handler');
+    elgg_register_page_handler('confidentialite', 'expages_page_handler');
+
+    elgg_register_page_handler('faq', 'expages_page_handler');
+    elgg_register_page_handler('qfp', 'expages_page_handler');
+
+    elgg_register_page_handler('participating_organizations', 'expages_page_handler');
+    elgg_register_page_handler('organismes_participants', 'expages_page_handler');
 }
 
 

@@ -160,4 +160,21 @@ J'espère d'avoir l'occasion de discuter avec vous bientôt!",
 
 <p>Il est possible d’obtenir des réponses à toute question ayant trait au codage et à tout problème lié(e) à la plateforme à partir de GitHub. Ainsi, si vous avez des suggestions ou souhaitez nous aider à les améliorer, joignez-vous à nous!</p>",
 
+  'c_sensitive_info_msg:friendly_reminder' => '<section class="alert alert-info"><h3 class="h3">Rappel amical :</h3>Conform&eacute;ment aux <a href="/termes">Conditions d&rsquo;utilisation de GCconnex</a>, aucun contenu de nature sensible ou confidentielle  ne peut &ecirc;tre publi&eacute; sur les Outils GC2.0. Cela signifie que seuls des documents &laquo;&nbsp;non prot&eacute;g&eacute;s&nbsp;&raquo;, &laquo;&nbsp;non classifi&eacute;s&nbsp;&raquo; ou &laquo;&nbsp;Prot&eacute;g&eacute; A&nbsp;&raquo; peuvent &ecirc;tre affich&eacute;s.&nbsp;</section>',
+
+  'custom_index_widgets:events_index:name' => "Évènements",
+  'index_widget:event:today' => "Aujourd'hui, c'est %s",
+  'custom_index_widgets:latest_events_index' => 'Prochains évènements',
+  'custom_index_widgets:latest_wire_index' => 'Derniers messages sur le fil de GCcollab',
+
+  'expages:about' => "À propos",     // GCChange change - Ilia: Bilingual page url
+  'expages:terms' => "Termes",     // GCChange change - Ilia: Bilingual page url
+  'expages:privacy' => "Confidentialité",   // GCChange change - Ilia: Bilingual page url
+  'expages:a_propos' => "À propos",
+  'expages:termes' => "Termes",
+  'expages:confidentialite' => "Confidentialité",
+  'expages:faq' => "QFP",
+  'expages:qfp' => "QFP",
+  'expages:participating_organizations' => "Ministères et organismes participants",
+  'expages:organismes_participants' => "Ministères et organismes participants",
 );

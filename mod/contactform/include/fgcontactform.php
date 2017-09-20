@@ -53,14 +53,13 @@ class FGContactForm
         $this->fileupload_fields=array();
         $this->mailer = new PHPMailer();
         $this->mailer->CharSet = 'utf-8';
-
-        // $this->mailer->IsSMTP();
-        // $this->mailer->Host = elgg_get_plugin_setting('phpmailer_host', 'phpmailer'); // SMTP server
-        // $this->mailer->Port = elgg_get_plugin_setting('ep_phpmailer_port', 'phpmailer'); // SMTP server port
-        // $this->mailer->SMTPSecure = 'tls';
-        // $this->mailer->SMTPAuth = 'true';
-        // $this->mailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
-        // $this->mailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
+        $this->mailer->IsSMTP();
+        $this->mailer->Host = elgg_get_plugin_setting('phpmailer_host', 'phpmailer'); // SMTP server
+        $this->mailer->Port = elgg_get_plugin_setting('ep_phpmailer_port', 'phpmailer'); // SMTP server port
+        $this->mailer->SMTPSecure = 'tls';
+        $this->mailer->SMTPAuth = 'true';
+        $this->mailer->Username = elgg_get_plugin_setting('phpmailer_username', 'phpmailer');
+        $this->mailer->Password = elgg_get_plugin_setting('phpmailer_password', 'phpmailer');
     }
 
     function EnableCaptcha($captcha_handler)
@@ -292,9 +291,9 @@ class FGContactForm
             </div>
         
 
-            <!-- GCcollab banner -->
+            <!-- GCconnex banner -->
             <div width="100%" style="padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#047177;">
-            <span style="padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;">GCcollab</span>
+            <span style="padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;">GCconnex</span>
             </div>
 
             <!-- email divider -->
