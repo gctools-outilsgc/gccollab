@@ -5,9 +5,6 @@
 
 // @todo Could probably make this number configurable
 $num_featured_items = 6;
-if( elgg_is_active_plugin('gc_landing_pages') ){
-	$num_featured_items = 7;
-}
 
 // get site menu items
 $menu = elgg_get_config('menus');

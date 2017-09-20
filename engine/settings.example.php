@@ -209,12 +209,3 @@ $CONFIG->min_password_length = 6;
  * @global string $CONFIG->exception_include
  */
 $CONFIG->exception_include = '';
-
-/**
- * Minimum username length
- *
- * This value is used when validating a user's username during registration.
- *
- * @global int $CONFIG->minusername
- */
-$CONFIG->minusername = 3;
