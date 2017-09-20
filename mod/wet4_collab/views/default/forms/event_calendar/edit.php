@@ -269,8 +269,7 @@ foreach($schedule_options as $label => $key) {
   }*/
 
 
-  $body .= '<input type="checkbox" name="schedule_type" id="all_day" class="elgg-input-radio " value="'.$key.'" '.$checked.' />';
-$body .= '<label for="all_day" class="mrgn-lft-sm">'.$label.'</label>';
+$body .= '<label for="all_day" class="mrgn-lft-sm"><input type="checkbox" name="schedule_type" id="all_day" class="elgg-input-radio " value="'.$key.'" '.$checked.' /> '.$label.'</label>';
 
 }
 $vars['choix'] = $key;
@@ -294,13 +293,13 @@ $body .= '</div>';
 	if ($event_calendar_fewer_fields != 'yes') {
 
 		//English
-		$body .= '<div class="en"><br><p><label for="long_description">'.elgg_echo("event_calendar:long_description_label").'</label>';
+		$body .= '<div class="en"><p><label for="long_description">'.elgg_echo("event_calendar:long_description_label").'</label>';
 		$body .= elgg_view("input/longtext", array('name' => 'description', 'id' => 'description', 'value' => $description));
 		$body .= '</p>';
 		$body .= '<p class="event-calendar-description">'.$prefix['long_description'].elgg_echo('event_calendar:long_description_description').'</p></div>';
 
 		//french
-		$body .= '<div class="fr"><br><p><label for="long_description2">'.elgg_echo("event_calendar:long_description_label2").'</label>';
+		$body .= '<div class="fr"><p><label for="long_description2">'.elgg_echo("event_calendar:long_description_label2").'</label>';
 		$body .= elgg_view("input/longtext", array('name' => 'description2', 'id' => 'description2', 'value' => $description2));
 		$body .= '</p>';
 		$body .= '<p class="event-calendar-description">'.$prefix['description2'].elgg_echo('event_calendar:long_description_description2').'</p></div>';
@@ -310,16 +309,16 @@ $body .= '</div>';
 	elgg_echo("option:no") => 'no',
 	elgg_echo("option:yes") => 'yes',
 );*/
-$body .= '<p><label>'.elgg_echo("event_calendar:meeting").'</label><br/>';
+$body .= '<p><label>'.elgg_echo("event_calendar:meeting").'</label>';
 	$body .= '<div class="event-calendar-edit-form-block event-calendar-edit-form-membership-block">';
 	//$body .= elgg_view("input/radio", array('name' => 'teleconference_radio',  'value' => $teleconference_radio, 'options' => $teleconference_options));
-	$body .= '<p>';
+	$body .= '<p><label for="teleconference_radio">';
 	if ($fd['teleconference_radio'] == 1) {
 		$body .= elgg_view('input/checkbox', array('name' => 'teleconference_radio', 'id' => 'teleconference_radio', 'value' => 1, 'checked' => 'checked'));
 	} else {
 		$body .= elgg_view('input/checkbox', array('name' => 'teleconference_radio', 'id' => 'teleconference_radio', 'value' => 1));
 	}
-	$body .= '<label for="teleconference_radio">'.elgg_echo('event_calendar:web_conference_label').'</label>';
+	$body .= ' '.elgg_echo('event_calendar:web_conference_label').'</label>';
 	$body .= '</p>';
 
 	$body .= '</div>';
@@ -364,13 +363,13 @@ if ($event_calendar_fewer_fields != 'yes') {
 
 		$body .= '<p><div class="event-calendar-edit-form-block event-calendar-edit-form-membership-block">';
 		//$body .= elgg_view("input/radio", array('name' => 'teleconference_radio',  'value' => $teleconference_radio, 'options' => $teleconference_options));
-		$body .= '<p>';
+		$body .= '<p><label for="contact_checkbox">';
 		if ($fd['contact_checkbox'] == 1) {
 		$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1, 'checked' => 'checked'));
 		} else {
 		$body .= elgg_view('input/checkbox', array('name' => 'contact_checkbox', 'id' => 'contact_checkbox', 'value' => 1));
 		}
-		$body .= '<label for="contact_checkbox">'.elgg_echo('event_calendar_contact').'</lable>';
+		$body .= ' '.elgg_echo('event_calendar_contact').'</lable>';
 		$body .= '</p>';
 
 		$body .= '</div><div id="infoContact" class="list-unstyled">';
