@@ -300,6 +300,10 @@ function get_member_data($type, $lang) {
 			$data['total'] = isset( $data['total'] ) ? $data['total'] + 1 : 1;
 			$data[$obj->other] = isset( $data[$obj->other] ) ? $data[$obj->other] + 1 : 1;
 		}
+	} else if ($type === 'time') {
+		$dbprefix = elgg_get_config('dbprefix');
+		$query = "SELECT DISTINCT e.time_created AS time, count(*) AS count, date_format(from_unixtime(e.time_created),'%Y-%m-%d') AS date FROM {$dbprefix}entities e JOIN {$dbprefix}users_entity st ON e.guid = st.guid WHERE e.type = 'user' AND e.enabled = 'yes' GROUP BY date ORDER BY time;";
+		$data = get_data($query);
 	} else if ($type === 'gcconnex') {
 		$dbprefix = elgg_get_config('dbprefix');
 	    $query = "SELECT msv.string as department, count(*) as count FROM {$dbprefix}users_entity u LEFT JOIN {$dbprefix}metadata md ON u.guid = md.entity_guid LEFT JOIN {$dbprefix}metastrings msn ON md.name_id = msn.id LEFT JOIN {$dbprefix}metastrings msv ON md.value_id = msv.id WHERE msn.string = 'department' GROUP BY department ORDER BY count DESC LIMIT 25";

@@ -117,14 +117,12 @@
 
         <script>
             $(function () {
-                $.getJSON('https://api.gctools.ca/gccollab.ashx', function (data) {
+                $.getJSON(siteUrl + 'services/api/rest/json/?method=member.stats&type=time&lang=' + lang, function (data) {
                     var registrations = [];
                     var registrationsCount = 0;
-                    $.each(data, function(key, value) {
-                        if( value['RegisteredSmall'] ){
-                            registrationsCount += value['cnt'];
-                            registrations.push([parseInt(value['Registered'].match(/\(([^)]+)\)/)[1]), registrationsCount, value['cnt']]);
-                        }
+                    $.each(data.result, function(key, value) {
+                        registrationsCount += parseInt(value.count);
+                        registrations.push([parseInt(value.time) * 1000, registrationsCount, parseInt(value.count)]);
                     });
                     registrations.sort(SortRegistrations);
 
