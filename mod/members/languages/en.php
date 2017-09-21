@@ -10,6 +10,4 @@ return array(
 	'members:title:popular' => 'Most popular members',
 	'members:title:online' => 'Online members',
 	'members:list:popular:none' => 'No members have any friends.',
-	'members:label:type' => 'By Type',
-	'members:title:type' => 'Member Type',
 );

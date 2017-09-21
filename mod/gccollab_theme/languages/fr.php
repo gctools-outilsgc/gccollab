@@ -127,6 +127,12 @@ Je vous invite à vous joindre à mon réseau dans %s. Joignez-nous pour contrib
 J'espère d'avoir l'occasion de discuter avec vous bientôt!",
 
   /**
+   * Members
+   */
+  'members:label:type' => 'Par type',
+  'members:title:type' => 'Type de membre',
+
+  /**
    * Custom Index Widgets
    */
   'custom_index_widgets:events_index:name' => "Évènements",

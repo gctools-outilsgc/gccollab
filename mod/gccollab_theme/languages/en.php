@@ -143,6 +143,12 @@ I'm inviting you to join my network on %s. Join us to contribute to discussions 
 Hope to chat more soon!",
 
   /**
+   * Members
+   */
+  'members:label:type' => 'By Type',
+  'members:title:type' => 'Member Type',
+
+  /**
    * Custom Index Widget
    */
   'custom_index_widgets:events_index:name' => "Events",

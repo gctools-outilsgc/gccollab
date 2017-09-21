@@ -4,7 +4,7 @@ elgg_register_event_handler('init', 'system', 'gccollab_stats_init', 0);
 
 function gccollab_stats_init() {
 	elgg_register_page_handler('stats', 'stats_page_handler');
-	if( elgg_is_active_plugin('loginrequired') ){
+	if( strpos(elgg_get_site_entity()->name, 'collab') !== false ){
 		elgg_register_plugin_hook_handler('public_pages', 'walled_garden', 'gccollab_stats_public_page');
 	}
 

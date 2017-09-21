@@ -1826,3 +1826,7 @@ figcaption{
   border: 1px solid #46246A;
   background-color: #46246A;
 }
+
+.group-cover-photo{
+  background-color: #46246A !important;
+}
