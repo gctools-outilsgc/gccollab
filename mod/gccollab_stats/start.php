@@ -42,7 +42,7 @@ function gccollab_stats_public_page($hook, $handler, $return, $params){
 
 function stats_page_handler($page) {
 	$base = elgg_get_plugins_path() . 'gccollab_stats/pages/gccollab_stats';
-	$page = ( elgg_is_active_plugin('loginrequired') ) ? 'gccollab' : 'gcconnex';
+	$page = (strpos(elgg_get_site_entity()->name, 'collab') !== false) ? 'gccollab' : 'gcconnex';
 	require_once "$base/$page.php";
 	return true;
 }

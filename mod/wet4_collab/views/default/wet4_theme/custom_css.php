@@ -945,7 +945,7 @@ max-height: 500px;
 }
 
 .elgg-layout-one-column #widgets-add-panel{
-    margin-top: -15px;
+    margin-top: 0;
         z-index: 1;
 
 }
