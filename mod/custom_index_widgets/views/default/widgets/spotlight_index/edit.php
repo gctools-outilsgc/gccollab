@@ -44,10 +44,10 @@ for ($i = 1; $i <= $max_slider_options; $i++) {
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:url"); ?></div>
 			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_url]", "value" => $widget->{"slider_" . $i . "_url"})); ?>
 
-			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:alt"); ?> (EN)</div>
+			<div>Alt text (EN)</div>
 			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_alt_en]", "value" => $widget->{"slider_" . $i . "_alt_en"})); ?>
 
-			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:alt"); ?> (FR)</div>
+			<div>Alt text (FR)</div>
 			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_alt_fr]", "value" => $widget->{"slider_" . $i . "_alt_fr"})); ?>
 			
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:text"); ?></div>
