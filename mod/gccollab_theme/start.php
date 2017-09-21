@@ -58,6 +58,8 @@ function gccollab_theme_init() {
 
     // add footer links
     expages_collab_setup_footer_menu();
+
+    elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'collab_group_owners_block_handler');
 }
 
 /**
@@ -176,6 +178,84 @@ function career_menu_hander($hook, $type, $menu, $params){
                 $item->addChild(elgg_get_menu_item('subSite', 'jobs'));
                 $item->setLinkClass('item');
                 break;
+        }
+    }
+}
+
+function collab_group_owners_block_handler($hook, $type, $menu, $params){
+    //rearrange menu items
+    if(elgg_get_context() == 'groupSubPage' || elgg_in_context('group_profile')){
+
+        elgg_unregister_menu_item('owner_block', 'activity');
+
+        //turn owner_block  menu into tabs
+        foreach ($menu as $key => $item){
+            switch ($item->getName()) {
+                case 'discussion':
+                    $item->setText(elgg_echo('gprofile:discussion'));
+                    $item->setPriority('1');
+                    break;
+                case 'gcforums':
+                    $item->setPriority('1');
+                    $item->setLinkClass('forums');
+                    break;
+                case 'file':
+                    $item->setText(elgg_echo('gprofile:files'));
+                    $item->setPriority('2');
+                    break;
+                case 'blog':
+                    $item->setText(elgg_echo('gprofile:blogs'));
+                    $item->setPriority('3');
+                    break;
+                case 'event_calendar':
+                    $item->setText(elgg_echo('gprofile:events'));
+                    $item->setPriority('4');
+                    break;
+                case 'etherpad':
+                    $item->setPriority('5');
+                    break;
+                case 'pages':
+                    $item->setText(elgg_echo('gprofile:pages'));
+                    $item->setPriority('6');
+                    break;
+                case 'bookmarks':
+                    $item->setText(elgg_echo('gprofile:bookmarks'));
+                    $item->setPriority('7');
+                    break;
+                case 'activity':
+                    $item->setText('Activity');
+                    $item->setPriority('8');
+                    $item->addItemClass('removeMe');
+                    break;
+                case 'questions':
+                    $item->setText(elgg_echo('widget:questions:title'));
+                    $item->setPriority('9');
+                    break;
+                case 'polls':
+                    $item->setText(elgg_echo('gprofile:polls'));
+                    $item->setPriority('10');
+                    break;
+                case 'tasks':
+                    $item->setText(elgg_echo('gprofile:tasks'));
+                    $item->setPriority('11');
+                    break;
+                case 'photos':
+                    $item->setText(elgg_echo('gprofile:photos'));
+                    $item->addItemClass('removeMe');
+                    $item->setPriority('12');
+                    break;
+                case 'photo_albums':
+                    $item->setText(elgg_echo('gprofile:albumsCatch'));
+                    $item->setPriority('13');
+                    break;
+                case 'ideas':
+                    $item->setText(elgg_echo('gprofile:ideas'));
+                    $item->setPriority('14');
+                    break;
+                case 'related_groups':
+                    $item->setPriority('15');
+                    break;
+            }
         }
     }
 }

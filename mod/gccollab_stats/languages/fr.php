@@ -1,6 +1,7 @@
 <?php
 $french = array(
     'gccollab_stats:title' => "Statistiques de GCcollab",
+    'gcconnex_stats:title' => "Statistiques de GCconnex",
     'gccollab_stats:unknown' => "Inconnu",
     'gccollab_stats:membercount' => "Membres inscrits",
     'gccollab_stats:loading' => "Chargement des données...",
