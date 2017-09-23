@@ -78,8 +78,8 @@ if( elgg_get_plugin_setting('googledoc', 'file_tools') ){
     "href" => "#googledoc",
     "link_id" => "file-tools-googledoc-form-link",
     "selected" => ($selected_tab == "googledoc") ? true : false,
-      'data-toggle' => 'tab',
-      'priority' => 3,
+    'data-toggle' => 'tab',
+    'priority' => 3,
   ));
 }
 

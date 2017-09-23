@@ -102,12 +102,12 @@ elgg.ajax.handleOptions = function(url, options) {
  * @private
  */
 elgg.ajax.handleAjaxError = function(xhr, status, error) {
-	//elgg.register_error(elgg.echo('ajax:error'));
-	// cyu GCcollab Taiga: Issue #24 - Remove AJAX time-out error
-	// refresh page if user is on the home page (newsfeed or activity) and remove error message
-	$url_pathname = $(location).attr('pathname').replace(/\//g, "");
-	if (strcmp($url_pathname.toLowerCase(), 'newsfeed') == 0)
-		location.reload();
+	if (!xhr.getAllResponseHeaders()) {
+		// user aborts (like refresh or navigate) do not have headers
+		return;
+	}
+	
+	elgg.register_error(elgg.echo('ajax:error'));
 };
 
 /**

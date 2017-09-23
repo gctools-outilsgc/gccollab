@@ -8,7 +8,6 @@
 
 $limit = get_input('limit', 10);
 $offset = get_input('offset', 0);
-$name = get_input('name', '');
 
 // can't use elgg_list_entities() and friends because we don't use the default view for users.
 $ia = elgg_set_ignore_access(TRUE);
@@ -17,73 +16,20 @@ access_show_hidden_entities(TRUE);
 
 $display = $_GET['display'];
 
-echo '<div class="elgg-col elgg-col-1of2">';
 echo '<font>Display <a href="?display=10">10</a> | <a href="?display=50">50</a> | <a href="?display=100">100</a></font>';
-echo '</div>';
 
 if (!isset($display))
 {
 	$display = 10;
 }
 
-echo '<div class="elgg-col elgg-col-1of2"><label for="name">Search by name:</label> ';
-echo elgg_view('input/text', array(
-    'name' => 'name',
-    'id' => 'name',
-    'value' => $name,
-    'style' => 'width: 200px; margin: 0 10px;'
-));
-echo elgg_view('input/submit', array(
-    'name' => 'search',
-    'id' => 'search',
-    'value' => elgg_echo('search')
-));
-echo '</div>';
-
-echo "<script>
-$('#search').click(function(e) {
-	e.preventDefault();
-	var url = location.href;
-    if(url.indexOf('name') >= 0){
-		url = url.replace(/(name=)[^\&]+/, '$1' + $('#name').val());
-    } else {
-		url += url.indexOf('?') === -1 ? '?' : '&';
-		url = url + 'name=' + $('#name').val();
-    }
-	location.href = url;
-});
-
-$('#name').bind('keyup', function(e) {
-	e.preventDefault();
-    if ( e.keyCode === 13 ) {
-        var url = location.href;
-        if(url.indexOf('name') >= 0){
-			url = url.replace(/(name=)[^\&]+/, '$1' + $(this).val());
-        } else {
-			url += url.indexOf('?') === -1 ? '?' : '&';
-			url = url + 'name=' + $(this).val();
-        }
-		location.href = url;
-    }
-});
-</script>";
-
-echo '<div class="clearfix"></div>';
-
-$wheres = uservalidationbyemail_get_unvalidated_users_sql_where();
 $options = array(
 	'type' => 'user',
-	'wheres' => $wheres,
+	'wheres' => uservalidationbyemail_get_unvalidated_users_sql_where(),
 	'limit' => $display,
 	'offset' => $offset,
 	'count' => TRUE,
 );
-
-if( $name != "" ){
-	$db_prefix = elgg_get_config('dbprefix');
-	$options['joins'] = array("JOIN {$db_prefix}users_entity ue ON e.guid = ue.guid");
-	$options['wheres'] = array_merge($wheres, array("(ue.username LIKE '%" . $name . "%' OR ue.name LIKE '%" . $name . "%')"));
-}
 $count = elgg_get_entities($options);
 
 if (!$count) {
@@ -110,7 +56,7 @@ $pagination = elgg_view('navigation/pagination',array(
 ));
 
 $bulk_actions_checkbox = '<label><input type="checkbox" id="uservalidationbyemail-checkall" />'
-	. elgg_echo('all') . '</label>';
+	. elgg_echo('uservalidationbyemail:check_all') . '</label>';
 
 $validate = elgg_view('output/url', array(
 	'href' => 'action/uservalidationbyemail/validate/',
@@ -132,7 +78,7 @@ $resend_email = elgg_view('output/url', array(
 
 $delete = elgg_view('output/url', array(
 	'href' => 'action/uservalidationbyemail/delete/',
-	'text' => elgg_echo('delete'),
+	'text' => elgg_echo('uservalidationbyemail:admin:delete'),
 	'title' => elgg_echo('uservalidationbyemail:confirm_delete_checked'),
 	'class' => 'uservalidationbyemail-submit',
 	'is_action' => true,

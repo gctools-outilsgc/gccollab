@@ -8,7 +8,6 @@ $jsLocation = $site_url . "mod/wet4/views/default/js/wet-boew.js";
 $termsLink = $site_url .'terms';
 $frenchLink = $site_url .'login';
 $toggle_lang = $site_url .'mod/toggle_language/action/toggle_language/toggle';
-$CONFIG->splashLanguage ="false";
 $gccollab_text = elgg_echo('wet:login_welcome');
 
 if( _elgg_services()->session->get('language') == 'fr'){
@@ -22,7 +21,7 @@ if( _elgg_services()->session->get('language') == 'fr'){
 //Page forwards to login with users selected language
 $body .= <<<__BODY
 <div class="splash">
-<div id="bg">
+<div id="bg" style="background: url($site_url/mod/gc_splash_page_collab/graphics/Peyto_Lake-Banff_NP-Canada.jpg) no-repeat center center fixed; background-size: cover;">
 </div>
 <main role="main">
 	<script type="text/javascript">
@@ -134,24 +133,23 @@ if (language_selected == "English")
 </main>
 <div>
 
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src=" $jsLocation "></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="$jsLocation"></script>
 
 </div>
 __BODY;
+
 $body .= elgg_view('page/elements/foot');
-$headparams = array(
+
+$head = elgg_view('page/elements/head', array(
     'title' => 'GCcollab',
-    );
-$head = elgg_view('page/elements/head', $headparams);
+));
 
 $params = array(
-
 	'head' => $head,
 	'body' => $body,
 );
+
 //Create Page
 echo elgg_view("page/elements/html", $params);
 ?>

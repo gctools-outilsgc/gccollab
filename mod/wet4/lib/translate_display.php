@@ -48,10 +48,6 @@ function gc_explode_translation($imploded_txt, $lang)
             }
         }
     }
-    else if(strpos($value, "[:en]")!==false)
-    {
-        $value=old_gc_explode_translation($imploded_txt, $lang);
-    }
     else
     {
         $value=$imploded_txt;

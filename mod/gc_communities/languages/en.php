@@ -6,7 +6,8 @@ $english = array(
   'gc_communities:animator' => "Community Animator",
   'gc_communities:tags' => "Community Tags",
   'gc_communities:delete' => "Delete Community Page",
-
+    'gc_communities:audience' => 'Audience Metadata',
+    
   'gc_communities:communities' => "Communities",
   'gc_communities:community_newsfeed' => "Community Newsfeed",
   'gc_communities:community_wire' => "Community Wire",
@@ -24,6 +25,7 @@ $english = array(
   'gc_communities:enable_widgets' => "Enable widgets on community pages?",
   'gc_communities:newsfeed_shown' => "Newsfeed items shown:",
   'gc_communities:wires_shown' => "Wire posts shown:",
+    'gc_communities:showing_content' => 'Showing content tagged with: %s and the "Audience tag" %s',
 );
 
 $communities = json_decode(elgg_get_plugin_setting('communities', 'gc_communities'));

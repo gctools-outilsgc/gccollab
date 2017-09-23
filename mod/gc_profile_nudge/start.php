@@ -19,7 +19,7 @@ function gc_profile_nudge_init(){
 			
 			// If user hasn't seen nudge, use their last login date as benchmark
 			if( !isset( $user->last_profile_nudge ) ){
-				$user->last_profile_nudge = (($user->prev_last_login != 0) ? $user->prev_last_login : $user->last_login);
+				$user->last_profile_nudge = (isset($user->prev_last_login) ? $user->prev_last_login : $user->last_login);
 				$user->save();
 			}
 

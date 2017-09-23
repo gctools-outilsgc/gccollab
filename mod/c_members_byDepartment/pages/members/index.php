@@ -147,7 +147,6 @@ function render_department_tab($data_directory) {
               'owner_guid' => 0
        ));
     echo '<br>';
-	
    
         //$metaname = "deptsEn";
         
@@ -166,10 +165,7 @@ function render_department_tab($data_directory) {
         $provinces['pov-sask'] = 'Government of Saskatchewan';
         $provinces['pov-yuk'] = 'Government of Yukon';
         $departmentsEn = array_merge($departmentsEn,$provinces);
-		foreach($departmentsEn as $key => $value)
-{
-  //echo $key." has the value". $value . '<br>';
-}
+ 
         //$metaname = "deptsFr";
 
         $departmentsFr = json_decode($obj[0]->deptsFr, true);
@@ -211,19 +207,12 @@ function render_department_tab($data_directory) {
                 'title' => $v
             ));
         $deptCount = elgg_get_entities_from_metadata(array('types' => 'user', 'metadata_names' => array('department'), 'metadata_values' => array($departmentsEn[$k]." / ".$departmentsFr[$k], $departmentsFr[$k]." / ".$departmentsEn[$k]), 'count' => true));
-		if($deptCount == 0)
-		 continue;
+
         $list_items = elgg_format_element('td', ['class' => 'data-table-list-item ', 'style' => 'padding: 10px 0'], $deptLink);
         $list_items .= elgg_format_element('td', ['class' => 'data-table-list-item ', 'style' => 'padding: 10px 0'], '<span>' . $deptCount . '</span>');
 
         $tR .= elgg_format_element('tr', [], $list_items);
     }
-
-		// we will re-use data from the domain manager module
-		//$query = "SELECT ext, dept FROM email_extensions WHERE dept LIKE '%University%' OR dept LIKE '%College%' OR dept LIKE '%Institute%' OR dept LIKE '%Université%' OR dept LIKE '%Cégep%' OR dept LIKE '%Institut%'";
-		//$universities = get_data($query);
-		
-		//$universities = json_encode($universities, true);
 
     //create table body
     $tBody = elgg_format_element('tbody', ['class' => ''], $tR);
@@ -232,196 +221,6 @@ function render_department_tab($data_directory) {
     $tHead = elgg_format_element('thead', ['class' => ''], '<tr> <th class="">' . elgg_echo('c_bin:department') . ' </th><th>' . elgg_echo('c_bin:total_user') . '</th></tr>');
 
     $display .=  elgg_format_element('table', ['class' => ' wb-tables table table-striped', 'id' => '', "data-wb-tables"=>"{ \"lengthChange\" : false, \"pageLength\" : 200 }"], $tHead . $tBody);
-
-    // Get GCcollab API data
-    $json_raw = file_get_contents('https://api.gctools.ca/gccollab.ashx');
-    $json = json_decode($json_raw, true);
-
-    // Get data ready for Member Registration Highcharts 
-    $registrations = array();
-    foreach( $json as $key => $value ){
-        if( $value['Registered'] ){
-            preg_match("/\((.*)\)/", $value['Registered'], $matches);
-        }
-        $date = $matches[1] ? $matches[1] : "";
-        $registrations[] = array(intval($date), "",  $value['email']);
-    }
-    sort($registrations);
-    foreach( $registrations as $key => $value ){
-        $registrations[$key][1] = $key;
-    }
-    $display = "<script>var registrations = " . json_encode($registrations) . ";</script>";
-
-    // Get data ready for Member Organizations Highcharts 
-    $organizations_count = array();
-    foreach( $json as $key => $value ){
-        $organizations_count[$value['Org']]++;
-	}
-    $organizations = array();
-	foreach( $organizations_count as $key => $value ){
-	    $organizations[] = array($key, $value, $key);
-	}
-	sort($organizations);
-	$display .= "<script>var organizations = " . json_encode($organizations) . ";</script>";
-
-	/*$display .= '<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <div id="organizations" style="min-width: 310px; min-height: 1000px; margin: 0 auto"></div>';*/
-
-    $display .= '<script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <div id="registrations" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        <div id="organizations" style="min-width: 310px; min-height: 2000px; margin: 0 auto"></div>';
-
-    $display .= "<script>$(function () {
-        Highcharts.chart('registrations', {
-            chart: {
-                zoomType: 'x'
-            },
-            title: {
-                text: 'Member Registration'
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: '# of members'
-                },
-                floor: 0
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>Email address:</b> ' + registrations[this.series.data.indexOf(this.point)][2] + '</b>';
-                }
-            },
-            series: [{
-                type: 'area',
-                name: 'Member Registration',
-                data: registrations
-            }]
-        });
-    });</script>";
-
-	/*$display .= "<script>$(function () {
-        Highcharts.chart('organizations', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Member Organizations'
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'Registered organization'
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-            },
-            series: [{
-                name: 'Organization',
-                colorByPoint: true,
-                data: organizations
-            }],
-            drilldown: {
-                series: organizations
-            }
-        });
-    });</script>";*/
-
-    $display .= "<script>$(function () {
-        Highcharts.chart('organizations', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Member Organizations'
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'Registered organization'
-                }
-
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style=\"font-size:11px\">{series.name}</span><br>',
-                pointFormat: '<span style=\"color:{point.color}\">{point.name}</span>: <b>{point.y}</b> users<br/>'
-            },
-            series: [{
-                name: 'Organization',
-                colorByPoint: true,
-                data: organizations
-            }],
-            drilldown: {
-                series: organizations
-            }
-        });
-    });</script>";
 
 	return $display;
 }

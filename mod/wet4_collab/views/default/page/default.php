@@ -65,7 +65,8 @@ if(elgg_instanceof(elgg_get_page_owner_entity(), 'group')){
 
 }*/
 
-$feedbackText= elgg_echo('wet:feedbackText');
+
+$feedbackText = elgg_echo('wet:feedbackText');
 $body = <<<__BODY
 <div class="elgg-page-messages container">
     $messages
@@ -81,6 +82,22 @@ __BODY;
 // GCcollab displays user menu elsewhere
 // $userMenu = elgg_view('page/elements/topbar_wrapper', $vars);
 $userMenu = "";
+
+if (strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'gsa-crawler') === false) {
+	if(elgg_is_active_plugin('freshdesk_help')){
+		$feedback_link = elgg_get_site_url().'/help/knowledgebase';
+	} else {
+		$feedback_link = elgg_get_site_url().'/mod/contactform';
+	}
+
+	$feedback_button = "<a href='{$feedback_link}' class='btn btn-primary'><span class='glyphicon glyphicon-comment mrgn-rght-sm'></span>{$feedbackText}</a>";
+	$footer_version = "	<div class='col-sm-6 col-xs-6 datemod'>
+						<dl id='wb-dtmd'>
+						<dt>Version</dt>
+						<dd>$version</dd>
+						</dl>
+					</div>";
+}
 
 $body .= <<<__BODY
 	<header role="banner">
@@ -108,20 +125,19 @@ $breadcrumbs
 	<main role="main" property="mainContentOfPage" class="container">
 
         <!--<div class="elgg-inner">-->
-            
+
         <!--<section>-->
 			$content
 <!--</section>
 		</div>-->
         <div class="row pagedetails">
-<div class="col-sm-6 col-xs-6 datemod">
-<dl id="wb-dtmd">
-<dt>Version</dt>
-<dd>$version</dd>
-</dl>
-</div>
+
+        $footer_version
+
 <div class="col-xs-6 text-right">
-<a href="/help/knowledgebase/" class="btn btn-primary"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>$feedbackText</a>
+
+$feedback_button
+
 </div>
 </div>
 

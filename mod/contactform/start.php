@@ -13,12 +13,6 @@ function contactform_init() {
 
 	elgg_register_action('contactform/delete', "{$action_path}/actions/contactform/delete.php");
 	elgg_register_page_handler('contactform','contactform_page_handler');
-
-
-
-	// cyu - register action to send the feedback form to the helpdesk/and send copy to recipient using elgg function
-	elgg_register_action('contactform/send_feedback', "$action_path/actions/contactform/send_feedback.php", 'public');
-
 	elgg_extend_view('css/elgg', 'pages/css');
 
     requirements_check2();

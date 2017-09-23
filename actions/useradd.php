@@ -15,12 +15,14 @@ $password2 = get_input('password2', null, false);
 $email = get_input('email');
 $name = get_input('name');
 
+// This param is not included in the useradd form by default,
+// but it allows sites to easily add the feature if necessary.
+$language = get_input('language', elgg_get_config('language'));
+
 $admin = get_input('admin');
 if (is_array($admin)) {
 	$admin = $admin[0];
 }
-
-$sendemail = get_input('sendemail');
 
 // no blank fields
 if ($username == '' || $password == '' || $password2 == '' || $email == '' || $name == '') {
@@ -49,6 +51,10 @@ try {
 		// @todo ugh, saving a guid as metadata!
 		$new_user->created_by_guid = elgg_get_logged_in_user_guid();
 
+		// The user language is set also by register_user(), but it defaults to
+		// language of the current user (admin), so we need to fix it here.
+		$new_user->language = $language;
+
 		$subject = elgg_echo('useradd:subject', array(), $new_user->language);
 		$body = elgg_echo('useradd:body', array(
 			$name,
@@ -58,9 +64,7 @@ try {
 			$password,
 		), $new_user->language);
 
-		if($sendemail) {
-			notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
-		}
+		notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
 
 		system_message(elgg_echo("adduser:ok", array(elgg_get_site_entity()->name)));
 	} else {

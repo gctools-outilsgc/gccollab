@@ -158,6 +158,7 @@ function wet4_theme_init() {
     elgg_register_action("user/requestnewpassword", elgg_get_plugins_path() . "/wet4/actions/user/requestnewpassword.php", "public");
 		elgg_register_action('logout_as', elgg_get_plugins_path() . '/wet4/actions/logout_as.php'); //login as out
 		elgg_register_action("question/autocomplete", elgg_get_plugins_path() . "/wet4/actions/object/question/autocomplete.php");
+		elgg_register_action("deptactivity/filter", elgg_get_plugins_path() . "/wet4/actions/deptactivity/filter.php");
 
     //Verify the department action
     elgg_register_action("department/verify_department", elgg_get_plugins_path() . "/wet4/actions/department/verify_department.php");
@@ -222,6 +223,19 @@ function wet4_theme_init() {
         'target' => '_blank',
     ));
 
+		//newsfeed-like department pages
+		if(elgg_is_logged_in() && elgg_get_plugin_setting('deptActivity', 'wet4')){
+
+			elgg_register_ajax_view('ajax/deptactivity_check');
+			elgg_register_ajax_view('ajax/deptactivity_items');
+
+			elgg_register_page_handler('department', 'department_page_handler');
+
+			if(elgg_is_active_plugin('gc_newsfeed')){
+				elgg_extend_view('widgets/stream_newsfeed_index/content', 'dept_activity/tabs', 451);
+		    elgg_extend_view('widgets/newsfeed/content', 'dept_activity/tabs', 451);
+			}
+		}
 
 
 }
@@ -232,6 +246,11 @@ $dbprefix = elgg_get_config('dbprefix');
     if ($CONFIG->remove_logged_in) {
     $query = "UPDATE {$dbprefix}entities SET access_id = 2 WHERE access_id = 1";//change access logged in to public
     update_data($query);
+}
+
+function department_page_handler() {
+    require_once elgg_get_plugins_path() . 'wet4/pages/department/activity.php';
+    return true;
 }
 
  /*
@@ -429,7 +448,7 @@ function wet4_theme_pagesetup() {
             $user = elgg_get_logged_in_user_guid();
         }
 
-        if ($page_owner->guid == $user) {
+        if ($page_owner instanceof ElggUser && $page_owner->guid == $user) {
             // Show menu link in the correct context
             if (in_array($context, array("friends", "friendsof", "collections"))) {
                 $options = array(
@@ -499,14 +518,16 @@ function wet4_theme_pagesetup() {
     // Settings notifications tab in the User's setting page
     // cyu - allow site administrators to view user notification settings page
 	elgg_unregister_menu_item('page', '2_a_user_notify');
-    $params = array(
-        "name" => "2_a_user_notify",
-        "href" => "/settings/notifications/{$page_owner->username}",
-        "text" =>  elgg_echo('notifications:subscriptions:changesettings'),
-        'section' => 'configure',
-        'priority' => '100',
-        'context' => 'settings',
-    );
+    if ($page_owner instanceof ElggUser) {
+        $params = array(
+            "name" => "2_a_user_notify",
+            "href" => "/settings/notifications/{$page_owner->username}",
+            "text" =>  elgg_echo('notifications:subscriptions:changesettings'),
+            'section' => 'configure',
+            'priority' => '100',
+            'context' => 'settings',
+        );
+    }
 
 
     elgg_register_menu_item("page", $params);
@@ -843,13 +864,13 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
     //Nick -Remove empty comment and reply links from river menu
         foreach ($return as $key => $item){
-            if($entity->getSubType() == 'file' && $entity->getMimeType() == "googledoc" && $item->getName() == "edit"){
-                unset($return[$key]);
-            }
 
-            if($item && $item->getName() == 'access'){
-                //$item->setItemClass('removeMe');
-                unset($return[$key]);
+            switch ($item->getName()) {
+                case 'access':
+                    //$item->setItemClass('removeMe');
+                    unset($return[$key]);
+                    break;
+
             }
 
     }
@@ -997,7 +1018,7 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
 
         //checks so the edit icon is not placed on incorrect entities
         if($handler != 'group_operators'){
-            if($entity->getSubtype() != 'thewire' && ($entity->getSubType() == 'file' && $entity->getMimeType() != "googledoc")){
+            if($entity->getSubtype() != 'thewire'){
                 $options = array(
                     'name' => 'edit',
                     'text' => '<i class="fa fa-edit fa-lg icon-unsel"><span class="wb-inv">'.$hiddenText['edit'].'</span></i>',
@@ -1009,22 +1030,18 @@ function wet4_elgg_entity_menu_setup($hook, $type, $return, $params) {
             }
 		// delete link
 
-
-
-		$options = array(
-			'name' => 'delete',
-			'text' => '<i class="fa fa-trash-o fa-lg icon-unsel"><span class="wb-inv">'.$hiddenText['delete'].'</span></i>',
-			'title' => elgg_echo('delete:this') . ' ' . $entContext,
-			'href' => "action/$handler/delete?guid={$entity->getGUID()}",
-			'confirm' => elgg_echo('deleteconfirm'),
-			'priority' => 300,
-		);
-		$return[] = \ElggMenuItem::factory($options);
-
+            if (elgg_is_logged_in()){
+        		$options = array(
+        			'name' => 'delete',
+        			'text' => '<i class="fa fa-trash-o fa-lg icon-unsel"><span class="wb-inv">'.$hiddenText['delete'].'</span></i>',
+        			'title' => elgg_echo('delete:this') . ' ' . $entContext,
+        			'href' => "action/$handler/delete?guid={$entity->getGUID()}",
+        			'confirm' => elgg_echo('deleteconfirm'),
+        			'priority' => 300,
+        		);
+        		$return[] = \ElggMenuItem::factory($options);
+            }
         }
-
-
-
 	}
 
 
@@ -1314,22 +1331,14 @@ function my_filter_menu_handler($hook, $type, $menu, $params){
  * Set href of groups link depending if a logged in user is using site
  */
 function my_site_menu_handler($hook, $type, $menu, $params){
-    foreach ($menu as $key => $item){
 
-            switch ($item->getName()) {
+    if (!is_array($menu))
+        return;
 
-                case 'groups':
-                    if(elgg_is_logged_in()){
-                        $item->setHref('groups/all?filter=yours');
-                    } else {
-                        $item->setHref('groups/all?filter=popular');
-                    }
-
-                    break;
-
-            }
-        }
-
+    foreach ($menu as $key => $item) {
+        if ($item->getName() === 'groups')
+            (elgg_is_logged_in()) ? $item->setHref(elgg_get_site_url().'groups/all?filter=yours') : $item->setHref( elgg_get_site_url().'groups/all?filter=popular');
+    }
 }
 
 /*
@@ -1337,21 +1346,19 @@ function my_site_menu_handler($hook, $type, $menu, $params){
  * Add styles to phot album title menu
  */
 function my_title_menu_handler($hook, $type, $menu, $params){
-    foreach ($menu as $key => $item){
-        switch ($item->getName()) {
 
-            case 'slideshow':
-                $item->setText(elgg_echo('album:slideshow'));
+    if (!is_array($menu))
+        return;
 
+    foreach ($menu as $key => $item) {
 
-                break;
-            case 'addphotos':
-                $item->setItemClass('mrgn-rght-sm');
+        if ($item->getName() === 'slideshow')
+            $item->setText(elgg_echo('album:slideshow'));
+        elseif ($item->getName() === 'addphotos')
+            $item->setItemClass('mrgn-rght-sm');
 
-
-                break;
-        }
     }
+
 }
 
 /*
@@ -1377,9 +1384,9 @@ function my_owner_block_handler($hook, $type, $menu, $params){
         foreach ($menu as $key => $item){
 
             switch ($item->getName()) {
-
                 case 'discussion':
                     $item->setText(elgg_echo('gprofile:discussion'));
+
                     $item->setPriority('1');
                     break;
                 case 'file':
@@ -1395,15 +1402,6 @@ function my_owner_block_handler($hook, $type, $menu, $params){
                 case 'event_calendar':
                     $item->setText(elgg_echo('gprofile:events'));
                     $item->setHref('#events');
-                    $item->setPriority('4');
-                    break;
-                case 'thewire':
-                    //$item->setText(elgg_echo('The Wire'));
-                    $item->setHref('#thewire');
-                    $item->setPriority('5');
-                    break;
-                case 'etherpad':
-                    $item->setHref('#etherpad');
                     $item->setPriority('6');
                     break;
                 case 'pages':
@@ -1411,55 +1409,64 @@ function my_owner_block_handler($hook, $type, $menu, $params){
                     $item->setHref('#page_top');
                     $item->setPriority('7');
                     break;
-                case 'questions':
-                    $item->setText(elgg_echo('widget:questions:title'));
-                    $item->setHref('#question');
-                    $item->setPriority('8');
-                    break;
                 case 'bookmarks':
                     $item->setText(elgg_echo('gprofile:bookmarks'));
                     $item->setHref('#bookmarks');
-                    $item->setPriority('9');
+                    $item->setPriority('8');
                     break;
                 case 'polls':
                     $item->setText(elgg_echo('gprofile:polls'));
                     $item->setHref('#poll');
-                    $item->setPriority('10');
+                    $item->setPriority('9');
                     break;
                 case 'tasks':
                     $item->setText(elgg_echo('gprofile:tasks'));
                     $item->setHref('#task_top');
-                    $item->setPriority('11');
+                    $item->setPriority('10');
                     break;
                 case 'photos':
                     $item->setText(elgg_echo('gprofile:photos'));
                     $item->addItemClass('removeMe');
-                    $item->setPriority('12');
+                    $item->setPriority('11');
                     break;
                 case 'photo_albums':
                     $item->setText(elgg_echo('gprofile:albumsCatch'));
                     $item->setHref('#album');
-                    $item->setPriority('13');
+                    $item->setPriority('12');
                     break;
                 case 'ideas':
                     $item->setText(elgg_echo('gprofile:ideas'));
                     $item->addItemClass('removeMe');
-                    $item->setPriority('14');
+                    $item->setPriority('12');
                     break;
+
                 case 'orgs':
-                    $item->setPriority('15');
+                    $item->setPriority('13');
+                    break;
+                case 'thewire':
+                    //$item->setText(elgg_echo('The Wire'));
+                    $item->setHref('#thewire');
+                    $item->setPriority('5');
                     break;
                 case 'activity':
                     $item->setText('Activity');
-                    $item->setPriority('16');
+
+                    $item->setPriority('13');
                     $item->addItemClass('removeMe');
                     break;
                 case 'user_invite_from_profile':
-                    $item->setPriority('17');
+                    $item->setPriority('13');
                     break;
+								case 'questions':
+			              $item->setText(elgg_echo('widget:questions:title'));
+			              $item->setHref('#question');
+			              $item->setPriority('8');
+		                break;
             }
 
         }
+
+
 
     }
 
@@ -1487,7 +1494,7 @@ function wet4_dashboard_page_handler() {
 	$title = elgg_echo('dashboard');
 
 	// wrap intro message in a div
-	$intro_message = elgg_view('dashboard/blurb');
+	$intro_message = elgg_view('dashboard/blurb', array());
 
 	$params = array(
 		'content' => $intro_message,
@@ -1988,11 +1995,11 @@ function wet_questions_page_handler($segments) {
 		case 'edit':
 			elgg_gatekeeper();
 			set_input('guid', $segments[1]);
-			include "$pages/edit.php";
+			include "$new_page/edit.php";
 			break;
 		case 'group':
 			elgg_group_gatekeeper();
-			include "$pages/owner.php";
+			include "$new_page/owner.php";
 			break;
 		case 'friends':
 				include "$new_page/friends.php";

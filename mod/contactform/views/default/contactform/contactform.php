@@ -5,8 +5,6 @@
     terms of the GNU Lesser General Public License.
     See this page for more info:
     http://www.html-form-guide.com/contact-form/creating-a-contact-form.html
-
-    cyu - modified on Sept 04 2016
 */
 
 require_once("./include/fgcontactform.php");

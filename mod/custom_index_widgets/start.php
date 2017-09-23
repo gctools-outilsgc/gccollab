@@ -84,7 +84,7 @@ if (elgg_is_active_plugin('gc_fedsearch_gsa') && ((!$gsa_usertest) && strcmp($gs
 				elgg_register_widget_type('feed_reader_index', elgg_echo('simplepie:widget'),elgg_echo('simplepie:description'),array("custom_index_widgets"), true);
 			
 			elgg_register_page_handler('', 'custom_index_widgets');
-
+			
 
 			// image slider
 			elgg_extend_view("css/elgg", "widgets/spotlight_index/css");

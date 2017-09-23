@@ -144,23 +144,23 @@ You cannot reply to this email.",
 	'friend_request:title' => "{$usingle} Requests for: %s",
 	'friend_request:new' => "New {$lsingle} request",
 	'friend_request:friend:add:pending' => "{$usingle} request pending",
-	//'friend_request:newfriend:subject' => "%s wants to be your {$lsingle}!",
-	//'friend_request:newfriend:body' => "
-//%s wants to be your colleague! But he or she is waiting for you to approve the request... So login now so you can approve the request! <br/>
-//You can view your pending colleague requests at:
+	'friend_request:newfriend:subject' => "%s wants to be your {$lsingle}!",
+	'friend_request:newfriend:body' => "
+%s wants to be your colleague! But he or she is waiting for you to approve the request... So login now so you can approve the request! <br/>
+You can view your pending colleague requests at:
 
-//%s <br/>
-//<i>Make sure you are logged into the website before clicking on the following link, otherwise you will be redirected to the login page.</i>
+%s <br/>
+<i>Make sure you are logged into the website before clicking on the following link, otherwise you will be redirected to the login page.</i>
 
-//To view their profile, click here: %s
+To view their profile, click here: %s
 
-//<div style='border-top: 1px dotted #999999;'>&nbsp;</div>%s souhaite être votre collègue! Il ou elle attend que vous approuviez sa demande... Connectez-vous pour approuver cette demande! <br/>
-//Vous pouvez afficher les demandes de collègue qui sont en attente :
-//%s <br/>
-//<i>Assurez-vous d'être connecté(e) au site avant de cliquer sur le lien suivant. Si vous n'êtes pas connecté(e), vous serez redirigé(e) vers la page d'ouverture de session.</i>
+<div style='border-top: 1px dotted #999999;'>&nbsp;</div>%s souhaite être votre collègue! Il ou elle attend que vous approuviez sa demande... Connectez-vous pour approuver cette demande! <br/>
+Vous pouvez afficher les demandes de collègue qui sont en attente :
+%s <br/>
+<i>Assurez-vous d'être connecté(e) au site avant de cliquer sur le lien suivant. Si vous n'êtes pas connecté(e), vous serez redirigé(e) vers la page d'ouverture de session.</i>
 
-//Pour consulter son profil, cliquez ici : %s
-//",
+Pour consulter son profil, cliquez ici : %s
+",
 		
 	// Actions
 	// Add request

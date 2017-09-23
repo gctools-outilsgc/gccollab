@@ -17,17 +17,17 @@ else
 
 
 <html>
-  <body style='font-family: sans-serif; color: #79579D'>
+  <body style='font-family: sans-serif; color: #055959'>
     <h2><?php echo elgg_echo('cp_newsletter:title',$language_preference); ?></h2>
     <sub><center><?php echo elgg_echo('cp_notification:email_header',array(),$language_preference); ?></center></sub>
     <div width='100%' bgcolor='#fcfcfc'>
 
       <?php // notification GCconnex banner ?>
-      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#46246A;'>
+      <div width='100%' style='padding: 0 0 0 10px; color:#ffffff; font-family: sans-serif; font-size: 35px; line-height:38px; font-weight: bold; background-color:#047177;'>
         <span style='padding: 0 0 0 3px; font-size: 20px; color: #ffffff; font-family: sans-serif;'><?php echo $site->name; ?></span>
       </div>
 
-      <p><?php echo elgg_echo('cp_newsletter:greeting', array($to->name, date("Y/m/d")), $language_preference); ?></strong></p>
+      <p><?php echo elgg_echo('cp_newsletter:greeting', array($to->name, date("Y/m/d")), $language_preference); ?></p>
 
       
       <?php foreach ($contents as $highlevel_header => $highlevel_contents) { ?>
@@ -125,7 +125,7 @@ else
       <?php echo elgg_echo('cp_newsletter:ending', array('some username'), $language_preference); ?>
 
       <?php // notification footer ?>
-      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #79579D'>
+      <div width='100%' style='background-color:#f5f5f5; padding:5px 30px 5px 30px; font-family: sans-serif; font-size: 10px; color: #055959'>
         <center><p><?php echo elgg_echo('cp_newsletter:footer:notification_settings', array($to->username), $language_preference); ?></p>
         <p><?php echo elgg_echo('cp_notifications:contact_help_desk', array(), $language_preference); ?></p> </center>	
       </div>

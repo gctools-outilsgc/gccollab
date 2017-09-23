@@ -2,6 +2,9 @@
 
 	$english = array(
 		
+
+		'widgets:twitter_widget:name' => "Twitter",
+		
 		// special access level
 		'LOGGED_OUT' => "Logged out users",
 		'access:admin_only' => "Administrators only",
@@ -148,7 +151,6 @@
 		'widget_manager:widgets:image_slider:overlay_color' => "Overlay Color (hex)",
 		'widget_manager:widgets:image_slider:title' => "Slide",
 		'widget_manager:widgets:image_slider:label:url' => "Image url",
-		'widget_manager:widgets:image_slider:label:alt' => "Alt text",
 		'widget_manager:widgets:image_slider:label:text' => "Text",
 		'widget_manager:widgets:image_slider:label:link' => "Link",
 		'widget_manager:widgets:image_slider:label:direction' => "Direction",
@@ -399,8 +401,8 @@ $twitter_search = array(
 	'widgets:twitter_search:name' => "Twitter search",
 	'widgets:twitter_search:description' => "Display a custom search from Twitter",
 
-	'widgets:twitter_search:embed_code' => "Twitter Widget Embed Code",
-	'widgets:twitter_search:embed_code:help' => "Create a widget on Twitter.com and paste your embed code here",
+	'widgets:twitter_search:embed_code' => "Embed Code from Twitter",
+	'widgets:twitter_search:embed_code:help' => "<a href='https://twitter.com/settings/widgets'>Create a widget on Twitter.com</a>, then copy and paste the code below to display the content",
 	'widgets:twitter_search:embed_code:error' => "Could not extract the widget id from the embed code",
 	'widgets:twitter_search:height' => "Widget height (pixels)",
 	'widgets:twitter_search:not_configured' => "This widget is not yet configured",
@@ -487,9 +489,10 @@ add_translation("en", $entity_statistics);
 
 $messages = array(
 	// messages widget
-	"widgets:messages:description" => "Shows your latest messages",
+	"widgets:messages:description" => "Shows your latest site notifications",
 	"widgets:messages:not_logged_in" => "You need to be logged in to use this widget",
 	"widgets:messages:settings:only_unread" => "Only show unread messages",
+	'widget:messages:notification' => "Notifications",
 );
 add_translation("en", $messages);
 

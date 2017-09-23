@@ -134,29 +134,29 @@ if($userEnt->profilestrength != 100){
     echo '</div>';
 
     if($userEnt->opt_in_missions == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
         $OptedIn = true;
-    }
-    if($userEnt->opt_in_swap == 'gcconnex_profile:opt:yes') {
+	}
+	if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
         $OptedIn = true;
-    }
-    if($userEnt->opt_in_mentored == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_mentoring == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_shadowed == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_shadowing == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
-    if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
-        $OptedIn = true;
-    }
+	}
+	if($userEnt->opt_in_peer_coached == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
+	if($userEnt->opt_in_peer_coaching == 'gcconnex_profile:opt:yes') {
+	    $OptedIn = true;
+	}
 
     //focus onto the micromission section
     if(elgg_plugin_exists('missions') && elgg_is_active_plugin('missions') && $OptedIn==false){

@@ -6,6 +6,8 @@ $contact_us = "{$site->getURL()}mod/contactform/?utm_source=notification_digest&
 
 $english = array(
 
+	'notifications:did_not_send' => "Notifications did not send",
+
 	'minor_save:title' => "Don’t want to send a notification?",
 	'minor_save:description' => "Posting new content will send out notifications to those who are subscribed. As the group owner or operator, you can decide not to send out notifications about the new content you post in the group. To do so, select the option “Do not send a notification” below.",
 	'minor_save:checkbox_label' => " Do not send a notification",
@@ -15,8 +17,8 @@ $english = array(
 	'cp_notification:save:failed' => "Settings did not save successfully",
 
 	/// SETTINGS PAGE: Newsletter translation texts
-	'cp_newsletter:notice' => "Choose how you want to be notified of GCcollab activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>.",
-	'cp_newsletter:notice:disable_digest' => "The notifications digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section. If you choose to enable the notifications digest, you will no longer receive real-time (instant) notifications by email and/or on the site, about activities happening on GCcollab (with the exception of administrative-type notifications).",
+	'cp_newsletter:notice' => "Choose how you want to be notified of GCconnex activities of interest to you. The <strong>notifications digest</strong> can be used to receive a daily or weekly email that provides a summary of the activities to which you are subscribed. Prefer to receive instant notification? Forgo the digest and select the content for which you want to receive notification in real-time. Please note that email notifications are sent to the email address used in your <a href='{$site->getURL()}settings/user/?utm_source=notification_digest&utm_medium=email'>Account Settings</a>. See: “<a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F?utm_source=notification_digest&utm_medium=email'>How Do I Change My Notifications Settings</a>?” for more information.",
+	'cp_newsletter:notice:disable_digest' => "The notifications digest is now enabled; please select your digest preferences below (frequency and language preference). The digest will include all content selected in the 'Email' column below, as well the subscriptions in the 'Other content subscriptions' section. If you choose to enable the notifications digest, you will no longer receive real-time (instant) notifications by email and/or on the site, about activities happening on GCconnex (with the exception of administrative-type notifications).",
 
 	'cp_newsletter:subject:daily' => 'Your Daily Digest', 
 	'cp_newsletter:subject:weekly' => 'Your Weekly Digest', 
@@ -65,7 +67,7 @@ $english = array(
 	'cp_notifications:mail_body:subtype:file' => "%s posted a file: %s", 
 
 	'cp_notifications:mail_body:subtype:album' => "%s posted an album: %s", 
-	'cp_notifications:mail_body:subtype:thewire' => "<a href='%s'>%s</a> posted on the <a href='%s'>%s</a>",
+	'cp_notifications:mail_body:subtype:thewire' => "%s posted on the %s",
 	'cp_notifications:mail_body:subtype:poll' => "%s created a poll: %s", 
 	'cp_notifications:mail_body:subtype:event_calendar' => "%s posted an event: %s", 
 	'cp_notifications:mail_body:subtype:photo' => "%s posted an image: %s", 
@@ -140,7 +142,7 @@ $english = array(
 	
 	/// (NEWSLETTER) THROUGH EMAIL SERVER, EMAIL CONTENT: Newsletter email notifications
 	'cp_newsletter:title:nothing' => "Your {$site_name} Digest: Nothing to report today",
-	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCcollab. Join <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>colleagues</a> to stay informed and grow your network!",
+	'cp_newsletter:body:nothing' => "It seems it was quiet in your network on GCconnex. Join <a href='{$site->getURL()}groups/all?filter=popular?utm_source=notification_digest&utm_medium=email'>groups</a> of interest, share information and add new <a href='{$site->getURL()}members/popular?utm_source=notification_digest&utm_medium=email'>colleagues</a> to stay informed and grow your network!",
 	'cp_newsletter:title' => "Your {$site_name} Digest: New activities to report!", 
 	'cp_newsletter:greeting' => "Good morning %s. Here are your notifications for <strong>%s</strong>",
 
@@ -199,7 +201,7 @@ $english = array(
 
 
 	/// notification header
-	'cp_notification:email_header' => 'This is a system-generated message from GCcollab. Please do not reply to this message',
+	'cp_notification:email_header' => 'This is a system-generated message from GCconnex. Please do not reply to this message',
 	'cp_notification:email_header_msg' => "",	
 
 	// add user to group section
@@ -216,7 +218,7 @@ $english = array(
 	'cp_notify:subject:edit_content' => "%s '%s' has been updated by %s",
 	'cp_notify:body_edit:title' => "This %s has been edited.",
 	'cp_notify:body_edit:description' => "<a href='%s'>View or comment</a> <br/>
-		You can like, share or subscribe to this content directly in GCcollab",
+		You can like, share or subscribe to this content directly in GCconnex",
 
 
 	// group invite user section
@@ -230,16 +232,17 @@ $english = array(
 	// group invite by email section
 	'cp_notify:subject:group_invite_email' => "%s invited you to join the group '%s'",
 	'cp_notify:subject:group_invite_user_by_email' => "%s invited you to join the group %s",
-	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCcollab.<br>",
+	'cp_notify:body_group_invite_email:title' => "<a href='%s'>%s</a> invited you to join the <a href='%s'>%s</a> group on GCconnex. <br>",
 	'cp_notify:body_group_invite_email:description' => "<a href='%s'>Register now</a> and be automatically added to the group.<br/><br/>
 
-	If you would like to register at a later time using the <a href='".elgg_get_site_url()."register'>Registration form</a> on GCcollab, you can join the group by using the following code on your <a href='%s'>group invitations</a> page: %s .<br/><br/>
+	If you would like to register at a later time using the <a href='https://gcconnex.gc.ca/register'>Registration form</a> on GCconnex, you can join the group by using the following code on your <a href='%s'>group invitations</a> page: %s .<br/><br/>
  
-	Already on GCcollab? Your email address may be out of date. <a href='".elgg_get_site_url()."login'>Login</a> and update your account settings.<br/> ",
+	Already on GCconnex? Your email address may out of date. <a href='https://gcconnex.gc.ca/login'>Login</a> and update your account settings.<br/> ",
 	
-	'cp_notify:footer:no_user' => 'Need help? <a href="'.elgg_get_site_url().'mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
+	'cp_notify:footer:no_user' => 'Learn more about <a href="http://www.gcpedia.gc.ca/wiki/GCTools/GCconnex?utm_source=notification&utm_medium=email">GCconnex</a>, the professional networking and collaborative workspace for the public service.<br/>
+	Need help? <a href="https://gcconnex.gc.ca/mod/contactform/?utm_source=notification&utm_medium=email">Contact us</a>.',
 	
-	'cp_personalized_message' => "<div style='border: 1px solid #46246A; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
+	'cp_personalized_message' => "<div style='border: 1px solid #047177; padding:5px; margin-bottom:10px;'>Personalized message from %s:<br/><i>%s</i></div>",
 
 
 	// group mail section
@@ -258,6 +261,10 @@ $english = array(
 
 
 	// likes section
+	'cp_notify:subject:likes_group' => "%s liked your group '%s'",
+	'cp_notify:body_likes_group:title' => "%s liked your group '%s'",
+	'cp_notify:body_likes_group:description' => "View your group: %s",
+
 	'cp_notify:subject:likes' => "%s liked your post '%s'",
 	'cp_notify:body_likes:title' => "%s liked your post '%s'",
 
@@ -321,18 +328,18 @@ $english = array(
 	'cp_notify:body_new_content:description' => "The description of the new posting is: <br/>
 		%s <br/>
 		<a href='%s'>View or comment</a> <br/>
-		You can like, share or subscribe to this content directly in GCcollab",
+		You can like, share or subscribe to this content directly in GCconnex",
 
 	'cp_notify:body_new_content:description_discussion' => "The description of the new posting is: <br/>
 		%s <br/>
 		<a href='%s'>View or reply</a> <br/>
-		You can like, share or subscribe to this content directly in GCcollab",
+		You can like, share or subscribe to this content directly in GCconnex",
 
 	'cp_notify:body_new_content:no_description_discussion' => "<a href='%s'>View or reply</a> <br/>
-		You can like, share or subscribe to this content directly in GCcollab",
+		You can like, share or subscribe to this content directly in GCconnex",
 
 	// mentioned section
-	'cp_notify:subject:mention' => "%s mentioned you on GCcollab",
+	'cp_notify:subject:mention' => "%s mentioned you on GCconnex",
 	'cp_notify:body_mention:title' => "%s mentioned you in their post or reply entitled '%s'",
 	'cp_notify:body_mention:description' => "Here is the post where you were mentioned: <br/>
 		%s <br/>
@@ -368,29 +375,17 @@ $english = array(
 		To view your mentions on the wire, click here: %s",
 
 
-	// add new user to GCcollab section
-	'cp_notify:subject:add_new_user' => "You have been added as a new user in GCcollab",
-	'cp_notify:body_add_new_user:title' => "You have been added as a new user in GCcollab",
+	// add new user to gcconnex section
+	'cp_notify:subject:add_new_user' => "You have been added as a new user in GCconnex",
+	'cp_notify:body_add_new_user:title' => "You have been added as a new user in GCconnex",
 	'cp_notify:body_add_new_user:description' => "You can now log in using the following credentials <br/>
 		Username: %s  and Password: %s",
 
 
-	// invited to join GCcollab section
-	'cp_notify:subject:invite_new_user' => "You have been invited to join GCcollab",
-	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCcollab by %s",
-	'cp_notify:body_invite_new_user:description' => "<p>Join GCcollab, a collaborative and networking space, hosted by the Government of Canada, open to Canadian public servants (federal, provincial and territorial), academics, students and their partners across Canada and beyond.</p>
-
-<p>Once you're a member, you can also invite anyone else you need to work with using the Colleagues functionality. (This option is available by selecting the icon of 3 silhouettes that appears above the main navigation bar).</p>
-
-<p style='border: 1px solid black; padding: 5px;'><strong>Personal message from %s:</strong><br><span style='white-space: pre-line;'>%s</span></p>
-
-<p>You can join by clicking on the following link and start the registration process: %s</p>
-
-<p><em>If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead.</em></p>
-
-<p>Keep in mind that GCcollab is still in a pilot phase and changes and updates occur frequently.</p>
-
-<p>All of the code and issues related to the platform are available on GitHub, so if you have any suggestions or want to help us make them better, please join in!</p>",
+	// invited to join GCconnex section
+	'cp_notify:subject:invite_new_user' => "You have been invited to join GCconnex",
+	'cp_notify:body_invite_new_user:title' => "You have been invited to join GCconnex by %s",
+	'cp_notify:body_invite_new_user:description' => "Join the professionnal networking and collaborative workspace for all public service. You can proceed to your GCconnex registration through this link %s", 
 
 
 	// transfer admin
@@ -426,7 +421,7 @@ $english = array(
 	// validate user 
 	'cp_notify:subject:validate_user' => "Please validate account for %s",
 	'cp_notify:body_validate_user:title' => "Please validate your new account for %s",
-	'cp_notify:body_validate_user:description' => "Welcome to GCcollab, to complete your registration, please validate the account registered under %s by clicking on this link: %s",
+	'cp_notify:body_validate_user:description' => "Welcome to GCconnex, to complete your registration, please validate the account registered under %s by clicking on this link: %s",
 
 
 	// user posting message on messageboard section
@@ -438,12 +433,15 @@ $english = array(
 
 
 	// sharing content on wire section
-	'cp_notify:wireshare:subject' => "%s shared your %s with title '%s'",
-	'cp_notify:body_wireshare:title' => "%s shared your %s with title '%s'",
-	'cp_notify:body_wireshare:title2' => "%s shared your %s",
+	'cp_notify:wireshare:subject' => "%s shared your content on the wire",
+	'cp_notify:body_wireshare:title' => "%s shared your content on the wire",
 
-	'cp_notify:body_wireshare:description' => "%s shared your %s on the wire, to view or reply to this please click on the following link: %s", 
-	'cp_notify:wireshare_thewire:subject' => "%s shared your message on the wire",
+	// (shared your wire post)
+	'cp_notify:body:contentshare:description' => "	<p>%s shared your content on the wire.</p> 
+													<p><i>%s</i></p> <br/>
+													<p><strong>Source:</strong> %s</p> 
+													<p><a href='%s'>View or reply</a> on GCconnex.</p>",
+
 
 	// event calendar section
 	'cp_notify:event:subject' => "Event calendar",
@@ -474,8 +472,9 @@ $english = array(
 
 
 	// email notification footer text (1 and 2)
-	'cp_notify:footer' => "",
-	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."contactform/?utm_source=notification&utm_medium=email'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCcollab and edit your <a href='%s'>notifications' settings</a>.",
+	'cp_notify:footer' => "Learn more about <a href='http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/Manage_Account_Settings/How_Do_I_Change_My_Notifications_Settings%3F?utm_source=notification&utm_medium=email'>GCconnex notifications</a>. ",
+	'cp_notify:footer2' => "Need help? <a href='".elgg_get_site_url()."contactform/?utm_source=notification&utm_medium=email'>Contact us</a>.<br/>To unsubscribe from these notifications, login to GCconnex and edit your <a href='%s'>notifications' settings</a>.",
+
 
 	'cp_notify:quicklinks' => 'Subscription Quick Links',
 	'cp_notify:content_name' => 'Content Name',
@@ -492,10 +491,10 @@ $english = array(
 	"cp_notify:sidebar:subs_title" => "Personal Subscriptions",
     
 
-    'cp_notify:visitTutorials'=>'',
+    'cp_notify:visitTutorials'=>'To learn more about GCconnex and its features visit the <a href="http://www.gcpedia.gc.ca/wiki/GCconnex_User_Help/See_All">GCconnex User Help</a>.<br/>
+	                             Thank you',
 
 	// cyu - new message in place for email content revamp
-	'cp_notify:footer_msg' => "Need help? <a href='".elgg_get_site_url()."mod/contactform/'>Contact us</a>.<br/>To unsubscribe to notifications, login to GCcollab and edit your notifications' settings.",
 	'cp_notify:french_follows' => "<i>(Le fran&ccedil;ais suit)</i>",
 	'cp_notify:readmore' => "<a href='%s'>Read more</a>",
 

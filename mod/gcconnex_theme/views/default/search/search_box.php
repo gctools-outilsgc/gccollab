@@ -9,9 +9,9 @@
 
 $value = "";
 if (array_key_exists('value', $vars)) {
-    $value = $vars['value'];
+	$value = $vars['value'];
 } elseif ($value = get_input('q', get_input('tag', NULL))) {
-    $value = $value;
+	$value = $value;
 }
 
 $class = "elgg-search";
