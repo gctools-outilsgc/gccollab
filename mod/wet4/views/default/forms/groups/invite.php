@@ -149,7 +149,7 @@ if (in_array("yes", array($invite_site_members, $invite_circle, $invite_email, $
 				if( $(e.target).hasClass('multiple_emails-input') && e.keyCode == 13 ){ e.preventDefault(); }
 			});
 		</script>";
-
+		
 		$form_data .= "</div>";
 
     }

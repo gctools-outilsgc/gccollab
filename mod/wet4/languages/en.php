@@ -3,6 +3,7 @@ $site_url = elgg_get_site_url();
 
 return array(
 
+    'thewire:head:title' => 'Wire post',
 
     /*
     More context links - entity/river menus
@@ -177,6 +178,14 @@ return array(
 
 
     ////
+
+    'new:dept:activity:title' => "Your department's activity feed",
+    'dept:activity:show' => "Show colleague connections",
+    'dept:activity:hide' => "Hide colleague connections",
+    'dept:activity:do' => "Colleague connections will no longer display in your department’s activity feed.",
+    'dept:activity:undo' => "Colleague connections will now display in your department’s activity feed.",
+    'dept:activity:filter:title' => "Your department’s activity feed settings",
+    'dept:activity:groupsandcolleagues' => "Groups and colleagues",
 
     'wet:more'=>"More",
   	'breadcrum:home' => 'Home',
@@ -1577,6 +1586,7 @@ If you requested this, click on the link below. Otherwise ignore this email.
 	'generic_comments:post' => "Post comment",
 	'generic_comments:text' => "Comment",
 	'generic_comments:latest' => "Latest comments",
+    'generic_comments:latest:event' => "Latest Comments on Events",
 	'generic_comment:posted' => "Your comment was successfully posted.",
 	'generic_comment:updated' => "The comment was successfully updated.",
 	'generic_comment:deleted' => "The comment was successfully deleted.",

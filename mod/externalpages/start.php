@@ -8,22 +8,9 @@ elgg_register_event_handler('init', 'system', 'expages_init');
 function expages_init() {
 
 	// Register a page handler, so we can have nice URLs
-	elgg_register_page_handler('about', 'expages_page_handler');		
-	elgg_register_page_handler('a_propos', 'expages_page_handler');
-
-	elgg_register_page_handler('terms', 'expages_page_handler');
-	elgg_register_page_handler('termes', 'expages_page_handler');	
-
-	elgg_register_page_handler('privacy', 'expages_page_handler');
-	elgg_register_page_handler('confidentialite', 'expages_page_handler');
-
-	elgg_register_page_handler('faq', 'expages_page_handler');
-	elgg_register_page_handler('qfp', 'expages_page_handler');
-
-	elgg_register_page_handler('participating_organizations', 'expages_page_handler');
-	elgg_register_page_handler('organismes_participants', 'expages_page_handler');
-
-
+	elgg_register_page_handler('about-a_propos', 'expages_page_handler');		// GCChange change - Ilia: Bilingual page url
+	elgg_register_page_handler('terms', 'expages_page_handler');		// GCChange change - Ilia: Bilingual page url
+	elgg_register_page_handler('privacy-confidentialite', 'expages_page_handler');		// GCChange change - Ilia: Bilingual page url
 	elgg_register_page_handler('expages', 'expages_page_handler');
 
 	// Register public external pages
@@ -47,7 +34,7 @@ function expages_init() {
  *
  */
 function expages_public($hook, $handler, $return, $params){
-	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');		// GCChange change - Ilia: Bilingual page url
+	$pages = array('about-a_propos', 'terms-termes', 'privacy-confidentialite');		// GCChange change - Ilia: Bilingual page url
 	return array_merge($pages, $return);
 }
 
@@ -55,7 +42,7 @@ function expages_public($hook, $handler, $return, $params){
  * Setup the links to site pages
  */
 function expages_setup_footer_menu() {
-	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');		// GCChange change - Ilia: Bilingual page url
+	$pages = array('about-a_propos', 'terms-termes', 'privacy-confidentialite');		// GCChange change - Ilia: Bilingual page url
 	
 	foreach ($pages as $page) {
 		$url = "$page";
@@ -75,7 +62,6 @@ function expages_setup_footer_menu() {
  * @return bool
  */
 function expages_page_handler($page, $handler) {
-
 	if ($handler == 'expages') {
 		expages_url_forwarder($page[1]);
 	}
@@ -129,7 +115,7 @@ function expages_page_handler($page, $handler) {
 function expages_menu_register_hook($hook, $type, $return, $params) {
 	$type = elgg_extract('type', $params);
 		
-	$pages = array('about', 'a_propos', 'terms', 'termes', 'privacy', 'confidentialite', 'faq', 'qfp', 'participating_organizations', 'organismes_participants');
+	$pages = array('about', 'terms', 'privacy');
 	foreach ($pages as $page) {
 		$return[] = ElggMenuItem::factory(array(
 			'name' => $page,

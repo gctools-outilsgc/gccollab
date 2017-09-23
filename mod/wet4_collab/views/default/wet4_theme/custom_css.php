@@ -945,7 +945,7 @@ max-height: 500px;
 }
 
 .elgg-layout-one-column #widgets-add-panel{
-    margin-top: -15px;
+    margin-top: 0;
         z-index: 1;
 
 }
@@ -1825,4 +1825,11 @@ figcaption{
 .fc-event {
   border: 1px solid #46246A;
   background-color: #46246A;
+}
+
+.group-cover-photo{
+  background-color: #46246A !important;
+}
+.bar .progress-bar {
+  background-color: #46246A !important;
 }

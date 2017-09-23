@@ -9,10 +9,11 @@ When prompted, enter a root password for MySQL.
 #### Fork and Clone GCCollab Github Repo
     git clone -b gccollab https://github.com/gctools-outilsgc/gccollab.git
 
+#### Install Composer dependencies
+Setup [Composer](https://getcomposer.org/download/) then install the third-party dependencies
+    composer install
+
 #### Create data directory
-
-This directory can be anywhere.  Its absolute path will be specified during installation of Ellg.
-
     mkdir gccollab_data
 
 #### Set permissions
@@ -46,8 +47,6 @@ Add the following inside the ```<VirtualHost *:80></VirtualHost>``` tag
 </Directory>
 ```
 
-If you copied from another vhost apache configuration file, make sure the path after the Directory instructions matches where the gccollab symlink is.
-
 Save and close (Ctrl-o then Ctrl-x if you are using nano)
 
     sudo service apache2 restart
@@ -60,7 +59,13 @@ Goto ```http://localhost/gccollab```.  Follow instructions.  You will need to en
     chmod 775 gccollab/engine
 
 #### Configure Plugins
-The final step to getting the GCcollab experience is to reorder and enable/disable plugins in the Administration section of your installation.
+The final step to getting the GCcollab experience is to reorder and
+enable/disable plugins in the Administration section of your installation.
+
+A quick way to sort and activate plugins in the correct order is to activate
+the "Plugin Loader" plugin, then open the
+`Configure`->`Utilities`->`Plugin Loader` menu and click on the `Import`
+button.
 
 ### Elgg Installation Instructions
 http://learn.elgg.org/en/1.x/intro/install.html

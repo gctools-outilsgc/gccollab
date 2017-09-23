@@ -7,8 +7,8 @@ require.config({
     }
 });
 
-var validExtensions = get_file_tools_settings('single');
-var newExt = (validExtensions.join()).replace(/,/g, '|'); //format the extensions for validation
+var validExtentions = get_file_tools_settings('single');
+var newExt = validExtentions.replace(/, /g, '|'); //format the extensions for validation
 
 requirejs( ["form-validate"], function() {
    $(".elgg-form").each(function(){
@@ -39,6 +39,10 @@ requirejs( ["form-validate"], function() {
               }
           },
           submitHandler: function(form) {
+            for(var i in CKEDITOR.instances){
+              CKEDITOR.instances[i].updateElement();
+            }
+
             $(form).find('button').prop('disabled', true);
             form.submit();
           },
@@ -59,7 +63,7 @@ requirejs( ["form-validate"], function() {
     },
     messages: {  //add custom message for file validation
         upload:{
-            extension:elgg.echo('form:invalid:extensions',[validExtensions])
+            extension:elgg.echo('form:invalid:extensions',[validExtentions])
         }
     }
    });

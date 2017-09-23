@@ -71,7 +71,7 @@ function get_event( $user, $guid, $lang ){
 	$event->title = gc_explode_translation($event->title, $lang);
 	$event->description = gc_explode_translation($event->description, $lang);
 
-	$event->userDetails = get_user_block($event->owner_guid);
+	$event->userDetails = get_user_block($event->owner_guid, $lang);
 
 	$eventObj = get_entity($event->guid);
 	$event->startDate = date("Y-m-d H:i:s", $eventObj->start_date);
@@ -133,7 +133,7 @@ function get_events( $user, $from, $to, $limit, $offset, $lang ){
 		$event->title = gc_explode_translation($event->title, $lang);
 		$event->description = gc_explode_translation($event->description, $lang);
 
-		$event->userDetails = get_user_block($event->owner_guid);
+		$event->userDetails = get_user_block($event->owner_guid, $lang);
 
 		$eventObj = get_entity($event->guid);
 		$event->startDate = date("Y-m-d H:i:s", $eventObj->start_date);

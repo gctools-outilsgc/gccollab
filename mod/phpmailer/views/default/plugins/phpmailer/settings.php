@@ -90,6 +90,16 @@ echo elgg_view('input/checkbox', array(
 ));
 echo ' ' . elgg_echo('phpmailer:ssl') . '<br/>';
 
+echo elgg_echo('phpmailer:protocol') . ':';
+echo elgg_view('input/radio', array(
+	'name' => 'params[ep_phpmailer_protocol]',
+	'value' => $vars['entity']->ep_phpmailer_protocol,
+	'options' => array(
+		'SSL' => 'ssl',
+		'TLS' => 'tls'
+    )
+));
+
 echo elgg_echo('phpmailer:port') . ':';
 echo elgg_view('input/text', array(
 	'name' => 'params[ep_phpmailer_port]',

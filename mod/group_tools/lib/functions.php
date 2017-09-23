@@ -256,7 +256,7 @@ function group_tools_invite_email(ElggGroup $group, $email, $text = "", $resend 
 					$site->name,
 					$text,
 					$site->name,
-					elgg_get_site_url() . "register?friend_guid=" . $loggedin_user->guid . "&group_invitecode=" . $invite_code,
+					elgg_get_site_url() . "register?group_invitecode=" . $invite_code,
 					elgg_get_site_url() . "groups/invitations/?invitecode=" . $invite_code,
 					$invite_code
 				));
@@ -272,11 +272,6 @@ function group_tools_invite_email(ElggGroup $group, $email, $text = "", $resend 
 			}
 				$body = elgg_trigger_plugin_hook("invite_notification", "group_tools", $params, $body);
 
-				if (elgg_is_active_plugin('gcRegistration_invitation')) {
-					$data = array('inviter' => $loggedin_user->guid, 'emails' => array($email));
-					elgg_trigger_plugin_hook('gcRegistration_email_invitation', 'all', $data);
-				}
-
 	/*			if($text){
 					$text2 .="<div style='border: 1px solid #047177; padding:5px'><br/>";
 					$text2 .= $text;
@@ -291,7 +286,7 @@ function group_tools_invite_email(ElggGroup $group, $email, $text = "", $resend 
 						'cp_inviter' => $loggedin_user,
 						'cp_group_invite' => $group,
 						'group_link' => elgg_get_site_url().'groups/profile/'.$group->guid.'/'.$group->name,
-						'cp_invitation_nonuser_url' => elgg_get_site_url()."register?friend_guid={$loggedin_user->guid}&group_invitecode={$invite_code}",
+						'cp_invitation_nonuser_url' => elgg_get_site_url()."register?group_invitecode={$invite_code}",
 						'cp_invitation_url' => elgg_get_site_url()."groups/invitations/?invitecode={$invite_code}",
 						'cp_invitation_code' => $invite_code,
 						'cp_invitation_msg' => $text,

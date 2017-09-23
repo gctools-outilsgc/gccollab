@@ -175,7 +175,7 @@ function like_users( $guid, $user, $lang ){
 	$data = array();
 
 	foreach( $likes as $key => $like ){
-		$item = get_user_block($like->owner_guid);
+		$item = get_user_block($like->owner_guid, $lang);
 		$item['time_created'] = date("Y-m-d H:i:s", $like->time_created);
 		$data['users'][] = $item;
 	}

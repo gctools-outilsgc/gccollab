@@ -18,7 +18,7 @@ function members_init() {
 	$item = new ElggMenuItem('members', elgg_echo('members'), 'members');
 	elgg_register_menu_item('site', $item);
 
-	$list_types = array('newest', 'popular', 'online', 'type');
+	$list_types = array('newest', 'popular', 'online');
 
 	foreach ($list_types as $type) {
 		elgg_register_plugin_hook_handler('members:list', $type, "members_list_$type");
@@ -79,45 +79,6 @@ function members_list_online($hook, $type, $returnvalue, $params) {
 }
 
 /**
- * Returns content for the "type" page
- *
- * @param string      $hook        "members:list"
- * @param string      $type        "type"
- * @param string|null $returnvalue list content (null if not set)
- * @param array       $params      array with key "options"
- * @return string
- */
-function members_list_type($hook, $type, $returnvalue, $params) {
-	if ($returnvalue !== null) {
-		return;
-	}
-
-	$type = get_input('type');
-
-	$user_types = array('' => elgg_echo('gcRegister:make_selection'), 'academic' => elgg_echo('gcRegister:occupation:academic'), 'student' => elgg_echo('gcRegister:occupation:student'), 'federal' => elgg_echo('gcRegister:occupation:federal'), 'provincial' => elgg_echo('gcRegister:occupation:provincial'), 'municipal' => elgg_echo('gcRegister:occupation:municipal'), 'international' => elgg_echo('gcRegister:occupation:international'), 'ngo' => elgg_echo('gcRegister:occupation:ngo'), 'community' => elgg_echo('gcRegister:occupation:community'), 'business' => elgg_echo('gcRegister:occupation:business'), 'media' => elgg_echo('gcRegister:occupation:media'), 'retired' => elgg_echo('gcRegister:occupation:retired'), 'other' => elgg_echo('gcRegister:occupation:other'));
-	
-	$data = "<label class='mtm' for='by_type'>" . elgg_echo('gcRegister:membertype') . "</label>" . elgg_view('input/dropdown', array('id' => 'by_type', 'class' => 'mbm', 'name' => 'by_type', 'options_values' => $user_types, 'value' => $type));
-
-	$data .= '<script>$(function() {
-			$("#by_type").on("change", function() {
-				if( $(this).val() !== "" ){
-					window.location.href = window.location.href.replace(/[\?#].*|$/, "?type=" + $(this).val());
-				}
-			});
-		});</script>';
-
-	$data .= elgg_list_entities_from_metadata(array(
-        'type' => 'user', 
-        'metadata_name' => 'user_type', 
-        'metadata_value' => $type, 
-        'pagination' => true,
-        'limit' => 10
-    ));
-
-	return $data;
-}
-
-/**
  * Appends "popular" tab to the navigation
  *
  * @param string $hook        "members:config"
@@ -146,7 +107,7 @@ function members_nav_popular($hook, $type, $returnvalue, $params) {
 function members_nav_newest($hook, $type, $returnvalue, $params) {
 	$returnvalue['newest'] = array(
 		'title' => elgg_echo('sort:newest'),
-		'url' => "members",
+		'url' => "members/newest",
 	);
 	return $returnvalue;
 }
@@ -168,22 +129,6 @@ function members_nav_online($hook, $type, $returnvalue, $params) {
 	return $returnvalue;
 }
 
-/**
- * Appends "type" tab to the navigation
- *
- * @param string $hook        "members:config"
- * @param string $type        "tabs"
- * @param array  $returnvalue array that build navigation tabs
- * @param array  $params      unused
- * @return array
- */
-function members_nav_type($hook, $type, $returnvalue, $params) {
-	$returnvalue['type'] = array(
-		'title' => elgg_echo('members:label:type'),
-		'url' => "members/type",
-	);
-	return $returnvalue;
-}
 
 /**
  * Members page handler

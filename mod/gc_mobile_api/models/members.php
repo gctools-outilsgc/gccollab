@@ -30,7 +30,7 @@ elgg_ws_expose_function(
 		"filters" => array('type' => 'string', 'required' => false, 'default' => ""),
 		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
 	),
-	'Retrieves members registered on GCcollab',
+	'Retrieves members who are colleagues of a given user',
 	'POST',
 	true,
 	false
@@ -74,7 +74,7 @@ function get_members( $user, $limit, $offset, $filters, $lang ){
 	$data = array();
 	foreach($members as $member){
 		$member_obj = get_user($member->guid);
-		$member_data = get_user_block($member->guid);
+		$member_data = get_user_block($member->guid, $lang);
 
 		$about = "";
 		if( $member_obj->description ){
@@ -130,7 +130,7 @@ function get_members_colleague( $profileemail, $user, $limit, $offset, $filters,
 	$data = array();
 	foreach($members as $member){
 		$member_obj = get_user($member->guid);
-		$member_data = get_user_block($member->guid);
+		$member_data = get_user_block($member->guid, $lang);
 
 		$about = "";
 		if( $member_obj->description ){

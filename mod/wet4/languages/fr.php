@@ -3,6 +3,7 @@
 
 return array(
 
+  'thewire:head:title' => 'Message sur le fil',
 
   'entity:like:link:page_top' => 'Aimer la page "%s"',
   'entity:unlike:link:page_top' => 'Enlever la mention j\'aime de la page "%s"',
@@ -170,6 +171,14 @@ return array(
   //form validation
 
   'form:invalid:extensions' => "Format de fichier non valide. Extensions de fichier autorisées: %s",
+
+  'new:dept:activity:title' => "Fil d’activités de votre ministère",
+  'dept:activity:show' => "Montrer les connexions de collègue",
+  'dept:activity:hide' => "Cacher les connexions de collègue",
+  'dept:activity:do' => " Les connexions de collègue ne seront plus affichées dans le fil d'activités de votre ministère.",
+  'dept:activity:undo' => " Les connexions de collègue s’afficheront maintenant dans le fil d’activité de votre ministère. ",
+  'dept:activity:filter:title' => "Paramètres du fil d’activités de votre ministère",
+  'dept:activity:groupsandcolleagues' => "Groupes et collègues",
 
 
       'wet:more' => "Autres",
@@ -1435,6 +1444,7 @@ return array(
 'generic_comments:post' => "Publier un commentaire",
 	'generic_comments:text' => "Commentaire",
 	'generic_comments:latest' => "Derniers commentaires",
+  'generic_comments:latest:event' => "Derniers commentaires sur les événements",
 	'generic_comment:posted' => "Votre commentaire a été publié avec succès.",
 	'generic_comment:updated' => "Le commentaire a été mis à jour.",
 'generic_comment:deleted' => "Le commentaire a été correctement supprimé.",

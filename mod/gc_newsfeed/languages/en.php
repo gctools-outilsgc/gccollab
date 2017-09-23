@@ -3,7 +3,7 @@ return array(
     /*
       * 
       */
-    'newsfeed:menu' => 'Home',
+    'newsfeed:menu' => 'News Feed',
 
     'newsfeed:title'=>'Your News feed',
     'newsfeed:titlenolog'=>'Welcome',

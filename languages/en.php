@@ -20,7 +20,8 @@ return array(
 	'logout' => "Log out",
 	'logoutok' => "You have been logged out.",
 	'logouterror' => "We couldn't log you out. Please try again.",
-	'session_expired' => "Your session has expired. Please reload the page to log in.",
+	'session_expired' => "Your session has expired. Please <a href='javascript:location.reload(true)'>reload</a> the page to log in.",
+	'session_changed_user' => "You have been logged in as another user. You should <a href='javascript:location.reload(true)'>reload</a> the page.",
 
 	'loggedinrequired' => "You must be logged in to view the requested page.",
 	'adminrequired' => "You must be an administrator to view the requested page.",
@@ -137,8 +138,8 @@ return array(
 	'name' => "Display name",
 	'email' => "Email address",
 	'username' => "Username",
-	'loginusername' => "GCcollab username or email",
-	'password' => "GCcollab password",
+	'loginusername' => "GCconnex username or email",
+	'password' => "GCconnex password",
 	'passwordagain' => "Password (again for verification)",
 	'admin_option' => "Make this user an admin?",
 
@@ -150,7 +151,7 @@ return array(
 	'LOGGED_IN' => "Logged in users",
 	'PUBLIC' => "Public",
 	'LOGGED_OUT' => "Logged out users",
-	'access:friends:label' => "Colleagues",
+	'access:friends:label' => "Friends",
 	'access' => "Access",
 	'access:overridenotice' => "Note: Due to group policy, this content will be accessible only by group members.",
 	'access:limited:label' => "Limited",
@@ -206,35 +207,35 @@ return array(
  * Friends
  */
 
-	'friends' => "Colleagues",
-	'friends:yours' => "Your Colleagues",
-	'friends:owned' => "%s's Colleagues",
-	'friendprofile:add' => "Add Colleague",
-	'friend:remove' => "Remove colleague",
+	'friends' => "Friends",
+	'friends:yours' => "Your friends",
+	'friends:owned' => "%s's friends",
+	'friendprofile:add' => "Add friend",
+	'friend:remove' => "Remove friend",
 
-	'friends:add:successful' => "You have successfully added %s as a colleague.",
-	'friends:add:failure' => "We couldn't add %s as a colleague.",
+	'friends:add:successful' => "You have successfully added %s as a friend.",
+	'friends:add:failure' => "We couldn't add %s as a friend.",
 
-	'friends:remove:successful' => "You have successfully removed %s from your colleagues.",
-	'friends:remove:failure' => "We couldn't remove %s from your colleagues.",
+	'friends:remove:successful' => "You have successfully removed %s from your friends.",
+	'friends:remove:failure' => "We couldn't remove %s from your friends.",
 
-	'friends:none' => "No colleagues yet.",
-	'friends:none:you' => "You don't have any colleague yet.",
+	'friends:none' => "No friends yet.",
+	'friends:none:you' => "You don't have any friends yet.",
 
-	'friends:none:found' => "No colleagues were found.",
+	'friends:none:found' => "No friends were found.",
 
-	'friends:of:none' => "Nobody has added this user as a colleague yet.",
-	'friends:of:none:you' => "Nobody has added you as a colleague yet. Start adding content and fill in your profile to let people find you!",
+	'friends:of:none' => "Nobody has added this user as a friend yet.",
+	'friends:of:none:you' => "Nobody has added you as a friend yet. Start adding content and fill in your profile to let people find you!",
 
-	'friends:of:owned' => "People who have made %s a colleague",
+	'friends:of:owned' => "People who have made %s a friend",
 
-	'friends:of' => "Colleagues of",
-	'friends:collections' => "Colleague collections",
+	'friends:of' => "Friends of",
+	'friends:collections' => "Friend collections",
 	'collections:add' => "New circle",
-	'friends:collections:add' => "New colleagues collection",
-	'friends:addfriends' => "Select colleagues",
+	'friends:collections:add' => "New friends collection",
+	'friends:addfriends' => "Select friends",
 	'friends:collectionname' => "Circle name",
-	'friends:collectionfriends' => "Colleagues in circle",
+	'friends:collectionfriends' => "Friends in circle",
 	'friends:collectionedit' => "Edit this circle",
 	'friends:nocollections' => "You do not have any circles yet.",
 	'friends:collectiondeleted' => "Your circle has been deleted.",
@@ -321,7 +322,7 @@ return array(
  * River
  */
 	'river' => "River",
-	'river:friend:user:default' => "%s is now a colleague with %s",
+	'river:friend:user:default' => "%s is now a friend with %s",
 	'river:update:user:avatar' => '%s has a new avatar',
 	'river:update:user:profile' => '%s has updated their profile',
 	'river:noaccess' => 'You do not have permission to view this item.',
@@ -340,7 +341,7 @@ return array(
 	'river:widget:title' => "Activity",
 	'river:widget:description' => "Display latest activity",
 	'river:widget:type' => "Type of activity",
-	'river:widgets:friends' => 'Colleagues activity',
+	'river:widgets:friends' => 'Friends activity',
 	'river:widgets:all' => 'All site activity',
 
 /**
@@ -380,7 +381,7 @@ return array(
 	'group:search:startblurb' => "Groups matching '%s':",
 	'group:search:finishblurb' => "To view more, click here.",
 	'search:go' => 'Go',
-	'userpicker:only_friends' => 'Only colleagues',
+	'userpicker:only_friends' => 'Only friends',
 
 /**
  * Account
@@ -441,7 +442,6 @@ return array(
 	'user:password:resetreq:fail' => 'Could not request a new password.',
 
 	//GCchange: more detailed password reset text - Troy T. Lawson
-	//'user:password:text' => 'To request a new password, enter your username or email address below and click the Request button.',
 	'user:password:text' => 'To request a new password, enter your username or email address below and click the Request button. An email will be sent to you with your temporary password. </br></br><b>Note:</b> It may take several minutes to receive the email due to your departmental firewall. To avoid further delays, do not resend another request - please be patient.',
 	
 	'user:persistent' => 'Remember me',
@@ -764,14 +764,14 @@ These changes will only affect new users on the site.',
 	'river:all' => 'All Site Activity',
 	'river:mine' => 'My Activity',
 	'river:owner' => 'Activity of %s',
-	'river:friends' => 'Colleagues Activity',
+	'river:friends' => 'Friends Activity',
 	'river:select' => 'Show %s',
 	'river:comments:more' => '+%u more',
 	'river:comments:all' => 'View all %u comments',
 	'river:generic_comment' => 'commented on %s %s',
 
-	'friends:widget:description' => "Displays some of your colleagues.",
-	'friends:num_display' => "Number of colleagues to display",
+	'friends:widget:description' => "Displays some of your friends.",
+	'friends:num_display' => "Number of friends to display",
 	'friends:icon_size' => "Icon size",
 	'friends:tiny' => "tiny",
 	'friends:small' => "small",
@@ -1125,7 +1125,6 @@ Once you have logged in, we highly recommend that you change your password.
 
 	'admin:pending_upgrades' => 'The site has pending upgrades that require your immediate attention.',
 	'admin:view_upgrades' => 'View pending upgrades.',
- 	'admin:upgrades' => 'Upgrades',
 	'item:object:elgg_upgrade' => 'Site upgrades',
 	'admin:upgrades:none' => 'Your installation is up to date!',
 
@@ -1172,8 +1171,8 @@ Once you have logged in, we highly recommend that you change your password.
 	'email:save:success' => "New email address saved. Verification is requested.",
 	'email:save:fail' => "New email address could not be saved.",
 
-	'friend:newfriend:subject' => "%s has made you a colleague!",
-	'friend:newfriend:body' => "%s has made you a colleague!
+	'friend:newfriend:subject' => "%s has made you a friend!",
+	'friend:newfriend:body' => "%s has made you a friend!
 
 To view their profile, click here:
 

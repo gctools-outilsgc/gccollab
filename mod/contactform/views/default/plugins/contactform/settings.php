@@ -1,10 +1,7 @@
 <?php 
 $email = $vars['entity']->email;
 $loginreq = $vars['entity']->loginreq;
-$disable_feedback = $vars['entity']->disable_feedback;
-
-if (!$loginreq) { $loginreq = 'yes'; }
-if (!$disable_feedback) { $loginreq = 'no'; }			
+if (!$loginreq) { $loginreq = 'yes'; }		
 ?>
 
 <p>
@@ -25,18 +22,4 @@ echo "<div>";
 		'value' => $loginreq,
 	));
 echo "</div>";
-
-
-// in case the feedback form does not work out
-echo '<br/>';
-echo "Disable Feedback/contact form and display Jeff's email address";
-echo elgg_view('input/dropdown', array(
-		'name' => 'params[disable_feedback]',
-		'options_values' => array(
-			'no' => elgg_echo('contactform:no'),
-			'yes' => elgg_echo('contactform:yes'),
-		),
-		'value' => $loginreq,
-	));
-
-
+?>

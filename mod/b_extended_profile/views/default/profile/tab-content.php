@@ -4,7 +4,7 @@
 */
 //generate content tabs
 elgg_push_context('profile');
-$fields = array('File', 'Blog', 'page_top', 'Bookmarks', 'Poll', 'Thewire', 'Album', 'task_top', 'question', 'etherpad');
+$fields = array('File', 'Blog', 'page_top', 'Bookmarks', 'Poll', 'Thewire', 'Album', 'task_top', 'question');
 $user_display_name = elgg_get_page_owner_entity()->name;
 foreach($fields as $field){
 
@@ -73,12 +73,6 @@ foreach($fields as $field){
                 $add = elgg_echo('questions:add');
                 $message = elgg_echo('questions:none');
                 $field = 'questions';
-                break;
-            case 'etherpad':
-                $title = elgg_echo('etherpad:owner', array($user_display_name));
-                $add = elgg_echo('etherpad:add');
-                $message = elgg_echo('etherpad:none');
-                $field = 'docs';
                 break;
         }
 

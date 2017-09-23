@@ -330,7 +330,8 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 
 			if ($entity->getContainerEntity() instanceof ElggGroup) {
 
-				$group_html = "<a href='{$entity->getContainerEntity()->getURL()}'>{$entity_title}</a>";
+				// string that will contain the url and the (json) string name of group
+				$group_html = json_encode(array($entity->getContainerEntity()->getURL(), $entity->getContainerEntity()->name));
 				$entity_guid = $entity->guid;
 				$user_guid = $send_to->getGUID();
 				$entry_type = 'group';
@@ -347,9 +348,7 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 				$action_type = 'response';
 				$notification_entry = json_encode($content_array);
 			}
-
 			break;
-
 
 		case 'cp_friend_request':
 
@@ -370,13 +369,6 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 			$group_name = NULL;
 			$action_type = 'friend_approved';
 			$notification_entry = json_encode($content_array);
-
-			break;
-
-			/// QUESTION: is messageboard enabled?
-		case 'cp_messageboard':
-
-			$digest_collection['personal']['profile_message'][$entity->guid] = "{$invoked_by->username} has left u a msg on your profile => sending to... {$send_to->guid} / {$send_to->username}";
 			break;
 
 		case 'cp_hjtopic':
@@ -535,10 +527,13 @@ function create_digest($invoked_by, $subtype, $entity, $send_to, $entity_url = '
 
 			if ($entity->getContainerEntity() instanceof ElggGroup) {
 			
+				$group_title = $entity->getContainerEntity()->name;
+				$group_html = json_encode(array($entity->getContainerEntity()->getURL(), $group_title));
+
 				$entity_guid = $entity->guid;
 				$user_guid = $send_to->getGUID();
 				$entry_type = 'group';
-				$group_name = "<a href='{$entity->getContainerEntity()->getURL()}?utm_source=notification_digest&utm_medium=email'>{$entity_title}</a>";
+				$group_name = $group_html;//"<a href='{$entity->getContainerEntity()->getURL()}?utm_source=notification_digest&utm_medium=email'>{$group_title}</a>";
 				$action_type = 'new_post';
 				$notification_entry = json_encode($content_array);
 
@@ -638,9 +633,6 @@ function cp_translate_subtype($subtype_name, $english = true) {
 		case 'answer':
 			$label = ($english) ? 'answer' : 'réponse';
 			break;
-		case 'etherpad':
-			$label = ($english) ? 'Doc' : 'Doc';
-			break;
 		default:
 			$label = $subtype_name;
 		break;
@@ -702,32 +694,29 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 
     // this is specifically for the Micro Missions portion due to extra field
     $subtype = elgg_echo($content_array['subtype']);
-    // error_log(print_r($content_array,true));
     $boolSubtype = ($language_preference === 'fr') ? false : true;
     $subtype = cp_translate_subtype($subtype, $boolSubtype);
 
-       	if ($language_preference === 'fr'){
-    		$content_title = $content_array['content_title']['fr'];
-    		if(empty($content_array['content_title']['fr']))
-    			$content_title = $content_array['content_title']['en'];		
-       	}else{
-    		$content_title = $content_array['content_title']['en'];
-    		if (empty($content_array['content_title']['en']))
-    			$content_title = $content_array['content_title']['fr'];
+    /// oppourtunities does not take into account for separate bilingual titles (no option for it)
+    if (strpos($content_array['subtype'], 'missions') !== false )
+    	$content_title = $content_array['content_title'];
+    else {
+
+    	/// otherwise, set to opposite language
+    	$content_title = $content_array['content_title'][$language_preference];
+    	if (empty($content_title)) {
+    		$content_language = ($language_preference === 'en') ? 'fr' : 'en';
+    		$content_title = $content_array['content_title'][$content_language];
     	}
+    }
 
 	if ($heading === 'new_post' && $subtype === 'file_upload') {
 
-
 		$rendered_content = elgg_echo('cp_notifications:mail_body:subtype:file_upload', array($author, count($content_array['file_count']), $content_array['content_title']), $language_preference );
-
-
-      $closing_date = elgg_echo('cp_newsletter:digest:opportunities:date', $language_preference).$content_array['deadline'];
-      $subtype = elgg_echo($content_array['subtype'], $language_preference);
+    	$closing_date = elgg_echo('cp_newsletter:digest:opportunities:date', $language_preference).$content_array['deadline'];
+      	$subtype = elgg_echo($content_array['subtype'], $language_preference);
 
 	} elseif ($content_array['deadline']) {
-
-
 
 		$closing_date = elgg_echo('cp_newsletter:digest:opportunities:date', $language_preference).$content_array['deadline'];
 		$subtype = elgg_echo($content_array['subtype'], $language_preference);
@@ -739,10 +728,10 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
     } elseif ($heading === 'cp_wire_share') {
 
 
-			$content_title = gc_explode_translation($content_array['content_title'],$language_preference);
-			$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-			if ($subtype === 'The Wire') $subtype = elgg_echo('cp_notifications:mail_body:your_wire_post', $language_preference);
-			$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:content_share", array($author, $subtype, $url), $language_preference);
+		$content_title = gc_explode_translation($content_array['content_title'],$language_preference);
+		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
+		if ($subtype === 'The Wire') $subtype = elgg_echo('cp_notifications:mail_body:your_wire_post', $language_preference);
+		$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:content_share", array($author, $subtype, $url), $language_preference);
 
     	
 
@@ -759,10 +748,9 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 
 	    } else {
 
-	   	  $author = $content_array['content_author'];
+	   	  	$author = $content_array['content_author'];
 
-
-			$content_title = (is_array($content_array['content_title'])) ? $content_array['content_title'][$language_preference] : $content_title = $content_array['content_title'];
+			$content_title = gc_explode_translation($content_array['content_title'], $language_preference);
 			$author = $content_array['content_author'];
 
 			$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
@@ -774,7 +762,7 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 	} elseif ($heading === 'forum_reply') {
 
 
-   	  $author = get_entity($content_array['content_author']);
+		$author = get_entity($content_array['content_author']);
 
 
 		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
@@ -783,9 +771,8 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 
 	} elseif (strcmp($heading, "content_revision") == 0) {
 
-
-      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $subtype, $url), $language_preference);
+		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
+		$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $subtype, $url), $language_preference);
 
 
     } elseif ($content_array['subtype'] === 'thewire' && $heading !== 'likes') {
@@ -796,15 +783,11 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 
     } elseif (strcmp($heading, "likes") === 0) {
 
-
-      //if (!$content_title) $content_title = elgg_echo('cp_notifications:mail_body:your_wire_post',$language_preference);
-
-      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
-      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $url), $language_preference);
+		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
+		$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $url), $language_preference);
 
 
     } elseif ($heading === 'response') {
-
 
 		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a>";
 		$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:{$heading}", array($author, $url), $language_preference);
@@ -812,15 +795,14 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
     } else {
 
 
-      // limit 35 characters
-     
-      $url = "<a href='{$content_array['content_url']}'>{$content_title}</a> {$closing_date}";
-      $boolSubtype = ($language_preference === 'fr') ? false : true;
-      $subtype = cp_translate_subtype($content_array['subtype'], $boolSubtype);
-      $n = "";
-      $vowels = array('a','e','i','o','u');
-      if (in_array($subtype{0}, $vowels)) $n = "n";
-      $rendered_content = elgg_echo("cp_notifications:mail_body:subtype:any", array($author, "",$subtype, $url), $language_preference);
+		// limit 35 characters
+		$url = "<a href='{$content_array['content_url']}'>{$content_title}</a> {$closing_date}";
+		$boolSubtype = ($language_preference === 'fr') ? false : true;
+		$subtype = cp_translate_subtype($content_array['subtype'], $boolSubtype);
+		$n = "";
+		$vowels = array('a','e','i','o','u');
+		if (in_array($subtype{0}, $vowels)) $n = "n";
+		$rendered_content = elgg_echo("cp_notifications:mail_body:subtype:any", array($author, "",$subtype, $url), $language_preference);
     }
 
     return $rendered_content;
@@ -866,6 +848,15 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
 			break;
 		default:
 			$proper_heading = $heading;
+			if (isJSon($proper_heading)) {
+				$group_heading = json_decode($heading, true);
+				$proper_heading = $group_heading[1];
+				if (isJson($proper_heading)) {
+					$proper_heading = json_decode($proper_heading, true);
+					$proper_heading = "<a href='{$group_heading[0]}'>$proper_heading[$language]</a>";
+				}
+			}
+			
 			break;
 	}
 
@@ -880,7 +871,6 @@ function getMissionTypeMetastringid( $mission_type, $role_type ) {
  */
 function information_icon($text, $url) {
 	return "<span class='pull-right'><a title='{$text}'><i class='fa fa-info-circle icon-sel'><span class='wb-invisible'> </span></i></a></span>";
-//	return "<span class='pull-right'><a title='{$text}' target='_blank' href='{$url}'><i class='fa fa-info-circle icon-sel'><span class='wb-invisible'> </span></i></a></span>";
 }
 
 function has_group_subscriptions($group_guid, $user_guid) {

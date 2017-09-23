@@ -10,7 +10,7 @@ function gc_communities_init(){
 
     $subtypes = elgg_get_plugin_setting('subtypes', 'gc_communities');
     if( !$subtypes ){
-        elgg_set_plugin_setting('subtypes', json_encode(array('blog', 'groupforumtopic', 'event_calendar', 'file')), 'gc_communities');
+        elgg_set_plugin_setting('subtypes', json_encode(array('blog', 'groupforumtopic', 'event_calendar', 'file', 'bookmarks')), 'gc_communities');
     }
 
     // Register ajax save action
@@ -90,8 +90,6 @@ function gc_communities_init(){
     // if( elgg_is_active_plugin('thewire') ){
     //     elgg_register_widget_type('filtered_wire_index', elgg_echo('gc_communities:filtered_wire_index'), elgg_echo('gc_communities:filtered_wire_index'), $context, true);
     // }
-
-    // elgg_register_widget_type('free_html', elgg_echo("widgets:free_html:title"), elgg_echo("widgets:free_html:description"), $context, true);
 }
 
 function gc_communities_permissions_hook($hook, $entity_type, $returnvalue, $params) {
@@ -139,6 +137,7 @@ function gc_community_page_handler($page, $url){
             $community_fr = $community['community_fr'];
             $community_tags = $community['community_tags'];
             $community_animator = $community['community_animator'];
+            $community_audience = $community['community_audience'];
             break;
         }
     }
@@ -148,6 +147,7 @@ function gc_community_page_handler($page, $url){
     set_input('community_fr', $community_fr);
     set_input('community_tags', $community_tags);
     set_input('community_animator', $community_animator);
+    set_input('community_audience', $community_audience);
 
     @include (dirname ( __FILE__ ) . "/pages/community.php");
     return true;
