@@ -2,15 +2,28 @@
 **Note: GCcollab does not work with PHP7 - GCcollab ne fonctionne pas avec PHP7**
 
 ### Ubuntu 14.04
+#### Install Aptitude
+    sudo apt-get update
+    sudo apt-get install aptitude
+    
 #### Install Git, Apache, MySQL, PHP and libs
     sudo aptitude install git apache2 mysql-server php5 libapache2-mod-php5 php5-mysql php5-gd
 When prompted, enter a root password for MySQL.
 
+
 #### Fork and Clone GCCollab Github Repo
     git clone -b gccollab https://github.com/gctools-outilsgc/gccollab.git
 
-#### Install Composer dependencies
-Setup [Composer](https://getcomposer.org/download/) then install the third-party dependencies
+#### Install Composer 
+Setup [Composer](https://getcomposer.org/download/)
+Download the install off the site. Default name of the file is "installer"
+Go into the directory the file was downloaded to.
+
+    sudo php installer --install-dir=/bin --filename=composer
+    
+#### Composer Dependencies
+Go into your  gccollab directory
+
     composer install
 
 #### Create data directory
@@ -53,6 +66,10 @@ Save and close (Ctrl-o then Ctrl-x if you are using nano)
 
 #### Install Elgg
 Goto ```http://localhost/gccollab```.  Follow instructions.  You will need to enter the database information and the path to the data folder.
+Database Username: gccollab
+Database Password: password (whatever you picked earlier)
+Database Name: gccollabdb
+Database Host: localhost
 
 #### Reset permissions
     chmod 775 gccollab
