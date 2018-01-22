@@ -27,7 +27,7 @@ elgg_push_breadcrumb(elgg_echo("friend_request:menu"));
 
 $options = array(
 	"type" => "user",
-	"limit" => false,
+	"limit" => "3100",
 	"relationship" => "friendrequest",
 	"relationship_guid" => $user->getGUID(),
 	"inverse_relationship" => true
