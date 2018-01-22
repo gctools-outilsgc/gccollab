@@ -200,8 +200,11 @@ $input_gl_group = elgg_view('input/dropdown', array(
 	</div>
 </div>
 <div class="form-group">
-	<label for='post-mission-area-dropdown-input' class="col-sm-3 text-right">
+	<label for='post-mission-area-dropdown-input' class="col-sm-3 required text-right" aria-required="true">
 		<?php echo elgg_echo('missions:program_area') . ':'; ?>
+		<strong class="required" aria-required="true">
+			<?php echo elgg_echo('missions:required'); ?>
+		</strong>
 	</label>
 	<div class="col-sm-3">
 		<?php echo $input_area; ?>
@@ -228,7 +231,7 @@ $input_gl_group = elgg_view('input/dropdown', array(
         $('#post-mission-type-dropdown-input').change(function () {
             //Nick - this makes it so micromissions cannot have a group and level 
             var value = $(this).val();
-            if (value == 'missions:mentoring') {
+            if (value == 'missions:mentoring' || value == 'missions:collaboration') {
             	//Deactivate and clear the group and level inputs
             	$('#post-mission-gl-group').attr('disabled', true);
                 $('#post-mission-gl-group').val('');

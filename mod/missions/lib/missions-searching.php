@@ -17,8 +17,9 @@ function mm_search_database_for_missions($query_array, $query_operand, $limit, $
     $options = array();
     $mission_count = '';
     $missions = '';
-
     $filtered_array = array_filter($query_array);
+    $dbprefix = elgg_get_config("dbprefix");
+
     if(empty($filtered_array)) {
         register_error(elgg_echo('missions:error:no_search_values'));
         return false;
@@ -33,10 +34,12 @@ function mm_search_database_for_missions($query_array, $query_operand, $limit, $
         $options['subtype'] = 'mission';
         $options['metadata_name_value_pairs_operator'] = $query_operand;
         $options['metadata_case_sensitive'] = false;
-        $options['limit'] = $limit;
+        if ($limit > 0) $options['limit'] = $limit;
+        $options['wheres'][] = 'e.owner_guid IN (SELECT guid FROM '.$dbprefix.'users_entity user WHERE user.name LIKE "' . mysql_escape_string($filtered_array[0]['value']) . '")';
+        $all_missions = elgg_get_entities_from_metadata($options);
+        array_pop($options['wheres']);
 
         // split the search into separate queries to prevent slowdown from 10+ join queries using 'OR'
-        $all_missions = array();
         foreach ($filtered_array as $array) {
             $options['metadata_name_value_pairs'] = array($array);
             $some_missions = elgg_get_entities_from_metadata($options);
@@ -71,7 +74,6 @@ function mm_search_database_for_missions($query_array, $query_operand, $limit, $
         $options['metadata_case_sensitive'] = false;
         $options['limit'] = $limit;
         $missions = elgg_get_entities_from_metadata($options);
-
 
         foreach($missions as $key => $mission) {
             if($mission->state != 'posted') {
@@ -113,52 +115,52 @@ function mm_compare_guid($a, $b)
  */
 function mm_analyze_advanced_search_element($place, $array)
 {
+    $form_name = $_SESSION['mission_search_switch'];
     $returner = array();
 
-    switch(trim($array['selection_' . $place])) {
+    switch(trim($array[$form_name.'_'.$place])) {
         // Returns an empty array if
         case '':
             break;
 
         case elgg_echo('missions:user_department'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'department';
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'].'%';
             }
             break;
 
         case elgg_echo('missions:opt_in'):
-            if(trim($array['selection_' . $place . '_element']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $name_option = '';
-                switch($array['selection_' . $place . '_element']) {
+                switch($array[$form_name.'_'.$place.'_element']) {
                     case elgg_echo('gcconnex_profile:opt:micro_missionseek'):
                         $name_option = 'opt_in_missions';
                         break;
                     case elgg_echo('gcconnex_profile:opt:micro_mission'):
                         $name_option = 'opt_in_missionCreate';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:assignment_deployment_seek');
+                    case elgg_echo('gcconnex_profile:opt:assignment_deployment_seek'):
                         $name_option = 'opt_in_assignSeek';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:assignment_deployment_create');
+                    case elgg_echo('gcconnex_profile:opt:assignment_deployment_create'):
                         $name_option = 'opt_in_assignCreate';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:deployment_seek');
+                    case elgg_echo('gcconnex_profile:opt:deployment_seek'):
                         $name_option = 'opt_in_deploySeek';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:deployment_create');
+                    case elgg_echo('gcconnex_profile:opt:deployment_create'):
                         $name_option = 'opt_in_deployCreate';
                         break;
                     case elgg_echo('gcconnex_profile:opt:job_swap'):
                         $name_option = 'opt_in_swap';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:job_rotate');
+                    case elgg_echo('gcconnex_profile:opt:job_rotate'):
                         $name_option = 'opt_in_rotation';
                         break;
 
                     // Development
-
                     case elgg_echo('gcconnex_profile:opt:mentored'):
                         $name_option = 'opt_in_mentored';
                         break;
@@ -183,8 +185,28 @@ function mm_analyze_advanced_search_element($place, $array)
                     case elgg_echo('gcconnex_profile:opt:skill_sharing'):
                         $name_option = 'opt_in_ssSeek';
                         break;
-                    case elgg_echo('gcconnex_profile:opt:skill_sharing_create');
+                    case elgg_echo('gcconnex_profile:opt:skill_sharing_create'):
                         $name_option = 'opt_in_ssCreate';
+                        break;
+
+                    /* MW - Added for GCcollab */
+                    case elgg_echo('gcconnex_profile:opt:casual_seek'):
+                        $name_option = 'opt_in_casual_seek';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:casual_create'):
+                        $name_option = 'opt_in_casual_create';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:student_seek'):
+                        $name_option = 'opt_in_student_seek';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:student_create'):
+                        $name_option = 'opt_in_student_create';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:collaboration_seek'):
+                        $name_option = 'opt_in_collaboration_seek';
+                        break;
+                    case elgg_echo('gcconnex_profile:opt:collaboration_create'):
+                        $name_option = 'opt_in_collaboration_create';
                         break;
                 }
                 $returner['name'] = $name_option;
@@ -194,18 +216,18 @@ function mm_analyze_advanced_search_element($place, $array)
             break;
 
         case elgg_echo('missions:portfolio'):
-            if(trim($array['selection_' . $place . '_element_value']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element_value']) != '') {
                 $name_option = '';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
-                switch($array['selection_' . $place . '_element']) {
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'].'%';
+                switch($array[$form_name.'_'.$place.'_element']) {
                     case elgg_echo('missions:title'):
                         $name_option = 'title';
                         break;
                     case elgg_echo('missions:publication_date'):
                         $name_option = 'pubdate';
-                        $operand_option = $array['selection_' . $place . '_element_operand'];
-                        $value_option = $array['selection_' . $place . '_element_value'];
+                        $operand_option = $array[$form_name.'_'.$place.'_element_operand'];
+                        $value_option = $array[$form_name.'_'.$place.'_element_value'];
                         break;
                 }
                 $returner['name'] = $name_option;
@@ -216,20 +238,20 @@ function mm_analyze_advanced_search_element($place, $array)
             break;
 
         case elgg_echo('missions:skill'):
-            if(trim($array['selection_' . $place . '_element']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'title';
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'].'%';
                 $returner['extra_option'] = 'MySkill';
             }
             break;
 
         case elgg_echo('missions:experience'):
-            if(trim($array['selection_' . $place . '_element_value']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element_value']) != '') {
                 $name_option = '';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
-                switch($array['selection_' . $place . '_element']) {
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'].'%';
+                switch($array[$form_name.'_'.$place.'_element']) {
                     case elgg_echo('missions:title'):
                         $name_option = 'title';
                         break;
@@ -238,8 +260,8 @@ function mm_analyze_advanced_search_element($place, $array)
                         break;
                     case elgg_echo('missions:end_year'):
                         $name_option = 'endyear';
-                        $operand_option = $array['selection_' . $place . '_element_operand'];
-                        $value_option = $array['selection_' . $place . '_element_value'];
+                        $operand_option = $array[$form_name.'_'.$place.'_element_operand'];
+                        $value_option = $array[$form_name.'_'.$place.'_element_value'];
                         break;
                 }
                 $returner['name'] = $name_option;
@@ -250,11 +272,11 @@ function mm_analyze_advanced_search_element($place, $array)
             break;
 
         case elgg_echo('missions:education'):
-            if(trim($array['selection_' . $place . '_element_value']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element_value']) != '') {
                 $name_option = '';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
-                switch($array['selection_' . $place . '_element']) {
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'].'%';
+                switch($array[$form_name.'_'.$place.'_element']) {
                     case elgg_echo('missions:title'):
                         $name_option = 'title';
                         break;
@@ -266,8 +288,8 @@ function mm_analyze_advanced_search_element($place, $array)
                         break;
                     case elgg_echo('missions:end_year'):
                         $name_option = 'endyear';
-                        $operand_option = $array['selection_' . $place . '_element_operand'];
-                        $value_option = $array['selection_' . $place . '_element_value'];
+                        $operand_option = $array[$form_name.'_'.$place.'_element_operand'];
+                        $value_option = $array[$form_name.'_'.$place.'_element_value'];
                         break;
                 }
                 $returner['name'] = $name_option;
@@ -280,10 +302,10 @@ function mm_analyze_advanced_search_element($place, $array)
         //
         case elgg_echo('missions:start_time'):
         case elgg_echo('missions:duration'):
-            if (trim($array['selection_' . $place . '_element'])) {
+            if (trim($array[$form_name.'_'.$place.'_element'])) {
                 $name_option = '';
                 // Selects which day will be searched.
-                switch ($array['selection_' . $place . '_element_day']) {
+                switch ($array[$form_name.'_'.$place.'_element_day']) {
                     case elgg_echo('missions:mon'):
                         $name_option = 'mon';
                         break;
@@ -307,43 +329,43 @@ function mm_analyze_advanced_search_element($place, $array)
                         break;
                 }
 
-                if($array['selection_' . $place] == elgg_echo('missions:start_time')) {
+                if($array[$form_name.'_'.$place] == elgg_echo('missions:start_time')) {
                     $name_option .= '_start';
                 }
-                if($array['selection_' . $place] == elgg_echo('missions:duration')) {
+                if($array[$form_name.'_'.$place] == elgg_echo('missions:duration')) {
                      $name_option .= '_duration';
                 }
 
-                $operand_option = $array['selection_' . $place . '_operand'];
+                $operand_option = $array[$form_name.'_'.$place.'_operand'];
                 // Packs the input hour and time for comparison with the packed elements in the database.
                 $returner['name'] = $name_option;
-                $returner['operand'] = $array['selection_' . $place . '_operand'];
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['operand'] = $array[$form_name.'_'.$place.'_operand'];
+                $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             }
             break;
 
         case elgg_echo('missions:period'):
-            if(trim($array['selection_' . $place . '_element']) != '') {
+            if(trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'time_interval';
                 $returner['operand'] = '=';
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             }
               break;
 
         case elgg_echo('missions:time'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'time_commitment';
-                $returner['operand'] = $array['selection_' . $place . '_operand'];
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['operand'] = $array[$form_name.'_'.$place.'_operand'];
+                $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             }
             break;
 
         // Selects language element which requires packing.
         case elgg_echo('missions:language'):
-            if (trim($array['selection_' . $place . '_element_lwc']) != '' || trim($array['selection_' . $place . '_element_lwe']) != '' || trim($array['selection_' . $place . '_element_lop']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element_lwc']) != '' || trim($array[$form_name.'_'.$place.'_element_lwe']) != '' || trim($array[$form_name.'_'.$place.'_element_lop']) != '') {
                 $name_option = '';
                 // Selects which language will be searched
-                switch ($array['selection_' . $place . '_element']) {
+                switch ($array[$form_name.'_'.$place.'_element']) {
                     case elgg_echo('missions:english'):
                         $name_option = 'english';
                         break;
@@ -353,7 +375,7 @@ function mm_analyze_advanced_search_element($place, $array)
                 }
 
                 $option_value = $name_option;
-                $language_requirement_array = array($array['selection_' . $place . '_element_lwc'], $array['selection_' . $place . '_element_lwe'], $array['selection_' . $place . '_element_lop']);
+                $language_requirement_array = array($array[$form_name.'_'.$place.'_element_lwc'], $array[$form_name.'_'.$place.'_element_lwe'], $array[$form_name.'_'.$place.'_element_lop']);
                 foreach($language_requirement_array as $value) {
                     switch($value) {
                         case 'A':
@@ -371,7 +393,7 @@ function mm_analyze_advanced_search_element($place, $array)
                 }
 
                 // Packs the input written comprehension, written expression and oral proficiency for comparison with the packed elements in the database.
-                //$option_value = mm_pack_language($array['selection_' . $place . '_element_lwc'], $array['selection_' . $place . '_element_lwe'], $array['selection_' . $place . '_element_lop'], $name_option);
+                //$option_value = mm_pack_language($array[$form_name.'_' . $place . '_element_lwc'], $array[$form_name.'_' . $place . '_element_lwe'], $array[$form_name.'_' . $place . '_element_lop'], $name_option);
                 $returner['name'] = $name_option;
                 $returner['operand'] = 'REGEXP';
                 $returner['value'] = $option_value;
@@ -380,48 +402,48 @@ function mm_analyze_advanced_search_element($place, $array)
 
         // The next 3 are select elements that require a MySQL LIKE comparison.
         case elgg_echo('missions:key_skills'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'key_skills';
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'] . '%';
             }
             break;
 
         case elgg_echo('missions:location'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'location';
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'] . '%';
             }
             break;
 
         case elgg_echo('missions:type'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'job_type';
                 $returner['operand'] = '=';
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             }
             break;
 
         // The next 5 are selects elements that require a direct equivalence comparison.
         case elgg_echo('missions:title'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'job_title';
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'] . '%';
             }
             break;
 
         case elgg_echo('missions:security_clearance'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 $returner['name'] = 'security';
                 $returner['operand'] = '=';
-                $returner['value'] = $array['selection_' . $place . '_element'];
+                $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             }
             break;
 
         case elgg_echo('missions:department'):
-            if (trim($array['selection_' . $place . '_element']) != '') {
+            if (trim($array[$form_name.'_'.$place.'_element']) != '') {
                 if(get_current_language() == 'fr') {
                     $returner['name'] = 'department_path_french';
                 }
@@ -429,14 +451,14 @@ function mm_analyze_advanced_search_element($place, $array)
                     $returner['name'] = 'department_path_english';
                 }
                 $returner['operand'] = 'LIKE';
-                $returner['value'] = '%' . $array['selection_' . $place . '_element'] . '%';
+                $returner['value'] = '%' . $array[$form_name.'_'.$place.'_element'] . '%';
             }
             break;
 
         case elgg_echo('missions:work_remotely'):
             $returner['name'] = 'remotely';
             $returner['operand'] = '=';
-            if($array['selection_' . $place . '_element']) {
+            if($array[$form_name.'_'.$place.'_element']) {
                 $returner['value'] = 'on';
             }
             else {
@@ -447,7 +469,7 @@ function mm_analyze_advanced_search_element($place, $array)
         case elgg_echo('missions:program_area'):
             $returner['name'] = 'program_area';
             $returner['operand'] = '=';
-            $returner['value'] = $array['selection_' . $place . '_element'];
+            $returner['value'] = $array[$form_name.'_'.$place.'_element'];
             break;
     }
 
@@ -468,12 +490,12 @@ function mm_analyze_backup($place, $array)
     $extra_option = '';
 
     // If the selection element has been chosen.
-    if (trim($array['selection_' . $place]) != '') {
+    if (trim($array[$form_name.'_'.$place]) != '') {
         // Base operand and value.
         $operand_option = '=';
         $value_option = $array['backup_' . $place];
         // Modifies name, operand and/or value depending on which selection element was chosen.
-        switch ($array['selection_' . $place]) {
+        switch ($array[$form_name.'_'.$place]) {
             case elgg_echo('missions:title'):
                 $name_option = 'job_title';
                 break;
@@ -572,28 +594,28 @@ function mm_analyze_backup($place, $array)
             case elgg_echo('missions:skill'):
                 $name_option = 'title';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element'] . '%';
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element'] . '%';
                 $extra_option = 'MySkill';
                 break;
 
             case elgg_echo('missions:experience'):
                 $name_option = 'title';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'] . '%';
                 $extra_option = 'experience';
                 break;
 
             case elgg_echo('missions:education'):
                 $name_option = 'title';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'] . '%';
                 $extra_option = 'education';
                 break;
 
             case elgg_echo('missions:portfolio'):
                 $name_option = 'title';
                 $operand_option = 'LIKE';
-                $value_option = '%' . $array['selection_' . $place . '_element_value'] . '%';
+                $value_option = '%' . $array[$form_name.'_'.$place.'_element_value'] . '%';
                 $extra_option = 'portfolio';
                 break;
 
@@ -777,7 +799,11 @@ function mm_simple_search_database_for_candidates($query_array, $limit, $offset=
       $results = get_data($search_wrapper);
       $total_users = get_data('SELECT FOUND_ROWS() as total_users;')[0]->total_users;
 
-      $candidate_count = min(elgg_get_plugin_setting('search_limit', 'missions'), $total_users);
+      if (elgg_get_plugin_setting('search_limit', 'missions') !== '-1') {
+        $candidate_count = min(elgg_get_plugin_setting('search_limit', 'missions'), $total_users);
+      } else {
+        $candidate_count = $total_users;
+      }
 
       if (count($results) > 0) {
           $search_feedback = array();
@@ -877,7 +903,7 @@ function mm_advanced_search_database_for_candidates($query_array, $query_operand
             $options_attribute['subtypes'] = $array['extra_option'];
             $options_attribute['joins'] = array('INNER JOIN ' . elgg_get_config('dbprefix') . 'objects_entity g ON (g.guid = e.guid)');
             $options_attribute['wheres'] = array("g." . $array['name'] . " " . $array['operand'] . " '" . $array['value'] . "'");
-            $options_attribute['limit'] = $limit;
+            if ($limit > 0) $options_attribute['limit'] = $limit;
             $entities = elgg_get_entities($options_attribute);
 
             $entity_owners = array();
