@@ -94,5 +94,7 @@ Then go to
 `Configure`->`Utilities`->`Plugin Loader` menu and click on the `Import`
 button.
 
+The plugin_config file has `friend_request` as enabled, but for an unknown reason does not activate it properly. So go into `Configure` -> `Plugins` and ctrl+f for `Friend Request` and activate `Friend request 4.0`
+
 ### Elgg Installation Instructions
 http://learn.elgg.org/en/2.0/intro/install.html
