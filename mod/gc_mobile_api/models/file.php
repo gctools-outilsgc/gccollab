@@ -44,8 +44,9 @@ function get_file($user, $guid, $lang)
 		'subtype' => 'file',
 		'guid' => $guid
 	));
+	
 	$file = json_decode($files)[0];
-
+	$file->name = gc_explode_translation($file->name, $lang);
 	$likes = elgg_get_annotations(array(
 		'guid' => $file->guid,
 		'annotation_name' => 'likes'
