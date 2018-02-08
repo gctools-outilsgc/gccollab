@@ -90,6 +90,7 @@ function get_discussion($user, $guid, $thread, $lang)
 			'subtype' => 'discussion_reply',
 			'container_guid' => $guid
 		));
+		$all_replies->name = gc_explode_translation($all_replies->name, $lang);
 		$replies = json_decode($all_replies);
 		$replies = array_reverse($replies);
 
