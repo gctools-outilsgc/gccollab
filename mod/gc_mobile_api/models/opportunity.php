@@ -43,6 +43,10 @@ function get_opportunity($user, $guid, $lang)
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
 
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
+
 	$entity = get_entity($guid);
 	if (!$entity) {
 		return "Opportunity was not found. Please try a different GUID";
@@ -51,9 +55,7 @@ function get_opportunity($user, $guid, $lang)
 		return "Invalid opportunity. Please try a different GUID";
 	}
 
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
-	}
+
 
 	$opportunities = elgg_list_entities(array(
 		'type' => 'object',
