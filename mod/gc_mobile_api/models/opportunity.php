@@ -82,7 +82,7 @@ function get_opportunity($user, $guid, $lang)
 	$opportunity->comments = get_entity_comments($opportunity->guid);
 
 	$opportunity->userDetails = get_user_block($opportunity->owner_guid, $lang);
-	$opportunity->description = clean_text(gc_explode_translation($opportunity->description, $lang));
+	$opportunity->description = gc_explode_translation($opportunity->description, $lang);
 
 	return $opportunity;
 }
