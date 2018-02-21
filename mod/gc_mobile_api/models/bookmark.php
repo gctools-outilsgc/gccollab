@@ -67,6 +67,8 @@ function get_bookmarks($user, $limit, $offset, $filters, $lang)
     $bookmark->group_guid = "";
     if ($bookmark->container_guid != $bookmark->owner_guid){
       $bookmark->group_guid = $bookmark->container_guid;
+      $bookmarkGroup = get_entity($bookmark->group_guid);
+      $bookmark->group = gc_explode_translation($bookmarkGroup->name, $lang);
     }
   }
 
