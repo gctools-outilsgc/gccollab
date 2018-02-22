@@ -37,7 +37,7 @@ elgg_ws_expose_function(
 
 elgg_ws_expose_function(
   "get.bookmarksbyuser",
-  "get_bookmarks_by_user",
+  "get_bookmarks_by_owner",
   array(
     "user" => array('type' => 'string', 'required' => true),
     "limit" => array('type' => 'int', 'required' => false, 'default' => 10),
@@ -164,7 +164,7 @@ function get_bookmarks_colleague($user, $limit, $offset, $filters, $lang)
 
 }
 
-function get_bookmarks_by_user($user, $limit, $offset, $filters, $lang, $target)
+function get_bookmarks_by_owner($user, $limit, $offset, $filters, $lang, $target)
 {
   // Check provided USER information.
   $user_entity = is_numeric($user) ? get_user($user) : (strpos($user, '@') !== false ? get_user_by_email($user)[0] : get_user_by_username($user));
@@ -177,17 +177,21 @@ function get_bookmarks_by_user($user, $limit, $offset, $filters, $lang, $target)
   if (!elgg_is_logged_in()) {
     login($user_entity);
   }
+  $target_entity = $user_entity;
+  if ($target != ''){
+    $target_entity = is_numeric($target) ? get_user($target) : (strpos($target, '@') !== false ? get_user_by_email($target)[0] : get_user_by_username($target));
+  }
 
   //add conditional for target later
   $all_bookmarks = elgg_list_entities(array(
     'type' => 'object',
     'subtype' => 'bookmarks',
-    'owner_guid' => $user,
+    'container_guid' => $target_entity->guid,
     'limit' => $limit,
     'offset' => $offset
   ));
   $bookmarks = json_decode($all_bookmarks);
-  
+
   foreach ($bookmarks as $bookmark) {
     $bookmark->title = gc_explode_translation($bookmark->title, $lang);
 
