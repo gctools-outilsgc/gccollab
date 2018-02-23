@@ -85,6 +85,8 @@ function get_opportunity_test($user, $guid, $lang)
 	$opportunity->description = gc_explode_translation($opportunity->description, $lang);
 
 	$opportunityObj = get_entity($opportunity->guid);
+	$opportunity->jobtype = elgg_echo($opportunityObj->job_type);
+	$opportunity->roletype = elgg_echo($opportunityObj->role_type);
 	//$opportunity->programArea = elgg_echo('missions:program_area') . ": " . elgg_echo($opportunityObj->program_area); //This should work and translate to user lang but doesnt
 	$opportunity->programArea = elgg_echo($opportunityObj->program_area);
 	$opportunity->numOpportunities = $opportunityObj->number;
@@ -245,6 +247,10 @@ function get_opportunities_test($user, $limit, $offset, $filters, $lang)
 		$opportunity->liked = count($liked) > 0;
 
 		$opportunityObj = get_entity($opportunity->guid);
+		$opportunity->jobtype = elgg_echo($opportunityObj->job_type);
+		$opportunity->roletype = elgg_echo($opportunityObj->role_type);
+		$opportunity->deadline = $opportunityObj->deadline;
+		$opportunity->programArea = elgg_echo($opportunityObj->program_area);
 		$opportunity->owner = ($opportunityObj->getOwnerEntity() == $user_entity);
 		$opportunity->iconURL = $opportunityObj->getIconURL();
 
