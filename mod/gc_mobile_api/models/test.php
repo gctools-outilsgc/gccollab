@@ -96,11 +96,10 @@ function get_opportunity_test($user, $guid, $lang)
 	$opportunity->location = elgg_echo($opportunityObj->location);
 	$opportunity->security = elgg_echo($opportunityObj->security);
 	$opportunity->skills = $opportunityObj->key_skills;
-	//$opportunity->languageRequirements =
-	//$opportunity->schedulingRequirements = $opportunityObj->;
 	//$opportunity->participants = $opportunityObj->;
 	//$opportunity->applicants = $opportunityObj->;
-	$opportunity->timezone = $opportunityObj->timezone;
+	$opportunity->timezone = elgg_echo($opportunityObj->timezone);
+	$opportunity->timecommitment = $opportunityObj->time_commitment;
 	$opportunity->department = $opportunityObj->department;
 
 	//Language metadata
@@ -140,6 +139,41 @@ function get_opportunity_test($user, $guid, $lang)
 		$unpacked_language = '<span name="no-languages">' . elgg_echo('missions:none_required') . '</span>';
 	}
 	$opportunity->languageRequirements = $unpacked_language;
+
+	//scheduling metadata
+	$unpacked_time = '';
+	if ($opportunityObj->mon_start) {
+		$unpacked_time .= '<b>' . elgg_echo('missions:mon') . ': </b>';
+	 	$unpacked_time .= $opportunityObj->mon_start . elgg_echo('missions:to') .  $opportunityObj->mon_duration . '<br>';
+	}
+	if ($opportunityObj->tue_start) {
+		$unpacked_time .= '<b>' . elgg_echo('missions:tue') . ': </b>';
+		$unpacked_time .= '<span name="mission-tue-start">' . $opportunityObj->tue_start . '</span>' . elgg_echo('missions:to') . '<span name="mission-tue-duration">' . $opportunityObj->tue_duration . '</span><br>';
+	}
+	if ($opportunityObj->wed_start) {
+		$unpacked_time .= '<b>' . elgg_echo('missions:wed') . ': </b>';
+		$unpacked_time .=  $opportunityObj->wed_start  . elgg_echo('missions:to') . $opportunityObj->wed_duration . '<br>';
+	}
+	if ($opportunityObj->thu_start) {
+		$unpacked_time .= '<b>' . elgg_echo('missions:thu') . ': </b>';
+		$unpacked_time .= '<span name="mission-thu-start">' . $opportunityObj->thu_start . '</span>' . elgg_echo('missions:to') . '<span name="mission-thu-duration">' . $opportunityObj->thu_duration . '</span><br>';
+	}
+	if ($opportunityObj->fri_start) {
+	  $unpacked_time .= '<b>' . elgg_echo('missions:fri') . ': </b>';
+	  $unpacked_time .= '<span name="mission-fri-start">' . $opportunityObj->fri_start . '</span>' . elgg_echo('missions:to') . '<span name="mission-fri-duration">' . $opportunityObj->fri_duration . '</span><br>';
+	}
+	if ($opportunityObj->sat_start) {
+	  $unpacked_time .= '<b>' . elgg_echo('missions:sat') . ': </b>';
+	  $unpacked_time .= '<span name="mission-sat-start">' . $opportunityObj->sat_start . '</span>' . elgg_echo('missions:to') . '<span name="mission-sat-duration">' . $opportunityObj->sat_duration . '</span><br>';
+	}
+	if ($opportunityObj->sun_start) {
+	  $unpacked_time .= '<b>' . elgg_echo('missions:sun') . ': </b>';
+	  $unpacked_time .= '<span name="mission-sun-start">' . $opportunityObj->sun_start . '</span>' . elgg_echo('missions:to') . '<span name="mission-sun-duration">' . $opportunityObj->sun_duration . '</span><br>';
+	}
+	if (empty($unpacked_time)) {
+	  $unpacked_time = '<span name="no-times">' . elgg_echo('missions:none_required') . '</span>';
+	}
+	$opportunity->schedulingRequirements = $unpacked_time;
 
 	return $opportunity;
 }
