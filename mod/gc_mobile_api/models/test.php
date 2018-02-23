@@ -85,23 +85,61 @@ function get_opportunity_test($user, $guid, $lang)
 	$opportunity->description = gc_explode_translation($opportunity->description, $lang);
 
 	$opportunityObj = get_entity($opportunity->guid);
-	$opportunity->programArea = $opportunityObj->program_area;
+	//$opportunity->programArea = elgg_echo('missions:program_area') . ": " . elgg_echo($opportunityObj->program_area); //This should work and translate to user lang but doesnt
+	$opportunity->programArea = elgg_echo($opportunityObj->program_area);
 	$opportunity->numOpportunities = $opportunityObj->number;
 	$opportunity->idealStart = $opportunityObj->start_date;
 	$opportunity->idealComplete = $opportunityObj->complete_date;
 	$opportunity->deadline = $opportunityObj->deadline;
-	$opportunity->oppVirtual = $opportunityObj->remotely; //maybe
-	//$opportunity->oppOnlyIn = $opportunityObj->;
-	$opportunity->location = $opportunityObj->location;
-	$opportunity->security = $opportunityObj->security;
+	$opportunity->oppVirtual = $opportunityObj->remotely;
+	$opportunity->oppOnlyIn = $opportunityObj->openess;
+	$opportunity->location = elgg_echo($opportunityObj->location);
+	$opportunity->security = elgg_echo($opportunityObj->security);
 	$opportunity->skills = $opportunityObj->key_skills;
-	//$opportunity->languageRequirements = $opportunityObj->;
+	//$opportunity->languageRequirements =
 	//$opportunity->schedulingRequirements = $opportunityObj->;
 	//$opportunity->participants = $opportunityObj->;
 	//$opportunity->applicants = $opportunityObj->;
-	$opportunity->openess = $opportunityObj->openess;
 	$opportunity->timezone = $opportunityObj->timezone;
 	$opportunity->department = $opportunityObj->department;
+
+	//Language metadata
+	$unpacked_array = mm_unpack_mission($opportunityObj);
+	$unpacked_language = '';
+	if (! empty($unpacked_array['lwc_english']) || ! empty($unpacked_array['lwc_french'])) {
+  	$unpacked_language .= '<b>' . elgg_echo('missions:written_comprehension') . ': </b>';
+  	if (! empty($unpacked_array['lwc_english'])) {
+      $unpacked_language .= '<span name="mission-lwc-english">' . elgg_echo('missions:formatted:english', array($unpacked_array['lwc_english'])) . '</span> ';
+  	}
+  	if (! empty($unpacked_array['lwc_french'])) {
+      $unpacked_language .= '<span name="mission-lwc-french">' . elgg_echo('missions:formatted:french', array($unpacked_array['lwc_french'])) . '</span>';
+  	}
+		$unpacked_language .= '<br>';
+	}
+	if (! empty($unpacked_array['lwe_english']) || ! empty($unpacked_array['lwe_french'])) {
+		$unpacked_language .= '<b>' . elgg_echo('missions:written_expression') . ': </b>';
+		if (! empty($unpacked_array['lwe_english'])) {
+	  	$unpacked_language .= '<span name="mission-lwe-english">' . elgg_echo('missions:formatted:english', array($unpacked_array['lwe_english'])) . '</span> ';
+	 	}
+	  if (! empty($unpacked_array['lwe_french'])) {
+	  	$unpacked_language .= '<span name="mission-lwe-french">' . elgg_echo('missions:formatted:french', array($unpacked_array['lwe_french'])) . '</span>';
+	  }
+	  	$unpacked_language .= '<br>';
+	}
+	if (! empty($unpacked_array['lop_english']) || ! empty($unpacked_array['lop_french'])) {
+		$unpacked_language .= '<b>' . elgg_echo('missions:oral_proficiency') . ': </b>';
+		if (! empty($unpacked_array['lop_english'])) {
+			$unpacked_language .= '<span name="mission-lop-english">' . elgg_echo('missions:formatted:english', array($unpacked_array['lop_english'])) . '</span> ';
+		}
+		if (! empty($unpacked_array['lop_french'])) {
+			$unpacked_language .= '<span name="mission-lop-french">' . elgg_echo('missions:formatted:french', array($unpacked_array['lop_french'])) . '</span>';
+		}
+		$unpacked_language .= '<br>';
+	}
+	if (empty($unpacked_language)) {
+		$unpacked_language = '<span name="no-languages">' . elgg_echo('missions:none_required') . '</span>';
+	}
+	$opportunity->languageRequirements = $unpacked_language;
 
 	return $opportunity;
 }
