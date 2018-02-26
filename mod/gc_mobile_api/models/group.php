@@ -265,17 +265,25 @@ function get_group($user, $guid, $lang)
 	$group->liked = count($liked) > 0;
 
 	$groupObj = get_entity($group->guid);
+	$group->public = $groupObj->isPublicMembership();
 	$group->member = $groupObj->isMember($user_entity);
+	if (!$group->public && !$group->member){
+		$group->access = false;
+	} else {
+		$group->access = true;
+	}
+
 	$group->owner = ($groupObj->getOwnerEntity() == $user_entity);
 	$group->iconURL = $groupObj->geticon();
 	$group->count = $groupObj->getMembers(array('count' => true));
-
-	$group->comments = get_entity_comments($group->guid);
 	$group->tags = $groupObj->interests;
-
 	$group->userDetails = get_user_block($group->owner_guid, $lang);
-	$group->description = gc_explode_translation($group->description, $lang);
 
+	if ($group->access){
+		$group->description = gc_explode_translation($group->description, $lang);
+	} else {
+		$group->description = elgg_echo("groups:access:private", $lang);
+	}
 	return $group;
 }
 
