@@ -377,6 +377,9 @@ function get_group_activity($user, $guid, $limit, $offset, $lang, $api_version)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -384,10 +387,6 @@ function get_group_activity($user, $guid, $limit, $offset, $lang, $api_version)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$all_activity = elgg_list_group_river(array(
@@ -517,6 +516,9 @@ function get_group_blogs($user, $guid, $limit, $offset, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -524,10 +526,6 @@ function get_group_blogs($user, $guid, $limit, $offset, $lang)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$blogs = elgg_list_entities(array(
@@ -585,6 +583,9 @@ function get_group_docs($user, $guid, $limit, $offset, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -592,10 +593,6 @@ function get_group_docs($user, $guid, $limit, $offset, $lang)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$docs = elgg_list_entities(array(
@@ -619,6 +616,9 @@ function get_group_events($user, $guid, $limit, $offset, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -626,10 +626,6 @@ function get_group_events($user, $guid, $limit, $offset, $lang)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$events = elgg_list_entities(array(
@@ -653,6 +649,9 @@ function get_group_files($user, $guid, $limit, $offset, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -660,10 +659,6 @@ function get_group_files($user, $guid, $limit, $offset, $lang)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$files = elgg_list_entities(array(
@@ -687,6 +682,9 @@ function get_groups_members($user, $guid, $limit, $offset, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$group = get_entity($guid);
 	if (!$group) {
@@ -694,10 +692,6 @@ function get_groups_members($user, $guid, $limit, $offset, $lang)
 	}
 	if (!$group instanceof ElggGroup) {
 		return "Invalid group. Please try a different GUID";
-	}
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
 	}
 
 	$db_prefix = elgg_get_config('dbprefix');
