@@ -272,6 +272,27 @@ function get_group($user, $guid, $lang)
 	} else {
 		$group->access = true;
 	}
+	//Group 'Tools' that are enabled or not
+	//Returning info hide anything not activitated
+	$group->enabled;
+	$group->enabled->activity = $groupObj->activity_enable;
+	$group->enabled->bookmarks = $groupObj->bookmarks_enable;
+	$group->enabled->file_tools_structure_management = $groupObj->file_tools_structure_management_enable;
+	$group->enabled->etherpad = $groupObj->etherpad_enable;
+	$group->enabled->blog = $groupObj->blog_enable;
+	$group->enabled->forum = $groupObj->forum_enable; //discussions
+	$group->enabled->event_calendar = $groupObj->event_calendar_enable;
+	$group->enabled->file = $groupObj->file_enable;
+	$group->enabled->photos = $groupObj->photos_enable; //image albums
+	$group->enabled->tp_images = $groupObj->tp_images_enable; // group images
+	$group->enabled->pages = $groupObj->pages_enable;
+	$group->enabled->ideas = $groupObj->ideas_enable;
+	$group->enabled->widget_manager = $groupObj->widget_manager_enable;
+	$group->enabled->polls = $groupObj->polls_enable;
+	$group->enabled->related_groups = $groupObj->related_groups_enable;
+	$group->enabled->subgroups = $groupObj->subgroups_enable;
+	$group->enabled->subgroups_members_create = $groupObj->subgroups_members_create_enable;
+	// TODO - admin options / whats viewable to non-members, currently access variable can be used to block everything if they dont have access
 
 	$group->owner = ($groupObj->getOwnerEntity() == $user_entity);
 	$group->iconURL = $groupObj->geticon();
