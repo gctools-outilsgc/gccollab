@@ -274,7 +274,7 @@ function get_group($user, $guid, $lang)
 	}
 	//Group 'Tools' that are enabled or not
 	//Returning info hide anything not activitated
-	$group->enabled;
+	$group->enabled = new stdClass();
 	$group->enabled->activity = $groupObj->activity_enable;
 	$group->enabled->bookmarks = $groupObj->bookmarks_enable;
 	$group->enabled->file_tools_structure_management = $groupObj->file_tools_structure_management_enable;
@@ -591,7 +591,15 @@ function get_group_discussions($user, $guid, $limit, $offset, $lang)
 		'order_by' => 'e.last_action desc'
 	));
 
-	return json_decode($discussions);
+	$discussions = json_decode($discussions);
+	foreach ($discussions as $discussion) {
+
+		$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
+		$discussion->title = gc_explode_translation($discussion->title, $lang);
+		$discussion->description = gc_explode_translation($discussion->description, $lang);
+	}
+
+	return $discussions;
 }
 
 function get_group_docs($user, $guid, $limit, $offset, $lang)
