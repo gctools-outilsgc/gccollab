@@ -60,11 +60,12 @@ function submit_comment_test($user, $guid, $message, $lang)
 	}
 
 	$reply->description = $message;
-	$reply->access_id = ACCESS_PUBLIC; //idk
-	$reply->container_guid =  $entity->getGUID();
 	$reply->owner_guid = $user_entity->getGUID();
+	$reply->container_guid =  $entity->getGUID();
+	$reply->access_id = $entity->access_id; //idk
 
 	$reply_guid = $reply->save();
+	// If save comment fails, return message about it
 	if ($reply_guid == false){
 		if ($subtype == 'discussion_reply') {
 			return elgg_echo('groupspost:failure');
