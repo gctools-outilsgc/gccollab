@@ -42,6 +42,7 @@ function get_comments_all($user, $guid, $limit, $offset, $lang)
 		$subtype = 'comment';
 	}
 
+
 	$all_replies = elgg_list_entities_from_metadata(array(
 		'type' => 'object',
 		'subtype' => $subtype,
