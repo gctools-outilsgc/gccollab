@@ -52,7 +52,7 @@ function get_event($user, $guid, $lang)
 	if (!$entity) {
 		return "Event was not found. Please try a different GUID";
 	}
-	if (!$entity->type !== "event_calendar") { //subtype?
+	if (!$entity->type !== "event_calendar") {
 		//return "Invalid event. Please try a different GUID";
 	}
 
@@ -171,7 +171,7 @@ function get_events($user, $from, $to, $limit, $offset, $lang)
 			$event->group = gc_explode_translation($group->name, $lang);
 			$event->groupGUID = $eventObj->group_guid;
 		}
-
+		
 	}
 
 	return $events;

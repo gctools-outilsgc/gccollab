@@ -593,7 +593,7 @@ function get_group_discussions($user, $guid, $limit, $offset, $lang)
 
 	$discussions = json_decode($discussions);
 	foreach ($discussions as $discussion) {
-
+		
 		$discussion->userDetails = get_user_block($discussion->owner_guid, $lang);
 		$discussion->title = gc_explode_translation($discussion->title, $lang);
 		$discussion->description = gc_explode_translation($discussion->description, $lang);
