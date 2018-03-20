@@ -47,6 +47,22 @@ elgg_ws_expose_function(
 	false
 );
 
+elgg_ws_expose_function(
+	"get.wirepostsbyusertest",
+	"get_wirepostsbyusertest",
+	array(
+		"profileemail" => array('type' => 'string', 'required' => true),
+		"user" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
+	),
+	'Retrieves a user\'s wire posts based on user id',
+	'POST',
+	true,
+	false
+);
+
 
 function wires_foreach($wire_posts, $user_entity)
 {
@@ -228,6 +244,42 @@ function get_wirepostsbycolleaguestest($user, $limit, $offset, $lang)
 		'relationship' => 'friend',
 		'relationship_guid' => $user_entity->guid,
 		'relationship_join_on' => 'container_guid',
+		'limit' => $limit,
+		'offset' => $offset
+	));
+	$wire_posts = json_decode($all_wire_posts);
+
+	$wire_posts = wires_foreach($wire_posts, $user_entity);
+
+	return $wire_posts;
+}
+
+function get_wirepostsbyusertest($profileemail, $user, $limit, $offset, $lang)
+{
+	$user_entity = is_numeric($profileemail) ? get_user($profileemail) : (strpos($profileemail, '@') !== false ? get_user_by_email($profileemail)[0] : get_user_by_username($profileemail));
+	if (!$user_entity) {
+		return "User was not found. Please try a different GUID, username, or email address";
+	}
+	if (!$user_entity instanceof ElggUser) {
+		return "Invalid user. Please try a different GUID, username, or email address";
+	}
+
+	$viewer = is_numeric($user) ? get_user($user) : (strpos($user, '@') !== false ? get_user_by_email($user)[0] : get_user_by_username($user));
+	if (!$viewer) {
+		return "Viewer user was not found. Please try a different GUID, username, or email address";
+	}
+	if (!$viewer instanceof ElggUser) {
+		return "Invalid viewer user. Please try a different GUID, username, or email address";
+	}
+
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
+
+	$all_wire_posts = elgg_list_entities(array(
+		'type' => 'object',
+		'subtype' => 'thewire',
+		'owner_guid' => $user_entity->guid,
 		'limit' => $limit,
 		'offset' => $offset
 	));
