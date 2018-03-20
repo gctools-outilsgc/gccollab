@@ -32,8 +32,23 @@ elgg_ws_expose_function(
 	false
 );
 
+elgg_ws_expose_function(
+	"get.wirepostsbycolleaguestest",
+	"get_wirepostsbycolleaguestest",
+	array(
+		"user" => array('type' => 'string', 'required' => true),
+		"limit" => array('type' => 'int', 'required' => false, 'default' => 10),
+		"offset" => array('type' => 'int', 'required' => false, 'default' => 0),
+		"lang" => array('type' => 'string', 'required' => false, 'default' => "en")
+	),
+	'Retrieves a user\'s colleague\'s wire posts based on user id',
+	'POST',
+	true,
+	false
+);
 
-function wires_foreach($wire_posts)
+
+function wires_foreach($wire_posts, $user_entity)
 {
 	foreach ($wire_posts as $wire_post) {
 		$wire_post_obj = get_entity($wire_post->guid);
@@ -132,7 +147,7 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 		));
 		$wire_posts = json_decode($all_wire_posts);
 
-		$wire_posts = wires_foreach($wire_posts);
+		$wire_posts = wires_foreach($wire_posts, $user_entity);
 
 	} else {
 		$wire_posts = elgg_list_entities(array(
@@ -143,7 +158,7 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 
 		$wire_post = json_decode($wire_posts)[0];
 
-		$wire_posts = wires_foreach($wire_posts);
+		$wire_posts = wires_foreach($wire_posts, $user_entity);
 	}
 
 	return $wire_posts;
@@ -188,7 +203,37 @@ function get_wirepoststest($user, $limit, $offset, $filters, $lang)
 
 	$wire_posts = json_decode($all_wire_posts);
 
-	$wire_posts = wires_foreach($wire_posts);
+	$wire_posts = wires_foreach($wire_posts, $user_entity);
+
+	return $wire_posts;
+}
+
+function get_wirepostsbycolleaguestest($user, $limit, $offset, $lang)
+{
+	$user_entity = is_numeric($user) ? get_user($user) : (strpos($user, '@') !== false ? get_user_by_email($user)[0] : get_user_by_username($user));
+	if (!$user_entity) {
+		return "User was not found. Please try a different GUID, username, or email address";
+	}
+	if (!$user_entity instanceof ElggUser) {
+		return "Invalid user. Please try a different GUID, username, or email address";
+	}
+
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
+
+	$all_wire_posts = elgg_list_entities_from_relationship(array(
+		'type' => 'object',
+		'subtype' => 'thewire',
+		'relationship' => 'friend',
+		'relationship_guid' => $user_entity->guid,
+		'relationship_join_on' => 'container_guid',
+		'limit' => $limit,
+		'offset' => $offset
+	));
+	$wire_posts = json_decode($all_wire_posts);
+
+	$wire_posts = wires_foreach($wire_posts, $user_entity);
 
 	return $wire_posts;
 }
