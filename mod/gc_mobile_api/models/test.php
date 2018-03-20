@@ -27,6 +27,9 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
+	}
 
 	$entity = get_entity($guid);
 	if (!$entity) {
@@ -37,10 +40,6 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 	}
 
 	$thread_id = $entity->wire_thread;
-
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
-	}
 
 	if ($thread) {
 		$all_wire_posts = elgg_list_entities_from_metadata(array(
