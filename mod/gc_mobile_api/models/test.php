@@ -27,9 +27,7 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 	if (!$user_entity instanceof ElggUser) {
 		return "Invalid user. Please try a different GUID, username, or email address";
 	}
-	if (!elgg_is_logged_in()) {
-		login($user_entity);
-	}
+
 
 	$entity = get_entity($guid);
 	if (!$entity) {
@@ -37,6 +35,10 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 	}
 	if (!$entity instanceof ElggWire) {
 		return "Invalid wire. Please try a different GUID";
+	}
+
+	if (!elgg_is_logged_in()) {
+		login($user_entity);
 	}
 
 	$thread_id = $entity->wire_thread;
@@ -55,6 +57,17 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 		foreach ($wire_posts as $wire_post) {
 			$wire_post_obj = get_entity($wire_post->guid);
 			$reshare = $wire_post_obj->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+			$wire_attachements = elgg_get_entities_from_relationship(array(
+				'relationship' => 'is_attachment',
+				'relationship_guid' => $wire_post->guid,
+				'inverse_relationship' => true,
+				'limit' => 1
+			));
+
+			if ($wire_attachements){
+				$wire_post->attachment->guid = $wire_attachements[0]->getGUID();
+				$wire_post->attachment->name = $wire_attachements[0]->original_filename;
+			}
 
 			$url = "";
 			if (!empty($reshare)) {
@@ -110,6 +123,17 @@ function get_wirepost_test($user, $guid, $thread, $lang)
 
 		$wire_post_obj = get_entity($wire_post->guid);
 		$reshare = $wire_post_obj->getEntitiesFromRelationship(array("relationship" => "reshare", "limit" => 1))[0];
+		$wire_attachements = elgg_get_entities_from_relationship(array(
+			'relationship' => 'is_attachment',
+			'relationship_guid' => $wire_post->guid,
+			'inverse_relationship' => true,
+			'limit' => 1
+		));
+
+		if ($wire_attachements){
+			$wire_post->attachment->guid = $wire_attachements[0]->getGUID();
+			$wire_post->attachment->name = $wire_attachements[0]->original_filename;
+		}
 
 		$url = "";
 		if (!empty($reshare)) {
