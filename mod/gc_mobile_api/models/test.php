@@ -45,7 +45,6 @@
 
 	if ($image != "") {
 		$image_data = base64_decode($image);
-		//$source = imagecreatefromstring($image_data);
 
 		$file_obj = new TheWireImage();
 		$file_obj->setFilename('thewire_image/' . rand().".jpg");
@@ -61,9 +60,8 @@
 
 		if ($file_obj->save()) {
 			$file_obj->addRelationship($new_wire, 'is_attachment');
-			//imagedestroy($source); //delete after
+
 		} else {
-			//imagedestroy($source); //delete after
 			return elgg_echo('thewire_image:could_not_save_image');
 		}
 	}
