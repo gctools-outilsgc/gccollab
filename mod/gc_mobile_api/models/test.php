@@ -37,18 +37,36 @@
  		login($user_entity);
  	}
 
-	$image_file = "";
-	if ($image != "") {
-		return $image;
-		$image_data = base64_decode($image);
-		$source = imagecreatefromstring($image_data);
-
-	}
 
  	$new_wire = thewire_save_post($message, $user_entity->guid, ACCESS_PUBLIC, 0);
  	if (!$new_wire) {
  		return elgg_echo("thewire:notsaved");
  	}
+
+	if ($image != "") {
+		$image_data = base64_decode($image);
+		//$source = imagecreatefromstring($image_data);
+
+		$file_obj = new TheWireImage();
+		$file_obj->setFilename('thewire_image/' . rand().".jpg");
+		$file_obj->setMimeType("image/jpeg");
+		$file_obj->original_filename = "Image_from_Mobile_API";
+		$file_obj->simpletype = file_get_simple_type("image");
+		$file_obj->access_id = ACCESS_PUBLIC;
+
+		$file_obj->open("write");
+		$file_obj->write($image_data);
+		$file_obj->close();
+
+
+		if ($file_obj->save()) {
+			$file_obj->addRelationship($new_wire, 'is_attachment');
+			//imagedestroy($source); //delete after
+		} else {
+			//imagedestroy($source); //delete after
+			return elgg_echo('thewire_image:could_not_save_image');
+		}
+	}
 
  	return elgg_echo("thewire:posted");
  }
