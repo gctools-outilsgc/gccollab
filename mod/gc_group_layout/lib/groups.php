@@ -435,14 +435,18 @@ function groups_handle_members_page($guid) {
 		'order_by' => 'u.name ASC',
 	));
 
+	$content = elgg_view("group/group_members");
+
 	$params = array(
 		'content' => $content,
 		'title' => $title,
 		'filter' => '',
 	);
+
 	$body = elgg_view_layout('content', $params);
     elgg_pop_context();
 	echo elgg_view_page($title, $body);
+
 }
 
 /**
